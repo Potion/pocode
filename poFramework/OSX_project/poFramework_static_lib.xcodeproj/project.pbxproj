@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7C14896D12D3E74A0032FD7A /* poVariableRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C14896B12D3E74A0032FD7A /* poVariableRegistry.cpp */; };
 		7C14896E12D3E74A0032FD7A /* poVariableRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C14896C12D3E74A0032FD7A /* poVariableRegistry.h */; };
+		7C1489E612D5055B0032FD7A /* poResourceStore_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C1489E312D504690032FD7A /* poResourceStore_test.cpp */; };
+		7C1489E912D505730032FD7A /* tests_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C1489E812D505730032FD7A /* tests_main.cpp */; };
 		CC4EBD9312A473B7000A2D40 /* poApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC4EBD3B12A473B7000A2D40 /* poApp.cpp */; };
 		CC4EBD9412A473B7000A2D40 /* poApp.h in Headers */ = {isa = PBXBuildFile; fileRef = CC4EBD3C12A473B7000A2D40 /* poApp.h */; };
 		CC4EBD9712A473B7000A2D40 /* poBitmapFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC4EBD3F12A473B7000A2D40 /* poBitmapFont.cpp */; };
@@ -89,9 +91,22 @@
 		CC4EBDEA12A473B7000A2D40 /* WinPrefix.h in Headers */ = {isa = PBXBuildFile; fileRef = CC4EBD9212A473B7000A2D40 /* WinPrefix.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7C1489DF12D504470032FD7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C1489D612D503CA0032FD7A /* tests */;
+			remoteInfo = tests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7C14896B12D3E74A0032FD7A /* poVariableRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poVariableRegistry.cpp; sourceTree = "<group>"; };
 		7C14896C12D3E74A0032FD7A /* poVariableRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poVariableRegistry.h; sourceTree = "<group>"; };
+		7C1489D712D503CA0032FD7A /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C1489E312D504690032FD7A /* poResourceStore_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poResourceStore_test.cpp; sourceTree = "<group>"; };
+		7C1489E812D505730032FD7A /* tests_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests_main.cpp; sourceTree = "<group>"; };
 		CC4EBD3B12A473B7000A2D40 /* poApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = poApp.cpp; sourceTree = "<group>"; };
 		CC4EBD3C12A473B7000A2D40 /* poApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = poApp.h; sourceTree = "<group>"; };
 		CC4EBD3F12A473B7000A2D40 /* poBitmapFont.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = poBitmapFont.cpp; sourceTree = "<group>"; };
@@ -170,10 +185,17 @@
 		CC4EBD9012A473B7000A2D40 /* poXMLparser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = poXMLparser.h; sourceTree = "<group>"; };
 		CC4EBD9112A473B7000A2D40 /* QuicktimeWindowsHeaders.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QuicktimeWindowsHeaders.h; sourceTree = "<group>"; };
 		CC4EBD9212A473B7000A2D40 /* WinPrefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WinPrefix.h; sourceTree = "<group>"; };
-		D2AAC046055464E500DB518D /* libpoFramework_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpoFramework_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC046055464E500DB518D /* libpoFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpoFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7C1489D512D503CA0032FD7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D289987405E68DCB004EDB86 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +209,7 @@
 		08FB7794FE84155DC02AAC07 /* poFramework_static_lib */ = {
 			isa = PBXGroup;
 			children = (
+				7C1489E112D504520032FD7A /* tests */,
 				CC4EBD3A12A473B7000A2D40 /* source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -197,9 +220,19 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC046055464E500DB518D /* libpoFramework_d.a */,
+				D2AAC046055464E500DB518D /* libpoFramework.a */,
+				7C1489D712D503CA0032FD7A /* tests */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7C1489E112D504520032FD7A /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				7C1489E312D504690032FD7A /* poResourceStore_test.cpp */,
+				7C1489E812D505730032FD7A /* tests_main.cpp */,
+			);
+			name = tests;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
@@ -352,6 +385,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		7C1489D612D503CA0032FD7A /* tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C1489DC12D503D30032FD7A /* Build configuration list for PBXNativeTarget "tests" */;
+			buildPhases = (
+				7C1489D412D503CA0032FD7A /* Sources */,
+				7C1489D512D503CA0032FD7A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tests;
+			productName = tests;
+			productReference = 7C1489D712D503CA0032FD7A /* tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		D2AAC045055464E500DB518D /* poFramework_static_lib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "poFramework_static_lib" */;
@@ -363,10 +412,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				7C1489E012D504470032FD7A /* PBXTargetDependency */,
 			);
 			name = poFramework_static_lib;
 			productName = poFramework_static_lib;
-			productReference = D2AAC046055464E500DB518D /* libpoFramework_d.a */;
+			productReference = D2AAC046055464E500DB518D /* libpoFramework.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -389,11 +439,21 @@
 			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* poFramework_static_lib */,
+				7C1489D612D503CA0032FD7A /* tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7C1489D412D503CA0032FD7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C1489E612D5055B0032FD7A /* poResourceStore_test.cpp in Sources */,
+				7C1489E912D505730032FD7A /* tests_main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC044055464E500DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,6 +501,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7C1489E012D504470032FD7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C1489D612D503CA0032FD7A /* tests */;
+			targetProxy = 7C1489DF12D504470032FD7A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1DEB91EC08733DB70010E9CD /* debug */ = {
 			isa = XCBuildConfiguration;
@@ -461,12 +529,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = i386;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(INC_ROOT)";
 				INC_ROOT = ../../poLibraries/include;
 				LD_OPENMP_FLAGS = "";
 				LIB_ROOT = ../../poLibraries/lib/mac/i386;
+				OTHER_CFLAGS = "-fvisibility=default";
 				OTHER_LDFLAGS = (
 					"$(LIB_ROOT)/libboost_thread-xgcc42-mt-1_45.a",
 					"$(LIB_ROOT)/libboost_system-xgcc42-mt-1_45.a",
@@ -489,6 +559,7 @@
 				ARCHS = i386;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -496,6 +567,7 @@
 				INC_ROOT = ../../poLibraries/include;
 				LD_OPENMP_FLAGS = "";
 				LIB_ROOT = ../../poLibraries/lib/mac/i386;
+				OTHER_CFLAGS = "-fvisibility=default";
 				OTHER_LDFLAGS = (
 					"$(LIB_ROOT)/libboost_thread-xgcc42-mt-1_45.a",
 					"$(LIB_ROOT)/libboost_system-xgcc42-mt-1_45.a",
@@ -527,6 +599,41 @@
 			};
 			name = release;
 		};
+		7C1489D912D503CB0032FD7A /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = /usr/local/bin;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "$(LIB_ROOT)/libboost_unit_test_framework-xgcc42-mt-1_45.a";
+				PREBINDING = NO;
+				PRODUCT_NAME = tests;
+			};
+			name = debug;
+		};
+		7C1489DA12D503CB0032FD7A /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = /usr/local/bin;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "$(LIB_ROOT)/libboost_unit_test_framework-xgcc42-mt-1_45.a";
+				PREBINDING = NO;
+				PRODUCT_NAME = tests;
+			};
+			name = release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -544,6 +651,15 @@
 			buildConfigurations = (
 				1DEB91F008733DB70010E9CD /* debug */,
 				7C14889912D3D9F20032FD7A /* release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = debug;
+		};
+		7C1489DC12D503D30032FD7A /* Build configuration list for PBXNativeTarget "tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C1489D912D503CB0032FD7A /* debug */,
+				7C1489DA12D503CB0032FD7A /* release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = debug;
