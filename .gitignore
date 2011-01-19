@@ -12,7 +12,7 @@
 build
 
 # OSX Noise
-.DS_STORE
+.DS_Store
 profile
 
 # SVN Noise
