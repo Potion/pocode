@@ -347,7 +347,7 @@
 				HEADER_SEARCH_PATHS = "$(LIBRARIES_DIR)/Boost/boost_1_45_0";
 				IMPL_DIR = "$(SRC_DIR)/application/cocoa";
 				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
-				LIBRARIES_DIR = /Potion/libraries;
+				LIBRARIES_DIR = ../../../libraries;
 				OTHER_LDFLAGS = (
 					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-d-1_45.a",
 					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-d-1_45.a",
@@ -376,7 +376,7 @@
 				HEADER_SEARCH_PATHS = "$(LIBRARIES_DIR)/Boost/boost_1_45_0";
 				IMPL_DIR = "$(SRC_DIR)/application/cocoa";
 				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
-				LIBRARIES_DIR = /Potion/libraries;
+				LIBRARIES_DIR = ../../../libraries;
 				OTHER_LDFLAGS = (
 					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-1_45.a",
 					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-1_45.a",
