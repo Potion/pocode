@@ -1,7 +1,0 @@
-This is the repository for version 4 of the Potion base code.
-
-_Lib_Versions_
-OpenAL		= 1.1.0
-Boost		= 1.45.0
-FreeImage 	= 3.14.1
-Freetype	= 2.4.4
