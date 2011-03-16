@@ -1,0 +1,28 @@
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
+
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/glu.h>
+
+#if defined(__cplusplus)
+#include <string>
+#include <vector>
+#include <list>
+#include <stack>
+#include <algorithm>
+
+#include <boost/any.hpp>
+#include <boost/bind.hpp>
+#include <boost/variant.hpp>
+#include <boost/foreach.hpp>
+#include <boost/function.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/unordered_map.hpp>
+
+#define BOOST_FILESYSTEM_VERSION 3
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
+#endif
