@@ -113,6 +113,9 @@ public:
 	bool			enabled;
 	poMatrixOrder	matrix_order;
 	poWindow*		window;
+	
+	// figure out how to set this dynamically every frame
+	int				_drawOrder;
 
 	poPointTween	position_tween;
 	poPointTween	scale_tween;
