@@ -83,7 +83,7 @@
 		E8B2D10D132EC43D002BE3D9 /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/application/poApplication.h; sourceTree = "<group>"; };
 		E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestApp.cpp; path = ../test/TestApp.cpp; sourceTree = "<group>"; };
 		E8B2D110132EC4B7002BE3D9 /* TestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestApp.h; path = ../test/TestApp.h; sourceTree = "<group>"; };
-		E8B2D112132EC5F0002BE3D9 /* CocoaWindowImpl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CocoaWindowImpl.cpp; sourceTree = "<group>"; };
+		E8B2D112132EC5F0002BE3D9 /* CocoaWindowImpl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CocoaWindowImpl.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,7 +244,6 @@
 			};
 			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -329,7 +328,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -376,14 +375,15 @@
 				HEADER_SEARCH_PATHS = "$(LIBRARIES_DIR)/Boost/boost_1_45_0";
 				IMPL_DIR = "$(SRC_DIR)/application/cocoa";
 				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
-				LIBRARIES_DIR = /Potion/libraries;
+				LIBRARIES_DIR = ../../../libraries;
 				OTHER_LDFLAGS = (
-					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_system-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_thread-clang-darwin20-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_date_time-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_filesystem-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_system-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_thread-xgcc42-mt-1_45.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.6;
 				SRC_DIR = ../source;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				USER_HEADER_SEARCH_PATHS = "$(SRC_DIR)";
