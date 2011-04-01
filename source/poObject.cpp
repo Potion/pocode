@@ -3,8 +3,6 @@
  */
 
 #include "poObject.h"
-#include "poModifier.h"
-#include "poWindow.h"
 
 std::stack<float>	poObject::alpha_stack;
 float				poObject::master_alpha = 1.f;
@@ -23,7 +21,6 @@ poObject::poObject()
 ,	enabled(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
-,	window(NULL)
 ,	position_tween(&position)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
@@ -44,7 +41,6 @@ poObject::poObject(const std::string &name)
 ,	enabled(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
-,	window(NULL)
 ,	position_tween(&position)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
@@ -53,8 +49,6 @@ poObject::poObject(const std::string &name)
 
 poObject::~poObject() {
 	removeAllChildren(true);
-	removeAllModifiers(true);
-	removeAllEvents();
 }
 
 void poObject::setup() {}
@@ -62,19 +56,8 @@ void poObject::draw() {}
 void poObject::update() {}
 bool poObject::eventHandler(poEvent* event) {return false;}
 void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {}
-
-void poObject::setWindow(poWindow *win) {
-	window = win;
-	
-	if(win)
-		messageHandler(kAddedToWindow);
-	else
-		messageHandler(kRemovedFromWindow);
-	
-	BOOST_FOREACH(poObject *obj, children) {
-		obj->setWindow(win);
-	}
-}
+void poObject::preDraw() {}
+void poObject::postDraw() {}
 
 void poObject::addChild(poObject* obj) {
 	children.push_back(obj);
@@ -155,62 +138,6 @@ void poObject::moveChildBackward(poObject* child) {
 	addChild(child, idx+1);
 }
 
-void poObject::addModifier(poModifier* mod, int idx) {
-	if(idx < 0)
-		modifiers.push_back(mod);
-	else
-		modifiers.insert(modifiers.begin()+idx, mod);
-}
-
-bool poObject::removeModifier(poModifier* mod) {
-	poModifierVec::iterator iter = std::find(modifiers.begin(), modifiers.end(), mod);
-	bool found = iter != modifiers.end();
-	modifiers.erase(iter);
-	return found;
-}
-
-bool poObject::removeModifier(int idx) {
-	if(idx < 0 || idx >= modifiers.size())
-		return false;
-	modifiers.erase(modifiers.begin()+idx);
-	return true;
-}
-
-void poObject::removeAllModifiers(bool and_delete) {
-	if(and_delete) {
-		BOOST_FOREACH(poModifier* mod, modifiers) {
-			delete mod;
-		}
-	}
-	modifiers.clear();
-}
-
-int poObject::numModifiers() const {
-	return (int)modifiers.size();
-}
-
-poModifier* poObject::getModifierAtIndex(int idx) {
-	if(idx < 0 || idx >= modifiers.size())
-		return NULL;
-	return *(modifiers.begin()+idx);
-}
-
-poModifier* poObject::getFirstModifierOfTypeName(const std::string &typeName) {
-	poModifierVec::iterator iter = std::find_if(modifiers.begin(), modifiers.end(), boost::bind(&poModifier::typeName, _1) == typeName);
-	if(iter != modifiers.end())
-		return *iter;
-	return NULL;
-}
-
-poModifierVec poObject::getModifiersByTypeName(const std::string &typeName) {
-	poModifierVec response;
-	BOOST_FOREACH(poModifier* mod, modifiers) {
-		if(mod->typeName == typeName)
-			response.push_back(mod);
-	}
-	return response;
-}
-
 bool poObject::pointInside(poPoint point) {
 	return pointInside(point.x, point.y, point.z);
 }
@@ -255,63 +182,6 @@ poRect poObject::calculateBounds(bool include_children) {
 	return bounds;
 }
 
-poEvent* poObject::addEvent(int type, poObject* handler, const std::string &msg, const poDictionary& dict) {
-	if(type < 0 || type >= PO_LAST_EVENT)
-		return NULL;
-
-	poEvent *event = new poEvent(type, this, handler?handler:this, msg, dict);
-	events[type].push_back(event);
-	return event;
-}
-
-bool poObject::hasEvents(int type) {
-	if(type < 0 || type >= PO_LAST_EVENT)
-		return false;
-	return !events[type].empty();
-}
-
-bool poObject::hasEvent(int type, poObject* handler) {
-	if(type < 0 || type >= PO_LAST_EVENT || events[type].empty())
-		return false;
-	poEventVec::iterator iter = std::find_if(events[type].begin(), 
-											 events[type].end(), 
-											 boost::bind(&poEvent::receiver, _1) == handler);
-	return iter != events[type].end();
-}
-
-void poObject::removeEvents(int type) {
-	if(type < 0 || type >= PO_LAST_EVENT || events[type].empty())
-		return;
-	BOOST_FOREACH(poEvent *event, events[type])
-		delete event;
-	events[type].clear();
-}
-
-void poObject::removeEvent(int type, poObject* handler) {
-	if(type < 0 || type >= PO_LAST_EVENT || events[type].empty())
-		return;
-
-	// move all the dead ones to the back
-	poEventVec::iterator iter = std::remove_if(events[type].begin(), 
-											   events[type].end(), 
-											   boost::bind(&poEvent::receiver, _1) == handler);
-	// delete the dead ones
-	while(iter != events[type].end())
-		delete *iter++;
-	// and remove them from the container
-	events[type].erase(iter, events[type].end());
-}
-
-void poObject::removeAllEvents() {
-	BOOST_FOREACH(poEventVec &eventVec, events) {
-		BOOST_FOREACH(poEvent* event, eventVec)
-			delete event;
-	}
-	
-	poEventTable tmp(PO_LAST_EVENT);
-	events.swap(tmp);
-}
-
 poObject* poObject::objectUnderMouse(float x, float y) {
 	if(!enabled)
 		return NULL;
@@ -334,22 +204,16 @@ void poObject::_drawTree() {
 		return;
 	
 	pushObjectMatrix();
-	
-	BOOST_FOREACH(poModifier* mod, modifiers) {
-		if(mod->enabled)
-			mod->setup(this);
-	}
+
+	preDraw();
 	
 	draw();
 	
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}
-	
-	BOOST_FOREACH(poModifier* mod, modifiers) {
-		if(mod->enabled)
-			mod->setdown(this);
-	}
+
+	postDraw();
 	
 	popObjectMatrix();
 }
@@ -378,10 +242,6 @@ void poObject::_broadcastEvent(poEvent* event) {
 		obj->_broadcastEvent(event);
 	}
 
-	// don't try to handle it if we didn't sign up for it
-	if(!hasEvents(event->type))
-		return;
-	
 	// localize the point only once
 	poPoint local_point = globalToLocal(poPoint(event->x, event->y));
 	
@@ -390,29 +250,6 @@ void poObject::_broadcastEvent(poEvent* event) {
 		localizeEvent(e, event, local_point);
 		eventHandler(e);
 	}
-}
-
-bool poObject::_processEvent(poEvent* event) {
-	if(event->type < 0 || event->type >= PO_LAST_EVENT || 
-	   events[event->type].empty() || !hasEvents(event->type)) 
-	{
-		return false;
-	}
-
-	// localize the point only once
-	poPoint point = globalToLocal(poPoint(event->x, event->y, 0.f));
-	
-	// might have multiple receivers for a given event, give them all a chance
-	bool handled = false;
-	
-	BOOST_FOREACH(poEvent* e, events[event->type]) {
-		localizeEvent(e, event, point);
-		if(e->receiver->eventHandler(e)) {
-			handled = true;
-		}
-	}
-	
-	return handled;
 }
 
 void poObject::updateAllTweens() {

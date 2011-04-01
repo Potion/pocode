@@ -31,6 +31,8 @@ enum {
 	PO_MOUSE_LEAVE_EVENT,
 	PO_MOUSE_DRAG_EVENT,
 	
+	PO_RESIZE_EVENT,
+	
 	PO_LAST_EVENT
 };
 
@@ -71,3 +73,31 @@ public:
 	std::string message;
 	poDictionary dict;
 };
+
+
+class poEventCenter {
+public:
+	static poEventCenter *get();
+
+	// register a specific event 
+	void registerForEvent(poObject *source, poObject* sink, int eventType, const std::string &msg="", const poDictionary &dict=poDictionary());
+	// remove all events of a type from an object
+	void unregisterAllEventsOfType(poObject *source, int eventType);
+	// remove all events from an object
+	void unregisterAllEvents(poObject *source);
+	// remove all events we're listening to
+	void unregisterForEvents(poObject *sink);
+	// remove all events for type we're listening to
+	void unregisterForEvents(poObject *sink, int eventType);
+	// check if an event is being routed from one object to another
+	bool hasEvent(poObject *source, poObject *sink, int eventType);
+	// check if there's any event of a type for this object
+	bool hasEvents(poObject *source, int eventType);
+
+	// forward the event out to any sinks
+	void notify(poObject *source, int eventType);
+	
+private:
+	boost::unordered_map<poObject*, std::vector< std::vector<poEvent*> > > events_table;
+};
+

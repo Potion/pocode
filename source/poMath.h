@@ -60,3 +60,24 @@ inline void capToRange(poPoint *pt, float low, float high) {
 	capToRange(&pt->z, low, high);
 }
 
+inline std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
+	std::vector<poPoint> response;
+	for(int i=0; i<resolution; i++) {
+		float t = i / float(resolution-1);
+		float invt = 1.f - t;
+		poPoint pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
+		response.push_back(pt);
+	}
+	return response;
+}
+
+inline std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
+	std::vector<poPoint> response;
+	for(int i=0; i<resolution; i++) {
+		float t = i / float(resolution-1);
+		float invt = 1.f - t;
+		poPoint pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
+		response.push_back(pt);
+	}
+	return response;
+}

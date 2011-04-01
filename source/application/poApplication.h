@@ -51,9 +51,10 @@ public:
 		}
 		return NULL;
 	}
-
+	
 	double framerate;
 	std::list<poWindow*> windows;
+	poWindow *currentWindow;
 
 private:
 	explicit poApplication()
@@ -62,6 +63,14 @@ private:
 	
     virtual ~poApplication() {}
 };
+
+inline int getWindowWidth() {
+	return poApplication::get()->currentWindow->getWidth();
+}
+
+inline int getWindowHeight() {
+	return poApplication::get()->currentWindow->getHeight();
+}
 
 inline int getWindowWidth(int win_id) {
 	return poApplication::get()->getWindow(win_id)->getWidth();

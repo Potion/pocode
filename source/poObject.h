@@ -13,14 +13,6 @@
 #include "poColor.h"
 #include "poRect.h"
 
-#define kAddedToWindow "added to window message"
-#define kRemovedFromWindow "removed from window message"
-
-class poModifier;
-class poWindow;
-
-typedef std::vector<poModifier*> poModifierVec;
-
 class poObject;
 typedef std::vector<poObject*> poObjectVec;
 
@@ -44,9 +36,10 @@ public:
 	virtual bool	eventHandler(poEvent* event);
 	virtual void	messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
-	// pass null to remove from a window
-	void			setWindow(poWindow* win);
-
+	// useful for stuff like cameras, fbos, masks, etc
+	virtual void	preDraw();
+	virtual void	postDraw();
+	
 	// DISPLAY LIST
 	void			addChild(poObject* obj);
 	void			addChild(poObject* obj, int idx);
@@ -63,16 +56,6 @@ public:
 	void			moveChildForward(poObject* child);
 	void			moveChildBackward(poObject* child);
 	
-	// OBJECT MODIFIERS
-	void			addModifier(poModifier* mod, int idx=-1);
-	bool			removeModifier(poModifier* mod);
-	bool			removeModifier(int idx);
-	void			removeAllModifiers(bool and_delete=false);
-	int				numModifiers() const;
-	poModifier*		getModifierAtIndex(int idx);
-	poModifier*		getFirstModifierOfTypeName(const std::string &typeName);
-	poModifierVec	getModifiersByTypeName(const std::string &typeName);
-	
 	// WORLD COORDINATES
 	bool			pointInside(poPoint point);
 	bool			pointInside(float x, float y, float z=0.f);
@@ -84,19 +67,7 @@ public:
 	virtual void	setAlignment(poAlignment align);
 	virtual poRect	calculateBounds(bool include_children=false);
 	
-	// OH, THE EVENTS
-	poEvent*		addEvent(int type, poObject* handler=NULL, const std::string &msg="", const poDictionary& dict=poDictionary());
-	// check if there are any events of this type
-	bool			hasEvents(int type);
-	// check if there is an event with a specific receiver of this type
-	bool			hasEvent(int type, poObject* handler);
-	// remove all events of this type
-	void			removeEvents(int type);
-	// remove any events of this type with this receiver
-	void			removeEvent(int type, poObject* handler);
-	// just pull them all and delete them
-	void			removeAllEvents();
-	// figure out if the mouse is over something
+	// will return whatever child is directly under the mouse
 	poObject*		objectUnderMouse(float x, float y);
 	
 	// OBJECT PROPERTIES
@@ -112,11 +83,7 @@ public:
 	poAlignment		align;
 	bool			enabled;
 	poMatrixOrder	matrix_order;
-	poWindow*		window;
 	
-	// figure out how to set this dynamically every frame
-	int				_drawOrder;
-
 	poPointTween	position_tween;
 	poPointTween	scale_tween;
 	poFloatTween	alpha_tween;
@@ -127,8 +94,6 @@ public:
 	void			_updateTree();
 	// unchecked events that everyone should see
 	void			_broadcastEvent(poEvent* event);
-	// targeted events for a specific object
-	bool			_processEvent(poEvent* event);
 
 protected:
 	static float	master_alpha;
@@ -142,7 +107,6 @@ private:
 	void			localizeEvent(poEvent*, poEvent*, poPoint);
 	
 	poObjectVec		children;
-	poModifierVec	modifiers;
 	poEventTable	events;
 	
 	poMatrixSet		matrices;

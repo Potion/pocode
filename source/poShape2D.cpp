@@ -1,59 +1,36 @@
 #include "poShape2D.h"
 
-std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
-	std::vector<poPoint> response;
-	for(int i=0; i<resolution; i++) {
-		float t = i / float(resolution-1);
-		float invt = 1.f - t;
-		poPoint pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
-		response.push_back(pt);
-	}
-	return response;
-}
-
-std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
-	std::vector<poPoint> response;
-	for(int i=0; i<resolution; i++) {
-		float t = i / float(resolution-1);
-		float invt = 1.f - t;
-		poPoint pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
-		response.push_back(pt);
-	}
-	return response;
-}
-
 poShape2D::poShape2D()
-:	fillColor(1,1,1,1),
-	strokeColor(0,0,0,0),
-	strokeWidth(0),
-	drawStyle(GL_POLYGON)
+:	enableFill(true)
+,	strokeWidth(0)
+,	fillColor(1,1,1,1)
+,	strokeColor(0,0,0,0)
+,	fillDrawStyle(GL_POLYGON)
+,	enabledAttributes(poVertex::POINT)
 {}
 
 void poShape2D::draw() {
 	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, sizeof(VertexPack), &(vertices[0].point));
+	glVertexPointer(3, GL_FLOAT, sizeof(poVertex), &(vertices[0].point));
 	
-//	glEnableClientState(GL_COLOR_ARRAY);
-//	glColorPointer(4, GL_FLOAT, sizeof(VertexPack), &(vertices[0].color));
+	if(enabledAttributes & poVertex::COLOR) {
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, sizeof(poVertex), &(vertices[0].color));
+	}
 	
-//	if(texture) {
-//		// make sure its on
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//		glTexCoordPointer(2, GL_FLOAT, sizeof(VertexPack), &(vertices[0].texCoord));
-//		
-//		// save the current texture state
-//		glPushAttrib(GL_TEXTURE_BIT);
-//		texture.enableAndBind();
-//	}
+	if(enabledAttributes & poVertex::TEX_COORD) {
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_FLOAT, sizeof(poVertex), &(vertices[0].texCoord));
+	}
 	
-	glColor4f(fillColor.red, fillColor.green, fillColor.blue, fillColor.alpha*master_alpha);
-	glDrawArrays(drawStyle, 0, (int)vertices.size());
+	if(enabledAttributes & poVertex::NORMAL) {
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glNormalPointer(GL_FLOAT, sizeof(poVertex), &(vertices[0].normal));
+	}
 	
-//	if(texture) {
-//		glPopAttrib();
-//	}
+	glDrawArrays(fillDrawStyle, 0, (int)vertices.size());
 	
 	// these lines go together because drawSolidRect modifies the enabled state
 	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
@@ -86,52 +63,60 @@ void poShape2D::draw() {
 	glPopClientAttrib();
 }
 
-void poShape2D::moveTo(poPoint pt) {
-	lineTo(pt);
+void poShape2D::addPoint(poPoint p) {
+	vertices.push_back(poVertex(p));
 }
 
-void poShape2D::moveTo(float x, float y) {
-	lineTo(x, y);
+void poShape2D::addVertex(poVertex v) {
+	vertices.push_back(v);
 }
 
-void poShape2D::lineTo(poPoint pt) {
-	vertices.push_back(pt);
+void poShape2D::addPoints(const std::vector<poPoint> &points) {
+	vertices.insert(vertices.end(), points.begin(), points.end());
 }
 
-void poShape2D::lineTo(float x, float y) {
-	vertices.push_back(poPoint(x,y));
+void poShape2D::addVertices(const std::vector<poVertex> &vertices) {
+	this->vertices.insert(this->vertices.end(), vertices.begin(), vertices.end());
 }
 
-void poShape2D::quadTo(poPoint pt, poPoint control, int resolution) {
+void poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
 	if(vertices.empty())
-		vertices.push_back(poPoint(0,0));
+		vertices.push_back(poPoint(0,0,0));
 	
-	std::vector<poPoint> points = ::quadTo(vertices.back().point, pt, control, resolution);
-	// leave out the first one
-	for(std::vector<poPoint>::iterator iter = points.begin() + 1;
-		iter != points.end();
-		iter++)
-	{
-		vertices.push_back(*iter);
-	}
+	std::vector<poPoint> points = quadTo(vertices.back().point, pt, control, resolution);
+	vertices.insert(vertices.end(), points.begin(), points.end());
 }
 
-void poShape2D::cubeTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
+void poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
 	if(vertices.empty())
-		vertices.push_back(poPoint(0,0));
+		vertices.push_back(poPoint(0,0,0));
 
-	std::vector<poPoint> points = ::cubeTo(vertices.back().point, pt, control1, control2, resolution);
-	// leave out the first one
-	for(std::vector<poPoint>::iterator iter = points.begin() + 1;
-		iter != points.end();
-		iter++)
-	{
-		vertices.push_back(*iter);
-	}
+	std::vector<poPoint> points = cubeTo(vertices.back().point, pt, control1, control2, resolution);
+	vertices.insert(vertices.end(), points.begin(), points.end());
 }
 
-void poShape2D::close() {
-	vertices.push_back(vertices.front());
+void poShape2D::setPoints(const std::vector<poPoint> &points) {
+	vertices.assign(points.begin(), points.end());
+}
+
+void poShape2D::setPoints(const std::vector<poVertex> &vertices) {
+	this->vertices.assign(vertices.begin(), vertices.end());
+}
+
+void poShape2D::clearPoints() {
+	vertices.clear();
+}
+
+size_t poShape2D::numPoints() const {
+	return vertices.size();
+}
+
+poPoint &poShape2D::getPoint(int idx) {
+	return vertices[idx].point;
+}
+
+poVertex &poShape2D::getVertex(int idx) {
+	return vertices[idx];
 }
 
 void poShape2D::setAlignment(poAlignment align) {
@@ -168,30 +153,9 @@ void poShape2D::setAlignment(poAlignment align) {
 poRect poShape2D::calculateBounds(bool include_children) {
 	poObject::calculateBounds(include_children);
 	
-	BOOST_FOREACH(VertexPack &vertex, vertices) {
+	BOOST_FOREACH(poVertex &vertex, vertices) {
 		bounds.include(vertex.point);
 	}
 	
 	return bounds;
 }
-
-int poShape2D::numPoints() const {
-	return (int)vertices.size();
-}
-
-poPoint &poShape2D::getPoint(int idx) {
-	static poPoint invalid(0,0);
-	if(vertices.empty() || idx < 0 || idx >= vertices.size())
-		return invalid;
-	return vertices[idx].point;
-}
-
-VertexPack &poShape2D::getPack(int idx) {
-	static VertexPack invalid;
-	if(vertices.empty() || idx < 0 || idx >= vertices.size())
-		return invalid;
-	return vertices[idx];
-}
-
-//void poShape2D::placeTexture(ci::gl::Texture tex, float x, float y, float scale, float rot) {}
-//void poShape2D::placeTexture(ci::gl::Texture tex, poTextureScaleOption scaleOption) {}

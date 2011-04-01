@@ -2,15 +2,22 @@
 #include "poSimpleDrawing.h"
 #include "poShape2D.h"
 
+void setupApplication() {
+	poApplication *app = poApplication::get();
+	app->addWindow(new poWindow(new TestObj(), WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600));
+}
+
+void cleanupApplication() {
+}
+
 void TestObj::setup() {
 	glClearColor(0,0,0,1);
-	addEvent(PO_MOUSE_MOVE_EVENT, this);
 	
 	poShape2D* shape = new poShape2D();
-	shape->quadTo(poPoint(100,100,0), poPoint(100,0,0), 20);
-	shape->quadTo(poPoint(0,0,0), poPoint(0,100,0), 20);
+	shape->curveTo(poPoint(100,100,0), poPoint(100,0,0), 20);
+	shape->curveTo(poPoint(0,0,0), poPoint(0,100,0), 20);
 	shape->fillColor.set(1,0,0);
-	shape->drawStyle = GL_POLYGON;
+	shape->fillDrawStyle = GL_POLYGON;
 	shape->strokeWidth = 10;
 	shape->strokeColor.set(0,0,1);
 	shape->setAlignment(PO_ALIGN_CENTER_CENTER);
@@ -26,7 +33,7 @@ void TestObj::draw() {
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, window->getWidth(), window->getHeight(), 0, -1, 1);
+	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -42,12 +49,4 @@ bool TestObj::eventHandler(poEvent *event) {
 
 void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
 	
-}
-
-void setupApplication() {
-	poApplication *app = poApplication::get();
-	app->addWindow(new poWindow(new TestObj(), WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600));
-}
-
-void cleanupApplication() {
 }

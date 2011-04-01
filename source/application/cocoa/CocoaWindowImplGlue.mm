@@ -61,6 +61,7 @@ static BOOL yes_arg = YES;
 }
 
 -(void)drawRect:(NSRect)rect {
+	poApplication::get()->currentWindow = self.appWindow;
 	self.appWindow->update();
 	self.appWindow->draw();
 	[self.openGLContext flushBuffer];
