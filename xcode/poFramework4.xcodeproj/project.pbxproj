@@ -85,6 +85,7 @@
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
 		E8FB240B133A99E200111A69 /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_truetype.h; path = ../source/helpers/stb_truetype.h; sourceTree = "<group>"; };
+>>>>>>> d41b90091dc16354377f30d8cc3f6fb12a2a8f42
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,7 +255,6 @@
 			};
 			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -339,7 +339,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -388,12 +388,13 @@
 				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
 				LIBRARIES_DIR = ../../../libraries;
 				OTHER_LDFLAGS = (
-					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_system-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_thread-clang-darwin20-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_date_time-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_filesystem-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_system-xgcc42-mt-1_45.a",
+					"$(BOOST_LIBS)/libboost_thread-xgcc42-mt-1_45.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.6;
 				SRC_DIR = ../source;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				USER_HEADER_SEARCH_PATHS = "$(SRC_DIR)";

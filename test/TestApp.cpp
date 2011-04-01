@@ -23,6 +23,7 @@ void TestObj::setup() {
 	shape->setAlignment(PO_ALIGN_CENTER_CENTER);
 	shape->position.set(100,100,0);
 	addChild(shape);
+
 }
 
 void TestObj::update() {
