@@ -33,7 +33,7 @@ public:
 	// WORK-HORSES
 	virtual void	draw();
 	virtual void	update();
-	virtual bool	eventHandler(poEvent* event);
+	virtual void	eventHandler(poEvent *event);
 	virtual void	messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
 	// useful for stuff like cameras, fbos, masks, etc
@@ -56,9 +56,11 @@ public:
 	void			moveChildForward(poObject* child);
 	void			moveChildBackward(poObject* child);
 	
-	// WORLD COORDINATES
-	bool			pointInside(poPoint point);
-	bool			pointInside(float x, float y, float z=0.f);
+	// localize will convert global to local first
+	// otherwise, point is assumed to be local
+	bool			pointInside(poPoint point, bool localize=false);
+	bool			pointInside(float x, float y, float z=0.f, bool localize=false);
+
 	poPoint			globalToLocal(poPoint point) const;
 	poPoint			localToGlobal(poPoint point) const;
 	poPoint			objectToLocal(poObject* obj, poPoint point) const;
@@ -66,9 +68,6 @@ public:
 	// BOUNDING BOX
 	virtual void	setAlignment(poAlignment align);
 	virtual poRect	calculateBounds(bool include_children=false);
-	
-	// will return whatever child is directly under the mouse
-	poObject*		objectUnderMouse(float x, float y);
 	
 	// OBJECT PROPERTIES
 	poObject*		parent;
@@ -83,6 +82,7 @@ public:
 	poAlignment		align;
 	bool			enabled;
 	poMatrixOrder	matrix_order;
+	int				draw_order;
 	
 	poPointTween	position_tween;
 	poPointTween	scale_tween;

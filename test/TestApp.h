@@ -14,8 +14,7 @@ public:
 	virtual void update();
 	virtual void draw();
 	
-	virtual bool eventHandler(poEvent *event);
-	virtual void messageHandler(const std::string &msg, const poDictionary &dict=poDictionary());
+	virtual void eventHandler(poEvent *event);
 
 	poPoint mouse;
 };

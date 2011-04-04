@@ -11,9 +11,7 @@ typedef std::vector<poEvent*> poEventVec;
 typedef std::vector<poEventVec> poEventTable;
 
 enum {
-	PO_EVENT=0,
-	
-	PO_TOUCH_BEGAN_EVENT,
+	PO_TOUCH_BEGAN_EVENT = 0,
 	PO_TOUCH_ENDED_EVENT,
 	PO_TOUCH_MOVED_EVENT,
 
@@ -25,21 +23,30 @@ enum {
 	PO_MOUSE_UP_EVENT,
 	PO_MOUSE_DOWN_EVENT,
 	PO_MOUSE_MOVE_EVENT,
+	PO_MOUSE_DRAG_EVENT,
 	PO_MOUSE_PRESS_EVENT,
 	PO_MOUSE_RELEASE_EVENT,
 	PO_MOUSE_ENTER_EVENT,
 	PO_MOUSE_LEAVE_EVENT,
-	PO_MOUSE_DRAG_EVENT,
-	
-	PO_RESIZE_EVENT,
 	
 	PO_LAST_EVENT
+};
+
+enum {
+	// key event mask
+	PO_KEY_CTRL		= 1,
+	PO_KEY_SHIFT	= 2,
+	PO_KEY_ALT		= 2 << 1,
+	PO_KEY_META		= 2 << 2,
+	// mouse event mask
+	PO_MOUSE_LEFT	= 2 << 3,
+	PO_MOUSE_MIDDLE	= 2 << 4,
+	PO_MOUSE_RIGHT	= 2 << 5
 };
 
 bool isKeyEvent(int type);
 bool isMouseEvent(int type);
 bool isTouchEvent(int type);
-bool isBoundsCheckedEvent(int type);
 
 class poObject;
 
@@ -47,14 +54,17 @@ class poEvent
 {
 public:
 	poEvent();
-	poEvent(int type, poObject* from);
-	poEvent(int type, poObject* from, poObject* to, const std::string& msg, const poDictionary& dict=poDictionary());
+	poEvent(const poEvent &e);
+	poEvent(int type, poObject* from, const poDictionary& dict=poDictionary());
+	poEvent &operator=(const poEvent &e);
 	
-	poObject* receiver;
-	poObject* sender;
+	// the object that generated the event
+	poObject* source;
 	
+	// event type
 	int type;
 
+	// mouse or key modifiers
 	unsigned int modifiers;
 
 	// mouse events
@@ -63,6 +73,7 @@ public:
 
 	// key events
 	int keyCode;
+	// with modifiers applied
 	char keyChar;
 
 	// touch events
@@ -70,34 +81,58 @@ public:
 	double timestamp;
 	float prevX, prevY;
 
-	std::string message;
+	// other info, at your discretion
 	poDictionary dict;
 };
-
 
 class poEventCenter {
 public:
 	static poEventCenter *get();
 
-	// register a specific event 
-	void registerForEvent(poObject *source, poObject* sink, int eventType, const std::string &msg="", const poDictionary &dict=poDictionary());
-	// remove all events of a type from an object
-	void unregisterAllEventsOfType(poObject *source, int eventType);
-	// remove all events from an object
-	void unregisterAllEvents(poObject *source);
-	// remove all events we're listening to
-	void unregisterForEvents(poObject *sink);
-	// remove all events for type we're listening to
-	void unregisterForEvents(poObject *sink, int eventType);
-	// check if an event is being routed from one object to another
-	bool hasEvent(poObject *source, poObject *sink, int eventType);
-	// check if there's any event of a type for this object
-	bool hasEvents(poObject *source, int eventType);
-
-	// forward the event out to any sinks
-	void notify(poObject *source, int eventType);
+	// get window events to your event handler
+	int registerForEvent(int eventType, poObject *source, const poDictionary& dict=poDictionary());
+	// get window events for an object delivered to another object
+	int registerForEvent(int eventType, poObject *source, poObject *sink, const poDictionary& dict=poDictionary());
+	
+	// remove a specific event by id
+	void removeEvent(int event_id);
+	// get rid of everything that this obj is associated with
+	void removeAllEvents(poObject* obj);
+	
+	// tell anyone who cares that this happened
+	// returns the object that will generate the event, if its bounds checked
+	poObject *notify(poEvent event);
+	// check if this obj wants to get this event, then send it
+	// return if the event was sent
+	bool routeBySource(poObject *obj, poEvent event);
+	bool routeBySink(poObject *obj, poEvent event);
+	
+	// does an object care about a given event
+	bool objectHasEvent(poObject *obj, int eventType);
+	// get the stored event for this this object/action
+	poEvent &eventForObject(poObject *obj, int eventType);
+	
+	// append this event type to the list ... should be an int >= PO_LAST_EVENT 
+	void addEventType(int eventType, bool isChecked);
 	
 private:
-	boost::unordered_map<poObject*, std::vector< std::vector<poEvent*> > > events_table;
+	poEventCenter();
+	void resizeIfNecessary(int incoming);
+	
+	struct event_callback {
+		int uid;
+		poObject *receiver;
+		poEvent event;
+	};
+	
+	std::vector< bool > bcheck_event;
+	std::vector< std::vector<event_callback> > events;
 };
 
+static int registerEvent(int eventType, poObject *source, const poDictionary& dict=poDictionary()) {
+	return poEventCenter::get()->registerForEvent(eventType, source, dict);
+}
+
+static int registerEvent(int eventType, poObject *source, poObject *sink, const poDictionary& dict=poDictionary()) {
+	return poEventCenter::get()->registerForEvent(eventType, source, sink, dict);
+}
