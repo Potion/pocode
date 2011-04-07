@@ -8,6 +8,23 @@
 #include "application/cocoa/CocoaWindowImpl.cpp"
 #endif
 
+
+poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
+	if(!obj->enabled)
+		return NULL;
+	
+	for(int i=obj->numChildren()-1; i>=0; i--) {
+		poObject *response = objUnderMouse(obj->getChild(i),mouse);
+		if(response != NULL)
+			return response;
+	}
+	
+	if(obj->pointInside(mouse, true))
+		return obj;
+	
+	return NULL;
+}
+
 poWindow::poWindow(poObject *root,
 				   poWindowType type,
 				   const std::string &title,
@@ -116,6 +133,22 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	event.x = x;
 	event.y = getHeight() - y;
 	event.modifiers = mod;
+	
+	event.type = PO_MOUSE_DOWN_EVENT;
+	poEventCenter::get()->notify(event);
+
+	event.type = PO_MOUSE_PRESS_EVENT;
+	mouse_receiver = poEventCenter::get()->notify(event);
+	
+	if(mouse_receiver && 
+	   (poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_PRESS_EVENT) ||
+		poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_RELEASE_EVENT)))
+	{
+		key_receiver = mouse_receiver;
+	}
+	else {
+		key_receiver = NULL;
+	}
 }
 
 void poWindow::mouseUp(int x, int y, int mod) {
@@ -123,6 +156,17 @@ void poWindow::mouseUp(int x, int y, int mod) {
 	event.x = x;
 	event.y = getHeight() - y;
 	event.modifiers = mod;
+
+	event.type = PO_MOUSE_UP_EVENT;
+	poEventCenter::get()->notify(event);
+	
+	// something was previously clicked on
+	if(mouse_receiver) {
+		event.type = PO_MOUSE_RELEASE_EVENT;
+		poEventCenter::get()->routeBySource(mouse_receiver, event);
+		// we're done directly routing mouse events
+		mouse_receiver = NULL;
+	}
 }
 
 void poWindow::mouseMove(int x, int y, int mod) {
@@ -130,6 +174,27 @@ void poWindow::mouseMove(int x, int y, int mod) {
 	event.x = x;
 	event.y = getHeight() - y;
 	event.modifiers = mod;
+	
+	event.type = PO_MOUSE_MOVE_EVENT;
+	poEventCenter::get()->notify(event);
+
+	// figure out who's down there
+	poPoint mouse(event.x, event.y);
+	poObject *obj = objUnderMouse(root, mouse);
+	
+	// tell the previous hover they're off the hook
+	if(mouse_hover && mouse_hover != obj) {
+		event.type = PO_MOUSE_LEAVE_EVENT;
+		poEventCenter::get()->routeBySource(mouse_hover, event);
+		mouse_hover = NULL;
+	}
+
+	if(obj && obj != mouse_hover) {
+		// and tell the new hover they're on
+		event.type = PO_MOUSE_ENTER_EVENT;
+		if(poEventCenter::get()->routeBySource(obj, event))
+			mouse_hover = obj;
+	}
 }
 
 void poWindow::mouseDrag(int x, int y, int mod) {
@@ -137,6 +202,11 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 	event.x = x;
 	event.y = getHeight() - y;
 	event.modifiers = mod;
+	
+	if(mouse_receiver) {
+		event.type = PO_MOUSE_DRAG_EVENT;
+		poEventCenter::get()->routeBySource(mouse_receiver, event);
+	}
 }
 
 void poWindow::mouseWheel(int x, int y, int mod, int num_steps) {
@@ -147,6 +217,14 @@ void poWindow::keyDown(char key, int code, int mod) {
 	event.keyCode = key;
 	event.keyChar = code;
 	event.modifiers = mod;
+	
+	event.type = PO_KEY_DOWN_EVENT;
+	poEventCenter::get()->notify(event);
+	
+	if(key_receiver) {
+		event.type = PO_KEY_PRESS_EVENT;
+		poEventCenter::get()->routeBySource(key_receiver, event);
+	}
 }
 
 void poWindow::keyUp(char key, int code, int mod) {
@@ -154,5 +232,13 @@ void poWindow::keyUp(char key, int code, int mod) {
 	event.keyCode = code;
 	event.keyChar = key;
 	event.modifiers = mod;
+	
+	event.type = PO_KEY_UP_EVENT;
+	poEventCenter::get()->notify(event);
+
+	if(key_receiver) {
+		event.type = PO_KEY_RELEASE_EVENT;
+		poEventCenter::get()->routeBySource(key_receiver, event);
+	}
 }
 

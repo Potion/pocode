@@ -21,6 +21,7 @@ poObject::poObject()
 ,	enabled(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
+,	draw_order(0)
 ,	position_tween(&position)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
@@ -41,6 +42,7 @@ poObject::poObject(const std::string &name)
 ,	enabled(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
+,	draw_order(0)
 ,	position_tween(&position)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
@@ -54,7 +56,7 @@ poObject::~poObject() {
 void poObject::setup() {}
 void poObject::draw() {}
 void poObject::update() {}
-bool poObject::eventHandler(poEvent* event) {return false;}
+void poObject::eventHandler(poEvent *event) {}
 void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {}
 void poObject::preDraw() {}
 void poObject::postDraw() {}
@@ -138,15 +140,18 @@ void poObject::moveChildBackward(poObject* child) {
 	addChild(child, idx+1);
 }
 
-bool poObject::pointInside(poPoint point) {
-	return pointInside(point.x, point.y, point.z);
-}
-
-bool poObject::pointInside(float x, float y, float z) {
+bool poObject::pointInside(poPoint point, bool localize) {
 	if(!enabled)
 		return false;
 	
-	return bounds.contains(poPoint(x,y));
+	if(localize)
+		point = globalToLocal(point);
+	
+	return bounds.contains(point);
+}
+
+bool poObject::pointInside(float x, float y, float z, bool localize) {
+	return pointInside(poPoint(x,y,z),localize);
 }
 
 poPoint poObject::globalToLocal(poPoint point) const {
@@ -180,23 +185,6 @@ poRect poObject::calculateBounds(bool include_children) {
 	}
 	
 	return bounds;
-}
-
-poObject* poObject::objectUnderMouse(float x, float y) {
-	if(!enabled)
-		return NULL;
-	
-	BOOST_REVERSE_FOREACH(poObject* obj, children) {
-		poObject *response = obj->objectUnderMouse(x,y);
-		if(response != NULL)
-			return response;
-	}
-	
-	poPoint localized = globalToLocal(poPoint(x,y));
-	if(pointInside(localized))
-		return this;
-	
-	return NULL;
 }
 
 void poObject::_drawTree() {

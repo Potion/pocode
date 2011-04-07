@@ -19,6 +19,9 @@ void poShape2D::draw() {
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(4, GL_FLOAT, sizeof(poVertex), &(vertices[0].color));
 	}
+	else {
+		glColor4f(fillColor.red, fillColor.green, fillColor.blue, fillColor.alpha*master_alpha);
+	}
 	
 	if(enabledAttributes & poVertex::TEX_COORD) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);

@@ -23,7 +23,15 @@ void TestObj::setup() {
 	shape->setAlignment(PO_ALIGN_CENTER_CENTER);
 	shape->position.set(100,100,0);
 	addChild(shape);
+	
+	registerEvent(PO_MOUSE_MOVE_EVENT, this);
+	registerEvent(PO_KEY_DOWN_EVENT, shape, this);
 
+	registerEvent(PO_MOUSE_PRESS_EVENT, shape, this);
+	registerEvent(PO_MOUSE_RELEASE_EVENT, shape, this);
+	registerEvent(PO_MOUSE_ENTER_EVENT, shape, this);
+	registerEvent(PO_MOUSE_LEAVE_EVENT, shape, this);
+	registerEvent(PO_KEY_PRESS_EVENT, shape, this);
 }
 
 void TestObj::update() {
@@ -41,13 +49,28 @@ void TestObj::draw() {
 	drawRect(mouse.x-3, mouse.x+3, mouse.y-3, mouse.y+3);
 }
 
-bool TestObj::eventHandler(poEvent *event) {
-	if(event->type == PO_MOUSE_MOVE_EVENT) {
-		mouse.set(event->localX, event->localY, 0);
+void TestObj::eventHandler(poEvent *event) {
+	switch(event->type) {
+		case PO_MOUSE_MOVE_EVENT:
+			mouse.set(event->localX, event->localY, 0);
+			break;
+		case PO_MOUSE_PRESS_EVENT:
+			printf("mouse pressed\n");
+			break;
+		case PO_MOUSE_RELEASE_EVENT:
+			printf("mouse release\n");
+			break;
+		case PO_MOUSE_ENTER_EVENT:
+			printf("mouse enter\n");
+			break;
+		case PO_MOUSE_LEAVE_EVENT:
+			printf("mouse leave\n");
+			break;
+		case PO_KEY_PRESS_EVENT:
+			printf("key pressed\n");
+			break;
+		case PO_KEY_DOWN_EVENT:
+			printf("key down\n");
+			break;
 	}
-	return false;
-}
-
-void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
-	
 }

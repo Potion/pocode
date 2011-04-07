@@ -16,7 +16,7 @@ struct poVertex {
 		NORMAL = 4
 	};
 	
-	poVertex(poPoint pt=poPoint(), poColor col=poColor(1,1,1,1), poPoint norm=poPoint(), poPoint texc=poPoint(0,0))
+	poVertex(poPoint pt=poPoint(0,0), poPoint texc=poPoint(0,0), poColor col=poColor(1,1,1,1), poPoint norm=poPoint())
 	: point(pt), color(col), normal(norm), texCoord(texc)
 	{}
 	
