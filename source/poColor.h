@@ -4,6 +4,8 @@
 
 #pragma once
 
+class poHSVColor;
+
 class poColor
 {
 public:
@@ -21,7 +23,9 @@ class poHSVColor {
 public:
 	float hue, saturation, value;
 	
-	HSVColor() : hue(0.f), saturation(0.f), value(0.f) {}
-	HSVColor(float h, float s, float v) : hue(h), saturation(s), value(v) {}
-    HSVColor &set(float h, float s, float v);
+	poHSVColor();
+	poHSVColor(float h, float s, float v);
+    poHSVColor(const poColor &col);
+    
+    poHSVColor &set(float h, float s, float v);
 };

@@ -8,7 +8,7 @@
 #define min3(a,b,c) a < b ? (a < c ? a : c) : (b < c ? b : c)
 #define max3(a,b,c) a > b ? (a > c ? a : c) : (b > c ? b : c)
 
-HSVColor rgba2hsv(poColor rgba) {
+poHSVColor rgba2hsv(poColor rgba) {
 	float r = rgba.red * rgba.alpha;
 	float g = rgba.green * rgba.alpha;
 	float b = rgba.blue * rgba.alpha;
@@ -36,10 +36,10 @@ HSVColor rgba2hsv(poColor rgba) {
 			hue += 360.f;
 	}
 	
-	return HSVColor(hue,sat,val);
+	return poHSVColor(hue,sat,val);
 }
 
-poColor hsv2rgba(HSVColor hsv) {
+poColor hsv2rgba(poHSVColor hsv) {
 	float h6 = hsv.hue / 60.0;
 	
 	int i = (int)floorf(h6);
@@ -62,12 +62,23 @@ poColor hsv2rgba(HSVColor hsv) {
 }
 
 poColor::poColor()
-:	red(0.f), green(0.f), blue(0.f), alpha(1.f)
+:	red(0.f)
+,   green(0.f)
+,   blue(0.f)
+,   alpha(1.f)
 {}
 
 poColor::poColor(float r, float g, float b, float a)
-:	red(r), green(g), blue(b), alpha(a)
+:	red(r)
+,   green(g)
+,   blue(b)
+,   alpha(a)
 {}
+
+poColor::poColor(const poHSVColor &hsv) {
+    poColor col = hsv2rgba(hsv);
+    set(col.red, col.green, col.blue, col.alpha);
+}
 
 poColor &poColor::set(float r, float g, float b, float a) {
 	red = r; 
@@ -77,12 +88,26 @@ poColor &poColor::set(float r, float g, float b, float a) {
 	return *this;
 }
 
-poColor &poColor::setHSV(float h, float s, float v) {
-	*this = hsv2rgba(HSVColor(h,s,v));
-	return *this;
+poHSVColor::poHSVColor() 
+:   hue(0.f)
+,   saturation(0.f)
+,   value(0.f) 
+{}
+
+poHSVColor::poHSVColor(float h, float s, float v)
+:   hue(h)
+,   saturation(s)
+,   value(v) 
+{}
+
+poHSVColor::poHSVColor(const poColor &col) {
+    poHSVColor hcol = rgba2hsv(col);
+    set(hcol.hue, hcol.saturation, hcol.value);
 }
 
-poColor &poColor::setHSV(HSVColor hsv) {
-	*this = hsv2rgba(hsv);
-	return *this;
+poHSVColor &poHSVColor::set(float h, float s, float v) {
+    hue = h;
+    saturation = s;
+    value = v;
+    return *this;
 }
