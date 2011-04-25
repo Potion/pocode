@@ -68,8 +68,7 @@ public:
 	unsigned int modifiers;
 
 	// mouse events
-	float x, y;
-	float localX, localY;
+	poPoint position, local_position;
 
 	// key events
 	int keyCode;
@@ -79,7 +78,7 @@ public:
 	// touch events
 	uint32_t uid;
 	double timestamp;
-	float prevX, prevY;
+	poPoint previous_position;
 
 	// other info, at your discretion
 	poDictionary dict;

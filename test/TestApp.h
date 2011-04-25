@@ -15,6 +15,6 @@ public:
 	virtual void draw();
 	
 	virtual void eventHandler(poEvent *event);
-
-	poPoint mouse;
+	
+	int drag_event_id;
 };

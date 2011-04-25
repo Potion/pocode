@@ -130,8 +130,7 @@ void poWindow::draw() {
 
 void poWindow::mouseDown(int x, int y, int mod) {
 	poEvent event;
-	event.x = x;
-	event.y = getHeight() - y;
+	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DOWN_EVENT;
@@ -153,8 +152,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 
 void poWindow::mouseUp(int x, int y, int mod) {
 	poEvent event;
-	event.x = x;
-	event.y = getHeight() - y;
+	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
 
 	event.type = PO_MOUSE_UP_EVENT;
@@ -171,15 +169,14 @@ void poWindow::mouseUp(int x, int y, int mod) {
 
 void poWindow::mouseMove(int x, int y, int mod) {
 	poEvent event;
-	event.x = x;
-	event.y = getHeight() - y;
+	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_MOVE_EVENT;
 	poEventCenter::get()->notify(event);
 
 	// figure out who's down there
-	poPoint mouse(event.x, event.y);
+	poPoint mouse = event.position;
 	poObject *obj = objUnderMouse(root, mouse);
 	
 	// tell the previous hover they're off the hook
@@ -199,13 +196,23 @@ void poWindow::mouseMove(int x, int y, int mod) {
 
 void poWindow::mouseDrag(int x, int y, int mod) {
 	poEvent event;
-	event.x = x;
-	event.y = getHeight() - y;
+	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
+	
+	/*	TODO
+		can't just run the move routine as you'd start dragging whatever you dragged over
+		but without notifying for move event all drag targets have to have an area
+		best thing is probably to figure out some auto-resizing thing, but that road leads to trouble
+		for the moment treating drags as moves unless there's a drag target seems ok
+	 */
 	
 	if(mouse_receiver) {
 		event.type = PO_MOUSE_DRAG_EVENT;
 		poEventCenter::get()->routeBySource(mouse_receiver, event);
+	}
+	else {
+		event.type = PO_MOUSE_MOVE_EVENT;
+		poEventCenter::get()->notify(event);
 	}
 }
 

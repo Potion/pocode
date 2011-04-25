@@ -113,3 +113,14 @@ private:
 	
 	static std::stack<float> alpha_stack;
 };
+
+template <typename T>
+inline T *getChildAs(poObject *parent, int idx) {
+	return static_cast<T*>(parent->getChild(idx));
+}
+
+template <typename T>
+inline T *getChildAs(poObject *parent, const std::string &name) {
+	return static_cast<T*>(parent->getChild(name));
+}
+

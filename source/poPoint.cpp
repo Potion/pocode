@@ -27,13 +27,7 @@ poPoint &poPoint::setPolar(float deg, float mag) {
 }
 
 bool poPoint::operator==(poPoint rhs) {
-	return almostEqual(rhs, 0.0001f);
-}
-
-bool poPoint::almostEqual(poPoint rhs, float range) {
-	return	::almostEqual(x, rhs.x, range) &&
-			::almostEqual(y, rhs.y, range) &&
-			::almostEqual(z, rhs.z, range);
+	return compare(*this, rhs);
 }
 
 void poPoint::operator+=(poPoint rhs) {
@@ -131,6 +125,10 @@ poPoint normalize(poPoint pt) {
 	return poPoint(pt.x/len, pt.y/len, pt.z/len);
 }
 
-
+bool compare(poPoint a, poPoint b, float range) {
+	return (compare(a.x, b.x, range) &&
+			compare(a.y, b.y, range) &&
+			compare(a.z, b.z, range));
+}
 
 

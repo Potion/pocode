@@ -175,7 +175,7 @@ inline bool sinusInFunc(float *v, float bv, float ev,
 						float e1, float e2) 
 {
 	float t2 = (t - b) / d;
-	*v = -(ev-bv) * ::cosf(t2 * M_HALFPI) + (ev-bv) + bv;
+	*v = -(ev-bv) * ::cosf(t2 * M_HALF_PI) + (ev-bv) + bv;
 	return (t-b) >= d;
 }
 
@@ -184,7 +184,7 @@ inline bool sinusOutFunc(float *v, float bv, float ev,
 						 float e1, float e2) 
 {
 	float t2 = (t - b) / d;
-	*v = (ev-bv) * ::sin(t2 * M_HALFPI) + bv;
+	*v = (ev-bv) * ::sin(t2 * M_HALF_PI) + bv;
 	return (t-b) >= d;
 }
 

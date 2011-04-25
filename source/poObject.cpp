@@ -231,7 +231,7 @@ void poObject::_broadcastEvent(poEvent* event) {
 	}
 
 	// localize the point only once
-	poPoint local_point = globalToLocal(poPoint(event->x, event->y));
+	poPoint local_point = globalToLocal(event->position);
 	
 	// handle every event like this we have
 	BOOST_FOREACH(poEvent *e, events[event->type]) {
@@ -285,16 +285,13 @@ void poObject::popObjectMatrix() {
 }
 
 void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {
-	local_event->x = global_event->x;
-	local_event->y = global_event->y;
-	local_event->localX = localized_pt.x;
-	local_event->localY = localized_pt.y;
+	local_event->position = global_event->position;
+	local_event->local_position = localized_pt;
 	local_event->keyChar = global_event->keyChar;
 	local_event->keyCode = global_event->keyCode;
 	local_event->modifiers = global_event->modifiers;
 	local_event->uid = global_event->uid;
 	local_event->timestamp = global_event->timestamp;
-	local_event->prevX = global_event->prevX;
-	local_event->prevY = global_event->prevY;
+	local_event->previous_position = global_event->previous_position;
 	// don't touch the message or the dictionary
 }

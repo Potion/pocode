@@ -34,9 +34,8 @@ void localizeEvent(poEvent &stored, poEvent &tolocal) {
 	tolocal.dict = stored.dict;
 	
 	if(isMouseEvent(stored.type)) {
-		poPoint pt = stored.source->globalToLocal(poPoint(tolocal.x, tolocal.y));
-		tolocal.localX = pt.x;
-		tolocal.localY = pt.y;
+		poPoint pt = stored.source->globalToLocal(tolocal.position);
+		tolocal.local_position = pt;
 	}
 }
 
@@ -45,11 +44,8 @@ poEvent::poEvent()
 ,	source(NULL)
 ,	keyCode(0)
 ,	keyChar(0)
-,	x(0.f), y(0.f)
-,	localX(0.f), localY(0.f)
 ,	uid(0)
 ,	timestamp(0.0)
-,	prevX(0.f), prevY(0.f)
 ,	modifiers(0)
 {}
 
@@ -58,11 +54,11 @@ poEvent::poEvent(const poEvent &e)
 ,	source(e.source)
 ,	keyCode(e.keyCode)
 ,	keyChar(e.keyChar)
-,	x(e.x), y(e.y)
-,	localX(e.localX), localY(e.localY)
+,	position(e.position)
+,	local_position(e.local_position)
 ,	uid(e.uid)
 ,	timestamp(e.timestamp)
-,	prevX(e.prevX), prevY(e.prevY)
+,	previous_position(e.previous_position)
 ,	modifiers(e.modifiers)
 ,	dict(e.dict)
 {}
@@ -72,11 +68,8 @@ poEvent::poEvent(int type, poObject* from, const poDictionary& dict)
 ,	source(from)
 ,	keyCode(0)
 ,	keyChar(0)
-,	x(0.f), y(0.f)
-,	localX(0.f), localY(0.f)
 ,	uid(0)
 ,	timestamp(0.0)
-,	prevX(0.f), prevY(0.f)
 ,	modifiers(0)
 ,	dict(dict)
 {}
@@ -86,14 +79,11 @@ poEvent &poEvent::operator=(const poEvent &e) {
 	source = e.source;
 	keyCode = e.keyCode;
 	keyChar = e.keyChar;
-	x = e.x;
-	y = e.y;
-	localX = e.localX;
-	localY = e.localY;
+	position = e.position;
+	local_position = e.local_position;
 	uid = e.uid;
 	timestamp = e.timestamp;
-	prevX = e.prevX;
-	prevY = e.prevY;
+	previous_position = e.previous_position;
 	modifiers = e.modifiers;
 	dict = e.dict;
 	return *this;
@@ -146,7 +136,7 @@ void poEventCenter::removeEvent(int uid) {
 		std::vector<event_callback>::iterator iter = event_vec.begin();
 		while(iter != event_vec.end()) {
 			if(iter->uid == uid)
-				event_vec.erase(iter++);
+				iter = event_vec.erase(iter);
 			else
 				iter++;
 		}
@@ -179,7 +169,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			event_callback &callback = event_vec[i];
 			
 			// this one is an option
-			if(callback.event.source->pointInside(event.x, event.y, 0.f, true)) {
+			if(callback.event.source->pointInside(event.position, true)) {
 				// higher draw_order means closer to surface, in 2D
 				if(!the_one || the_one->event.source->draw_order < callback.event.source->draw_order)
 					the_one = &callback;

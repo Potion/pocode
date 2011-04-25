@@ -11,27 +11,23 @@ void cleanupApplication() {
 }
 
 void TestObj::setup() {
+	poEventCenter::get()->registerForEvent(PO_MOUSE_DOWN_EVENT, this);
+	poEventCenter::get()->registerForEvent(PO_MOUSE_UP_EVENT, this);
+	
 	glClearColor(0,0,0,1);
 	
 	poShape2D* shape = new poShape2D();
-	shape->curveTo(poPoint(100,100,0), poPoint(100,0,0), 20);
-	shape->curveTo(poPoint(0,0,0), poPoint(0,100,0), 20);
-	shape->fillColor.set(1,0,0);
-	shape->fillDrawStyle = GL_POLYGON;
-	shape->strokeWidth = 10;
-	shape->strokeColor.set(0,0,1);
-	shape->setAlignment(PO_ALIGN_CENTER_CENTER);
-	shape->position.set(100,100,0);
-	addChild(shape);
+	shape->fillDrawStyle(GL_LINE_STRIP);
+	shape->addPoint(poPoint(0,0,0));
+	shape->addPoint(poPoint(0,150,0));
+	shape->addPoint(poPoint(150,0,0));
+	shape->addPoint(poPoint(150,150,0));
 	
-	registerEvent(PO_MOUSE_MOVE_EVENT, this);
-	registerEvent(PO_KEY_DOWN_EVENT, shape, this);
-
-	registerEvent(PO_MOUSE_PRESS_EVENT, shape, this);
-	registerEvent(PO_MOUSE_RELEASE_EVENT, shape, this);
-	registerEvent(PO_MOUSE_ENTER_EVENT, shape, this);
-	registerEvent(PO_MOUSE_LEAVE_EVENT, shape, this);
-	registerEvent(PO_KEY_PRESS_EVENT, shape, this);
+	shape->position.set(100,300,0);
+	shape->strokeColor(poColor(1,0,1,1));
+	shape->joinStyle(poShape2D::STROKE_JOIN_ROUND);
+	shape->strokeWidth(25);
+	addChild(shape);
 }
 
 void TestObj::update() {
@@ -45,32 +41,32 @@ void TestObj::draw() {
 	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	drawRect(mouse.x-3, mouse.x+3, mouse.y-3, mouse.y+3);
 }
 
 void TestObj::eventHandler(poEvent *event) {
 	switch(event->type) {
+		case PO_MOUSE_DOWN_EVENT:
+		{
+			poShape2D *shape = getChildAs<poShape2D>(this,0);
+			poPoint pt = shape->getPoint(2);
+			if((pt-shape->globalToLocal(event->position)).length() < 10) {
+				drag_event_id = poEventCenter::get()->registerForEvent(PO_MOUSE_MOVE_EVENT, this);
+			}
+			break;
+		}
+			
+		case PO_MOUSE_UP_EVENT:
+			poEventCenter::get()->removeEvent(drag_event_id);
+			break;
+			
 		case PO_MOUSE_MOVE_EVENT:
-			mouse.set(event->localX, event->localY, 0);
+		{
+			poShape2D *shape = getChildAs<poShape2D>(this,0);
+			poPoint &pt = shape->getPoint(2);
+			pt = shape->globalToLocal(event->position);
+			pt.z = 0.f;
+			shape->enableStroke(true);
 			break;
-		case PO_MOUSE_PRESS_EVENT:
-			printf("mouse pressed\n");
-			break;
-		case PO_MOUSE_RELEASE_EVENT:
-			printf("mouse release\n");
-			break;
-		case PO_MOUSE_ENTER_EVENT:
-			printf("mouse enter\n");
-			break;
-		case PO_MOUSE_LEAVE_EVENT:
-			printf("mouse leave\n");
-			break;
-		case PO_KEY_PRESS_EVENT:
-			printf("key pressed\n");
-			break;
-		case PO_KEY_DOWN_EVENT:
-			printf("key down\n");
-			break;
+		}
 	}
 }

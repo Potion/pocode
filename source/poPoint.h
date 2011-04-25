@@ -16,7 +16,6 @@ public:
 	poPoint &setPolar(float deg, float mag);
 	
 	bool operator==(poPoint rhs);
-	bool almostEqual(poPoint rhs, float range=0.01f);
 	void operator+=(poPoint rhs);
 	void operator-=(poPoint rhs);
 	void operator*=(float scalar);
@@ -43,3 +42,4 @@ poPoint operator*(poPoint A, poPoint B);
 poPoint operator/(poPoint A, float Scalar);		// divide by scalar
 
 poPoint normalize(poPoint pt);
+bool compare(poPoint a, poPoint b, float range=1.0e-6f);

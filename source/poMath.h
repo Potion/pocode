@@ -11,9 +11,10 @@
 #include "poPoint.h"
 
 #define M_2PI (M_PI*2.0)
-#define M_HALFPI (M_PI/2.0)
+#define M_HALF_PI (M_PI/2.0)
+#define M_QUARTER_PI (M_HALF_PI/2.0)
 
-inline bool almostEqual(float f1, float f2, float range=0.01f) {
+inline bool compare(float f1, float f2, float range=1.0e-6f) {
 	return ::fabs(f1-f2) < range;
 }
 
