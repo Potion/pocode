@@ -5,7 +5,7 @@ poShape2D::poShape2D()
 ,	enable_stroke(false)
 ,	stroke_width(0)
 ,	fill_color(1,1,1,1)
-,	stroke_color(0,0,0,0)
+,	stroke_color(1,1,1,1)
 ,	fill_draw_style(GL_TRIANGLE_FAN)
 ,	enabled_attributes(ATTRIB_POINT)
 ,	closed_(false)
@@ -221,6 +221,14 @@ void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, p
 	
 	switch(join) {
 		case STROKE_JOIN_MITRE:
+			if(top_outside) {
+				stroke.push_back(top);
+				stroke.push_back(bottom);
+			}
+			else {
+				stroke.push_back(bottom);
+				stroke.push_back(top);
+			}
 			break;
 			
 		case STROKE_JOIN_BEVEL:
@@ -326,13 +334,28 @@ void poShape2D::generateStroke() {
 			bool top_outside = combineExtrudedLineSegments(seg1, seg2, &top, &bottom);
 			
 			if(top_outside) {
-				stroke.push_back(seg2.p1);
-				stroke.push_back(bottom);
+				if(join == STROKE_JOIN_MITRE) {
+					p1 = top;
+					p2 = bottom;
+				}
+				else {
+					p1 = seg2.p1;
+					p2 = bottom;
+				}
 			}
 			else {
-				stroke.push_back(top);
-				stroke.push_back(seg2.p2);
+				if(join == STROKE_JOIN_MITRE) {
+					p1 = bottom;
+					p2 = top;
+				}
+				else {
+					p1 = top;
+					p2 = seg2.p2;
+				}
 			}
+			
+			stroke.push_back(p1);
+			stroke.push_back(p2);
 		}
 		else {
 			// add the first cap

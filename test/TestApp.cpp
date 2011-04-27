@@ -27,7 +27,9 @@ void TestObj::setup() {
 	shape->addPoint(poPoint(100,0,0));
 	
 	shape->placeTexture(poTexture(poImage("images/alfred_e_neuman.jpg")));
-
+	shape->strokeWidth(30);
+	shape->closed(true);
+	shape->generateStroke();
 	shape->position.set(100,300,0);
 	addChild(shape);
 }
