@@ -1,6 +1,7 @@
 #include "TestApp.h"
 #include "poSimpleDrawing.h"
 #include "poShape2D.h"
+#include "poImage.h"
 
 void setupApplication() {
 	poApplication *app = poApplication::get();
@@ -11,22 +12,23 @@ void cleanupApplication() {
 }
 
 void TestObj::setup() {
+	glEnable(GL_TEXTURE_2D);
+	FreeImage_Initialise();
+
 	poEventCenter::get()->registerForEvent(PO_MOUSE_DOWN_EVENT, this);
 	poEventCenter::get()->registerForEvent(PO_MOUSE_UP_EVENT, this);
 	
 	glClearColor(0,0,0,1);
 	
 	poShape2D* shape = new poShape2D();
-	shape->fillDrawStyle(GL_LINE_STRIP);
 	shape->addPoint(poPoint(0,0,0));
-	shape->addPoint(poPoint(0,150,0));
-	shape->addPoint(poPoint(150,0,0));
-	shape->addPoint(poPoint(150,150,0));
+	shape->addPoint(poPoint(0,100,0));
+	shape->addPoint(poPoint(100,100,0));
+	shape->addPoint(poPoint(100,0,0));
 	
+	shape->placeTexture(poTexture(poImage("images/alfred_e_neuman.jpg")));
+
 	shape->position.set(100,300,0);
-	shape->strokeColor(poColor(1,0,1,1));
-	shape->joinStyle(poShape2D::STROKE_JOIN_ROUND);
-	shape->strokeWidth(25);
 	addChild(shape);
 }
 
@@ -44,13 +46,19 @@ void TestObj::draw() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	static int pt_idx = -1;
+	
 	switch(event->type) {
 		case PO_MOUSE_DOWN_EVENT:
 		{
+			pt_idx = -1;
 			poShape2D *shape = getChildAs<poShape2D>(this,0);
-			poPoint pt = shape->getPoint(2);
-			if((pt-shape->globalToLocal(event->position)).length() < 10) {
-				drag_event_id = poEventCenter::get()->registerForEvent(PO_MOUSE_MOVE_EVENT, this);
+			for(int i=0; i<shape->numPoints(); i++) {
+				poPoint pt = shape->getPoint(i);
+				if((pt-shape->globalToLocal(event->position)).length() < 10) {
+					pt_idx = i;
+					drag_event_id = poEventCenter::get()->registerForEvent(PO_MOUSE_MOVE_EVENT, this);
+				}
 			}
 			break;
 		}
@@ -62,10 +70,10 @@ void TestObj::eventHandler(poEvent *event) {
 		case PO_MOUSE_MOVE_EVENT:
 		{
 			poShape2D *shape = getChildAs<poShape2D>(this,0);
-			poPoint &pt = shape->getPoint(2);
+			poPoint &pt = shape->getPoint(pt_idx);
 			pt = shape->globalToLocal(event->position);
 			pt.z = 0.f;
-			shape->enableStroke(true);
+			shape->generateStroke();
 			break;
 		}
 	}

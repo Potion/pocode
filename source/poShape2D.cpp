@@ -6,8 +6,9 @@ poShape2D::poShape2D()
 ,	stroke_width(0)
 ,	fill_color(1,1,1,1)
 ,	stroke_color(0,0,0,0)
-,	fill_draw_style(GL_LINE_LOOP)
-,	enabled_attributes(poVertex::ATTRIB_POINT)
+,	fill_draw_style(GL_TRIANGLE_FAN)
+,	enabled_attributes(ATTRIB_POINT)
+,	closed_(false)
 {}
 
 void poShape2D::draw() {
@@ -16,7 +17,7 @@ void poShape2D::draw() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, sizeof(poVertex), &(vertices[0].point));
 	
-	if(isAttributeEnabled(poVertex::ATTRIB_COLOR)) {
+	if(isAttributeEnabled(ATTRIB_COLOR)) {
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(4, GL_FLOAT, sizeof(poVertex), &(vertices[0].color));
 	}
@@ -24,17 +25,21 @@ void poShape2D::draw() {
 		glColor4f(fill_color.red, fill_color.green, fill_color.blue, fill_color.alpha*master_alpha);
 	}
 	
-	if(isAttributeEnabled(poVertex::ATTRIB_TEX_COORD)) {
+	if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+		texture.bind();
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glTexCoordPointer(2, GL_FLOAT, sizeof(poVertex), &(vertices[0].texCoord));
 	}
 	
-	if(isAttributeEnabled(poVertex::ATTRIB_NORMAL)) {
+	if(isAttributeEnabled(ATTRIB_NORMAL)) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glNormalPointer(GL_FLOAT, sizeof(poVertex), &(vertices[0].normal));
 	}
 	
 	glDrawArrays(fill_draw_style, 0, (int)vertices.size());
+	
+	if(isAttributeEnabled(ATTRIB_TEX_COORD))
+		texture.unbind();
 	
 	// these lines go together because drawSolidRect modifies the enabled state
 	//	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
@@ -49,12 +54,14 @@ void poShape2D::draw() {
 
 		glColor4f(stroke_color.red, stroke_color.green, stroke_color.blue, stroke_color.alpha*master_alpha);
 		glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
-		glDrawArrays(GL_LINE_STRIP, 0, (int)stroke.size());
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());
 		
-		// draw drag point
-		glColor3f(1,1,1);
-		glRectf(vertices[2].point.x-5,vertices[2].point.y-5,
-				vertices[2].point.x+5,vertices[2].point.y+5);
+		for(int i=0; i<vertices.size(); i++) {
+			// draw drag point
+			glColor3f(1,1,1);
+			glRectf(vertices[i].point.x-5,vertices[i].point.y-5,
+					vertices[i].point.x+5,vertices[i].point.y+5);
+		}
 	}
 	
 	glPopClientAttrib();
@@ -157,14 +164,24 @@ poRect poShape2D::calculateBounds(bool include_children) {
 	return bounds;
 }
 
+void poShape2D::placeTexture(poTexture tex) {
+	poRect rect = calculateBounds();
+	
+	texture = tex;
+	for(int i=0; i<vertices.size(); i++) {
+		float s = vertices[i].point.x / rect.width() * tex.s();
+		float t = vertices[i].point.y / rect.height() * tex.t();
+		vertices[i].texCoord.set(s,t,0.f);
+	}
+	
+	enableAttribute(ATTRIB_TEX_COORD);
+}
+
 bool poShape2D::isFillEnabled() const {return enable_fill;}
 void poShape2D::enableFill(bool b) {enable_fill = b;}
 
 bool poShape2D::isStrokeEnabled() const {return enable_stroke;}
-void poShape2D::enableStroke(bool b) {
-	enable_stroke = b; 
-	generateStroke();
-}
+void poShape2D::enableStroke(bool b) {enable_stroke = b;}
 
 int poShape2D::strokeWidth() const {return stroke_width;}
 void poShape2D::strokeWidth(int w) {
@@ -181,222 +198,156 @@ void poShape2D::strokeColor(poColor c) {stroke_color = c;}
 GLenum poShape2D::fillDrawStyle() const {return fill_draw_style;}
 void poShape2D::fillDrawStyle(GLenum e) {fill_draw_style = e;}
 
-bool poShape2D::isAttributeEnabled(poVertex::Attribute a) const {return (enabled_attributes & a) != 0;}
-void poShape2D::enableAttribute(poVertex::Attribute a) {enabled_attributes |= a;}
+bool poShape2D::isAttributeEnabled(VertexAttribute a) const {return (enabled_attributes & a) != 0;}
+void poShape2D::enableAttribute(VertexAttribute a) {enabled_attributes |= a;}
+void poShape2D::disableAttribute(VertexAttribute a) {enabled_attributes &= ~a;}
 
-poShape2D::StrokeCapProperty poShape2D::capStyle() const {return cap;}
-void poShape2D::capStyle(StrokeCapProperty p) {
-	cap = p;
-	generateStroke();
-}
+StrokeCapProperty poShape2D::capStyle() const {return cap;}
+void poShape2D::capStyle(StrokeCapProperty p) {cap = p;}
 
-poShape2D::StrokeJoinProperty poShape2D::joinStyle() const {return join;}
+StrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
-void poShape2D::joinStyle(StrokeJoinProperty p) {
-	join = p;
-	generateStroke();
+void poShape2D::joinStyle(StrokeJoinProperty p) {join = p;}
+
+bool poShape2D::isClosed() const {return closed_;}
+void poShape2D::closed(bool b) {closed_ = b;}
+
+void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width) {
+	poPoint top, bottom;
+	poPoint p1, p2, p3, p4, tmp;
+	
+	bool top_outside = combineExtrudedLineSegments(seg1, seg2, &top, &bottom);
+	poPoint joint = (seg1.p4 + seg1.p3) / 2.f;
+	
+	switch(join) {
+		case STROKE_JOIN_MITRE:
+			break;
+			
+		case STROKE_JOIN_BEVEL:
+			if(top_outside) {
+				stroke.push_back(seg1.p3);
+				stroke.push_back(bottom);
+				stroke.push_back(seg2.p1);
+				stroke.push_back(bottom);
+			}
+			else {
+				stroke.push_back(top);
+				stroke.push_back(seg1.p4);
+				stroke.push_back(top);
+				stroke.push_back(seg2.p2);
+			}
+			break;
+			
+		case STROKE_JOIN_ROUND:
+		{
+			float halfW = stroke_width / 2.f;
+			
+			if(top_outside) {
+				p1 = bottom;
+				p2 = seg1.p3;
+				p3 = joint;
+				p4 = seg2.p1;
+				
+				stroke.push_back(p2);
+				stroke.push_back(p1);
+				
+				float a1 = angleBetweenPoints(p2, p3, p4);
+				
+				poPoint diff = p2 - p3;
+				float a2 = atan2f(diff.y, diff.x);
+				
+				float step = a1 / 9.f;
+				float a = a2;
+				
+				for(int j=0; j<10; j++) {
+					tmp.set(cosf(a)*halfW, sinf(a)*halfW, 0.f);
+					stroke.push_back(tmp+p3);
+					stroke.push_back(p3);
+					a += step;
+				}
+				
+				stroke.push_back(p4);
+				stroke.push_back(p1);
+			}
+			else {
+				p1 = top;
+				p2 = seg1.p4;
+				p3 = joint;
+				p4 = seg2.p2;
+				
+				stroke.push_back(p1);
+				stroke.push_back(p2);
+				
+				float a1 = angleBetweenPoints(p2, p3, p4);
+				
+				poPoint diff = p2 - p3;
+				float a2 = atan2f(diff.y, diff.x);
+				
+				float step = a1 / 9.f;
+				float a = a2;
+				
+				for(int j=0; j<10; j++) {
+					tmp.set(cosf(a)*halfW, sinf(a)*halfW, 0.f);
+					stroke.push_back(p3);
+					stroke.push_back(tmp+p3);
+					a += step;
+				}
+				
+				stroke.push_back(p1);
+				stroke.push_back(p4);
+			}
+			
+			break;
+		}
+	}
 }
 
 void poShape2D::generateStroke() {
 	stroke.clear();
 	
 	if(enable_stroke) {
-		std::vector<LineSeg> segments;
+		std::vector<poExtrudedLineSeg> segments;
 		
 		poPoint p1, p2, p3, p4, tmp;
 		
 		for(int i=0; i<vertices.size()-1; i++) {
 			p1 = vertices[i].point;
 			p2 = vertices[i+1].point;
-			tmp = p2 - p1;
-			LineSeg seg = extrudeLineSegment(p1, p2, stroke_width);
-			segments.push_back(seg);
+			segments.push_back(poExtrudedLineSeg(p1, p2, stroke_width));
 		}
 		
-		// add the first cap
-		stroke.push_back(segments[0].p1);
-		stroke.push_back(segments[0].p2);
-
-		// generate middle points
-		for(int i=0; i<segments.size()-1; i++) {
+		if(closed_) {
+			poExtrudedLineSeg seg1(vertices[vertices.size()-1].point, vertices[0].point, stroke_width);
+			poExtrudedLineSeg seg2(vertices[0].point, vertices[1].point, stroke_width);
+			segments.push_back(seg1);
+			segments.push_back(seg2);
+			
 			poPoint top, bottom;
-			float angle = combineExtrudedLineSegments(segments[i], segments[i+1], &top, &bottom);
-			bool top_outside = angle < 0.f;
+			bool top_outside = combineExtrudedLineSegments(seg1, seg2, &top, &bottom);
 			
-//			printf("%d,%d: %f (%d) (%f,%f,%f) (%f,%f,%f)\n", 
-//				   i, i+1, rad2deg(angle), top_outside,
-//				   top.x, top.y, top.z,
-//				   bottom.x, bottom.y, bottom.z);
-			
-			switch(join) {
-				case STROKE_JOIN_MITRE:
-					break;
-					
-				case STROKE_JOIN_BEVEL:
-					if(top_outside) {
-						stroke.push_back(segments[i].p3);
-						stroke.push_back(bottom);
-						stroke.push_back(segments[i+1].p1);
-						stroke.push_back(bottom);
-					}
-					else {
-						stroke.push_back(top);
-						stroke.push_back(segments[i].p4);
-						stroke.push_back(top);
-						stroke.push_back(segments[i+1].p2);
-					}
-					break;
-					
-				case STROKE_JOIN_ROUND:
-				{
-					float halfW = stroke_width / 2.f;
-					
-					if(top_outside) {
-						p1 = bottom;
-						p2 = segments[i].p3;
-						p3 = vertices[i+1].point;
-						p4 = segments[i+1].p1;
-						
-						stroke.push_back(p2);
-						stroke.push_back(p1);
-						
-						float a1 = angleBetweenPoints(p2, p3, p4);
-						if(a1 < 0)
-							a1 = M_PI + a1;
-						
-						poPoint diff = p2 - p3;
-						float a2 = atan2f(diff.y, diff.x);
-						
-						float step = a1 / 9.f;
-						float a = a2;
-						
-						for(int j=0; j<10; j++) {
-							tmp.set(cosf(a)*halfW, sinf(a)*halfW, 0.f);
-							stroke.push_back(tmp+p3);
-							stroke.push_back(p3);
-							a -= step;
-						}
-						
-						stroke.push_back(p4);
-						stroke.push_back(p1);
-					}
-					else {
-						p1 = top;
-						p2 = segments[i].p4;
-						p3 = vertices[i+1].point;
-						p4 = segments[i+1].p2;
-					
-						stroke.push_back(p1);
-						stroke.push_back(p2);
-						
-						float a1 = angleBetweenPoints(p2, p3, p4);
-						if(a1 > 0)
-							a1 = -(M_PI - a1);
-						
-						poPoint diff = p2 - p3;
-						float a2 = atan2f(diff.y, diff.x);
-						
-						float step = a1 / 9.f;
-						float a = a2;
-						
-						for(int j=0; j<10; j++) {
-							tmp.set(cosf(a)*halfW, sinf(a)*halfW, 0.f);
-							stroke.push_back(p3);
-							stroke.push_back(tmp+p3);
-							a -= step;
-						}
-						
-						stroke.push_back(p1);
-						stroke.push_back(p4);
-					}
-					
-					break;
-				}
+			if(top_outside) {
+				stroke.push_back(seg2.p1);
+				stroke.push_back(bottom);
+			}
+			else {
+				stroke.push_back(top);
+				stroke.push_back(seg2.p2);
 			}
 		}
-
-		// add the last cap
-		stroke.push_back(segments[segments.size()-1].p3);
-		stroke.push_back(segments[segments.size()-1].p4);
-	}
-}
-
-LineSeg extrudeLineSegment(poPoint p1, poPoint p2, float width) {
-	poPoint diff = p2 - p1;
-	float angle = atan2(diff.y, diff.x);
-	float halfW = width / 2.f;
-	float c1 = cosf(angle + M_HALF_PI) * halfW;
-	float s1 = sinf(angle + M_HALF_PI) * halfW;
-	float c2 = cosf(angle - M_HALF_PI) * halfW;
-	float s2 = sinf(angle - M_HALF_PI) * halfW;
-	return LineSeg(p1 + poPoint(c1,s1),
-				   p1 + poPoint(c2,s2),
-				   p2 + poPoint(c1,s1),
-				   p2 + poPoint(c2,s2));
-}
-
-float determinant(poPoint row1, poPoint row2, poPoint row3) {
-	return (row1.x*row2.y*row3.z + row1.y*row2.z*row3.x + row1.z*row2.x*row3.y -
-			row1.x*row2.z*row3.y - row1.y*row2.x*row3.z - row1.z*row2.y*row3.x);
-}
-
-bool rayIntersection(Ray r1, Ray r2, poPoint *p1, poPoint *p2) {
-	poPoint c1 = r1.dir.cross(r2.dir);
-	float len_sqr = c1.lengthSquared();
-	
-	if(compare(len_sqr, 0.f)) {
-		return false;
-	}
-	
-	poPoint diff = r2.origin - r1.origin;
-	float t1 = determinant(diff, r2.dir, c1) / len_sqr;
-	float t2 = determinant(diff, r1.dir, c1) / len_sqr;
-	
-	*p1 = r1.origin + r1.dir*t1;
-	*p2 = r2.origin + r2.dir*t2;
-	
-	return *p1 == *p2;
-}
-
-float angleBetweenPoints(poPoint a, poPoint b, poPoint c) {
-	poPoint ba = b - a;
-	poPoint bc = b - c;
-	
-	float ret = ::fmodf(atan2f(ba.y,ba.x) - atan2f(bc.y,bc.x), M_PI);
-	if(compare(ret,0.f) || compare(fabsf(ret),M_PI))
-		ret = 0.f;
-	return ret;
-}
-
-float angleBetweenSegments(LineSeg seg1, LineSeg seg2) {
-	poPoint p1 = (seg1.p2 - seg1.p1) / 2.f + seg1.p1;
-	poPoint p2 = (seg1.p4 - seg1.p3) / 2.f + seg1.p3;
-	poPoint p3 = (seg2.p4 - seg2.p3) / 2.f + seg2.p3;
-	
-	return angleBetweenPoints(p1, p2, p3);
-}
-
-float combineExtrudedLineSegments(LineSeg seg1, LineSeg seg2, poPoint *top, poPoint *bottom) {
-	poPoint i1, i2, i3, i4;
-	
-	float angle = angleBetweenSegments(seg1, seg2);
-	
-	if(compare(angle,0.f)) {
-		*top = seg1.p3;
-		*bottom = seg2.p4;
-	}
-	else {
-		rayIntersection(Ray(seg1.p2, seg1.p4-seg1.p2),
-						Ray(seg2.p4, seg2.p2-seg2.p4),
-						&i1, &i2);
+		else {
+			// add the first cap
+			stroke.push_back(segments[0].p1);
+			stroke.push_back(segments[0].p2);
+		}
 		
-		rayIntersection(Ray(seg1.p1, seg1.p3-seg1.p1),
-						Ray(seg2.p3, seg2.p1-seg2.p3),
-						&i3, &i4);
-		
-		*top = i3;
-		*bottom = i1;
+		// generate middle points
+		for(int i=0; i<segments.size()-1; i++) {
+			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, stroke_width);
+		}
+
+		if(!closed_) {
+			stroke.push_back(segments[segments.size()-1].p3);
+			stroke.push_back(segments[segments.size()-1].p4);
+		}
 	}
-	
-	return angle;
 }

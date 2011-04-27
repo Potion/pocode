@@ -6,16 +6,16 @@
 
 #include "poObject.h"
 #include "poSimpleDrawing.h"
+#include "poTexture.h"
+
+enum VertexAttribute {
+	ATTRIB_POINT = 0,
+	ATTRIB_COLOR = 1,
+	ATTRIB_TEX_COORD = 2,
+	ATTRIB_NORMAL = 4
+};
 
 struct poVertex {
-	
-	enum Attribute {
-		ATTRIB_POINT = 0,
-		ATTRIB_COLOR = 1,
-		ATTRIB_TEX_COORD = 2,
-		ATTRIB_NORMAL = 4
-	};
-	
 	poVertex(poPoint pt=poPoint(0,0), poPoint texc=poPoint(0,0), poColor col=poColor(1,1,1,1), poPoint norm=poPoint())
 	: point(pt), color(col), normal(norm), texCoord(texc)
 	{}
@@ -26,22 +26,21 @@ struct poVertex {
 	poPoint normal;
 };
 
+enum StrokeCapProperty {
+	STROKE_CAP_BUTT = 0,
+	STROKE_CAP_ROUND = 1,
+	STROKE_CAP_SQUARE = 2
+};
+enum StrokeJoinProperty {
+	STROKE_JOIN_MITRE = 0,
+	STROKE_JOIN_BEVEL = 1,
+	STROKE_JOIN_ROUND = 2
+};
 
 class poShape2D
 :	public poObject
 {
 public:
-	
-	enum StrokeCapProperty {
-		STROKE_CAP_BUTT = 0,
-		STROKE_CAP_ROUND = 1,
-		STROKE_CAP_SQUARE = 2
-	};
-	enum StrokeJoinProperty {
-		STROKE_JOIN_MITRE = 0,
-		STROKE_JOIN_BEVEL = 1,
-		STROKE_JOIN_ROUND = 2
-	};
 	
 	poShape2D();
 
@@ -64,38 +63,35 @@ public:
 	
 	virtual void setAlignment(poAlignment align);
 	virtual poRect calculateBounds(bool include_children=false);
+	
+	void placeTexture(poTexture tex);
+	void generateStroke();
 
 	// properties
 	bool isFillEnabled() const;
-	void enableFill(bool b);
-	
 	bool isStrokeEnabled() const;
-	void enableStroke(bool b);
-	
 	int strokeWidth() const;
-	void strokeWidth(int w);
-	
 	poColor fillColor() const;
-	void fillColor(poColor c);
-	
 	poColor strokeColor() const;
-	void strokeColor(poColor c);
-	
 	GLenum fillDrawStyle() const;
-	void fillDrawStyle(GLenum e);
-
-	bool isAttributeEnabled(poVertex::Attribute a) const;
-	void enableAttribute(poVertex::Attribute a);
-	
+	bool isAttributeEnabled(VertexAttribute a) const;
 	StrokeCapProperty capStyle() const;
-	void capStyle(StrokeCapProperty p);
-	
 	StrokeJoinProperty joinStyle() const;
+	bool isClosed() const;
+
+	void enableFill(bool b);
+	void enableStroke(bool b);
+	void strokeWidth(int w);
+	void fillColor(poColor c);
+	void strokeColor(poColor c);
+	void fillDrawStyle(GLenum e);
+	void enableAttribute(VertexAttribute a);
+	void disableAttribute(VertexAttribute a);
+	void capStyle(StrokeCapProperty p);
 	void joinStyle(StrokeJoinProperty p);
-	
+	void closed(bool b);
+
 private:
-	void generateStroke();
-	
 	std::vector<poVertex> vertices;
 	std::vector<poPoint> stroke;
 
@@ -108,37 +104,6 @@ private:
 	int enabled_attributes;
 	StrokeCapProperty cap;
 	StrokeJoinProperty join;
+	poTexture texture;
+	bool closed_;
 };
-
-struct LineSeg { 
-	poPoint p1, p2, p3, p4;
-	LineSeg()
-	{}
-	LineSeg(poPoint ul, poPoint ll, poPoint ur, poPoint lr)
-	:	p1(ul)
-	,	p2(ll)
-	,	p3(ur)
-	,	p4(lr)
-	{}
-};
-
-struct Ray {
-	poPoint origin, dir;
-	Ray(poPoint o, poPoint d)
-	:	origin(o)
-	,	dir(normalize(d))
-	{}
-};
-
-// returns quads for a given line segment
-LineSeg extrudeLineSegment(poPoint p1, poPoint p2, float width);
-// cheap 'matrix' determinant
-float determinant(poPoint row1, poPoint row2, poPoint row3);
-// angle ABC
-float angleBetweenPoints(poPoint a, poPoint b, poPoint c);
-// angle ABC but with extruded line segments
-float angleBetweenSegments(LineSeg seg1, LineSeg seg2);
-// returns false if parallel, p1 = intersection or p1 and p2 = closest point on each
-bool rayIntersection(Ray r1, Ray r2, poPoint *p1, poPoint *p2);
-// returns angle between segments, out-vars are top/bottom intersections
-float combineExtrudedLineSegments(LineSeg seg1, LineSeg seg2, poPoint *top, poPoint *bottom);

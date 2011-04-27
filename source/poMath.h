@@ -14,6 +14,29 @@
 #define M_HALF_PI (M_PI/2.0)
 #define M_QUARTER_PI (M_HALF_PI/2.0)
 
+struct poExtrudedLineSeg { 
+	poPoint p1, p2, p3, p4;
+	poExtrudedLineSeg();
+	poExtrudedLineSeg(poPoint a, poPoint b, float w);
+	poExtrudedLineSeg(poPoint ul, poPoint ll, poPoint ur, poPoint lr);
+};
+
+struct poRay {
+	poPoint origin, dir;
+	poRay(poPoint o, poPoint d);
+};
+
+// cheap 'matrix' determinant
+float determinant(poPoint row1, poPoint row2, poPoint row3);
+// angle ABC
+float angleBetweenPoints(poPoint a, poPoint b, poPoint c);
+// angle ABC but with extruded line segments
+float angleBetweenSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2);
+// returns false if parallel, p1 = intersection or p1 and p2 = closest point on each
+bool rayIntersection(poRay r1, poRay r2, poPoint *p1, poPoint *p2);
+// returns true if top is on the outside
+bool combineExtrudedLineSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2, poPoint *top, poPoint *bottom);
+
 inline bool compare(float f1, float f2, float range=1.0e-6f) {
 	return ::fabs(f1-f2) < range;
 }
