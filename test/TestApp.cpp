@@ -4,17 +4,25 @@
 #include "poImage.h"
 
 void setupApplication() {
+	FreeImage_Initialise();
+
+	// make the application
 	poApplication *app = poApplication::get();
-	app->addWindow(new poWindow(new TestObj(), WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600));
+	
+	// make the window and add a root
+	poWindow *win = new poWindow(WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600);
+	win->setRootObject(new TestObj());
+	
+	// add the window
+	app->addWindow(win);
 }
 
 void cleanupApplication() {
+	// delete all the windows
+	poApplication::get()->quit();
 }
 
-void TestObj::setup() {
-	glEnable(GL_TEXTURE_2D);
-	FreeImage_Initialise();
-
+TestObj::TestObj() {
 	poEventCenter::get()->registerForEvent(PO_MOUSE_DOWN_EVENT, this);
 	poEventCenter::get()->registerForEvent(PO_MOUSE_UP_EVENT, this);
 	
@@ -26,8 +34,17 @@ void TestObj::setup() {
 	shape->addPoint(poPoint(100,100,0));
 	shape->addPoint(poPoint(100,0,0));
 	
-	shape->placeTexture(poTexture(poImage("images/alfred_e_neuman.jpg")));
+	poImage *img1 = resources.add(new poImage("images/alfred_e_neuman.jpg"));
+	poImage *img2 = resources.add(new poImage("images/meatballspoon.jpg"));
+	poTexture *tex1 = resources.add(new poTexture(img1));
+	poTexture *tex2 = resources.add(new poTexture(img2));
+
+	shape->placeTexture(tex1, 1);
+	shape->placeTexture(tex2, 2);
+	shape->textureCombineFunction(GL_COMBINE, 2);
+	shape->joinStyle(STROKE_JOIN_ROUND);
 	shape->strokeWidth(30);
+	shape->strokeColor(poColor(.3,.3,.8,1));
 	shape->closed(true);
 	shape->generateStroke();
 	shape->position.set(100,300,0);

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <FreeImage.h>
+#include "poResource.h"
 
 enum ImageBitDepth {
 	IMAGE_8 = 8,
@@ -17,31 +18,27 @@ enum ImageBitDepth {
 	IMAGE_32 = 32
 };
 
-class poImage {
+class poImage 
+	: public poResource
+{
 public:
 	poImage();
 	poImage(const std::string &url);
 	poImage(const std::string &url, ImageBitDepth bpp);
 	poImage(uint w, uint h, ImageBitDepth bpp, ubyte *pixels);
-	poImage(const poImage &img);
-	poImage &operator=(const poImage &img);
-	poImage copy();
+	~poImage();
+	poImage *copy();
 	
 	uint width() const;
 	uint height() const;
 	ImageBitDepth bpp() const;
+	uint pitch() const;
+	uint storageSize() const;
 	ubyte const*pixels() const;
 	
 private:
-	struct img_impl {
-		~img_impl();
-		img_impl(const std::string &url);
-		img_impl(const std::string &url, ImageBitDepth bpp);
-		img_impl(uint w, uint h, ImageBitDepth bpp, ubyte *pix);
-
-		FIBITMAP *bitmap;
-	};
-	boost::shared_ptr<img_impl> reference;
+	void load(const std::string &url);
+	void load(const std::string &url, ImageBitDepth bpp);
+	void load(uint w, uint h, ImageBitDepth bpp, ubyte *pix);
+	FIBITMAP *bitmap;
 };
-
-

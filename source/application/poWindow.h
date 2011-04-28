@@ -6,11 +6,9 @@ class poObject;
 
 class poWindow {
 public:
-	poWindow(poObject *root, 
-			 poWindowType type,
+	poWindow(poWindowType type,
 		     const std::string &title,
 		     int x, int y, int w, int h);
-
 	~poWindow();
 
 	// called when the user moves the window
@@ -33,9 +31,7 @@ public:
 	int getId();
 	poObject* getRootObject();
 
-	void setup();
-	void cleanup();
-
+	void makeCurrent();
 	void update();
 	void draw();
 

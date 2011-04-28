@@ -25,25 +25,21 @@ poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
 	return NULL;
 }
 
-poWindow::poWindow(poObject *root,
-				   poWindowType type,
+poWindow::poWindow(poWindowType type,
 				   const std::string &title,
 				   int x, int y, int w, int h)
 :	impl(NULL)
-,	root(root)
+,	root(NULL)
 ,   mouse_receiver(NULL)
 ,   mouse_hover(NULL)
 ,   key_receiver(NULL)
 {
 	impl = new WINDOW_IMPL_TYPE(this, type, title, x, y, w, h);
 	impl->initialize();
-	
-	poApplication::get()->currentWindow = this;
-	root->setup();
+	makeCurrent();
 }
 
 poWindow::~poWindow() {
-	cleanup();
 	delete impl;
 	delete root;
 }
@@ -114,21 +110,24 @@ poObject *poWindow::getRootObject() {
 	return root;
 }
 
-void poWindow::setup() {
-}
-
-void poWindow::cleanup() {
+void poWindow::makeCurrent() {
+	poApplication::get()->currentWindow = this;
 }
 
 void poWindow::update() {
-	root->_updateTree();
+	if(root)
+		root->_updateTree();
 }
 
 void poWindow::draw() {
-	root->_drawTree();
+	if(root)
+		root->_drawTree();
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
@@ -151,6 +150,9 @@ void poWindow::mouseDown(int x, int y, int mod) {
 }
 
 void poWindow::mouseUp(int x, int y, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
@@ -168,6 +170,9 @@ void poWindow::mouseUp(int x, int y, int mod) {
 }
 
 void poWindow::mouseMove(int x, int y, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
@@ -195,6 +200,9 @@ void poWindow::mouseMove(int x, int y, int mod) {
 }
 
 void poWindow::mouseDrag(int x, int y, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.position.set(x, getHeight()-y, 0.f);
 	event.modifiers = mod;
@@ -217,9 +225,15 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 }
 
 void poWindow::mouseWheel(int x, int y, int mod, int num_steps) {
+	if(!root)
+		return;
+	
 }
 
 void poWindow::keyDown(char key, int code, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.keyCode = key;
 	event.keyChar = code;
@@ -235,6 +249,9 @@ void poWindow::keyDown(char key, int code, int mod) {
 }
 
 void poWindow::keyUp(char key, int code, int mod) {
+	if(!root)
+		return;
+	
 	poEvent event;
 	event.keyCode = code;
 	event.keyChar = key;

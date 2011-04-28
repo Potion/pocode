@@ -16,14 +16,10 @@ public:
 	
 	// kill all windows and the application
 	void quit() {
-		using namespace std;
-		list<poWindow*>::iterator iter = windows.begin();
-		while(iter != windows.end()) {
-			poWindow *window = *iter;
-			// move the iterator before deleting the window
-			iter = windows.erase(iter++);
-			delete window;
+		BOOST_FOREACH(poWindow *win, windows) {
+			delete win;
 		}
+		windows.clear();
 	}
 	
 	int numWindows() const {
@@ -31,29 +27,24 @@ public:
 	}
 	
 	void addWindow(poWindow* window) {
-		using namespace std;
-		if(find(windows.begin(), windows.end(), window) == windows.end()) {
-			windows.push_back(window);
-		}
+		windows.insert(window);
 	}
 	
 	void removeWindow(poWindow* window) {
-		windows.remove(window);
+		windows.erase(window);
 	}
 	
 	// get window with id
 	poWindow* getWindow(int id) {
-		using namespace std;
-		for(list<poWindow*>::iterator iter=windows.begin(); iter!=windows.end(); iter++) {
-			poWindow *window = *iter;
-			if(window->getId() == id)
-				return window;
+		BOOST_FOREACH(poWindow *win, windows) {
+			if(win->getId() == id)
+				return win;
 		}
 		return NULL;
 	}
 	
 	double framerate;
-	std::list<poWindow*> windows;
+	std::set<poWindow*> windows;
 	poWindow *currentWindow;
 
 private:

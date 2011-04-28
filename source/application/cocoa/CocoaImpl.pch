@@ -8,6 +8,7 @@
 #if defined(__cplusplus)
 #include <string>
 #include <vector>
+#include <set>
 #include <list>
 #include <stack>
 #include <algorithm>
@@ -28,5 +29,6 @@ namespace fs = boost::filesystem;
 
 typedef unsigned int uint;
 typedef unsigned char ubyte;
+typedef unsigned short ushort;
 
 #endif

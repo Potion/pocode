@@ -56,12 +56,15 @@ static BOOL yes_arg = YES;
 }
 
 -(void)dealloc {
+	poApplication::get()->removeWindow(self.appWindow);
+	printf("bye\n");
 	[timer invalidate];
 	[super dealloc];
 }
 
 -(void)drawRect:(NSRect)rect {
-	poApplication::get()->currentWindow = self.appWindow;
+	[self.openGLContext makeCurrentContext];
+	self.appWindow->makeCurrent();
 	self.appWindow->update();
 	self.appWindow->draw();
 	[self.openGLContext flushBuffer];
@@ -140,6 +143,7 @@ void makeNSWindow(poWindow *powin, void **win, void **gl, int x, int y, int w, i
 	window.contentView = opengl;
 	[window makeKeyAndOrderFront:nil];
 	[window setAcceptsMouseMovedEvents:YES];
+	[window setReleasedWhenClosed:NO];
 	
 	*win = window;
 	*gl = opengl;
@@ -151,6 +155,7 @@ void makeNSWindow(poWindow *powin, void **win, void **gl, int x, int y, int w, i
 void destroyNSWindow(void *win, void *gl) {
 	NSWindow *window = (NSWindow*)win;
 	[window close];
+	[window release];
 }
 
 void moveNSWindow(void *win, void *glview, int x, int y, int w, int h) {

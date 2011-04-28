@@ -11,46 +11,49 @@
 poImage::poImage() {}
 
 poImage::poImage(const std::string &url) {
-	reference = boost::shared_ptr<img_impl>(new img_impl(url));
+	load(url);
 }
 
 poImage::poImage(const std::string &url, ImageBitDepth bpp) {
-	reference = boost::shared_ptr<img_impl>(new img_impl(url, bpp));
+	load(url, bpp);
 }
 
 poImage::poImage(uint w, uint h, ImageBitDepth bpp, ubyte *p) {
-	reference = boost::shared_ptr<img_impl>(new img_impl(w,h,bpp,p));
+	load(w, h, bpp, p);
 }
 
-poImage::poImage(const poImage &img) {
-	reference = img.reference;
+poImage::~poImage() {
+	FreeImage_Unload(bitmap);
 }
 
-poImage &poImage::operator=(const poImage &img) {
-	reference = img.reference;
-	return *this;
-}
-
-poImage poImage::copy() {
-	poImage img;
-	img.reference->bitmap = FreeImage_Clone(reference->bitmap);
+poImage *poImage::copy() {
+	poImage *img = new poImage();
+	img->bitmap = FreeImage_Clone(bitmap);
 	return img;
 }
 
 uint poImage::width() const {
-	return FreeImage_GetWidth(reference->bitmap);
+	return FreeImage_GetWidth(bitmap);
 }
 
 uint poImage::height() const {
-	return FreeImage_GetHeight(reference->bitmap);
+	return FreeImage_GetHeight(bitmap);
 }
 
 ImageBitDepth poImage::bpp() const {
-	return (ImageBitDepth)FreeImage_GetBPP(reference->bitmap);
+	return (ImageBitDepth)FreeImage_GetBPP(bitmap);
+}
+
+uint poImage::pitch() const {
+	return FreeImage_GetPitch(bitmap);
+}
+
+uint poImage::storageSize() const {
+	return pitch() * height();
 }
 
 ubyte const*poImage::pixels() const {
-	return FreeImage_GetBits(reference->bitmap);
+	return FreeImage_GetBits(bitmap);
 }
 
 FIBITMAP *loadDIB(const std::string &url) {
@@ -71,11 +74,11 @@ FIBITMAP *loadDIB(const std::string &url) {
 	return dib;
 }
 
-poImage::img_impl::img_impl(const std::string &url) {
+void poImage::load(const std::string &url) {
 	bitmap = loadDIB(url);
 }
 
-poImage::img_impl::img_impl(const std::string &url, ImageBitDepth bpp) {
+void poImage::load(const std::string &url, ImageBitDepth bpp) {
 	bitmap = loadDIB(url);
 	if(bitmap && FreeImage_GetBPP(bitmap) != bpp) {
 		FIBITMAP *dst = NULL;
@@ -100,13 +103,8 @@ poImage::img_impl::img_impl(const std::string &url, ImageBitDepth bpp) {
 	}
 }
 
-poImage::img_impl::img_impl(uint w, uint h, ImageBitDepth bpp, ubyte *pix) {
+void poImage::load(uint w, uint h, ImageBitDepth bpp, ubyte *pix) {
 	// i'm not ready to implement this just now
-}
-
-poImage::img_impl::~img_impl() {
-	FreeImage_Unload(bitmap);
-	printf("delete image\n");
 }
 
 

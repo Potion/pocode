@@ -53,7 +53,6 @@ poObject::~poObject() {
 	removeAllChildren(true);
 }
 
-void poObject::setup() {}
 void poObject::draw() {}
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}

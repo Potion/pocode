@@ -39,3 +39,22 @@ enum poWindowType {
 	WINDOW_TYPE_BORDERLESS = 1,
 	WINDOW_TYPE_FULLSCREEN = 2
 };
+
+enum VertexAttribute {
+	ATTRIB_POINT = 0,
+	ATTRIB_COLOR = 1,
+	ATTRIB_TEX_COORD = 2,
+};
+
+enum StrokeCapProperty {
+	STROKE_CAP_BUTT = 0,
+	STROKE_CAP_ROUND = 1,
+	STROKE_CAP_SQUARE = 2
+};
+
+enum StrokeJoinProperty {
+	STROKE_JOIN_MITRE = 0,
+	STROKE_JOIN_BEVEL = 1,
+	STROKE_JOIN_ROUND = 2
+};
+

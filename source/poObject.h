@@ -27,9 +27,6 @@ public:
 					poObject(const std::string &name);
 	virtual			~poObject();
 	
-    // will get called once the opengl context exists
-    virtual void    setup();
-	
 	// WORK-HORSES
 	virtual void	draw();
 	virtual void	update();
