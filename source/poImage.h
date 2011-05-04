@@ -27,6 +27,7 @@ public:
 	poImage(const std::string &url, ImageBitDepth bpp);
 	poImage(uint w, uint h, ImageBitDepth bpp, ubyte *pixels);
 	~poImage();
+	
 	poImage *copy();
 	
 	uint width() const;

@@ -20,6 +20,7 @@ public:
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
 			  uint width, uint height, uint num_bytes, ubyte const*pixels);
 	~poTexture();
+	
 	poTexture *copy();
 
 	uint uid() const;

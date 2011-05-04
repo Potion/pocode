@@ -65,7 +65,7 @@ inline bool quadInOutFunc(float *v, float bv, float ev,
 		*v = (ev-bv)/2.f * t2*t2 + bv;
 	else {
 		t2--;
-		*v = -(ev-bv)/2.f * (t2*(t2-2.f)-1.f) + b;
+		*v = -(ev-bv)/2.f * (t2*(t2-2.f)-1.f) + bv;
 	}
 	return (t-b) >= d;
 }

@@ -2,6 +2,7 @@
 #include "poSimpleDrawing.h"
 #include "poShape2D.h"
 #include "poImage.h"
+#include "poFont.h"
 
 void setupApplication() {
 	FreeImage_Initialise();
@@ -23,32 +24,16 @@ void cleanupApplication() {
 }
 
 TestObj::TestObj() {
-	poEventCenter::get()->registerForEvent(PO_MOUSE_DOWN_EVENT, this);
-	poEventCenter::get()->registerForEvent(PO_MOUSE_UP_EVENT, this);
-	
 	glClearColor(0,0,0,1);
 	
-	poShape2D* shape = new poShape2D();
-	shape->addPoint(poPoint(0,0,0));
-	shape->addPoint(poPoint(0,100,0));
-	shape->addPoint(poPoint(100,100,0));
-	shape->addPoint(poPoint(100,0,0));
+	poFont *f1 = new poFont("fonts/ScalaPro.otf", 100);
+	poShape2D *glyph = f1->getGlyphOutline("£");
+	glyph->fillDrawStyle(GL_LINE_STRIP);
+	glyph->fillColor(poColor(.3,.3,.3,1));
+	glyph->position.set(100,100,0);
+	addChild(glyph);
 	
-	poImage *img1 = resources.add(new poImage("images/alfred_e_neuman.jpg"));
-	poImage *img2 = resources.add(new poImage("images/meatballspoon.jpg"));
-	poTexture *tex1 = resources.add(new poTexture(img1));
-	poTexture *tex2 = resources.add(new poTexture(img2));
-
-	shape->placeTexture(tex1, 1);
-	shape->placeTexture(tex2, 2);
-	shape->textureCombineFunction(GL_COMBINE, 2);
-	shape->joinStyle(STROKE_JOIN_ROUND);
-	shape->strokeWidth(30);
-	shape->strokeColor(poColor(.3,.3,.8,1));
-	shape->closed(true);
-	shape->generateStroke();
-	shape->position.set(100,300,0);
-	addChild(shape);
+	resources.add(f1);
 }
 
 void TestObj::update() {
@@ -65,35 +50,4 @@ void TestObj::draw() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	static int pt_idx = -1;
-	
-	switch(event->type) {
-		case PO_MOUSE_DOWN_EVENT:
-		{
-			pt_idx = -1;
-			poShape2D *shape = getChildAs<poShape2D>(this,0);
-			for(int i=0; i<shape->numPoints(); i++) {
-				poPoint pt = shape->getPoint(i);
-				if((pt-shape->globalToLocal(event->position)).length() < 10) {
-					pt_idx = i;
-					drag_event_id = poEventCenter::get()->registerForEvent(PO_MOUSE_MOVE_EVENT, this);
-				}
-			}
-			break;
-		}
-			
-		case PO_MOUSE_UP_EVENT:
-			poEventCenter::get()->removeEvent(drag_event_id);
-			break;
-			
-		case PO_MOUSE_MOVE_EVENT:
-		{
-			poShape2D *shape = getChildAs<poShape2D>(this,0);
-			poPoint &pt = shape->getPoint(pt_idx);
-			pt = shape->globalToLocal(event->position);
-			pt.z = 0.f;
-			shape->generateStroke();
-			break;
-		}
-	}
 }

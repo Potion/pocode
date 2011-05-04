@@ -65,7 +65,7 @@ public:
 
 private:
 	std::vector<poPoint> points;
-	std::vector<poPoint> tex_coords[GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS];
+	std::vector<poPoint> tex_coords[MAX_TEXTURE_UNITS];
 	std::vector<poColor> colors;
 	std::vector<poPoint> stroke;
 
