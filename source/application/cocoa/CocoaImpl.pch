@@ -11,6 +11,7 @@
 #include <set>
 #include <list>
 #include <stack>
+#include <map>
 #include <algorithm>
 
 #include <boost/any.hpp>
@@ -26,6 +27,12 @@
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
+
+#include "tinyxml.h"
+#include "xpath_static.h"
+
+class poFont;
+typedef std::map<std::string, poFont*> poFontMap;
 
 typedef unsigned int uint;
 typedef unsigned char ubyte;

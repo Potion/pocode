@@ -12,7 +12,7 @@ void formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_form
 	switch(bpp) {
 		case IMAGE_8:
 			*format = GL_LUMINANCE;
-			*internal_format = 1;
+			*internal_format = GL_LUMINANCE;
 			*type = GL_UNSIGNED_BYTE;
 			break;
 			
@@ -98,6 +98,7 @@ poTexture::~poTexture() {
 			pullFromCard();
 		if(storingPixels())
 			deleteLocalMemory();
+		delete ref_count;
 	}
 }
 

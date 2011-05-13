@@ -9,7 +9,7 @@ poShape2D::poShape2D()
 ,	fill_draw_style(GL_TRIANGLE_FAN)
 ,	enabled_attributes(ATTRIB_POINT)
 ,	closed_(false)
-,	textures(MAX_TEXTURE_UNITS,NULL)
+,	textures(MAX_TEXTURE_UNITS)
 ,	tex_combo_func(MAX_TEXTURE_UNITS, GL_REPLACE)
 {}
 

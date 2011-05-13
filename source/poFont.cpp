@@ -53,12 +53,51 @@ static void pathApplicator(void *info, const CGPathElement *element) {
 	}
 }
 
+static CTFontSymbolicTraits appleFontTraits(int traits) {
+	CTFontSymbolicTraits apple_traits = 0;
+	if(traits & FONT_ITALIC)
+		apple_traits |= kCTFontItalicTrait;
+	if(traits & FONT_BOLD)
+		apple_traits |= kCTFontBoldTrait;
+	if(traits & FONT_EXPANDED)
+		apple_traits |= kCTFontExpandedTrait;
+	if(traits & FONT_CONDENSED)
+		apple_traits |= kCTFontCondensedTrait;
+	if(traits & FONT_MONO)
+		apple_traits |= kCTFontMonoSpaceTrait;
+	return apple_traits;
+}
+
 struct poFont::poFontImpl {
 	CTFontRef font;
 	
 	poFontImpl()
 	:	font(NULL)
 	{}
+	
+	poFontImpl(const std::string &family, int traits, float point_size) {
+		CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		
+		CFStringRef cfstr = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
+		CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, cfstr);
+		CFRelease(cfstr);
+		
+		CTFontSymbolicTraits apple_traits = appleFontTraits(traits);
+		CFNumberRef apple_traits_num = CFNumberCreate(NULL, kCFNumberSInt32Type, &apple_traits);
+		
+		CFMutableDictionaryRef traits_dict = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		CFDictionaryAddValue(traits_dict, kCTFontSymbolicTrait, apple_traits_num);
+		CFDictionaryAddValue(attributes, kCTFontTraitsAttribute, traits_dict);
+		
+		CFRelease(traits_dict);
+		CFRelease(apple_traits_num);
+		
+		CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
+		CFRelease(attributes);
+		
+		font = CTFontCreateWithFontDescriptor(descriptor, point_size, NULL);
+		CFRelease(descriptor);
+	}
 	
 	poFontImpl(const std::string &name, float size) {
 		CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8*)name.c_str(), name.size(), true);
@@ -120,7 +159,10 @@ struct poFont::poFontImpl {
 		CFRelease(cfstr);
 		return helper.shape;
 	}
-	
+
+	void *osFontHandle() {
+		return (void*)font;
+	}
 };
 #endif
 
@@ -128,8 +170,12 @@ poFont::poFont()
 :	impl(NULL)
 {}
 
-poFont::poFont(const std::string &font_name, float point_size) {
-	impl = new poFontImpl(font_name, point_size);
+poFont::poFont(const std::string &family, int traits, float point_size) {
+	impl = new poFontImpl(family, traits, point_size);
+}
+
+poFont::poFont(const std::string &url, float point_size) {
+	impl = new poFontImpl(url, point_size);
 }
 
 poFont::~poFont() {
@@ -149,3 +195,6 @@ poShape2D *poFont::getGlyphOutline(const std::string &str) {
 	return impl->getGlyphOutline(str);
 }
 
+void *poFont::osFontHandle() const {
+	return impl->osFontHandle();
+}

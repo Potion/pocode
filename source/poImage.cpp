@@ -7,18 +7,30 @@
 //
 
 #include "poImage.h"
+#include <FreeImage.h>
 
-poImage::poImage() {}
+static void loadFreeImageIfNeeded() {
+	static bool free_image_loaded = false;
+	if(!free_image_loaded) {
+		FreeImage_Initialise();
+		free_image_loaded = true;
+	}
+}
+
+poImage::poImage() {loadFreeImageIfNeeded();}
 
 poImage::poImage(const std::string &url) {
+	loadFreeImageIfNeeded();
 	load(url);
 }
 
 poImage::poImage(const std::string &url, ImageBitDepth bpp) {
+	loadFreeImageIfNeeded();
 	load(url, bpp);
 }
 
 poImage::poImage(uint w, uint h, ImageBitDepth bpp, ubyte *p) {
+	loadFreeImageIfNeeded();
 	load(w, h, bpp, p);
 }
 

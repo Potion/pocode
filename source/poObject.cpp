@@ -4,9 +4,6 @@
 
 #include "poObject.h"
 
-std::stack<float>	poObject::alpha_stack;
-float				poObject::master_alpha = 1.f;
-
 poObject::poObject() 
 :	parent(NULL)
 ,	name("")
@@ -26,6 +23,8 @@ poObject::poObject()
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
+,	master_alpha(1.f)
+,	true_alpha(1.f)
 {}
 
 poObject::poObject(const std::string &name)
@@ -47,6 +46,8 @@ poObject::poObject(const std::string &name)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
+,	master_alpha(1.f)
+,	true_alpha(1.f)
 {}
 
 poObject::~poObject() {
@@ -190,7 +191,7 @@ void poObject::_drawTree() {
 	if(!enabled)
 		return;
 	
-	pushObjectMatrix();
+	pushObjectMatrix(master_alpha);
 
 	preDraw();
 	
@@ -246,12 +247,12 @@ void poObject::updateAllTweens() {
 	rotation_tween.update();
 }
 
-void poObject::pushObjectMatrix() {
+void poObject::pushObjectMatrix(float parent_alpha) {
 	glPushMatrix();
 	
 	// modify the alpha stack
-	alpha_stack.push(master_alpha);
-	master_alpha *= alpha;
+	true_alpha = master_alpha;
+	master_alpha = parent_alpha * alpha;
 	
 	// now move depending on the matrix order
 	switch(matrix_order) {
@@ -276,8 +277,7 @@ void poObject::pushObjectMatrix() {
 
 void poObject::popObjectMatrix() {
 	// rewind the alpha stack
-	master_alpha = alpha_stack.top();
-	alpha_stack.pop();
+	master_alpha = true_alpha;
 
 	// and reset gl
 	glPopMatrix();

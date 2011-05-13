@@ -10,11 +10,22 @@
 
 class poShape2D;
 
+enum {
+	FONT_ITALIC		= 1,
+	FONT_BOLD		= 2,
+	FONT_EXPANDED	= 4,
+	FONT_CONDENSED	= 8,
+	FONT_MONO		= 16,
+};
+
 class poFont
 :	public poResource
 {
 public:
-	poFont(const std::string &font_name, float point_size);
+	// system font
+	poFont(const std::string &family, int traits, float point_size);
+	// file-based font
+	poFont(const std::string &url, float point_size);
 	virtual ~poFont();
 	
 	poFont *copy();
@@ -23,6 +34,8 @@ public:
 	float size() const;
 	// misleading: this is only 1 character, but potentially several bytes long
 	poShape2D *getGlyphOutline(const std::string &str);
+	
+	void *osFontHandle() const;
 	
 private:
 	poFont();

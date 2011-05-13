@@ -5,8 +5,15 @@
 
 static BOOL yes_arg = YES;
 
+CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
+								const CVTimeStamp *inNow,
+								const CVTimeStamp *inOutputTime,
+								CVOptionFlags flagsIn,
+								CVOptionFlags *flagsOut,
+								void *displayLinkContext);
+
 @interface poOpenGLView : NSOpenGLView {
-	NSTimer *timer;
+	CVDisplayLinkRef display_link;
 	poWindow *appWindow;
 }
 @property (assign,nonatomic) poWindow *appWindow;
@@ -26,7 +33,7 @@ static BOOL yes_arg = YES;
 		NSOpenGLPFAAccumSize, 64,
 		0
 	};
-	return [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
+	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
 }
 
 -(BOOL)acceptsFirstResponder {
@@ -41,33 +48,44 @@ static BOOL yes_arg = YES;
 	self = [super initWithFrame:frm pixelFormat:[poOpenGLView defaultPixelFormat]];
 	if(self) {
 		self.appWindow = win;
-		
-		SEL selector = @selector(setNeedsDisplay:);
-		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[poOpenGLView instanceMethodSignatureForSelector:selector]];
-		[invocation setTarget:self];
-		[invocation setSelector:selector];
-		[invocation setArgument:&yes_arg atIndex:2];
-		timer = [NSTimer scheduledTimerWithTimeInterval:(1.0/poApplication::get()->framerate)
-											 invocation:invocation
-												repeats:YES];
-		
+		display_link = nil;
 	}
 	return self;
 }
 
 -(void)dealloc {
 	poApplication::get()->removeWindow(self.appWindow);
-	printf("bye\n");
-	[timer invalidate];
 	[super dealloc];
 }
 
--(void)drawRect:(NSRect)rect {
+-(void)viewDidMoveToWindow {
+	// we were either added or removed from a window
+	if(self.window) {
+		CGDirectDisplayID displayID = (CGDirectDisplayID)[[[[self.window screen] deviceDescription] objectForKey:@"NSScreenNumber"] intValue];
+		CVDisplayLinkCreateWithCGDisplay(displayID, &display_link);
+		CVDisplayLinkSetOutputCallback(display_link, MyDisplayLinkCallback, self);
+		CVDisplayLinkStart(display_link);
+	}
+	else {
+		CVDisplayLinkStop(display_link);
+		CVDisplayLinkRelease(display_link);
+	}
+}
+
+CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
+								const CVTimeStamp *inNow,
+								const CVTimeStamp *inOutputTime,
+								CVOptionFlags flagsIn,
+								CVOptionFlags *flagsOut,
+								void *displayLinkContext)
+{
+	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 	[self.openGLContext makeCurrentContext];
 	self.appWindow->makeCurrent();
 	self.appWindow->update();
 	self.appWindow->draw();
 	[self.openGLContext flushBuffer];
+	return kCVReturnSuccess;
 }
 
 -(void)keyDown:(NSEvent*)event {

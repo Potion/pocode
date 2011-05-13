@@ -43,13 +43,11 @@ public:
 		return NULL;
 	}
 	
-	double framerate;
 	std::set<poWindow*> windows;
 	poWindow *currentWindow;
 
 private:
 	explicit poApplication()
-	:	framerate(60.0)
 	{}
 	
     virtual ~poApplication() {}

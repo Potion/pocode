@@ -8,8 +8,9 @@
 
 #pragma once
 
-#include <FreeImage.h>
 #include "poResource.h"
+
+struct FIBITMAP;
 
 enum ImageBitDepth {
 	IMAGE_8 = 8,

@@ -93,13 +93,13 @@ public:
 	void			_broadcastEvent(poEvent* event);
 
 protected:
-	static float	master_alpha;
+	float			master_alpha;
 
 	// if you add new tweens make sure to update them here 
 	virtual void	updateAllTweens();
 
 private:
-	void			pushObjectMatrix();
+	void			pushObjectMatrix(float parent_alpha);
 	void			popObjectMatrix();
 	void			localizeEvent(poEvent*, poEvent*, poPoint);
 	
@@ -108,7 +108,7 @@ private:
 	
 	poMatrixSet		matrices;
 	
-	static std::stack<float> alpha_stack;
+	float			true_alpha;
 };
 
 template <typename T>
