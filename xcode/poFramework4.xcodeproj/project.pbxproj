@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87C21F24137D81F500511B90 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87C21F23137D81F500511B90 /* text.txt */; };
 		E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAB1360C36B00567447 /* bucketalloc.c */; };
 		E8174CBD1360C36B00567447 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAD1360C36B00567447 /* dict.c */; };
 		E8174CBE1360C36B00567447 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAF1360C36B00567447 /* geom.c */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		87C21F23137D81F500511B90 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text.txt; path = ../source/text.txt; sourceTree = "<group>"; };
 		E8174CAB1360C36B00567447 /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
 		E8174CAC1360C36B00567447 /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
 		E8174CAD1360C36B00567447 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		E8B2D060132E9CA7002BE3D9 = {
 			isa = PBXGroup;
 			children = (
+				87C21F23137D81F500511B90 /* text.txt */,
 				E8B2D108132EC388002BE3D9 /* application */,
 				E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */,
 				E8B2D06E132E9CA7002BE3D9 /* Frameworks */,
@@ -449,6 +452,7 @@
 				E8B2D0E6132E9F91002BE3D9 /* CocoaImpl.xib in Resources */,
 				E8B2D0E7132E9F91002BE3D9 /* InfoPlist.strings in Resources */,
 				E8521391137D82490019D58A /* test.txt in Resources */,
+				87C21F24137D81F500511B90 /* text.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
