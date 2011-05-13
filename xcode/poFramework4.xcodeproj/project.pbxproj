@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		87C21F24137D81F500511B90 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87C21F23137D81F500511B90 /* text.txt */; };
 		E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAB1360C36B00567447 /* bucketalloc.c */; };
 		E8174CBD1360C36B00567447 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAD1360C36B00567447 /* dict.c */; };
 		E8174CBE1360C36B00567447 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAF1360C36B00567447 /* geom.c */; };
@@ -37,7 +36,6 @@
 		E83095F9132FD79900080C86 /* poCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F8132FD79900080C86 /* poCommon.cpp */; };
 		E83095FF132FE7DA00080C86 /* CocoaWindowImplGlue.mm in Sources */ = {isa = PBXBuildFile; fileRef = E83095FD132FE7D600080C86 /* CocoaWindowImplGlue.mm */; };
 		E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */; };
-		E8521391137D82490019D58A /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = E8521390137D82490019D58A /* test.txt */; };
 		E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
 		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
@@ -64,7 +62,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		87C21F23137D81F500511B90 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text.txt; path = ../source/text.txt; sourceTree = "<group>"; };
 		E8174CAB1360C36B00567447 /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
 		E8174CAC1360C36B00567447 /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
 		E8174CAD1360C36B00567447 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
@@ -125,7 +122,6 @@
 		E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSimpleDrawing.cpp; path = ../source/poSimpleDrawing.cpp; sourceTree = "<group>"; };
 		E830965B13315F2D00080C86 /* poSimpleDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSimpleDrawing.h; path = ../source/poSimpleDrawing.h; sourceTree = "<group>"; };
 		E841ED7A1369AB640029C2F4 /* glInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glInfo.h; path = ../source/glInfo.h; sourceTree = "<group>"; };
-		E8521390137D82490019D58A /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.txt; path = ../source/test.txt; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
 		E85EE94B13731F9C0066679A /* poTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextBox.h; path = ../source/poTextBox.h; sourceTree = "<group>"; };
 		E87E18761367696800DB6934 /* poTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture.cpp; path = ../source/poTexture.cpp; sourceTree = "<group>"; };
@@ -265,7 +261,6 @@
 		E8B2D060132E9CA7002BE3D9 = {
 			isa = PBXGroup;
 			children = (
-				87C21F23137D81F500511B90 /* text.txt */,
 				E8B2D108132EC388002BE3D9 /* application */,
 				E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */,
 				E8B2D06E132E9CA7002BE3D9 /* Frameworks */,
@@ -343,7 +338,6 @@
 				E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
-				E8521390137D82490019D58A /* test.txt */,
 			);
 			name = poFramework4;
 			sourceTree = "<group>";
@@ -451,8 +445,6 @@
 			files = (
 				E8B2D0E6132E9F91002BE3D9 /* CocoaImpl.xib in Resources */,
 				E8B2D0E7132E9F91002BE3D9 /* InfoPlist.strings in Resources */,
-				E8521391137D82490019D58A /* test.txt in Resources */,
-				87C21F24137D81F500511B90 /* text.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
