@@ -126,6 +126,10 @@ struct AttributedStringGenerator : public TiXmlVisitor {
 
 poTexture *renderTextWithAttributedString(poRect rect, NSAttributedString *attributed, poRect *actual) {
 	*actual = poRect(0,0,0,0);
+	actual->left = FLT_MAX;
+	actual->right = 0;
+	actual->top = 0;
+	actual->bottom = FLT_MAX;
 
 	ubyte *data = new ubyte[(int)ceilf(rect.area())];
 	memset(data, 0, rect.area());
@@ -156,12 +160,13 @@ poTexture *renderTextWithAttributedString(poRect rect, NSAttributedString *attri
 		CGFloat ascent, descent, leading, width;
 		width = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
 		
-		NSLog(@"%@", NSStringFromPoint(origin));
-		
-		actual->top = origin.y;
+		actual->top = MAX(actual->top, origin.y);
+		actual->bottom = MIN(actual->bottom, origin.y);
 		actual->right = MAX(actual->right, width);
+		actual->left = MIN(actual->left, origin.x);
 	}
 	
+	printf("%f %f %f %f\n", actual->left, actual->right, actual->top, actual->bottom);
 	CFRelease(frame);
 	
 	poTexture *tex = new poTexture(GL_LUMINANCE, rect.width(), rect.height(), rect.area(), data);
