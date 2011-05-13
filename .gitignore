@@ -6,10 +6,14 @@
 *.obj
 
 # Xcode Noise
+*~.nib
 *.pbxuser
+*.perspective
+*.perspectivev3
 *.mode1v3
-*.mode1
-build
+*.mode2v3
+xcuserdata/
+build/
 
 # OSX Noise
 .DS_Store
