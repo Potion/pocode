@@ -14,7 +14,9 @@ public:
 	TestObj();
 	
 	virtual void update();
+    virtual void preDraw();
 	virtual void draw();
+    virtual void postDraw();
 	
 	virtual void eventHandler(poEvent *event);
 	

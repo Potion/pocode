@@ -41,9 +41,9 @@ enum poWindowType {
 };
 
 enum VertexAttribute {
-	ATTRIB_POINT = 0,
-	ATTRIB_COLOR = 1,
-	ATTRIB_TEX_COORD = 2,
+	ATTRIB_POINT = 1,
+	ATTRIB_COLOR = 2,
+	ATTRIB_TEX_COORD = 4,
 };
 
 enum StrokeCapProperty {

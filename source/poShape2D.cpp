@@ -8,51 +8,56 @@ poShape2D::poShape2D()
 ,	stroke_color(1,1,1,1)
 ,	fill_draw_style(GL_TRIANGLE_FAN)
 ,	enabled_attributes(ATTRIB_POINT)
-,	closed_(false)
+,	closed_(true)
 ,	textures(MAX_TEXTURE_UNITS)
 ,	tex_combo_func(MAX_TEXTURE_UNITS, GL_REPLACE)
 {}
 
 void poShape2D::draw() {
-	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
-	
-	if(isAttributeEnabled(ATTRIB_COLOR)) {
-		glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
-	}
-	else {
-		glColor4f(fill_color.red, fill_color.green, fill_color.blue, fill_color.alpha*master_alpha);
-	}
-	
-	if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
-		glPushAttrib(GL_TEXTURE_BIT);
-		
-		for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
-			if(textures[i]) {
-				glClientActiveTexture(GL_TEXTURE0+i);
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[i][0].x));
 
-				textures[i]->bind(i);
-				glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
-				glEnable(GL_TEXTURE_2D);
-			}
-		}
-	}
-	
-	glDrawArrays(fill_draw_style, 0, (int)points.size());
-	
-	if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
-		for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
-			if(textures[i]) {
-				textures[i]->unbind(i);
-			}
-		}
-		glPopAttrib();
-	}
+    glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    
+    if ( enable_fill )
+    {
+        glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+        
+        if(isAttributeEnabled(ATTRIB_COLOR)) {
+            glEnableClientState(GL_COLOR_ARRAY);
+            glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
+        }
+        else {
+            glColor4f(fill_color.red, fill_color.green, fill_color.blue, fill_color.alpha*master_alpha);
+        }
+        
+        if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+            glPushAttrib(GL_TEXTURE_BIT);
+            
+            for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+                if(textures[i]) {
+                    glClientActiveTexture(GL_TEXTURE0+i);
+                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                    glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[i][0].x));
+
+                    textures[i]->bind(i);
+                    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
+                    glEnable(GL_TEXTURE_2D);
+                }
+            }
+        }
+        
+        glDrawArrays(fill_draw_style, 0, (int)points.size());
+        
+        if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+            for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+                if(textures[i]) {
+                    textures[i]->unbind(i);
+                }
+            }
+            glPopAttrib();
+        }
+    }
+
 		
 	// these lines go together because drawSolidRect modifies the enabled state
 	//	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
@@ -69,12 +74,12 @@ void poShape2D::draw() {
 		glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());
 		
-		for(int i=0; i<points.size(); i++) {
+		/*for(int i=0; i<points.size(); i++) {
 			// draw drag point
 			glColor3f(1,1,1);
 			glRectf(points[i].x-5,points[i].y-5,
 					points[i].x+5,points[i].y+5);
-		}
+		}*/
 	}
 	
 	glPopClientAttrib();
@@ -193,43 +198,44 @@ void poShape2D::placeTexture(poTexture *tex, uint unit) {
 	}
 }
 
-bool poShape2D::isFillEnabled() const {return enable_fill;}
-void poShape2D::enableFill(bool b) {enable_fill = b;}
+bool        poShape2D::isFillEnabled() const {return enable_fill;}
+poShape2D&  poShape2D::enableFill(bool b) {enable_fill = b;}
 
-bool poShape2D::isStrokeEnabled() const {return enable_stroke;}
-void poShape2D::enableStroke(bool b) {enable_stroke = b;}
+bool        poShape2D::isStrokeEnabled() const {return enable_stroke;}
+poShape2D&  poShape2D::enableStroke(bool b) {enable_stroke = b;}
 
-int poShape2D::strokeWidth() const {return stroke_width;}
-void poShape2D::strokeWidth(int w) {
+int         poShape2D::strokeWidth() const {return stroke_width;}
+poShape2D&  poShape2D::strokeWidth(int w) {
 	stroke_width = w; 
 	enableStroke(stroke_width > 0);
 }
 
-poColor poShape2D::fillColor() const {return fill_color;}
-void poShape2D::fillColor(poColor c) {fill_color = c;}
+poColor     poShape2D::fillColor() const {return fill_color;}
+poShape2D&  poShape2D::fillColor(poColor c) {fill_color = c; return *this; }
 
-poColor poShape2D::strokeColor() const {return stroke_color;}
-void poShape2D::strokeColor(poColor c) {stroke_color = c;}
+poColor     poShape2D::strokeColor() const {return stroke_color;}
+poShape2D&  poShape2D::strokeColor(poColor c) {stroke_color = c; return *this; }
 
-GLenum poShape2D::fillDrawStyle() const {return fill_draw_style;}
-void poShape2D::fillDrawStyle(GLenum e) {fill_draw_style = e;}
+GLenum      poShape2D::fillDrawStyle() const {return fill_draw_style;}
+poShape2D&  poShape2D::fillDrawStyle(GLenum e) {fill_draw_style = e; return *this; }
 
-bool poShape2D::isAttributeEnabled(VertexAttribute a) const {return (enabled_attributes & a) != 0;}
-void poShape2D::enableAttribute(VertexAttribute a) {enabled_attributes |= a;}
-void poShape2D::disableAttribute(VertexAttribute a) {enabled_attributes &= ~a;}
+bool        poShape2D::isAttributeEnabled(VertexAttribute a) const {return (enabled_attributes & a) != 0;}
+poShape2D&  poShape2D::enableAttribute(VertexAttribute a) {enabled_attributes |= a; return *this; }
+poShape2D&  poShape2D::disableAttribute(VertexAttribute a) {enabled_attributes &= ~a; return *this; }
 
 StrokeCapProperty poShape2D::capStyle() const {return cap;}
-void poShape2D::capStyle(StrokeCapProperty p) {cap = p;}
+poShape2D&  poShape2D::capStyle(StrokeCapProperty p) {cap = p; return *this; }
 
 StrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
-void poShape2D::joinStyle(StrokeJoinProperty p) {join = p;}
+poShape2D&  poShape2D::joinStyle(StrokeJoinProperty p) {join = p; return *this; }
 
-bool poShape2D::isClosed() const {return closed_;}
-void poShape2D::closed(bool b) {closed_ = b;}
+bool        poShape2D::isClosed() const {return closed_;}
+poShape2D&  poShape2D::closed(bool b) {closed_ = b; return *this; }
 
-GLenum poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}
-void poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func;}
+GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}
+poShape2D&  poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func; return *this; }
+
 
 void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width) {
 	poPoint top, bottom;

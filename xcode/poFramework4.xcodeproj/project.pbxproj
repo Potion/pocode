@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAB1360C36B00567447 /* bucketalloc.c */; };
 		E8174CBD1360C36B00567447 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAD1360C36B00567447 /* dict.c */; };
 		E8174CBE1360C36B00567447 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAF1360C36B00567447 /* geom.c */; };
@@ -62,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
+		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
 		E8174CAB1360C36B00567447 /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
 		E8174CAC1360C36B00567447 /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
 		E8174CAD1360C36B00567447 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 				E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */,
 				E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */,
 				E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */,
+				AA09790B138593A800BBA07F /* poShapeBasics2D.h */,
+				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
 			);
@@ -501,6 +506,7 @@
 				E81FB0A513799FA60054FCB9 /* xpath_stream.cpp in Sources */,
 				E81FB0A613799FA60054FCB9 /* xpath_syntax.cpp in Sources */,
 				E81FB0B11379DD700054FCB9 /* PlatformHelpers.mm in Sources */,
+				AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
