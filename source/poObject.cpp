@@ -4,6 +4,9 @@
 
 #include "poObject.h"
 
+static int master_draw_order = 1;
+static std::vector<float> alpha_stack(1, 1.f);
+
 poObject::poObject() 
 :	parent(NULL)
 ,	name("")
@@ -15,7 +18,7 @@ poObject::poObject()
 ,	offset(0.f, 0.f, 0.f)
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	align(PO_ALIGN_TOP_LEFT)
-,	enabled(true)
+,	visible(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
@@ -23,7 +26,6 @@ poObject::poObject()
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
-,	master_alpha(1.f)
 ,	true_alpha(1.f)
 {}
 
@@ -38,7 +40,7 @@ poObject::poObject(const std::string &name)
 ,	offset(0.f, 0.f, 0.f)
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	align(PO_ALIGN_TOP_LEFT)
-,	enabled(true)
+,	visible(true)
 ,	events(PO_LAST_EVENT)
 ,	matrix_order(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
@@ -46,7 +48,6 @@ poObject::poObject(const std::string &name)
 ,	scale_tween(&scale)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
-,	master_alpha(1.f)
 ,	true_alpha(1.f)
 {}
 
@@ -58,38 +59,61 @@ void poObject::draw() {}
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
 void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {}
+
+int poObject::addEvent(int eventType, poObject *sink, const poDictionary& dict) {
+	if(!sink)
+		sink = this;
+	return poEventCenter::get()->registerForEvent(eventType, this, sink, dict);
+}
+
+void poObject::removeEvent(int event_id) {
+	poEventCenter::get()->removeEvent(event_id);
+}
+
 void poObject::preDraw() {}
 void poObject::postDraw() {}
 
 void poObject::addChild(poObject* obj) {
+	obj->parent = this;
 	children.push_back(obj);
 }
 
 void poObject::addChild(poObject *obj, int idx) {
+	obj->parent = this;
 	children.insert(children.begin()+idx, obj);
 }
 
 bool poObject::removeChild(poObject* obj) {
 	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
 	bool found = iter != children.end();
-	children.erase(iter);
+	
+	if(found) {
+		(*iter)->parent = NULL;
+		children.erase(iter);
+	}
+	
 	return found;
 }
 
 bool poObject::removeChild(int idx, bool and_delete) {
 	if(idx < 0 || idx >= children.size())
 		return false;
+
+	children[idx]->parent = NULL;
+
 	if(and_delete)
 		delete children[idx];
+	
 	children.erase(children.begin()+idx);
+	
 	return true;
 }
 
 void poObject::removeAllChildren(bool and_delete) {
-	if(and_delete) {
-		BOOST_FOREACH(poObject* obj, children) {
+	BOOST_FOREACH(poObject* obj, children) {
+		obj->parent = NULL;
+		if(and_delete)
 			delete obj;
-		}
 	}
 	children.clear();
 }
@@ -141,7 +165,7 @@ void poObject::moveChildBackward(poObject* child) {
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {
-	if(!enabled)
+	if(!visible)
 		return false;
 	
 	if(localize)
@@ -188,10 +212,10 @@ poRect poObject::calculateBounds(bool include_children) {
 }
 
 void poObject::_drawTree() {
-	if(!enabled)
+	if(!visible)
 		return;
 	
-	pushObjectMatrix(master_alpha);
+	pushObjectMatrix();
 
 	preDraw();
 	
@@ -207,7 +231,7 @@ void poObject::_drawTree() {
 }
 
 void poObject::_updateTree() {
-	if(!enabled)
+	if(!visible)
 		return;
 	
 	updateAllTweens();
@@ -219,7 +243,7 @@ void poObject::_updateTree() {
 }
 
 void poObject::_broadcastEvent(poEvent* event) {
-	if(!enabled)
+	if(!visible)
 		return;
 	// make sure its even a valid event
 	if(event->type < 0 || event->type >= PO_LAST_EVENT)
@@ -247,12 +271,16 @@ void poObject::updateAllTweens() {
 	rotation_tween.update();
 }
 
-void poObject::pushObjectMatrix(float parent_alpha) {
+void poObject::pushObjectMatrix() {
 	glPushMatrix();
-	
-	// modify the alpha stack
-	true_alpha = master_alpha;
-	master_alpha = parent_alpha * alpha;
+
+	if(parent) {
+		true_alpha = parent->true_alpha * alpha;
+		draw_order = parent->draw_order + 1;
+	}
+	else {
+		true_alpha = alpha;
+	}
 	
 	// now move depending on the matrix order
 	switch(matrix_order) {
@@ -276,8 +304,6 @@ void poObject::pushObjectMatrix(float parent_alpha) {
 }
 
 void poObject::popObjectMatrix() {
-	// rewind the alpha stack
-	master_alpha = true_alpha;
 
 	// and reset gl
 	glPopMatrix();

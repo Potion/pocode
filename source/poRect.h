@@ -9,18 +9,15 @@
 class poRect 
 {
 public:
-	float left, right, top, bottom;
+	poPoint size, origin;
 	
 	poRect();
-	poRect(float l, float r, float t, float b);
-	poRect(const poPoint &pt, float w, float h);
-	poRect(const poPoint &p1, const poPoint &p2);
-	
-	poRect &set(float l, float r, float t, float b);
-	
-	float area() const;
+	poRect(float x, float y, float w, float h);
+	poRect(const poPoint &origin, const poPoint &size);
+
 	float width() const;
 	float height() const;
+	float area() const;
 	poPoint center() const;
 
 	void include(float x, float y);
@@ -29,7 +26,6 @@ public:
 	void scale(float scalar);
 	// scale around a point
 	void scale(float scalar, const poPoint &pt);
-	void cannonicalize();
 	
 	bool contains(float x, float y) const;
 	bool contains(const poPoint &pt) const;

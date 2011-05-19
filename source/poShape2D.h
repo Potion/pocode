@@ -18,13 +18,13 @@ public:
 
 	virtual void draw();
 
-	void addPoint(poPoint p);
-	void addPoints(const std::vector<poPoint> &points);
-	void curveTo(poPoint pt, poPoint control, int resolution=10);
-	void curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
+	poShape2D &addPoint(poPoint p);
+	poShape2D &addPoints(const std::vector<poPoint> &points);
+	poShape2D &curveTo(poPoint pt, poPoint control, int resolution=10);
+	poShape2D &curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
 	
 	void setPoints(const std::vector<poPoint> &points);
-	void clearPoints();
+	poShape2D &clearPoints();
 
 	size_t numPoints() const;
 	poPoint &getPoint(int idx);

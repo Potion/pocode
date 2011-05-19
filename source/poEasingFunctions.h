@@ -60,7 +60,7 @@ inline bool quadInOutFunc(float *v, float bv, float ev,
 						  float t, float b, float e, float d,
 						  float e1, float e2) 
 {
-	float t2 = (t - b) / d / 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f) 
 		*v = (ev-bv)/2.f * t2*t2 + bv;
 	else {
@@ -93,7 +93,7 @@ inline bool cubeInOutFunc(float *v, float bv, float ev,
 						  float t, float b, float e, float d,
 						  float e1, float e2) 
 {
-	float t2 = (t - b) / d / 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * (t2*t2*t2) + bv;
 	else {
@@ -126,7 +126,7 @@ inline bool quartInOutFunc(float *v, float bv, float ev,
 						   float t, float b, float e, float d,
 						   float e1, float e2) 
 {
-	float t2 = (t - b) / d / 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t < 1.f)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2 + bv;
 	else {
@@ -160,7 +160,7 @@ inline bool quintInOutFunc(float *v, float bv, float ev,
 						   float t, float b, float e, float d,
 						   float e1, float e2) 
 {
-	float t2 = (t - b) / d / 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2*t2 + bv;
 	else {
@@ -219,7 +219,7 @@ inline bool expoInOutFunc(float *v, float bv, float ev,
 						  float t, float b, float e, float d,
 						  float e1, float e2) 
 {
-	float t2 = (t - b) / d / 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * ::powf(2.f, 10 * (t2-1.f)) + bv;
 	else {
@@ -252,9 +252,9 @@ inline bool circInOutFunc(float *v, float bv, float ev,
 						  float t, float b, float e, float d,
 						  float e1, float e2) 
 {
-	float t2 = (t - d) / d / 2.f;
+	float t2 = (t - d) / d * 2.f;
 	if(t2 < 1)
-		*v = -(ev-bv)/2.f * (::sqrt(1.f - t2*t2) - 1.f) + bv;
+		*v = -(ev-bv)/2.f * (::sqrtf(1.f - t2*t2) - 1.f) + bv;
 	else {
 		t2 -= 2.f;
 		*v = (ev-bv)/2.f * (::sqrtf(1.f - t2*t2) + 1.f) + bv;

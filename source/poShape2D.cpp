@@ -24,7 +24,7 @@ void poShape2D::draw() {
 		glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
 	}
 	else {
-		glColor4f(fill_color.red, fill_color.green, fill_color.blue, fill_color.alpha*master_alpha);
+		glColor4f(fill_color.red, fill_color.green, fill_color.blue, fill_color.alpha*true_alpha);
 	}
 	
 	if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
@@ -65,7 +65,7 @@ void poShape2D::draw() {
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		glColor4f(stroke_color.red, stroke_color.green, stroke_color.blue, stroke_color.alpha*master_alpha);
+		glColor4f(stroke_color.red, stroke_color.green, stroke_color.blue, stroke_color.alpha*true_alpha);
 		glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());
 		
@@ -80,36 +80,41 @@ void poShape2D::draw() {
 	glPopClientAttrib();
 }
 
-void poShape2D::addPoint(poPoint p) {
+poShape2D &poShape2D::addPoint(poPoint p) {
 	points.push_back(p);
+	return *this;
 }
 
-void poShape2D::addPoints(const std::vector<poPoint> &pts) {
+poShape2D &poShape2D::addPoints(const std::vector<poPoint> &pts) {
 	points.insert(points.end(), pts.begin(), pts.end());
+	return *this;
 }
 
-void poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
+poShape2D &poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
 	if(points.empty())
 		points.push_back(poPoint(0,0,0));
 	
 	std::vector<poPoint> pts = quadTo(points.back(), pt, control, resolution);
 	pts.insert(points.end(), pts.begin(), pts.end());
+	return *this;
 }
 
-void poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
+poShape2D &poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
 	if(points.empty())
 		points.push_back(poPoint(0,0,0));
 	
 	std::vector<poPoint> pts = cubeTo(points.back(), pt, control1, control2, resolution);
 	points.insert(points.end(), pts.begin(), pts.end());
+	return *this;
 }
 
 void poShape2D::setPoints(const std::vector<poPoint> &pts) {
 	points.assign(pts.begin(), pts.end());
 }
 
-void poShape2D::clearPoints() {
+poShape2D &poShape2D::clearPoints() {
 	points.clear();
+	return *this;
 }
 
 size_t poShape2D::numPoints() const {

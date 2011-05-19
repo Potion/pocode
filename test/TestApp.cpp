@@ -4,38 +4,54 @@
 #include "poImage.h"
 #include "poTextBox.h"
 
-void setupApplication() {
-	// make the application
-	poApplication *app = poApplication::get();
+#define TEST_OBJ_ID 1000
+
+poObject *createObjectForID(uint uid) {
+	switch(uid) {
+		case TEST_OBJ_ID:
+			return new TestObj();
+			break;
+	}
 	
-	// make the window and add a root
-	poWindow *win = new poWindow(WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600);
-	win->setRootObject(new TestObj());
-	// add the window
-	app->addWindow(win);
+	return NULL;
+}
+
+void setupApplication() {
+	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 800, 600);
+	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 2", 200, 200, 800, 600);
 }
 
 void cleanupApplication() {
-	// delete all the windows
-	poApplication::get()->quit();
 }
-
-poTextBox *tb;
 
 TestObj::TestObj() {
-	tb = new poTextBox();
-	tb->bounds.include(300,300);
-	tb->setRegularFont(new poFont("Helvetica", 0, 30));
-	tb->setItalicFont(new poFont("Helvetica", FONT_ITALIC, 30));
-	tb->setBoldFont(new poFont("Helvetica", FONT_BOLD, 50));
-	addChild(tb);
-}
+	this->alpha = 0.f;
+	this->alpha_tween
+		.set(1.f)
+		.setDuration(2.f)
+		.setRepeat(PO_TWEEN_REPEAT_PINGPONG)
+		.setTweenFunction(expoInOutFunc)
+		.start();
+	
+	poImage *img = resources.add(new poImage("images/alfred_e_neuman.jpg"));
+	poTexture *tex = resources.add(new poTexture(img));
+	
+	poShape2D *shape = new poShape2D();
+	shape->addPoint(poPoint(0,0))
+		.addPoint(poPoint(tex->width(), 0))
+		.addPoint(poPoint(tex->width(), tex->height()))
+		.addPoint(poPoint(0, tex->height()));
+	
+	shape->placeTexture(tex);
+	addChild(shape);
 
-void TestObj::update() {
 	glClearColor(0,0,0,1);
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void TestObj::draw() {
+void TestObj::preDraw() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	glMatrixMode(GL_PROJECTION);
@@ -43,9 +59,6 @@ void TestObj::draw() {
 	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	tb->text("hello world <em>con brio</em> with <strong>some bold text</strong>. and some symbols: ®†¥");
-	tb->layout();
 }
 
 void TestObj::eventHandler(poEvent *event) {

@@ -6,57 +6,41 @@
 #include "poMath.h"
 
 poRect::poRect() 
-:	left(0.f), right(0.f), top(0.f), bottom(0.f)
+:	origin(0,0)
+,	size(0,0)
 {}
 
-poRect::poRect(float l, float r, float t, float b)
-:	left(l), right(r), top(t), bottom(b)
-{
-	cannonicalize();
-}
-
-poRect::poRect(const poPoint &pt, float w, float h) 
-:	left(pt.x), right(pt.x+w), top(pt.y), bottom(pt.y+h)
-{
-	cannonicalize();
+poRect::poRect(float x, float y, float w, float h) {
+	origin.set(x,y,0);
+	size.set(w,h,0);
 }
 
 poRect::poRect(const poPoint &p1, const poPoint &p2)
-:	left(p1.x), right(p2.x), top(p1.y), bottom(p2.y)
-{
-	cannonicalize();
+:	origin(p1)
+,	size(p2)
+{}
+
+float poRect::width() const {
+	return size.x;
 }
 
-poRect &poRect::set(float l, float r, float t, float b) {
-	left = l;
-	right = r;
-	top = t;
-	bottom = b;
-	cannonicalize();
-	return *this;
+float poRect::height() const {
+	return size.y;
 }
 
 float poRect::area() const {
 	return width()*height();
 }
 
-float poRect::width() const {
-	return right - left;
-}
-
-float poRect::height() const {
-	return bottom - top;
-}
-
 poPoint poRect::center() const {
-	return poPoint(width()/2.f+left, height()/2.f+top);
+	return poPoint(width()/2.f+origin.x, height()/2.f+origin.y);
 }
 
 void poRect::include(float x, float y) {
-	left = std::min(x, left);
-	right = std::max(x, right);
-	top = std::min(y, top);
-	bottom = std::max(y, bottom);
+	origin.x = std::min(x, origin.x);
+	size.x = std::max(x, origin.x+size.x) - origin.x;
+	origin.y = std::min(y, origin.y);
+	size.y = std::max(y, origin.y+size.y) - origin.y;
 }
 
 void poRect::include(const poPoint &pt) {
@@ -64,35 +48,24 @@ void poRect::include(const poPoint &pt) {
 }
 
 void poRect::include(const poRect &rect) {
-	left = std::min(rect.left, left);
-	right = std::max(rect.right, right);
-	top = std::min(rect.top, top);
-	bottom = std::max(rect.bottom, bottom);
+	include(rect.origin);
+	include(rect.origin + rect.size);
 }
 
 void poRect::scale(float scalar) {
-	left *= scalar;
-	right *= scalar;
-	top *= scalar;
-	bottom *= scalar;
+	size *= scalar;
 }
 
 void poRect::scale(float scalar, const poPoint &pt) {
-	left = (left - pt.x) * scalar;
-	right = (right - pt.x) * scalar;
-	top = (top - pt.y) * scalar;
-	bottom = (bottom - pt.y) * scalar;
-}
-
-void poRect::cannonicalize() {
-	if(top > bottom)
-		std::swap(top,bottom);
-	if(left > right)
-		std::swap(left,right);
+	origin = (origin - pt) * scalar + pt;
+	size *= scalar;
 }
 
 bool poRect::contains(float x, float y) const {
-	return x >= left && x <= right && y >= top && y <= bottom;
+	return	x >= origin.x && 
+			x <= (origin.x+size.x) && 
+			y >= origin.y && 
+			y <= (origin.y+size.y);
 }
 
 bool poRect::contains(const poPoint &pt) const {
@@ -100,17 +73,17 @@ bool poRect::contains(const poPoint &pt) const {
 }
 
 poPoint poRect::topLeft() const {
-	return poPoint(left, top);
+	return origin;
 }
 
 poPoint poRect::bottomLeft() const {
-	return poPoint(left, bottom);
+	return poPoint(origin.x, origin.y+size.y);
 }
 
 poPoint poRect::topRight() const {
-	return poPoint(right, top);
+	return poPoint(origin.x+size.x, origin.y);
 }
 
 poPoint poRect::bottomRight() const {
-	return poPoint(right, bottom);
+	return origin + size;
 }

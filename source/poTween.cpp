@@ -75,7 +75,7 @@ poTweenBase& poTweenBase::setRepeat(poTweenRepeat type, int count) {
 	return *this;
 }
 
-poTweenBase& poTweenBase::setNotification(poObject *obj, const std::string &msg) {
+poTweenBase& poTweenBase::setNotification(poObject *obj, const std::string &msg, const poDictionary &/*dict*/) {
 	poDictionary dict;
 	dict.setPtr("tween", this);
 	callbacks.push_back(boost::bind(&poObject::messageHandler, obj, msg, dict));
