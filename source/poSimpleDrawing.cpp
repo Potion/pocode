@@ -20,7 +20,7 @@ void drawQuad(GLenum type, float l, float r, float b, float t) {
 }
 
 void drawStroke(poRect rect) {
-	drawStroke(rect.left, rect.right, rect.bottom, rect.top);
+	drawStroke(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y);
 }
 
 void drawStroke(float l, float r, float b, float t) {
@@ -28,7 +28,7 @@ void drawStroke(float l, float r, float b, float t) {
 }
 
 void drawRect(poRect rect) {
-	drawRect(rect.left, rect.right, rect.bottom, rect.top);
+	drawRect(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y);
 }
 
 void drawRect(float l, float r, float b, float t) {
@@ -36,7 +36,7 @@ void drawRect(float l, float r, float b, float t) {
 }
 
 void drawRect(poRect rect, poTexture* texture) {
-	drawRect(rect.left, rect.right, rect.top, rect.bottom, texture);
+	drawRect(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y, texture);
 }
 
 void drawRect(float l, float r, float b, float t, poTexture* texture) {

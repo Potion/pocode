@@ -5,23 +5,26 @@
 #include "poTextBox.h"
 #include "poShapeBasics2D.h"
 
-void setupApplication() {
-	// make the application
-	poApplication *app = poApplication::get();
+#define TEST_OBJ_ID 1000
+
+poObject *createObjectForID(uint uid) {
+	switch(uid) {
+		case TEST_OBJ_ID:
+			return new TestObj();
+			break;
+	}
 	
-	// make the window and add a root
-	poWindow *win = new poWindow(WINDOW_TYPE_NORMAL, "MEH", 100, 100, 800, 600);
-	win->setRootObject(new TestObj());
-	// add the window
-	app->addWindow(win);
+	return NULL;
+}
+
+void setupApplication() {
+	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 800, 600);
 }
 
 void cleanupApplication() {
-	// delete all the windows
-	poApplication::get()->quit();
 }
 
-poTextBox *tb;
+
 
 TestObj::TestObj() {
 	/*tb = new poTextBox();
@@ -43,8 +46,9 @@ TestObj::TestObj() {
     addChild( R );
 }
 
-void TestObj::update() {
-	glClearColor(0,0,0,1);
+void TestObj::update()
+{
+    
 }
 
 void TestObj::preDraw()
@@ -56,6 +60,11 @@ void TestObj::preDraw()
 	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+    
+    glClearColor(0,0,0,1);
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void TestObj::draw() {
@@ -66,8 +75,8 @@ void TestObj::draw() {
 
 void TestObj::postDraw()
 {
-    
-}
+}    
+
 
 void TestObj::eventHandler(poEvent *event) {
 }

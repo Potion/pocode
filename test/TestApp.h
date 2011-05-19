@@ -4,11 +4,11 @@
 #include "poObject.h"
 #include "poResource.h"
 
+extern poObject* createObjectForID(uint uid);
 extern void setupApplication();
 extern void cleanupApplication();
 
-class TestObj 
-:	public poObject
+class TestObj :	public poObject
 {
 public:
 	TestObj();
@@ -19,7 +19,6 @@ public:
     virtual void postDraw();
 	
 	virtual void eventHandler(poEvent *event);
-	
-	int drag_event_id;
+
 	poResourceStore resources;
 };

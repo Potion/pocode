@@ -1,16 +1,10 @@
 #include "poObject.h"
-#include "application/poWindow.h"
-#include "application/poApplication.h"
+#include "poWindow.h"
 
-#ifdef _WIN32
-#include "application/windows/Win32Impl.cpp"
-#elif defined __APPLE__
-#include "application/cocoa/CocoaWindowImpl.cpp"
-#endif
-
+#include "poApplication.h"
 
 poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
-	if(!obj->enabled)
+	if(!obj->visible)
 		return NULL;
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
@@ -25,93 +19,65 @@ poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
 	return NULL;
 }
 
-poWindow::poWindow(poWindowType type,
-				   const std::string &title,
-				   int x, int y, int w, int h)
-:	impl(NULL)
+poWindow::poWindow(const char *title, void *handle, uint root_id, poRect bounds)
+:	title_(title)
+,	handle(handle)
 ,	root(NULL)
+,	bounds(bounds)
 ,   mouse_receiver(NULL)
 ,   mouse_hover(NULL)
 ,   key_receiver(NULL)
+,	fullscreen_(false)
 {
-	impl = new WINDOW_IMPL_TYPE(this, type, title, x, y, w, h);
-	impl->initialize();
 	makeCurrent();
+	root = createObjectForID(root_id);
 }
 
 poWindow::~poWindow() {
-	delete impl;
+	makeCurrent();
 	delete root;
 }
 
-void poWindow::setSize(int w, int h) {
-	impl->width = w;
-	impl->height = h;
+void poWindow::moveTo(poRect rect) {
+	bounds = rect;
+	applicationMoveWindow(this, rect);
 }
 
-void poWindow::setPosition(int x, int y) {
-	impl->xpos = x;
-	impl->ypos = y;
+void poWindow::fullscreen(bool b) {
+	fullscreen_ = b;
+	applicationMakeWindowFullscreen(this, b);
 }
 
-void poWindow::moveTo(int x, int y, int w, int h) {
-	impl->moveTo(x, y, w, h);
+int poWindow::x() const {
+	return bounds.origin.x;
 }
 
-void poWindow::setFullscreen(bool b) {
-	impl->setFullscreen(b);
+std::string poWindow::title() const {
+	return title_;
 }
 
-void poWindow::toggleFullscreen() {
-	setFullscreen(!impl->is_fullscreen);
+int poWindow::y() const {
+	return bounds.origin.y;
 }
 
-void poWindow::setDragging(bool b) {
-	impl->is_dragging = b;
+int poWindow::width() const {
+	return bounds.size.x;
 }
 
-void poWindow::setRootObject(poObject *obj) {
-	root = obj;
+int poWindow::height() const {
+	return bounds.size.y;
 }
 
-std::string poWindow::getTitle() {
-	return impl->title;
+bool poWindow::isFullscreen() const {
+	return fullscreen_;
 }
 
-int poWindow::getWidth() {
-	return impl->width;
-}
-
-int poWindow::getHeight() {
-	return impl->height;
-}
-
-int poWindow::getX() {
-	return impl->xpos;
-}
-
-int poWindow::getY() {
-	return impl->ypos;
-}
-
-bool poWindow::isFullscreen() {
-	return impl->is_fullscreen;
-}
-
-bool poWindow::isDragging() {
-	return impl->is_dragging;
-}
-
-int poWindow::getId() {
-	return impl->id;
-}
-
-poObject *poWindow::getRootObject() {
+poObject *poWindow::rootObject() const {
 	return root;
 }
 
 void poWindow::makeCurrent() {
-	poApplication::get()->currentWindow = this;
+	applicationMakeWindowCurrent(this);
 }
 
 void poWindow::update() {
@@ -129,7 +95,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 		return;
 	
 	poEvent event;
-	event.position.set(x, getHeight()-y, 0.f);
+	event.position.set(x, height()-y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DOWN_EVENT;
@@ -154,7 +120,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 		return;
 	
 	poEvent event;
-	event.position.set(x, getHeight()-y, 0.f);
+	event.position.set(x, height()-y, 0.f);
 	event.modifiers = mod;
 
 	event.type = PO_MOUSE_UP_EVENT;
@@ -174,7 +140,7 @@ void poWindow::mouseMove(int x, int y, int mod) {
 		return;
 	
 	poEvent event;
-	event.position.set(x, getHeight()-y, 0.f);
+	event.position.set(x, height()-y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_MOVE_EVENT;
@@ -204,7 +170,7 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 		return;
 	
 	poEvent event;
-	event.position.set(x, getHeight()-y, 0.f);
+	event.position.set(x, height()-y, 0.f);
 	event.modifiers = mod;
 	
 	/*	TODO

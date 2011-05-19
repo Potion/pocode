@@ -5,6 +5,7 @@
 #pragma once
 
 #include "poPoint.h"
+#include "poDictionary.h"
 #include "poEasingFunctions.h"
 
 enum poTweenRepeat {
@@ -29,7 +30,7 @@ public:
 	void update();
 	
 	poTweenBase& setRepeat(poTweenRepeat type, int count=-1);
-	poTweenBase& setNotification(poObject *obj, const std::string &msg);
+	poTweenBase& setNotification(poObject *obj, const std::string &msg, const poDictionary &dict=poDictionary());
 	poTweenBase& clearNotifications();
 	poTweenBase& setTweenFunction(poTweenFunction func);
 	poTweenBase& setDuration(float duration);

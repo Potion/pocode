@@ -97,7 +97,7 @@ void poTextBox::layout() {
 }
 
 void poTextBox::draw() {
-	drawRect(poRect(poPoint(0,0),bounds.width(),bounds.height()), rendered);
+	drawRect(poRect(0,0,bounds.width(),bounds.height()), rendered);
 	drawStroke(actual_bounds);
 }
 

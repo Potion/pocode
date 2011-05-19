@@ -33,6 +33,10 @@ public:
 	virtual void	eventHandler(poEvent *event);
 	virtual void	messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
+	// events
+	int				addEvent(int eventType, poObject *sink=NULL, const poDictionary& dict=poDictionary());
+	void			removeEvent(int event_id);
+	
 	// useful for stuff like cameras, fbos, masks, etc
 	virtual void	preDraw();
 	virtual void	postDraw();
@@ -77,7 +81,7 @@ public:
 	poPoint			offset;
 	poRect			bounds;
 	poAlignment		align;
-	bool			enabled;
+	bool			visible;
 	poMatrixOrder	matrix_order;
 	int				draw_order;
 	
@@ -93,13 +97,12 @@ public:
 	void			_broadcastEvent(poEvent* event);
 
 protected:
-	float			master_alpha;
-
 	// if you add new tweens make sure to update them here 
 	virtual void	updateAllTweens();
+	float			true_alpha;
 
 private:
-	void			pushObjectMatrix(float parent_alpha);
+	void			pushObjectMatrix();
 	void			popObjectMatrix();
 	void			localizeEvent(poEvent*, poEvent*, poPoint);
 	
@@ -107,8 +110,6 @@ private:
 	poEventTable	events;
 	
 	poMatrixSet		matrices;
-	
-	float			true_alpha;
 };
 
 template <typename T>
