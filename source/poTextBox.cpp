@@ -92,12 +92,12 @@ void poTextBox::layout() {
 	TiXmlBase::SetCondenseWhiteSpace(is_condensed);
 
 	parsed_text = "";
-	renderTextToTexture(bounds, doc, fonts, &rendered, &parsed_text, &actual_bounds);
+	renderTextToTexture(bounds(), doc, fonts, &rendered, &parsed_text, &actual_bounds);
 	resources.add(rendered);
 }
 
 void poTextBox::draw() {
-	drawRect(poRect(0,0,bounds.width(),bounds.height()), rendered);
+	drawRect(poRect(0,0,bounds().width(),bounds().height()), rendered);
 	drawStroke(actual_bounds);
 }
 

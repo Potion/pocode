@@ -180,7 +180,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			// this one is an option
 			if(callback.event.source->pointInside(event.position, true)) {
 				// higher draw_order means closer to surface, in 2D
-				if(!the_one || the_one->event.source->draw_order < callback.event.source->draw_order)
+				if(!the_one || the_one->event.source->drawOrder() < callback.event.source->drawOrder())
 					the_one = &callback;
 			}
 		}

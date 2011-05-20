@@ -81,19 +81,45 @@ public:
 	virtual poRect	calculateBounds(bool include_children=false);
 	
 	// OBJECT PROPERTIES
-	poObject*		parent;
-	std::string		name;
-	float			alpha;
-	poPoint			scale;
-	poPoint			position;
-	float			rotation;
-	poPoint			rotation_axis;
-	poPoint			offset;
-	poRect			bounds;
-	poAlignment		align;
-	bool			visible;
-	poMatrixOrder	matrix_order;
-	int				draw_order;
+	poObject*		parent();
+	
+	std::string		name() const;
+	poObject&		name(const std::string &str);
+	
+	float			alpha() const;
+	poObject&		alpha(float f);
+	
+	poPoint			scale() const;
+	poObject&		scale(poPoint pt);
+	poObject&		scale(float x, float y, float z=1.f);
+	
+	poPoint			position() const;
+	poObject&		position(poPoint p);
+	poObject&		position(float x, float y, float z=0.f);
+	
+	float			rotation() const;
+	poObject&		rotation(float f);
+	
+	poPoint			rotationAxis() const;
+	poObject&		rotationAxis(poPoint p);
+	poObject&		rotationAxis(float x, float y, float z);
+	
+	poPoint			offset() const;
+	poObject&		offset(poPoint p);
+	poObject&		offset(float x, float y, float z);
+	
+	poRect			bounds() const;
+	poObject&		bounds(poRect r);
+	
+	poAlignment		alignment() const;
+	
+	bool			visible() const;
+	poObject&		visible(bool b);
+	
+	poMatrixOrder	matrixOrder() const;
+	poObject&		matrixOrder(poMatrixOrder o);
+	
+	int				drawOrder() const;
 	
 	poPointTween	position_tween;
 	poPointTween	scale_tween;
@@ -121,6 +147,20 @@ private:
 	poEventTable            events;
 	
 	poMatrixSet		matrices;
+	
+	poObject*		parent_;
+	std::string		name_;
+	float			alpha_;
+	poPoint			scale_;
+	poPoint			position_;
+	float			rotation_;
+	poPoint			rotation_axis;
+	poPoint			offset_;
+	poRect			bounds_;
+	poAlignment		alignment_;
+	bool			visible_;
+	poMatrixOrder	matrix_order;
+	int				draw_order;
 };
 
 template <typename T>

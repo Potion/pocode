@@ -35,19 +35,23 @@ TestObj::TestObj() {
     this->addModifier( cam );
     
     poRectShape* R = new poRectShape( 200,100 );
-    R->fillColor( poColor::white ).strokeColor( 1,0,0 ).generateStroke(4);
-    R->position.set( 100,100,0 );
+    R->fillColor( poColor::white )
+		.strokeColor( 1,0,0 )
+		.generateStroke(4)
+		.position( 100,100,0 );
     R->setAlignment( PO_ALIGN_CENTER_CENTER );
     addChild( R );
     
     poOvalShape* S = new poOvalShape( 150,200,60 );
-    S->strokeColor( poColor::red).generateStroke(10,STROKE_JOIN_BEVEL);
-    S->position.set( 400,400,0 );
+    S->strokeColor( poColor::red)
+		.generateStroke(10,STROKE_JOIN_BEVEL)
+		.position( 400,400,0 );
     addChild( S );
     
     poLineShape* L = new poLineShape( poPoint(0,0,0), poPoint(200,100,0) );
-    L->strokeColor( poColor::orange ).generateStroke(8,STROKE_JOIN_ROUND);
-    L->position.set( 500,300,0 );
+    L->strokeColor( poColor::orange )
+		.generateStroke(8,STROKE_JOIN_ROUND)
+		.position( 500,300,0 );
     addChild( L );
     
     R->addEvent( PO_MOUSE_PRESS_EVENT, this, "action", poDictionary().setInt("thing",5).setInt("stuff",2) );
@@ -81,7 +85,7 @@ void TestObj::eventHandler(poEvent *event) {
         printf("message: %s\n", event->message.c_str() );
         printf("thing: %d\n", event->dict.getInt("thing") );
         printf("stuff: %d\n", event->dict.getInt("stuff") );
-        event->source->position = event->position;
+        event->source->position(event->position);
         
         //printf("%f %f\n", event->local_position.x, event->local_position.y );
     }

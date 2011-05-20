@@ -4,7 +4,7 @@
 #include "poApplication.h"
 
 poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
-	if(!obj->visible)
+	if(!obj->visible())
 		return NULL;
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {

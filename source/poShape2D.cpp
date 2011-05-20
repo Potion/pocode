@@ -175,27 +175,28 @@ void poShape2D::setAlignment(poAlignment align) {
 	
     // first calculate bounds
 	calculateBounds();
+	poRect frame = bounds();
 	
     // then set offset based upon bounds and alignment
 	switch(align) {
 		case PO_ALIGN_TOP_LEFT:
-			offset.set(0,0,0); break;
+			offset(0,0,0); break;
 		case PO_ALIGN_TOP_CENTER:
-			offset.set(-bounds.width()/2.f,0,0); break;
+			offset(-frame.width()/2.f,0,0); break;
 		case PO_ALIGN_TOP_RIGHT:
-			offset.set(-bounds.width(),0,0); break;
+			offset(-frame.width(),0,0); break;
 		case PO_ALIGN_CENTER_LEFT:
-			offset.set(0,-bounds.height()/2.f,0); break;
+			offset(0,-frame.height()/2.f,0); break;
 		case PO_ALIGN_CENTER_CENTER:
-			offset.set(-bounds.width()/2.f,-bounds.height()/2.f,0); break;
+			offset(-frame.width()/2.f,-frame.height()/2.f,0); break;
 		case PO_ALIGN_CENTER_RIGHT:
-			offset.set(-bounds.width(),-bounds.height()/2.f,0); break;
+			offset(-frame.width(),-frame.height()/2.f,0); break;
 		case PO_ALIGN_BOTTOM_LEFT:
-			offset.set(0,-bounds.height(),0); break;
+			offset(0,-frame.height(),0); break;
 		case PO_ALIGN_BOTTOM_CENTER:
-			offset.set(-bounds.width()/2.f,-bounds.height(),0); break;
+			offset(-frame.width()/2.f,-frame.height(),0); break;
 		case PO_ALIGN_BOTTOM_RIGHT:
-			offset.set(-bounds.width(),-bounds.height(),0); break;
+			offset(-frame.width(),-frame.height(),0); break;
             
         case PO_ALIGN_NUM_OPTIONS:
             // just to shut up the compiler warning
@@ -208,12 +209,14 @@ poRect poShape2D::calculateBounds(bool include_children) {
     // calculate the boounds
 	poObject::calculateBounds(include_children);
 	
+	poRect frame = bounds();
     // calculate our children's bounds
 	BOOST_FOREACH(poPoint &point, points) {
-		bounds.include(point);
+		frame.include(point);
 	}
 	
-	return bounds;
+	bounds(frame);
+	return frame;
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
