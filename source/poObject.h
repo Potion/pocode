@@ -148,19 +148,19 @@ private:
 	
 	poMatrixSet		matrices;
 	
-	poObject*		parent_;
-	std::string		name_;
-	float			alpha_;
-	poPoint			scale_;
-	poPoint			position_;
-	float			rotation_;
-	poPoint			rotation_axis;
-	poPoint			offset_;
-	poRect			bounds_;
-	poAlignment		alignment_;
-	bool			visible_;
-	poMatrixOrder	matrix_order;
-	int				draw_order;
+	poObject*		_parent;
+	std::string		_name;
+	float			_alpha;
+	poPoint			_scale;
+	poPoint			_position;
+	float			_rotation;
+	poPoint			_rotation_axis;
+	poPoint			_offset;
+	poRect			_bounds;
+	poAlignment		_alignment;
+	bool			_visible;
+	poMatrixOrder	_matrix_order;
+	int				_draw_order;
 };
 
 template <typename T>

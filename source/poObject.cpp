@@ -4,50 +4,47 @@
 
 #include "poObject.h"
 
-static int master_draw_order = 1;
-static std::vector<float> alpha_stack(1, 1.f);
-
 poObject::poObject() 
-:	parent_(NULL)
-,	name_("")
-,	alpha_(1.f)
-,	scale_(1.f, 1.f, 1.f)
-,	position_(0.f, 0.f, 0.f)
-,	rotation_(0.f)
-,	rotation_axis(0.f, 0.f, 1.f)
-,	offset_(0.f, 0.f, 0.f)
-,	bounds_(0.f, 0.f, 0.f, 0.f)
-,	alignment_(PO_ALIGN_TOP_LEFT)
-,	visible_(true)
+:	_parent(NULL)
+,	_name("")
+,	_alpha(1.f)
+,	_scale(1.f, 1.f, 1.f)
+,	_position(0.f, 0.f, 0.f)
+,	_rotation(0.f)
+,	_rotation_axis(0.f, 0.f, 1.f)
+,	_offset(0.f, 0.f, 0.f)
+,	_bounds(0.f, 0.f, 0.f, 0.f)
+,	_alignment(PO_ALIGN_TOP_LEFT)
+,	_visible(true)
 ,	events(PO_LAST_EVENT)
-,	matrix_order(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position_)
-,	scale_tween(&scale_)
-,	alpha_tween(&alpha_)
-,	rotation_tween(&rotation_)
+,	_matrix_order(PO_MATRIX_ORDER_TRS)
+,	_draw_order(0)
+,	position_tween(&_position)
+,	scale_tween(&_scale)
+,	alpha_tween(&_alpha)
+,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
 {}
 
 poObject::poObject(const std::string &name)
-:	parent_(NULL)
-,	name_(name)
-,	alpha_(1.f)
-,	scale_(1.f, 1.f, 1.f)
-,	position_(0.f, 0.f, 0.f)
-,	rotation_(0.f)
-,	rotation_axis(0.f, 0.f, 1.f)
-,	offset_(0.f, 0.f, 0.f)
-,	bounds_(0.f, 0.f, 0.f, 0.f)
-,	alignment_(PO_ALIGN_TOP_LEFT)
-,	visible_(true)
+:	_parent(NULL)
+,	_name(name)
+,	_alpha(1.f)
+,	_scale(1.f, 1.f, 1.f)
+,	_position(0.f, 0.f, 0.f)
+,	_rotation(0.f)
+,	_rotation_axis(0.f, 0.f, 1.f)
+,	_offset(0.f, 0.f, 0.f)
+,	_bounds(0.f, 0.f, 0.f, 0.f)
+,	_alignment(PO_ALIGN_TOP_LEFT)
+,	_visible(true)
 ,	events(PO_LAST_EVENT)
-,	matrix_order(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position_)
-,	scale_tween(&scale_)
-,	alpha_tween(&alpha_)
-,	rotation_tween(&rotation_)
+,	_matrix_order(PO_MATRIX_ORDER_TRS)
+,	_draw_order(0)
+,	position_tween(&_position)
+,	scale_tween(&_scale)
+,	alpha_tween(&_alpha)
+,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
 {}
 
@@ -74,12 +71,12 @@ void poObject::preDraw() {}
 void poObject::postDraw() {}
 
 void poObject::addChild(poObject* obj) {
-	obj->parent_ = this;
+	obj->_parent = this;
 	children.push_back(obj);
 }
 
 void poObject::addChild(poObject *obj, int idx) {
-	obj->parent_ = this;
+	obj->_parent = this;
 	children.insert(children.begin()+idx, obj);
 }
 
@@ -88,7 +85,7 @@ bool poObject::removeChild(poObject* obj) {
 	bool found = iter != children.end();
 	
 	if(found) {
-		(*iter)->parent_ = NULL;
+		(*iter)->_parent = NULL;
 		children.erase(iter);
 	}
 	
@@ -99,7 +96,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 	if(idx < 0 || idx >= children.size())
 		return false;
 
-	children[idx]->parent_ = NULL;
+	children[idx]->_parent = NULL;
 
 	if(and_delete)
 		delete children[idx];
@@ -111,7 +108,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 
 void poObject::removeAllChildren(bool and_delete) {
 	BOOST_FOREACH(poObject* obj, children) {
-		obj->parent_ = NULL;
+		obj->_parent = NULL;
 		if(and_delete)
 			delete obj;
 	}
@@ -218,66 +215,66 @@ poPoint poObject::objectToLocal(poObject* obj, poPoint point) const {
 }
 
 void poObject::setAlignment(poAlignment align) {
-	alignment_ = align;
+	_alignment = align;
 }
 
 poRect poObject::calculateBounds(bool include_children) {
-	bounds_ = poRect(0,0,0,0);
+	_bounds = poRect(0,0,0,0);
 	
 	if(include_children) {
 		BOOST_FOREACH(poObject* obj, children) {
 			obj->calculateBounds(include_children);
 			poRect obj_b = obj->bounds();
 			
-			bounds_.include(objectToLocal(obj, obj_b.bottomLeft()));
-			bounds_.include(objectToLocal(obj, obj_b.bottomRight()));
-			bounds_.include(objectToLocal(obj, obj_b.topLeft()));
-			bounds_.include(objectToLocal(obj, obj_b.topRight()));
+			_bounds.include(objectToLocal(obj, obj_b.bottomLeft()));
+			_bounds.include(objectToLocal(obj, obj_b.bottomRight()));
+			_bounds.include(objectToLocal(obj, obj_b.topLeft()));
+			_bounds.include(objectToLocal(obj, obj_b.topRight()));
 		}
 	}
 	
-	return bounds_;
+	return _bounds;
 }
 
-poObject*		poObject::parent() {return parent_;}
+poObject*		poObject::parent() {return _parent;}
 
-std::string		poObject::name() const {return name_;}
-poObject&		poObject::name(const std::string &str) {name_ = str; return *this;}
+std::string		poObject::name() const {return _name;}
+poObject&		poObject::name(const std::string &str) {_name = str; return *this;}
 
-float			poObject::alpha() const {return alpha_;}
-poObject&		poObject::alpha(float f) {alpha_ = f; return *this;}
+float			poObject::alpha() const {return _alpha;}
+poObject&		poObject::alpha(float f) {_alpha = f; return *this;}
 
-poPoint			poObject::scale() const {return scale_;}
-poObject&		poObject::scale(poPoint pt) {scale_ = pt; return *this;}
+poPoint			poObject::scale() const {return _scale;}
+poObject&		poObject::scale(poPoint pt) {_scale = pt; return *this;}
 poObject&		poObject::scale(float x, float y, float z) {return scale(poPoint(x,y,z));}
 
-poPoint			poObject::position() const {return position_;}
-poObject&		poObject::position(poPoint p) {position_ = p; return *this;}
+poPoint			poObject::position() const {return _position;}
+poObject&		poObject::position(poPoint p) {_position = p; return *this;}
 poObject&		poObject::position(float x, float y, float z) {return position(poPoint(x,y,z));}
 
-float			poObject::rotation() const {return rotation_;}
-poObject&		poObject::rotation(float f) {rotation_ = f; return *this;}
+float			poObject::rotation() const {return _rotation;}
+poObject&		poObject::rotation(float f) {_rotation = f; return *this;}
 
-poPoint			poObject::rotationAxis() const {return rotation_axis;}
-poObject&		poObject::rotationAxis(poPoint p) {rotation_axis = p; return *this;}
+poPoint			poObject::rotationAxis() const {return _rotation_axis;}
+poObject&		poObject::rotationAxis(poPoint p) {_rotation_axis = p; return *this;}
 poObject&		poObject::rotationAxis(float x, float y, float z) {return rotationAxis(poPoint(x,y,z));}
 
-poPoint			poObject::offset() const {return offset_;}
-poObject&		poObject::offset(poPoint p) {offset_ = p; return *this;}
+poPoint			poObject::offset() const {return _offset;}
+poObject&		poObject::offset(poPoint p) {_offset = p; return *this;}
 poObject&		poObject::offset(float x, float y, float z) {return offset(poPoint(x,y,z));}
 
-poRect			poObject::bounds() const {return bounds_;}
-poObject&		poObject::bounds(poRect r) {bounds_ = r; return *this;}
+poRect			poObject::bounds() const {return _bounds;}
+poObject&		poObject::bounds(poRect r) {_bounds = r; return *this;}
 
-poAlignment		poObject::alignment() const {return alignment_;}
+poAlignment		poObject::alignment() const {return _alignment;}
 
-bool			poObject::visible() const {return visible_;}
-poObject&		poObject::visible(bool b) {visible_ = b; return *this;}
+bool			poObject::visible() const {return _visible;}
+poObject&		poObject::visible(bool b) {_visible = b; return *this;}
 
-poMatrixOrder	poObject::matrixOrder() const {return matrix_order;}
-poObject&		poObject::matrixOrder(poMatrixOrder o) {matrix_order = o; return *this;}
+poMatrixOrder	poObject::matrixOrder() const {return _matrix_order;}
+poObject&		poObject::matrixOrder(poMatrixOrder o) {_matrix_order = o; return *this;}
 
-int				poObject::drawOrder() const {return draw_order;}
+int				poObject::drawOrder() const {return _draw_order;}
 
 void poObject::_drawTree() {
 	if(!visible())
@@ -350,31 +347,31 @@ void poObject::updateAllTweens() {
 void poObject::pushObjectMatrix() {
 	glPushMatrix();
 
-	if(parent_) {
-		true_alpha = parent_->true_alpha * alpha_;
-		draw_order = parent_->draw_order + 1;
+	if(_parent) {
+		true_alpha = _parent->true_alpha * _alpha;
+		_draw_order = _parent->_draw_order + 1;
 	}
 	else {
-		true_alpha = alpha_;
+		true_alpha = _alpha;
 	}
 	
 	// now move depending on the matrix order
-	switch(matrix_order) {
+	switch(_draw_order) {
 		case PO_MATRIX_ORDER_TRS:
-			glTranslatef(position_.x, position_.y, position_.z);
-			glRotatef(rotation_, rotation_axis.x, rotation_axis.y, rotation_axis.z);
-			glScalef(scale_.x, scale_.y, scale_.z);
+			glTranslatef(_position.x, _position.y, _position.z);
+			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);
+			glScalef(_scale.x, _scale.y, _scale.z);
 			break;
 			
 		case PO_MATRIX_ORDER_RST:
-			glRotatef(rotation_, rotation_axis.x, rotation_axis.y, rotation_axis.z);
-			glScalef(scale_.x, scale_.y, scale_.z);
-			glTranslatef(position_.x, position_.y, position_.z);
+			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);
+			glScalef(_scale.x, _scale.y, _scale.z);
+			glTranslatef(_position.x, _position.y, _position.z);
 			break;
 	}
 	
 	// translate to the offset
-	glTranslatef(offset_.x, offset_.y, offset_.z);
+	glTranslatef(_offset.x, _offset.y, _offset.z);
 
 	matrices.capture();
 }
