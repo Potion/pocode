@@ -1,5 +1,6 @@
 #include "poEvent.h"
 #include "poObject.h"
+#include "poApplication.h"
 
 bool isKeyEvent(int type) {
 	return (type == PO_KEY_UP_EVENT			||
@@ -32,10 +33,14 @@ bool isBoundsCheckedEvent(int type) {
 void localizeEvent(poEvent &stored, poEvent &tolocal) {
 	tolocal.source = stored.source;
 	tolocal.dict = stored.dict;
+    tolocal.message = stored.message;
 	
 	if(isMouseEvent(stored.type)) {
 		poPoint pt = stored.source->globalToLocal(tolocal.position);
 		tolocal.local_position = pt;
+        
+        // flip y value to correct for opposite coordinate systems
+        tolocal.position.y = getWindowHeight() - tolocal.position.y;
 	}
 }
 
@@ -60,10 +65,11 @@ poEvent::poEvent(const poEvent &e)
 ,	timestamp(e.timestamp)
 ,	previous_position(e.previous_position)
 ,	modifiers(e.modifiers)
+,   message(e.message)
 ,	dict(e.dict)
 {}
 
-poEvent::poEvent(int type, poObject* from, const poDictionary& dict)
+poEvent::poEvent(int type, poObject* from, std::string _message, const poDictionary& dict)
 :	type(type)
 ,	source(from)
 ,	keyCode(0)
@@ -71,8 +77,10 @@ poEvent::poEvent(int type, poObject* from, const poDictionary& dict)
 ,	uid(0)
 ,	timestamp(0.0)
 ,	modifiers(0)
+,   message(_message)
 ,	dict(dict)
-{}
+{
+}
 
 poEvent &poEvent::operator=(const poEvent &e) {
 	type = e.type;
@@ -86,6 +94,7 @@ poEvent &poEvent::operator=(const poEvent &e) {
 	previous_position = e.previous_position;
 	modifiers = e.modifiers;
 	dict = e.dict;
+    message = e.message;
 	return *this;
 }
 
@@ -112,22 +121,22 @@ poEventCenter::poEventCenter()
 		bcheck_event[i] = isBoundsCheckedEvent(i);
 }
 
-int poEventCenter::registerForEvent(int eventType, poObject *source, const poDictionary& dict) {
-	return registerForEvent(eventType, source, source);
+int poEventCenter::registerForEvent(int eventType, poObject *source, std::string message, const poDictionary& dict) {
+	return registerForEvent(eventType, source, source, message, dict);
 }
 
-int poEventCenter::registerForEvent(int eventType, poObject *source, poObject *sink, const poDictionary& dict) {
+int poEventCenter::registerForEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict) {
 	if(eventType >= events.size())
 		return 0;
-	
+    
 	static int callback_uid = 0;
 	
 	event_callback callback;
 	callback.uid = ++callback_uid;
 	callback.receiver = sink;
-	callback.event = poEvent(eventType, source, dict);
+	callback.event = poEvent(eventType, source, message, dict);
 	events[eventType].push_back(callback);
-	
+    
 	return callback.uid;
 }
 
@@ -167,7 +176,7 @@ poObject *poEventCenter::notify(poEvent event) {
 		std::vector<event_callback> &event_vec = events[event.type];
 		for(int i=0; i<event_vec.size(); i++) {
 			event_callback &callback = event_vec[i];
-			
+            
 			// this one is an option
 			if(callback.event.source->pointInside(event.position, true)) {
 				// higher draw_order means closer to surface, in 2D

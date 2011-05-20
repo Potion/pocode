@@ -2,7 +2,7 @@
 #include "poTexture.h"
 
 void applyColor(poColor color) {
-	glColor4fv(&color.red);
+	glColor4fv(&color.R);
 }
 
 void drawQuad(GLenum type, float l, float r, float b, float t) {

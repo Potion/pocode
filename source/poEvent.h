@@ -55,7 +55,7 @@ class poEvent
 public:
 	poEvent();
 	poEvent(const poEvent &e);
-	poEvent(int type, poObject* from, const poDictionary& dict=poDictionary());
+	poEvent(int type, poObject* from, std::string _message, const poDictionary& dict=poDictionary());
 	poEvent &operator=(const poEvent &e);
 	
 	// the object that generated the event
@@ -81,6 +81,7 @@ public:
 	poPoint previous_position;
 
 	// other info, at your discretion
+    std::string message;
 	poDictionary dict;
 };
 
@@ -89,9 +90,9 @@ public:
 	static poEventCenter *get();
 
 	// get window events to your event handler
-	int registerForEvent(int eventType, poObject *source, const poDictionary& dict=poDictionary());
+	int registerForEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary());
 	// get window events for an object delivered to another object
-	int registerForEvent(int eventType, poObject *source, poObject *sink, const poDictionary& dict=poDictionary());
+	int registerForEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary());
 	
 	// remove a specific event by id
 	void removeEvent(int event_id);
@@ -128,10 +129,10 @@ private:
 	std::vector< std::vector<event_callback> > events;
 };
 
-static int registerEvent(int eventType, poObject *source, const poDictionary& dict=poDictionary()) {
-	return poEventCenter::get()->registerForEvent(eventType, source, dict);
+static int registerEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary()) {
+	return poEventCenter::get()->registerForEvent(eventType, source, message, dict);
 }
 
-static int registerEvent(int eventType, poObject *source, poObject *sink, const poDictionary& dict=poDictionary()) {
-	return poEventCenter::get()->registerForEvent(eventType, source, sink, dict);
+static int registerEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary()) {
+	return poEventCenter::get()->registerForEvent(eventType, source, sink, message, dict);
 }
