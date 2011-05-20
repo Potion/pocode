@@ -29,18 +29,18 @@ public:
 	poShape2D &clearPoints();
 
 	size_t              numPoints() const;
-	poPoint&            getPoint(int idx);
+	poPoint				getPoint(int idx);
     bool                setPoint(int idx, poPoint p );
-	poPoint&            getTexCoord(int idx, uint unit=0);
-	poColor&            getColor(int idx); 
+	poPoint				getTexCoord(int idx, uint unit=0);
+	poColor				getColor(int idx); 
 	
     // alignment and bounds
 	virtual void        setAlignment(poAlignment align);
 	virtual poRect      calculateBounds(bool include_children=false);
 	
     // texture management
-	void                placeTexture(poTexture *tex, uint unit=0);
-	void                generateStroke();
+	poShape2D&			placeTexture(poTexture *tex, uint unit=0);
+	poShape2D&			generateStroke(int strokeWidth, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
     GLenum              textureCombineFunction(uint unit=0) const;
     
 	// get and set shape properties
@@ -50,7 +50,6 @@ public:
 	poShape2D&          enableStroke(bool b);
     bool                isStrokeEnabled() const;
     
-	poShape2D&          strokeWidth(int w);
     int                 strokeWidth() const;
     
 	poShape2D&          fillColor(poColor c);
@@ -64,13 +63,11 @@ public:
 	poShape2D&          fillDrawStyle(GLenum e);
     GLenum              fillDrawStyle() const;
     
-    poShape2D&          useGeneratedStroke( bool b );
-    bool                isStrokeGenerationEnabled();
+    poShape2D&          useSimpleStroke( bool b );
+    bool                isSimpleStrokeEnabled() const;
     
-	poShape2D&          capStyle(StrokeCapProperty p);
     StrokeCapProperty   capStyle() const;
     
-	poShape2D&          joinStyle(StrokeJoinProperty p);
     StrokeJoinProperty  joinStyle() const;
     
 	poShape2D&          closed(bool b);
@@ -96,7 +93,7 @@ private:
 	poColor                 stroke_color;
 	GLenum                  fill_draw_style;
 	int                     enabled_attributes;
-    bool                    useGenSroke;
+    bool                    use_simple_stroke;
 	StrokeCapProperty       cap;
 	StrokeJoinProperty      join;
 	bool                    closed_;

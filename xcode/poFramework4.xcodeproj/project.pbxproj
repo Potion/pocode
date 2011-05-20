@@ -172,6 +172,7 @@
 		E8D18F8C138582C60087288A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E8D18F8D1385937F0087288A /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
 		E8D18F8E138593800087288A /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -336,6 +337,9 @@
 				E87E18761367696800DB6934 /* poTexture.cpp */,
 				E87E18821368615B00DB6934 /* poImage.h */,
 				E87E18811368615A00DB6934 /* poImage.cpp */,
+				E8D18FA41386BF3E0087288A /* poObjectModifier.h */,
+				7F01E8E21386279D008F0EE1 /* poCamera.h */,
+				7F01E8E11386279D008F0EE1 /* poCamera.cpp */,
 				E8B2D0C2132E9F78002BE3D9 /* poObject.h */,
 				E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */,
 				E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */,
@@ -344,8 +348,6 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
-				7F01E8E21386279D008F0EE1 /* poCamera.h */,
-				7F01E8E11386279D008F0EE1 /* poCamera.cpp */,
 			);
 			name = poFramework4;
 			sourceTree = "<group>";

@@ -170,11 +170,22 @@ void    poObject::addModifier(poObjectModifier* mod)
     modifiers.push_back( mod );
 }
 
-void    poObject::removeAllModifiers()
+bool poObject::removeModifier(poObjectModifier* mod) {
+	poObjectModifierVec::iterator found = std::find(modifiers.begin(), modifiers.end(), mod);
+	if(found != modifiers.end()) {
+		modifiers.erase(found);
+		return true;
+	}
+	return false;
+}
+
+void    poObject::removeAllModifiers(bool and_delete)
 {
-    BOOST_FOREACH(poObjectModifier* mod, modifiers) {
-        delete mod;
-    }
+	if(and_delete) {
+		BOOST_FOREACH(poObjectModifier* mod, modifiers) {
+			delete mod;
+		}
+	}
     modifiers.clear();
 }
 

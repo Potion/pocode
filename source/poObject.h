@@ -12,6 +12,7 @@
 #include "poPoint.h"
 #include "poColor.h"
 #include "poRect.h"
+#include "poObjectModifier.h"
 
 class poObject;
 typedef std::vector<poObject*> poObjectVec;
@@ -50,7 +51,7 @@ public:
 	void			addChild(poObject* obj, int idx);
 	bool			removeChild(poObject* obj);
 	bool			removeChild(int at_idx, bool and_delete=true);
-	void			removeAllChildren(bool and_delete=false);
+	void			removeAllChildren(bool and_delete=true);
 	int				numChildren() const;
 	poObject*		getChild(int at_idx);
 	poObject*		getChild(const std::string &with_name);
@@ -63,7 +64,8 @@ public:
 	
     // MODIFIERS
     void            addModifier(poObjectModifier* mod);
-    void            removeAllModifiers();
+	bool			removeModifier(poObjectModifier* mod);
+    void            removeAllModifiers(bool and_delete=true);
     
 	// localize will convert global to local first
 	// otherwise, point is assumed to be local
@@ -130,14 +132,4 @@ template <typename T>
 inline T *getChildAs(poObject *parent, const std::string &name) {
 	return static_cast<T*>(parent->getChild(name));
 }
-
-
-class poObjectModifier
-{
-public:
-    poObjectModifier() { };
-    
-    virtual void setUp( poObject* obj ) { };
-    virtual void setDown( poObject* obj ) { };
-};
 

@@ -113,7 +113,7 @@ void    poLineShape::construct( poPoint A, poPoint B )
     
     closed( false );
     enableFill( false );
-    strokeWidth( 1 );
+	generateStroke(1,STROKE_JOIN_MITRE,STROKE_CAP_ROUND);
 }
 
 

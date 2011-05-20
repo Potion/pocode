@@ -6,7 +6,7 @@ poShape2D::poShape2D()
 ,	stroke_width(0)
 ,	fill_color(1,1,1,1)
 ,	stroke_color(1,1,1,1)
-,   useGenSroke(false)
+,   use_simple_stroke(false)
 ,	fill_draw_style(GL_TRIANGLE_FAN)
 ,	enabled_attributes(ATTRIB_POINT)
 ,	closed_(true)
@@ -76,7 +76,7 @@ void poShape2D::draw() {
 		glColor4f(stroke_color.R, stroke_color.G, stroke_color.B, stroke_color.A*true_alpha);
 		
         // use standard OpenGL stroke or custom generated stroke
-        if ( useGenSroke )
+        if ( !use_simple_stroke )
         {
             glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
             glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
@@ -148,7 +148,7 @@ size_t poShape2D::numPoints() const {
 	return points.size();
 }
 
-poPoint& poShape2D::getPoint(int idx) {
+poPoint poShape2D::getPoint(int idx) {
 	return points[idx];
 }
 
@@ -160,11 +160,11 @@ bool    poShape2D::setPoint(int idx, poPoint p )
     return true;
 }
 
-poPoint& poShape2D::getTexCoord(int idx, uint unit) {
+poPoint poShape2D::getTexCoord(int idx, uint unit) {
 	return tex_coords[unit][idx];
 }
 
-poColor& poShape2D::getColor(int idx) {
+poColor poShape2D::getColor(int idx) {
 	return colors[idx];
 }
 
@@ -216,7 +216,7 @@ poRect poShape2D::calculateBounds(bool include_children) {
 	return bounds;
 }
 
-void poShape2D::placeTexture(poTexture *tex, uint unit) {
+poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
 	textures[unit] = tex;
 
     // set texture coordinates, stretched to bounds of shape
@@ -240,6 +240,8 @@ void poShape2D::placeTexture(poTexture *tex, uint unit) {
 		if(!found_one)
 			disableAttribute(ATTRIB_TEX_COORD);
 	}
+	
+	return *this;
 }
 
 
@@ -250,11 +252,6 @@ bool        poShape2D::isFillEnabled() const {return enable_fill;}
 poShape2D&  poShape2D::enableStroke(bool b) {enable_stroke = b; return *this;}
 bool        poShape2D::isStrokeEnabled() const {return enable_stroke;}
 
-poShape2D&  poShape2D::strokeWidth(int w) {
-	stroke_width = w; 
-	enableStroke(stroke_width > 0);
-    return *this;
-}
 int         poShape2D::strokeWidth() const {return stroke_width;}
 
 poShape2D&  poShape2D::fillColor(poColor c) {fill_color = c; return *this; }
@@ -268,17 +265,15 @@ poShape2D&  poShape2D::strokeColor(poColor c) {stroke_color = c; return *this; }
 poShape2D&  poShape2D::fillDrawStyle(GLenum e) {fill_draw_style = e; return *this; }
 GLenum      poShape2D::fillDrawStyle() const {return fill_draw_style;}
 
-poShape2D&  poShape2D::useGeneratedStroke( bool b ) { useGenSroke = b; return *this; };
-bool        poShape2D::isStrokeGenerationEnabled() { return useGenSroke; };
+poShape2D&  poShape2D::useSimpleStroke( bool b ) { use_simple_stroke = b; return *this; };
+bool        poShape2D::isSimpleStrokeEnabled() const { return use_simple_stroke; };
 
 poShape2D&  poShape2D::enableAttribute(VertexAttribute a) {enabled_attributes |= a; return *this; }
 poShape2D&  poShape2D::disableAttribute(VertexAttribute a) {enabled_attributes &= ~a; return *this; }
 bool        poShape2D::isAttributeEnabled(VertexAttribute a) const {return (enabled_attributes & a) != 0;}
 
-poShape2D&  poShape2D::capStyle(StrokeCapProperty p) {cap = p; return *this; }
 StrokeCapProperty poShape2D::capStyle() const {return cap;}
 
-poShape2D&  poShape2D::joinStyle(StrokeJoinProperty p) {join = p; return *this; }
 StrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
 poShape2D&  poShape2D::closed(bool b) {closed_ = b; return *this; }
@@ -287,12 +282,17 @@ bool        poShape2D::isClosed() const {return closed_;}
 GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}
 poShape2D&  poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func; return *this; }
 
-
-
-
 void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width);
 
-void poShape2D::generateStroke() {
+poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, StrokeCapProperty cap) {
+	stroke_width = strokeWidth;
+	this->cap = cap;
+	this->join = join;
+	
+	enable_stroke = stroke_width > 0;
+	if(!enable_stroke)
+		return *this;
+	
 	stroke.clear();
 	
 	if(enable_stroke) {
@@ -355,6 +355,8 @@ void poShape2D::generateStroke() {
 			stroke.push_back(segments[segments.size()-1].p4);
 		}
 	}
+	
+	return *this;
 }
 
 

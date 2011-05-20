@@ -6,6 +6,8 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
+#pragma once
+
 #include "poObject.h"
 #include "poColor.h"
 
