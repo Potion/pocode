@@ -16,6 +16,10 @@
 class poObject;
 typedef std::vector<poObject*> poObjectVec;
 
+class poObjectModifier;
+typedef std::vector<poObjectModifier*> poObjectModifierVec;
+
+
 class poObject
 :	public boost::noncopyable
 {
@@ -57,6 +61,10 @@ public:
 	void			moveChildForward(poObject* child);
 	void			moveChildBackward(poObject* child);
 	
+    // MODIFIERS
+    void            addModifier(poObjectModifier* mod);
+    void            removeAllModifiers();
+    
 	// localize will convert global to local first
 	// otherwise, point is assumed to be local
 	bool			pointInside(poPoint point, bool localize=false);
@@ -106,8 +114,9 @@ private:
 	void			popObjectMatrix();
 	void			localizeEvent(poEvent*, poEvent*, poPoint);
 	
-	poObjectVec		children;
-	poEventTable	events;
+	poObjectVec             children;
+    poObjectModifierVec     modifiers;
+	poEventTable            events;
 	
 	poMatrixSet		matrices;
 };
@@ -121,4 +130,14 @@ template <typename T>
 inline T *getChildAs(poObject *parent, const std::string &name) {
 	return static_cast<T*>(parent->getChild(name));
 }
+
+
+class poObjectModifier
+{
+public:
+    poObjectModifier() { };
+    
+    virtual void setUp( poObject* obj ) { };
+    virtual void setDown( poObject* obj ) { };
+};
 

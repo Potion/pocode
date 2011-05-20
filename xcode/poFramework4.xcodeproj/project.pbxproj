@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
 		AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAB1360C36B00567447 /* bucketalloc.c */; };
 		E8174CBD1360C36B00567447 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAD1360C36B00567447 /* dict.c */; };
@@ -62,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
+		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
 		E8174CAB1360C36B00567447 /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
@@ -341,6 +344,8 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
+				7F01E8E21386279D008F0EE1 /* poCamera.h */,
+				7F01E8E11386279D008F0EE1 /* poCamera.cpp */,
 			);
 			name = poFramework4;
 			sourceTree = "<group>";
@@ -503,6 +508,7 @@
 				E81FB0B11379DD700054FCB9 /* PlatformHelpers.mm in Sources */,
 				AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */,
 				E8D18F8F138593800087288A /* poOpenGLView.mm in Sources */,
+				7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

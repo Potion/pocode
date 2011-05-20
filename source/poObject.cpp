@@ -164,6 +164,21 @@ void poObject::moveChildBackward(poObject* child) {
 	addChild(child, idx+1);
 }
 
+
+void    poObject::addModifier(poObjectModifier* mod)
+{
+    modifiers.push_back( mod );
+}
+
+void    poObject::removeAllModifiers()
+{
+    BOOST_FOREACH(poObjectModifier* mod, modifiers) {
+        delete mod;
+    }
+    modifiers.clear();
+}
+
+
 bool poObject::pointInside(poPoint point, bool localize) {
 	if(!visible)
 		return false;
@@ -217,6 +232,10 @@ void poObject::_drawTree() {
 	
 	pushObjectMatrix();
 
+    BOOST_FOREACH(poObjectModifier* mod, modifiers) {
+        mod->setUp( this );
+    }
+    
 	preDraw();
 	
 	draw();
@@ -226,6 +245,10 @@ void poObject::_drawTree() {
 	}
 
 	postDraw();
+    
+    BOOST_FOREACH(poObjectModifier* mod, modifiers) {
+        mod->setDown( this );
+    }
 	
 	popObjectMatrix();
 }

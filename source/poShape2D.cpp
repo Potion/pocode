@@ -152,6 +152,14 @@ poPoint& poShape2D::getPoint(int idx) {
 	return points[idx];
 }
 
+bool    poShape2D::setPoint(int idx, poPoint p )
+{
+    if ( idx < 0 || idx >= numPoints() )
+        return false;
+    points[idx] = p;
+    return true;
+}
+
 poPoint& poShape2D::getTexCoord(int idx, uint unit) {
 	return tex_coords[unit][idx];
 }

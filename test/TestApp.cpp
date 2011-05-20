@@ -8,16 +8,13 @@
 #define TEST_OBJ_ID 1000
 
 poObject *createObjectForID(uint uid) {
-	switch(uid) {
-		case TEST_OBJ_ID:
-			return new TestObj();
-			break;
-	}	
+	if( uid==TEST_OBJ_ID )
+        return new TestObj();
 	return NULL;
 }
 
 void setupApplication() {
-	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 1400, 1050);
+	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 1024, 768);
 }
 
 void cleanupApplication() {
@@ -33,12 +30,26 @@ TestObj::TestObj() {
 	tb->setBoldFont(new poFont("Helvetica", FONT_BOLD, 50));
 	addChild(tb);*/
     
+    poCamera2D* cam = new poCamera2D();
+    cam->backgroundColor.set( 0,0,0 );
+    this->addModifier( cam );
+    
     poRectShape* R = new poRectShape( 200,100 );
     R->fillColor( poColor::white );
     R->strokeWidth( 3 ).strokeColor( 1,0,0 );
     R->position.set( 100,100,0 );
     R->setAlignment( PO_ALIGN_CENTER_CENTER );
     addChild( R );
+    
+    poOvalShape* S = new poOvalShape( 150,200,60 );
+    S->strokeColor( poColor::red).strokeWidth(3);
+    S->position.set( 400,400,0 );
+    addChild( S );
+    
+    poLineShape* L = new poLineShape( poPoint(0,0,0), poPoint(200,100,0) );
+    L->strokeColor( poColor::white ).strokeWidth( 3 );
+    L->position.set( 500,300,0 );
+    addChild( L );
     
     R->addEvent( PO_MOUSE_PRESS_EVENT, this, "action", poDictionary().setInt("thing",5).setInt("stuff",2) );
 }
@@ -50,18 +61,7 @@ void TestObj::update()
 
 void TestObj::preDraw()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-    
-    glClearColor(0,0,0,1);
-	
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 }
 
 void TestObj::draw() {
