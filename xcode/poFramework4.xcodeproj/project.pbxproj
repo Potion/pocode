@@ -41,6 +41,8 @@
 		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E87E18961369884C00DB6934 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
+		E8A0B807138AF3F90024BC8C /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B806138AF3F90024BC8C /* Debug.xcconfig */; };
+		E8A0B809138AF4140024BC8C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B808138AF4140024BC8C /* Release.xcconfig */; };
 		E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
 		E8B2D070132E9CA7002BE3D9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */; };
 		E8B2D0CB132E9F78002BE3D9 /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
@@ -133,6 +135,8 @@
 		E87E18821368615B00DB6934 /* poImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poImage.h; path = ../source/poImage.h; sourceTree = "<group>"; };
 		E87E18941369884B00DB6934 /* poResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResource.cpp; path = ../source/poResource.cpp; sourceTree = "<group>"; };
 		E87E18951369884B00DB6934 /* poResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResource.h; path = ../source/poResource.h; sourceTree = "<group>"; };
+		E8A0B806138AF3F90024BC8C /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E8A0B808138AF4140024BC8C /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
 		E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poFramework4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -284,22 +288,14 @@
 		E8B2D06E132E9CA7002BE3D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E8B2D072132E9CA7002BE3D9 /* AppKit.framework */,
+				E8B2D074132E9CA7002BE3D9 /* Foundation.framework */,
 				E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */,
 				E8B2D0ED132EA0D6002BE3D9 /* CoreVideo.framework */,
 				E8B2D0EE132EA0D6002BE3D9 /* OpenGL.framework */,
 				E81FB0AD1379CDBA0054FCB9 /* ApplicationServices.framework */,
-				E8B2D071132E9CA7002BE3D9 /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E8B2D071132E9CA7002BE3D9 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E8B2D072132E9CA7002BE3D9 /* AppKit.framework */,
-				E8B2D074132E9CA7002BE3D9 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */ = {
@@ -377,6 +373,8 @@
 				E8B2D0D9132E9F91002BE3D9 /* CocoaImpl.xib */,
 				E83095D1132FB20B00080C86 /* CocoaImpl.pch */,
 				E81FB0B01379DD6F0054FCB9 /* PlatformHelpers.mm */,
+				E8A0B806138AF3F90024BC8C /* Debug.xcconfig */,
+				E8A0B808138AF4140024BC8C /* Release.xcconfig */,
 			);
 			name = cocoa;
 			path = ../source/application/cocoa;
@@ -454,6 +452,8 @@
 			files = (
 				E8B2D0E6132E9F91002BE3D9 /* CocoaImpl.xib in Resources */,
 				E8B2D0E7132E9F91002BE3D9 /* InfoPlist.strings in Resources */,
+				E8A0B807138AF3F90024BC8C /* Debug.xcconfig in Resources */,
+				E8A0B809138AF4140024BC8C /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,108 +519,27 @@
 /* Begin XCBuildConfiguration section */
 		E8B2D087132E9CA7002BE3D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8A0B806138AF3F90024BC8C /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		E8B2D088132E9CA7002BE3D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8A0B808138AF4140024BC8C /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
 		E8B2D08A132E9CA7002BE3D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BOOST_LIBS = "$(LIBRARIES_DIR)/Boost/boost_1_45_0/stage/lib";
-				COPY_PHASE_STRIP = NO;
-				FREEIMAGE = "$(LIBRARIES_DIR)/FreeImage/Dist";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(IMPL_DIR)/CocoaImpl.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					"$(LIBRARIES_DIR)/Boost/boost_1_45_0",
-					"$(FREEIMAGE)",
-				);
-				IMPL_DIR = "$(SRC_DIR)/application/cocoa";
-				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
-				LIBRARIES_DIR = ../../../libraries;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-d-1_45.a",
-					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-d-1_45.a",
-					"$(BOOST_LIBS)/libboost_system-clang-darwin20-mt-d-1_45.a",
-					"$(BOOST_LIBS)/libboost_thread-clang-darwin20-mt-d-1_45.a",
-					"$(FREEIMAGE)/libfreeimage-clang.a",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SRC_DIR = ../source;
-				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
-				USER_HEADER_SEARCH_PATHS = "$(SRC_DIR)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		E8B2D08B132E9CA7002BE3D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BOOST_LIBS = "$(LIBRARIES_DIR)/Boost/boost_1_45_0/stage/lib";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FREEIMAGE = "$(LIBRARIES_DIR)/FreeImage/Dist";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(IMPL_DIR)/CocoaImpl.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					"$(LIBRARIES_DIR)/Boost/boost_1_45_0",
-					"$(FREEIMAGE)",
-				);
-				IMPL_DIR = "$(SRC_DIR)/application/cocoa";
-				INFOPLIST_FILE = "$(SRC_DIR)/application/cocoa/CocoaImpl.plist";
-				LIBRARIES_DIR = ../../../libraries;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(BOOST_LIBS)/libboost_date_time-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_filesystem-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_system-clang-darwin20-mt-1_45.a",
-					"$(BOOST_LIBS)/libboost_thread-clang-darwin20-mt-1_45.a",
-					"$(FREEIMAGE)/libfreeimage-clang.a",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SRC_DIR = ../source;
-				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
-				USER_HEADER_SEARCH_PATHS = "$(SRC_DIR)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
