@@ -8,11 +8,14 @@
 
 
 #include "poShape2D.h"
+#include "poTexture.h"
 
 class poRectShape : public poShape2D
 {
 public:
     poRectShape();
+    poRectShape( poTexture* tex );
+    poRectShape( const std::string &url );
     poRectShape( float _width, float _height );
     
     void    reshape( float _width, float _height );
