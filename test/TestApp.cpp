@@ -54,6 +54,13 @@ TestObj::TestObj() {
 		.position( 500,300,0 );
     addChild( L );
     
+    /*poImage* image = new poImage( "images/kittens.jpeg" );
+    poTexture* tex = new poTexture( image );
+    poRectShape* imageShape = new poRectShape( tex );
+    imageShape->position( 200,200 );*/
+    poRectShape* imageShape = new poRectShape( "images/kittens.jpeg" );
+    addChild( imageShape );
+    
     R->addEvent( PO_MOUSE_PRESS_EVENT, this, "action", poDictionary().setInt("thing",5).setInt("stuff",2) );
 }
 

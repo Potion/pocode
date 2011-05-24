@@ -22,6 +22,20 @@ poRectShape::poRectShape( float _width, float _height )
     construct( _width, _height );
 }
 
+poRectShape::poRectShape( poTexture* tex )
+{
+    construct( tex->width(), tex->height() );
+    placeTexture( tex );
+}
+
+poRectShape::poRectShape( const std::string &url )
+{
+    poImage* I = new poImage( url );
+    poTexture* T = new poTexture( I );
+    construct( T->width(), T->height() );
+    placeTexture( T );
+}
+
 void    poRectShape::reshape( float _width, float _height )
 {
     width = _width;
