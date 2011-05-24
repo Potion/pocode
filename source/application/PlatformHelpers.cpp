@@ -2,6 +2,11 @@
 #include <cstdarg>
 #include <cstdio>
 
+#include "poFont.h"
+#include "poRect.h"
+#include "poTexture.h"
+
+#ifdef __APPLE__
 #include <mach/mach_time.h>
 #include <sys/param.h>
 #include <sys/sysctl.h>
@@ -12,9 +17,6 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-#include "poFont.h"
-#include "poRect.h"
-#include "poTexture.h"
 
 double getTime() {
     static mach_timebase_info_data_t info;
@@ -205,3 +207,4 @@ int utf8strlen(const std::string &str) {
 	return j;
 }
 
+#endif
