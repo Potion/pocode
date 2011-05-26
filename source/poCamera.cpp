@@ -11,8 +11,13 @@
 
 poCamera2D::poCamera2D()
 {
-    clearBackground = true;
-    backgroundColor.set( 0,0,0 );
+    clears_background = true;
+    background_color.set( 0,0,0 );
+}
+
+poCamera2D::poCamera2D(poColor color) {
+	clears_background = true;
+	background_color = color;
 }
 
 void poCamera2D::setUp( poObject* obj ) {
@@ -36,10 +41,10 @@ void poCamera2D::setUp( poObject* obj ) {
     glEnable( GL_LINE_SMOOTH );
     
     // clear background
-    if ( clearBackground )
+    if ( clears_background )
     {
+        glClearColor( background_color.R, background_color.G, background_color.B, 1 );
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor( backgroundColor.R, backgroundColor.G, backgroundColor.B, 1 );
     }
 }
 
@@ -48,3 +53,17 @@ void poCamera2D::setDown( poObject* obj ) {
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 }
+
+bool poCamera2D::clearsBackground() const {return clears_background;}
+void poCamera2D::clearsBackground(bool b) {clears_background = b;}
+
+poColor poCamera2D::backgroundColor() const {return background_color;}
+void poCamera2D::backgroundColor(poColor color) {
+	background_color = color;
+}
+
+void poCamera2D::backgroundColor(float r, float g, float b, float a) {
+	background_color.set(r,g,b,a);
+}
+
+

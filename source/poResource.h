@@ -18,6 +18,7 @@ public:
 	poResourceStore();
 	~poResourceStore();
 	
+	// don't have to specify template argument
 	template <typename T> T* add(T *r);
 	template <typename T> T* remove(T *r);
 	
@@ -28,7 +29,6 @@ private:
 
 
 // template implementations
-
 template <typename T>
 T* poResourceStore::add(T *r) {
 	resources.insert(r);

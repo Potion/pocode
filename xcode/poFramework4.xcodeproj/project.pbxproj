@@ -9,29 +9,6 @@
 /* Begin PBXBuildFile section */
 		7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
 		AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
-		E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAB1360C36B00567447 /* bucketalloc.c */; };
-		E8174CBD1360C36B00567447 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAD1360C36B00567447 /* dict.c */; };
-		E8174CBE1360C36B00567447 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CAF1360C36B00567447 /* geom.c */; };
-		E8174CBF1360C36B00567447 /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CB11360C36B00567447 /* mesh.c */; };
-		E8174CC01360C36B00567447 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CB31360C36B00567447 /* priorityq.c */; };
-		E8174CC11360C36B00567447 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CB51360C36B00567447 /* sweep.c */; };
-		E8174CC21360C36B00567447 /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = E8174CB71360C36B00567447 /* tess.c */; };
-		E81FB09713799FA60054FCB9 /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = E81FB07513799FA60054FCB9 /* nanosvg.c */; };
-		E81FB09813799FA60054FCB9 /* action_store.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB07813799FA60054FCB9 /* action_store.cpp */; };
-		E81FB09913799FA60054FCB9 /* htmlutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB07B13799FA60054FCB9 /* htmlutil.cpp */; };
-		E81FB09A13799FA60054FCB9 /* lex_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB07E13799FA60054FCB9 /* lex_util.cpp */; };
-		E81FB09B13799FA60054FCB9 /* node_set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08013799FA60054FCB9 /* node_set.cpp */; };
-		E81FB09C13799FA60054FCB9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08213799FA60054FCB9 /* tinyxml.cpp */; };
-		E81FB09D13799FA60054FCB9 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08413799FA60054FCB9 /* tinyxmlerror.cpp */; };
-		E81FB09E13799FA60054FCB9 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08513799FA60054FCB9 /* tinyxmlparser.cpp */; };
-		E81FB09F13799FA60054FCB9 /* tokenlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08713799FA60054FCB9 /* tokenlist.cpp */; };
-		E81FB0A013799FA60054FCB9 /* xml_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08913799FA60054FCB9 /* xml_util.cpp */; };
-		E81FB0A113799FA60054FCB9 /* xpath_expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08B13799FA60054FCB9 /* xpath_expression.cpp */; };
-		E81FB0A213799FA60054FCB9 /* xpath_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08D13799FA60054FCB9 /* xpath_processor.cpp */; };
-		E81FB0A313799FA60054FCB9 /* xpath_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB08F13799FA60054FCB9 /* xpath_stack.cpp */; };
-		E81FB0A413799FA60054FCB9 /* xpath_static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB09113799FA60054FCB9 /* xpath_static.cpp */; };
-		E81FB0A513799FA60054FCB9 /* xpath_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB09313799FA60054FCB9 /* xpath_stream.cpp */; };
-		E81FB0A613799FA60054FCB9 /* xpath_syntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E81FB09513799FA60054FCB9 /* xpath_syntax.cpp */; };
 		E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F0132FD0D600080C86 /* poMatrixSet.cpp */; };
 		E83095F9132FD79900080C86 /* poCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F8132FD79900080C86 /* poCommon.cpp */; };
 		E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */; };
@@ -39,12 +16,6 @@
 		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E87E18961369884C00DB6934 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
-		E8A0B8F6138AFFA20024BC8C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D072132E9CA7002BE3D9 /* AppKit.framework */; };
-		E8A0B8F7138AFFA20024BC8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D074132E9CA7002BE3D9 /* Foundation.framework */; };
-		E8A0B8F8138AFFA20024BC8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */; };
-		E8A0B8F9138AFFA20024BC8C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D0ED132EA0D6002BE3D9 /* CoreVideo.framework */; };
-		E8A0B8FA138AFFA20024BC8C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B2D0EE132EA0D6002BE3D9 /* OpenGL.framework */; };
-		E8A0B8FB138AFFA20024BC8C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81FB0AD1379CDBA0054FCB9 /* ApplicationServices.framework */; };
 		E8A0B9A2138B0FE10024BC8C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B997138B0FE10024BC8C /* AppDelegate.mm */; };
 		E8A0B9A4138B0FE10024BC8C /* CocoaImpl.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B99A138B0FE10024BC8C /* CocoaImpl.xib */; };
 		E8A0B9A5138B0FE10024BC8C /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */; };
@@ -63,6 +34,52 @@
 		E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */; };
 		E8B2D0EB132E9F91002BE3D9 /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */; };
 		E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */; };
+		E8EABA90138DC46600EF35A6 /* glInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E841ED7A1369AB640029C2F4 /* glInfo.h */; };
+		E8EABA91138DC46600EF35A6 /* poEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = E830965913315F2D00080C86 /* poEnums.h */; };
+		E8EABA92138DC46600EF35A6 /* poMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BE132E9F78002BE3D9 /* poMath.h */; };
+		E8EABA93138DC46600EF35A6 /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
+		E8EABA94138DC46600EF35A6 /* poPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0C4132E9F78002BE3D9 /* poPoint.h */; };
+		E8EABA95138DC46600EF35A6 /* poPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */; };
+		E8EABA96138DC46600EF35A6 /* poColor.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0B6132E9F78002BE3D9 /* poColor.h */; };
+		E8EABA97138DC46600EF35A6 /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
+		E8EABA98138DC46600EF35A6 /* poRect.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0C6132E9F78002BE3D9 /* poRect.h */; };
+		E8EABA99138DC46600EF35A6 /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
+		E8EABA9A138DC46600EF35A6 /* poDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */; };
+		E8EABA9B138DC46600EF35A6 /* poCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0B8132E9F78002BE3D9 /* poCommon.h */; };
+		E8EABA9C138DC46600EF35A6 /* poCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F8132FD79900080C86 /* poCommon.cpp */; };
+		E8EABA9D138DC46600EF35A6 /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; };
+		E8EABA9E138DC46600EF35A6 /* poEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */; };
+		E8EABA9F138DC46600EF35A6 /* poTween.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0CA132E9F78002BE3D9 /* poTween.h */; };
+		E8EABAA0138DC46600EF35A6 /* poTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */; };
+		E8EABAA1138DC46600EF35A6 /* poFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FB2407133A996C00111A69 /* poFont.h */; };
+		E8EABAA2138DC46600EF35A6 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
+		E8EABAA3138DC46600EF35A6 /* poEasingFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */; };
+		E8EABAA4138DC46600EF35A6 /* poSimpleDrawing.h in Headers */ = {isa = PBXBuildFile; fileRef = E830965B13315F2D00080C86 /* poSimpleDrawing.h */; };
+		E8EABAA5138DC46600EF35A6 /* poSimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */; };
+		E8EABAA6138DC46600EF35A6 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E83095F1132FD0D600080C86 /* poMatrixSet.h */; };
+		E8EABAA7138DC46600EF35A6 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F0132FD0D600080C86 /* poMatrixSet.cpp */; };
+		E8EABAA8138DC46600EF35A6 /* poResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E87E18951369884B00DB6934 /* poResource.h */; };
+		E8EABAA9138DC46600EF35A6 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
+		E8EABAAA138DC46600EF35A6 /* poTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = E87E18771367696800DB6934 /* poTexture.h */; };
+		E8EABAAB138DC46600EF35A6 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
+		E8EABAAC138DC46600EF35A6 /* poImage.h in Headers */ = {isa = PBXBuildFile; fileRef = E87E18821368615B00DB6934 /* poImage.h */; };
+		E8EABAAD138DC46600EF35A6 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
+		E8EABAAE138DC46600EF35A6 /* poObjectModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D18FA41386BF3E0087288A /* poObjectModifier.h */; };
+		E8EABAAF138DC46600EF35A6 /* poCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F01E8E21386279D008F0EE1 /* poCamera.h */; };
+		E8EABAB0138DC46600EF35A6 /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
+		E8EABAB1138DC46600EF35A6 /* poObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0C2132E9F78002BE3D9 /* poObject.h */; };
+		E8EABAB2138DC46600EF35A6 /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
+		E8EABAB3138DC46600EF35A6 /* poShape2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */; };
+		E8EABAB4138DC46600EF35A6 /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
+		E8EABAB5138DC46600EF35A6 /* poShapeBasics2D.h in Headers */ = {isa = PBXBuildFile; fileRef = AA09790B138593A800BBA07F /* poShapeBasics2D.h */; };
+		E8EABAB6138DC46600EF35A6 /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
+		E8EABAB7138DC46600EF35A6 /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
+		E8EABAB8138DC46600EF35A6 /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
+		E8EABAE7138DC49400EF35A6 /* PlatformHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */; };
+		E8EABAE8138DC49400EF35A6 /* PlatformHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0DE132E9F91002BE3D9 /* PlatformHelpers.h */; };
+		E8EABAE9138DC49400EF35A6 /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */; };
+		E8EABAEA138DC49400EF35A6 /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0E3132E9F91002BE3D9 /* poWindow.h */; };
+		E8EABAEB138DC49400EF35A6 /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D10D132EC43D002BE3D9 /* poApplication.h */; };
 		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
 /* End PBXBuildFile section */
 
@@ -71,55 +88,6 @@
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
-		E8174CAB1360C36B00567447 /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
-		E8174CAC1360C36B00567447 /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
-		E8174CAD1360C36B00567447 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
-		E8174CAE1360C36B00567447 /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
-		E8174CAF1360C36B00567447 /* geom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = geom.c; sourceTree = "<group>"; };
-		E8174CB01360C36B00567447 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geom.h; sourceTree = "<group>"; };
-		E8174CB11360C36B00567447 /* mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mesh.c; sourceTree = "<group>"; };
-		E8174CB21360C36B00567447 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
-		E8174CB31360C36B00567447 /* priorityq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = priorityq.c; sourceTree = "<group>"; };
-		E8174CB41360C36B00567447 /* priorityq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priorityq.h; sourceTree = "<group>"; };
-		E8174CB51360C36B00567447 /* sweep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sweep.c; sourceTree = "<group>"; };
-		E8174CB61360C36B00567447 /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
-		E8174CB71360C36B00567447 /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tess.c; sourceTree = "<group>"; };
-		E8174CB81360C36B00567447 /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tess.h; sourceTree = "<group>"; };
-		E8174CBB1360C36B00567447 /* tesselator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tesselator.h; path = ../source/helpers/tesselator.h; sourceTree = "<group>"; };
-		E81FB07513799FA60054FCB9 /* nanosvg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nanosvg.c; sourceTree = "<group>"; };
-		E81FB07613799FA60054FCB9 /* nanosvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanosvg.h; sourceTree = "<group>"; };
-		E81FB07813799FA60054FCB9 /* action_store.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = action_store.cpp; sourceTree = "<group>"; };
-		E81FB07913799FA60054FCB9 /* action_store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action_store.h; sourceTree = "<group>"; };
-		E81FB07A13799FA60054FCB9 /* byte_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = byte_stream.h; sourceTree = "<group>"; };
-		E81FB07B13799FA60054FCB9 /* htmlutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmlutil.cpp; sourceTree = "<group>"; };
-		E81FB07C13799FA60054FCB9 /* htmlutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlutil.h; sourceTree = "<group>"; };
-		E81FB07D13799FA60054FCB9 /* lex_token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lex_token.h; sourceTree = "<group>"; };
-		E81FB07E13799FA60054FCB9 /* lex_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lex_util.cpp; sourceTree = "<group>"; };
-		E81FB07F13799FA60054FCB9 /* lex_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lex_util.h; sourceTree = "<group>"; };
-		E81FB08013799FA60054FCB9 /* node_set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node_set.cpp; sourceTree = "<group>"; };
-		E81FB08113799FA60054FCB9 /* node_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node_set.h; sourceTree = "<group>"; };
-		E81FB08213799FA60054FCB9 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
-		E81FB08313799FA60054FCB9 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
-		E81FB08413799FA60054FCB9 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
-		E81FB08513799FA60054FCB9 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
-		E81FB08613799FA60054FCB9 /* tinyxpath_conf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxpath_conf.h; sourceTree = "<group>"; };
-		E81FB08713799FA60054FCB9 /* tokenlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tokenlist.cpp; sourceTree = "<group>"; };
-		E81FB08813799FA60054FCB9 /* tokenlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenlist.h; sourceTree = "<group>"; };
-		E81FB08913799FA60054FCB9 /* xml_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_util.cpp; sourceTree = "<group>"; };
-		E81FB08A13799FA60054FCB9 /* xml_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xml_util.h; sourceTree = "<group>"; };
-		E81FB08B13799FA60054FCB9 /* xpath_expression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_expression.cpp; sourceTree = "<group>"; };
-		E81FB08C13799FA60054FCB9 /* xpath_expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_expression.h; sourceTree = "<group>"; };
-		E81FB08D13799FA60054FCB9 /* xpath_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_processor.cpp; sourceTree = "<group>"; };
-		E81FB08E13799FA60054FCB9 /* xpath_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_processor.h; sourceTree = "<group>"; };
-		E81FB08F13799FA60054FCB9 /* xpath_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_stack.cpp; sourceTree = "<group>"; };
-		E81FB09013799FA60054FCB9 /* xpath_stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_stack.h; sourceTree = "<group>"; };
-		E81FB09113799FA60054FCB9 /* xpath_static.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_static.cpp; sourceTree = "<group>"; };
-		E81FB09213799FA60054FCB9 /* xpath_static.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_static.h; sourceTree = "<group>"; };
-		E81FB09313799FA60054FCB9 /* xpath_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_stream.cpp; sourceTree = "<group>"; };
-		E81FB09413799FA60054FCB9 /* xpath_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_stream.h; sourceTree = "<group>"; };
-		E81FB09513799FA60054FCB9 /* xpath_syntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpath_syntax.cpp; sourceTree = "<group>"; };
-		E81FB09613799FA60054FCB9 /* xpath_syntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpath_syntax.h; sourceTree = "<group>"; };
-		E81FB0AD1379CDBA0054FCB9 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
 		E83095F1132FD0D600080C86 /* poMatrixSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixSet.h; path = ../source/poMatrixSet.h; sourceTree = "<group>"; };
 		E83095F8132FD79900080C86 /* poCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCommon.cpp; path = ../source/poCommon.cpp; sourceTree = "<group>"; };
@@ -129,6 +97,7 @@
 		E841ED7A1369AB640029C2F4 /* glInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glInfo.h; path = ../source/glInfo.h; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
 		E85EE94B13731F9C0066679A /* poTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextBox.h; path = ../source/poTextBox.h; sourceTree = "<group>"; };
+		E87AEDEF138DC15300A72865 /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E87E18761367696800DB6934 /* poTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture.cpp; path = ../source/poTexture.cpp; sourceTree = "<group>"; };
 		E87E18771367696800DB6934 /* poTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTexture.h; path = ../source/poTexture.h; sourceTree = "<group>"; };
 		E87E18811368615A00DB6934 /* poImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage.cpp; path = ../source/poImage.cpp; sourceTree = "<group>"; };
@@ -149,9 +118,6 @@
 		E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PlatformHelpers.cpp; path = ../source/application/PlatformHelpers.cpp; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
 		E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poFramework4.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		E8B2D072132E9CA7002BE3D9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		E8B2D074132E9CA7002BE3D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor.cpp; path = ../source/poColor.cpp; sourceTree = "<group>"; };
 		E8B2D0B6132E9F78002BE3D9 /* poColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poColor.h; path = ../source/poColor.h; sourceTree = "<group>"; };
 		E8B2D0B8132E9F78002BE3D9 /* poCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCommon.h; path = ../source/poCommon.h; sourceTree = "<group>"; };
@@ -173,8 +139,6 @@
 		E8B2D0DE132E9F91002BE3D9 /* PlatformHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformHelpers.h; path = ../source/application/PlatformHelpers.h; sourceTree = "<group>"; };
 		E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/application/poWindow.cpp; sourceTree = "<group>"; };
 		E8B2D0E3132E9F91002BE3D9 /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/application/poWindow.h; sourceTree = "<group>"; };
-		E8B2D0ED132EA0D6002BE3D9 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		E8B2D0EE132EA0D6002BE3D9 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E8B2D10D132EC43D002BE3D9 /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/application/poApplication.h; sourceTree = "<group>"; };
 		E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestApp.cpp; path = ../test/TestApp.cpp; sourceTree = "<group>"; };
 		E8B2D110132EC4B7002BE3D9 /* TestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestApp.h; path = ../test/TestApp.h; sourceTree = "<group>"; };
@@ -184,93 +148,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E87AEDEC138DC15300A72865 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E8B2D068132E9CA7002BE3D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8A0B8F6138AFFA20024BC8C /* AppKit.framework in Frameworks */,
-				E8A0B8F7138AFFA20024BC8C /* Foundation.framework in Frameworks */,
-				E8A0B8F8138AFFA20024BC8C /* Cocoa.framework in Frameworks */,
-				E8A0B8F9138AFFA20024BC8C /* CoreVideo.framework in Frameworks */,
-				E8A0B8FA138AFFA20024BC8C /* OpenGL.framework in Frameworks */,
-				E8A0B8FB138AFFA20024BC8C /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E8174CAA1360C36B00567447 /* libtess2 */ = {
-			isa = PBXGroup;
-			children = (
-				E8174CAB1360C36B00567447 /* bucketalloc.c */,
-				E8174CAC1360C36B00567447 /* bucketalloc.h */,
-				E8174CAD1360C36B00567447 /* dict.c */,
-				E8174CAE1360C36B00567447 /* dict.h */,
-				E8174CAF1360C36B00567447 /* geom.c */,
-				E8174CB01360C36B00567447 /* geom.h */,
-				E8174CB11360C36B00567447 /* mesh.c */,
-				E8174CB21360C36B00567447 /* mesh.h */,
-				E8174CB31360C36B00567447 /* priorityq.c */,
-				E8174CB41360C36B00567447 /* priorityq.h */,
-				E8174CB51360C36B00567447 /* sweep.c */,
-				E8174CB61360C36B00567447 /* sweep.h */,
-				E8174CB71360C36B00567447 /* tess.c */,
-				E8174CB81360C36B00567447 /* tess.h */,
-			);
-			name = libtess2;
-			path = ../source/helpers/libtess2;
-			sourceTree = "<group>";
-		};
-		E81FB07413799FA60054FCB9 /* nanosvg */ = {
-			isa = PBXGroup;
-			children = (
-				E81FB07513799FA60054FCB9 /* nanosvg.c */,
-				E81FB07613799FA60054FCB9 /* nanosvg.h */,
-			);
-			name = nanosvg;
-			path = ../source/helpers/nanosvg;
-			sourceTree = "<group>";
-		};
-		E81FB07713799FA60054FCB9 /* tinyxpath */ = {
-			isa = PBXGroup;
-			children = (
-				E81FB07813799FA60054FCB9 /* action_store.cpp */,
-				E81FB07913799FA60054FCB9 /* action_store.h */,
-				E81FB07A13799FA60054FCB9 /* byte_stream.h */,
-				E81FB07B13799FA60054FCB9 /* htmlutil.cpp */,
-				E81FB07C13799FA60054FCB9 /* htmlutil.h */,
-				E81FB07D13799FA60054FCB9 /* lex_token.h */,
-				E81FB07E13799FA60054FCB9 /* lex_util.cpp */,
-				E81FB07F13799FA60054FCB9 /* lex_util.h */,
-				E81FB08013799FA60054FCB9 /* node_set.cpp */,
-				E81FB08113799FA60054FCB9 /* node_set.h */,
-				E81FB08213799FA60054FCB9 /* tinyxml.cpp */,
-				E81FB08313799FA60054FCB9 /* tinyxml.h */,
-				E81FB08413799FA60054FCB9 /* tinyxmlerror.cpp */,
-				E81FB08513799FA60054FCB9 /* tinyxmlparser.cpp */,
-				E81FB08613799FA60054FCB9 /* tinyxpath_conf.h */,
-				E81FB08713799FA60054FCB9 /* tokenlist.cpp */,
-				E81FB08813799FA60054FCB9 /* tokenlist.h */,
-				E81FB08913799FA60054FCB9 /* xml_util.cpp */,
-				E81FB08A13799FA60054FCB9 /* xml_util.h */,
-				E81FB08B13799FA60054FCB9 /* xpath_expression.cpp */,
-				E81FB08C13799FA60054FCB9 /* xpath_expression.h */,
-				E81FB08D13799FA60054FCB9 /* xpath_processor.cpp */,
-				E81FB08E13799FA60054FCB9 /* xpath_processor.h */,
-				E81FB08F13799FA60054FCB9 /* xpath_stack.cpp */,
-				E81FB09013799FA60054FCB9 /* xpath_stack.h */,
-				E81FB09113799FA60054FCB9 /* xpath_static.cpp */,
-				E81FB09213799FA60054FCB9 /* xpath_static.h */,
-				E81FB09313799FA60054FCB9 /* xpath_stream.cpp */,
-				E81FB09413799FA60054FCB9 /* xpath_stream.h */,
-				E81FB09513799FA60054FCB9 /* xpath_syntax.cpp */,
-				E81FB09613799FA60054FCB9 /* xpath_syntax.h */,
-			);
-			name = tinyxpath;
-			path = ../source/helpers/tinyxpath;
-			sourceTree = "<group>";
-		};
 		E8A0B995138B0FBA0024BC8C /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,10 +186,9 @@
 		E8B2D060132E9CA7002BE3D9 = {
 			isa = PBXGroup;
 			children = (
-				E8A0B995138B0FBA0024BC8C /* platform */,
 				E8B2D108132EC388002BE3D9 /* application */,
+				E8A0B995138B0FBA0024BC8C /* platform */,
 				E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */,
-				E8B2D06E132E9CA7002BE3D9 /* Frameworks */,
 				E8B2D06C132E9CA7002BE3D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -304,28 +197,15 @@
 			isa = PBXGroup;
 			children = (
 				E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */,
+				E87AEDEF138DC15300A72865 /* libpotionLib.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E8B2D06E132E9CA7002BE3D9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E8B2D072132E9CA7002BE3D9 /* AppKit.framework */,
-				E8B2D074132E9CA7002BE3D9 /* Foundation.framework */,
-				E8B2D06F132E9CA7002BE3D9 /* Cocoa.framework */,
-				E8B2D0ED132EA0D6002BE3D9 /* CoreVideo.framework */,
-				E8B2D0EE132EA0D6002BE3D9 /* OpenGL.framework */,
-				E81FB0AD1379CDBA0054FCB9 /* ApplicationServices.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */ = {
 			isa = PBXGroup;
 			children = (
 				E8B2D0D4132E9F7F002BE3D9 /* application */,
-				E8FB240A133A998C00111A69 /* helpers */,
 				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E830965913315F2D00080C86 /* poEnums.h */,
 				E8B2D0BE132E9F78002BE3D9 /* poMath.h */,
@@ -392,20 +272,62 @@
 			name = application;
 			sourceTree = "<group>";
 		};
-		E8FB240A133A998C00111A69 /* helpers */ = {
-			isa = PBXGroup;
-			children = (
-				E81FB07413799FA60054FCB9 /* nanosvg */,
-				E81FB07713799FA60054FCB9 /* tinyxpath */,
-				E8174CAA1360C36B00567447 /* libtess2 */,
-				E8174CBB1360C36B00567447 /* tesselator.h */,
-			);
-			name = helpers;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E87AEDED138DC15300A72865 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8EABA90138DC46600EF35A6 /* glInfo.h in Headers */,
+				E8EABA91138DC46600EF35A6 /* poEnums.h in Headers */,
+				E8EABA92138DC46600EF35A6 /* poMath.h in Headers */,
+				E8EABA94138DC46600EF35A6 /* poPoint.h in Headers */,
+				E8EABA96138DC46600EF35A6 /* poColor.h in Headers */,
+				E8EABA98138DC46600EF35A6 /* poRect.h in Headers */,
+				E8EABA9A138DC46600EF35A6 /* poDictionary.h in Headers */,
+				E8EABA9B138DC46600EF35A6 /* poCommon.h in Headers */,
+				E8EABA9D138DC46600EF35A6 /* poEvent.h in Headers */,
+				E8EABA9F138DC46600EF35A6 /* poTween.h in Headers */,
+				E8EABAA1138DC46600EF35A6 /* poFont.h in Headers */,
+				E8EABAA3138DC46600EF35A6 /* poEasingFunctions.h in Headers */,
+				E8EABAA4138DC46600EF35A6 /* poSimpleDrawing.h in Headers */,
+				E8EABAA6138DC46600EF35A6 /* poMatrixSet.h in Headers */,
+				E8EABAA8138DC46600EF35A6 /* poResource.h in Headers */,
+				E8EABAAA138DC46600EF35A6 /* poTexture.h in Headers */,
+				E8EABAAC138DC46600EF35A6 /* poImage.h in Headers */,
+				E8EABAAE138DC46600EF35A6 /* poObjectModifier.h in Headers */,
+				E8EABAAF138DC46600EF35A6 /* poCamera.h in Headers */,
+				E8EABAB1138DC46600EF35A6 /* poObject.h in Headers */,
+				E8EABAB3138DC46600EF35A6 /* poShape2D.h in Headers */,
+				E8EABAB5138DC46600EF35A6 /* poShapeBasics2D.h in Headers */,
+				E8EABAB7138DC46600EF35A6 /* poTextBox.h in Headers */,
+				E8EABAE8138DC49400EF35A6 /* PlatformHelpers.h in Headers */,
+				E8EABAEA138DC49400EF35A6 /* poWindow.h in Headers */,
+				E8EABAEB138DC49400EF35A6 /* poApplication.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		E87AEDEE138DC15300A72865 /* potionLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E87AEDF4138DC15300A72865 /* Build configuration list for PBXNativeTarget "potionLib" */;
+			buildPhases = (
+				E87AEDEB138DC15300A72865 /* Sources */,
+				E87AEDEC138DC15300A72865 /* Frameworks */,
+				E87AEDED138DC15300A72865 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = potionLib;
+			productName = potionLib;
+			productReference = E87AEDEF138DC15300A72865 /* libpotionLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		E8B2D06A132E9CA7002BE3D9 /* poFramework4 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E8B2D089132E9CA7002BE3D9 /* Build configuration list for PBXNativeTarget "poFramework4" */;
@@ -444,6 +366,7 @@
 			projectRoot = "";
 			targets = (
 				E8B2D06A132E9CA7002BE3D9 /* poFramework4 */,
+				E87AEDEE138DC15300A72865 /* potionLib */,
 			);
 		};
 /* End PBXProject section */
@@ -463,6 +386,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E87AEDEB138DC15300A72865 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8EABA93138DC46600EF35A6 /* poMath.cpp in Sources */,
+				E8EABA95138DC46600EF35A6 /* poPoint.cpp in Sources */,
+				E8EABA97138DC46600EF35A6 /* poColor.cpp in Sources */,
+				E8EABA99138DC46600EF35A6 /* poRect.cpp in Sources */,
+				E8EABA9C138DC46600EF35A6 /* poCommon.cpp in Sources */,
+				E8EABA9E138DC46600EF35A6 /* poEvent.cpp in Sources */,
+				E8EABAA0138DC46600EF35A6 /* poTween.cpp in Sources */,
+				E8EABAA2138DC46600EF35A6 /* poFont.cpp in Sources */,
+				E8EABAA5138DC46600EF35A6 /* poSimpleDrawing.cpp in Sources */,
+				E8EABAA7138DC46600EF35A6 /* poMatrixSet.cpp in Sources */,
+				E8EABAA9138DC46600EF35A6 /* poResource.cpp in Sources */,
+				E8EABAAB138DC46600EF35A6 /* poTexture.cpp in Sources */,
+				E8EABAAD138DC46600EF35A6 /* poImage.cpp in Sources */,
+				E8EABAB0138DC46600EF35A6 /* poCamera.cpp in Sources */,
+				E8EABAB2138DC46600EF35A6 /* poObject.cpp in Sources */,
+				E8EABAB4138DC46600EF35A6 /* poShape2D.cpp in Sources */,
+				E8EABAB6138DC46600EF35A6 /* poShapeBasics2D.cpp in Sources */,
+				E8EABAB8138DC46600EF35A6 /* poTextBox.cpp in Sources */,
+				E8EABAE7138DC49400EF35A6 /* PlatformHelpers.cpp in Sources */,
+				E8EABAE9138DC49400EF35A6 /* poWindow.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E8B2D067132E9CA7002BE3D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,34 +430,11 @@
 				E83095F9132FD79900080C86 /* poCommon.cpp in Sources */,
 				E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */,
 				E8FB2408133A996C00111A69 /* poFont.cpp in Sources */,
-				E8174CBC1360C36B00567447 /* bucketalloc.c in Sources */,
-				E8174CBD1360C36B00567447 /* dict.c in Sources */,
-				E8174CBE1360C36B00567447 /* geom.c in Sources */,
-				E8174CBF1360C36B00567447 /* mesh.c in Sources */,
-				E8174CC01360C36B00567447 /* priorityq.c in Sources */,
-				E8174CC11360C36B00567447 /* sweep.c in Sources */,
-				E8174CC21360C36B00567447 /* tess.c in Sources */,
 				E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */,
 				E87E18781367696800DB6934 /* poTexture.cpp in Sources */,
 				E87E18831368615B00DB6934 /* poImage.cpp in Sources */,
 				E87E18961369884C00DB6934 /* poResource.cpp in Sources */,
 				E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */,
-				E81FB09713799FA60054FCB9 /* nanosvg.c in Sources */,
-				E81FB09813799FA60054FCB9 /* action_store.cpp in Sources */,
-				E81FB09913799FA60054FCB9 /* htmlutil.cpp in Sources */,
-				E81FB09A13799FA60054FCB9 /* lex_util.cpp in Sources */,
-				E81FB09B13799FA60054FCB9 /* node_set.cpp in Sources */,
-				E81FB09C13799FA60054FCB9 /* tinyxml.cpp in Sources */,
-				E81FB09D13799FA60054FCB9 /* tinyxmlerror.cpp in Sources */,
-				E81FB09E13799FA60054FCB9 /* tinyxmlparser.cpp in Sources */,
-				E81FB09F13799FA60054FCB9 /* tokenlist.cpp in Sources */,
-				E81FB0A013799FA60054FCB9 /* xml_util.cpp in Sources */,
-				E81FB0A113799FA60054FCB9 /* xpath_expression.cpp in Sources */,
-				E81FB0A213799FA60054FCB9 /* xpath_processor.cpp in Sources */,
-				E81FB0A313799FA60054FCB9 /* xpath_stack.cpp in Sources */,
-				E81FB0A413799FA60054FCB9 /* xpath_static.cpp in Sources */,
-				E81FB0A513799FA60054FCB9 /* xpath_stream.cpp in Sources */,
-				E81FB0A613799FA60054FCB9 /* xpath_syntax.cpp in Sources */,
 				AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */,
 				7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */,
 				E8A0B9A2138B0FE10024BC8C /* AppDelegate.mm in Sources */,
@@ -520,6 +447,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		E87AEDF5138DC15300A72865 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E87AEDF6138DC15300A72865 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		E8B2D087132E9CA7002BE3D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */;
@@ -549,6 +488,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E87AEDF4138DC15300A72865 /* Build configuration list for PBXNativeTarget "potionLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E87AEDF5138DC15300A72865 /* Debug */,
+				E87AEDF6138DC15300A72865 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

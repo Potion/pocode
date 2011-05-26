@@ -16,10 +16,19 @@ class poCamera2D : public poObjectModifier
 {
 public:
     poCamera2D();
+	poCamera2D(poColor clear);
     
     virtual void setUp( poObject* obj );
     virtual void setDown( poObject* obj );
+
+	bool clearsBackground() const;
+	void clearsBackground(bool b);
+	
+	poColor backgroundColor() const;
+	void backgroundColor(poColor color);
+	void backgroundColor(float r, float g, float b, float a=1.f);
     
-    bool       clearBackground;
-    poColor    backgroundColor;
+private:
+    bool       clears_background;
+    poColor    background_color;
 };
