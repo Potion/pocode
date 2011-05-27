@@ -28,9 +28,12 @@ public:
 	poPoint         getPoint(const std::string &name) {return boost::get<poPoint>(items[name]);}
 	poDictionary&	setPoint(const std::string &name, poPoint p) {items[name] = p; return *this; }
 	
-	template <typename T>
-	T*		getPtr(const std::string &name) {return static_cast<T*>(boost::get<void*>(items[name]));}
-	void	setPtr(const std::string &name, void* obj) {items[name] = obj;}
+					template <typename T>
+	T*				getPtr(const std::string &name) {return static_cast<T*>(boost::get<void*>(items[name]));}
+	void			setPtr(const std::string &name, void* obj) {items[name] = obj;}
+	
+	bool			read(const fs::path &url);
+	void			write(const fs::path &url);
 
 protected:
 	boost::unordered_map<std::string, poProperty> items;

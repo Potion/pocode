@@ -16,6 +16,7 @@ public:
     poColor(const poHSVColor &hsv);
 	
 	poColor &set(float r, float g, float b, float a=1.f);
+	std::string toString() const;
     
     static const poColor white;
 	static const poColor black;
@@ -38,3 +39,13 @@ public:
     
     poHSVColor &set(float h, float s, float v);
 };
+
+static std::ostream &operator<<(std::ostream &o, const poColor &c) {
+	o << c.toString();
+	return o;
+}
+
+static std::istream &operator>>(std::istream &i, poColor &c) {
+	i >> c.R >> c.G >> c.B >> c.A;
+	return i;
+}

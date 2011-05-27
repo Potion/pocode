@@ -3,12 +3,8 @@
 class poRect;
 class poTexture;
 
-// returns milliseconds since bootup
 double getTime();
-// in case you'd like to know
 unsigned int getNumCpus();
-// printf for everyone
-void dprintf(const char *format, ...);
 
 // generates a texture wrapped to bounds with font mapping applied to the document
 // tex is allocated, stripped contains text with no markup

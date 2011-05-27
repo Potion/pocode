@@ -99,6 +99,11 @@ poColor &poColor::set(float r, float g, float b, float a) {
 	return *this;
 }
 
+std::string poColor::toString() const {
+	return (boost::format("%f %f %f %f")%R%G%B%A).str();
+}
+
+
 poHSVColor::poHSVColor() 
 :   H(0.f)
 ,   S(0.f)

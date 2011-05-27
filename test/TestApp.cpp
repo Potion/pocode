@@ -1,9 +1,4 @@
 #include "TestApp.h"
-#include "poSimpleDrawing.h"
-#include "poShape2D.h"
-#include "poImage.h"
-#include "poTextBox.h"
-#include "poShapeBasics2D.h"
 
 #define TEST_OBJ_ID 1000
 
@@ -23,8 +18,11 @@ void cleanupApplication() {
 
 
 TestObj::TestObj() {
-    poCamera2D* cam = new poCamera2D(poColor::black);
-    this->addModifier( cam );
+    addModifier(new poCamera2D(poColor::black));
+	
+	poDictionary dict;
+	dict.read("test.xml");
+	dict.write("test2.xml");
 }
 
 void TestObj::update()
@@ -38,9 +36,6 @@ void TestObj::preDraw()
 }
 
 void TestObj::draw() {
-
-	//tb->text("hello world <em>con brio</em> with <strong>some bold text</strong>. and some symbols: ®†¥");
-	//tb->layout();
 }
 
 void TestObj::postDraw()

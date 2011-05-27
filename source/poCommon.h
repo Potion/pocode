@@ -8,9 +8,6 @@ class poCommon
 public:
 	static poCommon *get();
 	
-	void read(const fs::path &url);
-	void write(const fs::path &url);
-	
 private:
 	explicit poCommon() {}
 	~poCommon() {}

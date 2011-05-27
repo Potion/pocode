@@ -26,6 +26,10 @@ poPoint &poPoint::setPolar(float deg, float mag) {
 	return *this;
 }
 
+std::string poPoint::toString() const {
+	return (boost::format("%f %f %f")%x%y%z).str();
+}
+
 bool poPoint::operator==(poPoint rhs) {
 	return compare(*this, rhs);
 }

@@ -5,6 +5,7 @@
 #include "poFont.h"
 #include "poRect.h"
 #include "poTexture.h"
+#include "poDictionary.h"
 
 #ifdef __APPLE__
 #include <mach/mach_time.h>
@@ -33,13 +34,6 @@ unsigned int getNumCpus() {
     if(sysctlbyname("hw.ncpu", &count, &size, NULL, 0))
         return 1;
     return (unsigned int)count;
-}
-
-void dprintf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	vprintf(format, args);
-	va_end(args);
 }
 
 // wow this is bs
@@ -197,6 +191,10 @@ void renderTextToTexture(poRect rect, TiXmlDocument *doc, const poFontMap &fonts
 	[pool release];
 }
 
+#endif 
+
+// THESE AREN'T ACTUALLY PLATFORM DEPENDANT
+
 int utf8strlen(const std::string &str) {
 	int i=0, j=0;
 	while (str[i]) {
@@ -206,5 +204,3 @@ int utf8strlen(const std::string &str) {
 	}
 	return j;
 }
-
-#endif
