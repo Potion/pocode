@@ -34,4 +34,10 @@ public:
 	poPoint bottomLeft() const;
 	poPoint topRight() const;
 	poPoint bottomRight() const;
+	
+	std::string toString() const;
 };
+
+
+std::ostream &operator<<(std::ostream &o, const poRect &r);
+std::istream &operator>>(std::istream &i, poRect &r);

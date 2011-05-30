@@ -128,3 +128,12 @@ poHSVColor &poHSVColor::set(float h, float s, float v) {
     return *this;
 }
 
+std::ostream &operator<<(std::ostream &o, const poColor &c) {
+	o << c.toString();
+	return o;
+}
+
+std::istream &operator>>(std::istream &i, poColor &c) {
+	i >> c.R >> c.G >> c.B >> c.A;
+	return i;
+}

@@ -135,4 +135,12 @@ bool compare(poPoint a, poPoint b, float range) {
 			compare(a.z, b.z, range));
 }
 
+std::ostream &operator<<(std::ostream &o, const poPoint &p) {
+	o << p.toString();
+	return o;
+}
 
+std::istream &operator>>(std::istream &i, poPoint &p) {
+	i >> p.x >> p.y >> p.z;
+	return i;
+}

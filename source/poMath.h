@@ -105,3 +105,11 @@ inline std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c
 	}
 	return response;
 }
+
+inline float curveLength(const std::vector<poPoint> &curve) {
+	float len = 0;
+	for(int i=0; i<curve.size()-1; i++) {
+		len += (curve[i+1] - curve[i]).length();
+	}
+	return len;
+}

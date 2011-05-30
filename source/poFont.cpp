@@ -9,6 +9,10 @@
 #include "poFont.h"
 #include "poShape2D.h"
 
+const std::string poFontMap::REGULAR_FONT_KEY = "text";
+const std::string poFontMap::ITALIC_FONT_KEY = "i";
+const std::string poFontMap::BOLD_FONT_KEY = "b";
+
 #ifdef _WIN32
 
 #elif defined __APPLE__
@@ -197,4 +201,26 @@ poShape2D *poFont::getGlyphOutline(const std::string &str) {
 
 void *poFont::osFontHandle() const {
 	return impl->osFontHandle();
+}
+
+
+
+bool poFontMap::hasFont(const std::string &name) const {
+	if(fonts.find(name) != fonts.end())
+		return true;
+	return false;
+}
+
+poFont *poFontMap::font(const std::string &name) const {
+	if(hasFont(name))
+		return fonts.find(name)->second;
+	return NULL;
+}
+
+poFontMap &poFontMap::font(const std::string &name, poFont *font) {
+	if(hasFont(name))
+		delete resources.remove(fonts[name]);
+	fonts[name] = resources.add(font->copy());
+	return *this;
+	
 }

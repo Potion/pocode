@@ -1,18 +1,21 @@
 #include "TestApp.h"
 
-#define TEST_OBJ_ID 1000
+#include "poApplication.h"
+#include "poCamera.h"
+#include "poCommon.h"
+#include "poTextBox.h"
 
 poObject *createObjectForID(uint uid) {
-	if( uid==TEST_OBJ_ID )
-        return new TestObj();
-	return NULL;
+	return new TestObj();
 }
 
 void setupApplication() {
-	applicationCreateWindow(TEST_OBJ_ID, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 1024, 768);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 1024, 768);
 }
 
 void cleanupApplication() {
+	// make sure whatever global props you changed get written out
+	poCommon::get()->write("common.xml");
 }
 
 
@@ -20,28 +23,20 @@ void cleanupApplication() {
 TestObj::TestObj() {
     addModifier(new poCamera2D(poColor::black));
 	
-	poDictionary dict;
-	dict.read("test.xml");
-	dict.write("test2.xml");
+	poResourceStore tmp;
+	
+	poTextBox *tb = new poTextBox();
+	tb->text("pello gorld\nhopefully <u>this is</u> a new line?\nœ<u>∑´®†</u>¥¨")
+		.font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("ScalaPro", FONT_REGULAR, 30)))
+		.bounds(poRect(0,0,300,300))
+		.position(100,100,0);
+	tb->layout();
+	addChild(tb);
 }
 
-void TestObj::update()
-{
+void TestObj::update() {
     
 }
-
-void TestObj::preDraw()
-{
-
-}
-
-void TestObj::draw() {
-}
-
-void TestObj::postDraw()
-{
-}    
-
 
 void TestObj::eventHandler(poEvent *event) {
 }

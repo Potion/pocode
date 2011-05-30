@@ -5,13 +5,16 @@ void applyColor(poColor color) {
 	glColor4fv(&color.R);
 }
 
-void drawQuad(GLenum type, float l, float r, float b, float t) {
-	GLfloat quad[4*3] = { 
-		l, b, 0, 
-		l, t, 0, 
-		r, b, 0, 
-		r, t, 0 
+void drawQuad(GLenum type, float x, float y, float w, float h) {
+	GLfloat quad[4*3] = {
+		x, y, 0, 
+		x, y+h, 0, 
+		x+w, y, 0, 
+		x+w, y+h, 0 
 	};
+	
+	if(type == GL_LINE_STRIP || type == GL_LINE_LOOP)
+		std::swap(quad[7], quad[10]);
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, quad);
@@ -20,31 +23,31 @@ void drawQuad(GLenum type, float l, float r, float b, float t) {
 }
 
 void drawStroke(poRect rect) {
-	drawStroke(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y);
+	drawStroke(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y);
 }
 
-void drawStroke(float l, float r, float b, float t) {
-	drawQuad(GL_LINE_LOOP,l,r,b,t);
+void drawStroke(float x, float y, float w, float h) {
+	drawQuad(GL_LINE_LOOP,x,y,w,h);
 }
 
 void drawRect(poRect rect) {
-	drawRect(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y);
+	drawRect(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y);
 }
 
-void drawRect(float l, float r, float b, float t) {
-	drawQuad(GL_TRIANGLE_STRIP, l,r,b,t); 
+void drawRect(float x, float y, float w, float h) {
+	drawQuad(GL_TRIANGLE_STRIP, x,y,w,h); 
 }
 
 void drawRect(poRect rect, poTexture* texture) {
-	drawRect(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.x, rect.origin.y+rect.size.y, texture);
+	drawRect(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y, texture);
 }
 
-void drawRect(float l, float r, float b, float t, poTexture* texture) {
+void drawRect(float x, float y, float w, float h, poTexture* texture) {
 	GLfloat quad[4*3] = { 
-		l, b, 0, 
-		l, t, 0, 
-		r, b, 0, 
-		r, t, 0 
+		x, y, 0, 
+		x, y+h, 0, 
+		x+w, y, 0, 
+		x+w, y+h, 0 
 	};
 	
 	GLfloat tcoords[4*2] = {

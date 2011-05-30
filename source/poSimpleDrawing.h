@@ -7,8 +7,8 @@ class poTexture;
 
 void applyColor(poColor color);
 void drawStroke(poRect rect);
-void drawStroke(float l, float r, float b, float t);
+void drawStroke(float x, float y, float w, float h);
 void drawRect(poRect rect);
-void drawRect(float l, float r, float b, float t);
+void drawRect(float x, float y, float w, float h);
 void drawRect(poRect rect, poTexture* texture);
-void drawRect(float l, float r, float b, float t, poTexture* texture);
+void drawRect(float x, float y, float w, float h, poTexture* texture);

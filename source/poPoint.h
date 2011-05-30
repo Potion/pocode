@@ -46,14 +46,7 @@ poPoint operator/(poPoint A, float Scalar);		// divide by scalar
 poPoint normalize(poPoint pt);
 bool compare(poPoint a, poPoint b, float range=1.0e-6f);
 
-static std::ostream &operator<<(std::ostream &o, const poPoint &p) {
-	o << p.toString();
-	return o;
-}
-
-static std::istream &operator>>(std::istream &i, poPoint &p) {
-	i >> p.x >> p.y >> p.z;
-	return i;
-}
+std::ostream &operator<<(std::ostream &o, const poPoint &p);
+std::istream &operator>>(std::istream &i, poPoint &p);
 
 

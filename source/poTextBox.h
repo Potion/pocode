@@ -7,44 +7,35 @@
 //
 
 #include "poObject.h"
-#include "poFont.h"
-#include "poTexture.h"
+#include "poTextLayout.h"
 
 class poTextBox
 :	public poObject 
 {
 public:
 	poTextBox();
+	poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
-	// formatting stripped out
 	std::string text() const;
-	// full text with formatting
-	std::string rawText() const;
+	// pass in text with embedded formatting
+	poTextBox &text(const std::string &str);
+
 	// actual bounds of the text
 	poRect textBounds() const;
-	// rect for a substring starting at i
-	bool textBounds(const std::string &sub, int start, uint *found, poRect *r) const;
 	
-	// pass in text with embedded formatting
-	void text(const std::string &str);
-	// manage the font
-	void setRegularFont(poFont *font);
-	void setItalicFont(poFont *font);
-	void setBoldFont(poFont *font);
-	// add an arbitrary named font
-	void setFont(const std::string &name, poFont *font);
+	// manage the fonts
+	poFontMap &fontMap();
+	poTextBox &font(const std::string &name, poFont *font);
 	
 	void layout();
 	void draw();
 
 private:
-	std::string text_;
-	std::string parsed_text;
-	poRect actual_bounds;
+	void defaultFonts();
+	
+	std::string _text;
 	poFontMap fonts;
-	poResourceStore resources;
-	TiXmlDocument *doc;
-	poTexture *rendered;
+	poBoxLayout _layout;
 };
 

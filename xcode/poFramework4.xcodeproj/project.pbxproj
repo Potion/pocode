@@ -25,7 +25,6 @@
 		E8A0B9A7138B0FE10024BC8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B99D138B0FE10024BC8C /* main.m */; };
 		E8A0B9A9138B0FE10024BC8C /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */; };
 		E8A0B9AA138B0FE10024BC8C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */; };
-		E8A0B9AC138B16130024BC8C /* PlatformHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */; };
 		E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
 		E8B2D0CB132E9F78002BE3D9 /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
 		E8B2D0CD132E9F78002BE3D9 /* poEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */; };
@@ -34,8 +33,17 @@
 		E8B2D0D1132E9F78002BE3D9 /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
 		E8B2D0D2132E9F78002BE3D9 /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
 		E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */; };
-		E8B2D0EB132E9F91002BE3D9 /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */; };
 		E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */; };
+		E8C7E70F13913CED00E6848E /* poTextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E70D13913CED00E6848E /* poTextLayout.cpp */; };
+		E8C7E71013913CED00E6848E /* poTextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E70D13913CED00E6848E /* poTextLayout.cpp */; };
+		E8C7E71113913CED00E6848E /* poTextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E70E13913CED00E6848E /* poTextLayout.h */; };
+		E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
+		E8C7E71913913E3A00E6848E /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
+		E8C7E71A13913E3A00E6848E /* Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71413913E3A00E6848E /* Helpers.h */; };
+		E8C7E71B13913E3A00E6848E /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71513913E3A00E6848E /* poApplication.h */; };
+		E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
+		E8C7E71D13913E3A00E6848E /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
+		E8C7E71E13913E3A00E6848E /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; };
 		E8EABA90138DC46600EF35A6 /* glInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E841ED7A1369AB640029C2F4 /* glInfo.h */; };
 		E8EABA91138DC46600EF35A6 /* poEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = E830965913315F2D00080C86 /* poEnums.h */; };
 		E8EABA92138DC46600EF35A6 /* poMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BE132E9F78002BE3D9 /* poMath.h */; };
@@ -77,11 +85,6 @@
 		E8EABAB6138DC46600EF35A6 /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E8EABAB7138DC46600EF35A6 /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
 		E8EABAB8138DC46600EF35A6 /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E8EABAE7138DC49400EF35A6 /* PlatformHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */; };
-		E8EABAE8138DC49400EF35A6 /* PlatformHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0DE132E9F91002BE3D9 /* PlatformHelpers.h */; };
-		E8EABAE9138DC49400EF35A6 /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */; };
-		E8EABAEA138DC49400EF35A6 /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0E3132E9F91002BE3D9 /* poWindow.h */; };
-		E8EABAEB138DC49400EF35A6 /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D10D132EC43D002BE3D9 /* poApplication.h */; };
 		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
 /* End PBXBuildFile section */
 
@@ -118,7 +121,6 @@
 		E8A0B99F138B0FE10024BC8C /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
 		E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
 		E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PlatformHelpers.cpp; path = ../source/application/PlatformHelpers.cpp; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
 		E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poFramework4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor.cpp; path = ../source/poColor.cpp; sourceTree = "<group>"; };
@@ -139,12 +141,15 @@
 		E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = poShape2D.h; path = ../source/poShape2D.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTween.cpp; path = ../source/poTween.cpp; sourceTree = "<group>"; };
 		E8B2D0CA132E9F78002BE3D9 /* poTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTween.h; path = ../source/poTween.h; sourceTree = "<group>"; };
-		E8B2D0DE132E9F91002BE3D9 /* PlatformHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformHelpers.h; path = ../source/application/PlatformHelpers.h; sourceTree = "<group>"; };
-		E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/application/poWindow.cpp; sourceTree = "<group>"; };
-		E8B2D0E3132E9F91002BE3D9 /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/application/poWindow.h; sourceTree = "<group>"; };
-		E8B2D10D132EC43D002BE3D9 /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/application/poApplication.h; sourceTree = "<group>"; };
 		E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestApp.cpp; path = ../test/TestApp.cpp; sourceTree = "<group>"; };
 		E8B2D110132EC4B7002BE3D9 /* TestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestApp.h; path = ../test/TestApp.h; sourceTree = "<group>"; };
+		E8C7E70D13913CED00E6848E /* poTextLayout.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poTextLayout.cpp; path = ../source/poTextLayout.cpp; sourceTree = "<group>"; };
+		E8C7E70E13913CED00E6848E /* poTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextLayout.h; path = ../source/poTextLayout.h; sourceTree = "<group>"; };
+		E8C7E71313913E3A00E6848E /* Helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Helpers.cpp; path = ../source/Helpers.cpp; sourceTree = "<group>"; };
+		E8C7E71413913E3A00E6848E /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Helpers.h; path = ../source/Helpers.h; sourceTree = "<group>"; };
+		E8C7E71513913E3A00E6848E /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/poApplication.h; sourceTree = "<group>"; };
+		E8C7E71613913E3A00E6848E /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/poWindow.cpp; sourceTree = "<group>"; };
+		E8C7E71713913E3A00E6848E /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/poWindow.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
@@ -208,7 +213,11 @@
 		E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */ = {
 			isa = PBXGroup;
 			children = (
-				E8B2D0D4132E9F7F002BE3D9 /* application */,
+				E8C7E71413913E3A00E6848E /* Helpers.h */,
+				E8C7E71313913E3A00E6848E /* Helpers.cpp */,
+				E8C7E71513913E3A00E6848E /* poApplication.h */,
+				E8C7E71613913E3A00E6848E /* poWindow.cpp */,
+				E8C7E71713913E3A00E6848E /* poWindow.h */,
 				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E830965913315F2D00080C86 /* poEnums.h */,
 				E8B2D0BE132E9F78002BE3D9 /* poMath.h */,
@@ -251,20 +260,10 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
+				E8C7E70E13913CED00E6848E /* poTextLayout.h */,
+				E8C7E70D13913CED00E6848E /* poTextLayout.cpp */,
 			);
 			name = poFramework4;
-			sourceTree = "<group>";
-		};
-		E8B2D0D4132E9F7F002BE3D9 /* application */ = {
-			isa = PBXGroup;
-			children = (
-				E8A0B9AB138B16130024BC8C /* PlatformHelpers.cpp */,
-				E8B2D0DE132E9F91002BE3D9 /* PlatformHelpers.h */,
-				E8B2D0E2132E9F91002BE3D9 /* poWindow.cpp */,
-				E8B2D0E3132E9F91002BE3D9 /* poWindow.h */,
-				E8B2D10D132EC43D002BE3D9 /* poApplication.h */,
-			);
-			name = application;
 			sourceTree = "<group>";
 		};
 		E8B2D108132EC388002BE3D9 /* application */ = {
@@ -306,9 +305,10 @@
 				E8EABAB3138DC46600EF35A6 /* poShape2D.h in Headers */,
 				E8EABAB5138DC46600EF35A6 /* poShapeBasics2D.h in Headers */,
 				E8EABAB7138DC46600EF35A6 /* poTextBox.h in Headers */,
-				E8EABAE8138DC49400EF35A6 /* PlatformHelpers.h in Headers */,
-				E8EABAEA138DC49400EF35A6 /* poWindow.h in Headers */,
-				E8EABAEB138DC49400EF35A6 /* poApplication.h in Headers */,
+				E8C7E71113913CED00E6848E /* poTextLayout.h in Headers */,
+				E8C7E71A13913E3A00E6848E /* Helpers.h in Headers */,
+				E8C7E71B13913E3A00E6848E /* poApplication.h in Headers */,
+				E8C7E71E13913E3A00E6848E /* poWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,9 +412,10 @@
 				E8EABAB4138DC46600EF35A6 /* poShape2D.cpp in Sources */,
 				E8EABAB6138DC46600EF35A6 /* poShapeBasics2D.cpp in Sources */,
 				E8EABAB8138DC46600EF35A6 /* poTextBox.cpp in Sources */,
-				E8EABAE7138DC49400EF35A6 /* PlatformHelpers.cpp in Sources */,
-				E8EABAE9138DC49400EF35A6 /* poWindow.cpp in Sources */,
 				E8341F91138EE1AD00E508E0 /* poDictionary.cpp in Sources */,
+				E8C7E71013913CED00E6848E /* poTextLayout.cpp in Sources */,
+				E8C7E71913913E3A00E6848E /* Helpers.cpp in Sources */,
+				E8C7E71D13913E3A00E6848E /* poWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +430,6 @@
 				E8B2D0D1132E9F78002BE3D9 /* poRect.cpp in Sources */,
 				E8B2D0D2132E9F78002BE3D9 /* poShape2D.cpp in Sources */,
 				E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */,
-				E8B2D0EB132E9F91002BE3D9 /* poWindow.cpp in Sources */,
 				E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */,
 				E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */,
 				E83095F9132FD79900080C86 /* poCommon.cpp in Sources */,
@@ -445,8 +445,10 @@
 				E8A0B9A2138B0FE10024BC8C /* AppDelegate.mm in Sources */,
 				E8A0B9A7138B0FE10024BC8C /* main.m in Sources */,
 				E8A0B9A9138B0FE10024BC8C /* poOpenGLView.mm in Sources */,
-				E8A0B9AC138B16130024BC8C /* PlatformHelpers.cpp in Sources */,
 				E8341F90138EE1AD00E508E0 /* poDictionary.cpp in Sources */,
+				E8C7E70F13913CED00E6848E /* poTextLayout.cpp in Sources */,
+				E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */,
+				E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

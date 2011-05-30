@@ -6,11 +6,13 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
+#pragma once
 #include "poResource.h"
 
 class poShape2D;
 
 enum {
+	FONT_REGULAR	= 0,
 	FONT_ITALIC		= 1,
 	FONT_BOLD		= 2,
 	FONT_EXPANDED	= 4,
@@ -43,3 +45,19 @@ private:
 	struct poFontImpl;
 	poFontImpl *impl;
 };
+
+class poFontMap {
+public:
+	static const std::string REGULAR_FONT_KEY;
+	static const std::string ITALIC_FONT_KEY;
+	static const std::string BOLD_FONT_KEY;
+	
+	bool hasFont(const std::string &name) const;
+	poFont *font(const std::string &name) const;
+	poFontMap &font(const std::string &name, poFont *font);
+	
+private:
+	std::map<std::string,poFont*> fonts;
+	poResourceStore resources;
+};
+

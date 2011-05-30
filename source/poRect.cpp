@@ -87,3 +87,17 @@ poPoint poRect::topRight() const {
 poPoint poRect::bottomRight() const {
 	return origin + size;
 }
+
+std::string poRect::toString() const {
+	return (boost::format("%.2f %.2f %.2f %.2f") % origin.x % origin.y % size.x % size.y).str();
+}
+
+std::ostream &operator<<(std::ostream &o, const poRect &r) {
+	o << r.toString();
+	return o;
+}
+
+std::istream &operator>>(std::istream &i, poRect &r) {
+	i >> r.origin >> r.size;
+	return i;
+}
