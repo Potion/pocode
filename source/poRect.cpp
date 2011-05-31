@@ -5,6 +5,8 @@
 #include "poRect.h"
 #include "poMath.h"
 
+using namespace std;
+
 poRect::poRect() 
 :	origin(0,0)
 ,	size(0,0)
@@ -37,10 +39,16 @@ poPoint poRect::center() const {
 }
 
 void poRect::include(float x, float y) {
-	origin.x = std::min(x, origin.x);
-	size.x = std::max(x, origin.x+size.x) - origin.x;
+    poPoint maxPoint = origin + size;
+    
+    maxPoint.x = std::max(x, maxPoint.x);
+	maxPoint.y = std::max(y, maxPoint.y);
+    origin.x = std::min(x, origin.x);
 	origin.y = std::min(y, origin.y);
-	size.y = std::max(y, origin.y+size.y) - origin.y;
+    size.x = maxPoint.x-origin.x;
+    size.y = maxPoint.y-origin.y;
+
+    cout<<"point in: "<<x<<" "<<y<<"    origin: "<<origin<<" size: "<<size<<endl;
 }
 
 void poRect::include(const poPoint &pt) {
