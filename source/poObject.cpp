@@ -226,10 +226,10 @@ poRect poObject::calculateBounds(bool include_children) {
 			obj->calculateBounds(include_children);
 			poRect obj_b = obj->bounds();
 			
-			_bounds.include(objectToLocal(obj, obj_b.bottomLeft()));
+			//_bounds.include(objectToLocal(obj, obj_b.bottomLeft()));
 			_bounds.include(objectToLocal(obj, obj_b.bottomRight()));
 			_bounds.include(objectToLocal(obj, obj_b.topLeft()));
-			_bounds.include(objectToLocal(obj, obj_b.topRight()));
+			//_bounds.include(objectToLocal(obj, obj_b.topRight()));
 		}
 	}
 	
@@ -356,7 +356,7 @@ void poObject::pushObjectMatrix() {
 	}
 	
 	// now move depending on the matrix order
-	switch(_draw_order) {
+	switch(_matrix_order) {
 		case PO_MATRIX_ORDER_TRS:
 			glTranslatef(_position.x, _position.y, _position.z);
 			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);

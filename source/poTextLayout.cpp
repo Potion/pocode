@@ -200,7 +200,7 @@ void layoutTextOnCurve(void *attrib, const std::vector<poPoint> &curve, std::vec
 		CFIndex num_glyphs_run = CTRunGetGlyphCount(run);
 		for(CFIndex idx=0; idx<num_glyphs_run; idx++) {
 			float ascent, descent, leading;
-			float w = CTRunGetTypographicBounds(run, CFRangeMake(idx,1), &ascent, &descent, &leading);
+			float w = CTRunGetTypographicBounds(run, CFRangeMake(idx,1), (CGFloat*) &ascent,(CGFloat*) &descent,(CGFloat*) &leading);
 
 			poPoint origin(0, ascent);
 			poPoint size(w, ascent+descent+leading);
