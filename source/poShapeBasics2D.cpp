@@ -26,8 +26,6 @@ poRectShape::poRectShape( poTexture* tex )
 {
     construct( tex->width(), tex->height() );
     placeTexture( tex );
-	
-	printf("testing this build setup\n");
 }
 
 poRectShape::poRectShape( const std::string &url )

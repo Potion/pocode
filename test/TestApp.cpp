@@ -4,6 +4,7 @@
 #include "poCamera.h"
 #include "poCommon.h"
 #include "poTextBox.h"
+#include "poShapeBasics2D.h"
 
 poObject *createObjectForID(uint uid) {
 	return new TestObj();
@@ -19,18 +20,23 @@ void cleanupApplication() {
 }
 
 
-
 TestObj::TestObj() {
     addModifier(new poCamera2D(poColor::black));
+
+//	poFontMap fonts;
+//	fonts.font(poFontMap::REGULAR_FONT_KEY, new poFont("fonts/ScalaPro.otf",45.f));
+//	
+//	poCurveLayout layout;
+//	layout.text = "hello world on a curve";
+//	layout.fonts = &fonts;
+//	layout.render();
+//	
+//	poRectShape *rect = new poRectShape(layout.rendered->copy());
+//	rect->position(100,100);
+//	addChild(rect);
 	
-	poResourceStore tmp;
-	
-	poTextBox *tb = new poTextBox();
-	tb->text("pello gorld\nhopefully <u>this is</u> a new line?\nœ<u>∑´®†</u>¥¨")
-		.font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("ScalaPro", FONT_REGULAR, 30)))
-		.bounds(poRect(0,0,300,300))
-		.position(100,100,0);
-	tb->layout();
+	poTextBox *tb = new poTextBox(300,300);
+	tb->text("hello world").layout();
 	addChild(tb);
 }
 

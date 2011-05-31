@@ -8,6 +8,7 @@
 
 #include "poTextLayout.h"
 #include "Helpers.h"
+#include "poColor.h"
 
 #ifdef __APPLE__
 #include <Foundation/Foundation.h>
@@ -168,9 +169,8 @@ void measureRenderedText(void *ctframe, poRect *actual, poPoint *point) {
 		trailing = CTLineGetTrailingWhitespaceWidth(line);
 		
 		actual->origin.x = MIN(actual->origin.x, origin.x);
-		actual->origin.y = MIN(actual->origin.y, origin.y - descent);
+		actual->origin.y = MIN(actual->origin.y, origin.y);
 		actual->size.x = MAX(actual->size.x, origin.x + width - trailing);
-		actual->size.y += ascent + descent + leading;
 		
 		if(i == 0) {
 			*point = poPoint(origin.x, origin.y, 0);
@@ -184,51 +184,88 @@ void measureRenderedText(void *ctframe, poRect *actual, poPoint *point) {
 	point->y = rect.size.height - point->y;
 }
 
-void layoutTextOnCurve(void *attrib, const std::vector<poPoint> &curve, std::vector<poCurveLayout::Helper> *layout, void **line_out) {
+void layoutTextOnCurve(void *attrib, const std::vector<poPoint> &curve, std::vector<poCurveLayout::Helper> *layout, void **line_out, poRect *rect) {
 	NSAttributedString *attributed = (NSAttributedString*)attrib;
-	
+
 	// make the line object
 	CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)attributed);
-
-	float x = 0.f;
+	
+	bool first_rect = true;
+	using namespace std;
 	
 	// go thru all the glyphs in the array to make it work
 	NSArray *runs_arr = (NSArray*)CTLineGetGlyphRuns(line);
 	for(id run_id in runs_arr) {
 		CTRunRef run = (CTRunRef)run_id;
+		CTFontRef font = (CTFontRef)CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
 		
-		CFIndex num_glyphs_run = CTRunGetGlyphCount(run);
-		for(CFIndex idx=0; idx<num_glyphs_run; idx++) {
-			float ascent, descent, leading;
-			float w = CTRunGetTypographicBounds(run, CFRangeMake(idx,1), (CGFloat*) &ascent,(CGFloat*) &descent,(CGFloat*) &leading);
+		CFIndex num_glyphs = CTRunGetGlyphCount(run);
+		CGGlyph *glyphs = new CGGlyph[num_glyphs];
+		CGRect *rects = new CGRect[num_glyphs];
 
-			poPoint origin(0, ascent);
-			poPoint size(w, ascent+descent+leading);
+		CTRunGetGlyphs(run, CFRangeMake(0,0), glyphs);
+		CTFontGetBoundingRectsForGlyphs(font, kCTFontHorizontalOrientation, glyphs, rects, num_glyphs);
+		
+		float x = 0.f;
+
+		for(int idx=0; idx<num_glyphs; idx++) {
+			CGRect glyph_rect = rects[idx];	
+
+			poPoint origin(glyph_rect.origin.x + x, glyph_rect.origin.y);
+			poPoint size(glyph_rect.size.width, glyph_rect.size.height);
 			
 			poCurveLayout::Helper helper;
-			helper.pos = poPoint(x,0.f);
 			helper.angle = 0.f;
 			helper.bounds = poRect(origin, size);
 			layout->push_back(helper);
 			
-			x += w;
+			if(first_rect) {
+				*rect = helper.bounds;
+				first_rect = false;
+			}
+			else
+				rect->include(helper.bounds);
+			
+			x += glyph_rect.size.width;
 		}
+		
+		delete [] glyphs;
+		delete [] rects;
 	}
+	
+	*line_out = (void*)line;
 }
 
-void renderTextCurve(void *line_ptr, std::vector<poCurveLayout::Helper> &layout, poTexture **rendered) {
-	CTLineRef line = (CTLineRef)line_ptr;
+CGRect rectFromRect(poRect r) {
+	return CGRectMake(r.origin.x, r.origin.y, r.size.x, r.size.y);
+}
 
-	int count = 0;
+void renderTextCurve(void *line_ptr, std::vector<poCurveLayout::Helper> &layout, poRect bounds, poTexture **rendered) {
+	ubyte *data = new ubyte[(int)ceilf(bounds.area())];
+	memset(data, 0, bounds.area());
+
+	CGColorSpaceRef space = CGColorSpaceCreateWithName(kCGColorSpaceGenericGray);
+	CGContextRef context = CGBitmapContextCreate(data, bounds.width(), bounds.height(), 8, bounds.width(), space, kCGImageAlphaNone);
+	CGColorSpaceRelease(space);
+	
+	CTLineRef line = (CTLineRef)line_ptr;
+	CTLineDraw(line, context);
+
 	NSArray *runs_arr = (NSArray*)CTLineGetGlyphRuns(line);
 	for(id run_id in runs_arr) {
 		CTRunRef run = (CTRunRef)run_id;
+		CFIndex num_glyphs = CTRunGetGlyphCount(run);
+		CTRunDraw(run, context, CFRangeMake(0,num_glyphs));
 		
-		poCurveLayout::Helper &helper = layout[count];
-		
-		
-		count++;
+		for(int idx=0; idx<num_glyphs; idx++) {
+			CTRunDraw(run, context, CFRangeMake(idx, 1));
+		}
 	}
+	
+	CGContextRelease(context);
+	
+	*rendered = new poTexture(GL_LUMINANCE, bounds.width(), bounds.height(), bounds.area(), data);
+	delete [] data;
 }
 
 
@@ -354,8 +391,8 @@ void poCurveLayout::render() {
 	poTextLayout::stage1();
 	
 	void *line = NULL;
-	layoutTextOnCurve(attrib, curve, &layout, &line);
-	renderTextCurve(line, layout, &rendered);
+	layoutTextOnCurve(attrib, curve, &layout, &line, &actualBounds);
+	renderTextCurve(line, layout, actualBounds, &rendered);
 	deleteLine(line);
 }
 

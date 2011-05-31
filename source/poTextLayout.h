@@ -61,7 +61,6 @@ class poCurveLayout
 {
 public:
 	struct Helper {
-		poPoint pos;
 		float angle;
 		poRect bounds;
 	};
