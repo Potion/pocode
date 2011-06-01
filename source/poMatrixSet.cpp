@@ -28,7 +28,7 @@ poPoint poMatrixSet::globalToLocal(poPoint pt) const {
 				 modelMatrix, projectMatrix, viewport, 
 				 &objX, &objY, &objZ);
 	
-	return poPoint(objX, objY, objZ);
+	return poPoint(objX, objY, 0);
 }
 
 poPoint poMatrixSet::localToGlobal(poPoint pt) const {
@@ -39,5 +39,5 @@ poPoint poMatrixSet::localToGlobal(poPoint pt) const {
 			   modelMatrix, projectMatrix, viewport, 
 			   &winX, &winY, &winZ);
 	
-	return poPoint(winX, winY, winZ);
+	return poPoint(winX, winY, 0);
 }

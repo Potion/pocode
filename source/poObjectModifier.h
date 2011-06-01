@@ -8,6 +8,8 @@
 
 #pragma once
 
+class poObject;
+
 class poObjectModifier
 {
 public:

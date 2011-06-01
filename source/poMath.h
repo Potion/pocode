@@ -113,3 +113,8 @@ inline float curveLength(const std::vector<poPoint> &curve) {
 	}
 	return len;
 }
+
+template <typename T>
+inline T clamp(T min, T max, T val) {
+	return std::max(std::min(val, max), min);
+}

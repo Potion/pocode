@@ -47,8 +47,6 @@ void poRect::include(float x, float y) {
 	origin.y = std::min(y, origin.y);
     size.x = maxPoint.x-origin.x;
     size.y = maxPoint.y-origin.y;
-
-    cout<<"point in: "<<x<<" "<<y<<"    origin: "<<origin<<" size: "<<size<<endl;
 }
 
 void poRect::include(const poPoint &pt) {

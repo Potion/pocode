@@ -79,4 +79,7 @@ void drawRect(float x, float y, float w, float h, poTexture* texture) {
 	glPopAttrib();
 }
 
+void drawRect(poTexture* tex) {
+	drawRect(0,0,tex->width(),tex->height(),tex);
+}
 

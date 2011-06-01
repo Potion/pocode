@@ -19,13 +19,13 @@ enum poAlignment {
 	PO_ALIGN_NUM_OPTIONS
 };
 
-enum poTextureScaleOption {
-	PO_TEX_OBJ_RESHAPE=0,
-	PO_TEX_NO_FIT=1,
-	PO_TEX_FIT_H=2,
-	PO_TEX_FIT_V=3,
-	PO_TEX_FIT_MIN=4,
-	PO_TEX_FIT_MAX=5
+enum poTextureFitOption {
+	PO_TEX_FIT_NONE,
+	PO_TEX_FIT_EXACT,
+	PO_TEX_FIT_H,
+	PO_TEX_FIT_V,
+	PO_TEX_FIT_MIN,
+	PO_TEX_FIT_MAX
 };
 
 enum poStrokePlacementOption {
