@@ -16,6 +16,7 @@ class poTexture
 public:
 	poTexture();
 	poTexture(poImage *img);
+	poTexture(const std::string &str);
 	poTexture(GLenum format, uint width, uint height, uint num_bytes, ubyte const*pixels);
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
 			  uint width, uint height, uint num_bytes, ubyte const*pixels);
@@ -24,8 +25,8 @@ public:
 	poTexture *copy();
 
 	uint uid() const;
-	uint width() const;
-	uint height() const;
+	float width() const;
+	float height() const;
 	float s() const;
 	float t() const;
 	GLenum format() const;
@@ -54,13 +55,14 @@ protected:
 	uint refCount();
 
 private:
+	void load(poImage *img);
 	void load(GLenum format, GLenum internal_format, GLenum type, 
 			  GLenum min, GLenum mag, GLenum ws, GLenum wt,
 			  uint w, uint h, uint mem, ubyte const*pixels);
 
 	GLuint _uid;
 	float _s, _t;
-	uint _width, _height;
+	float _width, _height;
 	GLenum _format, _internal_format, _type;
 	GLenum _min_filter, _mag_filter;
 	GLenum _wrap_s, _wrap_t;
