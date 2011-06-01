@@ -15,10 +15,10 @@ class poRectShape : public poShape2D
 public:
     poRectShape();
     poRectShape( poTexture* tex );
-    poRectShape( const std::string &url );
-    poRectShape( float _width, float _height );
+    poRectShape( float width, float height );
+	poRectShape( float width, float height, poTexture* tex, poTextureFitOption fit=PO_TEX_FIT_NONE );
     
-    void    reshape( float _width, float _height );
+    void    reshape( float width, float height );
     
 protected:
     void    construct( float _width, float _height );

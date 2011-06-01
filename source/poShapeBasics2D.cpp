@@ -28,29 +28,21 @@ poRectShape::poRectShape( poTexture* tex )
     placeTexture( tex );
 }
 
-poRectShape::poRectShape( const std::string &url )
+void    poRectShape::reshape( float w, float h )
 {
-    poImage* I = new poImage( url );
-    poTexture* T = new poTexture( I );
-    construct( T->width(), T->height() );
-    placeTexture( T );
+	clearPoints();
+	construct(w, h);
 }
 
-void    poRectShape::reshape( float _width, float _height )
-{
-    width = _width;
-    height = _height;
-    
-    setPoint( 0, poPoint(0,0) );
-    setPoint( 1, poPoint(width,0) );
-    setPoint( 2, poPoint(width,height) );
-    setPoint( 3, poPoint(0,height) );
+poRectShape::poRectShape( float w, float h, poTexture* tex, poTextureFitOption fit ) {
+	construct(w, h);
+	placeTexture(tex, fit);
 }
 
-void poRectShape::construct( float _width, float _height )
+void poRectShape::construct( float w, float h )
 {
-    width = _width;
-    height = _height;
+    width = w;
+    height = h;
     
     addPoint( poPoint(0,0) );
     addPoint( poPoint(width,0) );
