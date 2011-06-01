@@ -5,6 +5,8 @@
 #include "poCommon.h"
 #include "poTextBox.h"
 #include "poShapeBasics2D.h"
+#include "poResource.h"
+#include "poMaskModifier.h"
 
 poObject *createObjectForID(uint uid) {
 	return new TestObj();
@@ -19,32 +21,33 @@ void cleanupApplication() {
 	poCommon::get()->write("common.xml");
 }
 
-
 TestObj::TestObj() {
     addModifier(new poCamera2D(poColor::black));
-
-//	poFontMap fonts;
-//	fonts.font(poFontMap::REGULAR_FONT_KEY, new poFont("fonts/ScalaPro.otf",45.f));
-//	
-//	poCurveLayout layout;
-//	layout.text = "hello world on a curve";
-//	layout.fonts = &fonts;
-//	layout.render();
-//	
-//	poRectShape *rect = new poRectShape(layout.rendered->copy());
-//	rect->position(100,100);
-//	addChild(rect);
 	
-	poTextBox *tb = new poTextBox(300,300);
-	tb->text("hello world").layout();
-	addChild(tb);
+	addChild(new poRectShape(500,500));
+	
+	poResourceStore tmp;
+	poTexture *tex = tmp.add(new poTexture("images/meatballspoon.jpg"));
+
+	poRectShape *rect = new poRectShape(tex);
+	rect->addModifier(new poImageMask("images/mask.png"));
+	rect->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	rect->addEvent(PO_MOUSE_DRAG_EVENT, this);
+	rect->drawBounds(true);
+	addChild(rect);
 }
 
 void TestObj::update() {
-    
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	if(event->type == PO_MOUSE_PRESS_EVENT) {
+		event->source->offset(event->local_position);
+		event->source->position(event->position);
+	}
+	else if(event->type == PO_MOUSE_DRAG_EVENT) {
+		event->source->position(event->position);
+	}
 }
 
 
