@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include "poRect.h"
 #include "poTexture.h"
 #include "poObjectModifier.h"
 
@@ -24,4 +25,17 @@ public:
 	
 private:
 	poTexture *texture;
+};
+
+class poGeometryMask
+:	public poObjectModifier
+{
+public:
+	poGeometryMask(poRect r);
+
+	virtual void setUp( poObject* obj );
+	virtual void setDown( poObject* obj );
+	
+private:
+	std::vector<poPoint> points;
 };

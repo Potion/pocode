@@ -36,3 +36,29 @@ void poImageMask::setUp( poObject* obj ) {
 void poImageMask::setDown( poObject* obj ) {
 	glPopAttrib();
 }
+
+
+poGeometryMask::poGeometryMask(poRect r) {
+	points.push_back(r.origin);
+	points.push_back(poPoint(r.origin.x+r.size.x, r.origin.y));
+	points.push_back(r.origin+r.size);
+	points.push_back(poPoint(r.origin.x, r.origin.y+r.size.y));
+}
+
+void poGeometryMask::setUp( poObject* obj ) {
+	glPushAttrib(GL_STENCIL_BUFFER_BIT);
+	glEnable(GL_STENCIL_TEST);
+
+	glStencilFunc(GL_ALWAYS, 1, 1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	drawPoints(points);
+	
+	glStencilFunc(GL_EQUAL, 1, 1);
+}
+
+void poGeometryMask::setDown( poObject* obj ) {
+	glPopAttrib();
+}
+
+
+
