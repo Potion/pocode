@@ -30,7 +30,8 @@ TestObj::TestObj() {
 	poTexture *tex = tmp.add(new poTexture("images/meatballspoon.jpg"));
 
 	poRectShape *rect = new poRectShape(tex);
-	rect->addModifier(new poImageMask("images/mask.png"));
+//	rect->addModifier(new poImageMask("images/mask.png"));
+	rect->addModifier(new poGeometryMask(poRect(10,10,200,200)));
 	rect->addEvent(PO_MOUSE_PRESS_EVENT, this);
 	rect->addEvent(PO_MOUSE_DRAG_EVENT, this);
 	rect->drawBounds(true);
