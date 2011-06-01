@@ -44,7 +44,7 @@ void poCamera2D::setUp( poObject* obj ) {
     if ( clears_background )
     {
         glClearColor( background_color.R, background_color.G, background_color.B, 1 );
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
 }
 
