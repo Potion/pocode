@@ -39,7 +39,7 @@ public:
 	virtual void	messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
 	// events
-	int				addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict=poDictionary());
+	int				addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
 	void			removeEvent(int event_id);
 	
 	// useful for stuff like cameras, fbos, masks, etc
