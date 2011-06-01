@@ -83,3 +83,9 @@ void drawRect(poTexture* tex) {
 	drawRect(0,0,tex->width(),tex->height(),tex);
 }
 
+void drawPoints(const std::vector<poPoint> &points) {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, &points[0]);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, points.size());
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
