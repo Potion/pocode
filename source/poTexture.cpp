@@ -57,16 +57,13 @@ size_t bytesForPixelFormat(GLenum format) {
 poTexture::poTexture() {}
 
 poTexture::poTexture(poImage *img) {
-	GLenum f, i, t; 
-	formatsForBitDepth(img->bpp(), &f, &i, &t);
-	
-	load(f, i, t,
-		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
-		 img->width(), img->height(), img->storageSize(), img->pixels());
-	pushToCard();
-	
-	createRefCounter();
-	incrRefCount();
+	load(img);
+}
+
+poTexture::poTexture(const std::string &str) {
+	poImage *img = new poImage(str);
+	load(img);
+	delete img;
 }
 
 poTexture::poTexture(GLenum format, uint width, uint height, uint mem, ubyte const*pixels) {
@@ -117,8 +114,8 @@ poTexture *poTexture::copy() {
 }
 
 uint poTexture::uid() const			{return _uid;}
-uint poTexture::width() const		{return _width;}
-uint poTexture::height() const		{return _height;}
+float poTexture::width() const		{return _width;}
+float poTexture::height() const		{return _height;}
 float poTexture::s() const			{return _s;}
 float poTexture::t() const			{return _t;}
 GLenum poTexture::format() const	{return _format;}
@@ -187,6 +184,19 @@ void poTexture::decrRefCount() {
 
 uint poTexture::refCount() {
 	return *ref_count;
+}
+
+void poTexture::load(poImage *img) {
+	GLenum f, i, t; 
+	formatsForBitDepth(img->bpp(), &f, &i, &t);
+	
+	load(f, i, t,
+		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
+		 img->width(), img->height(), img->storageSize(), img->pixels());
+	pushToCard();
+	
+	createRefCounter();
+	incrRefCount();
 }
 
 void poTexture::load(GLenum format, GLenum internal_format, GLenum type, 
