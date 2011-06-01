@@ -12,6 +12,7 @@ poShape2D::poShape2D()
 ,	closed_(true)
 ,	textures(MAX_TEXTURE_UNITS)
 ,	tex_combo_func(MAX_TEXTURE_UNITS, GL_REPLACE)
+,	draw_bounds(false)
 {}
 
 void poShape2D::draw() {
@@ -19,7 +20,6 @@ void poShape2D::draw() {
     // push attributes
     glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
     glEnableClientState(GL_VERTEX_ARRAY);
-    
     
     // do shape fill
     if ( enable_fill ) {
@@ -99,6 +99,12 @@ void poShape2D::draw() {
 	
     // pop attributes
 	glPopClientAttrib();
+	
+	if(draw_bounds) {
+		applyColor(poColor::red);
+		drawStroke(bounds());
+		drawRect(poRect(offset()-poPoint(2,2), poPoint(4,4)));
+	}
 }
 
 
@@ -219,21 +225,92 @@ poRect poShape2D::calculateBounds(bool include_children) {
 	return frame;
 }
 
-poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
-	textures[unit] = tex;
+void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / tex->width() * tex->s();
+		float t = points[i].y / tex->height() * tex->t();
+		coords[i].set(s,t,0.f);
+	}
+}
 
-    // set texture coordinates, stretched to bounds of shape
+void fitExact(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / rect.width() * tex->s();
+		float t = points[i].y / rect.height() * tex->t();
+		coords[i].set(s,t,0.f);
+	}
+}
+
+void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float asp = rect.width() / tex->width();
+	float diff = rect.height() - tex->height()*asp;
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / rect.width() * tex->s();
+		float t = (points[i].y-diff/2.f) / rect.height() * (tex->t() / asp);
+		coords[i].set(s,t,0.f);
+	}
+}
+
+void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float asp = rect.height() / tex->height();
+	float diff = rect.width() - tex->width()*asp;
+	for(int i=0; i<points.size(); i++) {
+		float s = (points[i].x-diff/2.f) / rect.width() * (tex->s() / asp);
+		float t = points[i].y / rect.height() * tex->t(); 
+		coords[i].set(s,t,0.f);
+	}
+}
+
+poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
+	return placeTexture(tex, PO_TEX_FIT_NONE, unit);
+}
+
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint unit) {
+	if(textures[unit])
+		delete resources.remove(textures[unit]);
+	
+	textures[unit] = resources.add(tex->copy());
+	
 	if(tex) {
 		poRect rect = calculateBounds();
-		
-		tex_coords[unit].resize(points.size());
-		for(int i=0; i<points.size(); i++) {
-			float s = points[i].x / rect.width() * tex->s();
-			float t = points[i].y / rect.height() * tex->t();
-			tex_coords[unit][i].set(s,t,0.f);
-		}
-		
 		enableAttribute(ATTRIB_TEX_COORD);
+		tex_coords[unit].resize(points.size());
+		
+		switch(fit) {
+			case PO_TEX_FIT_NONE:
+				fitNone(rect, tex, tex_coords[unit], points);
+				break;
+			
+			case PO_TEX_FIT_EXACT:
+				fitExact(rect, tex, tex_coords[unit], points);
+				break;
+			
+			case PO_TEX_FIT_H:
+				fitHorizontal(rect, tex, tex_coords[unit], points);
+				break;
+			
+			case PO_TEX_FIT_V:
+				fitVertical(rect, tex, tex_coords[unit], points);
+				break;
+			
+			case PO_TEX_FIT_MIN:
+				if(tex->width() < tex->height())
+					fitHorizontal(rect, tex, tex_coords[unit], points);
+				else if(tex->height() < tex->width())
+					fitVertical(rect, tex, tex_coords[unit], points);
+				else
+					fitExact(rect, tex, tex_coords[unit], points);
+				break;
+				
+			case PO_TEX_FIT_MAX:
+				if(tex->width() > tex->height())
+					fitHorizontal(rect, tex, tex_coords[unit], points);
+				else if(tex->height() > tex->width())
+					fitVertical(rect, tex, tex_coords[unit], points);
+				else
+					fitExact(rect, tex, tex_coords[unit], points);
+				break;
+		}
 	}
 	else    // if texture is NULL, turn off texture
     {
@@ -243,11 +320,7 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
 		if(!found_one)
 			disableAttribute(ATTRIB_TEX_COORD);
 	}
-	
-	return *this;
 }
-
-
 
 poShape2D&  poShape2D::enableFill(bool b) {enable_fill = b; return *this;}
 bool        poShape2D::isFillEnabled() const {return enable_fill;}
@@ -281,6 +354,9 @@ StrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
 poShape2D&  poShape2D::closed(bool b) {closed_ = b; return *this; }
 bool        poShape2D::isClosed() const {return closed_;}
+
+poShape2D&	poShape2D::drawBounds(bool b) {draw_bounds = b;}
+bool		poShape2D::drawBounds() const {return draw_bounds;}
 
 GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}
 poShape2D&  poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func; return *this; }

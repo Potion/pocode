@@ -38,8 +38,10 @@ public:
 	virtual void        setAlignment(poAlignment align);
 	virtual poRect      calculateBounds(bool include_children=false);
 	
-    // texture management
+    // texture management, will copy the texture
 	poShape2D&			placeTexture(poTexture *tex, uint unit=0);
+	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
+	
 	poShape2D&			generateStroke(int strokeWidth, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
     GLenum              textureCombineFunction(uint unit=0) const;
     
@@ -72,6 +74,9 @@ public:
     
 	poShape2D&          closed(bool b);
     bool                isClosed() const;
+	
+	poShape2D&			drawBounds(bool b);
+	bool				drawBounds() const;
     
 	poShape2D&          textureCombineFunction(GLenum func, uint unit=0);
     
@@ -97,10 +102,11 @@ private:
 	StrokeCapProperty       cap;
 	StrokeJoinProperty      join;
 	bool                    closed_;
+	bool					draw_bounds;
     
 	std::vector<GLenum>         tex_combo_func;
 	std::vector<poTexture*>     textures;
-	poResourceStore*            resources;
+	poResourceStore				resources;
 };
 
 
