@@ -11,11 +11,13 @@
 
 poCamera2D::poCamera2D()
 {
+	reset = true;
     clears_background = true;
     background_color.set( 0,0,0 );
 }
 
-poCamera2D::poCamera2D(poColor color) {
+poCamera2D::poCamera2D(poColor color, bool r) {
+	reset = r;
 	clears_background = true;
 	background_color = color;
 }
@@ -27,7 +29,8 @@ void poCamera2D::setUp( poObject* obj ) {
     glPushMatrix();
 	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	if(reset)
+		glLoadIdentity();
     
     // disable the depth test
     glDisable(GL_CULL_FACE);
@@ -36,9 +39,6 @@ void poCamera2D::setUp( poObject* obj ) {
     // enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    // enable anti-aliasing
-    glEnable( GL_LINE_SMOOTH );
     
     // clear background
     if ( clears_background )
