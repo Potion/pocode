@@ -20,6 +20,9 @@ public:
 	std::string text() const;
 	// pass in text with embedded formatting
 	poTextBox &text(const std::string &str);
+	
+	poColor textColor() const;
+	poTextBox &textColor(poColor c);
 
 	// actual bounds of the text
 	poRect textBounds() const;
@@ -37,5 +40,6 @@ private:
 	std::string _text;
 	poFontMap fonts;
 	poBoxLayout _layout;
+	poColor color;
 };
 
