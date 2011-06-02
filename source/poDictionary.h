@@ -13,6 +13,8 @@ typedef boost::variant<int, float, std::string, poColor, poPoint, void*> poPrope
 
 class poDictionary {
 public:
+	bool			has(const std::string &name) const {return items.find(name) != items.end();}
+	
 	int             getInt(const std::string &name) {return boost::get<int>(items[name]);}
 	poDictionary	setInt(const std::string &name, int i) {items[name] = i; return *this; }
 	
