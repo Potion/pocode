@@ -141,6 +141,10 @@ poShape2D& poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, in
 	return *this;
 }
 
+const std::vector<poPoint> &poShape2D::getPoints() {
+	return points;
+}
+
 void poShape2D::setPoints(const std::vector<poPoint> &pts) {
 	points.assign(pts.begin(), pts.end());
 }

@@ -12,6 +12,8 @@
 #include "poTexture.h"
 #include "poObjectModifier.h"
 
+class poShape2D;
+
 class poImageMask 
 :	public poObjectModifier
 {
@@ -32,6 +34,8 @@ class poGeometryMask
 {
 public:
 	poGeometryMask(poRect r);
+	poGeometryMask(const std::vector<poPoint> &pts);
+	poGeometryMask(poShape2D *shape);
 
 	virtual void setUp( poObject* obj );
 	virtual void setDown( poObject* obj );

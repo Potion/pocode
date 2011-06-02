@@ -7,5 +7,14 @@
 class MasksApp : public poObject {
 public:
 	MasksApp();
-	virtual ~MasksApp();
+	virtual void eventHandler(poEvent *event);
+	
+	poObject *holder;
+	
+	void setupAperture();
+	
+	void start();
+	void stop();
+	void open();
+	void close();
 };

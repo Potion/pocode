@@ -99,6 +99,13 @@ poColor &poColor::set(float r, float g, float b, float a) {
 	return *this;
 }
 
+poColor &poColor::set255(float r, float g, float b, float a) {
+	R = r / 255.f;
+	G = g / 255.f;
+	B = b / 255.f;
+	A = a / 255.f;
+}
+
 std::string poColor::toString() const {
 	return (boost::format("%f %f %f %f")%R%G%B%A).str();
 }
@@ -136,4 +143,29 @@ std::ostream &operator<<(std::ostream &o, const poColor &c) {
 std::istream &operator>>(std::istream &i, poColor &c) {
 	i >> c.R >> c.G >> c.B >> c.A;
 	return i;
+}
+
+poColor hashPointerForColor(void *ptr) {
+	unsigned long val = (long)ptr;
+	
+	val = (val+0x7ed55d16) + (val<<12);
+	val = (val^0xc761c23c) ^ (val>>19);
+	val = (val+0x165667b1) + (val<<5);
+	val = (val+0xd3a2646c) ^ (val<<9);
+	val = (val+0xfd7046c5) + (val<<3);
+	val = (val^0xb55a4f09) ^ (val>>16);
+
+	GLubyte r = (val>>0) & 0xFF;
+	GLubyte g = (val>>8) & 0xFF;
+	GLubyte b = (val>>16) & 0xFF;
+	
+	GLubyte max = r>g ? (r>b ? r : b) : (g>b ? g : b);
+	
+	const int mult = 127;
+	const int add = 63;
+	r = (r*mult)/max + add;
+	g = (g*mult)/max + add;
+	b = (b*mult)/max + add;
+	
+	return poColor().set255(r,g,b);
 }

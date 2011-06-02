@@ -67,9 +67,6 @@ void poObject::removeEvent(int event_id) {
 	poEventCenter::get()->removeEvent(event_id);
 }
 
-void poObject::preDraw() {}
-void poObject::postDraw() {}
-
 void poObject::addChild(poObject* obj) {
 	obj->_parent = this;
 	children.push_back(obj);
@@ -286,15 +283,11 @@ void poObject::_drawTree() {
         mod->setUp( this );
     }
     
-	preDraw();
-	
 	draw();
 	
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}
-
-	postDraw();
     
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setDown( this );

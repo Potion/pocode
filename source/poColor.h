@@ -16,6 +16,7 @@ public:
     poColor(const poHSVColor &hsv);
 	
 	poColor &set(float r, float g, float b, float a=1.f);
+	poColor &set255(float r, float g, float b, float a=255.f);
 	std::string toString() const;
     
     static const poColor white;
@@ -27,7 +28,6 @@ public:
 	static const poColor blue;
 	static const poColor green;
 };
-
 
 class poHSVColor {
 public:
@@ -42,3 +42,5 @@ public:
 
 std::ostream &operator<<(std::ostream &o, const poColor &c);
 std::istream &operator>>(std::istream &i, poColor &c);
+
+poColor hashPointerForColor(void *ptr);

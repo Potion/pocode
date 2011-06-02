@@ -10,7 +10,15 @@ class TestObj :	public poObject
 {
 public:
 	TestObj();
-	virtual void update();
 	virtual void eventHandler(poEvent *event);
+	
+	poObject *holder;
+	
+	void setupAperture();
+	
+	void start();
+	void stop();
+	void open();
+	void close();
 };
 

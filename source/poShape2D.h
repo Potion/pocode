@@ -31,6 +31,7 @@ public:
 	size_t              numPoints() const;
 	poPoint				getPoint(int idx);
     bool                setPoint(int idx, poPoint p );
+	const std::vector<poPoint> &getPoints();
 	poPoint				getTexCoord(int idx, uint unit=0);
 	poColor				getColor(int idx); 
 	

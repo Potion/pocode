@@ -42,10 +42,6 @@ public:
 	int				addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
 	void			removeEvent(int event_id);
 	
-	// useful for stuff like cameras, fbos, masks, etc
-	virtual void	preDraw();
-	virtual void	postDraw();
-	
 	// DISPLAY LIST
 	void			addChild(poObject* obj);
 	void			addChild(poObject* obj, int idx);

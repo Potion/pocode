@@ -8,6 +8,7 @@
 
 #include "poMaskModifier.h"
 #include "poSimpleDrawing.h"
+#include "poShape2D.h"
 
 poImageMask::poImageMask(poTexture *tex)
 :	texture(tex->copy())
@@ -45,14 +46,25 @@ poGeometryMask::poGeometryMask(poRect r) {
 	points.push_back(poPoint(r.origin.x, r.origin.y+r.size.y));
 }
 
+poGeometryMask::poGeometryMask(const std::vector<poPoint> &pts) {
+	points.assign(pts.begin(), pts.end());
+}
+
+poGeometryMask::poGeometryMask(poShape2D *shape) {
+	const std::vector<poPoint> &pts = shape->getPoints();
+	points.assign(pts.begin(), pts.end());
+}
+
 void poGeometryMask::setUp( poObject* obj ) {
 	glPushAttrib(GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_STENCIL_TEST);
 
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glStencilFunc(GL_ALWAYS, 1, 1);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	drawPoints(points);
 	
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glStencilFunc(GL_EQUAL, 1, 1);
 }
 
