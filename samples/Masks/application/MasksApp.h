@@ -12,6 +12,8 @@ public:
 	poObject *holder;
 	
 	void setupAperture();
+	void setupSurprise();
+	void setupInstructions();
 	
 	void start();
 	void stop();

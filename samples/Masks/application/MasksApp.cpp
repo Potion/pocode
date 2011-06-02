@@ -6,6 +6,7 @@
 #include "poShapeBasics2D.h"
 #include "poResource.h"
 #include "poMaskModifier.h"
+#include "poTextBox.h"
 
 using namespace std;
 
@@ -31,13 +32,9 @@ MasksApp::MasksApp() {
 	// register to receive key events
 	addEvent(PO_KEY_DOWN_EVENT, this);
 	
-	// make a holder for the leaves of the aperture
-	holder = new poObject();
-	holder->position(400,400,0);
-	addChild(holder);
-	
-	// setup the aperture
+	setupSurprise();
 	setupAperture();
+	setupInstructions();
 	
 	// and start the animation
 	start();
@@ -64,7 +61,30 @@ void MasksApp::eventHandler(poEvent *event) {
 	}
 }
 
+void MasksApp::setupSurprise() {
+	// load an image
+	poRectShape *img = new poRectShape("PandaBaby9911.jpeg");
+	addChild(img);
+	// add an image-based mask to the thing
+	img->addModifier(new poImageMask("mask.jpg"));
+	
+	// check the settings dictionary for where to put the thing
+	poCommon *common = poCommon::get();
+	std::string key = "panda position";
+	
+	poPoint location(0,0);
+	// if the settings has it
+	if(common->has(key))
+		// move the panda to the right spot
+		img->position(common->getPoint(key));
+}
+
 void MasksApp::setupAperture() {
+	// make a holder for the leaves of the aperture
+	holder = new poObject();
+	holder->position(400,400,0);
+	addChild(holder);
+	
 	// make the elements of the aperture
 	int size = 200.f;
 	float step = M_2PI / 12.f;
@@ -99,6 +119,20 @@ void MasksApp::setupAperture() {
 	poGeometryMask *mask = new poGeometryMask(&circle);
 	// and apply it
 	holder->addModifier(mask);
+}
+
+void MasksApp::setupInstructions() {
+	poTextBox *text = new poTextBox(200,200);
+
+	poFont reg("LucidaGrande", FONT_REGULAR, 20);
+	poFont bol("LucidaGrande", FONT_BOLD, 20);
+	text->fontMap()
+		.font(poFontMap::REGULAR_FONT_KEY, &reg)
+		.font(poFontMap::BOLD_FONT_KEY, &bol);
+	text->text("<b>⌘-o</b> to open\n"
+			   "<b>⌘-c</b> to close\n");
+	text->layout();
+	addChild(text);
 }
 
 void MasksApp::start() {
