@@ -12,12 +12,14 @@
 
 poTextBox::poTextBox()
 :	_text("")
+,	color(poColor::white)
 {
 	defaultFonts();
 }
 
 poTextBox::poTextBox(int w, int h) 
 :	_text("")
+,	color(poColor::white)
 {
 	defaultFonts();
 	bounds(poRect(0,0,w,h));
@@ -33,8 +35,10 @@ void poTextBox::defaultFonts() {
 poTextBox::~poTextBox() {}
 
 std::string poTextBox::text() const {return _text;}
-
 poTextBox &poTextBox::text(const std::string &str) { _text = str; return *this; }
+
+poColor poTextBox::textColor() const {return color;}
+poTextBox &poTextBox::textColor(poColor c) {color = c; return *this;}
 
 poRect poTextBox::textBounds() const {return _layout.actualBounds;}
 
@@ -56,10 +60,11 @@ void poTextBox::layout() {
 
 void poTextBox::draw() {
 	if(_layout.rendered) {
+		applyColor(color);
 		drawRect(poRect(poPoint(0,0,0),bounds().size), _layout.rendered);
-		drawStroke(textBounds());
-		drawStroke(bounds());
-		drawRect(poRect(_layout.baseline, poPoint(5,5)));
+//		drawStroke(textBounds());
+//		drawStroke(bounds());
+//		drawRect(poRect(_layout.baseline, poPoint(5,5)));
 	}
 }
 

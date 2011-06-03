@@ -28,6 +28,12 @@ poRectShape::poRectShape( poTexture* tex )
     placeTexture( tex );
 }
 
+poRectShape::poRectShape( const std::string &str) {
+	poTexture tex(str);
+	construct(tex.width(), tex.height());
+	placeTexture(&tex);
+}
+
 void    poRectShape::reshape( float w, float h )
 {
 	clearPoints();
