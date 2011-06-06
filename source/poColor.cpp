@@ -11,7 +11,9 @@
 
 const poColor poColor::white = poColor(1,1,1);
 const poColor poColor::black = poColor(0,0,0);
+const poColor poColor::lt_grey = poColor(.75, .75, .75);
 const poColor poColor::grey = poColor(.5, .5, .5);
+const poColor poColor::dk_grey = poColor(.25, .25, .25);
 const poColor poColor::red = poColor(1,0,0);
 const poColor poColor::yellow = poColor(1,1,0);
 const poColor poColor::orange = poColor(1.0, 0.5, 0.2);
