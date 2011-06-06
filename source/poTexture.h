@@ -23,6 +23,7 @@ public:
 	~poTexture();
 	
 	poTexture *copy();
+	void replace(ubyte const*pixels);
 
 	uint uid() const;
 	float width() const;
