@@ -9,9 +9,13 @@
 @synthesize currentWindow;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
+	NSLog(@"%@", [[NSFileManager defaultManager] currentDirectoryPath]);
+
 	self.currentWindow = nil;
 	shared_context = nil;
 	windows = [[NSMutableArray alloc] init];
+	
 	setupApplication();
 }
 
