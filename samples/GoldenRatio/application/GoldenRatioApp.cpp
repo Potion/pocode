@@ -26,11 +26,9 @@ GoldenRatioApp::GoldenRatioApp() {
     bloom->position(getWindowWidth()/2,getWindowHeight()/2,0);
     addChild(bloom);
     
-    for(int i=1; i<4000; i++){
+    for(int i=1; i<3000; i++){
         seeds.push_back(new poOvalShape(SEEDSIZE,SEEDSIZE,NUMSIDES));
-        seeds.back()->strokeColor(poColor::white)
-        .generateStroke(1,STROKE_JOIN_BEVEL)
-        .matrixOrder(PO_MATRIX_ORDER_RST)
+        seeds.back()->matrixOrder(PO_MATRIX_ORDER_RST)
         .rotation(i*360*PHI)
         .position(sqrt(i)*SPACING,0);
     }
@@ -62,7 +60,7 @@ void GoldenRatioApp::postDraw(){
 }
 
 void GoldenRatioApp::eventHandler(poEvent *event){
-    if(event->message == "mouseMove"){
+    if(event->type == PO_MOUSE_MOVE_EVENT){
         for(int j=0; j<seeds.size(); j++){
             seeds[j]->scale(8*(event->position)/getWindowWidth());
         }
