@@ -69,6 +69,8 @@ ubyte const*poImage::pixels() const {
 }
 
 FIBITMAP *loadDIB(const std::string &url) {
+	// figure out if the file exists
+	
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	fif = FreeImage_GetFileType(url.c_str());
 	if(fif == FIF_UNKNOWN)

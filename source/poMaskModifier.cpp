@@ -10,6 +10,8 @@
 #include "poSimpleDrawing.h"
 #include "poShape2D.h"
 
+#include <boost/lambda/lambda.hpp>
+
 poImageMask::poImageMask(poTexture *tex)
 :	texture(tex->copy())
 {}
@@ -53,6 +55,10 @@ poGeometryMask::poGeometryMask(const std::vector<poPoint> &pts) {
 poGeometryMask::poGeometryMask(poShape2D *shape) {
 	const std::vector<poPoint> &pts = shape->getPoints();
 	points.assign(pts.begin(), pts.end());
+	
+	using namespace boost::lambda;
+	using boost::lambda::_1;
+	std::transform(points.begin(), points.end(), points.begin(), ret<poPoint>(_1 + shape->position()));
 }
 
 void poGeometryMask::setUp( poObject* obj ) {

@@ -148,7 +148,7 @@
 		E8B2D110132EC4B7002BE3D9 /* TestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestApp.h; path = ../test/TestApp.h; sourceTree = "<group>"; };
 		E8C7E70D13913CED00E6848E /* poTextLayout.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poTextLayout.cpp; path = ../source/poTextLayout.cpp; sourceTree = "<group>"; };
 		E8C7E70E13913CED00E6848E /* poTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextLayout.h; path = ../source/poTextLayout.h; sourceTree = "<group>"; };
-		E8C7E71313913E3A00E6848E /* Helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Helpers.cpp; path = ../source/Helpers.cpp; sourceTree = "<group>"; };
+		E8C7E71313913E3A00E6848E /* Helpers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Helpers.cpp; path = ../source/Helpers.cpp; sourceTree = "<group>"; };
 		E8C7E71413913E3A00E6848E /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Helpers.h; path = ../source/Helpers.h; sourceTree = "<group>"; };
 		E8C7E71513913E3A00E6848E /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/poApplication.h; sourceTree = "<group>"; };
 		E8C7E71613913E3A00E6848E /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/poWindow.cpp; sourceTree = "<group>"; };
