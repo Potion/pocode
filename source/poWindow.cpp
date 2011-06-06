@@ -28,6 +28,7 @@ poWindow::poWindow(const char *title, void *handle, uint root_id, poRect bounds)
 ,   mouse_hover(NULL)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
+,	closed_(false)
 {
 	makeCurrent();
 	root = createObjectForID(root_id);

@@ -11,7 +11,6 @@ public:
 	~poWindow();
 
 	void moveTo(poRect rect);
-	void close();
 	void fullscreen(bool b);
 
 	std::string title() const;
@@ -21,6 +20,7 @@ public:
 	int height() const;
 	bool isFullscreen() const;
 	poObject* rootObject() const;
+	bool wasClosed() const;
 
 	void makeCurrent();
 	void update();
@@ -35,6 +35,7 @@ public:
 	void keyUp(char key, int code, int mod);
 
 private:
+	bool closed_;
 	poRect bounds;
 	bool fullscreen_;
 	
