@@ -188,6 +188,8 @@ poObject *poEventCenter::notify(poEvent event) {
 		if(the_one) {
 			localizeEvent(the_one->event, event);
 			the_one->receiver->eventHandler(&event);
+			// capture any user changes to the dictionary
+			the_one->event.dict = event.dict;
 			// tell the container we found someone
 			return the_one->event.source;
 		}
@@ -200,6 +202,8 @@ poObject *poEventCenter::notify(poEvent event) {
 
 			localizeEvent(stored_event, event);
 			callback.receiver->eventHandler(&event);
+			// capture any user changes to the dictionary
+			stored_event.dict = event.dict;
 		}
 	}
 	

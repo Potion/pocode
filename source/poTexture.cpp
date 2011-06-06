@@ -113,6 +113,18 @@ poTexture *poTexture::copy() {
 	return tex;
 }
 
+void poTexture::replace(ubyte const*pix) {
+	if(storingPixels)
+		memcpy(_pixels, pix, _mem_size);
+
+	glBindTexture(GL_TEXTURE_2D, uid());
+	
+	// TODO optimize this with pbuffer transfer
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width(), height(), format(), GL_UNSIGNED_BYTE, pix);
+	
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 uint poTexture::uid() const			{return _uid;}
 float poTexture::width() const		{return _width;}
 float poTexture::height() const		{return _height;}

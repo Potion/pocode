@@ -9,14 +9,17 @@
 
 class poObject;
 
-typedef boost::variant<int, float, std::string, poColor, poPoint, void*> poProperty;
+typedef boost::variant<bool, int, float, std::string, poColor, poPoint, void*> poProperty;
 
 class poDictionary {
 public:
 	bool			has(const std::string &name) const {return items.find(name) != items.end();}
 	
+	bool			getBool(const std::string &name) {return boost::get<bool>(items[name]);}
+	poDictionary&	setBool(const std::string &name, bool b) {items[name] = b; return *this;}
+	
 	int             getInt(const std::string &name) {return boost::get<int>(items[name]);}
-	poDictionary	setInt(const std::string &name, int i) {items[name] = i; return *this; }
+	poDictionary&	setInt(const std::string &name, int i) {items[name] = i; return *this; }
 	
 	float           getFloat(const std::string &name) {return boost::get<float>(items[name]);}
 	poDictionary&	setFloat(const std::string &name, float f) {items[name] = f; return *this; }
@@ -30,9 +33,8 @@ public:
 	poPoint         getPoint(const std::string &name) {return boost::get<poPoint>(items[name]);}
 	poDictionary&	setPoint(const std::string &name, poPoint p) {items[name] = p; return *this; }
 	
-					template <typename T>
-	T*				getPtr(const std::string &name) {return static_cast<T*>(boost::get<void*>(items[name]));}
-	void			setPtr(const std::string &name, void* obj) {items[name] = obj;}
+	void*			getPtr(const std::string &name) {return boost::get<void*>(items[name]);}
+	poDictionary&	setPtr(const std::string &name, void* obj) {items[name] = obj; return *this;}
 	
 	bool			read(const fs::path &url);
 	void			write(const fs::path &url);
