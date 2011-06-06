@@ -18,9 +18,11 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 {
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 	[self.openGLContext makeCurrentContext];
-	self.appWindow->makeCurrent();
-	self.appWindow->update();
-	self.appWindow->draw();
+	if(self.appWindow) {
+		self.appWindow->makeCurrent();
+		self.appWindow->update();
+		self.appWindow->draw();
+	}
 	[self.openGLContext flushBuffer];
 	return kCVReturnSuccess;
 }
@@ -38,6 +40,9 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		NSOpenGLPFAAlphaSize, 8,
 		NSOpenGLPFAStencilSize, 8,
 		NSOpenGLPFAAccumSize, 64,
+		NSOpenGLPFAMultisample,
+        NSOpenGLPFASampleBuffers, 1,
+        NSOpenGLPFASamples, 4,
 		0
 	};
 	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
@@ -62,6 +67,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 
 -(void)dealloc {
 	delete self.appWindow;
+	self.appWindow = nil;
 	[super dealloc];
 }
 
