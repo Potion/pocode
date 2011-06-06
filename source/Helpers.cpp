@@ -8,6 +8,8 @@
 #include <sys/param.h>
 #include <sys/sysctl.h>
 
+#include <Foundation/Foundation.h>
+
 double getTime() {
     static mach_timebase_info_data_t info;
     if(info.denom == 0)
@@ -25,6 +27,15 @@ unsigned int getNumCpus() {
     return (unsigned int)count;
 }
 
+fs::path currentPath() {
+	return fs::current_path();
+}
+
+void setCurrentPath(const fs::path &path) {
+	NSString *nsstr = [NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding];
+	[[NSFileManager defaultManager] changeCurrentDirectoryPath:nsstr];
+}
+
 #endif
 
 int utf8strlen(const std::string &str) {
@@ -36,3 +47,4 @@ int utf8strlen(const std::string &str) {
 	}
 	return j;
 }
+
