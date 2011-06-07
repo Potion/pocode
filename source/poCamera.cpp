@@ -14,20 +14,32 @@ poCamera2D::poCamera2D()
 	reset = true;
     clears_background = true;
     background_color.set( 0,0,0 );
+    near = -1;
+    far = 1;
 }
 
 poCamera2D::poCamera2D(poColor color, bool r) {
 	reset = r;
 	clears_background = true;
 	background_color = color;
+    near = -1;
+    far = 1;
 }
+
+poCamera2D::poCamera2D(poColor clear, float near, float far, bool reset)
+:   near(near)
+,   far(far)
+,   clears_background(true)
+,   background_color(clear)
+,   reset(reset)
+{}
 
 void poCamera2D::setUp( poObject* obj ) {
     // setup orthographic camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     glPushMatrix();
-	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, -1, 1);
+	glOrtho(0, getWindowWidth(), getWindowHeight(), 0, near, far);
 	glMatrixMode(GL_MODELVIEW);
 	if(reset)
 		glLoadIdentity();

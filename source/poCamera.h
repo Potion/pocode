@@ -17,6 +17,7 @@ class poCamera2D : public poObjectModifier
 public:
     poCamera2D();
 	poCamera2D(poColor clear, bool reset=true);
+	poCamera2D(poColor clear, float near, float far ,bool reset=true);
     
     virtual void setUp( poObject* obj );
     virtual void setDown( poObject* obj );
@@ -32,4 +33,6 @@ private:
     bool		clears_background;
     poColor		background_color;
 	bool		reset;
+    float       near;
+    float       far;
 };
