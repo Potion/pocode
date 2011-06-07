@@ -87,9 +87,22 @@
 		E8C7E70F13913CED00E6848E /* poTextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E70D13913CED00E6848E /* poTextLayout.cpp */; };
 		E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
 		E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
+		E8F4E4A0139E734B0001E860 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F4E49F139E734B0001E860 /* main.cpp */; };
 		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
 		E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMaskModifier.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E8F4E49A139E734B0001E860 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
@@ -154,6 +167,9 @@
 		E8C7E71613913E3A00E6848E /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/poWindow.cpp; sourceTree = "<group>"; };
 		E8C7E71713913E3A00E6848E /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/poWindow.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
+		E8F4E49C139E734B0001E860 /* regression */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = regression; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F4E49F139E734B0001E860 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E8F4E4A1139E734B0001E860 /* regression.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = regression.1; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
 		E8FE4AE913968EE300E99864 /* poMaskModifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMaskModifier.cpp; path = ../source/poMaskModifier.cpp; sourceTree = "<group>"; };
@@ -169,6 +185,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E8B2D068132E9CA7002BE3D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8F4E499139E734B0001E860 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -202,6 +225,7 @@
 				E8B2D108132EC388002BE3D9 /* application */,
 				E8A0B995138B0FBA0024BC8C /* platform */,
 				E8B2D0B4132E9F4D002BE3D9 /* poFramework4 */,
+				E8F4E49E139E734B0001E860 /* regression */,
 				E8B2D06C132E9CA7002BE3D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -211,6 +235,7 @@
 			children = (
 				E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */,
 				E80625911396FEDA00615CCB /* libpotionLib.a */,
+				E8F4E49C139E734B0001E860 /* regression */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,6 +305,15 @@
 				E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */,
 			);
 			name = application;
+			sourceTree = "<group>";
+		};
+		E8F4E49E139E734B0001E860 /* regression */ = {
+			isa = PBXGroup;
+			children = (
+				E8F4E49F139E734B0001E860 /* main.cpp */,
+				E8F4E4A1139E734B0001E860 /* regression.1 */,
+			);
+			path = regression;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +391,23 @@
 			productReference = E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E8F4E49B139E734B0001E860 /* regression */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8F4E4A4139E734B0001E860 /* Build configuration list for PBXNativeTarget "regression" */;
+			buildPhases = (
+				E8F4E498139E734B0001E860 /* Sources */,
+				E8F4E499139E734B0001E860 /* Frameworks */,
+				E8F4E49A139E734B0001E860 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = regression;
+			productName = regression;
+			productReference = E8F4E49C139E734B0001E860 /* regression */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -379,6 +430,7 @@
 			targets = (
 				E8B2D06A132E9CA7002BE3D9 /* poFramework4 */,
 				E80625901396FEDA00615CCB /* potionLib */,
+				E8F4E49B139E734B0001E860 /* regression */,
 			);
 		};
 /* End PBXProject section */
@@ -462,6 +514,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E8F4E498139E734B0001E860 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F4E4A0139E734B0001E860 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -505,6 +565,48 @@
 			};
 			name = Release;
 		};
+		E8F4E4A2139E734B0001E860 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E8F4E4A3139E734B0001E860 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -534,6 +636,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E8F4E4A4139E734B0001E860 /* Build configuration list for PBXNativeTarget "regression" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F4E4A2139E734B0001E860 /* Debug */,
+				E8F4E4A3139E734B0001E860 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
