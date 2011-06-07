@@ -5,7 +5,7 @@
 //  Created by Jared Schiffman on 5/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
-
+#pragma once
 
 #include "poShape2D.h"
 #include "poTexture.h"
