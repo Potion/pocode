@@ -21,7 +21,9 @@ public:
     
     static const poColor white;
 	static const poColor black;
+    static const poColor lt_grey;
 	static const poColor grey;
+    static const poColor dk_grey;
 	static const poColor red;
 	static const poColor yellow;
 	static const poColor orange;
