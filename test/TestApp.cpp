@@ -23,13 +23,9 @@ bool inverted = false;
 TestObj::TestObj() {
     addModifier(new poCamera2D(poColor::black,false));
 	
-	tex = new poTexture("images/alfred_e_neuman.jpg");
+	tex = new poTexture(GL_RGBA, 100, 100, 100*100*4, NULL);
 	poRectShape *rect = new poRectShape(tex);
 	addChild(rect);
-	
-	poImage *img = new poImage("images/alfred_e_neuman copy.jpg");
-	tex->replace(img->pixels());
-	delete img;
 }
 
 void TestObj::eventHandler(poEvent *event) {
