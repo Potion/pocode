@@ -2,7 +2,7 @@
 
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
+#include "poTextBox.h"
 
 using namespace std;
 
@@ -17,14 +17,15 @@ void setupApplication() {
 void cleanupApplication() {
 }
 
-poTexture *tex = NULL;
-bool inverted = false;
-
 TestObj::TestObj() {
-    addModifier(new poCamera2D(poColor::black,false));
-	addEvent(PO_KEY_DOWN_EVENT, this);
+    addModifier((new poPerspectiveCamera(65, 4.f/3.f, 0.1, 100.f))->lookAt(poPoint(0,0,0)));
+	position(0,0,100);
+	
+	poTextBox *tb = new poTextBox(100,100);
+	tb->text("hello world");
+	tb->layout();
+	addChild(tb);
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	printf("%d %s\n", event->keyCode, isArrowKey(event->modifiers)?"true":"false");
 }
