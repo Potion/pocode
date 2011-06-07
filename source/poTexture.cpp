@@ -227,8 +227,9 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 	_width = w;
 	_height = h;
 	_mem_size = mem;
-	_pixels = new ubyte[_mem_size];
-	memcpy(_pixels, pixels, _mem_size);
+	_pixels = new ubyte[_mem_size]();
+	if(pixels)
+		memcpy(_pixels, pixels, _mem_size);
 }
 
 
