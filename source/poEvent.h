@@ -41,8 +41,24 @@ enum {
 	// mouse event mask
 	PO_MOUSE_LEFT	= 2 << 3,
 	PO_MOUSE_MIDDLE	= 2 << 4,
-	PO_MOUSE_RIGHT	= 2 << 5
+	PO_MOUSE_RIGHT	= 2 << 5,
+	// specific key 
+	PO_NUMERIC_KEY_MASK = (1 << 21),
+	PO_FUNCTION_KEY_MASK = (1 << 23),
 };
+
+enum {
+	// also need to check the modifier flags
+	// for arrows, numeric mask and function mask should both be set
+	PO_UP_ARROW = 0,
+	PO_DOWN_ARROW = 1,
+	PO_LEFT_ARROW = 2,
+	PO_RIGHT_ARROW = 3
+};
+
+bool isNumericMask(unsigned int mod);
+bool isFunctionMask(unsigned int mod);
+bool isArrowKey(unsigned int mod);
 
 bool isKeyEvent(int type);
 bool isMouseEvent(int type);

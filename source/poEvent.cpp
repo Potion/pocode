@@ -2,6 +2,18 @@
 #include "poObject.h"
 #include "poApplication.h"
 
+bool isNumericMask(unsigned int mod) {
+	return (mod & PO_NUMERIC_KEY_MASK) > 0;
+}
+
+bool isFunctionMask(unsigned int mod) {
+	return (mod & PO_FUNCTION_KEY_MASK) > 0;
+}
+
+bool isArrowKey(unsigned int mod) {
+	return (mod & PO_NUMERIC_KEY_MASK) > 0 && (mod & PO_FUNCTION_KEY_MASK) > 0;
+}
+
 bool isKeyEvent(int type) {
 	return (type == PO_KEY_UP_EVENT			||
 			type == PO_KEY_DOWN_EVENT		||

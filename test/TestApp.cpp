@@ -22,11 +22,9 @@ bool inverted = false;
 
 TestObj::TestObj() {
     addModifier(new poCamera2D(poColor::black,false));
-	
-	tex = new poTexture(GL_RGBA, 100, 100, 100*100*4, NULL);
-	poRectShape *rect = new poRectShape(tex);
-	addChild(rect);
+	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	printf("%d %s\n", event->keyCode, isArrowKey(event->modifiers)?"true":"false");
 }
