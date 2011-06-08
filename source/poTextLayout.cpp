@@ -87,7 +87,7 @@ struct AttributedStringGenerator : public TiXmlVisitor {
 void *createAttributes(TiXmlDocument *doc, const poFontMap &fonts, const std::string &str) {
 	AttributedStringGenerator string_gen(fonts, str); 
 	doc->Accept(&string_gen);
-
+	
 /*	TODO figure out how best to specify this information
 	http://developer.apple.com/library/mac/#documentation/Carbon/Reference/CTParagraphStyleRef/Reference/reference.html
  
@@ -144,7 +144,7 @@ void renderTextBox(void *attrib, poRect rect, poTexture **tex, void **ctframe) {
 	CTFrameDraw(frame, context);
 	CGContextRelease(context);
 
-	*tex = new poTexture(GL_LUMINANCE, rect.width(), rect.height(), rect.area(), data);
+	*tex = new poTexture(GL_ALPHA, rect.width(), rect.height(), rect.area(), data);
 	delete [] data;
 	
 	*ctframe = (void*)frame;
@@ -330,12 +330,12 @@ void poTextLayout::stage1() {
 	// make sure the string has a "root node" so we can turn it into valid xml
 	std::string xml = std::string("<text>") + text + "</text>";
 	
+	// remove any lingering objects we created
+	cleanup();
+	
 	// make sure we leave in any whitespace the user put there on purpose
 	bool is_condensed = TiXmlBase::IsWhiteSpaceCondensed();
 	TiXmlBase::SetCondenseWhiteSpace(false);
-	
-	// remove any lingering objects we created
-	cleanup();
 	
 	// make an xml document out of the string we got
 	doc = new TiXmlDocument();
