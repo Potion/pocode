@@ -1,6 +1,7 @@
 #include "poObject.h"
 #include "poWindow.h"
 
+#include "Helpers.h"
 #include "poApplication.h"
 
 poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
@@ -29,6 +30,9 @@ poWindow::poWindow(const char *title, void *handle, uint root_id, poRect bounds)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
 ,	closed_(false)
+,	framecounter(0)
+,	last_mark(0.0)
+,	framerate_(0.f)
 {
 	makeCurrent();
 	root = createObjectForID(root_id);
@@ -69,6 +73,18 @@ int poWindow::height() const {
 	return bounds.size.y;
 }
 
+float poWindow::framerate() const {
+	return framerate_;
+}
+
+float poWindow::lastFrameElapsed() const {
+	return last_elapsed;
+}
+
+float poWindow::lastFrameTime() const {
+	return last_frame;
+}
+
 bool poWindow::isFullscreen() const {
 	return fullscreen_;
 }
@@ -82,6 +98,19 @@ void poWindow::makeCurrent() {
 }
 
 void poWindow::update() {
+	double now = getTime();
+	printf("%f\n", now);
+	
+	framecounter++;
+	if(now - last_mark >= 1.0) {
+		last_mark = now;
+		framerate_ = framecounter;
+		framecounter = 0;
+	}
+	
+	last_elapsed = now - last_frame;
+	last_frame = now;
+	
 	if(root)
 		root->_updateTree();
 }

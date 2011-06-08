@@ -18,6 +18,9 @@ public:
 	int y() const;
 	int width() const;
 	int height() const;
+	float framerate() const;
+	float lastFrameElapsed() const;
+	float lastFrameTime() const;
 	bool isFullscreen() const;
 	poObject* rootObject() const;
 	bool wasClosed() const;
@@ -38,6 +41,10 @@ private:
 	bool closed_;
 	poRect bounds;
 	bool fullscreen_;
+	
+	double last_mark, last_frame;
+	int framecounter;
+	float framerate_, last_elapsed;
 	
 	void *handle;
 	std::string title_;

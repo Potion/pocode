@@ -181,3 +181,19 @@ float getWindowHeight() {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	return app.currentWindow->height();
 }
+
+float getWindowFramerate() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->framerate();
+}
+
+float getWindowLastFrameTime() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->lastFrameTime();
+}
+
+float getWindowLastFrameDuration() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->lastFrameElapsed();
+}
+

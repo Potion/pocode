@@ -16,6 +16,8 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								CVOptionFlags *flagsOut,
 								void *displayLinkContext)
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 	[self.openGLContext makeCurrentContext];
 	if(self.appWindow) {
@@ -24,6 +26,8 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		self.appWindow->draw();
 	}
 	[self.openGLContext flushBuffer];
+	
+	[pool release];
 	return kCVReturnSuccess;
 }
 
