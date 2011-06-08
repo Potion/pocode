@@ -3,6 +3,7 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poTextBox.h"
+#include "poShapeBasics2D.h"
 
 using namespace std;
 
@@ -18,13 +19,26 @@ void cleanupApplication() {
 }
 
 TestObj::TestObj() {
-    addModifier((new poPerspectiveCamera(65, 4.f/3.f, 0.1, 100.f))->lookAt(poPoint(0,0,0)));
-	position(0,0,100);
+    addModifier(new poCamera2D());
 	
-	poTextBox *tb = new poTextBox(100,100);
-	tb->text("hello world");
+	poObject *obj = new poObject();
+	obj->position(100,100);
+	addChild(obj);
+	
+	poRectShape *rect = new poRectShape(100,100);
+	rect->setAlignment(PO_ALIGN_CENTER_CENTER);
+	rect->fillColor(poColor::green);
+	rect->rotation_tween.set(360).setRepeat(PO_TWEEN_REPEAT_REGULAR).setTweenFunction(linearFunc).setDuration(10.0).start();
+	obj->addChild(rect);
+	
+	tb = new poTextBox(100,100);
+//	tb->setAlignment(PO_ALIGN_CENTER_CENTER);
+	obj->addChild(tb);
+}
+
+void TestObj::update() {
+	tb->text( (boost::format("%d")%getWindowFramerate()).str() );
 	tb->layout();
-	addChild(tb);
 }
 
 void TestObj::eventHandler(poEvent *event) {
