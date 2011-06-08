@@ -4,6 +4,7 @@
 #include "poFont.h"
 #include "poTexture.h"
 
+// in seconds
 double getTime();
 unsigned int getNumCpus();
 

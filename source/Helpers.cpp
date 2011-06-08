@@ -11,12 +11,15 @@
 #include <Foundation/Foundation.h>
 
 double getTime() {
+	static uint64_t start = 0.0;
     static mach_timebase_info_data_t info;
-    if(info.denom == 0)
+    if(info.denom == 0) {
         mach_timebase_info(&info);
+		start = mach_absolute_time();
+	}
     
-    uint64_t duration = mach_absolute_time();
-    return (duration * info.numer) / (double)info.denom;
+    uint64_t duration = mach_absolute_time() - start;
+    return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
 }
 
 unsigned int getNumCpus() {
