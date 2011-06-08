@@ -110,63 +110,68 @@ void poShape2D::draw() {
 
 poShape2D& poShape2D::addPoint(poPoint p) {
 	points.push_back(p);
+	original_points.push_back(p);
 	return *this;
 }
 
 poShape2D& poShape2D::addPoint( float x, float y ) {
-    points.push_back( poPoint(x,y) );
+    addPoint( poPoint(x,y) );
 	return *this;
 }
 
 poShape2D& poShape2D::addPoints(const std::vector<poPoint> &pts) {
 	points.insert(points.end(), pts.begin(), pts.end());
+	original_points.insert(points.end(), pts.begin(), pts.end());
 	return *this;
 }
 
 poShape2D& poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
-	if(points.empty())
-		points.push_back(poPoint(0,0,0));
+	if(points.empty()) {
+		addPoint(poPoint(0,0,0));
+	}
 	
 	std::vector<poPoint> pts = quadTo(points.back(), pt, control, resolution);
-	pts.insert(points.end(), pts.begin(), pts.end());
+	addPoints(pts);
 	return *this;
 }
 
 poShape2D& poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
 	if(points.empty())
-		points.push_back(poPoint(0,0,0));
+		addPoint(poPoint(0,0,0));
 	
 	std::vector<poPoint> pts = cubeTo(points.back(), pt, control1, control2, resolution);
-	points.insert(points.end(), pts.begin(), pts.end());
+	addPoints(pts);
 	return *this;
 }
 
 const std::vector<poPoint> &poShape2D::getPoints() {
-	return points;
+	return original_points;
 }
 
 void poShape2D::setPoints(const std::vector<poPoint> &pts) {
 	points.assign(pts.begin(), pts.end());
+	original_points.assign(pts.begin(), pts.end());
 }
 
 poShape2D& poShape2D::clearPoints() {
 	points.clear();
+	original_points.clear();
 	return *this;
 }
 
 size_t poShape2D::numPoints() const {
-	return points.size();
+	return original_points.size();
 }
 
 poPoint poShape2D::getPoint(int idx) {
-	return points[idx];
+	return original_points[idx];
 }
 
-bool    poShape2D::setPoint(int idx, poPoint p )
+bool poShape2D::setPoint(int idx, poPoint p )
 {
     if ( idx < 0 || idx >= numPoints() )
         return false;
-    points[idx] = p;
+    original_points[idx] = p;
     return true;
 }
 
@@ -207,10 +212,10 @@ void poShape2D::setAlignment(poAlignment align) {
 			offset(-frame.width()/2.f,-frame.height(),0); break;
 		case PO_ALIGN_BOTTOM_RIGHT:
 			offset(-frame.width(),-frame.height(),0); break;
-            
-        case PO_ALIGN_NUM_OPTIONS:
-            // just to shut up the compiler warning
-            break;
+	}
+	
+	for(int i=0; i<numPoints(); i++) {
+		points[i] = original_points[i] + offset();
 	}
 }
 
