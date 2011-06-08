@@ -99,7 +99,6 @@ void poWindow::makeCurrent() {
 
 void poWindow::update() {
 	double now = getTime();
-	printf("%f\n", now);
 	
 	framecounter++;
 	if(now - last_mark >= 1.0) {
