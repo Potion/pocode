@@ -27,9 +27,9 @@ poTextBox::poTextBox(int w, int h)
 
 void poTextBox::defaultFonts() {
 	poResourceStore tmp;
-	fonts.font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("Helvetica", 0, 12)));
-	fonts.font(poFontMap::ITALIC_FONT_KEY, tmp.add(new poFont("Helvetica", FONT_ITALIC, 12)));
-	fonts.font(poFontMap::BOLD_FONT_KEY, tmp.add(new poFont("Helvetica", FONT_BOLD, 12)));
+	fonts.font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("", 0, 12)));
+	fonts.font(poFontMap::ITALIC_FONT_KEY, tmp.add(new poFont("", FONT_ITALIC, 12)));
+	fonts.font(poFontMap::BOLD_FONT_KEY, tmp.add(new poFont("", FONT_BOLD, 12)));
 }
 
 poTextBox::~poTextBox() {}
@@ -51,6 +51,18 @@ poTextBox &poTextBox::font(const std::string &name, poFont *font) {
 	return *this;
 }
 
+poTextBox &poTextBox::regularFont(poFont *font) {
+	this->font(poFontMap::REGULAR_FONT_KEY, font);
+}
+
+poTextBox &poTextBox::italicFont(poFont *font) {
+	this->font(poFontMap::ITALIC_FONT_KEY, font);
+}
+
+poTextBox &poTextBox::boldFont(poFont *font) {
+	this->font(poFontMap::BOLD_FONT_KEY, font);
+}
+
 void poTextBox::layout() {
 	_layout.fonts = &fonts;
 	_layout.bounds = bounds();
@@ -61,7 +73,7 @@ void poTextBox::layout() {
 void poTextBox::draw() {
 	if(_layout.rendered) {
 		applyColor(color);
-		drawRect(poRect(poPoint(0,0,0),bounds().size), _layout.rendered);
+		drawRect(poRect(-offset(),bounds().size), _layout.rendered);
 //		drawStroke(textBounds());
 //		drawStroke(bounds());
 //		drawRect(poRect(_layout.baseline, poPoint(5,5)));

@@ -30,6 +30,9 @@ public:
 	// manage the fonts
 	poFontMap &fontMap();
 	poTextBox &font(const std::string &name, poFont *font);
+	poTextBox &regularFont(poFont *font);
+	poTextBox &italicFont(poFont *font);
+	poTextBox &boldFont(poFont *font);
 	
 	void layout();
 	void draw();
