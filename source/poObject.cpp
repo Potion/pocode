@@ -63,16 +63,6 @@ int poObject::addEvent(int eventType, poObject *sink, std::string message, const
 	return poEventCenter::get()->registerForEvent(eventType, this, sink, message, dict);
 }
 
-int poObject::addEvent(int eventType, poObject *sink, std::string message) {
-	if(!sink) sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, message);
-}
-
-int poObject::addEvent(int eventType, poObject *sink, const poDictionary &dict) {
-	if(!sink) sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, "", dict);
-}
-
 void poObject::removeEvent(int event_id) {
 	poEventCenter::get()->removeEvent(event_id);
 }
