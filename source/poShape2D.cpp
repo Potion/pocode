@@ -574,10 +574,6 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
                 return true;
     }
     
-	//for( int i=0; i<numChildren(); i++ )
-	//	if ( getChild(i)->pointInside(x, y) )
-	//		return true;
-    
     return false;
 }
 
