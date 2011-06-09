@@ -114,7 +114,7 @@ poTexture *poTexture::copy() {
 }
 
 void poTexture::replace(ubyte const*pix) {
-	if(storingPixels)
+	if(storingPixels())
 		memcpy(_pixels, pix, _mem_size);
 
 	glBindTexture(GL_TEXTURE_2D, uid());
