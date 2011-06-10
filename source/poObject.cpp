@@ -358,12 +358,12 @@ void poObject::pushObjectMatrix() {
 		true_alpha = _alpha;
 	}
 	
-	poPoint trans = _position - _offset;
+	poPoint trans = _position;
 	
 	// now move depending on the matrix order
 	switch(_matrix_order) {
 		case PO_MATRIX_ORDER_TRS:
-			glTranslatef(trans.x, trans.y, trans.z);
+//			glTranslatef(trans.x, trans.y, trans.z);
 			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);
 			glScalef(_scale.x, _scale.y, _scale.z);
 			break;
@@ -375,6 +375,7 @@ void poObject::pushObjectMatrix() {
 			break;
 	}
 
+	glTranslatef(_offset.x, _offset.y, _offset.z);
 	matrices.capture();
 }
 

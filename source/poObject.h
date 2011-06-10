@@ -105,7 +105,7 @@ public:
 	poPoint			offset() const;
 	poObject&		offset(poPoint p);
 	poObject&		offset(float x, float y, float z);
-	
+		
 	poRect			bounds() const;
 	poObject&		bounds(poRect r);
 	
