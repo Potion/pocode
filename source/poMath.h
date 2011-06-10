@@ -69,7 +69,7 @@ inline float poRand() {
 	return rand() / (float)INT_MAX;
 }
 
-inline float poRand(int low, int high) {
+inline float poRand(float low, float high) {
 	return poRand() * (high-low) + low;
 }
 
