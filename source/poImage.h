@@ -40,6 +40,7 @@ public:
 	uint storageSize() const;
 	ubyte const*pixels() const;
 	
+	void changeBpp(ImageBitDepth bpp);
 	void composite(poImage *img, poRect into);
 	void flip(poOrientation dir);
 	

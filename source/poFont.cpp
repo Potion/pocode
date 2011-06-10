@@ -182,6 +182,20 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) {
 	return poPoint(kern.x, kern.y);
 }
 
+poTextureAtlas *poFont::atlasForFont(int glyph_start, int glyph_end) {
+	poTextureAtlas *atlas = new poTextureAtlas(GL_ALPHA, 1024, 1024);
+	for(int i=glyph_start; i<=glyph_end; i++) {
+		glyph(i);
+		atlas->addImage(glyphImage(), i);
+	}
+	atlas->layoutAtlas();
+	return atlas;
+}
+
+std::string poFont::toString() const {
+	return (boost::format("font: %s %s (%d)")%familyName()%styleName()%pointSize()).str();
+}
+
 void poFont::loadGlyph(int g) {
 	uint idx = FT_Get_Char_Index(face.get(), g);
 	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP);
@@ -206,5 +220,10 @@ poFontMap &poFontMap::font(const std::string &name, poFont *font) {
 		delete resources.remove(fonts[name]);
 	fonts[name] = resources.add(new poFont(*font));
 	return *this;
-	
+}
+
+
+std::ostream &operator<<(std::ostream &o, const poFont &f) {
+	o << f.toString();
+	return o;
 }

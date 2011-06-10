@@ -68,6 +68,28 @@ ubyte const*poImage::pixels() const {
 	return FreeImage_GetBits(bitmap);
 }
 
+void poImage::changeBpp(ImageBitDepth bpp) {
+	if(bitmap && FreeImage_GetBPP(bitmap) != bpp) {
+		FIBITMAP *dst = NULL;
+		switch(bpp) {
+			case IMAGE_8:	
+				dst = FreeImage_ConvertTo8Bits(bitmap); 
+				break;
+			case IMAGE_16:	
+				dst = FreeImage_ConvertTo16Bits565(bitmap); 
+				break;
+			case IMAGE_24:	
+				dst = FreeImage_ConvertTo24Bits(bitmap); 
+				break;
+			case IMAGE_32:	
+				dst = FreeImage_ConvertTo32Bits(bitmap); 
+				break;
+		}
+		FreeImage_Unload(bitmap);
+		bitmap = dst;
+	}
+}
+
 void poImage::composite(poImage *img, poRect into) {
 	FreeImage_Paste(bitmap, img->bitmap, into.origin.x, into.origin.y, 256);
 }
@@ -105,27 +127,7 @@ void poImage::load(const std::string &url) {
 
 void poImage::load(const std::string &url, ImageBitDepth bpp) {
 	bitmap = loadDIB(url);
-	if(bitmap && FreeImage_GetBPP(bitmap) != bpp) {
-		FIBITMAP *dst = NULL;
-		
-		switch(bpp) {
-			case IMAGE_8:	
-				dst = FreeImage_ConvertTo8Bits(bitmap); 
-				break;
-			case IMAGE_16:	
-				dst = FreeImage_ConvertTo16Bits565(bitmap); 
-				break;
-			case IMAGE_24:	
-				dst = FreeImage_ConvertTo24Bits(bitmap); 
-				break;
-			case IMAGE_32:	
-				dst = FreeImage_ConvertTo32Bits(bitmap); 
-				break;
-		}
-		
-		FreeImage_Unload(bitmap);
-		bitmap = dst;
-	}
+	changeBpp(bpp);
 }
 
 void poImage::load(uint w, uint h, ImageBitDepth bpp, ubyte *pix) {

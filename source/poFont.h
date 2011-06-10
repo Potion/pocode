@@ -9,6 +9,7 @@
 #pragma once
 #include "poRect.h"
 #include "poImage.h"
+#include "poTexture.h"
 #include "poResource.h"
 
 #include <ft2build.h>
@@ -58,6 +59,9 @@ public:
 	poShape2D *glyphOutline();
 
 	poPoint kernGlyphs(int glyph1, int glyph2);
+	poTextureAtlas *atlasForFont(int glyph_start, int glyph_end);
+	
+	std::string toString() const;
 
 private:
 	poFont();
@@ -86,3 +90,4 @@ private:
 	poResourceStore resources;
 };
 
+std::ostream &operator<<(std::ostream &o, const poFont &f);

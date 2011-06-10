@@ -103,7 +103,7 @@ void poShape2D::draw() {
 	if(draw_bounds) {
 		applyColor(poColor::red);
 		drawStroke(bounds());
-		drawRect(poRect(offset()-poPoint(2,2), poPoint(4,4)));
+		drawRect(poRect(-offset()-poPoint(2,2), poPoint(4,4)));
 	}
 }
 

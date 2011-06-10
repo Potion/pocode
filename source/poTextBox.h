@@ -8,8 +8,7 @@
 
 #include "poObject.h"
 #include "poFont.h"
-
-class poTexture;
+#include "poTexture.h"
 
 class poTextLayout {
 public:
@@ -73,6 +72,8 @@ private:
 	poFontMap fonts;
 	poColor color;
 	poAlignment align;
+	
+	std::map<std::string, poTextureAtlas*> rendered_fonts;
 };
 
 

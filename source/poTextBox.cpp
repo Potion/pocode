@@ -28,9 +28,9 @@ poTextBox::poTextBox(int w, int h)
 
 void poTextBox::defaultFonts() {
 	poResourceStore tmp;
-	fonts.font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_REGULAR)));
-	fonts.font(poFontMap::ITALIC_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_ITALIC)));
-	fonts.font(poFontMap::BOLD_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_BOLD)));
+	font(poFontMap::REGULAR_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_REGULAR)));
+	font(poFontMap::ITALIC_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_ITALIC)));
+	font(poFontMap::BOLD_FONT_KEY, tmp.add(new poFont("Lucida Grande", PO_FONT_BOLD)));
 }
 
 poTextBox::~poTextBox() {}

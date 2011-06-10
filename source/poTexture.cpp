@@ -7,6 +7,7 @@
 //
 
 #include "poTexture.h"
+#include "BinPacker.h"
 
 void formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_format, GLenum *type) {
 	switch(bpp) {
@@ -234,3 +235,129 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 
 
 
+
+
+poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
+:	width(w)
+,	height(h)
+,	format(f)
+,	bound_page(-1)
+{}
+
+poTextureAtlas::~poTextureAtlas() {
+	clearImages();
+	clearPages();
+}
+
+void poTextureAtlas::clearImages() {
+	BOOST_FOREACH(poImage *img, images) {
+		delete img;
+	}
+	images.clear();
+	requested_ids.clear();
+}
+
+void poTextureAtlas::addImage(poImage *img, uint request) {
+	poImage *copy = img->copy();
+	copy->changeBpp((ImageBitDepth)(bytesForPixelFormat(format)*8));
+	images.push_back(copy);
+	requested_ids.push_back(request);
+	return images.size() - 1;
+}
+
+void poTextureAtlas::layoutAtlas() {
+	clearPages();
+	
+	BinPacker pack(width,height);
+	
+	for(int i=0; i<images.size(); i++) {
+		uids[requested_ids[i]] = pack.addRect(poRect(0,0,images[i]->width(),images[i]->height()));
+	}
+	pack.pack();
+	
+	for(int i=0; i<pack.numPages(); i++) {
+		ImageBitDepth depth = (ImageBitDepth)(bytesForPixelFormat(format)*8);
+		pages.push_back(new poImage(width,height,depth,NULL));
+	}
+	
+	coords.resize(images.size());
+	
+	for(int i=0; i<images.size(); i++) {
+		uint pg;
+		poRect pack_loc = pack.packPosition(i, &pg);
+		
+		ImageLookup item;
+		item.page = pg;
+		
+		poPoint origin(pack_loc.origin.x / (float)width,
+					   pack_loc.origin.y / (float)height);
+		poPoint size(pack_loc.size.x / (float)width,
+					 pack_loc.size.y / (float)height);
+		
+		item.coords = poRect(origin, size);
+		item.coords.origin.y = 1.f - item.coords.origin.y - item.coords.size.y;
+		
+		item.size = pack_loc.size;
+		
+		coords[i] = item;
+		pages[pg]->composite(images[i], pack_loc);
+	}
+	
+	textures.resize(pages.size());
+	
+	for(int i=0; i<pages.size(); i++) {
+		poImage *img = pages[i];
+		textures[i] = new poTexture(format, img->width(), img->height(), img->storageSize(), img->pixels());
+	}
+}
+
+bool poTextureAtlas::hasUID(uint uid) {
+	return uids.find(uid) != uids.end();
+}
+
+int poTextureAtlas::numPages() {
+	return pages.size();
+}
+
+poPoint poTextureAtlas::dimensions() const {
+	return poPoint(width, height);
+}
+
+uint poTextureAtlas::pageForUID(uint uid) {
+	return coords[uids[uid]].page;
+}
+
+poRect poTextureAtlas::coordsForUID(uint uid) {
+	return coords[uids[uid]].coords;
+}
+
+poRect poTextureAtlas::sizeForUID(uint uid) {
+	return poRect(poPoint(0,0), coords[uids[uid]].size);
+}
+
+poTexture *poTextureAtlas::textureForPage(uint page) {
+	return textures[page];
+}
+
+void poTextureAtlas::clearPages() {
+	for(int i=0; i<pages.size(); i++) {
+		delete pages[i];
+		delete textures[i];
+	}
+	pages.clear();
+	textures.clear();
+	coords.clear();
+	uids.clear();
+}
+
+void poTextureAtlas::bindPage(uint page, uint unit) {
+	if(page != bound_page) {
+		textures[page]->bind(unit);
+		bound_page = page;
+	}
+}
+
+void poTextureAtlas::unbind(uint unit) {
+	textures[bound_page]->unbind(unit);
+	bound_page = -1;
+}

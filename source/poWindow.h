@@ -2,6 +2,7 @@
 
 #include "poEnums.h"
 #include "poRect.h"
+#include "poEvent.h"
 
 class poObject;
 
@@ -52,4 +53,9 @@ private:
 	std::string title_;
 	poObject *root;
     poObject *mouse_receiver, *key_receiver, *mouse_hover;
+	
+	// store incoming events here
+	std::deque<poEvent> received;
+	// then process them on the main thread
+	void processEvents();
 };
