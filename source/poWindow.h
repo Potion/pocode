@@ -34,8 +34,10 @@ public:
 	void mouseMove(int x, int y, int mod);
 	void mouseDrag(int x, int y, int mod);
 	void mouseWheel(int x, int y, int mod, int num_steps);
-	void keyDown(char key, int code, int mod);
-	void keyUp(char key, int code, int mod);
+	void keyDown(int key, int code, int mod);
+	void keyUp(int key, int code, int mod);
+	
+	void *osDependentHandle();
 
 private:
 	bool closed_;

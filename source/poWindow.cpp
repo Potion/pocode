@@ -99,7 +99,6 @@ void poWindow::makeCurrent() {
 
 void poWindow::update() {
 	double now = getTime();
-	printf("%f\n", now);
 	
 	framecounter++;
 	if(now - last_mark >= 1.0) {
@@ -226,13 +225,13 @@ void poWindow::mouseWheel(int x, int y, int mod, int num_steps) {
 	
 }
 
-void poWindow::keyDown(char key, int code, int mod) {
+void poWindow::keyDown(int key, int code, int mod) {
 	if(!root)
 		return;
 	
 	poEvent event;
-	event.keyCode = key;
-	event.keyChar = code;
+	event.keyChar = key;
+	event.keyCode = code;
 	event.modifiers = mod;
 	
 	event.type = PO_KEY_DOWN_EVENT;
@@ -244,7 +243,7 @@ void poWindow::keyDown(char key, int code, int mod) {
 	}
 }
 
-void poWindow::keyUp(char key, int code, int mod) {
+void poWindow::keyUp(int key, int code, int mod) {
 	if(!root)
 		return;
 	
@@ -261,4 +260,9 @@ void poWindow::keyUp(char key, int code, int mod) {
 		poEventCenter::get()->routeBySource(key_receiver, event);
 	}
 }
+
+void *poWindow::osDependentHandle() {
+	return handle;
+}
+
 
