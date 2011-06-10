@@ -538,3 +538,44 @@ void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, p
 	}
 }
 
+// localize will convert global to local first
+// otherwise, point is assumed to be local
+bool        poShape2D::pointInside(poPoint point, bool localize )
+{
+    if(!visible())
+		return false;
+	
+	if(localize)
+		point = globalToLocal(point);
+	
+	
+	// test point inside for given drawstyle
+    if ( (fill_draw_style == GL_POLYGON || fill_draw_style == GL_TRIANGLE_FAN) && points.size() >= 3 )
+    {
+        for( int i=1; i<points.size()-1; i++ )
+            if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
+				return true;
+        if (fill_draw_style == GL_TRIANGLE_FAN)
+            if ( pointInTriangle( point, points[0], points[1], points.back() ))
+				return true;
+    }
+    else if (fill_draw_style == GL_TRIANGLE_STRIP && points.size() >= 3 )
+    {
+        for( int i=0; i<points.size()-2; i++ )
+            if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
+                return true;
+    }
+    
+    return false;
+}
+
+
+bool        poShape2D::pointInside(float x, float y, float z, bool localize )
+{
+    return pointInside(poPoint(x,y,z),localize);
+}
+
+
+
+
+

@@ -85,6 +85,11 @@ public:
 	poShape2D&          disableAttribute(VertexAttribute a);
     bool                isAttributeEnabled(VertexAttribute a) const;
 
+    // localize will convert global to local first
+	// otherwise, point is assumed to be local
+	virtual bool        pointInside(poPoint point, bool localize=false);
+	virtual bool        pointInside(float x, float y, float z=0.f, bool localize=false);
+
     
 private:    
 	std::vector<poPoint>    points;
