@@ -209,6 +209,8 @@ void poShape2D::setAlignment(poAlignment align) {
 		case PO_ALIGN_BOTTOM_RIGHT:
 			offset(-frame.width(),-frame.height(),0); break;
 	}
+	
+	offset(offset()-frame.origin);
 }
 
 

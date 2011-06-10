@@ -12,10 +12,9 @@ class TestObj :	public poObject
 {
 public:
 	TestObj();
+	virtual void draw();
 	virtual void update();
 	virtual void eventHandler(poEvent *event);
 	
-private:
-	poTextBox *tb;
 };
 

@@ -7,6 +7,7 @@
 // in seconds
 double getTime();
 unsigned int getNumCpus();
+poPoint deviceResolution();
 
 // http://canonical.org/~kragen/strlen-utf8.html
 int utf8strlen(const std::string &str);

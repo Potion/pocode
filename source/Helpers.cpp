@@ -3,6 +3,9 @@
 #include <cstdio>
 #include <deque>
 
+#include "poWindow.h"
+#include "poApplication.h"
+
 #ifdef __APPLE__
 #include <mach/mach_time.h>
 #include <sys/param.h>
@@ -30,8 +33,12 @@ unsigned int getNumCpus() {
     return (unsigned int)count;
 }
 
-fs::path currentPath() {
-	return fs::current_path();
+poPoint deviceResolution() {
+	NSWindow *window = (NSWindow*)applicationCurrentWindow()->osDependentHandle();
+	NSScreen *screen = [window screen];
+	
+	NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
+	return poPoint(size.width, size.height);
 }
 
 void setCurrentPath(const fs::path &path) {
@@ -40,6 +47,10 @@ void setCurrentPath(const fs::path &path) {
 }
 
 #endif
+
+fs::path currentPath() {
+	return fs::current_path();
+}
 
 int utf8strlen(const std::string &str) {
 	int i=0, j=0;

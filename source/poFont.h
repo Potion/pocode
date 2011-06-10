@@ -7,17 +7,19 @@
 //
 
 #pragma once
+#include "poRect.h"
+#include "poImage.h"
 #include "poResource.h"
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class poShape2D;
 
-enum {
-	FONT_REGULAR	= 0,
-	FONT_ITALIC		= 1,
-	FONT_BOLD		= 2,
-	FONT_EXPANDED	= 4,
-	FONT_CONDENSED	= 8,
-	FONT_MONO		= 16,
+enum poFontTraits {
+	PO_FONT_REGULAR		= 0,
+	PO_FONT_ITALIC		= 1 << 1,
+	PO_FONT_BOLD		= 1 << 2,
 };
 
 class poFont
@@ -25,25 +27,48 @@ class poFont
 {
 public:
 	// system font
-	poFont(const std::string &family, int traits, float point_size);
+	poFont(const std::string &family, poFontTraits traits, int size=12);
 	// file-based font
-	poFont(const std::string &url, float point_size);
+	poFont(const std::string &url, int size=12);
 	virtual ~poFont();
 	
-	poFont *copy();
+	bool valid() const;
 	
-	std::string name() const;
-	float size() const;
-	// misleading: this is only 1 character, but potentially several bytes long
-	poShape2D *getGlyphOutline(const std::string &str);
+	std::string familyName() const;
+	std::string styleName() const;
+	// in case you want the same font with different traits
+	std::string url() const;
 	
-	void *osFontHandle() const;
-	
+	int pointSize() const;
+	void pointSize(int size);
+
+	float lineHeight() const;
+	float underlinePosition() const;
+	float underlineThickness() const;
+
+	int glyph() const;
+	void glyph(int g);
+	// uses the previously set glyph
+	poRect glyphBounds();
+	poPoint glyphBearing();
+	float	glyphBaselineOffset();
+	poPoint glyphAdvance();
+	// you have to delete the results
+	poImage *glyphImage();
+	poShape2D *glyphOutline();
+
+	poPoint kernGlyphs(int glyph1, int glyph2);
+
 private:
 	poFont();
+	void init();
+	void loadGlyph(int g);
 	
-	struct poFontImpl;
-	poFontImpl *impl;
+	static FT_Library lib;
+	boost::shared_ptr<FT_FaceRec_> face;
+
+	std::string _url;
+	int size, _glyph;
 };
 
 class poFontMap {

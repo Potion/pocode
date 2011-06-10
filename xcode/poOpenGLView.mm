@@ -136,6 +136,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)keyDown:(NSEvent*)event {
+//	NSLog(@"%@ %c", event, [event.characters characterAtIndex:0]);
 	self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
 }
 

@@ -89,7 +89,7 @@ public:
 	// key events
 	int keyCode;
 	// with modifiers applied
-	char keyChar;
+	int keyChar;
 
 	// touch events
 	uint32_t uid;

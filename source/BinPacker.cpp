@@ -134,9 +134,8 @@ void BinPacker::pack() {
 
 	std::list<insert_rect> unused(rectangles.begin(),rectangles.end());
 
-	uint used_area = 0;
 	uint insert_height = 0;
-	uint count = 0;
+	uint count=0, used_area=0;
 
 	// start out on the first page
 	pack_page *page = pages[0];

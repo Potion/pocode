@@ -3,12 +3,15 @@
 
 #include "poApplication.h"
 #include "poWindow.h"
+#include "Helpers.h"
 
 @implementation AppDelegate
 
 @synthesize currentWindow;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	getTime();
+	
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	
 	// setup variables
