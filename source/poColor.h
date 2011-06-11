@@ -29,6 +29,8 @@ public:
 	static const poColor orange;
 	static const poColor blue;
 	static const poColor green;
+    static const poColor cyan;
+    static const poColor magenta;
 };
 
 class poHSVColor {

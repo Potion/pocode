@@ -7,7 +7,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 640, 360);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 600, 300);
 }
 
 void cleanupApplication() {
