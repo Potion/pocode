@@ -6,7 +6,7 @@
 #include "poShapeBasics2D.h"
 #include "poResource.h"
 #include "poMaskModifier.h"
-#include "poTextBox.h"
+//#include "poTextBox.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ poObject *createObjectForID(uint uid) {
 
 // create however many windows we need
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 800, 800);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 600, 300);
 }
 
 // clean up the application before it closes
@@ -82,11 +82,11 @@ void MasksApp::setupSurprise() {
 void MasksApp::setupAperture() {
 	// make a holder for the leaves of the aperture
 	holder = new poObject();
-	holder->position(400,400,0);
+	holder->position(getWindowWidth()/2,getWindowHeight()/2,0);
 	addChild(holder);
 	
 	// make the elements of the aperture
-	int size = 200.f;
+	int size = 150.f;
 	float step = M_2PI / 12.f;
 	for(int i=0; i<6; i++) {
 		poShape2D *shape = new poShape2D();
@@ -122,7 +122,8 @@ void MasksApp::setupAperture() {
 }
 
 void MasksApp::setupInstructions() {
-	poTextBox *text = new poTextBox(200,200);
+	/*
+     poTextBox *text = new poTextBox(200,200);
 
 	poFont reg("LucidaGrande", FONT_REGULAR, 20);
 	poFont bol("LucidaGrande", FONT_BOLD, 20);
@@ -133,6 +134,7 @@ void MasksApp::setupInstructions() {
 			   "<b>⌘-c</b> to close\n");
 	text->layout();
 	addChild(text);
+     */
 }
 
 void MasksApp::start() {
