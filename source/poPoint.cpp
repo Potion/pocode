@@ -75,7 +75,7 @@ float poPoint::lengthSquared() const {
 }
 
 float poPoint::dot(poPoint rhs) const {
-	return sqrtf(x*rhs.x + y*rhs.y + z*rhs.z);
+    return x*rhs.x + y*rhs.y + z*rhs.z;
 }
 
 float poPoint::dotSquared(poPoint rhs) const {
