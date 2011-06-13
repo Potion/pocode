@@ -3,12 +3,15 @@
 
 #include "poApplication.h"
 #include "poWindow.h"
+#include "Helpers.h"
 
 @implementation AppDelegate
 
 @synthesize currentWindow;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	getTime();
+	
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	
 	// setup variables
@@ -181,3 +184,19 @@ float getWindowHeight() {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	return app.currentWindow->height();
 }
+
+float getWindowFramerate() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->framerate();
+}
+
+float getWindowLastFrameTime() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->lastFrameTime();
+}
+
+float getWindowLastFrameDuration() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->lastFrameElapsed();
+}
+

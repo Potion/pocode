@@ -20,6 +20,9 @@ void		applicationMakeWindowFullscreen(poWindow*,bool);
 
 float		getWindowWidth();
 float		getWindowHeight();
+float		getWindowFramerate();
+float		getWindowLastFrameTime();
+float		getWindowLastFrameDuration();
 
 // define to generate base objects for a window after the gl context is created
 extern poObject* createObjectForID(uint uid);

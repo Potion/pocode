@@ -63,16 +63,6 @@ int poObject::addEvent(int eventType, poObject *sink, std::string message, const
 	return poEventCenter::get()->registerForEvent(eventType, this, sink, message, dict);
 }
 
-int poObject::addEvent(int eventType, poObject *sink, std::string message) {
-	if(!sink) sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, message);
-}
-
-int poObject::addEvent(int eventType, poObject *sink, const poDictionary &dict) {
-	if(!sink) sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, "", dict);
-}
-
 void poObject::removeEvent(int event_id) {
 	poEventCenter::get()->removeEvent(event_id);
 }
@@ -361,7 +351,7 @@ void poObject::pushObjectMatrix() {
 		true_alpha = _alpha;
 	}
 	
-	poPoint trans = _position - _offset;
+	poPoint trans = _position;
 	
 	// now move depending on the matrix order
 	switch(_matrix_order) {
@@ -378,6 +368,7 @@ void poObject::pushObjectMatrix() {
 			break;
 	}
 
+	glTranslatef(_offset.x, _offset.y, _offset.z);
 	matrices.capture();
 }
 

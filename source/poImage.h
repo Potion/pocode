@@ -9,6 +9,8 @@
 #pragma once
 
 #include "poResource.h"
+#include "poRect.h"
+#include "poEnums.h"
 
 struct FIBITMAP;
 
@@ -37,6 +39,10 @@ public:
 	uint pitch() const;
 	uint storageSize() const;
 	ubyte const*pixels() const;
+	
+	void changeBpp(ImageBitDepth bpp);
+	void composite(poImage *img, poRect into);
+	void flip(poOrientation dir);
 	
 private:
 	void load(const std::string &url);

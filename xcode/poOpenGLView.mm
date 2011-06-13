@@ -16,14 +16,18 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								CVOptionFlags *flagsOut,
 								void *displayLinkContext)
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 	[self.openGLContext makeCurrentContext];
-	if(self.appWindow) {
+	if(self.appWindow && CVDisplayLinkIsRunning(displayLink)) {
 		self.appWindow->makeCurrent();
 		self.appWindow->update();
 		self.appWindow->draw();
 	}
 	[self.openGLContext flushBuffer];
+	
+	[pool release];
 	return kCVReturnSuccess;
 }
 
@@ -132,11 +136,13 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)keyDown:(NSEvent*)event {
-	self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+	if(event.characters.length)
+		self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
 }
 
 -(void)keyUp:(NSEvent*)event {
-	self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+	if(event.characters.length)
+		self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
 }
 
 -(void)mouseDown:(NSEvent*)event {

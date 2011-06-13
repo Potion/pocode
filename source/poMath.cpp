@@ -102,3 +102,37 @@ bool combineExtrudedLineSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2,
 	
 	return angle > 0.f;
 }
+
+bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C )
+{
+    poPoint AB = A - B;
+    poPoint BC = B - C;
+    poPoint PA = P - A;
+    
+    if ( BC.x*AB.y - BC.y*AB.x > 0)    // test winding
+    {
+        if ( PA.x*AB.y - PA.y*AB.x > 0 )
+            return false;
+        poPoint PB = P - B;
+        if ( PB.x*BC.y - PB.y*BC.x > 0 )
+            return false;
+        poPoint CA = C - A;
+        poPoint PC = P - C;
+        if ( PC.x*CA.y - PC.y*CA.x > 0 )
+            return false;
+    }
+    else
+    {
+        if ( PA.x*AB.y - PA.y*AB.x < 0 )
+            return false;
+        poPoint PB = P - B;
+        if ( PB.x*BC.y - PB.y*BC.x < 0 )
+            return false;
+        poPoint CA = C - A;
+        poPoint PC = P - C;
+        if ( PC.x*CA.y - PC.y*CA.x < 0 )
+            return false;
+    }
+    
+    return true;
+}

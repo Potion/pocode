@@ -19,6 +19,8 @@ const poColor poColor::yellow = poColor(1,1,0);
 const poColor poColor::orange = poColor(1.0, 0.5, 0.2);
 const poColor poColor::blue = poColor(0,.18,.58);
 const poColor poColor::green = poColor(.19, .67, .23);
+const poColor poColor::cyan = poColor(0,1,1);
+const poColor poColor::magenta = poColor(1,0,1);
 
 
 poHSVColor rgba2hsv(poColor rgba) {

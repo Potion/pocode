@@ -38,6 +38,10 @@ void    poRectShape::reshape( float w, float h )
 {
 	clearPoints();
 	construct(w, h);
+	
+	calculateBounds();
+	if(isStrokeEnabled())
+		generateStroke(strokeWidth());
 }
 
 poRectShape::poRectShape( float w, float h, poTexture* tex, poTextureFitOption fit ) {
@@ -86,6 +90,10 @@ void    poOvalShape::reshape( float _width, float _height, int nPoints )
         clearPoints();
         construct( _width, _height, nPoints );
     }
+	
+	calculateBounds();
+	if(isStrokeEnabled())
+		generateStroke(strokeWidth());
 }
 
 void poOvalShape::construct( float _width, float _height, int nPoints )

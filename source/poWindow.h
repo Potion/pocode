@@ -2,6 +2,7 @@
 
 #include "poEnums.h"
 #include "poRect.h"
+#include "poEvent.h"
 
 class poObject;
 
@@ -18,6 +19,9 @@ public:
 	int y() const;
 	int width() const;
 	int height() const;
+	float framerate() const;
+	float lastFrameElapsed() const;
+	float lastFrameTime() const;
 	bool isFullscreen() const;
 	poObject* rootObject() const;
 	bool wasClosed() const;
@@ -31,16 +35,27 @@ public:
 	void mouseMove(int x, int y, int mod);
 	void mouseDrag(int x, int y, int mod);
 	void mouseWheel(int x, int y, int mod, int num_steps);
-	void keyDown(char key, int code, int mod);
-	void keyUp(char key, int code, int mod);
+	void keyDown(int key, int code, int mod);
+	void keyUp(int key, int code, int mod);
+	
+	void *osDependentHandle();
 
 private:
 	bool closed_;
 	poRect bounds;
 	bool fullscreen_;
 	
+	double last_mark, last_frame;
+	int framecounter;
+	float framerate_, last_elapsed;
+	
 	void *handle;
 	std::string title_;
 	poObject *root;
     poObject *mouse_receiver, *key_receiver, *mouse_hover;
+	
+	// store incoming events here
+	std::deque<poEvent> received;
+	// then process them on the main thread
+	void processEvents();
 };

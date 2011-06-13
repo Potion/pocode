@@ -40,8 +40,6 @@ public:
 
 	// events
 	int				addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
-	int				addEvent(int eventType, poObject *sink, std::string message);
-	int				addEvent(int eventType, poObject *sink, const poDictionary &dict);
 	void			removeEvent(int event_id);
 	
 	// DISPLAY LIST
@@ -67,8 +65,8 @@ public:
     
 	// localize will convert global to local first
 	// otherwise, point is assumed to be local
-	bool			pointInside(poPoint point, bool localize=false);
-	bool			pointInside(float x, float y, float z=0.f, bool localize=false);
+	virtual bool	pointInside(poPoint point, bool localize=false);
+	virtual bool	pointInside(float x, float y, float z=0.f, bool localize=false);
 
 	poPoint			globalToLocal(poPoint point) const;
 	poPoint			localToGlobal(poPoint point) const;
@@ -105,7 +103,7 @@ public:
 	poPoint			offset() const;
 	poObject&		offset(poPoint p);
 	poObject&		offset(float x, float y, float z);
-	
+		
 	poRect			bounds() const;
 	poObject&		bounds(poRect r);
 	

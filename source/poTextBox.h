@@ -7,7 +7,36 @@
 //
 
 #include "poObject.h"
-#include "poTextLayout.h"
+#include "poFont.h"
+#include "poTexture.h"
+
+class poTextLayout {
+public:
+	poFontMap *fonts;
+	poAlignment align;
+	poRect bounds;
+
+	void layout();
+	
+	poRect actual_bounds;
+	poTexture *texture;
+	
+private:
+	struct range {
+		range(int,poFont*);
+		int start, length;
+		poFont *font;
+	};
+	struct helper {
+		helper(int,poRect,poPoint,float);
+		int glyph;
+		poRect rect;
+		poPoint bearing;
+		float advance;
+	};
+	std::vector<range> ranges;
+	std::vector<helper> glyphs;
+};
 
 class poTextBox
 :	public poObject 
@@ -23,12 +52,14 @@ public:
 	
 	poColor textColor() const;
 	poTextBox &textColor(poColor c);
+	
+	poAlignment textAlignment() const;
+	poTextBox &textAlignment(poAlignment al);
 
 	// actual bounds of the text
 	poRect textBounds() const;
 	
 	// manage the fonts
-	poFontMap &fontMap();
 	poTextBox &font(const std::string &name, poFont *font);
 	
 	void layout();
@@ -39,7 +70,10 @@ private:
 	
 	std::string _text;
 	poFontMap fonts;
-	poBoxLayout _layout;
 	poColor color;
+	poAlignment align;
+	
+	std::map<std::string, poTextureAtlas*> rendered_fonts;
 };
+
 

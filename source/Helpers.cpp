@@ -3,6 +3,9 @@
 #include <cstdio>
 #include <deque>
 
+#include "poWindow.h"
+#include "poApplication.h"
+
 #ifdef __APPLE__
 #include <mach/mach_time.h>
 #include <sys/param.h>
@@ -11,12 +14,15 @@
 #include <Foundation/Foundation.h>
 
 double getTime() {
+	static uint64_t start = 0.0;
     static mach_timebase_info_data_t info;
-    if(info.denom == 0)
+    if(info.denom == 0) {
         mach_timebase_info(&info);
+		start = mach_absolute_time();
+	}
     
-    uint64_t duration = mach_absolute_time();
-    return (duration * info.numer) / (double)info.denom;
+    uint64_t duration = mach_absolute_time() - start;
+    return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
 }
 
 unsigned int getNumCpus() {
@@ -27,8 +33,12 @@ unsigned int getNumCpus() {
     return (unsigned int)count;
 }
 
-fs::path currentPath() {
-	return fs::current_path();
+poPoint deviceResolution() {
+	NSWindow *window = (NSWindow*)applicationCurrentWindow()->osDependentHandle();
+	NSScreen *screen = [window screen];
+	
+	NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
+	return poPoint(size.width, size.height);
 }
 
 void setCurrentPath(const fs::path &path) {
@@ -37,6 +47,10 @@ void setCurrentPath(const fs::path &path) {
 }
 
 #endif
+
+fs::path currentPath() {
+	return fs::current_path();
+}
 
 int utf8strlen(const std::string &str) {
 	int i=0, j=0;

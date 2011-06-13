@@ -69,7 +69,7 @@ inline float poRand() {
 	return rand() / (float)INT_MAX;
 }
 
-inline float poRand(int low, int high) {
+inline float poRand(float low, float high) {
 	return poRand() * (high-low) + low;
 }
 
@@ -118,3 +118,7 @@ template <typename T>
 inline T clamp(T min, T max, T val) {
 	return std::max(std::min(val, max), min);
 }
+
+bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C );
+
+
