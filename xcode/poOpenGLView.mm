@@ -20,7 +20,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 	[self.openGLContext makeCurrentContext];
-	if(self.appWindow) {
+	if(self.appWindow && CVDisplayLinkIsRunning(displayLink)) {
 		self.appWindow->makeCurrent();
 		self.appWindow->update();
 		self.appWindow->draw();
@@ -136,12 +136,13 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)keyDown:(NSEvent*)event {
-//	NSLog(@"%@ %c", event, [event.characters characterAtIndex:0]);
-	self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+	if(event.characters.length)
+		self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
 }
 
 -(void)keyUp:(NSEvent*)event {
-	self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+	if(event.characters.length)
+		self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
 }
 
 -(void)mouseDown:(NSEvent*)event {
