@@ -78,12 +78,13 @@ class poTextureAtlas
 {
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
-	~poTextureAtlas();
+	virtual ~poTextureAtlas();
 
+	// move the list of images to pack
 	void clearImages();
 	// pass in the id you want to have associated with the image
 	void addImage(poImage *img, uint requested_id);
-	
+	// will redo all the bin packing with the current set of images
 	void layoutAtlas();
 	
 	bool hasUID(uint uid);
@@ -95,11 +96,20 @@ public:
 	poRect sizeForUID(uint uid);
 	poTexture *textureForPage(uint pg);
 	
-	void bindPage(uint page, uint uint=0);
-	void unbind(uint uint=0);
+	// start drawing sets up the texture state
+	void startDrawing(uint unit=0);
+	// draws will shift the texture as needed,
+	// tho user can look at the pages for what it wants to draw and
+	// organize it so there are minimal texture switches
+	// size should be between 0..1, will scale
+	void drawUID(uint uid, poRect r);
+	void drawUID(uint uid, poPoint p);
+	// reset the texture state to what it was
+	void stopDrawing();
 	
 private:
 	void clearPages();
+	void bindPage(uint page);
 	
 	struct ImageLookup {
 		uint page;
@@ -121,6 +131,6 @@ private:
 	// the is the format we want
 	GLenum format;
 	// store the last bound page so we can avoid rebinding
-	int bound_page;
+	int bound_page, unit;
 };
 

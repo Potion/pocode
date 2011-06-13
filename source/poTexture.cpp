@@ -259,9 +259,13 @@ void poTextureAtlas::clearImages() {
 
 void poTextureAtlas::addImage(poImage *img, uint request) {
 	poImage *copy = img->copy();
-	copy->changeBpp((ImageBitDepth)(bytesForPixelFormat(format)*8));
 	images.push_back(copy);
+	
+	ImageBitDepth bpp = (ImageBitDepth)(bytesForPixelFormat(format)*8);
+	copy->changeBpp(bpp);
+	
 	requested_ids.push_back(request);
+	
 	return images.size() - 1;
 }
 
@@ -350,14 +354,74 @@ void poTextureAtlas::clearPages() {
 	uids.clear();
 }
 
-void poTextureAtlas::bindPage(uint page, uint unit) {
+void poTextureAtlas::startDrawing(uint unit) {
+	this->unit = unit;
+	if(bound_page >= 0)
+		stopDrawing();
+	
+	glPushAttrib(GL_TEXTURE_BIT);
+	glPushClientAttrib(GL_TEXTURE_BIT);
+	
+	glEnableClientState(GL_VERTEX_ARRAY);
+	
+	glClientActiveTexture(GL_TEXTURE0+unit);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void poTextureAtlas::bindPage(uint page) {
 	if(page != bound_page) {
 		textures[page]->bind(unit);
 		bound_page = page;
 	}
 }
 
-void poTextureAtlas::unbind(uint unit) {
-	textures[bound_page]->unbind(unit);
-	bound_page = -1;
+void poTextureAtlas::drawUID(uint uid, poRect rect) {
+	if(hasUID(uid)) {
+		uint page = pageForUID(uid);
+		bindPage(page);
+
+		poRect size = sizeForUID(uid);
+		poRect coords = coordsForUID(uid);
+		
+		GLfloat quad[4*3] = { 
+			rect.origin.x, rect.origin.y, 0, 
+			rect.origin.x, rect.origin.y+(size.size.y*rect.size.y), 0, 
+			rect.origin.x+(size.size.x*rect.size.x), rect.origin.y, 0, 
+			rect.origin.x+(size.size.x*rect.size.x), rect.origin.y+(size.size.y*rect.size.y), 0 
+		};
+		
+		GLfloat tcoords[4*2] = {
+			coords.origin.x, coords.origin.y,
+			coords.origin.x, coords.origin.y+coords.size.y,
+			coords.origin.x+coords.size.x, coords.origin.y,
+			coords.origin.x+coords.size.x, coords.origin.y+coords.size.y
+		};
+
+		glVertexPointer(3, GL_FLOAT, 0, quad);
+		glTexCoordPointer(2, GL_FLOAT, 0, tcoords);
+		
+		textures[bound_page]->bind(unit);
+		glEnable(GL_TEXTURE_2D);
+
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
 }
+
+void poTextureAtlas::drawUID(uint uid, poPoint p) {
+	drawUID(uid, poRect(p,poPoint(1,1)));
+}
+
+void poTextureAtlas::stopDrawing() {
+	if(bound_page >=0) {
+		textures[bound_page]->unbind(unit);
+		bound_page = -1;
+	}
+	
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	glPopClientAttrib();
+	glPopAttrib();
+}
+
+
