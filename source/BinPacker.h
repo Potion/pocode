@@ -47,6 +47,7 @@ private:
 		
 		pack_rect **children;
 		uint x, y, width, height, handle;
+		int taken;
 	};
 
 	typedef boost::unordered_map<uint, pack_rect*> PackMap_t;

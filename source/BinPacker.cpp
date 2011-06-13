@@ -7,8 +7,8 @@ bool BinPacker::insert_rect::operator<(const insert_rect &r) {
 	return h > r.h;
 }
 
-BinPacker::pack_rect::pack_rect() : x(0), y(0), width(0), height(0), handle(0), children(NULL) {}
-BinPacker::pack_rect::pack_rect(uint w, uint h) : x(0), y(0), width(w), height(h), handle(0), children(NULL) {}
+BinPacker::pack_rect::pack_rect() : x(0), y(0), width(0), height(0), handle(0), children(NULL), taken(false) {}
+BinPacker::pack_rect::pack_rect(uint w, uint h) : x(0), y(0), width(w), height(h), handle(0), children(NULL), taken(false) {}
 BinPacker::pack_rect::~pack_rect() {
 	if(NULL != children) {
 		delete children[0];
@@ -24,6 +24,9 @@ void BinPacker::pack_rect::setDims(uint x, uint y, uint w, uint h) {
 }
 // insert dimensions of the image, recursively
 BinPacker::pack_rect *BinPacker::pack_rect::insert(uint w, uint h) {
+	if(taken)
+		return NULL;
+	
 	// if we're a branch, pass image onto children
 	if(NULL != children) {
 		pack_rect *rect = children[0]->insert(w,h);
@@ -39,8 +42,10 @@ BinPacker::pack_rect *BinPacker::pack_rect::insert(uint w, uint h) {
 	else if(width < w || height < h)
 		return NULL;
 	// maybe it'll fit perfectly?
-	else if(width == w && height == h )
+	else if(width == w && height == h ) {
+		taken = true;
 		return this;
+	}
 
 	// otherwise, split or try to fit the image
 	children = new pack_rect*[2];
@@ -85,6 +90,7 @@ void BinPacker::resetPackMap() {
 		}
 		page->rows.clear();
 		page->pack.clear();
+		delete page;
 	}
 	pages.clear();
 
@@ -127,10 +133,10 @@ void BinPacker::pack() {
 	// sort by height
 	rectangles.sort();
 	
-	// find the widest
+//	// find the widest
 	std::list<insert_rect>::iterator i, e;
-	for(i=rectangles.begin(),e=rectangles.end(); i!=e; i++)
-		width = std::max(width, i->w);
+//	for(i=rectangles.begin(),e=rectangles.end(); i!=e; i++)
+//		width = std::max(width, i->w);
 
 	std::list<insert_rect> unused(rectangles.begin(),rectangles.end());
 
@@ -145,7 +151,7 @@ void BinPacker::pack() {
 		uint row_height = unused.front().h;
 
 		// we've run out of space on this page
-		if(insert_height + row_height > height) {
+		if(insert_height + row_height >= height) {
 			// print stats
 			wasted_pixels += sqrtf(float(width*height-used_area));
 			// and make the new page
