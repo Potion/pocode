@@ -281,6 +281,9 @@ poObject&		poObject::visible(bool b) {_visible = b; return *this;}
 poMatrixOrder	poObject::matrixOrder() const {return _matrix_order;}
 poObject&		poObject::matrixOrder(poMatrixOrder o) {_matrix_order = o; return *this;}
 
+poMatrixSet     poObject::matrixSet() const {return matrices;}
+
+
 int				poObject::drawOrder() const {return _draw_order;}
 
 void poObject::_drawTree() {
