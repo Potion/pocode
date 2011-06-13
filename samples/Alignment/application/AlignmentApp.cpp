@@ -8,7 +8,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 1024, 768);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 600, 300);
 }
 
 void cleanupApplication() {
@@ -22,9 +22,9 @@ AlignmentApp::AlignmentApp() {
     
     for(int i=0; i<3; i++){
         for(int j=0; j<3; j++){
-            p = new poRectShape(getWindowWidth()/9, getWindowHeight()/9);
-            p->position(180+j*(getWindowWidth()/5),150+i*(getWindowHeight()/5));
-            p->generateStroke(5).strokeColor(poColor::green);
+            p = new poRectShape(getWindowWidth()/6, getWindowHeight()/6);
+            p->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3));
+            p->generateStroke(5).strokeColor(poColor::cyan).fillColor(poColor::dk_grey);
             switch (i*3+j) {
                 case 0: p->setAlignment(PO_ALIGN_TOP_LEFT);  break;
                 case 1: p->setAlignment(PO_ALIGN_TOP_CENTER);  break;
@@ -41,8 +41,8 @@ AlignmentApp::AlignmentApp() {
             
             //creating an oval to be a reference for the object alignment
             o = new poOvalShape(10, 10, 20);
-            o->position(180+j*(getWindowWidth()/5),150+i*(getWindowHeight()/5)).setAlignment(PO_ALIGN_CENTER_CENTER);
-            o->fillColor(poColor::yellow);
+            o->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3)).setAlignment(PO_ALIGN_CENTER_CENTER);
+            o->fillColor(poColor::magenta);
             addChild(o);
         }
     }

@@ -124,6 +124,7 @@
 		E810AE431398179D0021952F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
 			buildConfigurationList = E810AE461398179D0021952F /* Build configuration list for PBXProject "Masks" */;
@@ -177,6 +178,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E810AE511398179D0021952F /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 			};
 			name = Debug;
 		};
@@ -184,6 +186,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E810AE531398179D0021952F /* Release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 			};
 			name = Release;
 		};
@@ -218,6 +221,7 @@
 				E810AE6C1398179D0021952F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
