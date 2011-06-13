@@ -27,13 +27,12 @@ class poFont
 :	public poResource
 {
 public:
-	// system font
-	poFont(const std::string &family, poFontTraits traits, int size=12);
-	// file-based font
-	poFont(const std::string &url, int size=12);
+	// pass in a family name or a font url
+	poFont(const std::string &family_or_url, int pointSize, poFontTraits traits=PO_FONT_REGULAR);
 	virtual ~poFont();
 	
 	bool valid() const;
+	poFont *copy() const;
 	
 	std::string familyName() const;
 	std::string styleName() const;
@@ -59,7 +58,6 @@ public:
 	poShape2D *glyphOutline();
 
 	poPoint kernGlyphs(int glyph1, int glyph2);
-	poTextureAtlas *atlasForFont(int glyph_start, int glyph_end);
 	
 	std::string toString() const;
 
@@ -88,6 +86,19 @@ public:
 private:
 	std::map<std::string,poFont*> fonts;
 	poResourceStore resources;
+};
+
+class poBitmapFontAtlas : public poTextureAtlas {
+public:
+	// if -1, it'll store the current point size of the font
+	poBitmapFontAtlas(poFont *font, int pointSize=-1);
+	virtual ~poBitmapFontAtlas();
+	
+	void cacheGlyph(uint glyph);
+	
+private:
+	int size;
+	poFont *font;
 };
 
 std::ostream &operator<<(std::ostream &o, const poFont &f);

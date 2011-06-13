@@ -71,14 +71,20 @@ poFont::poFont()
 ,	size(0)
 {}
 
-poFont::poFont(const std::string &family, poFontTraits traits, int sz)
+poFont::poFont(const std::string &family_or_url, int sz, poFontTraits traits)
 :	face()
 ,	size(0)
 {
 	FT_Face tmp;
 	
 	init();
-	std::string url = urlForFontFamilyName(family);
+	
+	std::string url = "";
+	if(fs::exists(family_or_url))
+		url = family_or_url;
+	else
+		url = urlForFontFamilyName(family_or_url);
+	
 	FT_New_Face(lib, url.c_str(), 0, &tmp);
 	if(face && traits != 0) {
 		for(int i=0; i<face->num_faces; i++) {
@@ -98,18 +104,6 @@ poFont::poFont(const std::string &family, poFontTraits traits, int sz)
 	glyph(0);
 }
 
-poFont::poFont(const std::string &url, int sz)
-:	face()
-,	size(0)
-{
-	init();
-	FT_Face tmp;
-	FT_New_Face(lib, url.c_str(), 0, &tmp);
-	face = boost::shared_ptr<FT_FaceRec_>(tmp,deleteFT_Face);
-	
-	pointSize(sz);
-}
-
 poFont::~poFont() {}
 
 void poFont::init() {
@@ -118,6 +112,14 @@ void poFont::init() {
 }
 
 bool poFont::valid() const {return face;}
+poFont *poFont::copy() const {
+	poFont *f = new poFont();
+	f->face = face;
+	f->_url = _url;
+	f->size = size;
+	f->_glyph = _glyph;
+	return f;
+}
 
 std::string poFont::familyName() const {return face->family_name;}
 std::string poFont::styleName() const {return face->style_name;}
@@ -138,8 +140,10 @@ float poFont::underlineThickness() const {return face->underline_thickness >> 6;
 
 int poFont::glyph() const {return _glyph;}
 void poFont::glyph(int g) {
-	_glyph = g;
-	loadGlyph(_glyph);
+	if(g != _glyph) {
+		_glyph = g;
+		loadGlyph(_glyph);
+	}
 }
 
 poRect poFont::glyphBounds() {
@@ -182,16 +186,6 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) {
 	return poPoint(kern.x, kern.y);
 }
 
-poTextureAtlas *poFont::atlasForFont(int glyph_start, int glyph_end) {
-	poTextureAtlas *atlas = new poTextureAtlas(GL_ALPHA, 1024, 1024);
-	for(int i=glyph_start; i<=glyph_end; i++) {
-		glyph(i);
-		atlas->addImage(glyphImage(), i);
-	}
-	atlas->layoutAtlas();
-	return atlas;
-}
-
 std::string poFont::toString() const {
 	return (boost::format("font: %s %s (%d)")%familyName()%styleName()%pointSize()).str();
 }
@@ -222,6 +216,30 @@ poFontMap &poFontMap::font(const std::string &name, poFont *font) {
 	return *this;
 }
 
+
+
+poBitmapFontAtlas::poBitmapFontAtlas(poFont *font, int pointSize)
+:	poTextureAtlas(GL_ALPHA,512,512)
+,	font(font->copy())
+,	size(pointSize)
+{
+	if(size < 0)
+		size = font->pointSize();
+}
+
+poBitmapFontAtlas::~poBitmapFontAtlas() {
+	delete font;
+}
+
+void poBitmapFontAtlas::cacheGlyph(uint glyph) {
+	if(!hasUID(glyph)) {
+		font->pointSize(size);
+		font->glyph(glyph);
+		
+		addImage(font->glyphImage(),glyph);
+		layoutAtlas();
+	}
+}
 
 std::ostream &operator<<(std::ostream &o, const poFont &f) {
 	o << f.toString();
