@@ -20,25 +20,22 @@ void cleanupApplication() {
 }
 
 uint key = 0;
-poFont *font = NULL;
-poTextureAtlas *atlas = NULL;
+poBitmapFontAtlas *font;
 
 TestObj::TestObj() {
     addModifier(new poCamera2D());
-	font = new poFont("Lucida Grande", PO_FONT_REGULAR, 30);
-	cout << "loaded " << *font << endl;
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
 void TestObj::draw() {
-	if(atlas && atlas->hasUID(key)) {
-		poTexture *tex = atlas->textureForPage(atlas->pageForUID(key));
-		drawRect(atlas->sizeForUID(key),
-				 atlas->coordsForUID(key),
-				 tex);
-		
-		drawRect(poRect(poPoint(200,0), atlas->dimensions()), tex);
+	if(!font) {
+		poResourceStore tmp;
+		font = new poBitmapFontAtlas(tmp.add(new poFont("Helvetica",35)));
 	}
+	
+	font->startDrawing(0);
+	font->drawUID(key, poPoint(0,0));
+	font->stopDrawing();
 }
 
 void TestObj::update() {
@@ -46,14 +43,7 @@ void TestObj::update() {
 
 void TestObj::eventHandler(poEvent *event) {
 	if(event->type == PO_KEY_DOWN_EVENT) {
-		if(!atlas)
-			atlas = new poTextureAtlas(GL_ALPHA,1024,1024);
-		
 		key = event->keyChar;
-		if(!atlas->hasUID(key)) {
-			font->glyph(key);
-			atlas->addImage(font->glyphImage(),key);
-			atlas->layoutAtlas();
-		}
+		font->cacheGlyph(key);
 	}
 }
