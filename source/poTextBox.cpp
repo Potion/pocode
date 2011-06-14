@@ -19,6 +19,7 @@ poTextBox::poTextBox()
 ,	color(poColor::white)
 ,	_font(NULL)
 ,	atlas(NULL)
+,	draw_bounds(false)
 {
 	defaultFonts();
 }
@@ -28,6 +29,7 @@ poTextBox::poTextBox(int w, int h)
 ,	color(poColor::white)
 ,	_font(NULL)
 ,	atlas(NULL)
+,	draw_bounds(false)
 {
 	defaultFonts();
 	bounds(poRect(0,0,w,h));
@@ -54,6 +56,9 @@ poAlignment poTextBox::textAlignment() const {return align;}
 poTextBox &poTextBox::textAlignment(poAlignment al) {align = al;}
 
 poRect poTextBox::textBounds() const {return text_bounds;}
+
+poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b;}
+bool		poTextBox::drawBounds() const {return draw_bounds;}
 
 poTextBox &poTextBox::font(const std::string &name, poFont *f) {
 //	if(fonts.find(name) != fonts.end())
@@ -133,12 +138,13 @@ void poTextBox::draw() {
 //		drawRect(poRect(poPoint(0,line.ypos),poPoint(line.width,_font->lineHeight())));
 //	}
 //
-	applyColor(poColor::green);
-	drawStroke(textBounds());
+    if(draw_bounds) {
+        applyColor(poColor::dk_grey);
+        drawStroke(textBounds());
 	
-	applyColor(poColor::red);
-	drawStroke(bounds());
-
+        applyColor(poColor::magenta);
+        drawStroke(bounds());
+    }
 	applyColor(poColor::white);
 	atlas->startDrawing(0);
 	BOOST_FOREACH(layout_line &line, lines) {

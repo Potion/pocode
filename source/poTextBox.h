@@ -34,6 +34,10 @@ public:
 	// manage the fonts
 	poTextBox &font(const std::string &name, poFont *font);
 	poFont const*font(const std::string &name);
+    
+    // show bounds
+    poTextBox&			drawBounds(bool b);
+	bool				drawBounds() const;
 	
 	void layout();
 	void draw();
@@ -58,6 +62,7 @@ private:
 	poColor color;
 	poAlignment align;
 	poRect text_bounds;
+    bool    draw_bounds;
 
 	poFont *_font;
 	poBitmapFontAtlas *atlas;
