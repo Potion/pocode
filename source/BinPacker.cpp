@@ -95,9 +95,6 @@ void BinPacker::resetPackMap() {
 	pages.clear();
 
 	wasted_pixels = 0.f;
-	
-	// make sure we have one page at least
-	pages.push_back(new pack_page());
 }
 
 uint BinPacker::addRect(poRect r) {
@@ -143,9 +140,9 @@ void BinPacker::pack() {
 	uint insert_height = 0;
 	uint count=0, used_area=0;
 
-	// start out on the first page
-	pack_page *page = pages[0];
-	
+	pack_page *page = new pack_page();
+	pages.push_back(page);
+
 	while(!unused.empty()) {
 		// save this new row's height
 		uint row_height = unused.front().h;
