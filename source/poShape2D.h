@@ -44,7 +44,6 @@ public:
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
 	
 	poShape2D&			generateStroke(int strokeWidth, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
-    GLenum              textureCombineFunction(uint unit=0) const;
     
 	// get and set shape properties
 	poShape2D&          enableFill(bool b);
@@ -79,7 +78,10 @@ public:
 	poShape2D&			drawBounds(bool b);
 	bool				drawBounds() const;
     
+    GLenum              textureCombineFunction(uint unit=0) const;
 	poShape2D&          textureCombineFunction(GLenum func, uint unit=0);
+    GLenum              textureCombineFunction(uint unit=0) const;
+	poTexture const*	texture(uint unit=0) const;
     
     poShape2D&          enableAttribute(VertexAttribute a);
 	poShape2D&          disableAttribute(VertexAttribute a);
