@@ -19,6 +19,9 @@ public:
 	float height() const;
 	float area() const;
 	poPoint center() const;
+	
+	void set(float x, float y, float w, float h);
+	void set(poPoint origin, poPoint size);
 
 	void include(float x, float y);
 	void include(const poPoint &pt);
