@@ -173,3 +173,11 @@ poColor hashPointerForColor(void *ptr) {
 	
 	return poColor().set255(r,g,b);
 }
+
+poColor blendColors(poColor c1, poColor c2, float pct) {
+	poHSVColor h1(c1), h2(c2);
+	float h = h1.H * pct + h2.H * (1.f-pct);
+	float s = h1.S * pct + h2.S * (1.f-pct);
+	float v = h1.V * pct + h2.V * (1.f-pct);
+	return poColor(poHSVColor(h,s,v));
+}

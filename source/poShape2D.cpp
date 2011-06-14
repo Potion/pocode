@@ -13,6 +13,7 @@ poShape2D::poShape2D()
 ,	textures(MAX_TEXTURE_UNITS)
 ,	tex_combo_func(MAX_TEXTURE_UNITS, GL_REPLACE)
 ,	draw_bounds(false)
+,	fill_color_tween(&fill_color)
 {}
 
 void poShape2D::draw() {
@@ -578,7 +579,10 @@ bool        poShape2D::pointInside(float x, float y, float z, bool localize )
     return pointInside(poPoint(x,y,z),localize);
 }
 
-
+void poShape2D::updateAllTweens() {
+	poObject::updateAllTweens();
+	fill_color_tween.update();
+}
 
 
 

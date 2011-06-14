@@ -22,7 +22,7 @@ poTweenBase::poTweenBase()
 ,	duration(0.f)
 ,	delay(0.f)
 ,	extra1(0.99f)
-,	extra2(0.1f)
+,	extra2(0.001f)
 ,	time(0.0)
 {}
 
@@ -160,65 +160,3 @@ void poTweenBase::startWithDelay(bool do_delay) {
 		end_time = duration;
 	}
 }
-
-
-
-
-poFloatTween::poFloatTween(float* addr)
-:	value(addr)
-{}
-
-poTweenBase& poFloatTween::set(float ev) {
-	reset();
-	begin_value = *value;
-	end_value = ev;
-	return *this;
-}
-
-void poFloatTween::setValueToBegin()	{*value = begin_value;}
-void poFloatTween::setValueToEnd()	{*value = end_value;}
-void poFloatTween::swapBeginAndEnd()	{std::swap(begin_value, end_value);}
-void poFloatTween::slewBeginValue()	{begin_value = *value;}
-
-bool poFloatTween::updateTweenWithTime(float time, float begin, float end, 
-									   float duration, float e1, float e2) 
-{
-	return tween_func(value, begin_value, end_value,
-					  time, begin, end, duration, e1, e2);
-}
-
-
-
-
-
-
-poPointTween::poPointTween(poPoint* addr)
-:	value(addr)
-{}
-
-poTweenBase& poPointTween::set(poPoint ev) {
-	reset();
-	begin_value = *value;
-	end_value = ev;
-	return *this;
-}
-
-void poPointTween::setValueToBegin()	{*value = begin_value;}
-void poPointTween::setValueToEnd()		{*value = end_value;}
-void poPointTween::swapBeginAndEnd()	{std::swap(begin_value, end_value);}
-void poPointTween::slewBeginValue()		{begin_value = *value;}
-
-bool poPointTween::updateTweenWithTime(float time, float begin, float end, 
-									   float duration, float e1, float e2) 
-{
-	bool done1 = tween_func(&value->x, begin_value.x, end_value.x,
-							time, begin, end, duration, e1, e2);
-	bool done2 = tween_func(&value->y, begin_value.y, end_value.y,
-							time, begin, end, duration, e1, e2);
-	bool done3 = tween_func(&value->z, begin_value.z, end_value.z,
-							time, begin, end, duration, e1, e2);
-
-	return done1 && done2 && done3;
-}
-
-

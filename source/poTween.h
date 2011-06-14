@@ -79,44 +79,64 @@ private:
 };
 
 
-class poFloatTween
-:	public poTweenBase
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 float *value, float begin_value, float end_value,
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
 {
-public:
-	poFloatTween(float* addr);
-	// will stop the tween if its running
-	poTweenBase& set(float ev);
-	
-protected:
-	virtual void setValueToBegin();
-	virtual void setValueToEnd();
-	virtual void swapBeginAndEnd();
-	virtual void slewBeginValue();
-	virtual bool updateTweenWithTime(float time, float begin, float end, 
-									 float duration, float e1, float e2);
-	
-private:
-	float *value;
-	float begin_value, end_value;
-};
+	return func(value, begin_value, end_value, time, begin, end, duration, e1, e2);
+}
 
-class poPointTween
-:	public poTweenBase
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 poPoint *value, poPoint begin_value, poPoint end_value,
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
+{
+	return	func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2) &&
+			func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2) &&
+			func(&value->z, begin_value.z, end_value.z, time, begin, end, duration, e1, e2);
+}
+
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 poColor *value, poColor begin_value, poColor end_value,
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
+{
+	poHSVColor hsv1, hsv2(begin_value), hsv3(end_value);
+	bool d1 = func(&hsv1.H, hsv2.H, hsv3.H, time, begin, end, duration, e1, e2);
+	bool d2 = func(&hsv1.S, hsv2.S, hsv3.S, time, begin, end, duration, e1, e2);
+	bool d3 = func(&hsv1.V, hsv2.V, hsv3.V, time, begin, end, duration, e1, e2);
+	*value = poColor(hsv1);
+	return d1 && d2 && d3;
+}
+
+template <typename T>
+class poTween : public poTweenBase
 {
 public:
-	poPointTween(poPoint* addr);
-	// will stop the tween if its running
-	poTweenBase& set(poPoint ev);
+	typedef T value_type;
+
+	poTween(value_type *addr) : value(addr) {}
+	poTween &set(value_type end_value) {
+		reset();
+		begin = *value;
+		end = end_value;
+		return *this;
+	}
 	
 protected:
-	virtual void setValueToBegin();
-	virtual void setValueToEnd();
-	virtual void swapBeginAndEnd();
-	virtual void slewBeginValue();
-	virtual bool updateTweenWithTime(float time, float begin, float end, 
-									 float duration, float e1, float e2);
-	
+	void setValueToBegin()	{*value = begin;}
+	void setValueToEnd()	{*value = end;}
+	void swapBeginAndEnd()	{std::swap(begin, end);}
+	void slewBeginValue()	{begin = *value;}
+
+	virtual bool updateTweenWithTime(float t, float b, float e, 
+									 float d, float e1, float e2) 
+	{
+		return tweenUpdater(tween_func, value, begin, end, t, b, e, d, e1, e2);
+	}
+
 private:
-	poPoint *value;
-	poPoint begin_value, end_value;
+	value_type *value;
+	value_type begin, end;
 };

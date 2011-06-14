@@ -91,6 +91,10 @@ public:
 	virtual bool        pointInside(poPoint point, bool localize=false);
 	virtual bool        pointInside(float x, float y, float z=0.f, bool localize=false);
 
+	poTween<poColor>	fill_color_tween;
+	
+protected:
+	virtual void		updateAllTweens();
     
 private:    
 	std::vector<poPoint>    points;
