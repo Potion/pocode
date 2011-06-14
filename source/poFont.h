@@ -17,18 +17,20 @@
 
 class poShape2D;
 
-enum poFontTrait {
-	PO_FONT_REGULAR		= 0,
-	PO_FONT_ITALIC		= 1 << 1,
-	PO_FONT_BOLD		= 1 << 2,
-};
+static const std::string PO_FONT_REGULAR = "t";
+static const std::string PO_FONT_ITALIC = "i";
+static const std::string PO_FONT_BOLD = "b";
+static const std::string PO_FONT_BOLD_ITALIC = "bi";
+
+class poFont;
+typedef std::map<std::string, poFont*> poFontMap;
 
 class poFont
 :	public poResource
 {
 public:
 	// pass in a family name or a font url
-	poFont(const std::string &family_or_url, int pointSize, poFontTrait traits=PO_FONT_REGULAR);
+	poFont(const std::string &family_or_url, int pointSize, const std::string &trait=PO_FONT_REGULAR);
 	virtual ~poFont();
 	
 	bool valid() const;
@@ -73,9 +75,6 @@ private:
 	std::string _url;
 	int size, _glyph;
 };
-
-typedef std::map<std::string, poFont*> poFontMap;
-std::string keyForFontTrait(poFontTrait trait);
 
 class poBitmapFontAtlas : public poTextureAtlas {
 public:

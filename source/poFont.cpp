@@ -49,23 +49,15 @@ bool styleBold(long flags) {
 	return flags & FT_STYLE_FLAG_BOLD;
 }
 
-bool traitsMatchFlags(poFontTrait traits, long flags) {
-	if((traits & PO_FONT_ITALIC) && (traits & PO_FONT_BOLD) && styleBold(flags) && styleItalic(flags))
+bool traitMatchesFlags(const std::string &trait, long flags) {
+	if(trait == PO_FONT_ITALIC &&  !styleBold(flags) && styleItalic(flags))
 		return true;
-	else if((traits & PO_FONT_ITALIC) && styleItalic(flags) && !styleBold(flags))
+	if(trait == PO_FONT_BOLD && styleBold(flags) && !styleItalic(flags))
 		return true;
-	else if((traits & PO_FONT_BOLD) && styleBold(flags) && !styleItalic(flags))
+	if(trait == PO_FONT_BOLD_ITALIC && styleBold(flags) && styleItalic(flags))
 		return true;
+	
 	return false;
-}
-
-std::string keyForFontTrait(poFontTrait trait) {
-	switch(trait) {
-		case PO_FONT_REGULAR: return "text";
-		case PO_FONT_ITALIC: return "i";
-		case PO_FONT_BOLD: return "b";
-	}
-	return "";
 }
 
 FT_Library poFont::lib = NULL;
@@ -76,7 +68,7 @@ poFont::poFont()
 ,	size(0)
 {}
 
-poFont::poFont(const std::string &family_or_url, int sz, poFontTrait traits)
+poFont::poFont(const std::string &family_or_url, int sz, const std::string &trait)
 :	face()
 ,	size(0)
 {
@@ -91,20 +83,17 @@ poFont::poFont(const std::string &family_or_url, int sz, poFontTrait traits)
 		url = urlForFontFamilyName(family_or_url);
 	
 	FT_New_Face(lib, url.c_str(), 0, &tmp);
-	if(face && traits != 0) {
-		for(int i=0; i<face->num_faces; i++) {
-			FT_Face f = NULL;
-			FT_New_Face(lib, url.c_str(), i, &f);
-			if(traitsMatchFlags(traits, f->style_flags)) {
-				FT_Done_Face(tmp);
-				tmp = f;
-			}
-			else
-				FT_Done_Face(f);
+	for(int i=0; i<tmp->num_faces; i++) {
+		FT_Face f = NULL;
+		FT_New_Face(lib, url.c_str(), i, &f);
+		if(traitMatchesFlags(trait, f->style_flags)) {
+			FT_Done_Face(tmp);
+			tmp = f;
 		}
+		else
+			FT_Done_Face(f);
 	}
 	
-
 	face = boost::shared_ptr<FT_FaceRec_>(tmp,deleteFT_Face);
 	pointSize(sz);
 	glyph(0);
