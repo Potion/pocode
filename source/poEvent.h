@@ -50,10 +50,11 @@ enum {
 enum {
 	// also need to check the modifier flags
 	// for arrows, numeric mask and function mask should both be set
-	PO_UP_ARROW = 0,
-	PO_DOWN_ARROW = 1,
-	PO_LEFT_ARROW = 2,
-	PO_RIGHT_ARROW = 3
+	// these numbers are the keyCode
+	PO_UP_ARROW = 126,
+	PO_DOWN_ARROW = 125,
+	PO_LEFT_ARROW = 124,
+	PO_RIGHT_ARROW = 123
 };
 
 bool isNumericMask(unsigned int mod);
