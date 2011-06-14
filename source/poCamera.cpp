@@ -129,8 +129,8 @@ void poPerspectiveCamera::setProjection() {
 }
 
 void poPerspectiveCamera::setModelview() {
-	gluLookAt(curr_pos.x, curr_pos.y, curr_pos.z, look_at.x, look_at.y, look_at.z, 0, -1, 0);
-	glScalef(-1,1,1);
+	gluLookAt(curr_pos.x, curr_pos.y, curr_pos.z, look_at.x, look_at.y, look_at.z, 0, 1, 0);
+    glScalef(-1,-1,1);
 }
 
 

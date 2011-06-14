@@ -114,6 +114,8 @@ public:
 	
 	poMatrixOrder	matrixOrder() const;
 	poObject&		matrixOrder(poMatrixOrder o);
+    
+    poMatrixSet     matrixSet() const;
 	
 	int				drawOrder() const;
 	
