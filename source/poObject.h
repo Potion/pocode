@@ -119,10 +119,10 @@ public:
 	
 	int				drawOrder() const;
 	
-	poPointTween	position_tween;
-	poPointTween	scale_tween;
-	poFloatTween	alpha_tween;
-	poFloatTween	rotation_tween;
+	poTween<poPoint>	position_tween;
+	poTween<poPoint>	scale_tween;
+	poTween<float>		alpha_tween;
+	poTween<float>		rotation_tween;
 
 	// TREE TRAVERSAL
 	void			_drawTree();

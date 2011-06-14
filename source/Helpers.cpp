@@ -51,14 +51,3 @@ void setCurrentPath(const fs::path &path) {
 fs::path currentPath() {
 	return fs::current_path();
 }
-
-int utf8strlen(const std::string &str) {
-	int i=0, j=0;
-	while (str[i]) {
-		if ((str[i] & 0xC0) != 0x80)
-			j++;
-		i++;
-	}
-	return j;
-}
-

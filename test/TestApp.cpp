@@ -13,7 +13,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 100, 100, 1050, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_FULLSCREEN, "TestObj", 100, 100, 1050, 600);
 }
 
 void cleanupApplication() {
@@ -23,11 +23,19 @@ TestObj::TestObj() {
     addModifier(new poCamera2D());
 	addEvent(PO_KEY_DOWN_EVENT, this);
 	
-	poTextBox *tb = new poTextBox(200,200);
-	poResourceStore tmp;
-	tb->text("hello world VA").font("", tmp.add(new poFont("Lucida Grande", 10))).position(100,100);
-	tb->layout();
-	addChild(tb);
+	for(int i=0; i<5; i++) {
+		poRectShape *shape = new poRectShape(150,150);
+		shape->position(i*155+50, 200);
+		shape->fillColor(poColor::white);
+		shape->fill_color_tween
+			.set(poColor::green)
+			.setTweenFunction(linearFunc)
+			.setDuration(2.f)
+			.setDelay(i)
+			.setRepeat(PO_TWEEN_REPEAT_PINGPONG)
+			.start();
+		addChild(shape);
+	}
 }
 
 void TestObj::draw() {
@@ -37,19 +45,4 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	if(event->type == PO_KEY_DOWN_EVENT && isArrowKey(event->modifiers)) {
-		poTextBox *tb = getChildAs<poTextBox>(this, 0);
-		float pt = tb->font("")->pointSize();
-
-		if(event->keyCode == PO_DOWN_ARROW) {
-			pt = max(pt-1.f, 10.f);
-		}
-		else if(event->keyCode == PO_UP_ARROW) {
-			pt = min(pt+1.f, 100.f);
-		}
-
-		poResourceStore tmp;
-		tb->font("", tmp.add(new poFont("Lucida Grande", pt)));
-		tb->layout();
-	}
 }
