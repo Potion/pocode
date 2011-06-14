@@ -91,10 +91,11 @@
 	[window setAcceptsMouseMovedEvents:YES];
 	[window setReleasedWhenClosed:YES];
 	
+	[windows addObject:window];
+
 	if(type == WINDOW_TYPE_FULLSCREEN)
 		powin->fullscreen(true);
 	
-	[windows addObject:opengl];
 	return window;
 }
 

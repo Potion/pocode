@@ -55,7 +55,11 @@ poObject::~poObject() {
 void poObject::draw() {}
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
-void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {}
+void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {
+	if(_parent) {
+		_parent->messageHandler(msg,dict);
+	}
+}
 
 int poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
