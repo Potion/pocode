@@ -80,7 +80,6 @@ public:
     
     GLenum              textureCombineFunction(uint unit=0) const;
 	poShape2D&          textureCombineFunction(GLenum func, uint unit=0);
-    GLenum              textureCombineFunction(uint unit=0) const;
 	poTexture const*	texture(uint unit=0) const;
     
     poShape2D&          enableAttribute(VertexAttribute a);
