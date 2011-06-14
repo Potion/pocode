@@ -19,31 +19,37 @@ void setupApplication() {
 void cleanupApplication() {
 }
 
-uint key = 0;
-poBitmapFontAtlas *font;
-
 TestObj::TestObj() {
     addModifier(new poCamera2D());
 	addEvent(PO_KEY_DOWN_EVENT, this);
+	
+	poTextBox *tb = new poTextBox(200,200);
+	poResourceStore tmp;
+	tb->text("hello world VA").font("", tmp.add(new poFont("Lucida Grande", 10))).position(100,100);
+	tb->layout();
+	addChild(tb);
 }
 
 void TestObj::draw() {
-	if(!font) {
-		poResourceStore tmp;
-		font = new poBitmapFontAtlas(tmp.add(new poFont("Helvetica",35)));
-	}
-	
-	font->startDrawing(0);
-	font->drawUID(key, poPoint(0,0));
-	font->stopDrawing();
 }
 
 void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	if(event->type == PO_KEY_DOWN_EVENT) {
-		key = event->keyChar;
-		font->cacheGlyph(key);
+	if(event->type == PO_KEY_DOWN_EVENT && isArrowKey(event->modifiers)) {
+		poTextBox *tb = getChildAs<poTextBox>(this, 0);
+		float pt = tb->font("")->pointSize();
+
+		if(event->keyCode == PO_DOWN_ARROW) {
+			pt = max(pt-1.f, 10.f);
+		}
+		else if(event->keyCode == PO_UP_ARROW) {
+			pt = min(pt+1.f, 100.f);
+		}
+
+		poResourceStore tmp;
+		tb->font("", tmp.add(new poFont("Lucida Grande", pt)));
+		tb->layout();
 	}
 }
