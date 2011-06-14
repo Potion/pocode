@@ -363,6 +363,7 @@ bool		poShape2D::drawBounds() const {return draw_bounds;}
 
 GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}
 poShape2D&  poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func; return *this; }
+poTexture const* poShape2D::texture(uint unit) const {return textures[unit];}
 
 void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width);
 
