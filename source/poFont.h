@@ -17,7 +17,7 @@
 
 class poShape2D;
 
-enum poFontTraits {
+enum poFontTrait {
 	PO_FONT_REGULAR		= 0,
 	PO_FONT_ITALIC		= 1 << 1,
 	PO_FONT_BOLD		= 1 << 2,
@@ -28,7 +28,7 @@ class poFont
 {
 public:
 	// pass in a family name or a font url
-	poFont(const std::string &family_or_url, int pointSize, poFontTraits traits=PO_FONT_REGULAR);
+	poFont(const std::string &family_or_url, int pointSize, poFontTrait traits=PO_FONT_REGULAR);
 	virtual ~poFont();
 	
 	bool valid() const;
@@ -36,13 +36,15 @@ public:
 	
 	std::string familyName() const;
 	std::string styleName() const;
-	// in case you want the same font with different traits
 	std::string url() const;
+	bool hasKerning() const;
 	
 	int pointSize() const;
 	void pointSize(int size);
 
 	float lineHeight() const;
+	float ascender() const;
+	float descender() const;
 	float underlinePosition() const;
 	float underlineThickness() const;
 
@@ -51,7 +53,6 @@ public:
 	// uses the previously set glyph
 	poRect glyphBounds();
 	poPoint glyphBearing();
-	float	glyphBaselineOffset();
 	poPoint glyphAdvance();
 	// you have to delete the results
 	poImage *glyphImage();
@@ -73,20 +74,8 @@ private:
 	int size, _glyph;
 };
 
-class poFontMap {
-public:
-	static const std::string REGULAR_FONT_KEY;
-	static const std::string ITALIC_FONT_KEY;
-	static const std::string BOLD_FONT_KEY;
-	
-	bool hasFont(const std::string &name) const;
-	poFont *font(const std::string &name) const;
-	poFontMap &font(const std::string &name, poFont *font);
-	
-private:
-	std::map<std::string,poFont*> fonts;
-	poResourceStore resources;
-};
+typedef std::map<std::string, poFont*> poFontMap;
+std::string keyForFontTrait(poFontTrait trait);
 
 class poBitmapFontAtlas : public poTextureAtlas {
 public:
@@ -95,10 +84,12 @@ public:
 	virtual ~poBitmapFontAtlas();
 	
 	void cacheGlyph(uint glyph);
+	// you can't change the font from here
+	poFont const *font();
 	
 private:
 	int size;
-	poFont *font;
+	poFont *_font;
 };
 
 std::ostream &operator<<(std::ostream &o, const poFont &f);

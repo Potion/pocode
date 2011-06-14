@@ -10,34 +10,6 @@
 #include "poFont.h"
 #include "poTexture.h"
 
-class poTextLayout {
-public:
-	poFontMap *fonts;
-	poAlignment align;
-	poRect bounds;
-
-	void layout();
-	
-	poRect actual_bounds;
-	poTexture *texture;
-	
-private:
-	struct range {
-		range(int,poFont*);
-		int start, length;
-		poFont *font;
-	};
-	struct helper {
-		helper(int,poRect,poPoint,float);
-		int glyph;
-		poRect rect;
-		poPoint bearing;
-		float advance;
-	};
-	std::vector<range> ranges;
-	std::vector<helper> glyphs;
-};
-
 class poTextBox
 :	public poObject 
 {
@@ -61,6 +33,7 @@ public:
 	
 	// manage the fonts
 	poTextBox &font(const std::string &name, poFont *font);
+	poFont const*font(const std::string &name);
 	
 	void layout();
 	void draw();
@@ -68,12 +41,26 @@ public:
 private:
 	void defaultFonts();
 	
+	struct layout_glyph {
+		layout_glyph() : glyph(0), bbox() {}
+		uint glyph;
+		poRect bbox;
+	};
+	struct layout_line {
+		layout_line() : width(0), ypos(0), word_count(0) {}
+		std::vector<layout_glyph> glyphs;
+		float width, ypos;
+		int word_count;
+	};
+	std::vector<layout_line> lines;
+	
 	std::string _text;
-	poFontMap fonts;
 	poColor color;
 	poAlignment align;
-	
-	std::map<std::string, poTextureAtlas*> rendered_fonts;
+	poRect text_bounds;
+
+	poFont *_font;
+	poBitmapFontAtlas *atlas;
 };
 
 
