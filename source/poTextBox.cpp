@@ -13,6 +13,7 @@ using namespace boost;
 #include "poResource.h"
 #include "poSimpleDrawing.h"
 #include <boost/tokenizer.hpp>
+#include <utf8.h>
 
 poTextBox::poTextBox()
 :	_text("")
@@ -74,7 +75,7 @@ poFont const*poTextBox::font(const std::string &name) {
 		return _font;
 }
 
-void poTextBox::layout() {
+poTextBox &poTextBox::layout() {
 	lines.clear();
 	layout_line line;
 	
@@ -86,16 +87,18 @@ void poTextBox::layout() {
 	for(tokenizer<>::iterator word=tok.begin(); word!=tok.end(); ++word) {
 		float w = 0;
 		vector<layout_glyph> glyphs;
-		for(string::const_iterator ch=word->begin(); ch!=word->end(); ++ch) {
-			_font->glyph(*ch);
+		
+		string::const_iterator ch=word->begin();
+		while(ch != word->end()) {
+			uint codepoint = utf8::next(ch, word->end());
+			_font->glyph(codepoint);
 
 			poPoint kern(0.f, 0.f);
-			if(ch != word->begin() && _font->hasKerning()) {
-				kern = _font->kernGlyphs(*(ch-1), *ch);
-			}
-			
+//			if(ch != word->begin() && _font->hasKerning())
+//				kern = _font->kernGlyphs(*prev, codepoint);
+
 			layout_glyph glyph;
-			glyph.glyph = *ch;
+			glyph.glyph = codepoint;
 			glyph.bbox = _font->glyphBounds();
 			glyph.bbox.origin += poPoint(w, 0) + _font->glyphBearing() + kern;
 			
@@ -133,11 +136,11 @@ void poTextBox::draw() {
 //		drawRect(poRect(poPoint(0,line.ypos),poPoint(line.width,_font->lineHeight())));
 //	}
 //
-	applyColor(poColor::green);
-	drawStroke(textBounds());
-	
-	applyColor(poColor::red);
-	drawStroke(bounds());
+//	applyColor(poColor::green);
+//	drawStroke(textBounds());
+//	
+//	applyColor(poColor::red);
+//	drawStroke(bounds());
 
 	applyColor(poColor::white);
 	atlas->startDrawing(0);

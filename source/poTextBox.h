@@ -35,7 +35,7 @@ public:
 	poTextBox &font(const std::string &name, poFont *font);
 	poFont const*font(const std::string &name);
 	
-	void layout();
+	poTextBox &layout();
 	void draw();
 
 private:
