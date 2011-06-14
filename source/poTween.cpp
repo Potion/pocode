@@ -22,7 +22,7 @@ poTweenBase::poTweenBase()
 ,	duration(0.f)
 ,	delay(0.f)
 ,	extra1(0.99f)
-,	extra2(0.1f)
+,	extra2(0.001f)
 ,	time(0.0)
 {}
 
