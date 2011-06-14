@@ -24,7 +24,7 @@ AlignmentApp::AlignmentApp() {
         for(int j=0; j<3; j++){
             p = new poRectShape(getWindowWidth()/6, getWindowHeight()/6);
             p->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3));
-            p->generateStroke(5).strokeColor(poColor::cyan).fillColor(poColor::dk_grey);
+            p->generateStroke(5).strokeColor(poColor::magenta).fillColor(poColor::dk_grey);
             switch (i*3+j) {
                 case 0: p->setAlignment(PO_ALIGN_TOP_LEFT);  break;
                 case 1: p->setAlignment(PO_ALIGN_TOP_CENTER);  break;
@@ -42,7 +42,7 @@ AlignmentApp::AlignmentApp() {
             //creating an oval to be a reference for the object alignment
             o = new poOvalShape(10, 10, 20);
             o->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3)).setAlignment(PO_ALIGN_CENTER_CENTER);
-            o->fillColor(poColor::magenta);
+            o->fillColor(poColor::white);
             addChild(o);
         }
     }
