@@ -6,6 +6,8 @@
 #include "poTextBox.h"
 #include "poShapeBasics2D.h"
 
+#include <tinyxml.h>
+
 using namespace std;
 
 poObject *createObjectForID(uint uid) {
@@ -13,7 +15,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_FULLSCREEN, "TestObj", 100, 100, 1050, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 100, 100, 1050, 600);
 }
 
 void cleanupApplication() {
@@ -21,21 +23,15 @@ void cleanupApplication() {
 
 TestObj::TestObj() {
     addModifier(new poCamera2D());
-	addEvent(PO_KEY_DOWN_EVENT, this);
+	poRectShape *shape = new poRectShape("images/alfred_e_neuman.jpg");
+	addChild(shape);
 	
-	for(int i=0; i<5; i++) {
-		poRectShape *shape = new poRectShape(150,150);
-		shape->position(i*155+50, 200);
-		shape->fillColor(poColor::white);
-		shape->fill_color_tween
-			.set(poColor::green)
-			.setTweenFunction(linearFunc)
-			.setDuration(2.f)
-			.setDelay(i)
-			.setRepeat(PO_TWEEN_REPEAT_PINGPONG)
-			.start();
-		addChild(shape);
-	}
+	shape->fill_color_tween
+		.set(poColor::black)
+		.setTweenFunction(linearFunc)
+		.setDuration(1.f)
+		.setRepeat(PO_TWEEN_REPEAT_PINGPONG)
+		.start();
 }
 
 void TestObj::draw() {

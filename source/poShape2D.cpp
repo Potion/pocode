@@ -11,7 +11,7 @@ poShape2D::poShape2D()
 ,	enabled_attributes(ATTRIB_POINT)
 ,	closed_(true)
 ,	textures(MAX_TEXTURE_UNITS)
-,	tex_combo_func(MAX_TEXTURE_UNITS, GL_REPLACE)
+,	tex_combo_func(MAX_TEXTURE_UNITS, GL_MODULATE)
 ,	draw_bounds(false)
 ,	fill_color_tween(&fill_color)
 {}
