@@ -283,6 +283,15 @@ void poWindow::keyUp(int key, int code, int mod) {
 	received.push_back(event);
 }
 
+void poWindow::resize(int w, int h) {
+	bounds.size.x = w;
+	bounds.size.y = h;
+}
+
+void poWindow::resize(int x, int y, int w, int h) {
+	bounds.set(x,y,w,h);
+}
+
 void *poWindow::osDependentHandle() {
 	return handle;
 }

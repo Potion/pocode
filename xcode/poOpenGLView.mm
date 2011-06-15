@@ -131,8 +131,19 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	if(display_link) {
 		CVDisplayLinkStop(display_link);
 		CVDisplayLinkRelease(display_link);
+		display_link = nil;
 		animating = NO;
 	}
+}
+
+-(void)viewWillStartLiveResize {
+	[self stopAnimating];
+}
+
+-(void)viewDidEndLiveResize {
+	NSRect rect = self.bounds;
+	self.appWindow->resize(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	[self startAnimating];
 }
 
 -(void)keyDown:(NSEvent*)event {

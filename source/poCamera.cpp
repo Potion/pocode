@@ -27,6 +27,8 @@ void poCamera::setUp( poObject* obj ) {
         glClearColor(background_color.R, background_color.G, background_color.B, background_color.A);
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
+	
+	glViewport(0, 0, getWindowWidth(), getWindowHeight());
 
 	glMatrixMode(GL_PROJECTION);
     glPushMatrix();
