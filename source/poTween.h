@@ -92,9 +92,10 @@ static bool tweenUpdater(poTweenBase::poTweenFunction func,
 						 float time, float begin, float end,
 						 float duration, float e1, float e2) 
 {
-	return	func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2) &&
-			func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2) &&
-			func(&value->z, begin_value.z, end_value.z, time, begin, end, duration, e1, e2);
+    bool A = func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2);
+    bool B = func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2);
+    bool C = func(&value->z, begin_value.z, end_value.z, time, begin, end, duration, e1, e2);
+    return A && B && C;
 }
 
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
