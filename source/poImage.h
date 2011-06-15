@@ -11,6 +11,7 @@
 #include "poResource.h"
 #include "poRect.h"
 #include "poEnums.h"
+#include "poColor.h"
 
 struct FIBITMAP;
 
