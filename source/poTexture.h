@@ -59,6 +59,7 @@ protected:
 
 private:
 	void load(poImage *img);
+	void loadNotFound();
 	void load(GLenum format, GLenum internal_format, GLenum type, 
 			  GLenum min, GLenum mag, GLenum ws, GLenum wt,
 			  uint w, uint h, uint mem, ubyte const*pixels);

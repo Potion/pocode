@@ -29,10 +29,11 @@ public:
 	poImage();
 	poImage(const std::string &url);
 	poImage(const std::string &url, ImageBitDepth bpp);
-	poImage(uint w, uint h, ImageBitDepth bpp, ubyte *pixels);
+	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
 	~poImage();
 	
 	poImage *copy();
+	bool isValid() const;
 	
 	uint width() const;
 	uint height() const;
@@ -50,6 +51,10 @@ public:
 private:
 	void load(const std::string &url);
 	void load(const std::string &url, ImageBitDepth bpp);
-	void load(uint w, uint h, ImageBitDepth bpp, ubyte *pix);
+	void load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix);
 	FIBITMAP *bitmap;
+	bool valid;
 };
+
+// will append .cpp to the end of the filename
+void writeImageToCHeader(const std::string &filename, poImage *img);

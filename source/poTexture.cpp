@@ -8,36 +8,37 @@
 
 #include "poTexture.h"
 #include "BinPacker.h"
+#include "FileNotFoundImage.h"
 
-void formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_format, GLenum *type) {
+bool formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_format, GLenum *type) {
 	switch(bpp) {
 		case IMAGE_8:
 			*format = GL_LUMINANCE;
 			*internal_format = GL_LUMINANCE;
 			*type = GL_UNSIGNED_BYTE;
-			break;
+			return true;
 			
 		case IMAGE_16:
-			*format = GL_BGR;
-			*internal_format = 3;
-			*type = GL_UNSIGNED_SHORT_5_6_5;
-			break;
+			*format = GL_LUMINANCE_ALPHA;
+			*internal_format = 2;
+			*type = GL_UNSIGNED_BYTE;
+			return true;
 			
 		case IMAGE_24:
 			*format = GL_BGR;
 			*internal_format = 3;
 			*type = GL_UNSIGNED_BYTE;
-			break;
+			return true;
 			
 		case IMAGE_32:
 			*format = GL_BGRA;
 			*internal_format = 4;
 			*type = GL_UNSIGNED_BYTE;
-			break;
-			
-		default:
-			printf("UNKNOW IMAGE TYPE\n");
+			return true;
 	}
+	
+	printf("poTexture: unsupported image bit depth (%d)\n", bpp);
+	return false;
 }
 
 size_t bytesForPixelFormat(GLenum format) {
@@ -47,6 +48,8 @@ size_t bytesForPixelFormat(GLenum format) {
 			
 		case GL_BGR:
 		case GL_RGB:	return 3; break;
+		
+		case GL_LUMINANCE_ALPHA:	return 2; break;
 			
 		case GL_ALPHA:
 		case GL_LUMINANCE: return 1; break;
@@ -58,13 +61,18 @@ size_t bytesForPixelFormat(GLenum format) {
 poTexture::poTexture() {}
 
 poTexture::poTexture(poImage *img) {
-	load(img);
+	if(img && img->isValid())
+		load(img);
+	else
+		loadNotFound();
 }
 
 poTexture::poTexture(const std::string &str) {
-	poImage *img = new poImage(str);
-	load(img);
-	delete img;
+	poImage img(str);
+	if(img.isValid())
+		load(&img);
+	else
+		loadNotFound();
 }
 
 poTexture::poTexture(GLenum format, uint width, uint height, uint mem, ubyte const*pixels) {
@@ -228,6 +236,11 @@ void poTexture::load(poImage *img) {
 	
 	createRefCounter();
 	incrRefCount();
+}
+
+void poTexture::loadNotFound() {
+	poResourceStore tmp;
+	load(tmp.add(getFileNotFoundImage()));
 }
 
 void poTexture::load(GLenum format, GLenum internal_format, GLenum type, 

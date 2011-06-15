@@ -87,9 +87,9 @@
 		E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E51B3E13A13E5D008C67FF /* BinPacker.h */; };
-		E8E8E52C13A9363A008AE1BF /* FileNotFound.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E8E52B13A9363A008AE1BF /* FileNotFound.h */; };
-		E8E8E52F13A93675008AE1BF /* FileNotFound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E8E52E13A93675008AE1BF /* FileNotFound.cpp */; };
-		E8E8E53013A93675008AE1BF /* FileNotFound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E8E52E13A93675008AE1BF /* FileNotFound.cpp */; };
+		E8E8E54713A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E8E54513A955D6008AE1BF /* FileNotFoundImage.cpp */; };
+		E8E8E54813A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E8E54513A955D6008AE1BF /* FileNotFoundImage.cpp */; };
+		E8E8E54913A955D6008AE1BF /* FileNotFoundImage.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E8E54613A955D6008AE1BF /* FileNotFoundImage.h */; };
 		E8F4E4A0139E734B0001E860 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F4E49F139E734B0001E860 /* main.cpp */; };
 		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
 		E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMaskModifier.cpp */; };
@@ -170,8 +170,8 @@
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
 		E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinPacker.cpp; path = ../source/BinPacker.cpp; sourceTree = "<group>"; };
 		E8E51B3E13A13E5D008C67FF /* BinPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BinPacker.h; path = ../source/BinPacker.h; sourceTree = "<group>"; };
-		E8E8E52B13A9363A008AE1BF /* FileNotFound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileNotFound.h; path = ../source/FileNotFound.h; sourceTree = "<group>"; };
-		E8E8E52E13A93675008AE1BF /* FileNotFound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileNotFound.cpp; path = ../source/FileNotFound.cpp; sourceTree = "<group>"; };
+		E8E8E54513A955D6008AE1BF /* FileNotFoundImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileNotFoundImage.cpp; path = ../source/FileNotFoundImage.cpp; sourceTree = "<group>"; };
+		E8E8E54613A955D6008AE1BF /* FileNotFoundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileNotFoundImage.h; path = ../source/FileNotFoundImage.h; sourceTree = "<group>"; };
 		E8F4E49C139E734B0001E860 /* regression */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = regression; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F4E49F139E734B0001E860 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
@@ -262,6 +262,8 @@
 				E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */,
 				E8E51B3E13A13E5D008C67FF /* BinPacker.h */,
 				E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */,
+				E8E8E54613A955D6008AE1BF /* FileNotFoundImage.h */,
+				E8E8E54513A955D6008AE1BF /* FileNotFoundImage.cpp */,
 				E8B2D0C6132E9F78002BE3D9 /* poRect.h */,
 				E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */,
 				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
@@ -298,8 +300,6 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
-				E8E8E52B13A9363A008AE1BF /* FileNotFound.h */,
-				E8E8E52E13A93675008AE1BF /* FileNotFound.cpp */,
 			);
 			name = poFramework4;
 			sourceTree = "<group>";
@@ -356,7 +356,7 @@
 				E80625CD1396FEFC00615CCB /* poShapeBasics2D.h in Headers */,
 				E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */,
 				E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */,
-				E8E8E52C13A9363A008AE1BF /* FileNotFound.h in Headers */,
+				E8E8E54913A955D6008AE1BF /* FileNotFoundImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +483,7 @@
 				E80625CE1396FEFC00615CCB /* poShapeBasics2D.cpp in Sources */,
 				E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */,
 				E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */,
-				E8E8E53013A93675008AE1BF /* FileNotFound.cpp in Sources */,
+				E8E8E54813A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +518,7 @@
 				E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */,
 				E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */,
 				E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */,
-				E8E8E52F13A93675008AE1BF /* FileNotFound.cpp in Sources */,
+				E8E8E54713A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
