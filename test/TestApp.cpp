@@ -15,7 +15,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 100, 100, 1050, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 100, 400, 1050, 600);
 }
 
 void cleanupApplication() {
@@ -23,15 +23,11 @@ void cleanupApplication() {
 
 TestObj::TestObj() {
     addModifier(new poCamera2D());
-	poRectShape *shape = new poRectShape("images/alfred_e_neuman.jpg");
+	poRectShape *shape = new poRectShape("images/testimg.png");
+	shape->alphaTestTextures(true);
 	addChild(shape);
-	
-	shape->fill_color_tween
-		.set(poColor::black)
-		.setTweenFunction(linearFunc)
-		.setDuration(1.f)
-		.setRepeat(PO_TWEEN_REPEAT_PINGPONG)
-		.start();
+
+	shape->addEvent(PO_MOUSE_PRESS_EVENT, this);
 }
 
 void TestObj::draw() {
@@ -41,4 +37,5 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	printf("clicked\n");
 }

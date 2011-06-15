@@ -81,6 +81,9 @@ public:
     GLenum              textureCombineFunction(uint unit=0) const;
 	poShape2D&          textureCombineFunction(GLenum func, uint unit=0);
 	poTexture const*	texture(uint unit=0) const;
+	
+	bool				alphaTestTextures() const;
+	poShape2D&			alphaTestTextures(bool b);
     
     poShape2D&          enableAttribute(VertexAttribute a);
 	poShape2D&          disableAttribute(VertexAttribute a);
@@ -89,7 +92,6 @@ public:
     // localize will convert global to local first
 	// otherwise, point is assumed to be local
 	virtual bool        pointInside(poPoint point, bool localize=false);
-	virtual bool        pointInside(float x, float y, float z=0.f, bool localize=false);
 
 	poTween<poColor>	fill_color_tween;
 	
@@ -114,6 +116,7 @@ private:
 	StrokeJoinProperty      join;
 	bool                    closed_;
 	bool					draw_bounds;
+	bool					alpha_test_textures;
     
 	std::vector<GLenum>         tex_combo_func;
 	std::vector<poTexture*>     textures;

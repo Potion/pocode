@@ -24,6 +24,8 @@ public:
 	
 	poTexture *copy();
 	void replace(ubyte const*pixels);
+	
+	bool opaqueAtPoint(poPoint p) const;
 
 	uint uid() const;
 	float width() const;

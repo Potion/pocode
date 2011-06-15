@@ -107,6 +107,8 @@ poTexture *poTexture::copy() {
 			  _width, _height, 0, NULL);
 	tex->st(_s, _t);
 	tex->_uid = _uid;
+	tex->_pixels = _pixels;
+	tex->_mem_size = _mem_size;
 	
 	tex->ref_count = ref_count;
 	incrRefCount();
@@ -125,6 +127,22 @@ void poTexture::replace(ubyte const*pix) {
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+bool poTexture::opaqueAtPoint(poPoint p) const {
+	uint bpp = bytesForPixelFormat(format());
+	if(bpp == 4 || bpp == 2) {
+		if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >= height()) {
+			return false;
+		}
+		if(storingPixels()) {
+			GLubyte *pix = _pixels + int(p.y * width() + p.x) * bpp;
+			return pix[bpp-1] > 0;
+		}
+		return false;
+	}
+	return true;
+}
+
 
 uint poTexture::uid() const			{return _uid;}
 float poTexture::width() const		{return _width;}

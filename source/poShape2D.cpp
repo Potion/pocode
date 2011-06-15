@@ -14,6 +14,7 @@ poShape2D::poShape2D()
 ,	tex_combo_func(MAX_TEXTURE_UNITS, GL_MODULATE)
 ,	draw_bounds(false)
 ,	fill_color_tween(&fill_color)
+,	alpha_test_textures(false)
 {}
 
 void poShape2D::draw() {
@@ -366,6 +367,9 @@ GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo
 poShape2D&  poShape2D::textureCombineFunction(GLenum func, uint unit) {tex_combo_func[unit] = func; return *this; }
 poTexture const* poShape2D::texture(uint unit) const {return textures[unit];}
 
+bool		poShape2D::alphaTestTextures() const {return alpha_test_textures;}
+poShape2D&	poShape2D::alphaTestTextures(bool b) {alpha_test_textures = b; return *this;}
+
 void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width);
 
 poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, StrokeCapProperty cap) {
@@ -551,7 +555,16 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	
 	if(localize)
 		point = globalToLocal(point);
-	
+
+	if(alpha_test_textures && isAttributeEnabled(ATTRIB_TEX_COORD)) {
+		bool opaque = false;
+		for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+			if(textures[i]) {
+				opaque |= textures[i]->opaqueAtPoint(point);
+			}
+		}
+		return opaque;
+	}
 	
 	// test point inside for given drawstyle
     if ( (fill_draw_style == GL_POLYGON || fill_draw_style == GL_TRIANGLE_FAN) && points.size() >= 3 )
@@ -571,12 +584,6 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
     }
     
     return false;
-}
-
-
-bool        poShape2D::pointInside(float x, float y, float z, bool localize )
-{
-    return pointInside(poPoint(x,y,z),localize);
 }
 
 void poShape2D::updateAllTweens() {

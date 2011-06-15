@@ -66,7 +66,7 @@ public:
 	// localize will convert global to local first
 	// otherwise, point is assumed to be local
 	virtual bool	pointInside(poPoint point, bool localize=false);
-	virtual bool	pointInside(float x, float y, float z=0.f, bool localize=false);
+	bool			pointInside(float x, float y, float z=0.f, bool localize=false);
 
 	poPoint			globalToLocal(poPoint point) const;
 	poPoint			localToGlobal(poPoint point) const;
