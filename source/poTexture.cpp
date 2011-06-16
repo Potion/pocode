@@ -137,17 +137,19 @@ void poTexture::replace(ubyte const*pix) {
 }
 
 bool poTexture::opaqueAtPoint(poPoint p) const {
+	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >= height()) {
+		return false;
+	}
+
 	uint bpp = bytesForPixelFormat(format());
 	if(bpp == 4 || bpp == 2) {
-		if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >= height()) {
-			return false;
-		}
 		if(storingPixels()) {
-			GLubyte *pix = _pixels + int(p.y * width() + p.x) * bpp;
+			GLubyte *pix = &(_pixels[int(p.y * width() + p.x) * bpp]);
 			return pix[bpp-1] > 0;
 		}
 		return false;
 	}
+	
 	return true;
 }
 
@@ -239,8 +241,20 @@ void poTexture::load(poImage *img) {
 }
 
 void poTexture::loadNotFound() {
-	poResourceStore tmp;
-	load(tmp.add(getFileNotFoundImage()));
+//	poResourceStore tmp;
+//	load(tmp.add(getFileNotFoundImage()));
+	
+	static poImage *img = NULL;
+	if(!img) {
+		ubyte *pix = new ubyte[10*10*3]();
+		for(int i=0; i<10*10; i++) {
+			pix[i*3+2] = 255;
+			pix[i*3+1] = 0;
+			pix[i*3] = 0;
+		}
+		img = new poImage(10,10,IMAGE_24,pix);
+	}
+	load(img);
 }
 
 void poTexture::load(GLenum format, GLenum internal_format, GLenum type, 
