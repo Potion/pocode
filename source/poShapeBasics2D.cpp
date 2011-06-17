@@ -22,6 +22,12 @@ poRectShape::poRectShape( float _width, float _height )
     construct( _width, _height );
 }
 
+poRectShape::poRectShape( poImage *img) {
+	construct(img->width(), img->height());
+	poTexture tex(img);
+	placeTexture(&tex);
+}
+
 poRectShape::poRectShape( poTexture* tex )
 {
     construct( tex->width(), tex->height() );

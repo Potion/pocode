@@ -80,6 +80,27 @@ poFont const*poTextBox::font(const std::string &name) {
 		return _font;
 }
 
+void poTextBox::addGlyphsToLine(std::vector<layout_glyph> &glyphs, float &width, layout_line &line) {
+	BOOST_FOREACH(layout_glyph &glyph, glyphs) {
+		glyph.bbox.origin += poPoint(line.width, line.ypos);
+		line.glyphs.push_back(glyph);
+	}
+	
+	line.width += width;
+	line.word_count += 1;
+	glyphs.clear();
+	
+	width = 0;
+}
+
+void poTextBox::breakLine(float &widest, vector<layout_line> &lines, layout_line &line) {
+	widest = max(widest, line.width);
+	lines.push_back(line);
+	
+	line = layout_line();
+	line.ypos = lines.size() * _font->lineHeight();
+}
+
 poTextBox &poTextBox::layout() {
 	lines.clear();
 	layout_line line;
@@ -88,14 +109,24 @@ poTextBox &poTextBox::layout() {
 	_font->glyph(' ');
 	float spacer = _font->glyphAdvance().x;
 	
-	tokenizer<> tok(text());
-	for(tokenizer<>::iterator word=tok.begin(); word!=tok.end(); ++word) {
+	tokenizer< char_separator<char> > tok(text(), char_separator<char>(" "));
+	for(tokenizer< char_separator<char> >::iterator word=tok.begin(); word!=tok.end(); ++word) {
 		float w = 0;
 		vector<layout_glyph> glyphs;
 		
 		string::const_iterator ch=word->begin();
 		while(ch != word->end()) {
 			uint codepoint = utf8::next(ch, word->end());
+			if(codepoint == '\n') {
+				addGlyphsToLine(glyphs, w, line);
+				breakLine(widest_line, lines, line);
+				continue;
+			}
+			else if(codepoint == '\t') {
+				w += spacer * 4;
+				continue;
+			}
+			
 			_font->glyph(codepoint);
 
 			poPoint kern(0.f, 0.f);
@@ -112,22 +143,13 @@ poTextBox &poTextBox::layout() {
 			w += _font->glyphAdvance().x + kern.x;
 			
 			if(w + line.width > bounds().width() && line.word_count >= 1) {
-				widest_line = max(widest_line, line.width-=spacer);
-				lines.push_back(line);
-				
-				line = layout_line();
-				line.ypos = lines.size() * _font->lineHeight();
+				line.width -= spacer;
+				breakLine(widest_line, lines, line);
 			}
 		}
 		
-		BOOST_FOREACH(layout_glyph &glyph, glyphs) {
-			glyph.bbox.origin += poPoint(line.width, line.ypos);
-			line.glyphs.push_back(glyph);
-		}
-		
-		line.width += w + spacer;
-		line.word_count += 1;
-		glyphs.clear();
+		w += spacer;
+		addGlyphsToLine(glyphs, w, line);
 	}
 	
 	widest_line = max(widest_line, line.width-=spacer);

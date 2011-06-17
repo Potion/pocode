@@ -20,21 +20,18 @@ static void loadFreeImageIfNeeded() {
 poImage::poImage() {loadFreeImageIfNeeded();}
 
 poImage::poImage(const std::string &url)
-:	valid(false)
 {
 	loadFreeImageIfNeeded();
 	load(url);
 }
 
 poImage::poImage(const std::string &url, ImageBitDepth bpp) 
-:	valid(false)
 {
 	loadFreeImageIfNeeded();
 	load(url, bpp);
 }
 
 poImage::poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *p) 
-:	valid(false)
 {
 	loadFreeImageIfNeeded();
 	load(w, h, bpp, p);
@@ -47,12 +44,11 @@ poImage::~poImage() {
 poImage *poImage::copy() {
 	poImage *img = new poImage();
 	img->bitmap = FreeImage_Clone(bitmap);
-	img->valid = valid;
 	return img;
 }
 
 bool poImage::isValid() const {
-	return valid;
+	return bitmap != NULL;
 }
 
 uint poImage::width() const {
@@ -79,7 +75,13 @@ ubyte const*poImage::pixels() const {
 	return FreeImage_GetBits(bitmap);
 }
 
-poColor poImage::getPixel(uint x, uint y) const {
+poColor poImage::getPixel(poPoint p) const {
+	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+		return;
+
+	uint x = p.x;
+	uint y = p.y;
+	
 	BYTE* bits = FreeImage_GetScanLine(bitmap, y);
 	poColor ret;
 	
@@ -99,6 +101,43 @@ poColor poImage::getPixel(uint x, uint y) const {
 	}
 	
 	return ret;
+}
+
+void poImage::setPixel(poPoint p, poColor c) {
+	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+		return;
+	
+	uint x = p.x;
+	uint y = p.y;
+	
+	BYTE *bits = FreeImage_GetScanLine(bitmap, y);
+	switch(bpp()) {
+		case IMAGE_8:
+			bits[x] = (((0.21*c.R) + (0.71*c.G) + (0.07*c.B)) * c.A) * 255;
+			break;
+		case IMAGE_16:
+			bits[x*2] = ((0.21*c.R) + (0.71*c.G) + (0.07*c.B)) * 255;
+			bits[x*2+1] = c.A * 255;
+			break;
+		case IMAGE_24:
+			bits[x*3] = c.B * c.A * 255;
+			bits[x*3+1] = c.G * c.A * 255;
+			bits[x*3+2] = c.R * c.A * 255;
+			break;
+		case IMAGE_32:
+			bits[x*4] = c.B * 255;
+			bits[x*4+1] = c.G * 255;
+			bits[x*4+2] = c.R * 255;
+			bits[x*4+3] = c.A * 255;
+			break;
+	}
+}
+
+void poImage::setPixel(poPoint p, poColor c, int stamp_width) {
+	for(int y=-stamp_width/2; y<stamp_width/2; y++)
+		for(int x=-stamp_width/2; x<stamp_width/2; x++) {
+			setPixel(p + poPoint(x,y), c);
+		}
 }
 
 void poImage::changeBpp(ImageBitDepth bpp) {
@@ -134,6 +173,11 @@ void poImage::flip(poOrientation dir) {
 		FreeImage_FlipHorizontal(bitmap);
 }
 
+void poImage::clear() {
+	ubyte color[] = {0,0,0,0};
+	FreeImage_FillBackground(bitmap, &color[0]);
+}
+
 FIBITMAP *loadDIB(const std::string &url) {
 	// figure out if the file exists
 	
@@ -160,12 +204,10 @@ FIBITMAP *loadDIB(const std::string &url) {
 
 void poImage::load(const std::string &url) {
 	bitmap = loadDIB(url);
-	valid = bitmap != NULL;
 }
 
 void poImage::load(const std::string &url, ImageBitDepth bpp) {
 	bitmap = loadDIB(url);
-	valid = bitmap != NULL;
 	changeBpp(bpp);
 }
 
@@ -189,7 +231,7 @@ void writeImageToCHeader(const std::string &str, poImage *img) {
 	for(int h=0; h<img->height(); h++) {
 		fprintf(f,"\t");
 		for(int w=0; w<img->width(); w++) {
-			poColor color = img->getPixel(w,h);
+			poColor color = img->getPixel(poPoint(w,h));
 			fprintf(f,"0x%X,0x%X,0x%X,", uint(color.R*255), uint(color.G*255), uint(color.B*255));
 		}
 		if(h == img->height()-1)

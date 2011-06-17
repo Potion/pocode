@@ -73,7 +73,9 @@ public:
 	poPoint			objectToLocal(poObject* obj, poPoint point) const;
 
 	// BOUNDING BOX
-	virtual void	setAlignment(poAlignment align);
+	virtual void	alignment(poAlignment align);
+	poAlignment		alignment() const;
+	
 	virtual poRect	calculateBounds(bool include_children=false);
 	
 	// OBJECT PROPERTIES
@@ -106,8 +108,6 @@ public:
 		
 	poRect			bounds() const;
 	poObject&		bounds(poRect r);
-	
-	poAlignment		alignment() const;
 	
 	bool			visible() const;
 	poObject&		visible(bool b);

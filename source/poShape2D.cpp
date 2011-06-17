@@ -183,8 +183,8 @@ poColor poShape2D::getColor(int idx) {
 
 
 
-void poShape2D::setAlignment(poAlignment align) {
-	poObject::setAlignment(align);
+void poShape2D::alignment(poAlignment align) {
+	poObject::alignment(align);
 	
     // first calculate bounds
 	calculateBounds();
@@ -325,6 +325,16 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 		if(!found_one)
 			disableAttribute(ATTRIB_TEX_COORD);
 	}
+}
+
+poShape2D& poShape2D::placeImage(poImage *img, uint unit) {
+	poTexture tex(img);
+	placeTexture(&tex, unit);
+}
+
+poShape2D& poShape2D::placeImage(poImage *img, poTextureFitOption fit, uint unit) {
+	poTexture tex(img);
+	placeTexture(&tex, fit, unit);
 }
 
 poShape2D&  poShape2D::enableFill(bool b) {enable_fill = b; return *this;}

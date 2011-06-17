@@ -215,9 +215,8 @@ poPoint poObject::objectToLocal(poObject* obj, poPoint point) const {
 	return globalToLocal(point);
 }
 
-void poObject::setAlignment(poAlignment align) {
-	_alignment = align;
-}
+void poObject::alignment(poAlignment align) {_alignment = align;}
+poAlignment poObject::alignment() const {return _alignment;}
 
 poRect poObject::calculateBounds(bool include_children) {
 	_bounds = poRect(0,0,0,0);
@@ -266,8 +265,6 @@ poObject&		poObject::offset(float x, float y, float z) {return offset(poPoint(x,
 
 poRect			poObject::bounds() const {return _bounds;}
 poObject&		poObject::bounds(poRect r) {_bounds = r; return *this;}
-
-poAlignment		poObject::alignment() const {return _alignment;}
 
 bool			poObject::visible() const {return _visible;}
 poObject&		poObject::visible(bool b) {_visible = b; return *this;}

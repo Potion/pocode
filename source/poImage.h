@@ -42,10 +42,14 @@ public:
 	uint storageSize() const;
 	ubyte const*pixels() const;
 	
-	poColor getPixel(uint x, uint y) const;
+	poColor getPixel(poPoint p) const;
+	void setPixel(poPoint p, poColor c);
+	void setPixel(poPoint p, poColor c, int stamp_width);
 	
 	void changeBpp(ImageBitDepth bpp);
 	void composite(poImage *img, poRect into);
+	void clear();
+	
 	void flip(poOrientation dir);
 	
 private:
@@ -53,7 +57,6 @@ private:
 	void load(const std::string &url, ImageBitDepth bpp);
 	void load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix);
 	FIBITMAP *bitmap;
-	bool valid;
 };
 
 // will append .cpp to the end of the filename

@@ -6,7 +6,7 @@ enum poOrientation {
 };
 
 enum poAlignment {
-	PO_ALIGN_TOP_LEFT,
+	PO_ALIGN_TOP_LEFT = 0,
 	PO_ALIGN_TOP_CENTER,
 	PO_ALIGN_TOP_RIGHT,
 	PO_ALIGN_CENTER_LEFT,

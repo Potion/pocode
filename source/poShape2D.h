@@ -36,12 +36,15 @@ public:
 	poColor				getColor(int idx); 
 	
     // alignment and bounds
-	virtual void        setAlignment(poAlignment align);
+	virtual void        alignment(poAlignment align);
 	virtual poRect      calculateBounds(bool include_children=false);
 	
     // texture management, will copy the texture
 	poShape2D&			placeTexture(poTexture *tex, uint unit=0);
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
+
+	poShape2D&			placeImage(poImage *img, uint unit=0);
+	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
 	
 	poShape2D&			generateStroke(int strokeWidth, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
     
