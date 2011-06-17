@@ -30,14 +30,14 @@ basicShapesApp::basicShapesApp() {
     rectShape = new poRectShape( 150,100 );
     rectShape->position( 450,75 );
     rectShape->fillColor( poColor::yellow );
-    rectShape->setAlignment( PO_ALIGN_CENTER_CENTER );
+    rectShape->alignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShape );
    
     // make rectangular shape with image + transparency
     rectShapeWithImage = new poRectShape( "apple.png" );
     rectShapeWithImage->position( 150,225 );
     rectShapeWithImage->scale( 0.5, 0.5,1 );
-    rectShapeWithImage->setAlignment( PO_ALIGN_CENTER_CENTER );
+    rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShapeWithImage );
     
     // make oval shape, green

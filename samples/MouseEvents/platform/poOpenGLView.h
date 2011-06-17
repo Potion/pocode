@@ -18,11 +18,9 @@ class poWindow;
 }
 
 @property (nonatomic,assign) poWindow *appWindow;
+@property (nonatomic,assign) BOOL fullscreen;
 
 -(id)initWithFrame:(NSRect)frm context:(NSOpenGLContext*)cxt window:(poWindow*)win;
-
--(BOOL)isFullscreen;
--(void)setFullscreen:(BOOL)value;
 
 -(BOOL)isAnimating;
 -(void)startAnimating;

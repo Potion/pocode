@@ -7,32 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E810AE521398179D0021952F /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E810AE511398179D0021952F /* Debug.xcconfig */; };
-		E810AE541398179D0021952F /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E810AE531398179D0021952F /* Release.xcconfig */; };
-		E810AE571398179D0021952F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E810AE561398179D0021952F /* AppDelegate.mm */; };
-		E810AE591398179D0021952F /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E810AE581398179D0021952F /* en.strings */; };
-		E810AE5B1398179D0021952F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E810AE5A1398179D0021952F /* main.m */; };
-		E810AE5D1398179D0021952F /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E810AE5C1398179D0021952F /* main.pch */; };
-		E810AE601398179D0021952F /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E810AE5F1398179D0021952F /* main.xib */; };
-		E810AE631398179D0021952F /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E810AE621398179D0021952F /* poOpenGLView.mm */; };
-		E810AE671398179D0021952F /* MasksApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E810AE661398179D0021952F /* MasksApp.cpp */; };
+		498D1D2313ABF5910093A7E2 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 498D1D1913ABF5910093A7E2 /* AppDelegate.mm */; };
+		498D1D2413ABF5910093A7E2 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 498D1D1A13ABF5910093A7E2 /* Debug.xcconfig */; };
+		498D1D2513ABF5910093A7E2 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 498D1D1B13ABF5910093A7E2 /* en.strings */; };
+		498D1D2613ABF5910093A7E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 498D1D1C13ABF5910093A7E2 /* main.m */; };
+		498D1D2713ABF5910093A7E2 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = 498D1D1E13ABF5910093A7E2 /* main.plist */; };
+		498D1D2813ABF5910093A7E2 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498D1D1F13ABF5910093A7E2 /* main.xib */; };
+		498D1D2913ABF5910093A7E2 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 498D1D2113ABF5910093A7E2 /* poOpenGLView.mm */; };
+		498D1D2A13ABF5910093A7E2 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 498D1D2213ABF5910093A7E2 /* Release.xcconfig */; };
+		498D1D2E13ABF5A90093A7E2 /* MasksApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 498D1D2C13ABF5A90093A7E2 /* MasksApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E810AE4C1398179D0021952F /* Masks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Masks.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E810AE511398179D0021952F /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		E810AE531398179D0021952F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		E810AE551398179D0021952F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		E810AE561398179D0021952F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		E810AE581398179D0021952F /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		E810AE5A1398179D0021952F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		E810AE5C1398179D0021952F /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		E810AE5E1398179D0021952F /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		E810AE5F1398179D0021952F /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		E810AE611398179D0021952F /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		E810AE621398179D0021952F /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		E810AE651398179D0021952F /* MasksApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MasksApp.h; path = ../application/MasksApp.h; sourceTree = "<group>"; };
-		E810AE661398179D0021952F /* MasksApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MasksApp.cpp; path = ../application/MasksApp.cpp; sourceTree = "<group>"; };
+		4902153513ABF75D00C69498 /* Masks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Masks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		498D1D1813ABF5910093A7E2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = platform/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		498D1D1913ABF5910093A7E2 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = platform/AppDelegate.mm; sourceTree = SOURCE_ROOT; };
+		498D1D1A13ABF5910093A7E2 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = platform/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		498D1D1B13ABF5910093A7E2 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en.strings; path = platform/en.strings; sourceTree = SOURCE_ROOT; };
+		498D1D1C13ABF5910093A7E2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = platform/main.m; sourceTree = SOURCE_ROOT; };
+		498D1D1D13ABF5910093A7E2 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.pch; path = platform/main.pch; sourceTree = SOURCE_ROOT; };
+		498D1D1E13ABF5910093A7E2 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = main.plist; path = platform/main.plist; sourceTree = SOURCE_ROOT; };
+		498D1D1F13ABF5910093A7E2 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = main.xib; path = platform/main.xib; sourceTree = SOURCE_ROOT; };
+		498D1D2013ABF5910093A7E2 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = platform/poOpenGLView.h; sourceTree = SOURCE_ROOT; };
+		498D1D2113ABF5910093A7E2 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = platform/poOpenGLView.mm; sourceTree = SOURCE_ROOT; };
+		498D1D2213ABF5910093A7E2 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = platform/Release.xcconfig; sourceTree = SOURCE_ROOT; };
+		498D1D2C13ABF5A90093A7E2 /* MasksApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MasksApp.cpp; path = application/MasksApp.cpp; sourceTree = SOURCE_ROOT; };
+		498D1D2D13ABF5A90093A7E2 /* MasksApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MasksApp.h; path = application/MasksApp.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		E810AE4D1398179D0021952F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E810AE4C1398179D0021952F /* Masks.app */,
+				4902153513ABF75D00C69498 /* Masks.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,17 +74,17 @@
 		E810AE501398179D0021952F /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				E810AE511398179D0021952F /* Debug.xcconfig */,
-				E810AE531398179D0021952F /* Release.xcconfig */,
-				E810AE551398179D0021952F /* AppDelegate.h */,
-				E810AE561398179D0021952F /* AppDelegate.mm */,
-				E810AE581398179D0021952F /* en.strings */,
-				E810AE5A1398179D0021952F /* main.m */,
-				E810AE5C1398179D0021952F /* main.pch */,
-				E810AE5E1398179D0021952F /* main.plist */,
-				E810AE5F1398179D0021952F /* main.xib */,
-				E810AE611398179D0021952F /* poOpenGLView.h */,
-				E810AE621398179D0021952F /* poOpenGLView.mm */,
+				498D1D1813ABF5910093A7E2 /* AppDelegate.h */,
+				498D1D1913ABF5910093A7E2 /* AppDelegate.mm */,
+				498D1D1A13ABF5910093A7E2 /* Debug.xcconfig */,
+				498D1D1B13ABF5910093A7E2 /* en.strings */,
+				498D1D1C13ABF5910093A7E2 /* main.m */,
+				498D1D1D13ABF5910093A7E2 /* main.pch */,
+				498D1D1E13ABF5910093A7E2 /* main.plist */,
+				498D1D1F13ABF5910093A7E2 /* main.xib */,
+				498D1D2013ABF5910093A7E2 /* poOpenGLView.h */,
+				498D1D2113ABF5910093A7E2 /* poOpenGLView.mm */,
+				498D1D2213ABF5910093A7E2 /* Release.xcconfig */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -92,8 +92,8 @@
 		E810AE641398179D0021952F /* application */ = {
 			isa = PBXGroup;
 			children = (
-				E810AE651398179D0021952F /* MasksApp.h */,
-				E810AE661398179D0021952F /* MasksApp.cpp */,
+				498D1D2C13ABF5A90093A7E2 /* MasksApp.cpp */,
+				498D1D2D13ABF5A90093A7E2 /* MasksApp.h */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			);
 			name = Masks;
 			productName = Masks;
-			productReference = E810AE4C1398179D0021952F /* Masks.app */;
+			productReference = 4902153513ABF75D00C69498 /* Masks.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -149,11 +149,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E810AE521398179D0021952F /* Debug.xcconfig in Resources */,
-				E810AE541398179D0021952F /* Release.xcconfig in Resources */,
-				E810AE591398179D0021952F /* en.strings in Resources */,
-				E810AE5D1398179D0021952F /* main.pch in Resources */,
-				E810AE601398179D0021952F /* main.xib in Resources */,
+				498D1D2413ABF5910093A7E2 /* Debug.xcconfig in Resources */,
+				498D1D2513ABF5910093A7E2 /* en.strings in Resources */,
+				498D1D2713ABF5910093A7E2 /* main.plist in Resources */,
+				498D1D2813ABF5910093A7E2 /* main.xib in Resources */,
+				498D1D2A13ABF5910093A7E2 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,10 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E810AE571398179D0021952F /* AppDelegate.mm in Sources */,
-				E810AE5B1398179D0021952F /* main.m in Sources */,
-				E810AE631398179D0021952F /* poOpenGLView.mm in Sources */,
-				E810AE671398179D0021952F /* MasksApp.cpp in Sources */,
+				498D1D2313ABF5910093A7E2 /* AppDelegate.mm in Sources */,
+				498D1D2613ABF5910093A7E2 /* main.m in Sources */,
+				498D1D2913ABF5910093A7E2 /* poOpenGLView.mm in Sources */,
+				498D1D2E13ABF5A90093A7E2 /* MasksApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,17 +176,19 @@
 /* Begin XCBuildConfiguration section */
 		E810AE681398179D0021952F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E810AE511398179D0021952F /* Debug.xcconfig */;
+			baseConfigurationReference = 498D1D1A13ABF5910093A7E2 /* Debug.xcconfig */;
 			buildSettings = {
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				PRODUCT_NAME = Masks;
 			};
 			name = Debug;
 		};
 		E810AE691398179D0021952F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E810AE531398179D0021952F /* Release.xcconfig */;
+			baseConfigurationReference = 498D1D2213ABF5910093A7E2 /* Release.xcconfig */;
 			buildSettings = {
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				PRODUCT_NAME = Masks;
 			};
 			name = Release;
 		};
