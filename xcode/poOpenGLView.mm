@@ -7,6 +7,7 @@
 //
 
 #import "poOpenGLView.h"
+#import "AppDelegate.h"
 #include "poWindow.h"
 
 CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
@@ -17,10 +18,10 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								void *displayLinkContext)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
+	
 	[self.openGLContext makeCurrentContext];
-	if(self.appWindow && CVDisplayLinkIsRunning(displayLink)) {
+	if(CVDisplayLinkIsRunning(displayLink)) {
 		self.appWindow->makeCurrent();
 		self.appWindow->update();
 		self.appWindow->draw();
@@ -34,6 +35,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 @implementation poOpenGLView
 
 @synthesize appWindow;
+@synthesize fullscreen;
 
 +(NSOpenGLPixelFormat*)defaultPixelFormat {
 	NSOpenGLPixelFormatAttribute attributes[] = {
@@ -65,6 +67,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		
 		display_link = nil;
 		animating = YES;
+		self.fullscreen = NO;
 	}
 	return self;
 }
@@ -84,9 +87,26 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)viewDidMoveToWindow {
+	// make sure we cancelled any notifications we were working with
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResizeNotification object:nil];
+	
 	// we were either added or removed from a window
-	if(self.window && animating) {
-		[self startAnimating];
+	if(self.window) {
+		void (^resizeBlock)(NSNotification*) = ^(NSNotification*){
+			if(self.appWindow && self.window) {
+				NSRect rect = [self.window contentRectForFrameRect:self.window.frame];
+				self.appWindow->resize(rect.size.width, rect.size.height);
+			}
+		};
+		
+		resizeBlock(nil);
+		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidResizeNotification 
+														  object:self.window
+														   queue:nil
+													  usingBlock:resizeBlock];
+
+		if(animating)
+			[self startAnimating];
 	}
 	else {
 		BOOL tmp = animating;
@@ -95,22 +115,15 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	}
 }
 
--(BOOL)isFullscreen {
-	return fullscreen;
-}
-
--(void)setFullscreen:(BOOL)value {
-	if(fullscreen != value) {
-		fullscreen = value;
-
-		if(fullscreen) {
-			NSScreen *screen = self.window.deepestScreen;
-			[self enterFullScreenMode:screen withOptions:[NSDictionary dictionary]];
-		}
-		else {
-			[self exitFullScreenModeWithOptions:[NSDictionary dictionary]];
-		}
+-(void)viewDidEndLiveResize {
+	if(self.appWindow) {
+		NSRect rect = self.bounds;
+		self.appWindow->resize(rect.origin.x, rect.origin.y,
+							   rect.size.width, rect.size.height);
 	}
+	
+	[super viewDidEndLiveResize];
+	[self startAnimating];
 }
 
 -(BOOL)isAnimating {
@@ -131,19 +144,8 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	if(display_link) {
 		CVDisplayLinkStop(display_link);
 		CVDisplayLinkRelease(display_link);
-		display_link = nil;
 		animating = NO;
 	}
-}
-
--(void)viewWillStartLiveResize {
-	[self stopAnimating];
-}
-
--(void)viewDidEndLiveResize {
-	NSRect rect = self.bounds;
-	self.appWindow->resize(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-	[self startAnimating];
 }
 
 -(void)keyDown:(NSEvent*)event {

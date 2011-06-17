@@ -13,18 +13,28 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 100, 400, 1050, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", -500, 400, 800, 800);
 }
 
 void cleanupApplication() {
 }
 
-TestObj::TestObj() {
-    addModifier(new poCamera2D());
+poShape2D *shape = NULL;
+poShape2D *tester = NULL;
 
-	poImage img("images/img.jpg");
-	poTexture tex(&img);
-	addChild(new poRectShape(&tex));
+TestObj::TestObj() {
+	addModifier(new poCamera2D());
+	
+	shape = new poRectShape("images/108_Dry Dock 5.png");
+	shape->drawBounds(true);
+	shape->setAlignment(PO_ALIGN_TOP_LEFT);
+	shape->alphaTestTextures(true);
+	shape->addEvent(PO_MOUSE_MOVE_EVENT, this);
+	shape->position(400,400);
+	addChild(shape);
+	
+	tester = new poRectShape(100,100);
+	addChild(tester);
 }
 
 void TestObj::draw() {
@@ -34,4 +44,6 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	poColor color = shape->texture()->colorAtPoint(event->local_position);
+	tester->fillColor(color);
 }

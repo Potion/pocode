@@ -26,6 +26,7 @@ public:
 	void replace(ubyte const*pixels);
 	
 	bool opaqueAtPoint(poPoint p) const;
+	poColor colorAtPoint(poPoint p) const;
 
 	uint uid() const;
 	float width() const;

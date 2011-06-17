@@ -137,22 +137,34 @@ void poTexture::replace(ubyte const*pix) {
 }
 
 bool poTexture::opaqueAtPoint(poPoint p) const {
-	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >= height()) {
-		return false;
-	}
+	poColor color = colorAtPoint(p);
+	return color.A > 0;
+}
 
+poColor poTexture::colorAtPoint(poPoint p) const {
+	poColor response(0,0,0,0);
+
+	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >= height()) {
+		return response;
+	}
+	
 	uint bpp = bytesForPixelFormat(format());
 	if(bpp == 4 || bpp == 2) {
 		if(storingPixels()) {
-			GLubyte *pix = &(_pixels[int(p.y * width() + p.x) * bpp]);
-			return pix[bpp-1] > 0;
+			GLubyte *pix = _pixels + int(p.y * width() + p.x) * bpp;
+			switch(bpp) {
+				case 1: response.set255(pix[0], pix[0], pix[0], 255);		break;
+				case 2: response.set255(pix[0], pix[0], pix[0], pix[1]);	break;
+				case 3: response.set255(pix[2], pix[1], pix[0], 255);		break;
+				case 4: response.set255(pix[2], pix[1], pix[0], pix[3]);	break;
+			}
+			
+			return response;
 		}
-		return false;
 	}
 	
-	return true;
+	return response;
 }
-
 
 uint poTexture::uid() const			{return _uid;}
 float poTexture::width() const		{return _width;}
