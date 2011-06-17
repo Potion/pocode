@@ -1,13 +1,12 @@
 #import <Cocoa/Cocoa.h>
 
+#include "poApplication.h"
+
 class poWindow;
-#include "poEnums.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> 
 {
 	NSMutableArray *windows;
-	
-	NSOpenGLPixelFormat *pixel_format;
 	NSOpenGLContext *shared_context;
 }
 
@@ -18,7 +17,7 @@ class poWindow;
 				type:(poWindowType)type 
 			   frame:(NSRect)frame
 			   title:(const char*)str;
--(int)numberWindows;
+-(NSUInteger)numberWindows;
 -(NSWindow*)getWindowByIndex:(int)index;
 -(NSWindow*)getWindowByAppWin:(poWindow*)win;
 -(void)closeWindow:(NSWindow*)win;

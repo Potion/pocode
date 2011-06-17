@@ -26,22 +26,22 @@ AlignmentApp::AlignmentApp() {
             p->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3));
             p->generateStroke(5).strokeColor(poColor::magenta).fillColor(poColor::dk_grey);
             switch (i*3+j) {
-                case 0: p->setAlignment(PO_ALIGN_TOP_LEFT);  break;
-                case 1: p->setAlignment(PO_ALIGN_TOP_CENTER);  break;
-                case 2: p->setAlignment(PO_ALIGN_TOP_RIGHT);  break;
-                case 3: p->setAlignment(PO_ALIGN_CENTER_LEFT);  break;
-                case 4: p->setAlignment(PO_ALIGN_CENTER_CENTER);  break;
-                case 5: p->setAlignment(PO_ALIGN_CENTER_RIGHT);  break;
-                case 6: p->setAlignment(PO_ALIGN_BOTTOM_LEFT);  break;
-                case 7: p->setAlignment(PO_ALIGN_BOTTOM_CENTER);  break;
-                case 8: p->setAlignment(PO_ALIGN_BOTTOM_RIGHT);  break;
+                case 0: p->alignment(PO_ALIGN_TOP_LEFT);  break;
+                case 1: p->alignment(PO_ALIGN_TOP_CENTER);  break;
+                case 2: p->alignment(PO_ALIGN_TOP_RIGHT);  break;
+                case 3: p->alignment(PO_ALIGN_CENTER_LEFT);  break;
+                case 4: p->alignment(PO_ALIGN_CENTER_CENTER);  break;
+                case 5: p->alignment(PO_ALIGN_CENTER_RIGHT);  break;
+                case 6: p->alignment(PO_ALIGN_BOTTOM_LEFT);  break;
+                case 7: p->alignment(PO_ALIGN_BOTTOM_CENTER);  break;
+                case 8: p->alignment(PO_ALIGN_BOTTOM_RIGHT);  break;
                 default: break;
             }
             addChild(p);
             
             //creating an oval to be a reference for the object alignment
             o = new poOvalShape(10, 10, 20);
-            o->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3)).setAlignment(PO_ALIGN_CENTER_CENTER);
+            o->position(100+j*(getWindowWidth()/3),50+i*(getWindowHeight()/3)).alignment(PO_ALIGN_CENTER_CENTER);
             o->fillColor(poColor::white);
             addChild(o);
         }
