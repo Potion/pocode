@@ -62,6 +62,7 @@ private:
 	
 	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, float &width, layout_line &line);
 	void breakLine(float &widest, std::vector<layout_line> &lines, layout_line &line);
+	void alignText();
 	
 	std::string _text;
 	poColor color;

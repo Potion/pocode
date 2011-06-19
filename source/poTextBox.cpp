@@ -155,6 +155,65 @@ poTextBox &poTextBox::layout() {
 	widest_line = max(widest_line, line.width-=spacer);
 	lines.push_back(line);
 	text_bounds.set(0,0,widest_line,line.ypos+_font->lineHeight());
+	
+	alignText();
+}
+
+void poTextBox::alignText() {
+	
+	if(lines.empty()) {
+		text_bounds.set(0,0,0,0);
+		return;
+	}
+	
+	//text_bounds.set(FLT_MAX, FLT_MAX, FLT_MIN, FLT_MIN);
+	
+	poRect frame = bounds();
+	poPoint glyphOffset(0.f, 0.f);
+	float textYpos = 0.f;
+	
+	BOOST_FOREACH(layout_line &line, lines) {
+		if(line.ypos > textYpos) textYpos = line.ypos;
+	}
+	
+	BOOST_FOREACH(layout_line &line, lines) {
+		
+		switch(align) {
+			case PO_ALIGN_TOP_LEFT:
+				break;
+			case PO_ALIGN_TOP_CENTER:
+				glyphOffset.x = (frame.width() - line.width)/2; break;
+			case PO_ALIGN_TOP_RIGHT:
+				glyphOffset.x = (frame.width() - line.width); break;
+			case PO_ALIGN_CENTER_LEFT:
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+			case PO_ALIGN_CENTER_CENTER:
+				glyphOffset.x = (frame.width() - line.width)/2;
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+			case PO_ALIGN_CENTER_RIGHT:
+				glyphOffset.x = (frame.width() - line.width);
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+			case PO_ALIGN_BOTTOM_LEFT:
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+			case PO_ALIGN_BOTTOM_CENTER:
+				glyphOffset.x = (frame.width() - line.width)/2;
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+			case PO_ALIGN_BOTTOM_RIGHT:
+				glyphOffset.x = (frame.width() - line.width);
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+		}
+		
+		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
+			glyph.bbox.origin.x += glyphOffset.x;
+			glyph.bbox.origin.y += glyphOffset.y;
+		}
+		
+		text_bounds.origin.x += glyphOffset.x;
+		text_bounds.origin.y += glyphOffset.y;
+
+		//text_bounds.size.x = std::max(text_bounds.size.x, glyphOffset.x+line.width);
+		//text_bounds.size.y = std::max(text_bounds.size.y, glyphOffset.y+line.ypos);
+	}
 }
 
 void poTextBox::draw() {
@@ -171,7 +230,7 @@ void poTextBox::draw() {
         drawStroke(bounds());
     }
 
-	applyColor(poColor::white);
+	applyColor(textColor());
 	atlas->startDrawing(0);
 	BOOST_FOREACH(layout_line &line, lines) {
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
