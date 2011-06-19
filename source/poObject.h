@@ -73,8 +73,8 @@ public:
 	poPoint			objectToLocal(poObject* obj, poPoint point) const;
 
 	// BOUNDING BOX
-	virtual void	alignment(poAlignment align);
 	poAlignment		alignment() const;
+	virtual void	alignment(poAlignment align);
 	
 	virtual poRect	calculateBounds(bool include_children=false);
 	

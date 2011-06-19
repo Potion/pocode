@@ -36,7 +36,10 @@ public:
 	poColor				getColor(int idx); 
 	
     // alignment and bounds
-	virtual void        alignment(poAlignment align);
+	virtual void		alignment(poAlignment align);
+	// this was a weird one: http://stackoverflow.com/questions/888235/overriding-a-bases-overloaded-function-in-c/888313#888313
+	using poObject::alignment;
+	
 	virtual poRect      calculateBounds(bool include_children=false);
 	
     // texture management, will copy the texture

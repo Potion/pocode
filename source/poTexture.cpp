@@ -152,8 +152,6 @@ poColor poTexture::colorAtPoint(poPoint p) const {
 	if(bpp == 4 || bpp == 2) {
 		if(storingPixels()) {
 			GLubyte *pix = _pixels + int(p.y * width() + p.x) * bpp;
-			printf("%d %d %d %d %d\n", (int)p.x, (int)p.y, (int)width(), bpp, int(p.y*width()+p.x)*bpp);
-			
 			switch(bpp) {
 				case 1: response.set255(pix[0], pix[0], pix[0], 255);		break;
 				case 2: response.set255(pix[0], pix[0], pix[0], pix[1]);	break;
