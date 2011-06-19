@@ -53,15 +53,15 @@ private:
 		poRect bbox;
 	};
 	struct layout_line {
-		layout_line() : width(0), ypos(0), word_count(0) {}
+		layout_line() : word_count(0) {}
 		std::vector<layout_glyph> glyphs;
-		float width, ypos;
+		poRect bounds;
 		int word_count;
 	};
 	std::vector<layout_line> lines;
 	
-	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, float &width, layout_line &line);
-	void breakLine(float &widest, std::vector<layout_line> &lines, layout_line &line);
+	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint size, layout_line &line);
+	void breakLine(std::vector<layout_line> &lines, layout_line &line);
 	void alignText();
 	
 	std::string _text;

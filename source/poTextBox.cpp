@@ -15,6 +15,8 @@ using namespace boost;
 #include <boost/tokenizer.hpp>
 #include <utf8.h>
 
+#include <float.h>
+
 poTextBox::poTextBox()
 :	_text("")
 ,	color(poColor::white)
@@ -80,50 +82,54 @@ poFont const*poTextBox::font(const std::string &name) {
 		return _font;
 }
 
-void poTextBox::addGlyphsToLine(std::vector<layout_glyph> &glyphs, float &width, layout_line &line) {
+void poTextBox::addGlyphsToLine(std::vector<layout_glyph> &glyphs, poPoint size, layout_line &line) {
 	BOOST_FOREACH(layout_glyph &glyph, glyphs) {
-		glyph.bbox.origin += poPoint(line.width, line.ypos);
+		glyph.bbox.origin = glyph.bbox.origin + poPoint(line.bounds.size.x, line.bounds.origin.y);
 		line.glyphs.push_back(glyph);
 	}
-	
-	line.width += width;
+
+	line.bounds.size.x += size.x;
+	line.bounds.size.y = std::max(line.bounds.size.y, size.y);
 	line.word_count += 1;
 	glyphs.clear();
-	
-	width = 0;
 }
 
-void poTextBox::breakLine(float &widest, vector<layout_line> &lines, layout_line &line) {
-	widest = max(widest, line.width);
+void poTextBox::breakLine(vector<layout_line> &lines, layout_line &line) {
 	lines.push_back(line);
-	
+
 	line = layout_line();
-	line.ypos = lines.size() * _font->lineHeight();
+	line.bounds.origin.y = lines.size() * _font->lineHeight();
 }
 
 poTextBox &poTextBox::layout() {
 	lines.clear();
+	text_bounds.set(0,0,0,0);
+	
+	if(_text.empty())
+		return *this;
+	
 	layout_line line;
 	
-	float widest_line = 0.f;
 	_font->glyph(' ');
 	float spacer = _font->glyphAdvance().x;
-	
+
 	tokenizer< char_separator<char> > tok(text(), char_separator<char>(" "));
 	for(tokenizer< char_separator<char> >::iterator word=tok.begin(); word!=tok.end(); ++word) {
-		float w = 0;
+		poPoint size(0,0);
 		vector<layout_glyph> glyphs;
 		
 		string::const_iterator ch=word->begin();
 		while(ch != word->end()) {
 			uint codepoint = utf8::next(ch, word->end());
 			if(codepoint == '\n') {
-				addGlyphsToLine(glyphs, w, line);
-				breakLine(widest_line, lines, line);
+				addGlyphsToLine(glyphs, size, line);
+				text_bounds.include(line.bounds.origin + line.bounds.size);
+				breakLine(lines, line);
+				size.set(0,0,0);
 				continue;
 			}
 			else if(codepoint == '\t') {
-				w += spacer * 4;
+				size.x += spacer * 4;
 				continue;
 			}
 			
@@ -136,83 +142,80 @@ poTextBox &poTextBox::layout() {
 			layout_glyph glyph;
 			glyph.glyph = codepoint;
 			glyph.bbox = _font->glyphBounds();
-			glyph.bbox.origin += poPoint(w, 0) + _font->glyphBearing() + kern;
-			
+			glyph.bbox.origin += poPoint(size.x, 0) + _font->glyphBearing() + kern;
 			glyphs.push_back(glyph);
 
-			w += _font->glyphAdvance().x + kern.x;
+			size.x += _font->glyphAdvance().x + kern.x;
+			size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
 			
-			if(w + line.width > bounds().width() && line.word_count >= 1) {
-				line.width -= spacer;
-				breakLine(widest_line, lines, line);
+			if(size.x + line.bounds.size.x > bounds().width() && line.word_count >= 1) {
+				line.bounds.size.x -= spacer;
+				text_bounds.include(line.bounds.origin + line.bounds.size);
+				breakLine(lines, line);
 			}
 		}
 		
-		w += spacer;
-		addGlyphsToLine(glyphs, w, line);
+		size.x += spacer;
+		addGlyphsToLine(glyphs, size, line);
 	}
 	
-	widest_line = max(widest_line, line.width-=spacer);
+	line.bounds.size.x -= spacer;
+	text_bounds.include(line.bounds.origin + line.bounds.size);
 	lines.push_back(line);
-	text_bounds.set(0,0,widest_line,line.ypos+_font->lineHeight());
-	
 	alignText();
+	
+	return *this;
 }
 
 void poTextBox::alignText() {
-	
-	if(lines.empty()) {
-		text_bounds.set(0,0,0,0);
-		return;
-	}
-	
-	//text_bounds.set(FLT_MAX, FLT_MAX, FLT_MIN, FLT_MIN);
-	
 	poRect frame = bounds();
-	poPoint glyphOffset(0.f, 0.f);
-	float textYpos = 0.f;
-	
+
 	BOOST_FOREACH(layout_line &line, lines) {
-		if(line.ypos > textYpos) textYpos = line.ypos;
-	}
-	
-	BOOST_FOREACH(layout_line &line, lines) {
-		
+		poPoint glyphOffset(0.f, 0.f);
+
 		switch(align) {
 			case PO_ALIGN_TOP_LEFT:
 				break;
 			case PO_ALIGN_TOP_CENTER:
-				glyphOffset.x = (frame.width() - line.width)/2; break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x)/2;
+				break;
 			case PO_ALIGN_TOP_RIGHT:
-				glyphOffset.x = (frame.width() - line.width); break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x); 
+				break;
 			case PO_ALIGN_CENTER_LEFT:
-				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+				glyphOffset.y = (frame.height() - text_bounds.height())/2;
+				break;
 			case PO_ALIGN_CENTER_CENTER:
-				glyphOffset.x = (frame.width() - line.width)/2;
-				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x)/2;
+				glyphOffset.y = (frame.height() - text_bounds.height())/2;
+				break;
 			case PO_ALIGN_CENTER_RIGHT:
-				glyphOffset.x = (frame.width() - line.width);
-				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x); 
+				glyphOffset.y = (frame.height() - text_bounds.height())/2;
+				break;
 			case PO_ALIGN_BOTTOM_LEFT:
-				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+				glyphOffset.y = (frame.height() - text_bounds.height());
+				break;
 			case PO_ALIGN_BOTTOM_CENTER:
-				glyphOffset.x = (frame.width() - line.width)/2;
-				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x)/2; 
+				glyphOffset.y = (frame.height() - text_bounds.height());
+				break;
 			case PO_ALIGN_BOTTOM_RIGHT:
-				glyphOffset.x = (frame.width() - line.width);
-				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
+				glyphOffset.x = (frame.width() - line.bounds.size.x); 
+				glyphOffset.y = (frame.height() - text_bounds.height());
+				break;
 		}
+		
+		line.bounds.origin += glyphOffset;
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
-			glyph.bbox.origin.x += glyphOffset.x;
-			glyph.bbox.origin.y += glyphOffset.y;
+			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
 		}
-		
-		text_bounds.origin.x += glyphOffset.x;
-		text_bounds.origin.y += glyphOffset.y;
-
-		//text_bounds.size.x = std::max(text_bounds.size.x, glyphOffset.x+line.width);
-		//text_bounds.size.y = std::max(text_bounds.size.y, glyphOffset.y+line.ypos);
+	}
+	
+	text_bounds = lines[0].bounds;
+	for(int i=1; i<lines.size(); i++) {
+		text_bounds.include(lines[i].bounds);
 	}
 }
 
@@ -223,6 +226,11 @@ void poTextBox::draw() {
 //	}
 //
     if(draw_bounds) {
+		applyColor(poColor::white);
+		BOOST_FOREACH(layout_line &line, lines) {
+			drawStroke(line.bounds);
+		}
+		
         applyColor(poColor::dk_grey);
         drawStroke(textBounds());
 	

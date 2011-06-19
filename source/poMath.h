@@ -84,6 +84,19 @@ inline void capToRange(poPoint *pt, float low, float high) {
 	capToRange(&pt->z, low, high);
 }
 
+// will round -.5 to -1
+inline float roundSym(float f) {
+	return (f > 0.0) ? floor(f + 0.5) : ceil(f - 0.5);
+}
+
+inline float round(float f) {
+	return floor(f + 0.5);
+}
+
+inline poPoint round(poPoint p) {
+	return poPoint(round(p.x), round(p.y), round(p.z));
+}
+
 inline std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
 	std::vector<poPoint> response;
 	for(int i=0; i<resolution; i++) {
