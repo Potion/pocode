@@ -186,21 +186,21 @@ void poTextBox::alignText() {
 			case PO_ALIGN_TOP_RIGHT:
 				glyphOffset.x = (frame.width() - line.width); break;
 			case PO_ALIGN_CENTER_LEFT:
-				glyphOffset.y = (frame.height() - textYpos)/2; break;
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
 			case PO_ALIGN_CENTER_CENTER:
 				glyphOffset.x = (frame.width() - line.width)/2;
-				glyphOffset.y = (frame.height() - textYpos)/2; break;
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
 			case PO_ALIGN_CENTER_RIGHT:
 				glyphOffset.x = (frame.width() - line.width);
-				glyphOffset.y = (frame.height() - textYpos)/2; break;
+				glyphOffset.y = (frame.height() - textYpos)/2 - text_bounds.size.y/2; break;
 			case PO_ALIGN_BOTTOM_LEFT:
-				glyphOffset.y = (frame.height() - textYpos); break;
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
 			case PO_ALIGN_BOTTOM_CENTER:
 				glyphOffset.x = (frame.width() - line.width)/2;
-				glyphOffset.y = (frame.height() - textYpos); break;
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
 			case PO_ALIGN_BOTTOM_RIGHT:
 				glyphOffset.x = (frame.width() - line.width);
-				glyphOffset.y = (frame.height() - textYpos); break;
+				glyphOffset.y = frame.height() - textYpos - text_bounds.size.y; break;
 		}
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
@@ -208,10 +208,10 @@ void poTextBox::alignText() {
 			glyph.bbox.origin.y += glyphOffset.y;
 		}
 		
-		text_bounds.origin.x = std::min(text_bounds.origin.x, glyphOffset.x);
-		//text_bounds.origin.y = std::min(text_bounds.origin.y, glyphOffset.y);
+		text_bounds.origin.x += glyphOffset.x;
+		text_bounds.origin.y += glyphOffset.y;
 
-		text_bounds.size.x = std::max(text_bounds.size.x, glyphOffset.x+line.width);
+		//text_bounds.size.x = std::max(text_bounds.size.x, glyphOffset.x+line.width);
 		//text_bounds.size.y = std::max(text_bounds.size.y, glyphOffset.y+line.ypos);
 	}
 }
