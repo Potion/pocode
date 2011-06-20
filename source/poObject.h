@@ -20,6 +20,7 @@ typedef std::vector<poObject*> poObjectVec;
 class poObjectModifier;
 typedef std::vector<poObjectModifier*> poObjectModifierVec;
 
+class poWindow;
 
 class poObject
 :	public boost::noncopyable
@@ -79,7 +80,8 @@ public:
 	virtual poRect	calculateBounds(bool include_children=false);
 	
 	// OBJECT PROPERTIES
-	poObject*		parent();
+	poObject*		parent() const;
+	bool			isInWindow() const;
 	
 	std::string		name() const;
 	poObject&		name(const std::string &str);
@@ -139,6 +141,7 @@ private:
 	void			pushObjectMatrix();
 	void			popObjectMatrix();
 	void			localizeEvent(poEvent*, poEvent*, poPoint);
+	void			inWindow(bool b);
 	
 	poObjectVec             children;
     poObjectModifierVec     modifiers;
@@ -159,6 +162,9 @@ private:
 	bool			_visible;
 	poMatrixOrder	_matrix_order;
 	int				_draw_order;
+	bool			in_window;
+	
+	friend class poWindow;
 };
 
 template <typename T>

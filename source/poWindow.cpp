@@ -36,6 +36,7 @@ poWindow::poWindow(const char *title, void *handle, uint root_id, poRect bounds)
 {
 	makeCurrent();
 	root = createObjectForID(root_id);
+	root->inWindow(true);
 }
 
 poWindow::~poWindow() {
