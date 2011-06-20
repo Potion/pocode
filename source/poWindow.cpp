@@ -20,11 +20,11 @@ poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
 	return NULL;
 }
 
-poWindow::poWindow(const char *title, void *handle, uint root_id, poRect bounds)
+poWindow::poWindow(const char *title, void *handle, uint root_id, poRect b)
 :	title_(title)
 ,	handle(handle)
 ,	root(NULL)
-,	bounds(bounds)
+,	_bounds(b)
 ,   mouse_receiver(NULL)
 ,   mouse_hover(NULL)
 ,   key_receiver(NULL)
@@ -45,7 +45,7 @@ poWindow::~poWindow() {
 }
 
 void poWindow::moveTo(poRect rect) {
-	bounds = rect;
+	_bounds = rect;
 	applicationMoveWindow(this, rect);
 }
 
@@ -55,7 +55,7 @@ void poWindow::fullscreen(bool b) {
 }
 
 int poWindow::x() const {
-	return bounds.origin.x;
+	return _bounds.origin.x;
 }
 
 std::string poWindow::title() const {
@@ -63,15 +63,19 @@ std::string poWindow::title() const {
 }
 
 int poWindow::y() const {
-	return bounds.origin.y;
+	return _bounds.origin.y;
 }
 
 int poWindow::width() const {
-	return bounds.size.x;
+	return _bounds.size.x;
+}
+
+poRect poWindow::bounds() const {
+	return _bounds;
 }
 
 int poWindow::height() const {
-	return bounds.size.y;
+	return _bounds.size.y;
 }
 
 float poWindow::framerate() const {
@@ -167,7 +171,6 @@ void poWindow::processEvents() {
 				
 			case PO_MOUSE_MOVE_EVENT:
 			{
-				
 				// push through the mouse move
 				poEventCenter::get()->notify(event);
 				
@@ -215,6 +218,10 @@ void poWindow::processEvents() {
 				}
 				break;
 
+			case PO_WINDOW_RESIZED_EVENT:
+				poEventCenter::get()->notify(event);
+				break;
+				
 			default:
 				// just eat it
 				break;
@@ -285,12 +292,15 @@ void poWindow::keyUp(int key, int code, int mod) {
 }
 
 void poWindow::resize(int w, int h) {
-	bounds.size.x = w;
-	bounds.size.y = h;
+	resize(_bounds.origin.x, _bounds.origin.y, w, h);
 }
 
 void poWindow::resize(int x, int y, int w, int h) {
-	bounds.set(x,y,w,h);
+	_bounds.set(x,y,w,h);
+	
+	poEvent event;
+	event.type = PO_WINDOW_RESIZED_EVENT;
+	received.push_back(event);
 }
 
 void *poWindow::osDependentHandle() {

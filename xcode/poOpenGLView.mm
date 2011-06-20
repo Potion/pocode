@@ -73,8 +73,11 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)dealloc {
+	[self stopAnimating];
+	
 	delete self.appWindow;
 	self.appWindow = nil;
+
 	[super dealloc];
 }
 
@@ -95,7 +98,8 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		void (^resizeBlock)(NSNotification*) = ^(NSNotification*){
 			if(self.appWindow && self.window) {
 				NSRect rect = [self.window contentRectForFrameRect:self.window.frame];
-				self.appWindow->resize(rect.size.width, rect.size.height);
+				rect.origin = self.window.frame.origin;
+				self.appWindow->resize(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 			}
 		};
 		
@@ -115,15 +119,9 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	}
 }
 
--(void)viewDidEndLiveResize {
-	if(self.appWindow) {
-		NSRect rect = self.bounds;
-		self.appWindow->resize(rect.origin.x, rect.origin.y,
-							   rect.size.width, rect.size.height);
-	}
-	
+-(void)viewDidStartLiveResize {
+	[self stopAnimating];
 	[super viewDidEndLiveResize];
-	[self startAnimating];
 }
 
 -(BOOL)isAnimating {
