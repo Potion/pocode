@@ -23,6 +23,8 @@ MouseEventsApp::MouseEventsApp() {
     rectangle->fillColor(poColor::lt_grey);
     addChild(rectangle);
     
+    // note the events that can be added to the main application
+    
     // no click necessary
     rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
     rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);

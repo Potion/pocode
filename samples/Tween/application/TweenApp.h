@@ -3,7 +3,7 @@
  *
  *
  *  This sample demonstrates the variety of tweens
- *
+ *	using "pho" instead of the all too common foo :)
  */
 
 #include "poObject.h"
@@ -17,6 +17,7 @@ public:
 	virtual void eventHandler(poEvent *event);
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
     
-    poRectShape* square;
+    poRectShape* pho;
+	poOvalShape* banh;
 
 };
