@@ -1,4 +1,6 @@
 #include "poShape2D.h"
+#include "Helpers.h"
+#include "LineExtruder.h"
 
 poShape2D::poShape2D()
 :	enable_fill(true)

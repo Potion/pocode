@@ -84,6 +84,9 @@
 		E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */; };
 		E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
 		E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
+		E8CE963D13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
+		E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
+		E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CE963C13B004E900DFB769 /* LineExtruder.h */; };
 		E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E51B3E13A13E5D008C67FF /* BinPacker.h */; };
@@ -167,6 +170,8 @@
 		E8C7E71513913E3A00E6848E /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/poApplication.h; sourceTree = "<group>"; };
 		E8C7E71613913E3A00E6848E /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/poWindow.cpp; sourceTree = "<group>"; };
 		E8C7E71713913E3A00E6848E /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/poWindow.h; sourceTree = "<group>"; };
+		E8CE963B13B004E800DFB769 /* LineExtruder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineExtruder.cpp; path = ../source/LineExtruder.cpp; sourceTree = "<group>"; };
+		E8CE963C13B004E900DFB769 /* LineExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineExtruder.h; path = ../source/LineExtruder.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
 		E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinPacker.cpp; path = ../source/BinPacker.cpp; sourceTree = "<group>"; };
 		E8E51B3E13A13E5D008C67FF /* BinPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BinPacker.h; path = ../source/BinPacker.h; sourceTree = "<group>"; };
@@ -264,6 +269,8 @@
 				E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */,
 				E8E8E54613A955D6008AE1BF /* FileNotFoundImage.h */,
 				E8E8E54513A955D6008AE1BF /* FileNotFoundImage.cpp */,
+				E8CE963C13B004E900DFB769 /* LineExtruder.h */,
+				E8CE963B13B004E800DFB769 /* LineExtruder.cpp */,
 				E8B2D0C6132E9F78002BE3D9 /* poRect.h */,
 				E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */,
 				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
@@ -357,6 +364,7 @@
 				E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */,
 				E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */,
 				E8E8E54913A955D6008AE1BF /* FileNotFoundImage.h in Headers */,
+				E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +492,7 @@
 				E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */,
 				E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */,
 				E8E8E54813A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */,
+				E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +528,7 @@
 				E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */,
 				E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */,
 				E8E8E54713A955D6008AE1BF /* FileNotFoundImage.cpp in Sources */,
+				E8CE963D13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -115,9 +115,6 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[window setAcceptsMouseMovedEvents:YES];
 	[window setReleasedWhenClosed:YES];
 	[windows addObject:window];
-	
-	NSLog(@"%@", NSStringFromRect([window frame]));
-
 
 	if(type == WINDOW_TYPE_FULLSCREEN)
 		[self fullscreenWindow:window value:YES];

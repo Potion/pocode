@@ -67,4 +67,51 @@ bool pathToFolder(const std::string &folder_name, fs::path *path) {
 	return true;
 }
 
+std::vector<poPoint> roundedRect(float width, float height, float rad) {
+	std::vector<poPoint> response;
+	std::vector<poPoint> tmp;
+	
+	tmp = quadTo(poPoint(0,rad), poPoint(rad, 0), poPoint(0, 0), 10);
+	response.insert(response.end(), tmp.begin(), tmp.end());
+	
+	tmp = quadTo(poPoint(width-rad,0), poPoint(width,rad), poPoint(width, 0), 10);
+	response.insert(response.end(), tmp.begin(), tmp.end());
+	
+	tmp = quadTo(poPoint(width,height-rad), poPoint(width-rad, height), poPoint(width, height), 10);
+	response.insert(response.end(), tmp.begin(), tmp.end());
+	
+	tmp = quadTo(poPoint(rad,height), poPoint(0, height-rad), poPoint(0, height), 10);
+	response.insert(response.end(), tmp.begin(), tmp.end());
+	
+	return response;
+}
 
+std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
+	std::vector<poPoint> response;
+	for(int i=0; i<resolution; i++) {
+		float t = i / float(resolution-1);
+		float invt = 1.f - t;
+		poPoint pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
+		response.push_back(pt);
+	}
+	return response;
+}
+
+std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
+	std::vector<poPoint> response;
+	for(int i=0; i<resolution; i++) {
+		float t = i / float(resolution-1);
+		float invt = 1.f - t;
+		poPoint pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
+		response.push_back(pt);
+	}
+	return response;
+}
+
+float curveLength(const std::vector<poPoint> &curve) {
+	float len = 0;
+	for(int i=0; i<curve.size()-1; i++) {
+		len += (curve[i+1] - curve[i]).length();
+	}
+	return len;
+}

@@ -7,43 +7,43 @@
 //
 
 #include "poShapeBasics2D.h"
-
+#include "Helpers.h"
 
 
 #pragma mark poRectShape
 
 poRectShape::poRectShape()
 {
-    construct( 100,100 );
+    construct( 100,100,0.f );
 }
 
-poRectShape::poRectShape( float _width, float _height )
+poRectShape::poRectShape( float _width, float _height, float rad )
 {
-    construct( _width, _height );
+    construct( _width, _height, rad );
 }
 
 poRectShape::poRectShape( poImage *img) {
-	construct(img->width(), img->height());
+	construct(img->width(), img->height(), 0.f);
 	poTexture tex(img);
 	placeTexture(&tex);
 }
 
 poRectShape::poRectShape( poTexture* tex )
 {
-    construct( tex->width(), tex->height() );
+    construct( tex->width(), tex->height(), 0.f );
     placeTexture( tex );
 }
 
 poRectShape::poRectShape( const std::string &str) {
 	poTexture tex(str);
-	construct(tex.width(), tex.height());
+	construct(tex.width(), tex.height(), 0.f);
 	placeTexture(&tex);
 }
 
-void    poRectShape::reshape( float w, float h )
+void    poRectShape::reshape( float w, float h, float rad )
 {
 	clearPoints();
-	construct(w, h);
+	construct(w, h, rad);
 	
 	calculateBounds();
 	if(isStrokeEnabled())
@@ -51,56 +51,26 @@ void    poRectShape::reshape( float w, float h )
 }
 
 poRectShape::poRectShape( float w, float h, poTexture* tex, poTextureFitOption fit ) {
-	construct(w, h);
+	construct(w, h, 0);
 	placeTexture(tex, fit);
 }
 
-void poRectShape::construct( float w, float h )
+void poRectShape::construct( float w, float h, float rad )
 {
     width = w;
     height = h;
-    
-    addPoint( poPoint(0,0) );
-    addPoint( poPoint(width,0) );
-    addPoint( poPoint(width,height) );
-    addPoint( poPoint(0,height) );
-}
-
-
-#pragma mark poRoundRectShape
-
-poRoundRectShape::poRoundRectShape(float w, float h, float corner_radius) {
-	reshape(w,h,corner_radius);
-}
-
-void poRoundRectShape::reshape(float w, float h) {
-	reshape(w, h, rad);
-}
-
-void poRoundRectShape::reshape(float w, float h, float corner_radius) {
-	width = w;
-	height = h;
-	rad = corner_radius;
-
-	clearPoints();
-	construct();
-}
-
-void poRoundRectShape::construct() {
-	addPoint(poPoint(0, rad));
-	addPoints(quadTo(getPoints().back(), poPoint(rad, 0), poPoint(0, 0), 10));
-
-	addPoint(poPoint(width-rad, 0));
-	addPoints(quadTo(getPoints().back(), poPoint(width,rad), poPoint(width, 0), 10));
-
+	radius = rad;
 	
-	addPoint(poPoint(width, height-rad));
-	addPoints(quadTo(getPoints().back(), poPoint(width-rad, height), poPoint(width, height), 10));
-
-	addPoint(poPoint(rad, height));
-	addPoints(quadTo(getPoints().back(), poPoint(0, height-rad), poPoint(0, height), 10));
-	
-	closed(true);
+	if(rad > 0.f) {
+		addPoints(roundedRect(width,height,rad));
+		closed(true);
+	}
+    else {
+		addPoint( poPoint(0,0) );
+		addPoint( poPoint(width,0) );
+		addPoint( poPoint(width,height) );
+		addPoint( poPoint(0,height) );
+	}
 }
 
 #pragma mark poOvalShape

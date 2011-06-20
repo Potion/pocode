@@ -22,15 +22,13 @@ void cleanupApplication() {
 
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
-	addEvent(PO_WINDOW_RESIZED_EVENT, this);
 	
-	poShape2D *shape = NULL;
-	
-	shape = new poRectShape("images/testimg.png");
-	addChild(shape);
-	
-	shape = new poRectShape("images/108_Dry Dock 5_regular.png");
-	addChild(shape);
+	poFont font("Helvetica", 50);
+	poTextBox *tb = new poTextBox(300,300);
+	tb->text("hello world button").font(PO_FONT_REGULAR, &font).buttonize(poColor::red, poColor::green, 50, 50).textAlignment(PO_ALIGN_CENTER_CENTER).layout().position(100,100);
+	tb->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	tb->addEvent(PO_MOUSE_RELEASE_EVENT, this);
+	addChild(tb);
 }
 
 void TestObj::draw() {
@@ -40,10 +38,11 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	if(event->type == PO_WINDOW_RESIZED_EVENT)
-		cout << "resized " << getWindowBounds() << endl;
+	poTextBox *tb = static_cast<poTextBox*>(event->source);
+	if(event->type == PO_MOUSE_PRESS_EVENT)
+		tb->buttonize(poColor::green, poColor::red, 50, 50);
 	else
-		cout << "clicked " << event->message << endl;
+		tb->buttonize(poColor::red, poColor::green, 50, 50);
 }
 
 
