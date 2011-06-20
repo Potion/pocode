@@ -23,12 +23,9 @@ void cleanupApplication() {
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 	
-	poFont font("Helvetica", 50);
-	poTextBox *tb = new poTextBox(300,300);
-	tb->text("hello world button").font(PO_FONT_REGULAR, &font).buttonize(poColor::red, poColor::green, 50, 50).textAlignment(PO_ALIGN_CENTER_CENTER).layout().position(100,100);
-	tb->addEvent(PO_MOUSE_PRESS_EVENT, this);
-	tb->addEvent(PO_MOUSE_RELEASE_EVENT, this);
-	addChild(tb);
+	poRectShape *shape = new poRectShape("images/kittens.jpeg");
+	shape->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	addChild(shape);
 }
 
 void TestObj::draw() {
@@ -38,11 +35,19 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	poTextBox *tb = static_cast<poTextBox*>(event->source);
-	if(event->type == PO_MOUSE_PRESS_EVENT)
-		tb->buttonize(poColor::green, poColor::red, 50, 50);
-	else
-		tb->buttonize(poColor::red, poColor::green, 50, 50);
+	poShape2D *shape = static_cast<poShape2D*>(event->source);
+	
+	static bool alfred = true;
+	if(alfred) {
+		poTexture tex("images/alfred_e_neuman.jpg");
+		shape->placeTexture(&tex, PO_TEX_FIT_V);
+	}
+	else {
+		poTexture tex("images/kittens.jpeg");
+		shape->placeTexture(&tex);
+	}
+	
+	alfred = !alfred;
 }
 
 
