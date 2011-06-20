@@ -32,7 +32,7 @@
 		2B95C09413AFB6E6005C06CD /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		2B95C09513AFB6E6005C06CD /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		2B95C09813AFB6E6005C06CD /* TweenApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TweenApp.h; path = ../application/TweenApp.h; sourceTree = "<group>"; };
-		2B95C09913AFB6E6005C06CD /* TweenApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TweenApp.cpp; path = ../application/TweenApp.cpp; sourceTree = "<group>"; };
+		2B95C09913AFB6E6005C06CD /* TweenApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TweenApp.cpp; path = ../application/TweenApp.cpp; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
