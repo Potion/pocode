@@ -26,7 +26,7 @@ MouseEventsApp::MouseEventsApp() {
     // no click necessary
     rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
     rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);
-    rectangle->addEvent(PO_MOUSE_MOVE_EVENT, this);
+    addEvent(PO_MOUSE_MOVE_EVENT, this);
 
     // linked to an object with click events
     rectangle->addEvent(PO_MOUSE_PRESS_EVENT, this);
@@ -34,8 +34,8 @@ MouseEventsApp::MouseEventsApp() {
     rectangle->addEvent(PO_MOUSE_DRAG_EVENT, this);
 
     // global click events
-    rectangle->addEvent(PO_MOUSE_DOWN_EVENT, this);
-    rectangle->addEvent(PO_MOUSE_UP_EVENT, this);
+    addEvent(PO_MOUSE_DOWN_EVENT, this);
+    addEvent(PO_MOUSE_UP_EVENT, this);
     
     // specific click events
     rectangle->addEvent(PO_MOUSE_LEFT, this);
@@ -48,27 +48,30 @@ MouseEventsApp::~MouseEventsApp() {
 }
 
 void MouseEventsApp::eventHandler(poEvent *event){
-    if(event->type == PO_MOUSE_ENTER_EVENT){
-        cout<<"PO_MOUSE_ENTER_EVENT \n";
-    }else if(event->type == PO_MOUSE_LEAVE_EVENT){
-        cout<<"PO_MOUSE_LEAVE_EVENT \n";
-    }else if(event->type == PO_MOUSE_MOVE_EVENT){
-        //cout<<"PO_MOUSE_MOVE_EVENT \n";
-    }else if(event->type == PO_MOUSE_PRESS_EVENT){
-        cout<<"PO_MOUSE_PRESS_EVENT \n";
-    }else if(event->type == PO_MOUSE_RELEASE_EVENT){
-        cout<<"PO_MOUSE_RELEASE_EVENT \n";
-    }else if(event->type == PO_MOUSE_DRAG_EVENT){
-        cout<<"PO_MOUSE_DRAG_EVENT \n";
-    }else if(event->type == PO_MOUSE_DOWN_EVENT){
-        cout<<"PO_MOUSE_DOWN_EVENT \n";
-    }else if(event->type == PO_MOUSE_UP_EVENT){
-        cout<<"PO_MOUSE_UP_EVENT \n";
-    }else if(event->type == PO_MOUSE_LEFT){
-        cout<<"PO_MOUSE_LEFT \n";
-    }else if(event->type == PO_MOUSE_MIDDLE){
-        cout<<"PO_MOUSE_MIDDLE \n";
-    }else if(event->type == PO_MOUSE_RIGHT){
-        cout<<"PO_MOUSE_RIGHT \n";
+    switch(event->type){
+        case PO_MOUSE_ENTER_EVENT:  cout<<"PO_MOUSE_ENTER_EVENT \n";
+            break;
+        case PO_MOUSE_LEAVE_EVENT:  cout<<"PO_MOUSE_LEAVE_EVENT \n";
+            break;
+        case PO_MOUSE_MOVE_EVENT:  //cout<<"PO_MOUSE_MOVE_EVENT \n";
+            break;
+        case PO_MOUSE_PRESS_EVENT:  cout<<"PO_MOUSE_PRESS_EVENT \n";
+            break;
+        case PO_MOUSE_RELEASE_EVENT:  cout<<"PO_MOUSE_RELEASE_EVENT \n";
+            break;
+        case PO_MOUSE_DRAG_EVENT:  cout<<"PO_MOUSE_DRAG_EVENT \n";
+            break;
+        case PO_MOUSE_DOWN_EVENT:  cout<<"PO_MOUSE_DOWN_EVENT \n";
+            break;
+        case PO_MOUSE_UP_EVENT:  cout<<"PO_MOUSE_UP_EVENT \n";
+            break;
+        case PO_MOUSE_LEFT:  cout<<"PO_MOUSE_LEFT \n";
+            break;
+        case PO_MOUSE_MIDDLE:  cout<<"PO_MOUSE_MIDDLE \n";
+            break;
+        case PO_MOUSE_RIGHT:  cout<<"PO_MOUSE_RIGHT \n";
+            break;
+        default:
+            break;
     }
 }
