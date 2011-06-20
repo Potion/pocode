@@ -10,7 +10,7 @@
 
 
 
-// ============== poRectShape ================================
+#pragma mark poRectShape
 
 poRectShape::poRectShape()
 {
@@ -67,7 +67,43 @@ void poRectShape::construct( float w, float h )
 }
 
 
-// ============== poOvalShape ================================
+#pragma mark poRoundRectShape
+
+poRoundRectShape::poRoundRectShape(float w, float h, float corner_radius) {
+	reshape(w,h,corner_radius);
+}
+
+void poRoundRectShape::reshape(float w, float h) {
+	reshape(w, h, rad);
+}
+
+void poRoundRectShape::reshape(float w, float h, float corner_radius) {
+	width = w;
+	height = h;
+	rad = corner_radius;
+
+	clearPoints();
+	construct();
+}
+
+void poRoundRectShape::construct() {
+	addPoint(poPoint(0, rad));
+	addPoints(quadTo(getPoints().back(), poPoint(rad, 0), poPoint(0, 0), 10));
+
+	addPoint(poPoint(width-rad, 0));
+	addPoints(quadTo(getPoints().back(), poPoint(width,rad), poPoint(width, 0), 10));
+
+	
+	addPoint(poPoint(width, height-rad));
+	addPoints(quadTo(getPoints().back(), poPoint(width-rad, height), poPoint(width, height), 10));
+
+	addPoint(poPoint(rad, height));
+	addPoints(quadTo(getPoints().back(), poPoint(0, height-rad), poPoint(0, height), 10));
+	
+	closed(true);
+}
+
+#pragma mark poOvalShape
 
 poOvalShape::poOvalShape()
 {

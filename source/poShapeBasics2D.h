@@ -28,6 +28,19 @@ protected:
     float   width, height;
 };
 
+class poRoundRectShape : public poShape2D
+{
+public:
+	poRoundRectShape(float w, float h, float corner_radius);
+	void reshape(float w, float h);
+	void reshape(float w, float h, float corner_radius);
+	
+protected:
+	void construct();
+	
+	float rad;
+	float width, height;
+};
 
 class poOvalShape : public poShape2D
 {
