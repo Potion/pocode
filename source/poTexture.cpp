@@ -423,6 +423,9 @@ void poTextureAtlas::startDrawing(uint unit) {
 	
 	glClientActiveTexture(GL_TEXTURE0+unit);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	glPushAttrib(GL_TEXTURE_BIT);
+	glEnable(GL_TEXTURE_2D);
 }
 
 void poTextureAtlas::bindPage(uint page) {
@@ -456,10 +459,6 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 
 		glVertexPointer(3, GL_FLOAT, 0, quad);
 		glTexCoordPointer(2, GL_FLOAT, 0, tcoords);
-		
-		textures[bound_page]->bind(unit);
-		glEnable(GL_TEXTURE_2D);
-
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 }
