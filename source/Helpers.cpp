@@ -51,3 +51,20 @@ void setCurrentPath(const fs::path &path) {
 fs::path currentPath() {
 	return fs::current_path();
 }
+
+bool pathToFolder(const std::string &folder_name, fs::path *path) {
+	fs::path response = currentPath();
+	while(!fs::exists(response / folder_name) && !fs::is_directory(response / folder_name) && response != "/") {
+		response = response.parent_path();
+	}
+	
+	if(response == "/") {
+		*path = "";
+		return false;
+	}
+	
+	*path = response;
+	return true;
+}
+
+
