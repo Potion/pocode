@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8736E3F113AFDA13008FFD89 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8736E3F013AFDA13008FFD89 /* Debug.xcconfig */; };
+		8736E3F313AFDA13008FFD89 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8736E3F213AFDA13008FFD89 /* Release.xcconfig */; };
+		8736E3F613AFDA13008FFD89 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8736E3F513AFDA13008FFD89 /* AppDelegate.mm */; };
+		8736E3F813AFDA13008FFD89 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8736E3F713AFDA13008FFD89 /* en.strings */; };
+		8736E3FA13AFDA13008FFD89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8736E3F913AFDA13008FFD89 /* main.m */; };
+		8736E3FC13AFDA13008FFD89 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 8736E3FB13AFDA13008FFD89 /* main.pch */; };
+		8736E3FF13AFDA13008FFD89 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8736E3FE13AFDA13008FFD89 /* main.xib */; };
+		8736E40213AFDA13008FFD89 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8736E40113AFDA13008FFD89 /* poOpenGLView.mm */; };
+		8736E40613AFDA13008FFD89 /* pixelArtApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8736E40513AFDA13008FFD89 /* pixelArtApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8736E3EB13AFDA13008FFD89 /* pixelArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8736E3F013AFDA13008FFD89 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		8736E3F213AFDA13008FFD89 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		8736E3F413AFDA13008FFD89 /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		8736E3F513AFDA13008FFD89 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		8736E3F713AFDA13008FFD89 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		8736E3F913AFDA13008FFD89 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		8736E3FB13AFDA13008FFD89 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		8736E3FD13AFDA13008FFD89 /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		8736E3FE13AFDA13008FFD89 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		8736E40013AFDA13008FFD89 /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		8736E40113AFDA13008FFD89 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		8736E40413AFDA13008FFD89 /* pixelArtApp.h */ = {isa = PBXFileReference; name = pixelArtApp.h; path = ../application/pixelArtApp.h; sourceTree = "<group>"; };
+		8736E40513AFDA13008FFD89 /* pixelArtApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pixelArtApp.cpp; path = ../application/pixelArtApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8736E3E813AFDA13008FFD89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8736E3E013AFDA13008FFD89 = {
+			isa = PBXGroup;
+			children = (
+				8736E3EE13AFDA13008FFD89 /* pixelArt */,
+				8736E3EC13AFDA13008FFD89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8736E3EC13AFDA13008FFD89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8736E3EB13AFDA13008FFD89 /* pixelArt.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8736E3EE13AFDA13008FFD89 /* pixelArt */ = {
+			isa = PBXGroup;
+			children = (
+				8736E3EF13AFDA13008FFD89 /* platform */,
+				8736E40313AFDA13008FFD89 /* application */,
+			);
+			path = pixelArt;
+			sourceTree = "<group>";
+		};
+		8736E3EF13AFDA13008FFD89 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				8736E3F013AFDA13008FFD89 /* Debug.xcconfig */,
+				8736E3F213AFDA13008FFD89 /* Release.xcconfig */,
+				8736E3F413AFDA13008FFD89 /* AppDelegate.h */,
+				8736E3F513AFDA13008FFD89 /* AppDelegate.mm */,
+				8736E3F713AFDA13008FFD89 /* en.strings */,
+				8736E3F913AFDA13008FFD89 /* main.m */,
+				8736E3FB13AFDA13008FFD89 /* main.pch */,
+				8736E3FD13AFDA13008FFD89 /* main.plist */,
+				8736E3FE13AFDA13008FFD89 /* main.xib */,
+				8736E40013AFDA13008FFD89 /* poOpenGLView.h */,
+				8736E40113AFDA13008FFD89 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		8736E40313AFDA13008FFD89 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				8736E40413AFDA13008FFD89 /* pixelArtApp.h */,
+				8736E40513AFDA13008FFD89 /* pixelArtApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8736E3EA13AFDA13008FFD89 /* pixelArt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8736E40913AFDA13008FFD89 /* Build configuration list for PBXNativeTarget "pixelArt" */;
+			buildPhases = (
+				8736E3E713AFDA13008FFD89 /* Sources */,
+				8736E3E813AFDA13008FFD89 /* Frameworks */,
+				8736E3E913AFDA13008FFD89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pixelArt;
+			productName = pixelArt;
+			productReference = 8736E3EB13AFDA13008FFD89 /* pixelArt.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8736E3E213AFDA13008FFD89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design LLC";
+			};
+			buildConfigurationList = 8736E3E513AFDA13008FFD89 /* Build configuration list for PBXProject "pixelArt" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8736E3E013AFDA13008FFD89;
+			productRefGroup = 8736E3EC13AFDA13008FFD89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8736E3EA13AFDA13008FFD89 /* pixelArt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8736E3E913AFDA13008FFD89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8736E3F113AFDA13008FFD89 /* Debug.xcconfig in Resources */,
+				8736E3F313AFDA13008FFD89 /* Release.xcconfig in Resources */,
+				8736E3F813AFDA13008FFD89 /* en.strings in Resources */,
+				8736E3FC13AFDA13008FFD89 /* main.pch in Resources */,
+				8736E3FF13AFDA13008FFD89 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8736E3E713AFDA13008FFD89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8736E3F613AFDA13008FFD89 /* AppDelegate.mm in Sources */,
+				8736E3FA13AFDA13008FFD89 /* main.m in Sources */,
+				8736E40213AFDA13008FFD89 /* poOpenGLView.mm in Sources */,
+				8736E40613AFDA13008FFD89 /* pixelArtApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8736E40713AFDA13008FFD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8736E3F013AFDA13008FFD89 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		8736E40813AFDA13008FFD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8736E3F213AFDA13008FFD89 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		8736E40A13AFDA13008FFD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		8736E40B13AFDA13008FFD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8736E3E513AFDA13008FFD89 /* Build configuration list for PBXProject "pixelArt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8736E40713AFDA13008FFD89 /* Debug */,
+				8736E40813AFDA13008FFD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8736E40913AFDA13008FFD89 /* Build configuration list for PBXNativeTarget "pixelArt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8736E40A13AFDA13008FFD89 /* Debug */,
+				8736E40B13AFDA13008FFD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8736E3E213AFDA13008FFD89 /* Project object */;
+}
