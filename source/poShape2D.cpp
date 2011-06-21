@@ -185,7 +185,7 @@ poColor poShape2D::getColor(int idx) {
 
 
 
-void poShape2D::alignment(poAlignment align) {
+poObject &poShape2D::alignment(poAlignment align) {
 	poObject::alignment(align);
 	
     // first calculate bounds
@@ -215,6 +215,8 @@ void poShape2D::alignment(poAlignment align) {
 	}
 	
 	offset(offset()-frame.origin);
+	
+	return *this;
 }
 
 

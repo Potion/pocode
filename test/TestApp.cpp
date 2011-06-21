@@ -21,13 +21,27 @@ void cleanupApplication() {
 }
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D());
+	addModifier((new poCamera2D())->resetsModelview(false));
 	addEvent(PO_WINDOW_RESIZED_EVENT, this);
-	
+
+	scale(.5,.5);
+
 	poShape2D *img = new poRectShape("images/testimg.png");
-	img->alignment(PO_ALIGN_CENTER_CENTER);
-	img->rotation_tween.set(360).setDuration(10).setRepeat(PO_TWEEN_REPEAT_REGULAR).setTweenFunction(linearFunc).start();
-	img->alphaTestTextures(true);
+	img->alphaTestTextures(true)
+		.fillColor(poColor::blue)
+		.offset(poPoint(-100,-100))
+		.rotation(25)
+		.name("1");
+	img->addEvent(PO_MOUSE_ENTER_EVENT, this);
+	img->addEvent(PO_MOUSE_LEAVE_EVENT, this);
+	addChild(img);
+	
+	img = new poRectShape("images/testimg.png");
+	img->alphaTestTextures(true)
+		.fillColor(poColor::green)
+		.alignment(PO_ALIGN_CENTER_CENTER)
+		.rotation(-80)
+		.name("2");
 	img->addEvent(PO_MOUSE_ENTER_EVENT, this);
 	img->addEvent(PO_MOUSE_LEAVE_EVENT, this);
 	addChild(img);
@@ -42,15 +56,16 @@ void TestObj::update() {
 void TestObj::eventHandler(poEvent *event) {
 	switch(event->type) {
 		case PO_WINDOW_RESIZED_EVENT:
-			event->source->getChild(0)->position(getWindowWidth()/2, getWindowHeight()/2);
+			event->source->getChild(0)->position(getWindowWidth()/3, getWindowHeight()/3);
+			event->source->getChild(1)->position(2*getWindowWidth()/3, 2*getWindowHeight()/3);
 			break;
 			
 		case PO_MOUSE_ENTER_EVENT:
-			printf("enter\n");
+			printf("enter %s\n", event->source->name().c_str());
 			break;
 			
 		case PO_MOUSE_LEAVE_EVENT:
-			printf("leave\n");
+			printf("leave %s\n", event->source->name().c_str());
 			break;
 	}
 }

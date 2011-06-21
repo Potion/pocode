@@ -36,7 +36,7 @@ public:
 	poColor				getColor(int idx); 
 	
     // alignment and bounds
-	virtual void		alignment(poAlignment align);
+	virtual poObject&	alignment(poAlignment align);
 	// this was a weird one: http://stackoverflow.com/questions/888235/overriding-a-bases-overloaded-function-in-c/888313#888313
 	using poObject::alignment;
 	
