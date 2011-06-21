@@ -4,14 +4,7 @@
 
 #include "poTween.h"
 #include "poObject.h"
-
-#include <mach/mach_time.h>
-float nowTime() {
-	static mach_timebase_info_data_t info;
-	if(info.denom == 0)
-		mach_timebase_info(&info);
-	return float(mach_absolute_time() * info.numer / info.denom * 1e-9);
-}
+#include "Helpers.h"
 
 poTweenBase::poTweenBase()
 :	state(NOT_RUNNING)
@@ -33,8 +26,8 @@ void poTweenBase::update() {
 		return;
 	
 	if(tween_func) {
-		float now = nowTime();
-		float dt = now - last_time;
+		double now = getTime();
+		double dt = now - last_time;
 		last_time = now;
 		
 		time += dt;
@@ -92,17 +85,17 @@ poTweenBase& poTweenBase::setTweenFunction(poTweenFunction func) {
 	return *this;
 }
 
-poTweenBase& poTweenBase::setDuration(float dur) {
+poTweenBase& poTweenBase::setDuration(double dur) {
 	duration = dur;
 	return *this;
 }
 
-poTweenBase& poTweenBase::setDelay(float del) {
+poTweenBase& poTweenBase::setDelay(double del) {
 	delay = del;
 	return *this;
 }
 
-poTweenBase& poTweenBase::setExtraValues(float e1, float e2) {
+poTweenBase& poTweenBase::setExtraValues(double e1, double e2) {
 	extra1 = e1;
 	extra2 = e2;
 	return *this;
@@ -148,7 +141,7 @@ void poTweenBase::reset() {
 void poTweenBase::startWithDelay(bool do_delay) {
 	state = RUNNING;
 	
-	last_time = nowTime();
+	last_time = getTime();
 	time = 0;
 	
 	if(do_delay) {
