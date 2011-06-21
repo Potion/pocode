@@ -108,6 +108,7 @@ poColor &poColor::set255(float r, float g, float b, float a) {
 	G = g / 255.f;
 	B = b / 255.f;
 	A = a / 255.f;
+	return *this;
 }
 
 std::string poColor::toString() const {
@@ -165,8 +166,8 @@ poColor hashPointerForColor(void *ptr) {
 	
 	GLubyte max = r>g ? (r>b ? r : b) : (g>b ? g : b);
 	
-	const int mult = 127;
-	const int add = 63;
+	int mult = 127;
+	int add = 63;
 	r = (r*mult)/max + add;
 	g = (g*mult)/max + add;
 	b = (b*mult)/max + add;

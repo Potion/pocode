@@ -20,88 +20,88 @@ poShape2D::poShape2D()
 {}
 
 void poShape2D::draw() {
-    
-    // push attributes
-    glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    
-    // do shape fill
-    if ( enable_fill ) {
-        // load shape point vertex array
-        glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
-        
-        // use fillColor or per point color
-        if(isAttributeEnabled(ATTRIB_COLOR)) {
-            glEnableClientState(GL_COLOR_ARRAY);
-            glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
-        }
-        else {
-            glColor4f(fill_color.R, fill_color.G, fill_color.B, fill_color.A*true_alpha);
-        }
-        
-        // setup textures and texture coordinates
-        if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
-            glPushAttrib(GL_TEXTURE_BIT);
-            
-            for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
-                if(textures[i]) {
-                    glClientActiveTexture(GL_TEXTURE0+i);
-                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-                    glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[i][0].x));
-
-                    textures[i]->bind(i);
-                    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
-                    glEnable(GL_TEXTURE_2D);
-                }
-            }
-        }
-        
-        // actually draw the filled shape
-        glDrawArrays(fill_draw_style, 0, (int)points.size());
-        
-        // disable textures
-        if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
-            for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
-                if(textures[i]) {
-                    textures[i]->unbind(i);
-                }
-            }
-            glPopAttrib();
-        }
-    }
-    
-    // do shape stroke
+	
+	// push attributes
+	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	
+	// do shape fill
+	if ( enable_fill ) {
+		// load shape point vertex array
+		glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+		
+		// use fillColor or per point color
+		if(isAttributeEnabled(ATTRIB_COLOR)) {
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
+		}
+		else {
+			glColor4f(fill_color.R, fill_color.G, fill_color.B, fill_color.A*true_alpha);
+		}
+		
+		// setup textures and texture coordinates
+		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+			glPushAttrib(GL_TEXTURE_BIT);
+			
+			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+				if(textures[i]) {
+					glClientActiveTexture(GL_TEXTURE0+i);
+					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+					glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[i][0].x));
+					
+					textures[i]->bind(i);
+					glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
+					glEnable(GL_TEXTURE_2D);
+				}
+			}
+		}
+		
+		// actually draw the filled shape
+		glDrawArrays(fill_draw_style, 0, (int)points.size());
+		
+		// disable textures
+		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+				if(textures[i]) {
+					textures[i]->unbind(i);
+				}
+			}
+			glPopAttrib();
+		}
+	}
+	
+	// do shape stroke
 	if(enable_stroke) {
-        // make sure this stuff is off
+		// make sure this stuff is off
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-        // set stroke color
+		
+		// set stroke color
 		glColor4f(stroke_color.R, stroke_color.G, stroke_color.B, stroke_color.A*true_alpha);
 		
-        // use standard OpenGL stroke or custom generated stroke
-        if ( !use_simple_stroke )
-        {
-            glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
-        }
-        else
-        {
-            glLineWidth( stroke_width );
-            glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
-            glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
-            if ( closed_ && points.size() > 2)
-            {
-                glBegin( GL_LINE_STRIP );
-                glVertex2f( points[0].x,points[0].y );
-                glVertex2f( points.back().x, points.back().y );
-                glEnd();
-            }
-        }
+		// use standard OpenGL stroke or custom generated stroke
+		if ( !use_simple_stroke )
+		{
+			glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
+		}
+		else
+		{
+			glLineWidth( stroke_width );
+			glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+			glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
+			if ( closed_ && points.size() > 2)
+			{
+				glBegin( GL_LINE_STRIP );
+				glVertex2f( points[0].x,points[0].y );
+				glVertex2f( points.back().x, points.back().y );
+				glEnd();
+			}
+		}
 		
 	}
 	
-    // pop attributes
+	// pop attributes
 	glPopClientAttrib();
 	
 	if(draw_bounds) {
@@ -118,7 +118,7 @@ poShape2D& poShape2D::addPoint(poPoint p) {
 }
 
 poShape2D& poShape2D::addPoint( float x, float y ) {
-    addPoint( poPoint(x,y) );
+	addPoint( poPoint(x,y) );
 	return *this;
 }
 
@@ -169,10 +169,10 @@ poPoint poShape2D::getPoint(int idx) {
 
 bool poShape2D::setPoint(int idx, poPoint p )
 {
-    if ( idx < 0 || idx >= numPoints() )
-        return false;
-    points[idx] = p;
-    return true;
+	if ( idx < 0 || idx >= numPoints() )
+		return false;
+	points[idx] = p;
+	return true;
 }
 
 poPoint poShape2D::getTexCoord(int idx, uint unit) {
@@ -185,14 +185,14 @@ poColor poShape2D::getColor(int idx) {
 
 
 
-void poShape2D::alignment(poAlignment align) {
+poObject &poShape2D::alignment(poAlignment align) {
 	poObject::alignment(align);
 	
-    // first calculate bounds
+	// first calculate bounds
 	calculateBounds();
 	poRect frame = bounds();
 	
-    // then set offset based upon bounds and alignment
+	// then set offset based upon bounds and alignment
 	switch(align) {
 		case PO_ALIGN_TOP_LEFT:
 			offset(0,0,0); break;
@@ -215,15 +215,17 @@ void poShape2D::alignment(poAlignment align) {
 	}
 	
 	offset(offset()-frame.origin);
+	
+	return *this;
 }
 
 
 poRect poShape2D::calculateBounds(bool include_children) {
-    // calculate the boounds
+	// calculate the boounds
 	poObject::calculateBounds(include_children);
 	
 	poRect frame = bounds();
-    // calculate our children's bounds
+	// calculate our children's bounds
 	BOOST_FOREACH(poPoint &point, points) {
 		frame.include(point);
 	}
@@ -287,19 +289,19 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 			case PO_TEX_FIT_NONE:
 				fitNone(rect, tex, tex_coords[unit], points);
 				break;
-			
+				
 			case PO_TEX_FIT_EXACT:
 				fitExact(rect, tex, tex_coords[unit], points);
 				break;
-			
+				
 			case PO_TEX_FIT_H:
 				fitHorizontal(rect, tex, tex_coords[unit], points);
 				break;
-			
+				
 			case PO_TEX_FIT_V:
 				fitVertical(rect, tex, tex_coords[unit], points);
 				break;
-			
+				
 			case PO_TEX_FIT_MIN:
 				if(tex->width() < tex->height())
 					fitHorizontal(rect, tex, tex_coords[unit], points);
@@ -320,7 +322,7 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 		}
 	}
 	else    // if texture is NULL, turn off texture
-    {
+	{
 		bool found_one = false;
 		for(int i=0; i<GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS; i++)
 			found_one |= (textures[i] != NULL);
@@ -449,7 +451,7 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, S
 		for(int i=0; i<segments.size()-1; i++) {
 			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, stroke_width);
 		}
-        
+		
 		if(!closed_) {
 			stroke.push_back(segments[segments.size()-1].p3);
 			stroke.push_back(segments[segments.size()-1].p4);
@@ -562,12 +564,12 @@ void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, p
 // otherwise, point is assumed to be local
 bool        poShape2D::pointInside(poPoint point, bool localize )
 {
-    if(!visible())
+	if(!visible())
 		return false;
 	
 	if(localize)
 		point = globalToLocal(point);
-
+	
 	if(alpha_test_textures && isAttributeEnabled(ATTRIB_TEX_COORD)) {
 		bool opaque = false;
 		for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
@@ -579,23 +581,23 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	}
 	
 	// test point inside for given drawstyle
-    if ( (fill_draw_style == GL_POLYGON || fill_draw_style == GL_TRIANGLE_FAN) && points.size() >= 3 )
-    {
-        for( int i=1; i<points.size()-1; i++ )
-            if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
+	if ( (fill_draw_style == GL_POLYGON || fill_draw_style == GL_TRIANGLE_FAN) && points.size() >= 3 )
+	{
+		for( int i=1; i<points.size()-1; i++ )
+			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
 				return true;
-        if (fill_draw_style == GL_TRIANGLE_FAN)
-            if ( pointInTriangle( point, points[0], points[1], points.back() ))
+		if (fill_draw_style == GL_TRIANGLE_FAN)
+			if ( pointInTriangle( point, points[0], points[1], points.back() ))
 				return true;
-    }
-    else if (fill_draw_style == GL_TRIANGLE_STRIP && points.size() >= 3 )
-    {
-        for( int i=0; i<points.size()-2; i++ )
-            if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
-                return true;
-    }
-    
-    return false;
+	}
+	else if (fill_draw_style == GL_TRIANGLE_STRIP && points.size() >= 3 )
+	{
+		for( int i=0; i<points.size()-2; i++ )
+			if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
+				return true;
+	}
+	
+	return false;
 }
 
 void poShape2D::updateAllTweens() {

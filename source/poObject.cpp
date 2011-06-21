@@ -221,7 +221,7 @@ poPoint poObject::objectToLocal(poObject* obj, poPoint point) const {
 }
 
 poAlignment poObject::alignment() const {return _alignment;}
-void poObject::alignment(poAlignment align) {_alignment = align;}
+poObject& poObject::alignment(poAlignment align) {_alignment = align; return *this;}
 
 poRect poObject::calculateBounds(bool include_children) {
 	_bounds = poRect(0,0,0,0);

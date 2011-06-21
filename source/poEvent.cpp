@@ -177,8 +177,8 @@ void poEventCenter::removeAllEvents(poObject* obj) {
 }
 
 template <typename T>
-bool sortByDrawOrder(const T &a, const T &b) {
-	return a.event.source->drawOrder() < b.event.source->drawOrder();
+bool sortByDrawOrder(T *a, T *b) {
+	return a->event.source->drawOrder() < b->event.source->drawOrder();
 }
 
 poObject *poEventCenter::notify(poEvent event) {
@@ -187,10 +187,10 @@ poObject *poEventCenter::notify(poEvent event) {
 	
 	if(bcheck_event[event.type]) {
 		std::vector<event_callback> &event_vec = events[event.type];
-		std::vector<event_callback> possibles;
+		std::vector<event_callback*> possibles;
 		
 		for(int i=0; i<event_vec.size(); i++) {
-			event_callback callback = event_vec[i];
+			event_callback &callback = event_vec[i];
             
 			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
 				continue;
@@ -198,7 +198,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			
 			// this one is an option
 			if(callback.event.source->pointInside(event.position, true)) {
-				possibles.push_back(callback);
+				possibles.push_back(&callback);
 			}
 		}
 		
@@ -208,7 +208,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			
 			// we go thru and store all the ones that could send it
 			// then figure out which is closer to the top and send to that one
-			event_callback *the_one = &possibles.back();
+			event_callback *the_one = possibles.back();
 			
 			localizeEvent(the_one->event, event);
 			the_one->receiver->eventHandler(&event);

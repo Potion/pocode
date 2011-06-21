@@ -75,7 +75,7 @@ public:
 
 	// BOUNDING BOX
 	poAlignment		alignment() const;
-	virtual void	alignment(poAlignment align);
+	virtual poObject& alignment(poAlignment align);
 	
 	virtual poRect	calculateBounds(bool include_children=false);
 	
