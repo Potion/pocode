@@ -26,9 +26,10 @@ TweenApp::TweenApp() {
 	banh = new poOvalShape(50,50,3);
 	banh->generateStroke(2).strokeColor(poColor::yellow).fillColor(poColor::dk_grey);
 	banh->position(150,150,0);
+	banh->addEvent(PO_MOUSE_PRESS_EVENT, this);
     addChild(banh);
 
-	mi = new poOvalShape(100,100,100);
+	mi = new poOvalShape(50,50,100);
 	mi->generateStroke(2).strokeColor(poColor::magenta).fillColor(poColor::dk_grey);
 	mi->position(450,150,0);
 	mi->addEvent(PO_MOUSE_PRESS_EVENT, this);
@@ -36,7 +37,7 @@ TweenApp::TweenApp() {
 	
     // LERP (linear interpolation easing is default)
     pho->position_tween							//	position tween
-        .set(poPoint(250,20))					//	destination value for tween
+        .set(poPoint(530,20))					//	destination value for tween
         .setRepeat(PO_TWEEN_REPEAT_PINGPONG)	//	NONE, REGULAR, PINGPONG
         .setExtraValues(.90, .05)				//	(e1, e2) step e1 each time, stop @ e2
         .start();								//	begin the tween
@@ -59,20 +60,18 @@ void TweenApp::eventHandler(poEvent *event) {
 		poPoint val;
 		
 		if(!zoomed)								//	sets an end value for the scale tween so we can zoom in and then back out
-			val = poPoint(2,2);
+			val = poPoint(2,2,1);				//	the third property defaults to 0 if not set, so it is important to set it to one since this is our scale value
 		else
-			val = poPoint(1,1);
+			val = poPoint(1,1,1);
 		zoomed = !zoomed;
 		
 		// non repeating
-		mi->scale_tween							//	scale tween
+		event->source->scale_tween				//	scale tween the object clicked on
 		.set(val)								//	scaling is done with a vector
 		.setRepeat(PO_TWEEN_REPEAT_NONE)		//	no repeat
 		.setTweenFunction(linearFunc)			//	linear (no ease)
 		.setDuration(2)							//	Easing functions require a duration
 		.start();
-		std::cout<<"CLICKED ON\n";
-		mi->calculateBounds();					//	thought this would help an error in bounds being miscalculated
 	}
 }
 
