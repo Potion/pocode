@@ -75,10 +75,10 @@ poTexture::poTexture(const std::string &str) {
 		loadNotFound();
 }
 
-poTexture::poTexture(GLenum format, uint width, uint height, uint mem, ubyte const*pixels) {
+poTexture::poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels) {
 	load(format, format, GL_UNSIGNED_BYTE, 
 		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
-		 width, height, mem, pixels);
+		 width, height, pitch, pixels);
 	pushToCard();
 	
 	createRefCounter();
@@ -86,11 +86,11 @@ poTexture::poTexture(GLenum format, uint width, uint height, uint mem, ubyte con
 }
 
 poTexture::poTexture(GLenum format, GLenum internal_format, GLenum type,
-					 uint width, uint height, uint mem, ubyte const*pixels)
+					 uint width, uint height, uint pitch, ubyte const*pixels)
 {
 	load(format, internal_format, type,
 		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
-		 width, height, mem, pixels);
+		 width, height, pitch, pixels);
 	pushToCard();
 	
 	createRefCounter();
@@ -112,7 +112,7 @@ poTexture *poTexture::copy() {
 	poTexture *tex = new poTexture();
 	tex->load(_format, _internal_format, _type, 
 			  _min_filter, _mag_filter, _wrap_s, _wrap_t,
-			  _width, _height, 0, NULL);
+			  _width, _height, _pitch, NULL);
 	tex->st(_s, _t);
 	tex->_uid = _uid;
 	tex->_pixels = _pixels;
@@ -148,18 +148,15 @@ poColor poTexture::colorAtPoint(poPoint p) const {
 		return response;
 	}
 	
-	uint bpp = bytesForPixelFormat(format());
-	if(bpp == 4 || bpp == 2) {
-		if(storingPixels()) {
-			GLubyte *pix = _pixels + int(p.y * width() + p.x) * bpp;
-			switch(bpp) {
-				case 1: response.set255(pix[0], pix[0], pix[0], 255);		break;
-				case 2: response.set255(pix[0], pix[0], pix[0], pix[1]);	break;
-				case 3: response.set255(pix[2], pix[1], pix[0], 255);		break;
-				case 4: response.set255(pix[2], pix[1], pix[0], pix[3]);	break;
-			}
-			
-			return response;
+	if(storingPixels()) {
+		int x=p.x, y=p.y, w=width();
+		uint bpp = bytesForPixelFormat(format());
+		GLubyte *pix = _pixels + (y*pitch() + (x*bpp));
+		switch(bpp) {
+			case 1: response.set255(pix[0], pix[0], pix[0], 255);		break;
+			case 2: response.set255(pix[0], pix[0], pix[0], pix[1]);	break;
+			case 3: response.set255(pix[2], pix[1], pix[0], 255);		break;
+			case 4: response.set255(pix[2], pix[1], pix[0], pix[3]);	break;
 		}
 	}
 	
@@ -167,8 +164,9 @@ poColor poTexture::colorAtPoint(poPoint p) const {
 }
 
 uint poTexture::uid() const			{return _uid;}
-float poTexture::width() const		{return _width;}
-float poTexture::height() const		{return _height;}
+uint poTexture::width() const		{return _width;}
+uint poTexture::height() const		{return _height;}
+uint poTexture::pitch() const		{return _pitch;}
 float poTexture::s() const			{return _s;}
 float poTexture::t() const			{return _t;}
 GLenum poTexture::format() const	{return _format;}
@@ -245,7 +243,7 @@ void poTexture::load(poImage *img) {
 	
 	load(f, i, t,
 		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
-		 img->width(), img->height(), img->storageSize(), img->pixels());
+		 img->width(), img->height(), img->pitch(), img->pixels());
 	pushToCard();
 	
 	createRefCounter();
@@ -271,7 +269,7 @@ void poTexture::loadNotFound() {
 
 void poTexture::load(GLenum format, GLenum internal_format, GLenum type, 
 					 GLenum min, GLenum mag, GLenum ws, GLenum wt,
-					 uint w, uint h, uint mem, ubyte const*pixels)
+					 uint w, uint h, uint p, ubyte const*pixels)
 {
 	_uid = 0;
 	_s = _t = 1.f;
@@ -284,7 +282,8 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 	_wrap_t = wt;
 	_width = w;
 	_height = h;
-	_mem_size = mem;
+	_pitch = p;
+	_mem_size = p * h;
 	_pixels = new ubyte[_mem_size]();
 	if(pixels)
 		memcpy(_pixels, pixels, _mem_size);
@@ -368,7 +367,7 @@ void poTextureAtlas::layoutAtlas() {
 	
 	for(int i=0; i<pages.size(); i++) {
 		poImage *img = pages[i];
-		textures[i] = new poTexture(format, img->width(), img->height(), img->storageSize(), img->pixels());
+		textures[i] = new poTexture(format, img->width(), img->height(), img->pitch(), img->pixels());
 	}
 }
 

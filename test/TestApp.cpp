@@ -20,12 +20,18 @@ void setupApplication() {
 void cleanupApplication() {
 }
 
+poShape2D *img = NULL;
+poShape2D *shape = NULL;
+
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
+	addEvent(PO_WINDOW_RESIZED_EVENT, this);
 	
-	poRectShape *shape = new poRectShape("images/kittens.jpeg");
-	shape->addEvent(PO_MOUSE_PRESS_EVENT, this);
-	addChild(shape);
+	img = new poRectShape("images/alfred_e_neuman.jpg");
+	img->addEvent(PO_MOUSE_MOVE_EVENT, this);
+	addChild(img);
+	
+	addChild(shape = new poRectShape(50,50));
 }
 
 void TestObj::draw() {
@@ -35,19 +41,18 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	poShape2D *shape = static_cast<poShape2D*>(event->source);
-	
-	static bool alfred = true;
-	if(alfred) {
-		poTexture tex("images/alfred_e_neuman.jpg");
-		shape->placeTexture(&tex, PO_TEX_FIT_V);
+	switch(event->type) {
+		case PO_WINDOW_RESIZED_EVENT:
+			shape->position(getWindowWidth()-50, getWindowHeight()-50);
+			break;
+			
+		case PO_MOUSE_MOVE_EVENT:
+		{
+			poColor color = img->texture()->colorAtPoint(event->local_position);
+			shape->fillColor(color);
+			break;
+		}
 	}
-	else {
-		poTexture tex("images/kittens.jpeg");
-		shape->placeTexture(&tex);
-	}
-	
-	alfred = !alfred;
 }
 
 

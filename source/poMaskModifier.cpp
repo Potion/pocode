@@ -18,7 +18,7 @@ poImageMask::poImageMask(poTexture *tex)
 
 poImageMask::poImageMask(const std::string &str) {
 	poImage *img = new poImage(str, IMAGE_8);
-	texture = new poTexture(GL_ALPHA, img->width(), img->height(), img->storageSize(), img->pixels());
+	texture = new poTexture(GL_ALPHA, img->width(), img->height(), img->pitch(), img->pixels());
 	delete img;
 }
 

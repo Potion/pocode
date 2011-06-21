@@ -17,9 +17,9 @@ public:
 	poTexture();
 	poTexture(poImage *img);
 	poTexture(const std::string &str);
-	poTexture(GLenum format, uint width, uint height, uint num_bytes, ubyte const*pixels);
+	poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels);
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
-			  uint width, uint height, uint num_bytes, ubyte const*pixels);
+			  uint width, uint height, uint pitch, ubyte const*pixels);
 	~poTexture();
 	
 	poTexture *copy();
@@ -29,8 +29,9 @@ public:
 	poColor colorAtPoint(poPoint p) const;
 
 	uint uid() const;
-	float width() const;
-	float height() const;
+	uint width() const;
+	uint height() const;
+	uint pitch() const;
 	float s() const;
 	float t() const;
 	GLenum format() const;
@@ -63,11 +64,11 @@ private:
 	void loadNotFound();
 	void load(GLenum format, GLenum internal_format, GLenum type, 
 			  GLenum min, GLenum mag, GLenum ws, GLenum wt,
-			  uint w, uint h, uint mem, ubyte const*pixels);
+			  uint w, uint h, uint p, ubyte const*pixels);
 
 	GLuint _uid;
 	float _s, _t;
-	float _width, _height;
+	uint _width, _height, _pitch;
 	GLenum _format, _internal_format, _type;
 	GLenum _min_filter, _mag_filter;
 	GLenum _wrap_s, _wrap_t;
