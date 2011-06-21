@@ -192,8 +192,9 @@ poObject *poEventCenter::notify(poEvent event) {
 		for(int i=0; i<event_vec.size(); i++) {
 			event_callback callback = event_vec[i];
             
-			if(!(callback.event.source->isInWindow() && callback.event.source->visible()))
+			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
 				continue;
+			}
 			
 			// this one is an option
 			if(callback.event.source->pointInside(event.position, true)) {
@@ -221,6 +222,10 @@ poObject *poEventCenter::notify(poEvent event) {
 		std::vector<event_callback> &event_vec = events[event.type];
 		for(int i=0; i<event_vec.size(); i++) {
 			event_callback &callback = event_vec[i];
+			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+				continue;
+			}
+
 			poEvent &stored_event = callback.event;
 
 			localizeEvent(stored_event, event);
@@ -239,6 +244,10 @@ bool poEventCenter::routeBySource(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
+		if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+			continue;
+		}
+
 		if(callback.event.source == obj) {
 			localizeEvent(callback.event, event);
 			callback.receiver->eventHandler(&event);
@@ -255,6 +264,10 @@ bool poEventCenter::routeBySink(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
+		if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+			continue;
+		}
+
 		if(callback.receiver == obj) {
 			localizeEvent(callback.event, event);
 			callback.receiver->eventHandler(&event);
