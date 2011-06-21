@@ -78,10 +78,6 @@ float poPoint::dot(poPoint rhs) const {
     return x*rhs.x + y*rhs.y + z*rhs.z;
 }
 
-float poPoint::dotSquared(poPoint rhs) const {
-	return x*rhs.x + y*rhs.y + z*rhs.z;
-}
-
 poPoint poPoint::cross(poPoint rhs) const {
 	return poPoint(y*rhs.z-z*rhs.y, z*rhs.x-x*rhs.z, x*rhs.y-y*rhs.x);
 }

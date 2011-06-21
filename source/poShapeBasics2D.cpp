@@ -7,43 +7,43 @@
 //
 
 #include "poShapeBasics2D.h"
+#include "Helpers.h"
 
 
-
-// ============== poRectShape ================================
+#pragma mark poRectShape
 
 poRectShape::poRectShape()
 {
-    construct( 100,100 );
+    construct( 100,100,0.f );
 }
 
-poRectShape::poRectShape( float _width, float _height )
+poRectShape::poRectShape( float _width, float _height, float rad )
 {
-    construct( _width, _height );
+    construct( _width, _height, rad );
 }
 
 poRectShape::poRectShape( poImage *img) {
-	construct(img->width(), img->height());
+	construct(img->width(), img->height(), 0.f);
 	poTexture tex(img);
 	placeTexture(&tex);
 }
 
 poRectShape::poRectShape( poTexture* tex )
 {
-    construct( tex->width(), tex->height() );
+    construct( tex->width(), tex->height(), 0.f );
     placeTexture( tex );
 }
 
 poRectShape::poRectShape( const std::string &str) {
 	poTexture tex(str);
-	construct(tex.width(), tex.height());
+	construct(tex.width(), tex.height(), 0.f);
 	placeTexture(&tex);
 }
 
-void    poRectShape::reshape( float w, float h )
+void    poRectShape::reshape( float w, float h, float rad )
 {
 	clearPoints();
-	construct(w, h);
+	construct(w, h, rad);
 	
 	calculateBounds();
 	if(isStrokeEnabled())
@@ -51,23 +51,29 @@ void    poRectShape::reshape( float w, float h )
 }
 
 poRectShape::poRectShape( float w, float h, poTexture* tex, poTextureFitOption fit ) {
-	construct(w, h);
+	construct(w, h, 0);
 	placeTexture(tex, fit);
 }
 
-void poRectShape::construct( float w, float h )
+void poRectShape::construct( float w, float h, float rad )
 {
     width = w;
     height = h;
-    
-    addPoint( poPoint(0,0) );
-    addPoint( poPoint(width,0) );
-    addPoint( poPoint(width,height) );
-    addPoint( poPoint(0,height) );
+	radius = rad;
+	
+	if(rad > 0.f) {
+		addPoints(roundedRect(width,height,rad));
+		closed(true);
+	}
+    else {
+		addPoint( poPoint(0,0) );
+		addPoint( poPoint(width,0) );
+		addPoint( poPoint(width,height) );
+		addPoint( poPoint(0,height) );
+	}
 }
 
-
-// ============== poOvalShape ================================
+#pragma mark poOvalShape
 
 poOvalShape::poOvalShape()
 {

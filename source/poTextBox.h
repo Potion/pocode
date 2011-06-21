@@ -43,6 +43,14 @@ public:
 	
 	poTextBox &layout();
 	void draw();
+	
+	// make a quick dumb button ... 
+	poTextBox &buttonize(poColor fill, poColor stroke, float strokeWidth, float rad=0.f);
+	poTextBox &debuttonize();
+	bool isButtonized() const;
+	poColor buttonFill() const;
+	poColor buttonStroke() const;
+	float buttonStrokeWidth() const;
 
 private:
 	void defaultFonts();
@@ -72,6 +80,8 @@ private:
 
 	poFont *_font;
 	poBitmapFontAtlas *atlas;
+	
+	poShape2D *button;
 };
 
 

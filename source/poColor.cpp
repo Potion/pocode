@@ -51,11 +51,11 @@ poHSVColor rgba2hsv(poColor rgba) {
 			H += 360.f;
 	}
 	
-	return poHSVColor(H,S,V);
+	return poHSVColor(H/255.f,S,V);
 }
 
 poColor hsv2rgba(poHSVColor hsv) {
-	float h6 = hsv.H / 60.0;
+	float h6 = (hsv.H*255) / 60.0;
 	
 	int i = (int)floorf(h6);
 	float f = h6 - i;

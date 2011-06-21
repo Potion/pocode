@@ -19,6 +19,7 @@ public:
 	int y() const;
 	int width() const;
 	int height() const;
+	poRect bounds() const;
 	float framerate() const;
 	float lastFrameElapsed() const;
 	float lastFrameTime() const;
@@ -44,7 +45,7 @@ public:
 
 private:
 	bool closed_;
-	poRect bounds;
+	poRect _bounds;
 	bool fullscreen_;
 	
 	double last_mark, last_frame;

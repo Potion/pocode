@@ -176,28 +176,39 @@ void poEventCenter::removeAllEvents(poObject* obj) {
 	}
 }
 
+template <typename T>
+bool sortByDrawOrder(const T &a, const T &b) {
+	return a.event.source->drawOrder() < b.event.source->drawOrder();
+}
+
 poObject *poEventCenter::notify(poEvent event) {
 	if(event.type >= events.size())
 		return NULL;
 	
 	if(bcheck_event[event.type]) {
-		// we go thru and store all the ones that could send it
-		// then figure out which is closer to the top and send to that one
-		event_callback *the_one = NULL;
-		
 		std::vector<event_callback> &event_vec = events[event.type];
+		std::vector<event_callback> possibles;
+		
 		for(int i=0; i<event_vec.size(); i++) {
-			event_callback &callback = event_vec[i];
+			event_callback callback = event_vec[i];
             
+			if(!(callback.event.source->isInWindow() && callback.event.source->visible()))
+				continue;
+			
 			// this one is an option
 			if(callback.event.source->pointInside(event.position, true)) {
-				// higher _draw_order means closer to surface, in 2D
-				if(!the_one || the_one->event.source->drawOrder() < callback.event.source->drawOrder())
-					the_one = &callback;
+				possibles.push_back(callback);
 			}
 		}
 		
-		if(the_one) {
+		if(!possibles.empty()) {
+			// sort callback sources by drawOrder
+			std::sort(possibles.begin(), possibles.end(), boost::bind(sortByDrawOrder<event_callback>, _1, _2));
+			
+			// we go thru and store all the ones that could send it
+			// then figure out which is closer to the top and send to that one
+			event_callback *the_one = &possibles.back();
+			
 			localizeEvent(the_one->event, event);
 			the_one->receiver->eventHandler(&event);
 			// capture any user changes to the dictionary

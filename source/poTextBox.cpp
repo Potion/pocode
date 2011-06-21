@@ -12,6 +12,7 @@ using namespace boost;
 #include "poTextBox.h"
 #include "poResource.h"
 #include "poSimpleDrawing.h"
+#include "poShapeBasics2D.h"
 #include <boost/tokenizer.hpp>
 #include <utf8.h>
 
@@ -23,6 +24,8 @@ poTextBox::poTextBox()
 ,	_font(NULL)
 ,	atlas(NULL)
 ,	draw_bounds(false)
+,	align(PO_ALIGN_TOP_LEFT)
+,	button(NULL)
 {
 	defaultFonts();
 }
@@ -33,6 +36,8 @@ poTextBox::poTextBox(int w, int h)
 ,	_font(NULL)
 ,	atlas(NULL)
 ,	draw_bounds(false)
+,	align(PO_ALIGN_TOP_LEFT)
+,	button(NULL)
 {
 	defaultFonts();
 	bounds(poRect(0,0,w,h));
@@ -225,6 +230,10 @@ void poTextBox::draw() {
 //		drawRect(poRect(poPoint(0,line.ypos),poPoint(line.width,_font->lineHeight())));
 //	}
 //
+	if(button) {
+		button->draw();
+	}
+	
     if(draw_bounds) {
 		applyColor(poColor::white);
 		BOOST_FOREACH(layout_line &line, lines) {
@@ -249,3 +258,24 @@ void poTextBox::draw() {
 	atlas->stopDrawing();
 }
 
+poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {
+	if(button)
+		delete button;
+
+	button = new poRectShape(bounds().width(), bounds().height(), rad);
+	button->fillColor(fill);
+	button->generateStroke(strokeWidth);
+	button->strokeColor(stroke);
+	
+	return *this;
+}
+							 
+poTextBox &poTextBox::debuttonize() {
+	delete button;
+	button = NULL;
+	return *this;
+}
+bool poTextBox::isButtonized() const {return button != NULL;}
+poColor poTextBox::buttonFill() const {return button->fillColor();}
+poColor poTextBox::buttonStroke() const {return button->strokeColor();}
+float poTextBox::buttonStrokeWidth() const {return button->strokeWidth();}

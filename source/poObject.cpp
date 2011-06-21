@@ -24,6 +24,7 @@ poObject::poObject()
 ,	alpha_tween(&_alpha)
 ,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
+,	in_window(false)
 {}
 
 poObject::poObject(const std::string &name)
@@ -46,6 +47,7 @@ poObject::poObject(const std::string &name)
 ,	alpha_tween(&_alpha)
 ,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
+,	in_window(false)
 {}
 
 poObject::~poObject() {
@@ -72,12 +74,12 @@ void poObject::removeEvent(int event_id) {
 }
 
 void poObject::addChild(poObject* obj) {
-	obj->_parent = this;
-	children.push_back(obj);
+	addChild(obj, children.size());
 }
 
 void poObject::addChild(poObject *obj, int idx) {
 	obj->_parent = this;
+	obj->inWindow(in_window);
 	children.insert(children.begin()+idx, obj);
 }
 
@@ -87,6 +89,7 @@ bool poObject::removeChild(poObject* obj) {
 	
 	if(found) {
 		(*iter)->_parent = NULL;
+		(*iter)->inWindow(false);
 		children.erase(iter);
 	}
 	
@@ -98,6 +101,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 		return false;
 
 	children[idx]->_parent = NULL;
+	children[idx]->inWindow(false);
 
 	if(and_delete)
 		delete children[idx];
@@ -110,6 +114,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 void poObject::removeAllChildren(bool and_delete) {
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_parent = NULL;
+		obj->inWindow(false);
 		if(and_delete)
 			delete obj;
 	}
@@ -236,7 +241,15 @@ poRect poObject::calculateBounds(bool include_children) {
 	return _bounds;
 }
 
-poObject*		poObject::parent() {return _parent;}
+poObject*		poObject::parent() const {return _parent;}
+
+bool			poObject::isInWindow() const {return in_window;}
+void			poObject::inWindow(bool b) {
+	in_window = b;
+	BOOST_FOREACH(poObject *obj, children) {
+		obj->inWindow(b);
+	}
+}
 
 std::string		poObject::name() const {return _name;}
 poObject&		poObject::name(const std::string &str) {_name = str; return *this;}

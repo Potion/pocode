@@ -28,7 +28,6 @@ public:
 	float length() const;
 	float lengthSquared() const;
 	float dot(poPoint rhs) const;
-	float dotSquared(poPoint rhs) const;
 	poPoint cross(poPoint rhs) const;
 
 	poPoint normal2D() const;

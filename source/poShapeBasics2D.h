@@ -17,17 +17,16 @@ public:
     poRectShape( poTexture* tex );
 	poRectShape( poImage *img);
 	poRectShape( const std::string &str);
-    poRectShape( float width, float height );
+    poRectShape( float width, float height, float rad=0.f );
 	poRectShape( float width, float height, poTexture* tex, poTextureFitOption fit=PO_TEX_FIT_NONE );
     
-    void    reshape( float width, float height );
+    void    reshape( float width, float height, float rad=0.f );
     
 protected:
-    void    construct( float _width, float _height );
+    void    construct( float _width, float _height, float rad );
     
-    float   width, height;
+    float   width, height, radius;
 };
-
 
 class poOvalShape : public poShape2D
 {
