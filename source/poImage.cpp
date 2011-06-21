@@ -93,10 +93,10 @@ poColor poImage::getPixel(poPoint p) const {
 			ret.set255(bits[x*2], bits[x*2], bits[x*2], bits[x*2+1]);
 			break;
 		case IMAGE_24:
-			ret.set255(bits[x*3], bits[x*3+1], bits[x*3+2], 255);
+			ret.set255(bits[x*3+2], bits[x*3+1], bits[x*3], 255);
 			break;
 		case IMAGE_32:
-			ret.set255(bits[x*4], bits[x*4+1], bits[x*4+2], bits[x*4+3]);
+			ret.set255(bits[x*4+2], bits[x*4+1], bits[x*4], bits[x*4+3]);
 			break;
 	}
 	
