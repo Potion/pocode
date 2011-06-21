@@ -60,7 +60,7 @@ void TweenApp::eventHandler(poEvent *event) {
 		poPoint val;
 		
 		if(!zoomed)								//	sets an end value for the scale tween so we can zoom in and then back out
-			val = poPoint(2,2,1);				//	the third property defaults to 0 if not set, so it is important to set it to one since this is our scale value
+			val = poPoint(2,2,1);				//	all three arguments needed for a scale tween (since z coord defaults to 0)
 		else
 			val = poPoint(1,1,1);
 		zoomed = !zoomed;
