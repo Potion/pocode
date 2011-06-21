@@ -1,0 +1,240 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		875B9CB013B0E92C00063D7E /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CAF13B0E92C00063D7E /* Debug.xcconfig */; };
+		875B9CB213B0E92C00063D7E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CB113B0E92C00063D7E /* Release.xcconfig */; };
+		875B9CB513B0E92C00063D7E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CB413B0E92C00063D7E /* AppDelegate.mm */; };
+		875B9CB713B0E92C00063D7E /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CB613B0E92C00063D7E /* en.strings */; };
+		875B9CB913B0E92C00063D7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CB813B0E92C00063D7E /* main.m */; };
+		875B9CBB13B0E92C00063D7E /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBA13B0E92C00063D7E /* main.pch */; };
+		875B9CBE13B0E92C00063D7E /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBD13B0E92C00063D7E /* main.xib */; };
+		875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CC013B0E92C00063D7E /* poOpenGLView.mm */; };
+		875B9CC513B0E92C00063D7E /* colorPickerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */; };
+		875B9CCD13B0E99B00063D7E /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CCC13B0E99B00063D7E /* bird.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		875B9CAA13B0E92C00063D7E /* colorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = colorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		875B9CAF13B0E92C00063D7E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		875B9CB113B0E92C00063D7E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		875B9CB313B0E92C00063D7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		875B9CB413B0E92C00063D7E /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		875B9CB613B0E92C00063D7E /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		875B9CB813B0E92C00063D7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		875B9CBA13B0E92C00063D7E /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		875B9CBC13B0E92C00063D7E /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		875B9CBD13B0E92C00063D7E /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		875B9CBF13B0E92C00063D7E /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		875B9CC013B0E92C00063D7E /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		875B9CC313B0E92C00063D7E /* colorPickerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = colorPickerApp.h; path = ../application/colorPickerApp.h; sourceTree = "<group>"; };
+		875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = colorPickerApp.cpp; path = ../application/colorPickerApp.cpp; sourceTree = "<group>"; };
+		875B9CCC13B0E99B00063D7E /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		875B9CA713B0E92C00063D7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		875B9C9F13B0E92C00063D7E = {
+			isa = PBXGroup;
+			children = (
+				875B9CAD13B0E92C00063D7E /* colorPicker */,
+				875B9CAB13B0E92C00063D7E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		875B9CAB13B0E92C00063D7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				875B9CAA13B0E92C00063D7E /* colorPicker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		875B9CAD13B0E92C00063D7E /* colorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				875B9CCB13B0E99B00063D7E /* images */,
+				875B9CAE13B0E92C00063D7E /* platform */,
+				875B9CC213B0E92C00063D7E /* application */,
+			);
+			path = colorPicker;
+			sourceTree = "<group>";
+		};
+		875B9CAE13B0E92C00063D7E /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				875B9CAF13B0E92C00063D7E /* Debug.xcconfig */,
+				875B9CB113B0E92C00063D7E /* Release.xcconfig */,
+				875B9CB313B0E92C00063D7E /* AppDelegate.h */,
+				875B9CB413B0E92C00063D7E /* AppDelegate.mm */,
+				875B9CB613B0E92C00063D7E /* en.strings */,
+				875B9CB813B0E92C00063D7E /* main.m */,
+				875B9CBA13B0E92C00063D7E /* main.pch */,
+				875B9CBC13B0E92C00063D7E /* main.plist */,
+				875B9CBD13B0E92C00063D7E /* main.xib */,
+				875B9CBF13B0E92C00063D7E /* poOpenGLView.h */,
+				875B9CC013B0E92C00063D7E /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		875B9CC213B0E92C00063D7E /* application */ = {
+			isa = PBXGroup;
+			children = (
+				875B9CC313B0E92C00063D7E /* colorPickerApp.h */,
+				875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		875B9CCB13B0E99B00063D7E /* images */ = {
+			isa = PBXGroup;
+			children = (
+				875B9CCC13B0E99B00063D7E /* bird.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		875B9CA913B0E92C00063D7E /* colorPicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 875B9CC813B0E92C00063D7E /* Build configuration list for PBXNativeTarget "colorPicker" */;
+			buildPhases = (
+				875B9CA613B0E92C00063D7E /* Sources */,
+				875B9CA713B0E92C00063D7E /* Frameworks */,
+				875B9CA813B0E92C00063D7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = colorPicker;
+			productName = colorPicker;
+			productReference = 875B9CAA13B0E92C00063D7E /* colorPicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		875B9CA113B0E92C00063D7E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Potion Design LLC";
+			};
+			buildConfigurationList = 875B9CA413B0E92C00063D7E /* Build configuration list for PBXProject "colorPicker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 875B9C9F13B0E92C00063D7E;
+			productRefGroup = 875B9CAB13B0E92C00063D7E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				875B9CA913B0E92C00063D7E /* colorPicker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		875B9CA813B0E92C00063D7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875B9CB013B0E92C00063D7E /* Debug.xcconfig in Resources */,
+				875B9CB213B0E92C00063D7E /* Release.xcconfig in Resources */,
+				875B9CB713B0E92C00063D7E /* en.strings in Resources */,
+				875B9CBB13B0E92C00063D7E /* main.pch in Resources */,
+				875B9CBE13B0E92C00063D7E /* main.xib in Resources */,
+				875B9CCD13B0E99B00063D7E /* bird.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		875B9CA613B0E92C00063D7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875B9CB513B0E92C00063D7E /* AppDelegate.mm in Sources */,
+				875B9CB913B0E92C00063D7E /* main.m in Sources */,
+				875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */,
+				875B9CC513B0E92C00063D7E /* colorPickerApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		875B9CC613B0E92C00063D7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 875B9CAF13B0E92C00063D7E /* Debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+			};
+			name = Debug;
+		};
+		875B9CC713B0E92C00063D7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 875B9CB113B0E92C00063D7E /* Release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+			};
+			name = Release;
+		};
+		875B9CC913B0E92C00063D7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		875B9CCA13B0E92C00063D7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		875B9CA413B0E92C00063D7E /* Build configuration list for PBXProject "colorPicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				875B9CC613B0E92C00063D7E /* Debug */,
+				875B9CC713B0E92C00063D7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		875B9CC813B0E92C00063D7E /* Build configuration list for PBXNativeTarget "colorPicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				875B9CC913B0E92C00063D7E /* Debug */,
+				875B9CCA13B0E92C00063D7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 875B9CA113B0E92C00063D7E /* Project object */;
+}

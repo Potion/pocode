@@ -19,5 +19,8 @@ public:
     
     poRectShape* pho;
 	poOvalShape* banh;
+	poOvalShape* mi;
+	
+	bool zoomed;
 
 };
