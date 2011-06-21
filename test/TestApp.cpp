@@ -21,10 +21,12 @@ void cleanupApplication() {
 }
 
 TestObj::TestObj() {
-	addModifier((new poCamera2D())->resetsModelview(false));
+	addModifier(new poCamera2D());
 	addEvent(PO_WINDOW_RESIZED_EVENT, this);
 
-	scale(.5,.5);
+	poObject *holder = new poObject();
+	holder->scale(.9, .9);
+	addChild(holder);
 
 	poShape2D *img = new poRectShape("images/testimg.png");
 	img->alphaTestTextures(true)
@@ -34,7 +36,7 @@ TestObj::TestObj() {
 		.name("1");
 	img->addEvent(PO_MOUSE_ENTER_EVENT, this);
 	img->addEvent(PO_MOUSE_LEAVE_EVENT, this);
-	addChild(img);
+	holder->addChild(img);
 	
 	img = new poRectShape("images/testimg.png");
 	img->alphaTestTextures(true)
@@ -44,7 +46,7 @@ TestObj::TestObj() {
 		.name("2");
 	img->addEvent(PO_MOUSE_ENTER_EVENT, this);
 	img->addEvent(PO_MOUSE_LEAVE_EVENT, this);
-	addChild(img);
+	holder->addChild(img);
 }
 
 void TestObj::draw() {
@@ -56,8 +58,8 @@ void TestObj::update() {
 void TestObj::eventHandler(poEvent *event) {
 	switch(event->type) {
 		case PO_WINDOW_RESIZED_EVENT:
-			event->source->getChild(0)->position(getWindowWidth()/3, getWindowHeight()/3);
-			event->source->getChild(1)->position(2*getWindowWidth()/3, 2*getWindowHeight()/3);
+			event->source->getChild(0)->getChild(0)->position(getWindowWidth()/3, getWindowHeight()/3);
+			event->source->getChild(0)->getChild(1)->position(2*getWindowWidth()/3, 2*getWindowHeight()/3);
 			break;
 			
 		case PO_MOUSE_ENTER_EVENT:
