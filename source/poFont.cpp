@@ -199,7 +199,11 @@ void poFont::loadGlyph(int g) {
 	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP);
 }
 
-
+bool operator==(const poFont &a, const poFont &b) {
+	return	a.familyName() == b.familyName() &&
+			a.styleName() == b.styleName() &&
+			a.pointSize() == b.pointSize();
+}
 
 
 poBitmapFontAtlas::poBitmapFontAtlas(poFont *f, int pointSize)
@@ -229,6 +233,33 @@ void poBitmapFontAtlas::cacheGlyph(uint glyph) {
 
 poFont const *poBitmapFontAtlas::font() {return _font;}
 
+
+std::size_t hash_value(const poFont &font) {
+	std::size_t seed = 0;
+	boost::hash_combine(seed, font.familyName());
+	boost::hash_combine(seed, font.styleName());
+	boost::hash_combine(seed, font.pointSize());
+	return seed;
+}
+
+boost::unordered_map<poFont,poBitmapFontAtlas*> BitmapFontCache::atlases;
+
+poBitmapFontAtlas *BitmapFontCache::atlasForFont(poFont *font) {
+	if(atlases.find(*font) != atlases.end())
+		return atlases[*font];
+	
+	poBitmapFontAtlas *atlas = new poBitmapFontAtlas(font);
+	atlases[*font] = atlas;
+	return atlas;
+}
+
+void BitmapFontCache::releaseAtlasForFont(poFont *font) {
+	boost::unordered_map<poFont,poBitmapFontAtlas*>::iterator iter = atlases.find(*font);
+	if(iter != atlases.end()) {
+		delete iter->second;
+		atlases.erase(iter);
+	}
+}
 
 std::ostream &operator<<(std::ostream &o, const poFont &f) {
 	o << f.toString();

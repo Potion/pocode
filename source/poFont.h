@@ -17,10 +17,9 @@
 
 class poShape2D;
 
-static const std::string PO_FONT_REGULAR = "t";
+static const std::string PO_FONT_REGULAR = "span";
 static const std::string PO_FONT_ITALIC = "i";
 static const std::string PO_FONT_BOLD = "b";
-static const std::string PO_FONT_BOLD_ITALIC = "bi";
 
 class poFont;
 typedef std::map<std::string, poFont*> poFontMap;
@@ -89,6 +88,15 @@ public:
 private:
 	int size;
 	poFont *_font;
+};
+
+class BitmapFontCache {
+public:
+	poBitmapFontAtlas *atlasForFont(poFont *font);
+	void releaseAtlasForFont(poFont *font);
+	
+private:
+	static boost::unordered_map<poFont,poBitmapFontAtlas*> atlases;
 };
 
 std::ostream &operator<<(std::ostream &o, const poFont &f);
