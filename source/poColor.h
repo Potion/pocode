@@ -14,6 +14,8 @@ public:
 	poColor();
 	poColor(float r, float g, float b, float a=1.f);
     poColor(const poHSVColor &hsv);
+	// make a new color with alpha mulitplied by mult_alpha
+	poColor(poColor c, float mult_alpha);
 	
 	poColor &set(float r, float g, float b, float a=1.f);
 	poColor &set255(float r, float g, float b, float a=255.f);

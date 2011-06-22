@@ -95,6 +95,13 @@ poColor::poColor(const poHSVColor &hsv) {
     set(col.R, col.G, col.B, col.A);
 }
 
+poColor::poColor(poColor c, float mult_alpha)
+:	R(c.R)
+,	G(c.G)
+,	B(c.B)
+,	A(c.A*mult_alpha)
+{}
+
 poColor &poColor::set(float r, float g, float b, float a) {
 	R = r; 
 	G = g;

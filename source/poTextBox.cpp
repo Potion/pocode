@@ -69,13 +69,14 @@ poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b; return *this;}
 bool		poTextBox::drawBounds() const {return draw_bounds;}
 
 poTextBox &poTextBox::font(const std::string &name, poFont *f) {
-//	if(fonts.find(name) != fonts.end())
-//		delete fonts[name];
-//	fonts[name] = font;
+	font(name, *f);
+}
+
+poTextBox &poTextBox::font(const std::string &name, const poFont &f) {
 	if(_font != NULL) {
 		delete _font;
 	}
-	_font = f->copy();
+	_font = f.copy();
 	atlas = BitmapFontCache().atlasForFont(_font);
 	
 	return *this;
@@ -246,7 +247,7 @@ void poTextBox::draw() {
         drawStroke(bounds());
     }
 
-	applyColor(textColor());
+	applyColor(poColor(textColor(), true_alpha));
 	atlas->startDrawing(0);
 	BOOST_FOREACH(layout_line &line, lines) {
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {

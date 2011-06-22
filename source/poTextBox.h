@@ -47,6 +47,7 @@ public:
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
 	// <span>regular, when you want to override color, leading or tracking</span>
 	poTextBox &font(const std::string &name, poFont *font);
+	poTextBox &font(const std::string &name, const poFont &font);
 	poFont const*font(const std::string &name);
     
     // show bounds
