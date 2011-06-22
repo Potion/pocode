@@ -9,6 +9,134 @@
 using namespace std;
 using namespace boost;
 
+class poSettingsInterface : public poObject {
+public:
+	typedef boost::function<void(float)> FloatCallback;
+	typedef boost::function<void(poPoint)> PointCallback;
+
+	poSettingsInterface() {
+		addChild(column = new poObject());
+	}
+	
+	void addFloat(const std::string &name, float start, FloatCallback cb, float min=0.f, float max=1.f, float step=.1f) {
+		column->addChild(new Slider(name, start, cb, min, max, step));
+		column->bounds(column->calculateBounds());
+	}
+	void addPoint(const std::string &name, poPoint start, float width, float height, PointCallback cb) {
+		column->addChild(new Pointer(name, start, width, height, cb));
+		column->bounds(column->calculateBounds());
+	}
+	
+private:
+	class Slider : public poObject {
+	public:
+		float value, min, max, step;
+		FloatCallback callback;
+
+		Slider(const std::string &n, float start, boost::function<void(float)> cb, float min, float max, float step)
+		: value((start-min)/(max-min)), callback(cb), min(min), max(max), step(step)
+		{ 
+			name(n);
+			bounds(poRect(0,0,150,20));
+			addEvent(PO_MOUSE_PRESS_EVENT, this);
+			addEvent(PO_MOUSE_DRAG_EVENT, this);
+			
+			poFont font("Helvetica", 11);
+
+			poTextBox *tb = new poTextBox(150,20);
+			tb->textAlignment(PO_ALIGN_TOP_LEFT)
+				.font(PO_FONT_REGULAR, &font)
+				.text(n)
+				.layout();
+			addChild(tb);
+			
+			tb = new poTextBox(150,20);
+			tb->textAlignment(PO_ALIGN_BOTTOM_RIGHT)
+				.font(PO_FONT_REGULAR, &font)
+				.text(actualValueStr())
+				.layout();
+			addChild(tb);
+		}
+		
+		float actualValue() const {
+			return value * (max-min) + min;
+		}
+		
+		std::string actualValueStr() const {
+			return (boost::format("%.4f")%(actualValue())).str();
+		}
+		
+		void draw() { 
+			poRect filler = bounds();
+			filler.size.x *= value;
+			
+			applyColor(fill);
+			drawRect(filler);
+			applyColor(stroke);
+			drawStroke(bounds());
+		}
+		
+		void eventHandler(poEvent *event) {
+			switch(event->type) {
+				case PO_MOUSE_PRESS_EVENT:
+				case PO_MOUSE_DRAG_EVENT:
+				{
+					value = clamp(0.f, bounds().width(), event->local_position.x) / bounds().width();
+					poTextBox *tb = getChildAs<poTextBox>(this, 1);
+					tb->text(actualValueStr()).layout();
+					callback(actualValue());
+					break;
+				}
+			}
+		}
+	};
+	
+	class Pointer : public poObject {
+	public:
+		poPoint value;
+		float width, height;
+		PointCallback callback;
+		
+		Pointer(const std::string &n, poPoint start, float width, float height, PointCallback cb)
+		: value(start), width(width), height(height), callback(cb)
+		{
+			name(n);
+			bounds(poRect(0,0,150,150));
+			addEvent(PO_MOUSE_PRESS_EVENT, this);
+			addEvent(PO_MOUSE_DRAG_EVENT, this);
+
+			poFont font("Helvetica", 11);
+			
+			poTextBox *tb = new poTextBox(150,20);
+			tb->textAlignment(PO_ALIGN_TOP_LEFT)
+				.font(PO_FONT_REGULAR, &font)
+				.text(n)
+				.layout();
+			addChild(tb);
+		}
+		
+		void draw() {
+			applyColor(fill);
+			drawRect(poRect(poPoint(value.x-2, value.y-2), poPoint(2,2)));
+			
+			applyColor(stroke);
+			drawStroke(bounds());
+		}
+		
+		void eventHandler(poEvent *event) {
+			
+		}
+	};
+	
+	static const poColor stroke;
+	static const poColor fill;
+	
+	poObject *column;
+};
+
+const poColor poSettingsInterface::stroke(.5,.5,.5);
+const poColor poSettingsInterface::fill(.8,.8,.8);
+
 poObject *createObjectForID(uint uid) {
 	return new TestObj();
 }
@@ -18,7 +146,7 @@ void setupApplication() {
 	pathToFolder("xcode", &path);
 	setCurrentPath(path/"test/resources");
 	
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", -1680, 0, 800, 1200);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", -1680, 0, 500, 500);
 }
 
 void cleanupApplication() {
@@ -26,64 +154,46 @@ void cleanupApplication() {
 
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
-	addEvent(PO_WINDOW_RESIZED_EVENT, this);
-
-	poObject *holder = new poObject();
-	holder->position(100,100);
-	addChild(holder);
 	
-	for(int col=0; col<35; col++) {
-		for(int row=0; row<25; row++) {
-			poShape2D *rect = new poRectShape(20,20);
-			rect->alignment(PO_ALIGN_CENTER_CENTER);
-			rect->fillColor(hashPointerForColor(rect));
-			rect->position(row*25,col*25);
-			rect->rotation_tween.set(360).setTweenFunction(linearFunc).setDuration(10).setRepeat(PO_TWEEN_REPEAT_REGULAR).setDelay(row*col).start();
-			rect->scale_tween.set(poPoint(.2f,.2f)).setTweenFunction(linearFunc).setDuration(4).setRepeat(PO_TWEEN_REPEAT_PINGPONG).setDelay(row*col).start();
-			holder->addChild(rect);
-		}
-	}
+//	poShape2D *shape = new poRectShape(200,200);
+//	shape->alignment(PO_ALIGN_CENTER_CENTER);
+//	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
+//	addChild(shape);
+//	
+//	poSettingsInterface *interface = new poSettingsInterface();
+//	interface->addFloat("Float Variable", 0.f, 
+//						boost::bind(&poObject::rotation, shape, _1),
+//						0, 360, 10);
+//	addChild(interface);
 	
-	poFont font("Helvetica", 20);
-	poTextBox *tb = new poTextBox(200,50);
-	tb->font(PO_FONT_REGULAR, &font);
-	addChild(tb);
+	poTextBox *rect = new poTextBox(200,200);
+	rect->text("hello world").layout().drawBounds(true);
+	rect->position(getWindowWidth()/2, getWindowHeight()/2);
+	addChild(rect);
 	
-//	poShape2D *img = new poRectShape("images/testimg.png");
-//	img->rotation_tween.set(360).setTweenFunction(linearFunc).setDuration(10).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
-//	img->alignment(PO_ALIGN_CENTER_CENTER);
-//	img->addEvent(PO_MOUSE_PRESS_EVENT, this, "", poDictionary().setBool("scaled",false));
-//	addChild(img);
+	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
 void TestObj::draw() {
 }
 
 void TestObj::update() {
-	poTextBox *tb = getChildAs<poTextBox>(this, 1);
-	tb->text((boost::format("% 8.2f")%getWindowFramerate()).str());
-	tb->layout();
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	switch(event->type) {
-		case PO_WINDOW_RESIZED_EVENT:
-//			event->source->getChild(1)->position(getWindowWidth()/2, getWindowHeight()/2);
-			break;
-			
-		case PO_MOUSE_PRESS_EVENT:
-		{
-			poDictionary &dict = event->dict;
-			if(dict.getBool("scaled")) {
-				event->source->scale_tween.set(poPoint(1,1,1)).setDuration(5).start();
-				dict.setBool("scaled", false);
-			}
-			else {
-				event->source->scale_tween.set(poPoint(.5,.5,1)).setDuration(5).start();
-				dict.setBool("scaled", true);
-			}
-			break;
-		}
+	if(event->keyCode == PO_DOWN_ARROW) {
+		poObject *obj = getChild(0);
+		poAlignment align = poAlignment(obj->alignment() + 1);
+		if(align == PO_ALIGN_NUM_OPTIONS)
+			align = PO_ALIGN_TOP_LEFT;
+		obj->alignment(align);
+	}
+	else if(event->keyCode == PO_RIGHT_ARROW) {
+		poTextBox *tb = getChildAs<poTextBox>(this, 0);
+		poAlignment align = poAlignment(tb->textAlignment() + 1);
+		if(align == PO_ALIGN_NUM_OPTIONS)
+			align = PO_ALIGN_TOP_LEFT;
+		tb->textAlignment(align).layout();
 	}
 }
 
