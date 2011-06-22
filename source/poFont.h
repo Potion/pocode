@@ -20,6 +20,7 @@ class poShape2D;
 static const std::string PO_FONT_REGULAR = "span";
 static const std::string PO_FONT_ITALIC = "i";
 static const std::string PO_FONT_BOLD = "b";
+static const std::string PO_FONT_BOLD_ITALIC = "bi";
 
 class poFont;
 typedef std::map<std::string, poFont*> poFontMap;
