@@ -60,6 +60,9 @@
 		E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */; };
 		E8341F90138EE1AD00E508E0 /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
 		E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
+		E87AA03013B26BE40048947D /* poGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA02E13B26BE10048947D /* poGUI.cpp */; };
+		E87AA03113B26BE40048947D /* poGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA02E13B26BE10048947D /* poGUI.cpp */; };
+		E87AA03213B26BE40048947D /* poGUI.h in Headers */ = {isa = PBXBuildFile; fileRef = E87AA02F13B26BE20048947D /* poGUI.h */; };
 		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E87E18961369884C00DB6934 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
@@ -119,6 +122,8 @@
 		E841ED7A1369AB640029C2F4 /* glInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glInfo.h; path = ../source/glInfo.h; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
 		E85EE94B13731F9C0066679A /* poTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextBox.h; path = ../source/poTextBox.h; sourceTree = "<group>"; };
+		E87AA02E13B26BE10048947D /* poGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poGUI.cpp; path = ../source/poGUI.cpp; sourceTree = "<group>"; };
+		E87AA02F13B26BE20048947D /* poGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poGUI.h; path = ../source/poGUI.h; sourceTree = "<group>"; };
 		E87E18761367696800DB6934 /* poTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture.cpp; path = ../source/poTexture.cpp; sourceTree = "<group>"; };
 		E87E18771367696800DB6934 /* poTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTexture.h; path = ../source/poTexture.h; sourceTree = "<group>"; };
 		E87E18811368615A00DB6934 /* poImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage.cpp; path = ../source/poImage.cpp; sourceTree = "<group>"; };
@@ -293,6 +298,8 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
+				E87AA02F13B26BE20048947D /* poGUI.h */,
+				E87AA02E13B26BE10048947D /* poGUI.cpp */,
 			);
 			name = poFramework4;
 			sourceTree = "<group>";
@@ -349,6 +356,7 @@
 				E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */,
 				E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */,
 				E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */,
+				E87AA03213B26BE40048947D /* poGUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +483,7 @@
 				E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */,
 				E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */,
 				E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
+				E87AA03113B26BE40048947D /* poGUI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +518,7 @@
 				E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */,
 				E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */,
 				E8CE963D13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
+				E87AA03013B26BE40048947D /* poGUI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
