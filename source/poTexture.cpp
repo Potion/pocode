@@ -8,7 +8,6 @@
 
 #include "poTexture.h"
 #include "BinPacker.h"
-#include "FileNotFoundImage.h"
 
 bool formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_format, GLenum *type) {
 	switch(bpp) {
