@@ -138,6 +138,12 @@ poObject* poObject::getChild(const std::string &name) {
 	return NULL;
 }
 
+poObject* poObject::getLastChild() {
+	if(children.empty())
+		return NULL;
+	return children.back();
+}
+
 int poObject::getChildIndex(poObject* obj) {
 	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
 	if(iter != children.end())
@@ -221,24 +227,47 @@ poPoint poObject::objectToLocal(poObject* obj, poPoint point) const {
 }
 
 poAlignment poObject::alignment() const {return _alignment;}
-poObject& poObject::alignment(poAlignment align) {_alignment = align; return *this;}
-
-poRect poObject::calculateBounds(bool include_children) {
-	_bounds = poRect(0,0,0,0);
+poObject& poObject::alignment(poAlignment align) {
+	_alignment = align; 
 	
-	if(include_children) {
-		BOOST_FOREACH(poObject* obj, children) {
-			obj->calculateBounds(include_children);
-			poRect obj_b = obj->bounds();
-			
-			//_bounds.include(objectToLocal(obj, obj_b.bottomLeft()));
-			_bounds.include(objectToLocal(obj, obj_b.bottomRight()));
-			_bounds.include(objectToLocal(obj, obj_b.topLeft()));
-			//_bounds.include(objectToLocal(obj, obj_b.topRight()));
-		}
+	// first calculate bounds
+	poRect frame = bounds();
+	
+	// then set offset based upon bounds and alignment
+	switch(align) {
+		case PO_ALIGN_TOP_LEFT:
+			offset(0,0,0); break;
+		case PO_ALIGN_TOP_CENTER:
+			offset(-frame.width()/2.f,0,0); break;
+		case PO_ALIGN_TOP_RIGHT:
+			offset(-frame.width(),0,0); break;
+		case PO_ALIGN_CENTER_LEFT:
+			offset(0,-frame.height()/2.f,0); break;
+		case PO_ALIGN_CENTER_CENTER:
+			offset(-frame.width()/2.f,-frame.height()/2.f,0); break;
+		case PO_ALIGN_CENTER_RIGHT:
+			offset(-frame.width(),-frame.height()/2.f,0); break;
+		case PO_ALIGN_BOTTOM_LEFT:
+			offset(0,-frame.height(),0); break;
+		case PO_ALIGN_BOTTOM_CENTER:
+			offset(-frame.width()/2.f,-frame.height(),0); break;
+		case PO_ALIGN_BOTTOM_RIGHT:
+			offset(-frame.width(),-frame.height(),0); break;
 	}
 	
-	return _bounds;
+	offset(offset()-frame.origin);
+	
+	return *this;
+}
+
+poRect poObject::calculateBounds() {
+	poRect rect = poRect(0,0,0,0);
+	BOOST_FOREACH(poObject* obj, children) {
+		poRect obj_b = obj->calculateBounds();
+		rect.include(objectToLocal(obj, obj_b.bottomRight()));
+		rect.include(objectToLocal(obj, obj_b.topLeft()));
+	}
+	return rect;
 }
 
 poObject*		poObject::parent() const {return _parent;}

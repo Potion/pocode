@@ -33,7 +33,19 @@ public:
 	// actual bounds of the text
 	poRect textBounds() const;
 	
-	// manage the fonts
+	float padding() const;
+	void padding(float f);
+
+	// these two properties can be overridden inline 
+	// eg <span leading=13 tracking=.2>text will be leaded and tracked</span>
+	float leading() const;
+	void leading(float f);
+	float tracking() const;
+	void tracking(float f);
+	
+	// font name correspondes to html tag embedded in the text
+	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
+	// <span>regular, when you want to override color, leading or tracking</span>
 	poTextBox &font(const std::string &name, poFont *font);
 	poFont const*font(const std::string &name);
     

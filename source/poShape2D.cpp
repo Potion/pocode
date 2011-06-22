@@ -113,6 +113,11 @@ void poShape2D::draw() {
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
+	if(points.empty())
+		bounds(poRect(p,poPoint()));
+	else
+		bounds(bounds().include(p));
+	
 	points.push_back(p);
 	return *this;
 }
@@ -123,7 +128,7 @@ poShape2D& poShape2D::addPoint( float x, float y ) {
 }
 
 poShape2D& poShape2D::addPoints(const std::vector<poPoint> &pts) {
-	points.insert(points.end(), pts.begin(), pts.end());
+	std::for_each(pts.begin(), pts.end(), boost::bind(&poShape2D::addPoint, this, _1));
 	return *this;
 }
 
@@ -150,8 +155,10 @@ const std::vector<poPoint> &poShape2D::getPoints() {
 	return points;
 }
 
-void poShape2D::setPoints(const std::vector<poPoint> &pts) {
-	points.assign(pts.begin(), pts.end());
+poShape2D &poShape2D::setPoints(const std::vector<poPoint> &pts) {
+	clearPoints();
+	addPoints(pts);
+	return *this;
 }
 
 poShape2D& poShape2D::clearPoints() {
@@ -181,57 +188,6 @@ poPoint poShape2D::getTexCoord(int idx, uint unit) {
 
 poColor poShape2D::getColor(int idx) {
 	return colors[idx];
-}
-
-
-
-poObject &poShape2D::alignment(poAlignment align) {
-	poObject::alignment(align);
-	
-	// first calculate bounds
-	calculateBounds();
-	poRect frame = bounds();
-	
-	// then set offset based upon bounds and alignment
-	switch(align) {
-		case PO_ALIGN_TOP_LEFT:
-			offset(0,0,0); break;
-		case PO_ALIGN_TOP_CENTER:
-			offset(-frame.width()/2.f,0,0); break;
-		case PO_ALIGN_TOP_RIGHT:
-			offset(-frame.width(),0,0); break;
-		case PO_ALIGN_CENTER_LEFT:
-			offset(0,-frame.height()/2.f,0); break;
-		case PO_ALIGN_CENTER_CENTER:
-			offset(-frame.width()/2.f,-frame.height()/2.f,0); break;
-		case PO_ALIGN_CENTER_RIGHT:
-			offset(-frame.width(),-frame.height()/2.f,0); break;
-		case PO_ALIGN_BOTTOM_LEFT:
-			offset(0,-frame.height(),0); break;
-		case PO_ALIGN_BOTTOM_CENTER:
-			offset(-frame.width()/2.f,-frame.height(),0); break;
-		case PO_ALIGN_BOTTOM_RIGHT:
-			offset(-frame.width(),-frame.height(),0); break;
-	}
-	
-	offset(offset()-frame.origin);
-	
-	return *this;
-}
-
-
-poRect poShape2D::calculateBounds(bool include_children) {
-	// calculate the boounds
-	poObject::calculateBounds(include_children);
-	
-	poRect frame = bounds();
-	// calculate our children's bounds
-	BOOST_FOREACH(poPoint &point, points) {
-		frame.include(point);
-	}
-	
-	bounds(frame);
-	return frame;
 }
 
 void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {

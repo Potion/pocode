@@ -52,6 +52,7 @@ public:
 	int				numChildren() const;
 	poObject*		getChild(int at_idx);
 	poObject*		getChild(const std::string &with_name);
+	poObject*		getLastChild();
 	int				getChildIndex(poObject* child);
 	// move it relative to its siblibings
 	void			moveChildToFront(poObject* child);
@@ -76,8 +77,8 @@ public:
 	// BOUNDING BOX
 	poAlignment		alignment() const;
 	virtual poObject& alignment(poAlignment align);
-	
-	virtual poRect	calculateBounds(bool include_children=false);
+	// recursively compute the bounds of you and your children
+	virtual poRect	calculateBounds();
 	
 	// OBJECT PROPERTIES
 	poObject*		parent() const;
@@ -163,6 +164,7 @@ private:
 	poMatrixOrder	_matrix_order;
 	int				_draw_order;
 	bool			in_window;
+	bool			fixed_bounds;
 	
 	friend class poWindow;
 };

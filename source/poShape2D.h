@@ -25,7 +25,7 @@ public:
 	poShape2D &curveTo(poPoint pt, poPoint control, int resolution=10);
 	poShape2D &curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
 	
-	void setPoints(const std::vector<poPoint> &points);
+	poShape2D &setPoints(const std::vector<poPoint> &points);
 	poShape2D &clearPoints();
 
 	size_t              numPoints() const;
@@ -34,13 +34,6 @@ public:
 	const std::vector<poPoint> &getPoints();
 	poPoint				getTexCoord(int idx, uint unit=0);
 	poColor				getColor(int idx); 
-	
-    // alignment and bounds
-	virtual poObject&	alignment(poAlignment align);
-	// this was a weird one: http://stackoverflow.com/questions/888235/overriding-a-bases-overloaded-function-in-c/888313#888313
-	using poObject::alignment;
-	
-	virtual poRect      calculateBounds(bool include_children=false);
 	
     // texture management, will copy the texture
 	poShape2D&			placeTexture(poTexture *tex, uint unit=0);

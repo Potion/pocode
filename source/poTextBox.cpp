@@ -61,11 +61,11 @@ poColor poTextBox::textColor() const {return color;}
 poTextBox &poTextBox::textColor(poColor c) {color = c; return *this;}
 
 poAlignment poTextBox::textAlignment() const {return align;}
-poTextBox &poTextBox::textAlignment(poAlignment al) {align = al;}
+poTextBox &poTextBox::textAlignment(poAlignment al) {align = al; return *this;}
 
 poRect poTextBox::textBounds() const {return text_bounds;}
 
-poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b;}
+poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b; return *this;}
 bool		poTextBox::drawBounds() const {return draw_bounds;}
 
 poTextBox &poTextBox::font(const std::string &name, poFont *f) {
@@ -74,10 +74,9 @@ poTextBox &poTextBox::font(const std::string &name, poFont *f) {
 //	fonts[name] = font;
 	if(_font != NULL) {
 		delete _font;
-		delete atlas;
 	}
 	_font = f->copy();
-	atlas = new poBitmapFontAtlas(_font);
+	atlas = BitmapFontCache().atlasForFont(_font);
 	
 	return *this;
 }
