@@ -26,8 +26,6 @@
 		E80625AE1396FEFC00615CCB /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
 		E80625AF1396FEFC00615CCB /* poDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */; };
 		E80625B01396FEFC00615CCB /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
-		E80625B11396FEFC00615CCB /* poCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0B8132E9F78002BE3D9 /* poCommon.h */; };
-		E80625B21396FEFC00615CCB /* poCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F8132FD79900080C86 /* poCommon.cpp */; };
 		E80625B31396FEFC00615CCB /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; };
 		E80625B41396FEFC00615CCB /* poEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */; };
 		E80625B51396FEFC00615CCB /* poTween.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0CA132E9F78002BE3D9 /* poTween.h */; };
@@ -59,7 +57,6 @@
 		E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
 		E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
 		E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F0132FD0D600080C86 /* poMatrixSet.cpp */; };
-		E83095F9132FD79900080C86 /* poCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F8132FD79900080C86 /* poCommon.cpp */; };
 		E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */; };
 		E8341F90138EE1AD00E508E0 /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
 		E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
@@ -115,7 +112,6 @@
 		E80625911396FEDA00615CCB /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
 		E83095F1132FD0D600080C86 /* poMatrixSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixSet.h; path = ../source/poMatrixSet.h; sourceTree = "<group>"; };
-		E83095F8132FD79900080C86 /* poCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCommon.cpp; path = ../source/poCommon.cpp; sourceTree = "<group>"; };
 		E830965913315F2D00080C86 /* poEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEnums.h; path = ../source/poEnums.h; sourceTree = "<group>"; };
 		E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSimpleDrawing.cpp; path = ../source/poSimpleDrawing.cpp; sourceTree = "<group>"; };
 		E830965B13315F2D00080C86 /* poSimpleDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSimpleDrawing.h; path = ../source/poSimpleDrawing.h; sourceTree = "<group>"; };
@@ -144,7 +140,6 @@
 		E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poFramework4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor.cpp; path = ../source/poColor.cpp; sourceTree = "<group>"; };
 		E8B2D0B6132E9F78002BE3D9 /* poColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poColor.h; path = ../source/poColor.h; sourceTree = "<group>"; };
-		E8B2D0B8132E9F78002BE3D9 /* poCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCommon.h; path = ../source/poCommon.h; sourceTree = "<group>"; };
 		E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poDictionary.h; path = ../source/poDictionary.h; sourceTree = "<group>"; };
 		E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEasingFunctions.h; path = ../source/poEasingFunctions.h; sourceTree = "<group>"; };
 		E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poEvent.cpp; path = ../source/poEvent.cpp; sourceTree = "<group>"; };
@@ -268,8 +263,6 @@
 				E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */,
 				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
 				E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */,
-				E8B2D0B8132E9F78002BE3D9 /* poCommon.h */,
-				E83095F8132FD79900080C86 /* poCommon.cpp */,
 				E8B2D0BC132E9F78002BE3D9 /* poEvent.h */,
 				E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */,
 				E8B2D0CA132E9F78002BE3D9 /* poTween.h */,
@@ -338,7 +331,6 @@
 				E80625AB1396FEFC00615CCB /* poColor.h in Headers */,
 				E80625AD1396FEFC00615CCB /* poRect.h in Headers */,
 				E80625AF1396FEFC00615CCB /* poDictionary.h in Headers */,
-				E80625B11396FEFC00615CCB /* poCommon.h in Headers */,
 				E80625B31396FEFC00615CCB /* poEvent.h in Headers */,
 				E80625B51396FEFC00615CCB /* poTween.h in Headers */,
 				E80625B71396FEFC00615CCB /* poFont.h in Headers */,
@@ -467,7 +459,6 @@
 				E80625AC1396FEFC00615CCB /* poColor.cpp in Sources */,
 				E80625AE1396FEFC00615CCB /* poRect.cpp in Sources */,
 				E80625B01396FEFC00615CCB /* poDictionary.cpp in Sources */,
-				E80625B21396FEFC00615CCB /* poCommon.cpp in Sources */,
 				E80625B41396FEFC00615CCB /* poEvent.cpp in Sources */,
 				E80625B61396FEFC00615CCB /* poTween.cpp in Sources */,
 				E80625B81396FEFC00615CCB /* poFont.cpp in Sources */,
@@ -500,7 +491,6 @@
 				E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */,
 				E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */,
 				E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */,
-				E83095F9132FD79900080C86 /* poCommon.cpp in Sources */,
 				E830965C13315F2D00080C86 /* poSimpleDrawing.cpp in Sources */,
 				E8FB2408133A996C00111A69 /* poFont.cpp in Sources */,
 				E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */,

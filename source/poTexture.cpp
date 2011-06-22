@@ -422,7 +422,6 @@ void poTextureAtlas::startDrawing(uint unit) {
 	glClientActiveTexture(GL_TEXTURE0+unit);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
 }
 

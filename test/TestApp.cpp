@@ -155,23 +155,16 @@ void cleanupApplication() {
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 	
-//	poShape2D *shape = new poRectShape(200,200);
-//	shape->alignment(PO_ALIGN_CENTER_CENTER);
-//	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
-//	addChild(shape);
-//	
-//	poSettingsInterface *interface = new poSettingsInterface();
-//	interface->addFloat("Float Variable", 0.f, 
-//						boost::bind(&poObject::rotation, shape, _1),
-//						0, 360, 10);
-//	addChild(interface);
+	poShape2D *shape = new poRectShape(200,200);
+	shape->alignment(PO_ALIGN_CENTER_CENTER);
+	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
+	addChild(shape);
 	
-	poTextBox *rect = new poTextBox(200,200);
-	rect->text("hello world").layout().drawBounds(true);
-	rect->position(getWindowWidth()/2, getWindowHeight()/2);
-	addChild(rect);
-	
-	addEvent(PO_KEY_DOWN_EVENT, this);
+	poSettingsInterface *interface = new poSettingsInterface();
+	interface->addFloat("Float Variable", 0.f, 
+						boost::bind(&poObject::rotation, shape, _1),
+						0, 360, 10);
+	addChild(interface);
 }
 
 void TestObj::draw() {
@@ -181,20 +174,6 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	if(event->keyCode == PO_DOWN_ARROW) {
-		poObject *obj = getChild(0);
-		poAlignment align = poAlignment(obj->alignment() + 1);
-		if(align == PO_ALIGN_NUM_OPTIONS)
-			align = PO_ALIGN_TOP_LEFT;
-		obj->alignment(align);
-	}
-	else if(event->keyCode == PO_RIGHT_ARROW) {
-		poTextBox *tb = getChildAs<poTextBox>(this, 0);
-		poAlignment align = poAlignment(tb->textAlignment() + 1);
-		if(align == PO_ALIGN_NUM_OPTIONS)
-			align = PO_ALIGN_TOP_LEFT;
-		tb->textAlignment(align).layout();
-	}
 }
 
 

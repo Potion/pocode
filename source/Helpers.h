@@ -14,6 +14,8 @@ fs::path currentPath();
 void setCurrentPath(const fs::path &path);
 // search up the filesystem from pwd for folder
 bool pathToFolder(const std::string &folder_name, fs::path *path);
+// search up the filesystem from pwd and set to a folder if its there
+bool lookUpAndSetPath(const std::string &folder_name);
 
 // point related
 std::vector<poPoint> roundedRect(float w, float h, float r);

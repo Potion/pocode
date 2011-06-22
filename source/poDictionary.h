@@ -42,3 +42,15 @@ public:
 protected:
 	boost::unordered_map<std::string, poProperty> items;
 };
+
+
+class poCommon
+:	public poDictionary
+{
+public:
+	static poCommon *get();
+	
+private:
+	explicit poCommon() {}
+	~poCommon() {}
+};

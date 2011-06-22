@@ -30,22 +30,25 @@ bool poDictionary::read(const fs::path &url) {
 		
 		switch(type) {
 			case 0:
-				setInt(key, boost::lexical_cast<int>(value));
+				setBool(key, boost::lexical_cast<bool>(value));
 				break;
 			case 1:
-				setFloat(key, boost::lexical_cast<float>(value));
+				setInt(key, boost::lexical_cast<int>(value));
 				break;
 			case 2:
-				setString(key, value);
+				setFloat(key, boost::lexical_cast<float>(value));
 				break;
 			case 3:
+				setString(key, value);
+				break;
+			case 4:
 			{
 				poColor color;
 				ss >> color;
 				setColor(key, color);
 				break;
 			}
-			case 4:
+			case 5:
 			{
 				poPoint point;
 				ss >> point;
@@ -83,4 +86,12 @@ void poDictionary::write(const fs::path &url) {
 }
 
 
+
+poCommon *poCommon::get() {
+	static poCommon *instance = NULL;
+	if(!instance) {
+		instance = new poCommon();
+	}
+	return instance;
+}
 

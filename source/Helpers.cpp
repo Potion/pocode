@@ -67,6 +67,15 @@ bool pathToFolder(const std::string &folder_name, fs::path *path) {
 	return true;
 }
 
+bool lookUpAndSetPath(const std::string &folder_name) {
+	fs::path path;
+	if(pathToFolder(folder_name, &path)) {
+		setCurrentPath(path/folder_name);
+		return true;
+	}
+	return false;
+}
+
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;
 	std::vector<poPoint> tmp;

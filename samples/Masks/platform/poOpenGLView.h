@@ -13,7 +13,6 @@ class poWindow;
 
 @interface poOpenGLView : NSOpenGLView {
 	CVDisplayLinkRef display_link;
-	BOOL animating;
 	BOOL fullscreen;
 }
 
