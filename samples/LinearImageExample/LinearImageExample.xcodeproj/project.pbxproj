@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4902157A13AFC66700C69498 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4902157913AFC66700C69498 /* Debug.xcconfig */; };
+		4902157C13AFC66700C69498 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4902157B13AFC66700C69498 /* Release.xcconfig */; };
+		4902157F13AFC66700C69498 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4902157E13AFC66700C69498 /* AppDelegate.mm */; };
+		4902158113AFC66700C69498 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4902158013AFC66700C69498 /* en.strings */; };
+		4902158313AFC66700C69498 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4902158213AFC66700C69498 /* main.m */; };
+		4902158513AFC66700C69498 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 4902158413AFC66700C69498 /* main.pch */; };
+		4902158813AFC66700C69498 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4902158713AFC66700C69498 /* main.xib */; };
+		4902158B13AFC66700C69498 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4902158A13AFC66700C69498 /* poOpenGLView.mm */; };
+		4902158F13AFC66700C69498 /* LinearImageExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4902158E13AFC66700C69498 /* LinearImageExampleApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4902157413AFC66700C69498 /* LinearImageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinearImageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4902157913AFC66700C69498 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		4902157B13AFC66700C69498 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		4902157D13AFC66700C69498 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		4902157E13AFC66700C69498 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		4902158013AFC66700C69498 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		4902158213AFC66700C69498 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		4902158413AFC66700C69498 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		4902158613AFC66700C69498 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		4902158713AFC66700C69498 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		4902158913AFC66700C69498 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		4902158A13AFC66700C69498 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		4902158D13AFC66700C69498 /* LinearImageExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinearImageExampleApp.h; path = ../application/LinearImageExampleApp.h; sourceTree = "<group>"; };
+		4902158E13AFC66700C69498 /* LinearImageExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = LinearImageExampleApp.cpp; path = ../application/LinearImageExampleApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4902157113AFC66700C69498 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4902156913AFC66700C69498 = {
+			isa = PBXGroup;
+			children = (
+				4902157713AFC66700C69498 /* LinearImageExample */,
+				4902157513AFC66700C69498 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4902157513AFC66700C69498 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4902157413AFC66700C69498 /* LinearImageExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4902157713AFC66700C69498 /* LinearImageExample */ = {
+			isa = PBXGroup;
+			children = (
+				4902157813AFC66700C69498 /* platform */,
+				4902158C13AFC66700C69498 /* application */,
+			);
+			path = LinearImageExample;
+			sourceTree = "<group>";
+		};
+		4902157813AFC66700C69498 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				4902157913AFC66700C69498 /* Debug.xcconfig */,
+				4902157B13AFC66700C69498 /* Release.xcconfig */,
+				4902157D13AFC66700C69498 /* AppDelegate.h */,
+				4902157E13AFC66700C69498 /* AppDelegate.mm */,
+				4902158013AFC66700C69498 /* en.strings */,
+				4902158213AFC66700C69498 /* main.m */,
+				4902158413AFC66700C69498 /* main.pch */,
+				4902158613AFC66700C69498 /* main.plist */,
+				4902158713AFC66700C69498 /* main.xib */,
+				4902158913AFC66700C69498 /* poOpenGLView.h */,
+				4902158A13AFC66700C69498 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		4902158C13AFC66700C69498 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				4902158D13AFC66700C69498 /* LinearImageExampleApp.h */,
+				4902158E13AFC66700C69498 /* LinearImageExampleApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4902157313AFC66700C69498 /* LinearImageExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4902159213AFC66700C69498 /* Build configuration list for PBXNativeTarget "LinearImageExample" */;
+			buildPhases = (
+				4902157013AFC66700C69498 /* Sources */,
+				4902157113AFC66700C69498 /* Frameworks */,
+				4902157213AFC66700C69498 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LinearImageExample;
+			productName = LinearImageExample;
+			productReference = 4902157413AFC66700C69498 /* LinearImageExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4902156B13AFC66700C69498 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4902156E13AFC66700C69498 /* Build configuration list for PBXProject "LinearImageExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4902156913AFC66700C69498;
+			productRefGroup = 4902157513AFC66700C69498 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4902157313AFC66700C69498 /* LinearImageExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4902157213AFC66700C69498 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4902157A13AFC66700C69498 /* Debug.xcconfig in Resources */,
+				4902157C13AFC66700C69498 /* Release.xcconfig in Resources */,
+				4902158113AFC66700C69498 /* en.strings in Resources */,
+				4902158513AFC66700C69498 /* main.pch in Resources */,
+				4902158813AFC66700C69498 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4902157013AFC66700C69498 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4902157F13AFC66700C69498 /* AppDelegate.mm in Sources */,
+				4902158313AFC66700C69498 /* main.m in Sources */,
+				4902158B13AFC66700C69498 /* poOpenGLView.mm in Sources */,
+				4902158F13AFC66700C69498 /* LinearImageExampleApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4902159013AFC66700C69498 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4902157913AFC66700C69498 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4902159113AFC66700C69498 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4902157B13AFC66700C69498 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		4902159313AFC66700C69498 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4902159413AFC66700C69498 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4902156E13AFC66700C69498 /* Build configuration list for PBXProject "LinearImageExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4902159013AFC66700C69498 /* Debug */,
+				4902159113AFC66700C69498 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4902159213AFC66700C69498 /* Build configuration list for PBXNativeTarget "LinearImageExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4902159313AFC66700C69498 /* Debug */,
+				4902159413AFC66700C69498 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4902156B13AFC66700C69498 /* Project object */;
+}
