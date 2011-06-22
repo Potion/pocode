@@ -55,8 +55,8 @@ enum {
 	// these numbers are the keyCode
 	PO_UP_ARROW = 126,
 	PO_DOWN_ARROW = 125,
-	PO_LEFT_ARROW = 124,
-	PO_RIGHT_ARROW = 123
+	PO_LEFT_ARROW = 123,
+	PO_RIGHT_ARROW = 124
 };
 
 bool isNumericMask(unsigned int mod);
