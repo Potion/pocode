@@ -20,13 +20,22 @@ TextBoxApp::TextBoxApp() {
 
 	f = new poFont("courier", 20);
 	
-	tb = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()-2*PADDING);
+	tb = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
 	tb->position(PADDING,PADDING);
 	tb->textAlignment(PO_ALIGN_TOP_CENTER);
 	tb->font("courier",f);
-	tb->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer ut magna a mauris fringilla varius. Quisque ut.");
+	tb->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->layout();
 	addChild(tb);
+	
+	tb2 = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
+	tb2->position(PADDING,getWindowHeight()/2+PADDING);
+	tb2->textAlignment(PO_ALIGN_TOP_CENTER);
+	tb2->font("courier",f);
+	tb2->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
+	tb2->layout();
+	addChild(tb2);
+	
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }

@@ -61,14 +61,14 @@ bool poDictionary::read(const fs::path &url) {
 	return true;
 }
 
-void poDictionary::write(const fs::path &url) {
+void poDictionary::write(const fs::path &url) const {
 	TiXmlDocument doc;
 	TiXmlElement *root = new TiXmlElement("root");
 	doc.LinkEndChild(root);
 	
 	TiXmlElement *key, *value;
 	
-	boost::unordered_map<std::string,poProperty>::iterator iter = items.begin();
+	boost::unordered_map<std::string,poProperty>::const_iterator iter = items.begin();
 	while(iter != items.end()) {
 		key = new TiXmlElement("key");
 		key->SetAttribute("type", iter->second.which());

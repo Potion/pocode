@@ -15,29 +15,30 @@ class poDictionary {
 public:
 	bool			has(const std::string &name) const {return items.find(name) != items.end();}
 	
-	bool			getBool(const std::string &name) {return boost::get<bool>(items[name]);}
+	bool			getBool(const std::string &name) const {return boost::get<bool>(items.at(name));}
 	poDictionary&	setBool(const std::string &name, bool b) {items[name] = b; return *this;}
 	
-	int             getInt(const std::string &name) {return boost::get<int>(items[name]);}
+	int             getInt(const std::string &name) const {return boost::get<int>(items.at(name));}
 	poDictionary&	setInt(const std::string &name, int i) {items[name] = i; return *this; }
 	
-	float           getFloat(const std::string &name) {return boost::get<float>(items[name]);}
+	float           getFloat(const std::string &name) const {return boost::get<float>(items.at(name));}
 	poDictionary&	setFloat(const std::string &name, float f) {items[name] = f; return *this; }
 	
-	std::string     getString(const std::string &name) {return boost::get<std::string>(items[name]);}
-	poDictionary&	setString(const std::string &name, const std::string &s) {items[name] = s; return *this; }
+	std::string     getString(const std::string &name) const {return boost::get<std::string>(items.at(name));}
+	poDictionary&	setString(const std::string &name, std::string &s) {items[name] = s; return *this; }
 	
-	poColor         getColor(const std::string &name) {return boost::get<poColor>(items[name]);}
+	poColor         getColor(const std::string &name) const {return boost::get<poColor>(items.at(name));}
 	poDictionary&	setColor(const std::string &name, poColor c) {items[name] = c; return *this; }
 	
-	poPoint         getPoint(const std::string &name) {return boost::get<poPoint>(items[name]);}
+	poPoint         getPoint(const std::string &name) const {return boost::get<poPoint>(items.at(name));}
 	poDictionary&	setPoint(const std::string &name, poPoint p) {items[name] = p; return *this; }
 	
-	void*			getPtr(const std::string &name) {return boost::get<void*>(items[name]);}
+	template <typename T>
+	T*				getPtr(const std::string &name) const {return static_cast<T*>(boost::get<void*>(items.at(name)));}
 	poDictionary&	setPtr(const std::string &name, void* obj) {items[name] = obj; return *this;}
 	
 	bool			read(const fs::path &url);
-	void			write(const fs::path &url);
+	void			write(const fs::path &url) const;
 
 protected:
 	boost::unordered_map<std::string, poProperty> items;

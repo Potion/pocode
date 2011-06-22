@@ -18,6 +18,6 @@ public:
 	virtual void eventHandler(poEvent *event);
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
-	poTextBox* tb;
+	poTextBox *tb, *tb2;
 	poFont* f;
 };

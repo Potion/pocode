@@ -22,16 +22,16 @@
 		2B9FB0C713B1B29300C6A86D /* SlideShow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideShow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9FB0CC13B1B29300C6A86D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		2B9FB0CE13B1B29300C6A86D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		2B9FB0D013B1B29300C6A86D /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2B9FB0D013B1B29300C6A86D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
 		2B9FB0D113B1B29400C6A86D /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
 		2B9FB0D313B1B29400C6A86D /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
 		2B9FB0D513B1B29400C6A86D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
 		2B9FB0D713B1B29400C6A86D /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		2B9FB0D913B1B29400C6A86D /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2B9FB0D913B1B29400C6A86D /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
 		2B9FB0DA13B1B29400C6A86D /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		2B9FB0DC13B1B29400C6A86D /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2B9FB0DC13B1B29400C6A86D /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		2B9FB0DD13B1B29400C6A86D /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		2B9FB0E013B1B29400C6A86D /* SlideShowApp.h */ = {isa = PBXFileReference; name = SlideShowApp.h; path = ../application/SlideShowApp.h; sourceTree = "<group>"; };
+		2B9FB0E013B1B29400C6A86D /* SlideShowApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SlideShowApp.h; path = ../application/SlideShowApp.h; sourceTree = "<group>"; };
 		2B9FB0E113B1B29400C6A86D /* SlideShowApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SlideShowApp.cpp; path = ../application/SlideShowApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
