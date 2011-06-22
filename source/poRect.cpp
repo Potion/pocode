@@ -38,17 +38,19 @@ poPoint poRect::center() const {
 	return poPoint(width()/2.f+origin.x, height()/2.f+origin.y);
 }
 
-void poRect::set(float x, float y, float w, float h) {
+poRect &poRect::set(float x, float y, float w, float h) {
 	origin.set(x,y,0);
 	size.set(w,h,0);
+	return *this;
 }
 
-void poRect::set(poPoint o, poPoint s) {
+poRect &poRect::set(poPoint o, poPoint s) {
 	origin = o;
 	size = s;
+	return *this;
 }
 
-void poRect::include(float x, float y) {
+poRect &poRect::include(float x, float y) {
     poPoint maxPoint = origin + size;
     
     maxPoint.x = std::max(x, maxPoint.x);
@@ -57,24 +59,27 @@ void poRect::include(float x, float y) {
 	origin.y = std::min(y, origin.y);
     size.x = maxPoint.x-origin.x;
     size.y = maxPoint.y-origin.y;
+	return *this;
 }
 
-void poRect::include(const poPoint &pt) {
-	include(pt.x, pt.y);
+poRect &poRect::include(const poPoint &pt) {
+	return include(pt.x, pt.y);
 }
 
-void poRect::include(const poRect &rect) {
+poRect &poRect::include(const poRect &rect) {
 	include(rect.origin);
-	include(rect.origin + rect.size);
+	return include(rect.origin + rect.size);
 }
 
-void poRect::scale(float scalar) {
+poRect &poRect::scale(float scalar) {
 	size *= scalar;
+	return *this;
 }
 
-void poRect::scale(float scalar, const poPoint &pt) {
+poRect &poRect::scale(float scalar, const poPoint &pt) {
 	origin = (origin - pt) * scalar + pt;
 	size *= scalar;
+	return *this;
 }
 
 bool poRect::contains(float x, float y) const {

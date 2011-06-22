@@ -20,15 +20,15 @@ public:
 	float area() const;
 	poPoint center() const;
 	
-	void set(float x, float y, float w, float h);
-	void set(poPoint origin, poPoint size);
+	poRect &set(float x, float y, float w, float h);
+	poRect &set(poPoint origin, poPoint size);
 
-	void include(float x, float y);
-	void include(const poPoint &pt);
-	void include(const poRect &rect);
-	void scale(float scalar);
+	poRect &include(float x, float y);
+	poRect &include(const poPoint &pt);
+	poRect &include(const poRect &rect);
+	poRect &scale(float scalar);
 	// scale around a point
-	void scale(float scalar, const poPoint &pt);
+	poRect &scale(float scalar, const poPoint &pt);
 	
 	bool contains(float x, float y) const;
 	bool contains(const poPoint &pt) const;
