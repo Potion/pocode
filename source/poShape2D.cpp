@@ -36,7 +36,7 @@ void poShape2D::draw() {
 			glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
 		}
 		else {
-			glColor4f(fill_color.R, fill_color.G, fill_color.B, fill_color.A*true_alpha);
+			applyColor(poColor(fill_color,true_alpha));
 		}
 		
 		// setup textures and texture coordinates
@@ -77,7 +77,7 @@ void poShape2D::draw() {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		
 		// set stroke color
-		glColor4f(stroke_color.R, stroke_color.G, stroke_color.B, stroke_color.A*true_alpha);
+		applyColor(poColor(stroke_color, true_alpha));
 		
 		// use standard OpenGL stroke or custom generated stroke
 		if ( !use_simple_stroke )

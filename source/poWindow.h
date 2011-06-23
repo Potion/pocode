@@ -55,7 +55,8 @@ private:
 	void *handle;
 	std::string title_;
 	poObject *root;
-    poObject *mouse_receiver, *key_receiver, *mouse_hover;
+    poObject *mouse_receiver, *key_receiver;
+	std::set<poObject*> mouse_hovers;
 	
 	// store incoming events here
 	std::deque<poEvent> received;

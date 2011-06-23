@@ -4,20 +4,16 @@
 #include "Helpers.h"
 #include "poApplication.h"
 
-poObject *objUnderMouse(poObject *obj, poPoint &mouse) {
+void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
 	if(!(obj->isInWindow() && obj->visible()))
-		return NULL;
+		return;
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
-		poObject *response = objUnderMouse(obj->getChild(i),mouse);
-		if(response != NULL)
-			return response;
+		objUnderMouse(obj->getChild(i), mouse, hovers);
 	}
 	
 	if(obj->pointInside(mouse, true))
-		return obj;
-	
-	return NULL;
+		hovers.insert(obj);
 }
 
 poWindow::poWindow(const char *title, void *handle, uint root_id, poRect b)
@@ -26,7 +22,6 @@ poWindow::poWindow(const char *title, void *handle, uint root_id, poRect b)
 ,	root(NULL)
 ,	_bounds(b)
 ,   mouse_receiver(NULL)
-,   mouse_hover(NULL)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
 ,	closed_(false)
@@ -176,21 +171,29 @@ void poWindow::processEvents() {
 				
 				// figure out who's down there
 				poPoint mouse = event.position;
-				poObject *obj = objUnderMouse(root, mouse);
 				
-				// tell the previous hover they're off the hook
-				if(mouse_hover && mouse_hover != obj) {
-					event.type = PO_MOUSE_LEAVE_EVENT;
-					poEventCenter::get()->routeBySource(mouse_hover, event);
-					mouse_hover = NULL;
-				}
+				std::set<poObject*> hovers;
+				objUnderMouse(root, mouse, hovers);
 				
-				if(obj && obj != mouse_hover) {
-					// and tell the new hover they're on
-					event.type = PO_MOUSE_ENTER_EVENT;
-					if(poEventCenter::get()->routeBySource(obj, event))
-						mouse_hover = obj;
-				}
+				std::vector<poObject*> did_enter;
+				std::vector<poObject*> did_leave;
+
+				std::set_difference(mouse_hovers.begin(), mouse_hovers.end(),
+									hovers.begin(), hovers.end(),
+									std::inserter(did_leave, did_leave.end()));
+				std::set_difference(hovers.begin(), hovers.end(),
+									mouse_hovers.begin(), mouse_hovers.end(),
+									std::inserter(did_enter, did_enter.end()));
+				
+				event.type = PO_MOUSE_LEAVE_EVENT;
+				std::for_each(did_leave.begin(), did_leave.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
+				
+				event.type = PO_MOUSE_ENTER_EVENT;
+				std::for_each(did_enter.begin(), did_enter.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
+
+				mouse_hovers.clear();
+				mouse_hovers.insert(hovers.begin(), hovers.end());
+				
 				break;
 			}
 			case PO_MOUSE_DRAG_EVENT:
