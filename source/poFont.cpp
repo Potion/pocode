@@ -16,7 +16,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-std::string urlForFontFamilyName(const std::string &family) {
+bool urlForFontFamilyName(const std::string &family, std::string &response) {
 	CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 	
 	CFStringRef cfstr = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
@@ -30,13 +30,14 @@ std::string urlForFontFamilyName(const std::string &family) {
 	CFRelease(descriptor);
 	
 	if(!url)
-		return "";
+		return false;
 	
 	char path[1024];
 	CFURLGetFileSystemRepresentation(url, true, (UInt8*)path, 1024);
 	CFRelease(url);
 	
-	return path;
+	response = path;
+	return true;
 }
 
 #endif
@@ -72,16 +73,15 @@ poFont::poFont(const std::string &family_or_url, int sz, const std::string &trai
 :	face()
 ,	size(0)
 {
-	FT_Face tmp;
-	
 	init();
 	
 	std::string url = "";
 	if(fs::exists(family_or_url))
 		url = family_or_url;
-	else
-		url = urlForFontFamilyName(family_or_url);
+	else if(!urlForFontFamilyName(family_or_url, url))
+		printf("poFont: can't find font (%s)\n", family_or_url.c_str());
 	
+	FT_Face tmp;
 	FT_New_Face(lib, url.c_str(), 0, &tmp);
 	for(int i=0; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
@@ -197,6 +197,11 @@ std::string poFont::toString() const {
 void poFont::loadGlyph(int g) {
 	uint idx = FT_Get_Char_Index(face.get(), g);
 	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP);
+}
+
+bool fontExists(const std::string &family) {
+	std::string url;
+	return 	fs::exists(family) || urlForFontFamilyName(family, url);
 }
 
 bool operator==(const poFont &a, const poFont &b) {

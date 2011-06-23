@@ -76,6 +76,8 @@ private:
 	int size, _glyph;
 };
 
+bool fontExists(const std::string &family_or_url);
+
 class poBitmapFontAtlas : public poTextureAtlas {
 public:
 	// if -1, it'll store the current point size of the font

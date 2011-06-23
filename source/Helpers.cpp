@@ -2,6 +2,8 @@
 #include <cstdarg>
 #include <cstdio>
 #include <deque>
+#include <stdarg.h>
+#include <ctime>
 
 #include "poWindow.h"
 #include "poApplication.h"
@@ -124,3 +126,39 @@ float curveLength(const std::vector<poPoint> &curve) {
 	}
 	return len;
 }
+
+void closeLogFile(FILE* fp) {fclose(fp);}
+boost::shared_ptr<FILE> log_file;
+
+void log(const char *format, ...) {
+	static char buffer[80];
+
+	time_t raw;
+	time(&raw);
+	tm *info = localtime(&raw);
+
+	if(!log_file) {
+		strftime(buffer,1024,"%c.log",info);
+		log_file.reset(fopen(buffer, "w"),closeLogFile);
+	}
+
+	// format the time
+	strftime(buffer,80,"%X (%x): ",info);
+
+	// print the time
+	fprintf(log_file.get(), "%s", buffer);
+	printf("%s", buffer);
+
+	// print whatever the user wants
+	va_list args;
+	va_start(args, format);
+	vfprintf(log_file.get(), format, args);
+	vprintf(format, args);
+	va_end(args);
+	
+	// print a new line
+	fprintf(log_file.get(), "\n");
+	printf("\n");
+}
+
+
