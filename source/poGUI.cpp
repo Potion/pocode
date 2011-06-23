@@ -105,7 +105,6 @@ poGUIPointer::poGUIPointer(const std::string &n, poPoint start, poRect rect, Poi
 {
 	name(n);
 	bounds(poRect(0,0,GUI_width,GUI_width));
-	setXY(start.x, start.y);
 	
 	addEvent(PO_MOUSE_PRESS_EVENT, this);
 	addEvent(PO_MOUSE_DRAG_EVENT, this);
@@ -117,7 +116,14 @@ std::string poGUIPointer::valueStr() const {return _value.toString();}
 
 void poGUIPointer::draw() {
 	applyColor(GUI_fill);
-	drawRect(poRect(value()-2, poPoint(4,4)));
+	
+	// draw the grid
+	for(int i=0; i<10; i++) {
+	}
+	
+	poPoint unmapped;
+	getXY(&unmapped.x, &unmapped.y);
+	drawRect(poRect(unmapped-2, poPoint(4,4)));
 	
 	applyColor(GUI_stroke);
 	drawStroke(bounds());
@@ -132,7 +138,7 @@ void poGUIPointer::eventHandler(poEvent *event) {
 			float y = clamp(0.f,bounds().height(),event->local_position.y);
 			
 			setXY(x,y);
-//			callback(value());
+			callback(value());
 			break;
 		}
 	}
@@ -151,15 +157,20 @@ void poGUIPointer::setXY(float x, float y) {
 }
 
 void poGUIPointer::getXY(float *x, float *y) {
+	poPoint p = unmapPoint(_value);
+	*x = p.x;
+	*y = p.y;
+}
+
+poPoint poGUIPointer::unmapPoint(poPoint p) {
 	poRect b = bounds();
 	poPoint ll = rect.topLeft();
 	poPoint ur = rect.bottomRight();
 	
-	poPoint p;
-	p.x = map(0.f,b.width(), _value.x, ll.x,ur.x);
-	p.y = map(0.f,b.height(), _value.y, ll.y,ur.y);
-	
-	*x = p.x;
-	*x = p.y;
+	poPoint pt;
+	pt.x = map(ll.x,ur.x, p.x, 0.f,b.width());
+	pt.y = map(ll.y,ur.y, p.y, 0.f,b.height());
+	return pt;
 }
+
 

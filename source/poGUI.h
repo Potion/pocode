@@ -47,6 +47,7 @@ private:
 	void setXY(float x, float y);
 	// will map from rect range to screen
 	void getXY(float *x, float *y);
+	poPoint unmapPoint(poPoint p);
 
 	poPoint _value;
 	poRect rect;

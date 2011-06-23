@@ -2,6 +2,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <deque>
+#include <fstream>
 #include <stdarg.h>
 #include <ctime>
 
@@ -127,38 +128,33 @@ float curveLength(const std::vector<poPoint> &curve) {
 	return len;
 }
 
-void closeLogFile(FILE* fp) {fclose(fp);}
-boost::shared_ptr<FILE> log_file;
+std::ofstream log_file;
+
+const char *currentTimeStr() {
+	static char buffer[80];
+	
+	time_t now = time(NULL);
+	strftime(buffer,80,"%I:%M:%S %p",localtime(&now));
+	
+	return buffer;
+}
 
 void log(const char *format, ...) {
-	static char buffer[80];
+	static char buffer[SHRT_MAX];
 
-	time_t raw;
-	time(&raw);
-	tm *info = localtime(&raw);
-
-	if(!log_file) {
-		strftime(buffer,1024,"%c.log",info);
-		log_file.reset(fopen(buffer, "w"),closeLogFile);
-	}
-
-	// format the time
-	strftime(buffer,80,"%X (%x): ",info);
-
-	// print the time
-	fprintf(log_file.get(), "%s", buffer);
-	printf("%s", buffer);
-
-	// print whatever the user wants
 	va_list args;
 	va_start(args, format);
-	vfprintf(log_file.get(), format, args);
-	vprintf(format, args);
+	vsprintf(buffer, format, args);
 	va_end(args);
 	
-	// print a new line
-	fprintf(log_file.get(), "\n");
-	printf("\n");
+	if(!log_file.is_open())
+		log_file.open("log.text");
+
+	std::stringstream ss;
+	ss << currentTimeStr() << ": " << buffer << "\n";
+	
+	log_file << ss.str();
+	std::cerr << ss.str();
 }
 
 

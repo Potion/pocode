@@ -44,7 +44,7 @@ TestObj::TestObj() {
 	tb->text("hello world").layout();
 	addChild(tb);
 	
-	log("made a text box");
+	log("made a text box (%s)",tb->text().c_str());
 }
 
 void TestObj::draw() {
