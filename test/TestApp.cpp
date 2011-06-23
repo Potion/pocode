@@ -26,25 +26,27 @@ void setupApplication() {
 }
 
 void cleanupApplication() {
-	log("closing application");
+	log("application ending");
 }
 
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 	
-//	poShape2D *shape = new poRectShape(150,150);
-//	shape->alignment(PO_ALIGN_CENTER_CENTER);
-//	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
-//	addChild(shape);
-//	
-//	poGUIPointer *pointer = new poGUIPointer("position", poPoint(), poRect(0,0,getWindowWidth(),getWindowHeight()), boost::bind(&poObject::position, shape, _1));
-//	addChild(pointer);
+	poShape2D *shape = new poRectShape(150,150);
+	shape->alignment(PO_ALIGN_CENTER_CENTER);
+	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
+	addChild(shape);
 	
-	poTextBox *tb = new poTextBox(200,200);
-	tb->text("hello world").layout();
-	addChild(tb);
+	poObject *gui = new poObject();
+	gui->position(5,5);
+	addChild(gui);
 	
-	log("made a text box (%s)",tb->text().c_str());
+	poGUIPointer *pointer = new poGUIPointer("position", shape->position(), poRect(0,0,getWindowWidth(),getWindowHeight()), 0, 100, boost::bind(&poObject::position, shape, _1));
+	gui->addChild(pointer);
+	
+	poGUISlider *slider = new poGUISlider("rotation", 0, 0, 360, 1, boost::bind(&poObject::rotation,shape,_1));
+	slider->position(pointer->position() + poPoint(0, pointer->bounds().height()+5));
+	gui->addChild(slider);
 }
 
 void TestObj::draw() {

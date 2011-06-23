@@ -30,6 +30,18 @@ void drawStroke(float x, float y, float w, float h) {
 	drawQuad(GL_LINE_LOOP,x,y,w,h);
 }
 
+void drawLine(poPoint a, poPoint b) {
+	GLfloat points[2*3] = {
+		a.x, a.y, a.z, 
+		b.x, b.y, b.z
+	};
+	
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, points);
+	glDrawArrays(GL_LINES, 0, 2);
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
 void drawRect(poRect rect) {
 	drawRect(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y);
 }

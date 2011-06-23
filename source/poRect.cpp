@@ -113,6 +113,19 @@ std::string poRect::toString() const {
 	return (boost::format("%.2f %.2f %.2f %.2f") % origin.x % origin.y % size.x % size.y).str();
 }
 
+poPoint poRect::remap(poRect from, poPoint p) {
+	poPoint from_ll = from.topLeft();
+	poPoint from_ur = from.bottomRight();
+	
+	poPoint to_ll = topLeft();
+	poPoint to_ur = bottomRight();
+
+	poPoint pt;
+	pt.x = poMapf(from_ll.x, from_ur.x, p.x, to_ll.x, to_ur.x);
+	pt.y = poMapf(from_ll.y, from_ur.y, p.y, to_ll.y, to_ur.y);
+	return pt;
+}
+
 std::ostream &operator<<(std::ostream &o, const poRect &r) {
 	o << r.toString();
 	return o;

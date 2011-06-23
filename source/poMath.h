@@ -79,6 +79,11 @@ inline T clamp(T min, T max, T val) {
 	return std::max(std::min(val, max), min);
 }
 
+inline float poMapf(float min1, float max1, float v, float min2, float max2) {
+	float tmp = (v-min1) / (max1-min1);
+	return tmp * (max2-min2) + min2;
+}
+
 struct poRay {
 	poPoint origin, dir;
 	poRay(poPoint o, poPoint d)

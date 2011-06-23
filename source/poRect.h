@@ -38,9 +38,10 @@ public:
 	poPoint topRight() const;
 	poPoint bottomRight() const;
 	
+	poPoint remap(poRect from, poPoint p);
+	
 	std::string toString() const;
 };
-
 
 std::ostream &operator<<(std::ostream &o, const poRect &r);
 std::istream &operator>>(std::istream &i, poRect &r);

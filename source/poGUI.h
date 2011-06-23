@@ -33,6 +33,7 @@ private:
 class poGUIPointer : public poObject {
 public:
 	poGUIPointer(const std::string &n, poPoint start, poRect rect, PointCallback cb);
+	poGUIPointer(const std::string &n, poPoint start, poRect rect, float zmin, float zmax, PointCallback cb);
 	
 	poPoint value() const;
 	void value(poPoint p);
@@ -43,13 +44,15 @@ public:
 	
 private:
 	void setup(const std::string &n, poPoint start, poRect rect, float zmin, float zmax, PointCallback cb);
-	// will map from screen to rect range
 	void setXY(float x, float y);
-	// will map from rect range to screen
 	void getXY(float *x, float *y);
-	poPoint unmapPoint(poPoint p);
+	void setZ(float z);
+	float getZ();
 
-	poPoint _value;
+	poObject *pad, *slider;
 	poRect rect;
+	float zmin, zmax;
+	
+	poPoint _value;
 	PointCallback callback;
 };
