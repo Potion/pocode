@@ -6,7 +6,6 @@
 #include "poTextBox.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
-#include "poSpriteSheet.h"
 
 using namespace std;
 using namespace boost;
@@ -32,15 +31,6 @@ void cleanupApplication() {
 
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
-	
-	std::vector<poImage*> imgs;
-	for(int i=1; i<=4; i++)
-		imgs.push_back(new poImage((boost::format("images/animation/simple_animation-0%d.png")%i).str()));
-	
-	poSpriteSheet *sheet = new poSpriteSheet(imgs,1.0);
-	sheet->notifyOnComplete(this, "sheet complete");
-	sheet->start();
-	addChild(sheet);
 }
 
 void TestObj::draw() {
@@ -53,7 +43,6 @@ void TestObj::eventHandler(poEvent *event) {
 }
 
 void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
-	dict.getPtr<poSpriteSheet>("spriteSheet")->start();
 }
 
 
