@@ -77,7 +77,7 @@ private:
 	uint *ref_count;
 };
 
-
+GLenum formatForBitDepth(ImageBitDepth bpp);
 
 class poTextureAtlas 
 {

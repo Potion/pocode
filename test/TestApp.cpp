@@ -6,10 +6,11 @@
 #include "poTextBox.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
+#include "poSpriteSheet.h"
 
 using namespace std;
 using namespace boost;
-	
+
 poObject *createObjectForID(uint uid) {
 	return new TestObj();
 }
@@ -32,21 +33,14 @@ void cleanupApplication() {
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 	
-	poShape2D *shape = new poRectShape(150,150);
-	shape->alignment(PO_ALIGN_CENTER_CENTER);
-	shape->position(getWindowWidth()/2.f, getWindowHeight()/2.f);
-	addChild(shape);
+	std::vector<poImage*> imgs;
+	for(int i=1; i<=4; i++)
+		imgs.push_back(new poImage((boost::format("images/animation/simple_animation-0%d.png")%i).str()));
 	
-	poObject *gui = new poObject();
-	gui->position(5,5);
-	addChild(gui);
-	
-	poGUIPointer *pointer = new poGUIPointer("position", shape->position(), poRect(0,0,getWindowWidth(),getWindowHeight()), 0, 100, boost::bind(&poObject::position, shape, _1));
-	gui->addChild(pointer);
-	
-	poGUISlider *slider = new poGUISlider("rotation", 0, 0, 360, 1, boost::bind(&poObject::rotation,shape,_1));
-	slider->position(pointer->position() + poPoint(0, pointer->bounds().height()+5));
-	gui->addChild(slider);
+	poSpriteSheet *sheet = new poSpriteSheet(imgs,1.0);
+	sheet->notifyOnComplete(this, "sheet complete");
+	sheet->start();
+	addChild(sheet);
 }
 
 void TestObj::draw() {
@@ -57,5 +51,10 @@ void TestObj::update() {
 
 void TestObj::eventHandler(poEvent *event) {
 }
+
+void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
+	dict.getPtr<poSpriteSheet>("spriteSheet")->start();
+}
+
 
 

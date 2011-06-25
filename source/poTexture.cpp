@@ -9,6 +9,24 @@
 #include "poTexture.h"
 #include "BinPacker.h"
 
+GLenum formatForBitDepth(ImageBitDepth bpp) {
+	switch(bpp) {
+		case IMAGE_8:
+			return GL_LUMINANCE;
+			
+		case IMAGE_16:
+			return GL_LUMINANCE_ALPHA;
+			
+		case IMAGE_24:
+			return GL_BGR;
+			
+		case IMAGE_32:
+			return GL_BGRA;
+	}
+	
+	return GL_LUMINANCE;
+}
+
 bool formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_format, GLenum *type) {
 	switch(bpp) {
 		case IMAGE_8:

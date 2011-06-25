@@ -44,12 +44,7 @@ poTextBox::poTextBox(int w, int h)
 }
 
 void poTextBox::defaultFonts() {
-//	poResourceStore tmp;
-//	font(keyForFontTrait(PO_FONT_REGULAR), tmp.add(new poFont("Lucida Grande", PO_FONT_REGULAR)));
-//	font(keyForFontTrait(PO_FONT_ITALIC), tmp.add(new poFont("Lucida Grande", PO_FONT_ITALIC)));
-//	font(keyForFontTrait(PO_FONT_BOLD), tmp.add(new poFont("Lucida Grande", PO_FONT_BOLD)));
-	_font = new poFont("Lucida Grande", 20);
-	atlas = new poBitmapFontAtlas(_font);
+	font(PO_FONT_REGULAR, poFont("Lucida Grande", 20));
 }
 
 poTextBox::~poTextBox() {}
@@ -70,6 +65,7 @@ bool		poTextBox::drawBounds() const {return draw_bounds;}
 
 poTextBox &poTextBox::font(const std::string &name, poFont *f) {
 	font(name, *f);
+	return *this;
 }
 
 poTextBox &poTextBox::font(const std::string &name, const poFont &f) {
