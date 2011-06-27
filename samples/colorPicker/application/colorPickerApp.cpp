@@ -46,7 +46,7 @@ colorPickerApp::colorPickerApp() {
     rgbText->alignment( PO_ALIGN_CENTER_CENTER );
     rgbText->font( "Helvetica" );
     rgbText->textAlignment( PO_ALIGN_CENTER_CENTER );
-    rgbText->position( 0,-3 );
+    rgbText->position( 75,9 );
     rgbText->layout();
     rgbText->name("text");
     rgbLabel->addChild( rgbText );
@@ -57,13 +57,18 @@ colorPickerApp::~colorPickerApp() {
 
 void colorPickerApp::eventHandler(poEvent *event) {
     //printf("%f,%f \n",event->local_position.x, event->local_position.y);
+    if(event->local_position.x < 0 || event->local_position.x > getWindowWidth()
+       || event->local_position.y < 0 || event->local_position.y > getWindowHeight())
+    {
+        return;
+    }
     poColor pixelColor = theImage->getPixel( event->local_position );
     printf("%f,%f,%f,%f \n",pixelColor.R,pixelColor.G,pixelColor.B,pixelColor.A);
-    indicator->strokeColor( poColor( pixelColor.B,pixelColor.G,pixelColor.R,0.8 ) );
+    indicator->strokeColor( poColor( pixelColor.R,pixelColor.G,pixelColor.B,0.8 ) );
     indicator->position( event->position );
     
     char rgbTextBuffer [100];
-    sprintf( rgbTextBuffer, "%d,%d,%d",(int)(pixelColor.B*255),(int)(pixelColor.G*255),(int)(pixelColor.R)*255 );
+    sprintf( rgbTextBuffer, "%d,%d,%d",(int)(pixelColor.R*255),(int)(pixelColor.G*255),(int)(pixelColor.B)*255 );
     poTextBox *rgbText = (poTextBox *)rgbLabel->getChild("text");
     rgbText->textColor( poColor::white );
     rgbText->text( rgbTextBuffer );
