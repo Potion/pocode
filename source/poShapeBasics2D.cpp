@@ -63,7 +63,6 @@ void poRectShape::construct( float w, float h, float rad )
 	
 	if(rad > 0.f) {
 		addPoints(roundedRect(width,height,rad));
-		closed(true);
 	}
     else {
 		addPoint( poPoint(0,0) );

@@ -33,13 +33,12 @@ poOrthoCamera *cam = NULL;
 
 TestObj::TestObj() {
 	addModifier((cam = new poOrthoCamera(0,0,getWindowWidth(),getWindowHeight(), -1, 1)));
-//	addEvent(PO_KEY_DOWN_EVENT, this);
+
 //	poObject *obj = createShapesFromSVGfile("images/tester.svg");
 //	addChild(obj);
 	
 	poRectShape *rect = new poRectShape(400,400);
-	rect->position(50,50);
-	rect->placeTexture(poTexture("images/meatballspoon.jpg"), PO_TEX_FIT_H);
+	rect->generateStroke(10).fillColor(poColor(.3,.3,.3)).position(50,50);
 	addChild(rect);
 }
 
@@ -50,27 +49,6 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	poRect r = cam->get();
-	cout << r << endl;
-
-	switch(event->keyCode) {
-		case PO_RIGHT_ARROW:
-			r.origin.x += 20;
-			cam->set(r);
-			break;
-		case PO_LEFT_ARROW:
-			r.origin.x -= 20;
-			cam->set(r);
-			break;
-		case PO_DOWN_ARROW:
-			r.origin.y += 20;
-			cam->set(r);
-			break;
-		case PO_UP_ARROW:
-			r.origin.y -= 20;
-			cam->set(r);
-			break;
-	}
 }
 
 void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {

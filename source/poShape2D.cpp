@@ -363,6 +363,7 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, S
 		}
 		
 		if(closed_) {
+			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), stroke_width));
 			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
 		}	
 		else {
@@ -549,7 +550,7 @@ poObject* createShapesFromSVGfile(const fs::path &svg) {
 	while(result) {
 		poShape2D *shape = new poShape2D();
 		
-		for(int i=0; i<result->npts; i++) {
+		for(int i=0; i<result->npts-1; i++) {
 			shape->addPoint(result->pts[i*2], result->pts[i*2+1]);
 		}
 		shape->closed(result->closed);
