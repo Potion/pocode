@@ -33,11 +33,12 @@ public:
     bool                setPoint(int idx, poPoint p );
 	const std::vector<poPoint> &getPoints();
 	poPoint				getTexCoord(int idx, uint unit=0);
-	poColor				getColor(int idx); 
 	
     // texture management, will copy the texture
 	poShape2D&			placeTexture(poTexture *tex, uint unit=0);
+	poShape2D&			placeTexture(const poTexture &tex, uint unit=0);
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
+	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit=0);
 
 	poShape2D&			placeImage(poImage *img, uint unit=0);
 	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
@@ -100,7 +101,6 @@ protected:
 private:    
 	std::vector<poPoint>    points;
 	std::vector<poPoint>    tex_coords[MAX_TEXTURE_UNITS];
-	std::vector<poColor>    colors;
 	std::vector<poPoint>    stroke;
 
 	bool                    enable_fill;
@@ -122,4 +122,4 @@ private:
 	poResourceStore				resources;
 };
 
-
+poObject* createShapesFromSVGfile(const fs::path &svg);

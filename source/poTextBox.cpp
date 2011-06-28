@@ -19,7 +19,8 @@ using namespace boost;
 #include <float.h>
 
 poTextBox::poTextBox()
-:	_text("")
+:	poObject()
+,	_text("")
 ,	color(poColor::white)
 ,	_font(NULL)
 ,	atlas(NULL)
@@ -31,7 +32,8 @@ poTextBox::poTextBox()
 }
 
 poTextBox::poTextBox(int w, int h) 
-:	_text("")
+:	poObject()
+,	_text("")
 ,	color(poColor::white)
 ,	_font(NULL)
 ,	atlas(NULL)
@@ -241,6 +243,9 @@ void poTextBox::draw() {
 	
         applyColor(poColor::magenta);
         drawStroke(bounds());
+		
+		applyColor(poColor::red);
+		drawRect(poRect(-offset()-poPoint(5,5), poPoint(10,10)));
     }
 
 	applyColor(poColor(textColor(), true_alpha));

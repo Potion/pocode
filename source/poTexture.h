@@ -20,6 +20,7 @@ public:
 	poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels);
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
 			  uint width, uint height, uint pitch, ubyte const*pixels);
+	poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
 	~poTexture();
 	
 	poTexture *copy();
@@ -61,6 +62,7 @@ protected:
 
 private:
 	void load(poImage *img);
+	void load(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
 	void loadNotFound();
 	void load(GLenum format, GLenum internal_format, GLenum type, 
 			  GLenum min, GLenum mag, GLenum ws, GLenum wt,

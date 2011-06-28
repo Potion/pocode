@@ -42,7 +42,6 @@ void poTweenBase::update() {
 			BOOST_FOREACH(const poTweenFinishedCallback &callback, callbacks) {
 				callback();
 			}
-			
 			bool repeat_ok = repeat_count < 0 || repeat_counter < repeat_count;
 			repeat_counter++;
 			
@@ -60,6 +59,12 @@ void poTweenBase::update() {
 			}
 		}
 	}
+	
+	if(clear_callbacks) {
+		callbacks.clear();
+		std::vector<poTweenFinishedCallback>().swap(callbacks);
+		clear_callbacks = false;
+	}
 }
 
 poTweenBase& poTweenBase::setRepeat(poTweenRepeat type, int count) {
@@ -76,7 +81,7 @@ poTweenBase& poTweenBase::setNotification(poObject *obj, const std::string &msg,
 }
 
 poTweenBase& poTweenBase::clearNotifications() {
-	callbacks.clear();
+	clear_callbacks = true;
 	return *this;
 }
 

@@ -76,6 +76,7 @@ private:
 	double extra1, extra2;
 	
 	std::vector<poTweenFinishedCallback> callbacks;
+	bool clear_callbacks;
 };
 
 

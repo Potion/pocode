@@ -107,6 +107,17 @@ poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, fl
 ,	far(f)
 {}
 
+void poOrthoCamera::set(poRect r) {
+	x1 = r.origin.x;
+	x2 = r.origin.x + r.size.x;
+	y1 = r.origin.y;
+	y2 = r.origin.y + r.size.y;
+}
+
+poRect poOrthoCamera::get() const {
+	return poRect(x1, y1, x2-x1, y2-y1);
+}
+
 void poOrthoCamera::setProjection() {
 	glOrtho(x1, x2, y2, y1, near, far);
 }

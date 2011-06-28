@@ -114,6 +114,14 @@ poTexture::poTexture(GLenum format, GLenum internal_format, GLenum type,
 	incrRefCount();
 }
 
+poTexture::poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
+	if(img->isValid()) {
+		load(img, min, mag, wraps, wrapt);
+	}
+	else
+		loadNotFound();
+}
+
 poTexture::~poTexture() {
 	decrRefCount();
 	if(refCount() <= 0) {
@@ -210,6 +218,10 @@ void poTexture::pushToCard() {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _mag_filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrap_s);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrap_t);
+		if(_wrap_s == GL_CLAMP_TO_BORDER_ARB || _wrap_t == GL_CLAMP_TO_BORDER_ARB) {
+			float trans[] = {0.f, 0.f, 0.f, 0.f};
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+		}
 		glTexImage2D(GL_TEXTURE_2D, 0, _internal_format, _width, _height, 0, _format, _type, _pixels);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -255,11 +267,15 @@ uint poTexture::refCount() {
 }
 
 void poTexture::load(poImage *img) {
+	load(img, GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP);
+}
+
+void poTexture::load(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
 	GLenum f, i, t; 
 	formatsForBitDepth(img->bpp(), &f, &i, &t);
 	
 	load(f, i, t,
-		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
+		 min, mag, wraps, wrapt,
 		 img->width(), img->height(), img->pitch(), img->pixels());
 	pushToCard();
 	

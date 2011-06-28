@@ -63,7 +63,6 @@ bool traitMatchesFlags(const std::string &trait, long flags) {
 
 FT_Library poFont::lib = NULL;
 void deleteFT_Face(FT_Face face) {
-	log("done face");
 	FT_Done_Face(face);
 }
 

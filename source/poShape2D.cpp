@@ -1,6 +1,7 @@
 #include "poShape2D.h"
 #include "Helpers.h"
 #include "LineExtruder.h"
+#include "nanosvg.h"
 
 poShape2D::poShape2D()
 :	enable_fill(true)
@@ -29,15 +30,8 @@ void poShape2D::draw() {
 	if ( enable_fill ) {
 		// load shape point vertex array
 		glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
-		
-		// use fillColor or per point color
-		if(isAttributeEnabled(ATTRIB_COLOR)) {
-			glEnableClientState(GL_COLOR_ARRAY);
-			glColorPointer(4, GL_FLOAT, 0, &(colors[0].red));
-		}
-		else {
-			applyColor(poColor(fill_color,true_alpha));
-		}
+
+		applyColor(poColor(fill_color,true_alpha));
 		
 		// setup textures and texture coordinates
 		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
@@ -107,7 +101,7 @@ void poShape2D::draw() {
 	if(draw_bounds) {
 		applyColor(poColor::red);
 		drawStroke(bounds());
-		drawRect(poRect(-offset()-poPoint(2,2), poPoint(4,4)));
+		drawRect(poRect(-offset()-poPoint(5,5), poPoint(10,10)));
 	}
 }
 
@@ -186,10 +180,6 @@ poPoint poShape2D::getTexCoord(int idx, uint unit) {
 	return tex_coords[unit][idx];
 }
 
-poColor poShape2D::getColor(int idx) {
-	return colors[idx];
-}
-
 void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / tex->width() * tex->s();
@@ -207,27 +197,35 @@ void fitExact(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const s
 }
 
 void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float asp = rect.width() / tex->width();
-	float diff = rect.height() - tex->height()*asp;
+	float asp = tex->width() / (float)tex->height();
+	float yoff = ((rect.height() - rect.height()*asp) / 2.f) / (float)rect.height();
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / rect.width() * tex->s();
-		float t = (points[i].y-diff/2.f) / rect.height() * (tex->t() / asp);
-		coords[i].set(s,t,0.f);
+		float t = (points[i].y / rect.height()) * asp * tex->t();
+		coords[i].set(s,t+yoff,0.f);
 	}
 }
 
 void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float asp = rect.height() / tex->height();
-	float diff = rect.width() - tex->width()*asp;
+	float asp = tex->height() / (float)tex->width();
+	float xoff = ((rect.width() - rect.height()*asp) / 2.f) / (float)rect.width();
 	for(int i=0; i<points.size(); i++) {
-		float s = (points[i].x-diff/2.f) / rect.width() * (tex->s() / asp);
+		float s = (points[i].x / rect.width()) * asp * tex->s();
 		float t = points[i].y / rect.height() * tex->t(); 
-		coords[i].set(s,t,0.f);
+		coords[i].set(s+xoff,t,0.f);
 	}
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
 	return placeTexture(tex, PO_TEX_FIT_NONE, unit);
+}
+
+poShape2D& poShape2D::placeTexture(const poTexture &tex, uint unit) {
+	return placeTexture(tex, PO_TEX_FIT_NONE, unit);
+}
+
+poShape2D& poShape2D::placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit) {
+	return placeTexture(const_cast<poTexture*>(&tex), fit, unit);
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint unit) {
@@ -365,42 +363,12 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, S
 		}
 		
 		if(closed_) {
-			poExtrudedLineSeg seg1(points[points.size()-1], points[0], stroke_width);
-			poExtrudedLineSeg seg2(points[0], points[1], stroke_width);
-			segments.push_back(seg1);
-			segments.push_back(seg2);
-			
-			poPoint top, bottom;
-			bool top_outside = combineExtrudedLineSegments(seg1, seg2, &top, &bottom);
-			
-			if(top_outside) {
-				if(join == STROKE_JOIN_MITRE) {
-					p1 = top;
-					p2 = bottom;
-				}
-				else {
-					p1 = seg2.p1;
-					p2 = bottom;
-				}
-			}
-			else {
-				if(join == STROKE_JOIN_MITRE) {
-					p1 = bottom;
-					p2 = top;
-				}
-				else {
-					p1 = top;
-					p2 = seg2.p2;
-				}
-			}
-			
-			stroke.push_back(p1);
-			stroke.push_back(p2);
-		}
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+		}	
 		else {
 			// add the first cap
-			stroke.push_back(segments[0].p1);
 			stroke.push_back(segments[0].p2);
+			stroke.push_back(segments[0].p1);
 		}
 		
 		// generate middle points
@@ -408,9 +376,12 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, S
 			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, stroke_width);
 		}
 		
-		if(!closed_) {
-			stroke.push_back(segments[segments.size()-1].p3);
-			stroke.push_back(segments[segments.size()-1].p4);
+		if(closed_) {
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+		}
+		else {
+			stroke.push_back(segments.back().p4);
+			stroke.push_back(segments.back().p3);
 		}
 	}
 	
@@ -561,5 +532,46 @@ void poShape2D::updateAllTweens() {
 	fill_color_tween.update();
 }
 
+poObject* createShapesFromSVGfile(const fs::path &svg) {
+	poObject* response = new poObject();
+
+	if(!fs::exists(svg)) {
+		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
+		return;
+	}
+	
+	SVGPath *result = svgParseFromFile(svg.string().c_str());
+	if(!result) {
+		log("poShape2D: invalid svg file (%s)", svg.string().c_str());
+		return;
+	}
+	
+	while(result) {
+		poShape2D *shape = new poShape2D();
+		
+		for(int i=0; i<result->npts; i++) {
+			shape->addPoint(result->pts[i*2], result->pts[i*2+1]);
+		}
+		shape->closed(result->closed);
+		
+		shape->enableFill(result->hasFill);
+		shape->enableStroke(result->hasStroke);
+		
+		if(shape->isFillEnabled()) {
+			shape->fillColor(poColor().set255((result->fillColor>>16)&0xFF, (result->fillColor>>8)&0xFF, result->fillColor&0xFF));
+		}
+		
+		if(shape->isStrokeEnabled()) {
+			shape->generateStroke(result->strokeWidth);
+			shape->strokeColor(poColor().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF));
+		}
+		
+		response->addChild(shape);
+		result = result->next;
+	}
+	
+	svgDelete(result);
+	return response;
+}
 
 

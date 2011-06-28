@@ -60,6 +60,9 @@ public:
     poOrthoCamera(float w, float h, float n, float f);
 	poOrthoCamera(float x1, float y1, float x2, float y2, float n, float f);
 
+	void set(poRect r);
+	poRect get() const;
+	
 protected:
 	virtual void setProjection();
 

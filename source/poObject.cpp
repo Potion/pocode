@@ -78,6 +78,10 @@ void poObject::addChild(poObject* obj) {
 }
 
 void poObject::addChild(poObject *obj, int idx) {
+	if(obj->_parent) {
+		obj->_parent->removeChild(obj);
+	}
+	
 	obj->_parent = this;
 	obj->inWindow(in_window);
 	children.insert(children.begin()+idx, obj);
@@ -261,7 +265,7 @@ poObject& poObject::alignment(poAlignment align) {
 }
 
 poRect poObject::calculateBounds() {
-	poRect rect = poRect(0,0,0,0);
+	poRect rect = bounds();
 	BOOST_FOREACH(poObject* obj, children) {
 		poRect obj_b = obj->calculateBounds();
 		rect.include(objectToLocal(obj, obj_b.bottomRight()));
