@@ -212,16 +212,14 @@ void poTexture::deleteLocalMemory() {
 
 void poTexture::pushToCard() {
 	if(storingPixels() && !isOnCard()) {
+		float trans[] = {0.f, 0.f, 0.f, 0.f};
 		glGenTextures(1, &_uid);
 		glBindTexture(GL_TEXTURE_2D, _uid);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _min_filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _mag_filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrap_s);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrap_t);
-		if(_wrap_s == GL_CLAMP_TO_BORDER_ARB || _wrap_t == GL_CLAMP_TO_BORDER_ARB) {
-			float trans[] = {0.f, 0.f, 0.f, 0.f};
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-		}
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 		glTexImage2D(GL_TEXTURE_2D, 0, _internal_format, _width, _height, 0, _format, _type, _pixels);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}

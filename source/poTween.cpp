@@ -39,9 +39,7 @@ void poTweenBase::update() {
 		// will return true when tween is finished
 		if(updateTweenWithTime(time, begin_time, end_time, duration, extra1, extra2)) {
 			setValueToEnd();
-			BOOST_FOREACH(const poTweenFinishedCallback &callback, callbacks) {
-				callback();
-			}
+			
 			bool repeat_ok = repeat_count < 0 || repeat_counter < repeat_count;
 			repeat_counter++;
 			
@@ -57,13 +55,10 @@ void poTweenBase::update() {
 			else {
 				state = COMPLETE;
 			}
+			
+			if(callback)
+				callback();
 		}
-	}
-	
-	if(clear_callbacks) {
-		callbacks.clear();
-		std::vector<poTweenFinishedCallback>().swap(callbacks);
-		clear_callbacks = false;
 	}
 }
 
@@ -74,14 +69,14 @@ poTweenBase& poTweenBase::setRepeat(poTweenRepeat type, int count) {
 }
 
 poTweenBase& poTweenBase::setNotification(poObject *obj, const std::string &msg, const poDictionary &d) {
-	poDictionary dict = d;
-	dict.setPtr("tween", this);
-	callbacks.push_back(boost::bind(&poObject::messageHandler, obj, msg, dict));
-	return *this;
-}
-
-poTweenBase& poTweenBase::clearNotifications() {
-	clear_callbacks = true;
+	if(obj) {
+		poDictionary dict = d;
+		dict.setPtr("tween", this);
+		callback = boost::bind(&poObject::messageHandler, obj, msg, dict);
+	}
+	else {
+		poTweenFinishedCallback().swap(callback);
+	}
 	return *this;
 }
 

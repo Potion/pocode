@@ -30,8 +30,7 @@ public:
 	void update();
 	
 	poTweenBase& setRepeat(poTweenRepeat type, int count=-1);
-	poTweenBase& setNotification(poObject *obj, const std::string &msg, const poDictionary &dict=poDictionary());
-	poTweenBase& clearNotifications();
+	poTweenBase& setNotification(poObject *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
 	poTweenBase& setTweenFunction(poTweenFunction func);
 	poTweenBase& setDuration(double duration);
 	poTweenBase& setDelay(double delay);
@@ -75,8 +74,7 @@ private:
 	double begin_time, end_time, duration, delay;
 	double extra1, extra2;
 	
-	std::vector<poTweenFinishedCallback> callbacks;
-	bool clear_callbacks;
+	poTweenFinishedCallback callback;
 };
 
 
