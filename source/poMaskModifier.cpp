@@ -17,9 +17,9 @@ poImageMask::poImageMask(poTexture *tex)
 {}
 
 poImageMask::poImageMask(const std::string &str) {
-	poImage *img = new poImage(str, IMAGE_8);
-	texture = new poTexture(GL_ALPHA, img->width(), img->height(), img->pitch(), img->pixels());
-	delete img;
+	poImage img(str, IMAGE_8);
+//	texture = new poTexture(img);
+	texture = new poTexture(GL_ALPHA, img.width(), img.height(), img.pitch(), img.pixels());
 }
 
 poImageMask::~poImageMask() {
@@ -30,7 +30,7 @@ void poImageMask::setUp( poObject* obj ) {
 	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	
-	glBlendFuncSeparate(GL_ZERO, GL_DST_COLOR, GL_SRC_COLOR, GL_ZERO);
+	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
 	drawRect(texture);
 	
 	glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
@@ -38,6 +38,11 @@ void poImageMask::setUp( poObject* obj ) {
 
 void poImageMask::setDown( poObject* obj ) {
 	glPopAttrib();
+//	glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glDisable(GL_DEPTH_TEST);
+//	glBlendFuncSeparate(GL_ZERO, GL_SRC_COLOR, GL_DST_COLOR, GL_ZERO);
+//	drawRect(texture);
+//	glPopAttrib();
 }
 
 

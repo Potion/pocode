@@ -29,6 +29,7 @@ public:
 	poRect &scale(float scalar);
 	// scale around a point
 	poRect &scale(float scalar, const poPoint &pt);
+	poRect &inset(poPoint p);
 	
 	bool contains(float x, float y) const;
 	bool contains(const poPoint &pt) const;

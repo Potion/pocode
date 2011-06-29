@@ -272,6 +272,11 @@ float getWindowHeight() {
 	return app.currentWindow->height();
 }
 
+poRect getWindowFrame() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->frame();
+}
+
 poRect getWindowBounds() {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	return app.currentWindow->bounds();

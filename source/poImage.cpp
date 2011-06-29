@@ -59,6 +59,10 @@ uint poImage::height() const {
 	return FreeImage_GetHeight(bitmap);
 }
 
+poPoint poImage::dimensions() const {
+	return poPoint(width(), height());
+}
+
 ImageBitDepth poImage::bpp() const {
 	return (ImageBitDepth)FreeImage_GetBPP(bitmap);
 }

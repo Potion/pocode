@@ -30,4 +30,4 @@ UTF8				= $(LIBRARIES)/utf8
 MIKKO				= $(LIBRARIES)/libMikko
 BOOST_LIBS_CMD		= -lboost_date_time-clang-darwin20-mt-d-1_45 -lboost_filesystem-clang-darwin20-mt-d-1_45 -lboost_system-clang-darwin20-mt-d-1_45 -lboost_thread-clang-darwin20-mt-d-1_45
 LIBRARIES_CMD		= -lfreeimage-clang -ltinyxpath_d -lfreetype_clang_d -lMikko_d
-FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo
+FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit

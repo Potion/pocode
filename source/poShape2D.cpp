@@ -533,8 +533,8 @@ void poShape2D::updateAllTweens() {
 	fill_color_tween.update();
 }
 
-poObject* createShapesFromSVGfile(const fs::path &svg) {
-	poObject* response = new poObject();
+std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
+	std::vector<poShape2D*> response;
 
 	if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
@@ -567,7 +567,7 @@ poObject* createShapesFromSVGfile(const fs::path &svg) {
 			shape->strokeColor(poColor().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF));
 		}
 		
-		response->addChild(shape);
+		response.push_back(shape);
 		result = result->next;
 	}
 	

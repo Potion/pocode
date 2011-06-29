@@ -82,6 +82,12 @@ poRect &poRect::scale(float scalar, const poPoint &pt) {
 	return *this;
 }
 
+poRect &poRect::inset(poPoint p) {
+	origin += p;
+	size -= p * 2;
+	return *this;
+}
+
 bool poRect::contains(float x, float y) const {
 	return	x >= origin.x && 
 			x <= (origin.x+size.x) && 

@@ -20,6 +20,7 @@ void		applicationMakeWindowFullscreen(poWindow*,bool);
 
 float		getWindowWidth();
 float		getWindowHeight();
+poRect		getWindowFrame();
 poRect		getWindowBounds();
 float		getWindowFramerate();
 float		getWindowLastFrameTime();

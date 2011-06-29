@@ -122,4 +122,4 @@ private:
 	poResourceStore				resources;
 };
 
-poObject* createShapesFromSVGfile(const fs::path &svg);
+std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg);

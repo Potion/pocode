@@ -37,6 +37,7 @@ public:
 	
 	uint width() const;
 	uint height() const;
+	poPoint dimensions() const;
 	ImageBitDepth bpp() const;
 	uint pitch() const;
 	uint storageSize() const;
