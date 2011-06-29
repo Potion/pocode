@@ -30,6 +30,8 @@ void cleanupApplication() {
 	log("application ending");
 }
 
+poShape2D *mask;
+
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 
@@ -44,20 +46,23 @@ TestObj::TestObj() {
 		holder->addChild(shape);
 	}
 	
-	vector<poShape2D*> svgs = createShapesFromSVGfile("images/mask.svg");
-	holder->addModifier(new poGeometryMask(svgs.front()));
+	mask = createShapesFromSVGfile("images/mask.svg").front();
+	mask->alignment(PO_ALIGN_TOP_CENTER);
+	addModifier(new poGeometryMask(mask));
 }
 
 void TestObj::draw() {
 }
 
 void TestObj::update() {
+	mask->rotation(mask->rotation()+5);
 }
 
 void TestObj::eventHandler(poEvent *event) {
 }
 
 void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
+	
 }
 
 

@@ -13,7 +13,10 @@ void setupApplication() {
 void cleanupApplication() {
 }
 
-TweenApp::TweenApp() {
+TweenApp::TweenApp()
+:	simple_tween(&simple_tween_val)
+,	simple_tween_val(0.f)
+{
 	addModifier(new poCamera2D(poColor::black));
 	
 	zoomed = false;
@@ -49,9 +52,15 @@ TweenApp::TweenApp() {
 		.setTweenFunction(linearFunc)			//	linear (no ease)
 		.setDuration(2)							//	Easing functions require a duration
 		.start();
+	
+	simple_tween.set(1.f).setTweenFunction(linearFunc).setDuration(1.f).setRepeat(PO_TWEEN_REPEAT_PINGPONG).setNotification(this,"done").start();
 }
 
 TweenApp::~TweenApp() {
+}
+
+void TweenApp::update() {
+	simple_tween.update();
 }
 
 void TweenApp::eventHandler(poEvent *event) {
@@ -76,5 +85,5 @@ void TweenApp::eventHandler(poEvent *event) {
 }
 
 void TweenApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-	
+	printf("%s (%f)\n", msg.c_str(), simple_tween_val);
 }

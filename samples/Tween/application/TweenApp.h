@@ -14,12 +14,16 @@ public:
 	TweenApp();
 	virtual ~TweenApp();
     
+	virtual void update();
 	virtual void eventHandler(poEvent *event);
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
     
     poRectShape* pho;
 	poOvalShape* banh;
 	poOvalShape* mi;
+	
+	float simple_tween_val;
+	poTween<float> simple_tween;
 	
 	bool zoomed;
 

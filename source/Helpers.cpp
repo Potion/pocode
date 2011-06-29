@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <ctime>
 
+#include "poObject.h"
+#include "poShape2D.h"
 #include "poWindow.h"
 #include "poApplication.h"
 
@@ -137,6 +139,54 @@ const char *currentTimeStr() {
 	strftime(buffer,80,"%I:%M:%S %p",localtime(&now));
 	
 	return buffer;
+}
+
+void applyObjTransform(poObject *obj) {
+	poPoint trans = obj->position();
+	poPoint off = obj->offset();
+	float rotation = obj->rotation();
+	poPoint rot_axis = obj->rotationAxis();
+	poPoint scale = obj->scale();
+	
+	switch(obj->matrixOrder()) {
+		case PO_MATRIX_ORDER_TRS:
+			glTranslatef(trans.x, trans.y, trans.z);
+			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);
+			glScalef(scale.x, scale.y, scale.z);
+			break;
+			
+		case PO_MATRIX_ORDER_RST:
+			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);
+			glScalef(scale.x, scale.y, scale.z);
+			glTranslatef(trans.x, trans.y, trans.z);
+			break;
+	}
+	
+	glTranslatef(off.x, off.y, off.z);
+}
+
+void startMasking(poShape2D *mask) {
+	glPushMatrix();
+	applyObjTransform(mask);
+	
+	glPushAttrib(GL_STENCIL_BUFFER_BIT);
+	glEnable(GL_STENCIL_TEST);
+	
+	glClear(GL_STENCIL_BUFFER_BIT);
+	
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glStencilFunc(GL_ALWAYS, 1, 1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	drawPoints(mask->getPoints());
+	
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glStencilFunc(GL_EQUAL, 1, 1);
+	
+	glPopMatrix();
+}
+
+void stopMasking() {
+	glPopAttrib();
 }
 
 void log(const char *format, ...) {

@@ -8,9 +8,8 @@
 
 #include "poMaskModifier.h"
 #include "poSimpleDrawing.h"
+#include "Helpers.h"
 #include "poShape2D.h"
-
-#include <boost/lambda/lambda.hpp>
 
 poImageMask::poImageMask(poTexture *tex)
 :	texture(tex->copy())
@@ -46,41 +45,16 @@ void poImageMask::setDown( poObject* obj ) {
 }
 
 
-poGeometryMask::poGeometryMask(poRect r) {
-	points.push_back(r.origin);
-	points.push_back(poPoint(r.origin.x+r.size.x, r.origin.y));
-	points.push_back(r.origin+r.size);
-	points.push_back(poPoint(r.origin.x, r.origin.y+r.size.y));
-}
-
-poGeometryMask::poGeometryMask(const std::vector<poPoint> &pts) {
-	points.assign(pts.begin(), pts.end());
-}
-
-poGeometryMask::poGeometryMask(poShape2D *shape) {
-	const std::vector<poPoint> &pts = shape->getPoints();
-	points.assign(pts.begin(), pts.end());
-	
-	using namespace boost::lambda;
-	using boost::lambda::_1;
-	std::transform(points.begin(), points.end(), points.begin(), ret<poPoint>(_1 + shape->position()));
-}
+poGeometryMask::poGeometryMask(poShape2D *shape)
+:	shape(shape)
+{}
 
 void poGeometryMask::setUp( poObject* obj ) {
-	glPushAttrib(GL_STENCIL_BUFFER_BIT);
-	glEnable(GL_STENCIL_TEST);
-
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-	glStencilFunc(GL_ALWAYS, 1, 1);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	drawPoints(points);
-	
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	glStencilFunc(GL_EQUAL, 1, 1);
+	startMasking(shape);
 }
 
 void poGeometryMask::setDown( poObject* obj ) {
-	glPopAttrib();
+	stopMasking();
 }
 
 

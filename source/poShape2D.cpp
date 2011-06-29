@@ -550,7 +550,7 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 	while(result) {
 		poShape2D *shape = new poShape2D();
 		
-		for(int i=0; i<result->npts-1; i++) {
+		for(int i=0; i<result->npts; i++) {
 			shape->addPoint(result->pts[i*2], result->pts[i*2+1]);
 		}
 		shape->closed(result->closed);

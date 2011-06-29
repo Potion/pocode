@@ -23,4 +23,11 @@ std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolut
 std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution);
 float curveLength(const std::vector<poPoint> &curve);
 
+class poObject;
+class poShape2D;
+
+void applyObjTransform(poObject *obj);
+void startMasking(poShape2D *mask);
+void stopMasking();
+
 void log(const char *format, ...);

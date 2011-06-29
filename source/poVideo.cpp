@@ -9,19 +9,29 @@
 #include "poVideo.h"
 #include <QTKit/QTKit.h>
 
+struct osxVideoCaptureImpl {
+	QTCaptureSession *session;
+	QTCaptureDeviceInput *device;
+};
+
 poVideoCapture::poVideoCapture() {
+	osxVideoCaptureImpl *impl = new osxVideoCaptureImpl();
+	
 	NSError *error = nil;
 	BOOL success = NO;
 
-	QTCaptureSession* session = [[QTCaptureSession alloc] init];
+	impl->session = [[QTCaptureSession alloc] init];
 
 	QTCaptureDevice *video_dev = [QTCaptureDevice defaultInputDeviceWithMediaType:QTMediaTypeVideo];
-	success = [video_dev open&error];
+	success = [video_dev open:&error];
 	
-	QTCaptureDeviceInput *video_in = [[QTCaptureDeviceInput alloc] initWithDevice:video_dev];
-	success = [session addInput:video_in error:&error];
+	impl->device = [[QTCaptureDeviceInput alloc] initWithDevice:video_dev];
+	success = [impl->session addInput:impl->device error:&error];
+	
+	this->impl = impl;
 }
 
 poVideoCapture::~poVideoCapture() {
-	[session release];
+	osxVideoCaptureImpl *impl = static_cast<osxVideoCaptureImpl*>(this->impl);
+	[impl->session release];
 }
