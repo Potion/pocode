@@ -340,7 +340,7 @@ poShape2D&	poShape2D::alphaTestTextures(bool b) {alpha_test_textures = b; return
 
 void makeStrokeForJoint(std::vector<poPoint> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width);
 
-poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, StrokeCapProperty cap) {
+poShape2D& poShape2D::generateStroke(int strokeWidth, StrokePlacementProperty place, StrokeJoinProperty join, StrokeCapProperty cap) {
 	stroke_width = strokeWidth;
 	this->cap = cap;
 	this->join = join;
@@ -359,11 +359,11 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, StrokeJoinProperty join, S
 		for(int i=0; i<points.size()-1; i++) {
 			p1 = points[i];
 			p2 = points[i+1];
-			segments.push_back(poExtrudedLineSeg(p1, p2, stroke_width));
+			segments.push_back(poExtrudedLineSeg(p1, p2, stroke_width, place));
 		}
 		
 		if(closed_) {
-			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), stroke_width));
+			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), stroke_width, place));
 			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
 		}	
 		else {

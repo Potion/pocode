@@ -10,11 +10,14 @@
 #pragma once
 
 #include "poPoint.h"
+#include "poEnums.h"
 
 struct poExtrudedLineSeg { 
 	poPoint p1, p2, p3, p4;
+	StrokePlacementProperty place;
+	
 	poExtrudedLineSeg();
-	poExtrudedLineSeg(poPoint a, poPoint b, float w);
+	poExtrudedLineSeg(poPoint a, poPoint b, float w, StrokePlacementProperty place);
 	poExtrudedLineSeg(poPoint ul, poPoint ll, poPoint ur, poPoint lr);
 };
 

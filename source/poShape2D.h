@@ -43,7 +43,7 @@ public:
 	poShape2D&			placeImage(poImage *img, uint unit=0);
 	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
 	
-	poShape2D&			generateStroke(int strokeWidth, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
+	poShape2D&			generateStroke(int strokeWidth, StrokePlacementProperty place=STROKE_PLACE_CENTER, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
     
 	// get and set shape properties
 	poShape2D&          enableFill(bool b);

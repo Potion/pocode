@@ -46,6 +46,12 @@ enum VertexAttribute {
 	ATTRIB_TEX_COORD = 4,
 };
 
+enum StrokePlacementProperty {
+	STROKE_PLACE_INSIDE = 0,
+	STROKE_PLACE_OUTSIDE = 1,
+	STROKE_PLACE_CENTER = 2
+};
+
 enum StrokeCapProperty {
 	STROKE_CAP_BUTT = 0,
 	STROKE_CAP_ROUND = 1,

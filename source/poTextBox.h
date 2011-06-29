@@ -33,15 +33,19 @@ public:
 	// actual bounds of the text
 	poRect textBounds() const;
 	
-	float padding() const;
-	void padding(float f);
-
-	// these two properties can be overridden inline 
+	// these properties can be overridden inline 
 	// eg <span leading=13 tracking=.2>text will be leaded and tracked</span>
 	float leading() const;
-	void leading(float f);
+	poTextBox &leading(float f);
 	float tracking() const;
-	void tracking(float f);
+	poTextBox &tracking(float f);
+	float paddingLeft() const;
+	float paddingRight() const;
+	float paddingTop() const;
+	float paddingBottom() const;
+	poTextBox &padding(float f);
+	poTextBox &padding(float h, float v);
+	poTextBox &padding(float l, float r, float t, float b);
 	
 	// font name correspondes to html tag embedded in the text
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
@@ -93,6 +97,7 @@ private:
 
 	poFont *_font;
 	poBitmapFontAtlas *atlas;
+	float _leading, _tracking, _padding[4];
 	
 	poShape2D *button;
 };

@@ -27,7 +27,10 @@ poTextBox::poTextBox()
 ,	draw_bounds(false)
 ,	align(PO_ALIGN_TOP_LEFT)
 ,	button(NULL)
+,	_leading(1.f)
+,	_tracking(1.f)
 {
+	_padding[0] = _padding[1] = _padding[2] = _padding[3] = 0.f;
 	defaultFonts();
 }
 
@@ -40,7 +43,10 @@ poTextBox::poTextBox(int w, int h)
 ,	draw_bounds(false)
 ,	align(PO_ALIGN_TOP_LEFT)
 ,	button(NULL)
+,	_leading(1.f)
+,	_tracking(1.f)
 {
+	_padding[0] = _padding[1] = _padding[2] = _padding[3] = 0.f;
 	defaultFonts();
 	bounds(poRect(0,0,w,h));
 }
@@ -61,6 +67,18 @@ poAlignment poTextBox::textAlignment() const {return align;}
 poTextBox &poTextBox::textAlignment(poAlignment al) {align = al; return *this;}
 
 poRect poTextBox::textBounds() const {return text_bounds;}
+
+float poTextBox::leading() const {return _leading;}
+poTextBox &poTextBox::leading(float f) {_leading = f; return *this;}
+float poTextBox::tracking() const {return _tracking;}
+poTextBox & poTextBox::tracking(float f) {_tracking = f; return *this;}
+float poTextBox::paddingLeft() const {return _padding[0];}
+float poTextBox::paddingRight() const {return _padding[1];}
+float poTextBox::paddingTop() const {return _padding[2];}
+float poTextBox::paddingBottom() const {return _padding[3];}
+poTextBox & poTextBox::padding(float f) {_padding[0] = _padding[1] = _padding[2] = _padding[3] = f; return *this;}
+poTextBox & poTextBox::padding(float h, float v) {_padding[0] = _padding[1] = h; _padding[2] = _padding[3] = v; return *this;}
+poTextBox & poTextBox::padding(float l, float r, float t, float b) {_padding[0] = l; _padding[1] = r; _padding[2] = t; _padding[3] = b; return *this;}
 
 poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b; return *this;}
 bool		poTextBox::drawBounds() const {return draw_bounds;}
@@ -101,7 +119,7 @@ void poTextBox::breakLine(vector<layout_line> &lines, layout_line &line) {
 	lines.push_back(line);
 
 	line = layout_line();
-	line.bounds.origin.y = lines.size() * _font->lineHeight();
+	line.bounds.origin.y = lines.size() * _font->lineHeight() * leading();
 }
 
 poTextBox &poTextBox::layout() {
@@ -114,8 +132,8 @@ poTextBox &poTextBox::layout() {
 	layout_line line;
 	
 	_font->glyph(' ');
-	float spacer = _font->glyphAdvance().x;
-
+	float spacer = _font->glyphAdvance().x * tracking();
+	
 	tokenizer< char_separator<char> > tok(text(), char_separator<char>(" "));
 	for(tokenizer< char_separator<char> >::iterator word=tok.begin(); word!=tok.end(); ++word) {
 		poPoint size(0,0);
@@ -138,20 +156,16 @@ poTextBox &poTextBox::layout() {
 			
 			_font->glyph(codepoint);
 
-			poPoint kern(0.f, 0.f);
-//			if(ch != word->begin() && _font->hasKerning())
-//				kern = _font->kernGlyphs(*prev, codepoint);
-
 			layout_glyph glyph;
 			glyph.glyph = codepoint;
 			glyph.bbox = _font->glyphBounds();
-			glyph.bbox.origin += poPoint(size.x, 0) + _font->glyphBearing() + kern;
+			glyph.bbox.origin += poPoint(size.x, 0) + _font->glyphBearing();
 			glyphs.push_back(glyph);
 
-			size.x += _font->glyphAdvance().x + kern.x;
+			size.x += _font->glyphAdvance().x*tracking();
 			size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
 			
-			if(size.x + line.bounds.size.x > bounds().width() && line.word_count >= 1) {
+			if(size.x + line.bounds.size.x > (bounds().width()-paddingLeft()-paddingRight()) && line.word_count >= 1) {
 				line.bounds.size.x -= spacer;
 				text_bounds.include(line.bounds.origin + line.bounds.size);
 				breakLine(lines, line);
@@ -209,6 +223,8 @@ void poTextBox::alignText() {
 				break;
 		}
 		
+		glyphOffset.x += paddingLeft();
+		glyphOffset.y += paddingBottom();
 		line.bounds.origin += glyphOffset;
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {

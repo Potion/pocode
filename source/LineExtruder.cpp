@@ -12,14 +12,33 @@
 poExtrudedLineSeg::poExtrudedLineSeg()
 {}
 
-poExtrudedLineSeg::poExtrudedLineSeg(poPoint a, poPoint b, float w) {
+poExtrudedLineSeg::poExtrudedLineSeg(poPoint a, poPoint b, float w, StrokePlacementProperty place) {
 	poPoint diff = b - a;
 	float angle = atan2(diff.y, diff.x);
-	float halfW = w / 2.f;
-	float c1 = cosf(angle + M_HALF_PI) * halfW;
-	float s1 = sinf(angle + M_HALF_PI) * halfW;
-	float c2 = cosf(angle - M_HALF_PI) * halfW;
-	float s2 = sinf(angle - M_HALF_PI) * halfW;
+	
+	this->place = place;
+	
+	float offset1 = 0;
+	float offset2 = 0;
+	
+	switch(place) {
+		case STROKE_PLACE_CENTER:
+			offset1 = offset2 = w / 2.f;
+			break;
+		case STROKE_PLACE_INSIDE:
+			offset1 = w;
+			offset2 = 0.f;
+			break;
+		case STROKE_PLACE_OUTSIDE:
+			offset1 = 0.f;
+			offset2 = w;
+			break;
+	};
+	
+	float c1 = cosf(angle + M_HALF_PI) * offset1;
+	float s1 = sinf(angle + M_HALF_PI) * offset1;
+	float c2 = cosf(angle - M_HALF_PI) * offset2;
+	float s2 = sinf(angle - M_HALF_PI) * offset2;
 	p1 = a + poPoint(c1,s1);
 	p2 = a + poPoint(c2,s2);
 	p3 = b + poPoint(c1,s1);
@@ -34,9 +53,25 @@ poExtrudedLineSeg::poExtrudedLineSeg(poPoint ul, poPoint ll, poPoint ur, poPoint
 {}
 
 float angleBetweenSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2) {
-	poPoint p1 = (seg1.p2 + seg1.p1) / 2.f;
-	poPoint p2 = (seg1.p4 + seg1.p3) / 2.f;
-	poPoint p3 = (seg2.p4 + seg2.p3) / 2.f;
+	poPoint p1, p2, p3;
+	
+	switch(seg1.place) {
+		case STROKE_PLACE_CENTER:
+			p1 = (seg1.p2 + seg1.p1) / 2.f;
+			p2 = (seg1.p4 + seg1.p3) / 2.f;
+			p3 = (seg2.p4 + seg2.p3) / 2.f;
+			break;
+		case STROKE_PLACE_INSIDE:
+			p1 = seg1.p1;
+			p2 = seg1.p3;
+			p3 = seg2.p3;
+			break;
+		case STROKE_PLACE_OUTSIDE:
+			p1 = seg1.p2;
+			p2 = seg1.p4;
+			p3 = seg2.p4;
+			break;
+	}
 	
 	return angleBetweenPoints(p1, p2, p3);
 }
