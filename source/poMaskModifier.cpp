@@ -29,6 +29,8 @@ void poImageMask::setUp( poObject* obj ) {
 	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	
+	glClear(GL_STENCIL_BUFFER_BIT);
+	
 	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
 	drawRect(texture);
 	
