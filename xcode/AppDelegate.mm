@@ -38,8 +38,13 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	cleanupApplication();
+	
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:NSWindowWillCloseNotification object:nil];
+	
 	[windows release];
 	windows = nil;
+	
 	[shared_context release];
 }
 

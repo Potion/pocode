@@ -21,6 +21,8 @@ public:
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
 			  uint width, uint height, uint pitch, ubyte const*pixels);
 	poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
+	poTexture(const poTexture &tex);
+	poTexture &operator=(const poTexture &tex);
 	~poTexture();
 	
 	poTexture *copy();
@@ -61,6 +63,7 @@ protected:
 	uint refCount();
 
 private:
+	void copy(const poTexture &tex);
 	void load(poImage *img);
 	void load(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
 	void loadNotFound();
