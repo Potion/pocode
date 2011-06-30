@@ -285,6 +285,16 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 	}
 }
 
+poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate, int texIndex) {
+	for(int i = 0; i< tex_coords[texIndex].size(); i++ ){
+		tex_coords[texIndex][i].x *= scale.x;
+		tex_coords[texIndex][i].y *= scale.y;
+		tex_coords[texIndex][i] += pt;
+		//TODO: add rotate
+	}
+	return *this;
+}
+
 poShape2D& poShape2D::placeImage(poImage *img, uint unit) {
 	poTexture tex(img);
 	placeTexture(&tex, unit);

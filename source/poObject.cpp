@@ -21,6 +21,7 @@ poObject::poObject()
 ,	_draw_order(0)
 ,	position_tween(&_position)
 ,	scale_tween(&_scale)
+,	offset_tween(&_offset)
 ,	alpha_tween(&_alpha)
 ,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
@@ -44,6 +45,7 @@ poObject::poObject(const std::string &name)
 ,	_draw_order(0)
 ,	position_tween(&_position)
 ,	scale_tween(&_scale)
+,	offset_tween(&_offset)
 ,	alpha_tween(&_alpha)
 ,	rotation_tween(&_rotation)
 ,	true_alpha(1.f)
@@ -383,6 +385,7 @@ void poObject::_broadcastEvent(poEvent* event) {
 void poObject::updateAllTweens() {
 	position_tween.update();
 	scale_tween.update();
+	offset_tween.update();
 	alpha_tween.update();
 	rotation_tween.update();
 }

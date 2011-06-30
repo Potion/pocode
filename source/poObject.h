@@ -124,6 +124,7 @@ public:
 	
 	poTween<poPoint>	position_tween;
 	poTween<poPoint>	scale_tween;
+	poTween<poPoint>	offset_tween;
 	poTween<float>		alpha_tween;
 	poTween<float>		rotation_tween;
 

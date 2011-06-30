@@ -39,7 +39,9 @@ public:
 	poShape2D&			placeTexture(const poTexture &tex, uint unit=0);
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
 	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit=0);
-
+	
+	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, int texIndex);
+	
 	poShape2D&			placeImage(poImage *img, uint unit=0);
 	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
 	
