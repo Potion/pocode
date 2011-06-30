@@ -52,6 +52,12 @@ public:
 	void clear();
 	
 	void flip(poOrientation dir);
+
+	void resizeMaxDimension(float max_dim);
+	void resizeMinDimension(float min_dim);
+	void resizeWidth(float w);
+	void resizeHeight(float h);
+	void resize(float w, float h);
 	
 private:
 	void load(const std::string &url);

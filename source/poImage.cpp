@@ -177,6 +177,42 @@ void poImage::flip(poOrientation dir) {
 		FreeImage_FlipHorizontal(bitmap);
 }
 
+void poImage::resizeMaxDimension(float max_dim) {
+	int newW = width();
+	int newH = height();
+	
+	if(newW > newH)
+		resizeWidth(max_dim);
+	else
+		resizeHeight(max_dim);
+}
+
+void poImage::resizeMinDimension(float min_dim) {
+	int newW = width();
+	int newH = height();
+	
+	if(newW < newH)
+		resizeWidth(min_dim);
+	else
+		resizeHeight(min_dim);
+}
+
+void poImage::resizeWidth(float w) {
+	float aspect = height() / (float)width();
+	resize(w, w * aspect);
+}
+
+void poImage::resizeHeight(float h) {
+	float aspect = width() / (float)height();
+	resize(h * aspect, h);
+}
+
+void poImage::resize(float w, float h) {
+	FIBITMAP *img = FreeImage_Rescale(bitmap, w, h, FILTER_CATMULLROM);
+	FreeImage_Unload(bitmap);
+	bitmap = img;
+}
+
 void poImage::clear() {
 	ubyte color[] = {0,0,0,0};
 	FreeImage_FillBackground(bitmap, &color[0]);

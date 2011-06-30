@@ -35,27 +35,33 @@ poShape2D *mask;
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 
-	poObject *holder = new poObject();
-	addChild(holder);
+//	poObject *holder = new poObject();
+//	addChild(holder);
+//	
+//	using boost::format;
+//	for(int i=1; i<=4; i++) {
+//		poImage img((format("images/ducks/duck%d.png")%i).str());
+//		poRectShape *shape = new poRectShape(&img);
+//		shape->position(poPoint(100+i*100, 100+i*100));
+//		holder->addChild(shape);
+//	}
+//	
+//	mask = createShapesFromSVGfile("images/mask.svg").front();
+//	mask->alignment(PO_ALIGN_TOP_CENTER);
+//	addModifier(new poGeometryMask(mask));
 	
-	using boost::format;
-	for(int i=1; i<=4; i++) {
-		poImage img((format("images/ducks/duck%d.png")%i).str());
-		poRectShape *shape = new poRectShape(&img);
-		shape->position(poPoint(100+i*100, 100+i*100));
-		holder->addChild(shape);
-	}
+	poImage img("images/alfred_e_neuman.jpg");
+	img.resizeHeight(200);
 	
-	mask = createShapesFromSVGfile("images/mask.svg").front();
-	mask->alignment(PO_ALIGN_TOP_CENTER);
-	addModifier(new poGeometryMask(mask));
+	poRectShape *shape = new poRectShape(&img);
+	addChild(shape);
 }
 
 void TestObj::draw() {
 }
 
 void TestObj::update() {
-	mask->rotation(mask->rotation()+5);
+//	mask->rotation(mask->rotation()+5);
 }
 
 void TestObj::eventHandler(poEvent *event) {
