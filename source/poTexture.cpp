@@ -75,7 +75,13 @@ size_t bytesForPixelFormat(GLenum format) {
 	}
 }
 
-poTexture::poTexture() {}
+poTexture::poTexture()
+:	_uid(0)
+,	_s(0.f), _t(0.f)
+,	_width(0), _height(0), _pitch(0)
+,	_pixels(NULL)
+,	ref_count(NULL)
+{}
 
 poTexture::poTexture(poImage *img) {
 	if(img && img->isValid())
@@ -122,14 +128,25 @@ poTexture::poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum 
 		loadNotFound();
 }
 
+poTexture::poTexture(const poTexture &tex) {
+	copy(tex);
+}
+
+poTexture &poTexture::operator=(const poTexture &tex) {
+	copy(tex);
+	return *this;
+}
+
 poTexture::~poTexture() {
-	decrRefCount();
-	if(refCount() <= 0) {
-		if(isOnCard())
-			pullFromCard();
-		if(storingPixels())
-			deleteLocalMemory();
-		delete ref_count;
+	if(_uid > 0) {
+		decrRefCount();
+		if(refCount() <= 0) {
+			if(isOnCard())
+				pullFromCard();
+			if(storingPixels())
+				deleteLocalMemory();
+			delete ref_count;
+		}
 	}
 }
 
@@ -262,6 +279,21 @@ void poTexture::decrRefCount() {
 
 uint poTexture::refCount() {
 	return *ref_count;
+}
+
+void poTexture::copy(const poTexture &tex) {
+	if(tex._uid) {
+		load(tex._format, tex._internal_format, tex._type, 
+			 tex._min_filter, tex._mag_filter, tex._wrap_s, tex._wrap_t,
+			 tex._width, tex._height, tex._pitch, NULL);
+		st(tex._s, tex._t);
+		_uid = tex._uid;
+		_pixels = tex._pixels;
+		_mem_size = tex._mem_size;
+		
+		ref_count = tex.ref_count;
+		incrRefCount();
+	}
 }
 
 void poTexture::load(poImage *img) {
