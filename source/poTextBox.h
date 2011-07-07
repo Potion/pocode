@@ -11,6 +11,7 @@
 #include "poObject.h"
 #include "poFont.h"
 #include "poTexture.h"
+#include "TextLayout.h"
 
 class poTextBox
 :	public poObject 
@@ -50,8 +51,8 @@ public:
 	// font name correspondes to html tag embedded in the text
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
 	// <span>regular, when you want to override color, leading or tracking</span>
-	poTextBox &font(const std::string &name, poFont *font);
-	poTextBox &font(const std::string &name, const poFont &font);
+	poTextBox &font(poFont *font, const std::string &name=PO_FONT_REGULAR);
+	poTextBox &font(const poFont &font, const std::string &name=PO_FONT_REGULAR);
 	poFont const*font(const std::string &name);
     
     // show bounds
@@ -72,34 +73,13 @@ public:
 private:
 	void defaultFonts();
 	
-	struct layout_glyph {
-		layout_glyph() : glyph(0), bbox() {}
-		uint glyph;
-		poRect bbox;
-	};
-	struct layout_line {
-		layout_line() : word_count(0) {}
-		std::vector<layout_glyph> glyphs;
-		poRect bounds;
-		int word_count;
-	};
-	std::vector<layout_line> lines;
-	
-	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint size, layout_line &line);
-	void breakLine(std::vector<layout_line> &lines, layout_line &line);
-	void alignText();
-	
-	std::string _text;
 	poColor color;
-	poAlignment align;
-	poRect text_bounds;
     bool    draw_bounds;
 
-	poFont *_font;
 	poBitmapFontAtlas *atlas;
-	float _leading, _tracking, _padding[4];
-	
 	poShape2D *button;
+	
+	TextBoxLayout _layout;
 };
 
 

@@ -1,39 +1,21 @@
-#include "TestApp.h"
-
-#include "poGUI.h"
-#include "Helpers.h"
+#include "TextAlignmentTestApp.h"
+#include "poApplication.h"
 #include "poCamera.h"
 #include "poTextBox.h"
-#include "poApplication.h"
-#include "poShapeBasics2D.h"
-#include "poMaskModifier.h"
-
-using namespace std;
-using namespace boost;
 
 poObject *createObjectForID(uint uid) {
-	return new TestObj();
+	return new TextAlignmentTestApp();
 }
 
 void setupApplication() {
-	fs::path path;
-	pathToFolder("xcode", &path);
-	setCurrentPath(path/"test/resources");
-	
-	log("application started");
-	log("path is %s", currentPath().c_str());
-	
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 650, 500, 700, 700);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextAlignmentTest", 100, 100, 700, 700);
 }
 
 void cleanupApplication() {
-	log("application ending");
 }
 
-poShape2D *shape;
-
-TestObj::TestObj() {
-	addModifier(new poCamera2D());
+TextAlignmentTestApp::TextAlignmentTestApp() {
+	addModifier(new poCamera2D(poColor::black));
 	addEvent(PO_KEY_DOWN_EVENT, this);
 	
 	poTextBox *tb = new poTextBox(200,200);
@@ -44,17 +26,14 @@ TestObj::TestObj() {
 	addChild(tb);
 }
 
-void TestObj::draw() {
+TextAlignmentTestApp::~TextAlignmentTestApp() {
 }
 
-void TestObj::update() {
-}
-
-void TestObj::eventHandler(poEvent *event) {
+void TextAlignmentTestApp::eventHandler(poEvent *event) {
 	if(event->keyCode == PO_DOWN_ARROW) {
 		poTextBox *tb = getChildAs<poTextBox>(this,0);
 		if(event->modifiers & PO_KEY_META) {
-			float t = min(tb->tracking() + 0.01f, 3.f);
+			float t = std::min(tb->tracking() + 0.01f, 3.f);
 			tb->tracking(t).layout();
 		}
 		else {
@@ -67,7 +46,7 @@ void TestObj::eventHandler(poEvent *event) {
 	if(event->keyCode == PO_RIGHT_ARROW) {
 		poTextBox *tb = getChildAs<poTextBox>(this,0);
 		if(event->modifiers & PO_KEY_META) {
-			float l = min(tb->leading() + 0.01f, 3.f);
+			float l = std::min(tb->leading() + 0.01f, 3.f);
 			tb->leading(l).layout();
 		}
 		else {
@@ -79,19 +58,16 @@ void TestObj::eventHandler(poEvent *event) {
 	}
 	if(event->keyCode == PO_UP_ARROW && event->modifiers & PO_KEY_META) {
 		poTextBox *tb = getChildAs<poTextBox>(this,0);
-		float t = max(0.1f, tb->tracking() - 0.01f);
+		float t = std::max(0.1f, tb->tracking() - 0.01f);
 		tb->tracking(t).layout();
 	}
 	if(event->keyCode == PO_LEFT_ARROW && event->modifiers & PO_KEY_META) {
 		poTextBox *tb = getChildAs<poTextBox>(this,0);
-		float l = max(0.1f, tb->leading() - 0.01f);
+		float l = std::max(0.1f, tb->leading() - 0.01f);
 		tb->leading(l).layout();
 	}
 }
 
-void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
+void TextAlignmentTestApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 	
 }
-
-
-

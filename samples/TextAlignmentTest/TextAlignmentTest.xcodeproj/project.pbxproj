@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8E755AB13C6209600A91EB8 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8E755AA13C6209600A91EB8 /* Debug.xcconfig */; };
+		E8E755AD13C6209600A91EB8 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8E755AC13C6209600A91EB8 /* Release.xcconfig */; };
+		E8E755B013C6209600A91EB8 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8E755AF13C6209600A91EB8 /* AppDelegate.mm */; };
+		E8E755B213C6209600A91EB8 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8E755B113C6209600A91EB8 /* en.strings */; };
+		E8E755B413C6209600A91EB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E755B313C6209600A91EB8 /* main.m */; };
+		E8E755B613C6209600A91EB8 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8E755B513C6209600A91EB8 /* main.pch */; };
+		E8E755B913C6209600A91EB8 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8E755B813C6209600A91EB8 /* main.xib */; };
+		E8E755BC13C6209600A91EB8 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8E755BB13C6209600A91EB8 /* poOpenGLView.mm */; };
+		E8E755C013C6209600A91EB8 /* TextAlignmentTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755BF13C6209600A91EB8 /* TextAlignmentTestApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8E755A513C6209600A91EB8 /* TextAlignmentTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextAlignmentTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8E755AA13C6209600A91EB8 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8E755AC13C6209600A91EB8 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8E755AE13C6209600A91EB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8E755AF13C6209600A91EB8 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8E755B113C6209600A91EB8 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8E755B313C6209600A91EB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8E755B513C6209600A91EB8 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8E755B713C6209600A91EB8 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8E755B813C6209600A91EB8 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8E755BA13C6209600A91EB8 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8E755BB13C6209600A91EB8 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8E755BE13C6209600A91EB8 /* TextAlignmentTestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextAlignmentTestApp.h; sourceTree = "<group>"; };
+		E8E755BF13C6209600A91EB8 /* TextAlignmentTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextAlignmentTestApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8E755A213C6209600A91EB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8E7559A13C6209500A91EB8 = {
+			isa = PBXGroup;
+			children = (
+				E8E755A813C6209600A91EB8 /* TextAlignmentTest */,
+				E8E755A613C6209600A91EB8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8E755A613C6209600A91EB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8E755A513C6209600A91EB8 /* TextAlignmentTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8E755A813C6209600A91EB8 /* TextAlignmentTest */ = {
+			isa = PBXGroup;
+			children = (
+				E8E755A913C6209600A91EB8 /* platform */,
+				E8E755BD13C6209600A91EB8 /* application */,
+			);
+			path = TextAlignmentTest;
+			sourceTree = "<group>";
+		};
+		E8E755A913C6209600A91EB8 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8E755AA13C6209600A91EB8 /* Debug.xcconfig */,
+				E8E755AC13C6209600A91EB8 /* Release.xcconfig */,
+				E8E755AE13C6209600A91EB8 /* AppDelegate.h */,
+				E8E755AF13C6209600A91EB8 /* AppDelegate.mm */,
+				E8E755B113C6209600A91EB8 /* en.strings */,
+				E8E755B313C6209600A91EB8 /* main.m */,
+				E8E755B513C6209600A91EB8 /* main.pch */,
+				E8E755B713C6209600A91EB8 /* main.plist */,
+				E8E755B813C6209600A91EB8 /* main.xib */,
+				E8E755BA13C6209600A91EB8 /* poOpenGLView.h */,
+				E8E755BB13C6209600A91EB8 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8E755BD13C6209600A91EB8 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8E755BE13C6209600A91EB8 /* TextAlignmentTestApp.h */,
+				E8E755BF13C6209600A91EB8 /* TextAlignmentTestApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8E755A413C6209600A91EB8 /* TextAlignmentTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8E755C313C6209600A91EB8 /* Build configuration list for PBXNativeTarget "TextAlignmentTest" */;
+			buildPhases = (
+				E8E755A113C6209600A91EB8 /* Sources */,
+				E8E755A213C6209600A91EB8 /* Frameworks */,
+				E8E755A313C6209600A91EB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextAlignmentTest;
+			productName = TextAlignmentTest;
+			productReference = E8E755A513C6209600A91EB8 /* TextAlignmentTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8E7559C13C6209500A91EB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8E7559F13C6209500A91EB8 /* Build configuration list for PBXProject "TextAlignmentTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8E7559A13C6209500A91EB8;
+			productRefGroup = E8E755A613C6209600A91EB8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8E755A413C6209600A91EB8 /* TextAlignmentTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8E755A313C6209600A91EB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8E755AB13C6209600A91EB8 /* Debug.xcconfig in Resources */,
+				E8E755AD13C6209600A91EB8 /* Release.xcconfig in Resources */,
+				E8E755B213C6209600A91EB8 /* en.strings in Resources */,
+				E8E755B613C6209600A91EB8 /* main.pch in Resources */,
+				E8E755B913C6209600A91EB8 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8E755A113C6209600A91EB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8E755B013C6209600A91EB8 /* AppDelegate.mm in Sources */,
+				E8E755B413C6209600A91EB8 /* main.m in Sources */,
+				E8E755BC13C6209600A91EB8 /* poOpenGLView.mm in Sources */,
+				E8E755C013C6209600A91EB8 /* TextAlignmentTestApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8E755C113C6209600A91EB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8E755AA13C6209600A91EB8 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8E755C213C6209600A91EB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8E755AC13C6209600A91EB8 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8E755C413C6209600A91EB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8E755C513C6209600A91EB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8E7559F13C6209500A91EB8 /* Build configuration list for PBXProject "TextAlignmentTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8E755C113C6209600A91EB8 /* Debug */,
+				E8E755C213C6209600A91EB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8E755C313C6209600A91EB8 /* Build configuration list for PBXNativeTarget "TextAlignmentTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8E755C413C6209600A91EB8 /* Debug */,
+				E8E755C513C6209600A91EB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8E7559C13C6209500A91EB8 /* Project object */;
+}

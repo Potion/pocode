@@ -40,7 +40,8 @@ public:
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
 	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit=0);
 	
-	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, int texIndex);
+	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, uint unit=0);
+	poShape2D&			disableTransformTexture(uint unit=0);
 	
 	poShape2D&			placeImage(poImage *img, uint unit=0);
 	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
@@ -118,6 +119,15 @@ private:
 	bool                    closed_;
 	bool					draw_bounds;
 	bool					alpha_test_textures;
+	
+	struct tex_transform {
+		tex_transform() : translate(), scale(1,1,1), rotate(0.f), in_use(false) {}
+		poPoint translate;
+		poPoint scale;
+		float rotate;
+		bool in_use;
+	};
+	tex_transform tex_transforms[MAX_TEXTURE_UNITS];
     
 	std::vector<GLenum>         tex_combo_func;
 	std::vector<poTexture*>     textures;
