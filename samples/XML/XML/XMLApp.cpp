@@ -1,50 +1,33 @@
-#include "TestApp.h"
-
-#include "poGUI.h"
-#include "Helpers.h"
-#include "poCamera.h"
-#include "poTextBox.h"
+#include "XMLApp.h"
 #include "poApplication.h"
-#include "poShapeBasics2D.h"
-#include "poMaskModifier.h"
-#include "poXML.h"
+#include "poCamera.h"
 
-using namespace std;
-using namespace boost;
+#include <fstream>
+
+#include "Helpers.h"
+#include "poXML.h"
+#include "poTextBox.h"
 
 poObject *createObjectForID(uint uid) {
-	return new TestObj();
+	return new XMLApp();
 }
 
 void setupApplication() {
 	fs::path path;
-	pathToFolder("xcode", &path);
-	setCurrentPath(path/"test/resources");
-	
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TestObj", 650, 500, 700, 700);
+	pathToFolder("XML", &path);
+	setCurrentPath(path);
+
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "XML", 100, 100, 700, 700);
 }
 
 void cleanupApplication() {
 }
 
-void print(poXMLNode node, int level=0) {
-	if(!node.isValid()) {
-		printf("not valid");
-		return;
-	}
-	
-	printf("%*s%s (kids:%d attribs:%d)\n", level*2, "", node.name().c_str(), node.numChildren(), node.numAttributes());
-	for(int i=0; i<node.numChildren(); i++) {
-		poXMLNode n = node.getChild(i);
-		print(n,level+1);
-	}
-}
+XMLApp::XMLApp() {
+	addModifier(new poCamera2D(poColor::black));
 
-TestObj::TestObj() {
-	addModifier(new poCamera2D());
-	
 	poXMLNode node = poXMLDocument("test.xml").rootNode();
-
+	
 	poXPathResult result = node.find("/root/container[@attrib1=1]/@attrib1");
 	assert(result.numMatches() == 1);
 	assert(result.getInt() == 1);
@@ -57,7 +40,7 @@ TestObj::TestObj() {
 	assert(node.realAttribute("attrib2") == 5.4);
 	assert(node.attribute("attrib3") == "blank");
 	assert(node.name() == "container");
-
+	
 	result = node.find("./obj");
 	assert(result.numMatches() == 4);
 	for(int i=0; i<4; i++) {
@@ -69,20 +52,24 @@ TestObj::TestObj() {
 	for(int i=0; i<4; i++) {
 		printf("%d\n", result.getNode(i).getInt());
 	}
+	
+	std::stringstream ss;
+	std::ifstream input("test.xml");
+	ss << input.rdbuf();
+	input.close();
+	
+	poTextBox *tb = new poTextBox(getWindowWidth(), getWindowHeight());
+	tb->text(ss.str()).layout();
+	addChild(tb);
 }
 
-void TestObj::draw() {
+XMLApp::~XMLApp() {
 }
 
-void TestObj::update() {
-}
-
-void TestObj::eventHandler(poEvent *event) {
-}
-
-void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
+void XMLApp::eventHandler(poEvent *event) {
 	
 }
 
-
-
+void XMLApp::messageHandler(const std::string &msg, const poDictionary& dict) {
+	
+}

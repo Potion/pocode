@@ -99,6 +99,9 @@
 		E8E7559713C60B2A00A91EB8 /* TextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */; };
 		E8E7559813C60B2A00A91EB8 /* TextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */; };
 		E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E7559613C60B2A00A91EB8 /* TextLayout.h */; };
+		E8E755C813C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
+		E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
+		E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E755C713C62F8B00A91EB8 /* poXML.h */; };
 		E8F4E4A0139E734B0001E860 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F4E49F139E734B0001E860 /* main.cpp */; };
 		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
 		E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMaskModifier.cpp */; };
@@ -187,6 +190,8 @@
 		E8E51B3E13A13E5D008C67FF /* BinPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BinPacker.h; path = ../source/BinPacker.h; sourceTree = "<group>"; };
 		E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextLayout.cpp; path = ../source/TextLayout.cpp; sourceTree = "<group>"; };
 		E8E7559613C60B2A00A91EB8 /* TextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextLayout.h; path = ../source/TextLayout.h; sourceTree = "<group>"; };
+		E8E755C613C62F8B00A91EB8 /* poXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML.cpp; path = ../source/poXML.cpp; sourceTree = "<group>"; };
+		E8E755C713C62F8B00A91EB8 /* poXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poXML.h; path = ../source/poXML.h; sourceTree = "<group>"; };
 		E8F4E49C139E734B0001E860 /* regression */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = regression; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F4E49F139E734B0001E860 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
@@ -386,6 +391,8 @@
 				E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */,
 				E8E7559613C60B2A00A91EB8 /* TextLayout.h */,
 				E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */,
+				E8E755C713C62F8B00A91EB8 /* poXML.h */,
+				E8E755C613C62F8B00A91EB8 /* poXML.cpp */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -437,6 +444,7 @@
 				E87AA04113B649C20048947D /* poSpriteSheet.h in Headers */,
 				E890424213BBBD7300877667 /* poVideo.h in Headers */,
 				E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */,
+				E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +575,7 @@
 				E87AA04013B649C20048947D /* poSpriteSheet.cpp in Sources */,
 				E890424113BBBD7300877667 /* poVideo.cpp in Sources */,
 				E8E7559813C60B2A00A91EB8 /* TextLayout.cpp in Sources */,
+				E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +614,7 @@
 				E87AA03F13B649C20048947D /* poSpriteSheet.cpp in Sources */,
 				E890424013BBBD7300877667 /* poVideo.cpp in Sources */,
 				E8E7559713C60B2A00A91EB8 /* TextLayout.cpp in Sources */,
+				E8E755C813C62F8B00A91EB8 /* poXML.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
