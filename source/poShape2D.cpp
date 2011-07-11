@@ -1,7 +1,7 @@
 #include "poShape2D.h"
 #include "Helpers.h"
 #include "LineExtruder.h"
-#include "nanosvg.h"
+//#include "nanosvg.h"
 
 poShape2D::poShape2D()
 :	enable_fill(true)
@@ -546,7 +546,7 @@ void poShape2D::updateAllTweens() {
 std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 	std::vector<poShape2D*> response;
 
-	if(!fs::exists(svg)) {
+	/*if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
 		return;
 	}
@@ -581,7 +581,7 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 		result = result->next;
 	}
 	
-	svgDelete(result);
+	svgDelete(result);*/
 	return response;
 }
 
