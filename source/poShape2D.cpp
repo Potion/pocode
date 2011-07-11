@@ -38,6 +38,8 @@ void poShape2D::draw() {
 			glPushAttrib(GL_TEXTURE_BIT);
 			
 			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
+//				glMatrixMode(GL_TEXTURE);
+				
 				if(textures[i]) {
 					glClientActiveTexture(GL_TEXTURE0+i);
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -46,7 +48,29 @@ void poShape2D::draw() {
 					textures[i]->bind(i);
 					glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
 					glEnable(GL_TEXTURE_2D);
+					
+// TODO: figure out texture transformation with texture matrix
+// issue is that tex-coords are normalized while the rotation angles are not
+//					
+//					float tw = textures[i]->width();
+//					float th = textures[i]->height();
+//					
+//					glPushMatrix();
+//					glLoadIdentity();
+//					gluOrtho2D(0,1,0,1);
+//					glTranslatef(.5,.5,0);
+//					glScalef(.5f,.5f,1);
+//					
+//					float diffw = fabsf(cos_deg(tex_transforms[i].rotate));
+//					float diffh = fabsf(sin_deg(tex_transforms[i].rotate));
+//
+//					glTranslatef(tex_transforms[i].translate.x, tex_transforms[i].translate.y, 0.f);
+//					glRotatef(tex_transforms[i].rotate, 0.f, 0.f, 1.f);
+//					glScalef(diffw, 1.f+diffh*.5f, 1.f);
+//					glScalef(tex_transforms[i].scale.x, tex_transforms[i].scale.y, 1.f);
 				}
+				
+//				glMatrixMode(GL_MODELVIEW);
 			}
 		}
 		
@@ -55,12 +79,19 @@ void poShape2D::draw() {
 		
 		// disable textures
 		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
+//			glMatrixMode(GL_TEXTURE);
+			
 			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
 				if(textures[i]) {
+					glActiveTexture(GL_TEXTURE0+i);
+//					glPopMatrix();
+					
 					textures[i]->unbind(i);
 				}
 			}
 			glPopAttrib();
+			
+//			glMatrixMode(GL_MODELVIEW);
 		}
 	}
 	
@@ -285,13 +316,16 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 	}
 }
 
-poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate, int texIndex) {
-	for(int i = 0; i< tex_coords[texIndex].size(); i++ ){
-		tex_coords[texIndex][i].x *= scale.x;
-		tex_coords[texIndex][i].y *= scale.y;
-		tex_coords[texIndex][i] += pt;
-		//TODO: add rotate
-	}
+poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate, uint unit) {
+	tex_transforms[unit].translate = -pt;
+	tex_transforms[unit].scale = scale;
+	tex_transforms[unit].rotate = rotate;
+	tex_transforms[unit].in_use = true;
+	return *this;
+}
+
+poShape2D& poShape2D::disableTransformTexture(uint unit) {
+	tex_transforms[unit].in_use = false;
 	return *this;
 }
 

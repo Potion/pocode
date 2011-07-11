@@ -34,6 +34,11 @@ poRectShape::poRectShape( poTexture* tex )
     placeTexture( tex );
 }
 
+poRectShape::poRectShape( const poTexture &tex ) {
+	construct(tex.width(), tex.height(), 0.f);
+	placeTexture(tex);
+}
+
 poRectShape::poRectShape( const std::string &str) {
 	poTexture tex(str);
 	construct(tex.width(), tex.height(), 0.f);

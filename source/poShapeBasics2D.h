@@ -15,6 +15,7 @@ class poRectShape : public poShape2D
 public:
     poRectShape();
     poRectShape( poTexture* tex );
+	poRectShape( const poTexture &tex );
 	poRectShape( poImage *img);
 	poRectShape( const std::string &str);
     poRectShape( float width, float height, float rad=0.f );
