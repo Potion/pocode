@@ -291,6 +291,7 @@ poObject&		poObject::name(const std::string &str) {_name = str; return *this;}
 
 float			poObject::alpha() const {return _alpha;}
 poObject&		poObject::alpha(float f) {_alpha = f; return *this;}
+float			poObject::appliedAlpha() const{return true_alpha;}
 
 poPoint			poObject::scale() const {return _scale;}
 poObject&		poObject::scale(poPoint pt) {_scale = pt; return *this;}
