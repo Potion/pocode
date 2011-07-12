@@ -7,7 +7,7 @@
 //
 
 #include "poMaskModifier.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 #include "Helpers.h"
 #include "poShape2D.h"
 

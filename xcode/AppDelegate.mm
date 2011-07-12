@@ -257,7 +257,7 @@ void applicationMoveWindow(poWindow* win, poRect r) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	NSWindow *window = [app getWindowByAppWin:win];
 	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
-	[window setFrameOrigin:CGPointMake(r.origin.x, r.origin.y)];
+	[window setFrameOrigin:NSMakePoint(r.origin.x, r.origin.y)];
 	
 }
 

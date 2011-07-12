@@ -5,7 +5,7 @@
 #pragma once
 
 #include "poObject.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 #include "poTexture.h"
 
 #define MAX_TEXTURE_UNITS 8
