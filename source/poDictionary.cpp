@@ -8,6 +8,14 @@
 
 #include "poDictionary.h"
 
+std::vector<std::string> poDictionary::keys() const {
+	std::vector<std::string> response;
+	boost::unordered_map<std::string,poProperty>::const_iterator i;
+	for(i=items.begin(); i!=items.end(); ++i)
+		response.push_back(i->first);
+	return response;
+}
+
 bool poDictionary::read(const fs::path &url) {
 	if(!fs::exists(url) || !fs::is_regular_file(url))
 		return false;

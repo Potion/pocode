@@ -100,7 +100,7 @@ poTexture::poTexture(const std::string &str) {
 
 poTexture::poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels) {
 	load(format, format, GL_UNSIGNED_BYTE, 
-		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
+		 GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER,
 		 width, height, pitch, pixels);
 	pushToCard();
 	
@@ -112,7 +112,7 @@ poTexture::poTexture(GLenum format, GLenum internal_format, GLenum type,
 					 uint width, uint height, uint pitch, ubyte const*pixels)
 {
 	load(format, internal_format, type,
-		 GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP,
+		 GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER,
 		 width, height, pitch, pixels);
 	pushToCard();
 	
@@ -229,6 +229,8 @@ void poTexture::deleteLocalMemory() {
 
 void poTexture::pushToCard() {
 	if(storingPixels() && !isOnCard()) {
+		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, pitch());
+		
 		float trans[] = {0.f, 0.f, 0.f, 0.f};
 		glGenTextures(1, &_uid);
 		glBindTexture(GL_TEXTURE_2D, _uid);
@@ -239,6 +241,8 @@ void poTexture::pushToCard() {
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 		glTexImage2D(GL_TEXTURE_2D, 0, _internal_format, _width, _height, 0, _format, _type, _pixels);
 		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, 0);
 	}
 }
 
@@ -297,7 +301,7 @@ void poTexture::copy(const poTexture &tex) {
 }
 
 void poTexture::load(poImage *img) {
-	load(img, GL_LINEAR, GL_LINEAR, GL_CLAMP, GL_CLAMP);
+	load(img, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 }
 
 void poTexture::load(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {

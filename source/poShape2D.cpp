@@ -31,15 +31,10 @@ void poShape2D::draw() {
 		// load shape point vertex array
 		glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
 
-		applyColor(poColor(fill_color,true_alpha));
-		
 		// setup textures and texture coordinates
 		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
 			glPushAttrib(GL_TEXTURE_BIT);
-			
 			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
-//				glMatrixMode(GL_TEXTURE);
-				
 				if(textures[i]) {
 					glClientActiveTexture(GL_TEXTURE0+i);
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -48,50 +43,24 @@ void poShape2D::draw() {
 					textures[i]->bind(i);
 					glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, tex_combo_func[i]);
 					glEnable(GL_TEXTURE_2D);
-					
-// TODO: figure out texture transformation with texture matrix
-// issue is that tex-coords are normalized while the rotation angles are not
-//					
-//					float tw = textures[i]->width();
-//					float th = textures[i]->height();
-//					
-//					glPushMatrix();
-//					glLoadIdentity();
-//					gluOrtho2D(0,1,0,1);
-//					glTranslatef(.5,.5,0);
-//					glScalef(.5f,.5f,1);
-//					
-//					float diffw = fabsf(cos_deg(tex_transforms[i].rotate));
-//					float diffh = fabsf(sin_deg(tex_transforms[i].rotate));
-//
-//					glTranslatef(tex_transforms[i].translate.x, tex_transforms[i].translate.y, 0.f);
-//					glRotatef(tex_transforms[i].rotate, 0.f, 0.f, 1.f);
-//					glScalef(diffw, 1.f+diffh*.5f, 1.f);
-//					glScalef(tex_transforms[i].scale.x, tex_transforms[i].scale.y, 1.f);
 				}
-				
-//				glMatrixMode(GL_MODELVIEW);
 			}
 		}
-		
+
+		// set the color
+		applyColor(poColor(fill_color,true_alpha));
 		// actually draw the filled shape
 		glDrawArrays(fill_draw_style, 0, (int)points.size());
 		
 		// disable textures
 		if(isAttributeEnabled(ATTRIB_TEX_COORD)) {
-//			glMatrixMode(GL_TEXTURE);
-			
 			for(int i=0; i<MAX_TEXTURE_UNITS; i++) {
 				if(textures[i]) {
 					glActiveTexture(GL_TEXTURE0+i);
-//					glPopMatrix();
-					
 					textures[i]->unbind(i);
 				}
 			}
 			glPopAttrib();
-			
-//			glMatrixMode(GL_MODELVIEW);
 		}
 	}
 	
@@ -123,7 +92,6 @@ void poShape2D::draw() {
 				glEnd();
 			}
 		}
-		
 	}
 	
 	// pop attributes
@@ -211,68 +179,137 @@ poPoint poShape2D::getTexCoord(int idx, uint unit) {
 	return tex_coords[unit][idx];
 }
 
-void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / tex->width() * tex->s();
-		float t = points[i].y / tex->height() * tex->t();
-		coords[i].set(s,t,0.f);
+		float s = points[i].x / tex->width();
+		float t = points[i].y / tex->height();
+		
+		switch(align) {
+			case PO_ALIGN_BOTTOM_LEFT:
+				break;
+			case PO_ALIGN_BOTTOM_CENTER:
+				s = (1.f - s) / 2.f;
+				break;
+			case PO_ALIGN_BOTTOM_RIGHT:
+				s = 1.f - s;
+				break;
+			case PO_ALIGN_CENTER_LEFT:
+				t = (1.f - t) / 2.f;
+				break;
+			case PO_ALIGN_CENTER_CENTER:
+				s = (1.f - s) / 2.f;
+				t = (1.f - t) / 2.f;
+				break;
+			case PO_ALIGN_CENTER_RIGHT:
+				s = 1.f - s;
+				t = (1.f - t) / 2.f;
+				break;
+			case PO_ALIGN_TOP_LEFT:
+				t = 1.f - t;
+				break;
+			case PO_ALIGN_TOP_CENTER:
+				s = (1.f - s) / 2.f;
+				t = 1.f - t;
+				break;
+			case PO_ALIGN_TOP_RIGHT:
+				s = (1.f - s);
+				t = 1.f - t;
+				break;
+		}
+		
+		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
 }
 
 void fitExact(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width() * tex->s();
-		float t = points[i].y / rect.height() * tex->t();
-		coords[i].set(s,t,0.f);
+		float s = points[i].x / rect.width();
+		float t = points[i].y / rect.height();
+		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
 }
 
-void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float asp = tex->width() / (float)tex->height();
-	float yoff = ((rect.height() - rect.height()*asp) / 2.f) / (float)rect.height();
+void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
+	float h_mod = rect.height() / (float)tex->height();
+	float scale = tex->width() / (float)tex->height();
+	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width() * tex->s();
-		float t = (points[i].y / rect.height()) * asp * tex->t();
-		coords[i].set(s,t+yoff,0.f);
+		float s = points[i].x / rect.width();
+		float t = points[i].y / rect.height();
+		
+		t *= h_mod * scale;
+		
+		if(align >= PO_ALIGN_CENTER_LEFT && align <= PO_ALIGN_CENTER_RIGHT) {
+			t += t / 2.f;
+		}
+		else 
+		if(align >= PO_ALIGN_TOP_LEFT && align <= PO_ALIGN_TOP_RIGHT) {
+			t += 1.f - t;
+		}
+		
+		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
 }
 
-void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float asp = tex->height() / (float)tex->width();
-	float xoff = ((rect.width() - rect.height()*asp) / 2.f) / (float)rect.width();
+void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
+	float w_mod = rect.width() / (float)tex->width();
+	float scale = tex->height() / (float)tex->width();
+	
 	for(int i=0; i<points.size(); i++) {
-		float s = (points[i].x / rect.width()) * asp * tex->s();
-		float t = points[i].y / rect.height() * tex->t(); 
-		coords[i].set(s+xoff,t,0.f);
+		float s = points[i].x / rect.width();
+		float t = points[i].y / rect.height();
+		
+		s *= w_mod * scale;
+		
+		if(align && !(align % 2)) {
+			s += s / 2.f;
+		}
+		else 
+		if(align && !(align % 3)) {
+			s += 1.f - s;
+		}
+		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, uint unit) {
-	return placeTexture(tex, PO_TEX_FIT_NONE, unit);
+	return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER, unit);
 }
 
 poShape2D& poShape2D::placeTexture(const poTexture &tex, uint unit) {
-	return placeTexture(tex, PO_TEX_FIT_NONE, unit);
-}
-
-poShape2D& poShape2D::placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit) {
-	return placeTexture(const_cast<poTexture*>(&tex), fit, unit);
+	return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER, unit);
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint unit) {
-	if(textures[unit])
+	return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER, unit);
+}
+
+poShape2D& poShape2D::placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit) {
+	return placeTexture(const_cast<poTexture*>(&tex), fit, PO_ALIGN_CENTER_CENTER, unit);
+}
+
+poShape2D& poShape2D::placeTexture(const poTexture &tex, poTextureFitOption fit, poAlignment align, uint unit) {
+	return placeTexture(const_cast<poTexture*>(&tex), fit, align, unit);
+}
+
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align, uint unit) {
+	if(textures[unit]) {
 		delete resources.remove(textures[unit]);
-	
-	textures[unit] = resources.add(tex->copy());
+		textures[unit] = NULL;
+	}
 	
 	if(tex) {
+		textures[unit] = resources.add(tex->copy());
+
 		poRect rect = calculateBounds();
 		enableAttribute(ATTRIB_TEX_COORD);
+		
+		tex_coords[unit].clear();
 		tex_coords[unit].resize(points.size());
 		
 		switch(fit) {
 			case PO_TEX_FIT_NONE:
-				fitNone(rect, tex, tex_coords[unit], points);
+				fitNone(rect, tex, tex_coords[unit], points, align);
 				break;
 				
 			case PO_TEX_FIT_EXACT:
@@ -280,27 +317,27 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 				break;
 				
 			case PO_TEX_FIT_H:
-				fitHorizontal(rect, tex, tex_coords[unit], points);
+				fitHorizontal(rect, tex, tex_coords[unit], points, align);
 				break;
 				
 			case PO_TEX_FIT_V:
-				fitVertical(rect, tex, tex_coords[unit], points);
+				fitVertical(rect, tex, tex_coords[unit], points, align);
 				break;
 				
 			case PO_TEX_FIT_MIN:
 				if(tex->width() < tex->height())
-					fitHorizontal(rect, tex, tex_coords[unit], points);
+					fitHorizontal(rect, tex, tex_coords[unit], points, align);
 				else if(tex->height() < tex->width())
-					fitVertical(rect, tex, tex_coords[unit], points);
+					fitVertical(rect, tex, tex_coords[unit], points, align);
 				else
 					fitExact(rect, tex, tex_coords[unit], points);
 				break;
 				
 			case PO_TEX_FIT_MAX:
 				if(tex->width() > tex->height())
-					fitHorizontal(rect, tex, tex_coords[unit], points);
+					fitHorizontal(rect, tex, tex_coords[unit], points, align);
 				else if(tex->height() > tex->width())
-					fitVertical(rect, tex, tex_coords[unit], points);
+					fitVertical(rect, tex, tex_coords[unit], points, align);
 				else
 					fitExact(rect, tex, tex_coords[unit], points);
 				break;
@@ -314,6 +351,18 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, uint 
 		if(!found_one)
 			disableAttribute(ATTRIB_TEX_COORD);
 	}
+	
+	return *this;
+}
+
+poShape2D& poShape2D::placeImage(poImage *img, uint unit) {
+	poTexture tex(img);
+	placeTexture(&tex, unit);
+}
+
+poShape2D& poShape2D::placeImage(poImage *img, poTextureFitOption fit, poAlignment align, uint unit) {
+	poTexture tex(img);
+	placeTexture(&tex, fit, align, unit);
 }
 
 poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate, uint unit) {
@@ -327,16 +376,6 @@ poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate, 
 poShape2D& poShape2D::disableTransformTexture(uint unit) {
 	tex_transforms[unit].in_use = false;
 	return *this;
-}
-
-poShape2D& poShape2D::placeImage(poImage *img, uint unit) {
-	poTexture tex(img);
-	placeTexture(&tex, unit);
-}
-
-poShape2D& poShape2D::placeImage(poImage *img, poTextureFitOption fit, uint unit) {
-	poTexture tex(img);
-	placeTexture(&tex, fit, unit);
 }
 
 poShape2D&  poShape2D::enableFill(bool b) {enable_fill = b; return *this;}
@@ -372,7 +411,7 @@ StrokeJoinProperty poShape2D::joinStyle() const {return join;}
 poShape2D&  poShape2D::closed(bool b) {closed_ = b; return *this; }
 bool        poShape2D::isClosed() const {return closed_;}
 
-poShape2D&	poShape2D::drawBounds(bool b) {draw_bounds = b;}
+poShape2D&	poShape2D::drawBounds(bool b) {draw_bounds = b; return *this;}
 bool		poShape2D::drawBounds() const {return draw_bounds;}
 
 GLenum      poShape2D::textureCombineFunction(uint unit) const {return tex_combo_func[unit];}

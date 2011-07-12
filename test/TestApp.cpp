@@ -27,48 +27,23 @@ void setupApplication() {
 void cleanupApplication() {
 }
 
-void print(poXMLNode node, int level=0) {
-	if(!node.isValid()) {
-		printf("not valid");
-		return;
-	}
-	
-	printf("%*s%s (kids:%d attribs:%d)\n", level*2, "", node.name().c_str(), node.numChildren(), node.numAttributes());
-	for(int i=0; i<node.numChildren(); i++) {
-		poXMLNode n = node.getChild(i);
-		print(n,level+1);
-	}
-}
+poTextureFitOption fit = PO_TEX_FIT_NONE;
+poAlignment opt = PO_ALIGN_TOP_LEFT;
+poTexture *tex = NULL;
 
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
+	addEvent(PO_KEY_DOWN_EVENT, this);
 	
-	poXMLNode node = poXMLDocument("test.xml").rootNode();
-
-	poXPathResult result = node.find("/root/container[@attrib1=1]/@attrib1");
-	assert(result.numMatches() == 1);
-	assert(result.getInt() == 1);
+	tex = new poTexture("images/grid_landscape.png");
 	
-	result = node.find("//container");
-	assert(result.numMatches() == 2);
+	poRectShape *shape = new poRectShape(200,300);
+	shape->placeTexture(tex, fit, opt).drawBounds(true);
+	addChild(shape);
 	
-	node = node.find("//container[1]").getNode();
-	assert(node.intAttribute("attrib1") == 1);
-	assert(node.realAttribute("attrib2") == 5.4);
-	assert(node.attribute("attrib3") == "blank");
-	assert(node.name() == "container");
-
-	result = node.find("./obj");
-	assert(result.numMatches() == 4);
-	for(int i=0; i<4; i++) {
-		printf("%s\n", result.getNode(i).getText().c_str());
-	}
-	
-	node = node.find("//container[2]").getNode();
-	result = node.find("./obj");
-	for(int i=0; i<4; i++) {
-		printf("%d\n", result.getNode(i).getInt());
-	}
+//	poTextBox *tb = new poTextBox(400,200);
+//	tb->text("Hello <b color='1.0 0.3 0.5'>world</b>\nAnd to you too!").layout().drawBounds(true).position(50,50);
+//	addChild(tb);
 }
 
 void TestObj::draw() {
@@ -78,10 +53,36 @@ void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	if(event->keyCode == PO_DOWN_ARROW) {
+		fit = poTextureFitOption(fit + 1);
+		if(fit == PO_TEX_FIT_MIN)
+			fit = PO_TEX_FIT_NONE;
+		getChildAs<poShape2D>(this,0)->placeTexture(tex,fit,opt);
+	}
+	
+	if(event->keyCode == PO_UP_ARROW) {
+		if(fit == PO_TEX_FIT_NONE)
+			fit = PO_TEX_FIT_MIN;
+		fit = poTextureFitOption(fit - 1);
+		getChildAs<poShape2D>(this,0)->placeTexture(tex,fit,opt);
+	}
+	
+	if(event->keyCode == PO_RIGHT_ARROW) {
+		opt = poAlignment(opt + 1);
+		if(opt == PO_ALIGN_NUM_OPTIONS)
+			opt = PO_ALIGN_BOTTOM_LEFT;
+		getChildAs<poShape2D>(this,0)->placeTexture(tex,fit,opt);
+	}
+	
+	if(event->keyCode == PO_LEFT_ARROW) {
+		if(opt == PO_ALIGN_TOP_LEFT)
+			opt = PO_ALIGN_BOTTOM_RIGHT;
+		opt = poAlignment(opt - 1);
+		getChildAs<poShape2D>(this,0)->placeTexture(tex,fit,opt);
+	}
 }
 
 void TestObj::messageHandler(const std::string &msg, const poDictionary &dict) {
-	
 }
 
 

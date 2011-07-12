@@ -69,6 +69,7 @@
 		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E87E18961369884C00DB6934 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
+		E88E746613C753DC0051F026 /* AttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* AttributedString.h */; };
 		E890424013BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E890424113BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E890424213BBBD7300877667 /* poVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = E890423F13BBBD7300877667 /* poVideo.h */; };
@@ -144,6 +145,7 @@
 		E87E18821368615B00DB6934 /* poImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poImage.h; path = ../source/poImage.h; sourceTree = "<group>"; };
 		E87E18941369884B00DB6934 /* poResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResource.cpp; path = ../source/poResource.cpp; sourceTree = "<group>"; };
 		E87E18951369884B00DB6934 /* poResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResource.h; path = ../source/poResource.h; sourceTree = "<group>"; };
+		E88E746313C753DB0051F026 /* AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttributedString.h; path = ../source/AttributedString.h; sourceTree = "<group>"; };
 		E890423E13BBBD7300877667 /* poVideo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poVideo.cpp; path = ../source/poVideo.cpp; sourceTree = "<group>"; };
 		E890423F13BBBD7300877667 /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../source/poVideo.h; sourceTree = "<group>"; };
 		E8A0B996138B0FE10024BC8C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -301,11 +303,11 @@
 		E8E7558F13C609C600A91EB8 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				E830965913315F2D00080C86 /* poEnums.h */,
 				E83095F1132FD0D600080C86 /* poMatrixSet.h */,
 				E83095F0132FD0D600080C86 /* poMatrixSet.cpp */,
 				E8FB2407133A996C00111A69 /* poFont.h */,
 				E8FB2406133A996C00111A69 /* poFont.cpp */,
-				E830965913315F2D00080C86 /* poEnums.h */,
 				E8B2D0BE132E9F78002BE3D9 /* poMath.h */,
 				E8B02F391363512F0068FB5D /* poMath.cpp */,
 				E8B2D0C4132E9F78002BE3D9 /* poPoint.h */,
@@ -389,6 +391,7 @@
 				E8CE963B13B004E800DFB769 /* LineExtruder.cpp */,
 				E830965B13315F2D00080C86 /* poSimpleDrawing.h */,
 				E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */,
+				E88E746313C753DB0051F026 /* AttributedString.h */,
 				E8E7559613C60B2A00A91EB8 /* TextLayout.h */,
 				E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */,
 				E8E755C713C62F8B00A91EB8 /* poXML.h */,
@@ -445,6 +448,7 @@
 				E890424213BBBD7300877667 /* poVideo.h in Headers */,
 				E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */,
 				E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */,
+				E88E746613C753DC0051F026 /* AttributedString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

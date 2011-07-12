@@ -5,6 +5,7 @@
 #include <fstream>
 #include <stdarg.h>
 #include <ctime>
+#include <utf8.h>
 
 #include "poObject.h"
 #include "poShape2D.h"
@@ -207,4 +208,6 @@ void log(const char *format, ...) {
 	std::cerr << ss.str();
 }
 
-
+size_t utf8strlen(const std::string &str) {
+	return utf8::unchecked::distance(str.begin(), str.end());
+}
