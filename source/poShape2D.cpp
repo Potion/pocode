@@ -48,7 +48,7 @@ void poShape2D::draw() {
 		}
 
 		// set the color
-		applyColor(poColor(fill_color,true_alpha));
+		applyColor(poColor(fill_color,appliedAlpha()));
 		// actually draw the filled shape
 		glDrawArrays(fill_draw_style, 0, (int)points.size());
 		
@@ -71,7 +71,7 @@ void poShape2D::draw() {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		
 		// set stroke color
-		applyColor(poColor(stroke_color, true_alpha));
+		applyColor(poColor(stroke_color, appliedAlpha()));
 		
 		// use standard OpenGL stroke or custom generated stroke
 		if ( !use_simple_stroke )

@@ -1,4 +1,4 @@
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 #include "poTexture.h"
 
 void applyColor(poColor color) {

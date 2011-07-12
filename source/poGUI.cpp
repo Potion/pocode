@@ -9,7 +9,7 @@
 #include "poGUI.h"
 
 #include "poTextBox.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 
 #pragma mark Helpers and globals
 

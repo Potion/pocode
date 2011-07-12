@@ -9,7 +9,7 @@
 #include "poSpriteSheet.h"
 
 #include "Helpers.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 
 poSpriteSheet::poSpriteSheet(fs::path anim_gif) {}
 

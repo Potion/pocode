@@ -9,7 +9,7 @@
 using namespace std;
 
 #include "poTextBox.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 #include "poShapeBasics2D.h"
 
 #include <float.h>
@@ -107,7 +107,7 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset()-poPoint(5,5), poPoint(10,10)));
     }
 
-	applyColor(poColor(textColor(), true_alpha));
+	applyColor(poColor(textColor(), appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<_layout.numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
