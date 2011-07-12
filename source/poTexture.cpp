@@ -229,6 +229,7 @@ void poTexture::deleteLocalMemory() {
 
 void poTexture::pushToCard() {
 	if(storingPixels() && !isOnCard()) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, pitch());
 		
 		float trans[] = {0.f, 0.f, 0.f, 0.f};
@@ -241,8 +242,6 @@ void poTexture::pushToCard() {
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 		glTexImage2D(GL_TEXTURE_2D, 0, _internal_format, _width, _height, 0, _format, _type, _pixels);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		
-		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, 0);
 	}
 }
 
