@@ -31,3 +31,4 @@ void startMasking(poShape2D *mask);
 void stopMasking();
 
 void log(const char *format, ...);
+size_t utf8strlen(const std::string &str);

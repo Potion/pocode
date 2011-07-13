@@ -9,6 +9,7 @@
 #pragma once
 #include "poRect.h"
 #include "poFont.h"
+#include "AttributedString.h"
 
 struct layout_glyph {
 	layout_glyph() : glyph(0), bbox() {}
@@ -31,25 +32,38 @@ public:
 	void font(poFont *f, const std::string &weight=PO_FONT_REGULAR);
 	void font(const poFont &f, const std::string &weight=PO_FONT_REGULAR);
 	poFont *const font(const std::string &weight=PO_FONT_REGULAR);
+	bool hasFont(const std::string &weight=PO_FONT_REGULAR);
 	
-	virtual void layout() = 0;
+	virtual void layout();
 	
 	uint numLines() const;
 	layout_line getLine(uint i) const;
-	
+
+	poRect textBounds() const;
+
 protected:
-	std::string _text;
-	std::vector<layout_line> lines;
+	virtual void doLayout() = 0;
+	po::AttributedString &parsedText();
+	void addLine(const layout_line &line);
+	void replaceLine(int i, const layout_line &line);
+	void recalculateTextBounds();
+	
+private:
+	// 1. strip html
+	// 2. store ranges
+	// 3. build attributed str
+	void prepareText();
+	
 	poFontMap fonts;
+	std::string _text;
+	po::AttributedString _parsed;
+	std::vector<layout_line> lines;
+	poRect text_bounds;
 };
 
 class TextBoxLayout : public TextLayout {
 public:
 	TextBoxLayout(poPoint s);
-	
-	virtual void layout();
-	
-	poRect textBounds() const;
 	
 	poPoint size() const;
 	void size(poPoint s);
@@ -71,15 +85,17 @@ public:
 	poAlignment alignment() const;
 	void alignment(poAlignment a);
 	
+protected:
+	virtual void doLayout();
+	
 private:
-	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint size, layout_line &line);
-	void breakLine(std::vector<layout_line> &lines, layout_line &line);
+	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint &size, layout_line &line);
+	void breakLine(layout_line &line);
 	void alignText();
 
 	poPoint _size;
 	float _tracking;
 	float _leading;
 	float _padding[4];
-	poRect text_bounds;
 	poAlignment _alignment;
 };

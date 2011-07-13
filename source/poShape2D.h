@@ -5,7 +5,7 @@
 #pragma once
 
 #include "poObject.h"
-#include "poSimpleDrawing.h"
+#include "SimpleDrawing.h"
 #include "poTexture.h"
 
 #define MAX_TEXTURE_UNITS 8
@@ -39,12 +39,14 @@ public:
 	poShape2D&			placeTexture(const poTexture &tex, uint unit=0);
 	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
 	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit=0);
-	
-	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, uint unit=0);
-	poShape2D&			disableTransformTexture(uint unit=0);
+	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align, uint unit=0);
+	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, poAlignment align, uint unit=0);
 	
 	poShape2D&			placeImage(poImage *img, uint unit=0);
-	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, uint unit=0);
+	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, poAlignment align=PO_ALIGN_CENTER_CENTER, uint unit=0);
+
+	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, uint unit=0);
+	poShape2D&			disableTransformTexture(uint unit=0);
 	
 	poShape2D&			generateStroke(int strokeWidth, StrokePlacementProperty place=STROKE_PLACE_CENTER, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
     

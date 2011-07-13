@@ -50,9 +50,6 @@ void localizeEvent(poEvent &stored, poEvent &tolocal) {
 	if(isMouseEvent(stored.type)) {
 		poPoint pt = stored.source->globalToLocal(tolocal.position);
 		tolocal.local_position = pt;
-        
-        // flip y value to correct for opposite coordinate systems
-        tolocal.position.y = getWindowHeight() - tolocal.position.y;
 	}
 }
 
@@ -222,6 +219,7 @@ poObject *poEventCenter::notify(poEvent event) {
 		std::vector<event_callback> &event_vec = events[event.type];
 		for(int i=0; i<event_vec.size(); i++) {
 			event_callback &callback = event_vec[i];
+			
 			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
 				continue;
 			}

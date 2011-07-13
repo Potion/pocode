@@ -14,6 +14,8 @@ typedef boost::variant<bool, int, float, std::string, poColor, poPoint, void*> p
 class poDictionary {
 public:
 	bool			has(const std::string &name) const {return items.find(name) != items.end();}
+
+	std::vector<std::string> keys() const;
 	
 	bool			getBool(const std::string &name) const {return boost::get<bool>(items.at(name));}
 	poDictionary&	setBool(const std::string &name, bool b) {items[name] = b; return *this;}
@@ -36,6 +38,9 @@ public:
 	template <typename T>
 	T*				getPtr(const std::string &name) const {return static_cast<T*>(boost::get<void*>(items.at(name)));}
 	poDictionary&	setPtr(const std::string &name, void* obj) {items[name] = obj; return *this;}
+	
+	poProperty		getProperty(const std::string &name) {return items[name];}
+	void			setProperty(const std::string &name, const poProperty &prop) {items[name] = prop;}
 	
 	bool			read(const fs::path &url);
 	void			write(const fs::path &url) const;

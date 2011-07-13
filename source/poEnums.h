@@ -25,7 +25,9 @@ enum poTextureFitOption {
 	PO_TEX_FIT_H,
 	PO_TEX_FIT_V,
 	PO_TEX_FIT_MIN,
-	PO_TEX_FIT_MAX
+	PO_TEX_FIT_MAX,
+	
+	PO_TEX_FIT_NUM_OPTIONS
 };
 
 enum poStrokePlacementOption {

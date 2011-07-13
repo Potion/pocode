@@ -89,6 +89,9 @@ public:
 	
 	float			alpha() const;
 	poObject&		alpha(float f);
+	// this is the alpha with parent alpha pre-multiplied
+	float			appliedAlpha() const;
+	
 	
 	poPoint			scale() const;
 	poObject&		scale(poPoint pt);

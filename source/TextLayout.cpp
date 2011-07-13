@@ -7,10 +7,91 @@
 //
 
 #include "TextLayout.h"
-#include "poMath.h"
-#include <boost/tokenizer.hpp>
-#include <utf8.h>
 
+#include <utf8.h>
+#include <tinyxml.h>
+#include <boost/tokenizer.hpp>
+
+#include "poMath.h"
+#include "Helpers.h"
+#include "poDictionary.h"
+
+
+#pragma mark - Layout Helper -
+struct StripAndIndex : public TiXmlVisitor {
+	StripAndIndex(po::AttributedString &str, TextLayout *layout) 
+	:	stripped(str)
+	,	layout(layout) 
+	{}
+	
+	po::AttributedString &stripped;
+	TextLayout *layout;
+
+	std::stack<po::RangeDict> dicts;
+	
+	virtual bool VisitEnter(const TiXmlElement &ele, const TiXmlAttribute* attribs) {
+		po::RangeDict range;
+		range.range.start = utf8strlen(stripped.str());
+
+		// we're supporting span, i, b, bi, and u tags
+		if(ele.ValueStr() == PO_FONT_REGULAR) {
+			if(layout->hasFont())
+				range.dict.setPtr("font", layout->font()); 
+		}
+		else if(ele.ValueStr() == PO_FONT_ITALIC) {
+			if(layout->hasFont(PO_FONT_ITALIC))
+				range.dict.setPtr("font", layout->font(PO_FONT_ITALIC));
+		}
+		else if(ele.ValueStr() == PO_FONT_BOLD) {
+			if(layout->hasFont(PO_FONT_BOLD))
+				range.dict.setPtr("font", layout->font(PO_FONT_BOLD));
+		}
+		else if(ele.ValueStr() == PO_FONT_BOLD_ITALIC) {
+			if(layout->hasFont(PO_FONT_BOLD_ITALIC))
+				range.dict.setPtr("font", layout->font(PO_FONT_BOLD_ITALIC));
+		}
+		else if(ele.ValueStr() == "u") {
+			range.dict.setBool("u", true);
+		}
+		
+		while(attribs) {
+			if(attribs->NameTStr() == "tracking") {
+				range.dict.setFloat("tracking", attribs->DoubleValue());
+			}
+			else if(attribs->NameTStr() == "color") {
+				std::istringstream val_str(attribs->Value());
+
+				poColor c;
+				val_str >> c;
+				
+				std::cout << c << std::endl;
+				
+				range.dict.setColor("color", c);
+			}
+			
+			attribs = attribs->Next();
+		};
+
+		dicts.push(range);
+		
+		return true;
+	}
+	virtual bool VisitExit(const TiXmlElement &ele) {
+		po::RangeDict range = dicts.top();
+		dicts.pop();
+
+		range.range.end = utf8strlen(stripped.str());
+		stripped.append(range);
+		
+		return true;
+	}
+	virtual bool Visit(const TiXmlText &ele) {
+		stripped.append(ele.ValueStr());
+		return true;
+	}
+};
+
+#pragma mark - TextLayout -
 std::string TextLayout::text() const {return _text;}
 void TextLayout::text(const std::string &str) {_text = str;}
 void TextLayout::font(poFont *f, const std::string &weight) {font(*f,weight);}
@@ -20,84 +101,130 @@ void TextLayout::font(const poFont &f, const std::string &weight) {
 	fonts[weight] = f.copy();
 }
 poFont *const TextLayout::font(const std::string &weight) {return fonts[weight];}
+bool TextLayout::hasFont(const std::string &weight) {return fonts.find(weight) != fonts.end();}
+
 uint TextLayout::numLines() const {return lines.size();}
 layout_line TextLayout::getLine(uint i) const {return lines[i];}
+poRect TextLayout::textBounds() const {return text_bounds;}
 
+void TextLayout::prepareText() {
+	// clean up
+	lines.clear();
+	_parsed = po::AttributedString();
+	text_bounds.set(0,0,0,0);
 
+	std::string xml = (boost::format("<span>%1%</span>")%text()).str();
+	
+	bool is_condensed = TiXmlBase::IsWhiteSpaceCondensed();
+	TiXmlBase::SetCondenseWhiteSpace(false);
+	
+	TiXmlDocument doc;
+	doc.Parse(xml.c_str(), NULL, TIXML_ENCODING_UTF8);
+	
+	StripAndIndex stripped(_parsed, this);
+	doc.Accept(&stripped);
+	
+	TiXmlBase::SetCondenseWhiteSpace(is_condensed);
+}
 
+void TextLayout::layout() {
+	prepareText();
+	doLayout();
+}
 
+po::AttributedString &TextLayout::parsedText() {return _parsed;}
+
+void TextLayout::addLine(const layout_line &line) {
+	if(!lines.empty())
+		text_bounds.include(line.bounds);
+	else
+		text_bounds = line.bounds;
+	
+	lines.push_back(line);
+}
+
+void TextLayout::replaceLine(int i, const layout_line &line) {
+	lines[i] = line;
+}
+
+void TextLayout::recalculateTextBounds() {
+	text_bounds = lines[0].bounds;
+	for(int i=1; i<numLines(); i++)
+		text_bounds.include(lines[i].bounds);
+}
+
+#pragma mark - TextBoxLayout -
 TextBoxLayout::TextBoxLayout(poPoint s)
-:	_size(s), _tracking(1.f), _leading(1.f), _alignment(PO_ALIGN_TOP_LEFT)
+:	_size(s), _tracking(1.f), _leading(-1.f), _alignment(PO_ALIGN_TOP_LEFT)
 {
 	padding(0.f);
 }
 
-void TextBoxLayout::layout() {
-	lines.clear();
-	text_bounds.set(0,0,0,0);
+void TextBoxLayout::doLayout() {
+	using namespace po;
+	using namespace std;
+	using namespace boost;
 	
-	if(_text.empty())
+	AttributedString str = parsedText();
+	
+	if(str.empty())
 		return;
-	
+
 	layout_line line;
 	
-	poFont *font = fonts[PO_FONT_REGULAR];
-	font->glyph(' ');
+	poFont *fnt = font(PO_FONT_REGULAR);
 
-	float spacer = font->glyphAdvance().x * tracking();
+	if(leading() < 0.f)
+		leading(fnt->lineHeight());
 	
-	using namespace boost;
-	using namespace std;
+	fnt->glyph(' ');
+
+	float spacer = fnt->glyphAdvance().x * tracking();
+
+	poPoint size(0,0);
+	vector<layout_glyph> glyphs;
 	
-	tokenizer< char_separator<char> > tok(text(), char_separator<char>(" "));
-	for(tokenizer< char_separator<char> >::iterator word=tok.begin(); word!=tok.end(); ++word) {
-		poPoint size(0,0);
-		vector<layout_glyph> glyphs;
+	std::string::const_iterator ch = str.begin();
+	while(ch != str.end()) {
+		uint codepoint = utf8::next(ch, str.end());
 		
-		string::const_iterator ch=word->begin();
-		while(ch != word->end()) {
-			uint codepoint = utf8::next(ch, word->end());
-			if(codepoint == '\n') {
-				addGlyphsToLine(glyphs, size, line);
-				text_bounds.include(line.bounds.origin + line.bounds.size);
-				breakLine(lines, line);
-				size.set(0,0,0);
-				continue;
-			}
-			else if(codepoint == '\t') {
-				size.x += spacer * 4;
-				continue;
-			}
-			
-			font->glyph(codepoint);
-			
-			layout_glyph glyph;
-			glyph.glyph = codepoint;
-			glyph.bbox = font->glyphBounds();
-			glyph.bbox.origin += poPoint(size.x, 0) + font->glyphBearing();
-			glyphs.push_back(glyph);
-			
-			size.x += font->glyphAdvance().x*tracking();
-			size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
-			
-			if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
-				line.bounds.size.x -= spacer;
-				text_bounds.include(line.bounds.origin + line.bounds.size);
-				breakLine(lines, line);
-			}
+		if(codepoint == ' ') {
+			size.x += spacer;
+			addGlyphsToLine(glyphs, size, line);
+		}
+		if(codepoint == '\n') {
+			addGlyphsToLine(glyphs, size, line);
+			breakLine(line);
+			continue;
+		}
+		else if(codepoint == '\t') {
+			size.x += spacer * 4;
+			continue;
 		}
 		
-		size.x += spacer;
-		addGlyphsToLine(glyphs, size, line);
+		fnt->glyph(codepoint);
+		
+		layout_glyph glyph;
+		glyph.glyph = codepoint;
+		glyph.bbox = fnt->glyphBounds();
+		glyph.bbox.origin += poPoint(size.x, 0) + fnt->glyphBearing();
+		glyphs.push_back(glyph);
+		
+		size.x += fnt->glyphAdvance().x*tracking();
+		size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
+		
+		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
+			line.bounds.size.x -= spacer;
+			breakLine(line);
+		}
 	}
-	
+
 	line.bounds.size.x -= spacer;
-	text_bounds.include(line.bounds.origin + line.bounds.size);
-	lines.push_back(line);
+	addGlyphsToLine(glyphs, size, line);
+	breakLine(line);
 	alignText();
 }
 
-poRect TextBoxLayout::textBounds() const {return text_bounds;}
 poPoint TextBoxLayout::size() const {return _size;}
 void TextBoxLayout::size(poPoint s) {_size = s;}
 float TextBoxLayout::tracking() const {return _tracking;}
@@ -114,7 +241,7 @@ void TextBoxLayout::padding(float l, float r, float t, float b) {_padding[0] = l
 poAlignment TextBoxLayout::alignment() const {return _alignment;}
 void TextBoxLayout::alignment(poAlignment a) {_alignment = a;}
 
-void TextBoxLayout::addGlyphsToLine(std::vector<layout_glyph> &glyphs, poPoint size, layout_line &line) {
+void TextBoxLayout::addGlyphsToLine(std::vector<layout_glyph> &glyphs, poPoint &size, layout_line &line) {
 	BOOST_FOREACH(layout_glyph &glyph, glyphs) {
 		glyph.bbox.origin = glyph.bbox.origin + poPoint(line.bounds.size.x, line.bounds.origin.y);
 		line.glyphs.push_back(glyph);
@@ -123,18 +250,24 @@ void TextBoxLayout::addGlyphsToLine(std::vector<layout_glyph> &glyphs, poPoint s
 	line.bounds.size.x += size.x;
 	line.bounds.size.y = std::max(line.bounds.size.y, size.y);
 	line.word_count += 1;
+	
 	glyphs.clear();
+	size.set(0,0,0);
 }
 
-void TextBoxLayout::breakLine(std::vector<layout_line> &lines, layout_line &line) {
-	lines.push_back(line);
-	
+void TextBoxLayout::breakLine(layout_line &line) {
+	addLine(line);
+
 	line = layout_line();
-	line.bounds.origin.y = lines.size() * fonts[PO_FONT_REGULAR]->lineHeight() * leading();
+	line.bounds.origin.y = numLines() * leading();
 }
 
 void TextBoxLayout::alignText() {
-	BOOST_FOREACH(layout_line &line, lines) {
+	poRect text_bounds = textBounds();
+
+	for(int i=0; i<numLines(); i++) {
+		layout_line line = getLine(i);
+		
 		poPoint glyphOffset(0.f, 0.f);
 		
 		switch(_alignment) {
@@ -172,17 +305,17 @@ void TextBoxLayout::alignText() {
 		
 		glyphOffset.x += paddingLeft();
 		glyphOffset.y += paddingBottom();
+		
 		line.bounds.origin += glyphOffset;
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
 			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
 		}
+		
+		replaceLine(i, line);
 	}
 	
-	text_bounds = lines[0].bounds;
-	for(int i=1; i<lines.size(); i++) {
-		text_bounds.include(lines[i].bounds);
-	}
+	recalculateTextBounds();
 }
 
 
