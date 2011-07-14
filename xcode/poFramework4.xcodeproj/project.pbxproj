@@ -155,8 +155,8 @@
 		E890423F13BBBD7300877667 /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../source/poVideo.h; sourceTree = "<group>"; };
 		E8A0B996138B0FE10024BC8C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E8A0B997138B0FE10024BC8C /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		E8A0B998138B0FE10024BC8C /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; path = main.pch; sourceTree = "<group>"; };
-		E8A0B999138B0FE10024BC8C /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; path = main.plist; sourceTree = "<group>"; };
+		E8A0B998138B0FE10024BC8C /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		E8A0B999138B0FE10024BC8C /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
 		E8A0B99A138B0FE10024BC8C /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
 		E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		E8A0B99C138B0FE10024BC8C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
