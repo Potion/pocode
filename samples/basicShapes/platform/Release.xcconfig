@@ -1,4 +1,4 @@
-ARCHS				= $(NATIVE_ARCH_ACTUAL)
+ARCHS				= i386
 ONLY_ACTIVE_ARCH	= YES
 SDKROOT				= macosx10.6
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
@@ -25,5 +25,5 @@ FREEIMAGE			= $(LIBRARIES)/FreeImage
 TINYXPATH			= $(LIBRARIES)/TinyXPath
 FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
-LIBRARIES_CMD		= -lboost_date_time-clang-darwin20-mt-1_45 -lboost_filesystem-clang-darwin20-mt-1_45 -lboost_system-clang-darwin20-mt-1_45 -lboost_thread-clang-darwin20-mt-1_45 -lfreeimage-clang -ltinyxpath -lpotionLib
+LIBRARIES_CMD		= -lpotionLib -lbz2
 FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo

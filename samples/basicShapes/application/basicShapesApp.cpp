@@ -34,7 +34,7 @@ basicShapesApp::basicShapesApp() {
     addChild( rectShape );
    
     // make rectangular shape with image + transparency
-    rectShapeWithImage = new poRectShape( "apple.png" );
+    rectShapeWithImage = new poRectShape( "apple.jpg" );
     rectShapeWithImage->position( 150,225 );
     rectShapeWithImage->scale( 0.5, 0.5,1 );
     rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
