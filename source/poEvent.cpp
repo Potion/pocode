@@ -208,6 +208,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			event_callback *the_one = possibles.back();
 			
 			localizeEvent(the_one->event, event);
+			
 			the_one->receiver->eventHandler(&event);
 			// capture any user changes to the dictionary
 			the_one->event.dict = event.dict;

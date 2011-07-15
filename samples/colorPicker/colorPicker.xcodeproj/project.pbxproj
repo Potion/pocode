@@ -15,8 +15,7 @@
 		875B9CBB13B0E92C00063D7E /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBA13B0E92C00063D7E /* main.pch */; };
 		875B9CBE13B0E92C00063D7E /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBD13B0E92C00063D7E /* main.xib */; };
 		875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CC013B0E92C00063D7E /* poOpenGLView.mm */; };
-		875B9CC513B0E92C00063D7E /* colorPickerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */; };
-		875B9CCD13B0E99B00063D7E /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CCC13B0E99B00063D7E /* bird.png */; };
+		E83092CD13CFAE0E00836802 /* colorPickerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +31,8 @@
 		875B9CBD13B0E92C00063D7E /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
 		875B9CBF13B0E92C00063D7E /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		875B9CC013B0E92C00063D7E /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		875B9CC313B0E92C00063D7E /* colorPickerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = colorPickerApp.h; path = ../application/colorPickerApp.h; sourceTree = "<group>"; };
-		875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = colorPickerApp.cpp; path = ../application/colorPickerApp.cpp; sourceTree = "<group>"; };
-		875B9CCC13B0E99B00063D7E /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
+		E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorPickerApp.cpp; sourceTree = "<group>"; };
+		E83092CC13CFAE0E00836802 /* colorPickerApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorPickerApp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +65,8 @@
 		875B9CAD13B0E92C00063D7E /* colorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				875B9CCB13B0E99B00063D7E /* images */,
+				E83092CA13CFADEA00836802 /* colorPicker */,
 				875B9CAE13B0E92C00063D7E /* platform */,
-				875B9CC213B0E92C00063D7E /* application */,
 			);
 			path = colorPicker;
 			sourceTree = "<group>";
@@ -92,21 +89,13 @@
 			name = platform;
 			sourceTree = "<group>";
 		};
-		875B9CC213B0E92C00063D7E /* application */ = {
+		E83092CA13CFADEA00836802 /* colorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				875B9CC313B0E92C00063D7E /* colorPickerApp.h */,
-				875B9CC413B0E92C00063D7E /* colorPickerApp.cpp */,
+				E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */,
+				E83092CC13CFAE0E00836802 /* colorPickerApp.h */,
 			);
-			name = application;
-			sourceTree = "<group>";
-		};
-		875B9CCB13B0E99B00063D7E /* images */ = {
-			isa = PBXGroup;
-			children = (
-				875B9CCC13B0E99B00063D7E /* bird.png */,
-			);
-			path = images;
+			name = colorPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +154,6 @@
 				875B9CB713B0E92C00063D7E /* en.strings in Resources */,
 				875B9CBB13B0E92C00063D7E /* main.pch in Resources */,
 				875B9CBE13B0E92C00063D7E /* main.xib in Resources */,
-				875B9CCD13B0E99B00063D7E /* bird.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +167,7 @@
 				875B9CB513B0E92C00063D7E /* AppDelegate.mm in Sources */,
 				875B9CB913B0E92C00063D7E /* main.m in Sources */,
 				875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */,
-				875B9CC513B0E92C00063D7E /* colorPickerApp.cpp in Sources */,
+				E83092CD13CFAE0E00836802 /* colorPickerApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +178,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 875B9CAF13B0E92C00063D7E /* Debug.xcconfig */;
 			buildSettings = {
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 			};
 			name = Debug;
 		};
@@ -198,19 +185,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 875B9CB113B0E92C00063D7E /* Release.xcconfig */;
 			buildSettings = {
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 			};
 			name = Release;
 		};
 		875B9CC913B0E92C00063D7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Debug;
 		};
 		875B9CCA13B0E92C00063D7E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Release;
 		};
@@ -233,6 +223,7 @@
 				875B9CCA13B0E92C00063D7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

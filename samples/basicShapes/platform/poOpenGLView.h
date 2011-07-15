@@ -15,6 +15,7 @@ class poWindow;
 	CVDisplayLinkRef display_link;
 	BOOL animating;
 	BOOL fullscreen;
+    poWindow *appWindow;
 }
 
 @property (nonatomic,assign) poWindow *appWindow;

@@ -1,7 +1,7 @@
 #include "poShape2D.h"
 #include "Helpers.h"
 #include "LineExtruder.h"
-#include "nanosvg.h"
+//#include "nanosvg.h"
 
 poShape2D::poShape2D()
 :	enable_fill(true)
@@ -183,39 +183,39 @@ void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const st
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / tex->width();
 		float t = points[i].y / tex->height();
-		
-		switch(align) {
-			case PO_ALIGN_BOTTOM_LEFT:
-				break;
-			case PO_ALIGN_BOTTOM_CENTER:
-				s = (1.f - s) / 2.f;
-				break;
-			case PO_ALIGN_BOTTOM_RIGHT:
-				s = 1.f - s;
-				break;
-			case PO_ALIGN_CENTER_LEFT:
-				t = (1.f - t) / 2.f;
-				break;
-			case PO_ALIGN_CENTER_CENTER:
-				s = (1.f - s) / 2.f;
-				t = (1.f - t) / 2.f;
-				break;
-			case PO_ALIGN_CENTER_RIGHT:
-				s = 1.f - s;
-				t = (1.f - t) / 2.f;
-				break;
-			case PO_ALIGN_TOP_LEFT:
-				t = 1.f - t;
-				break;
-			case PO_ALIGN_TOP_CENTER:
-				s = (1.f - s) / 2.f;
-				t = 1.f - t;
-				break;
-			case PO_ALIGN_TOP_RIGHT:
-				s = (1.f - s);
-				t = 1.f - t;
-				break;
-		}
+
+//		switch(align) {
+//			case PO_ALIGN_BOTTOM_LEFT:
+//				break;
+//			case PO_ALIGN_BOTTOM_CENTER:
+//				s = (1.f - s) / 2.f;
+//				break;
+//			case PO_ALIGN_BOTTOM_RIGHT:
+//				s = 1.f - s;
+//				break;
+//			case PO_ALIGN_CENTER_LEFT:
+//				t = (1.f - t) / 2.f;
+//				break;
+//			case PO_ALIGN_CENTER_CENTER:
+//				s = (1.f - s) / 2.f;
+//				t = (1.f - t) / 2.f;
+//				break;
+//			case PO_ALIGN_CENTER_RIGHT:
+//				s = 1.f - s;
+//				t = (1.f - t) / 2.f;
+//				break;
+//			case PO_ALIGN_TOP_LEFT:
+//				t = 1.f - t;
+//				break;
+//			case PO_ALIGN_TOP_CENTER:
+//				s = (1.f - s) / 2.f;
+//				t = 1.f - t;
+//				break;
+//			case PO_ALIGN_TOP_RIGHT:
+//				s = (1.f - s);
+//				t = 1.f - t;
+//				break;
+//		}
 		
 		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
@@ -239,13 +239,13 @@ void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, co
 		
 		t *= h_mod * scale;
 		
-		if(align >= PO_ALIGN_CENTER_LEFT && align <= PO_ALIGN_CENTER_RIGHT) {
-			t += t / 2.f;
-		}
-		else 
-		if(align >= PO_ALIGN_TOP_LEFT && align <= PO_ALIGN_TOP_RIGHT) {
-			t += 1.f - t;
-		}
+//		if(align >= PO_ALIGN_CENTER_LEFT && align <= PO_ALIGN_CENTER_RIGHT) {
+//			t += t / 2.f;
+//		}
+//		else 
+//		if(align >= PO_ALIGN_TOP_LEFT && align <= PO_ALIGN_TOP_RIGHT) {
+//			t += 1.f - t;
+//		}
 		
 		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
@@ -261,13 +261,13 @@ void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, cons
 		
 		s *= w_mod * scale;
 		
-		if(align && !(align % 2)) {
-			s += s / 2.f;
-		}
-		else 
-		if(align && !(align % 3)) {
-			s += 1.f - s;
-		}
+//		if(align && !(align % 2)) {
+//			s += s / 2.f;
+//		}
+//		else 
+//		if(align && !(align % 3)) {
+//			s += 1.f - s;
+//		}
 		coords[i].set(s*tex->s(),t*tex->t(),0.f);
 	}
 }
@@ -619,15 +619,15 @@ void poShape2D::updateAllTweens() {
 std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 	std::vector<poShape2D*> response;
 
-	if(!fs::exists(svg)) {
+	/*if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
-		return;
+		return response;
 	}
 	
 	SVGPath *result = svgParseFromFile(svg.string().c_str());
 	if(!result) {
 		log("poShape2D: invalid svg file (%s)", svg.string().c_str());
-		return;
+		return response;
 	}
 	
 	while(result) {
@@ -654,7 +654,7 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 		result = result->next;
 	}
 	
-	svgDelete(result);
+	svgDelete(result);*/
 	return response;
 }
 

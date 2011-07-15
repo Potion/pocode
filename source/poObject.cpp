@@ -3,6 +3,7 @@
  */
 
 #include "poObject.h"
+#include "poApplication.h"
 
 poObject::poObject() 
 :	_parent(NULL)
@@ -209,8 +210,10 @@ bool poObject::pointInside(poPoint point, bool localize) {
 	if(!visible())
 		return false;
 	
-	if(localize)
+	if(localize) {
+		point.y = getWindowHeight() - point.y;
 		point = globalToLocal(point);
+	}
 	
 	return bounds().contains(point);
 }

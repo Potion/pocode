@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
-		AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E80625A01396FEFC00615CCB /* Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71413913E3A00E6848E /* Helpers.h */; };
 		E80625A11396FEFC00615CCB /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
 		E80625A21396FEFC00615CCB /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71513913E3A00E6848E /* poApplication.h */; };
@@ -56,59 +54,25 @@
 		E80625CE1396FEFC00615CCB /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
 		E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E83091C713CCD69600836802 /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83091C613CCD69600836802 /* poFBO.cpp */; };
 		E83091C813CCD69600836802 /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83091C613CCD69600836802 /* poFBO.cpp */; };
 		E83091CA13CCD6B100836802 /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E83091C913CCD6B100836802 /* poFBO.h */; };
-		E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83095F0132FD0D600080C86 /* poMatrixSet.cpp */; };
-		E830965C13315F2D00080C86 /* SimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* SimpleDrawing.cpp */; };
-		E8341F90138EE1AD00E508E0 /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
-		E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E87AA03013B26BE40048947D /* poGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA02E13B26BE10048947D /* poGUI.cpp */; };
+		E83092EE13D09C9100836802 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		E87AA03113B26BE40048947D /* poGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA02E13B26BE10048947D /* poGUI.cpp */; };
 		E87AA03213B26BE40048947D /* poGUI.h in Headers */ = {isa = PBXBuildFile; fileRef = E87AA02F13B26BE20048947D /* poGUI.h */; };
-		E87AA03F13B649C20048947D /* poSpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA03D13B649BC0048947D /* poSpriteSheet.cpp */; };
 		E87AA04013B649C20048947D /* poSpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA03D13B649BC0048947D /* poSpriteSheet.cpp */; };
 		E87AA04113B649C20048947D /* poSpriteSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = E87AA03E13B649BD0048947D /* poSpriteSheet.h */; };
-		E87E18781367696800DB6934 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
-		E87E18831368615B00DB6934 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
-		E87E18961369884C00DB6934 /* poResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18941369884B00DB6934 /* poResource.cpp */; };
 		E88E746613C753DC0051F026 /* AttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* AttributedString.h */; };
-		E890424013BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E890424113BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E890424213BBBD7300877667 /* poVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = E890423F13BBBD7300877667 /* poVideo.h */; };
-		E8A0B9A2138B0FE10024BC8C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B997138B0FE10024BC8C /* AppDelegate.mm */; };
-		E8A0B9A4138B0FE10024BC8C /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B99A138B0FE10024BC8C /* main.xib */; };
-		E8A0B9A5138B0FE10024BC8C /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */; };
-		E8A0B9A6138B0FE10024BC8C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B99C138B0FE10024BC8C /* InfoPlist.strings */; };
-		E8A0B9A7138B0FE10024BC8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B99D138B0FE10024BC8C /* main.m */; };
-		E8A0B9A9138B0FE10024BC8C /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */; };
-		E8A0B9AA138B0FE10024BC8C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */; };
-		E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
-		E8B2D0CB132E9F78002BE3D9 /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
-		E8B2D0CD132E9F78002BE3D9 /* poEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */; };
-		E8B2D0CF132E9F78002BE3D9 /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
-		E8B2D0D0132E9F78002BE3D9 /* poPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */; };
-		E8B2D0D1132E9F78002BE3D9 /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
-		E8B2D0D2132E9F78002BE3D9 /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
-		E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */; };
-		E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */; };
-		E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
-		E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
-		E8CE963D13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
 		E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
 		E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CE963C13B004E900DFB769 /* LineExtruder.h */; };
-		E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
 		E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E51B3E13A13E5D008C67FF /* BinPacker.h */; };
-		E8E7559713C60B2A00A91EB8 /* TextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */; };
 		E8E7559813C60B2A00A91EB8 /* TextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */; };
 		E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E7559613C60B2A00A91EB8 /* TextLayout.h */; };
-		E8E755C813C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E755C713C62F8B00A91EB8 /* poXML.h */; };
 		E8F4E4A0139E734B0001E860 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F4E49F139E734B0001E860 /* main.cpp */; };
-		E8FB2408133A996C00111A69 /* poFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FB2406133A996C00111A69 /* poFont.cpp */; };
-		E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMaskModifier.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -131,6 +95,7 @@
 		E80625911396FEDA00615CCB /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83091C613CCD69600836802 /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFBO.cpp; path = ../source/poFBO.cpp; sourceTree = "<group>"; };
 		E83091C913CCD6B100836802 /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFBO.h; path = ../source/poFBO.h; sourceTree = "<group>"; };
+		E83092ED13D09C9100836802 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
 		E83095F1132FD0D600080C86 /* poMatrixSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixSet.h; path = ../source/poMatrixSet.h; sourceTree = "<group>"; };
 		E830965913315F2D00080C86 /* poEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEnums.h; path = ../source/poEnums.h; sourceTree = "<group>"; };
@@ -164,8 +129,9 @@
 		E8A0B99F138B0FE10024BC8C /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
 		E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
 		E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-lib.xcconfig"; sourceTree = "<group>"; };
+		E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-lib.xcconfig"; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
-		E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poFramework4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor.cpp; path = ../source/poColor.cpp; sourceTree = "<group>"; };
 		E8B2D0B6132E9F78002BE3D9 /* poColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poColor.h; path = ../source/poColor.h; sourceTree = "<group>"; };
 		E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poDictionary.h; path = ../source/poDictionary.h; sourceTree = "<group>"; };
@@ -183,8 +149,6 @@
 		E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = poShape2D.h; path = ../source/poShape2D.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTween.cpp; path = ../source/poTween.cpp; sourceTree = "<group>"; };
 		E8B2D0CA132E9F78002BE3D9 /* poTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTween.h; path = ../source/poTween.h; sourceTree = "<group>"; };
-		E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestApp.cpp; path = ../test/TestApp.cpp; sourceTree = "<group>"; };
-		E8B2D110132EC4B7002BE3D9 /* TestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestApp.h; path = ../test/TestApp.h; sourceTree = "<group>"; };
 		E8C7E71313913E3A00E6848E /* Helpers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Helpers.cpp; path = ../source/Helpers.cpp; sourceTree = "<group>"; };
 		E8C7E71413913E3A00E6848E /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Helpers.h; path = ../source/Helpers.h; sourceTree = "<group>"; };
 		E8C7E71513913E3A00E6848E /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/poApplication.h; sourceTree = "<group>"; };
@@ -215,13 +179,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E8B2D068132E9CA7002BE3D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E8F4E499139E734B0001E860 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,17 +192,9 @@
 		E8A0B995138B0FBA0024BC8C /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				E8A0B99D138B0FE10024BC8C /* main.m */,
-				E8A0B996138B0FE10024BC8C /* AppDelegate.h */,
-				E8A0B997138B0FE10024BC8C /* AppDelegate.mm */,
-				E8A0B99F138B0FE10024BC8C /* poOpenGLView.h */,
-				E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */,
-				E8A0B998138B0FE10024BC8C /* main.pch */,
-				E8A0B999138B0FE10024BC8C /* main.plist */,
-				E8A0B99A138B0FE10024BC8C /* main.xib */,
-				E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */,
-				E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */,
-				E8A0B99C138B0FE10024BC8C /* InfoPlist.strings */,
+				E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */,
+				E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */,
+				E83092ED13D09C9100836802 /* main.pch */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -253,7 +202,6 @@
 		E8B2D060132E9CA7002BE3D9 = {
 			isa = PBXGroup;
 			children = (
-				E8B2D108132EC388002BE3D9 /* application */,
 				E8A0B995138B0FBA0024BC8C /* platform */,
 				E8B2D0B4132E9F4D002BE3D9 /* potionLib */,
 				E8F4E49E139E734B0001E860 /* regression */,
@@ -264,7 +212,6 @@
 		E8B2D06C132E9CA7002BE3D9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */,
 				E80625911396FEDA00615CCB /* libpotionLib.a */,
 				E8F4E49C139E734B0001E860 /* regression */,
 			);
@@ -285,20 +232,11 @@
 			name = potionLib;
 			sourceTree = "<group>";
 		};
-		E8B2D108132EC388002BE3D9 /* application */ = {
-			isa = PBXGroup;
-			children = (
-				E8B2D110132EC4B7002BE3D9 /* TestApp.h */,
-				E8B2D10F132EC4B7002BE3D9 /* TestApp.cpp */,
-			);
-			name = application;
-			sourceTree = "<group>";
-		};
 		E8E7558D13C6099A00A91EB8 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				E8C7E71513913E3A00E6848E /* poApplication.h */,
 				E841ED7A1369AB640029C2F4 /* glInfo.h */,
+				E8C7E71513913E3A00E6848E /* poApplication.h */,
 				E8C7E71713913E3A00E6848E /* poWindow.h */,
 				E8C7E71613913E3A00E6848E /* poWindow.cpp */,
 			);
@@ -457,6 +395,7 @@
 				E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */,
 				E88E746613C753DC0051F026 /* AttributedString.h in Headers */,
 				E83091CA13CCD6B100836802 /* poFBO.h in Headers */,
+				E83092EE13D09C9100836802 /* main.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,23 +418,6 @@
 			productName = potionLib;
 			productReference = E80625911396FEDA00615CCB /* libpotionLib.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		E8B2D06A132E9CA7002BE3D9 /* poFramework4 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E8B2D089132E9CA7002BE3D9 /* Build configuration list for PBXNativeTarget "poFramework4" */;
-			buildPhases = (
-				E8B2D067132E9CA7002BE3D9 /* Sources */,
-				E8B2D068132E9CA7002BE3D9 /* Frameworks */,
-				E8B2D069132E9CA7002BE3D9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = poFramework4;
-			productName = poFramework4;
-			productReference = E8B2D06B132E9CA7002BE3D9 /* poFramework4.app */;
-			productType = "com.apple.product-type.application";
 		};
 		E8F4E49B139E734B0001E860 /* regression */ = {
 			isa = PBXNativeTarget;
@@ -534,26 +456,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E8B2D06A132E9CA7002BE3D9 /* poFramework4 */,
 				E80625901396FEDA00615CCB /* potionLib */,
 				E8F4E49B139E734B0001E860 /* regression */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		E8B2D069132E9CA7002BE3D9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E8A0B9A4138B0FE10024BC8C /* main.xib in Resources */,
-				E8A0B9A5138B0FE10024BC8C /* Debug.xcconfig in Resources */,
-				E8A0B9A6138B0FE10024BC8C /* InfoPlist.strings in Resources */,
-				E8A0B9AA138B0FE10024BC8C /* Release.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E806258D1396FEDA00615CCB /* Sources */ = {
@@ -592,46 +499,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E8B2D067132E9CA7002BE3D9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E8B2D0CB132E9F78002BE3D9 /* poColor.cpp in Sources */,
-				E8B2D0CD132E9F78002BE3D9 /* poEvent.cpp in Sources */,
-				E8B2D0CF132E9F78002BE3D9 /* poObject.cpp in Sources */,
-				E8B2D0D0132E9F78002BE3D9 /* poPoint.cpp in Sources */,
-				E8B2D0D1132E9F78002BE3D9 /* poRect.cpp in Sources */,
-				E8B2D0D2132E9F78002BE3D9 /* poShape2D.cpp in Sources */,
-				E8B2D0D3132E9F78002BE3D9 /* poTween.cpp in Sources */,
-				E8B2D111132EC4B7002BE3D9 /* TestApp.cpp in Sources */,
-				E83095F2132FD0D700080C86 /* poMatrixSet.cpp in Sources */,
-				E830965C13315F2D00080C86 /* SimpleDrawing.cpp in Sources */,
-				E8FB2408133A996C00111A69 /* poFont.cpp in Sources */,
-				E8B02F3A1363512F0068FB5D /* poMath.cpp in Sources */,
-				E87E18781367696800DB6934 /* poTexture.cpp in Sources */,
-				E87E18831368615B00DB6934 /* poImage.cpp in Sources */,
-				E87E18961369884C00DB6934 /* poResource.cpp in Sources */,
-				E85EE94C13731F9C0066679A /* poTextBox.cpp in Sources */,
-				AA09790C138593A800BBA07F /* poShapeBasics2D.cpp in Sources */,
-				7F01E8E31386279D008F0EE1 /* poCamera.cpp in Sources */,
-				E8A0B9A2138B0FE10024BC8C /* AppDelegate.mm in Sources */,
-				E8A0B9A7138B0FE10024BC8C /* main.m in Sources */,
-				E8A0B9A9138B0FE10024BC8C /* poOpenGLView.mm in Sources */,
-				E8341F90138EE1AD00E508E0 /* poDictionary.cpp in Sources */,
-				E8C7E71813913E3A00E6848E /* Helpers.cpp in Sources */,
-				E8C7E71C13913E3A00E6848E /* poWindow.cpp in Sources */,
-				E8FE4AEB13968EE400E99864 /* poMaskModifier.cpp in Sources */,
-				E8E51B3F13A13E5E008C67FF /* BinPacker.cpp in Sources */,
-				E8CE963D13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
-				E87AA03013B26BE40048947D /* poGUI.cpp in Sources */,
-				E87AA03F13B649C20048947D /* poSpriteSheet.cpp in Sources */,
-				E890424013BBBD7300877667 /* poVideo.cpp in Sources */,
-				E8E7559713C60B2A00A91EB8 /* TextLayout.cpp in Sources */,
-				E8E755C813C62F8B00A91EB8 /* poXML.cpp in Sources */,
-				E83091C713CCD69600836802 /* poFBO.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E8F4E498139E734B0001E860 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -645,19 +512,20 @@
 /* Begin XCBuildConfiguration section */
 		E806259C1396FEDA00615CCB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		E806259D1396FEDA00615CCB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		E8B2D087132E9CA7002BE3D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */;
 			buildSettings = {
 				test = "$(SRCROOT)";
 			};
@@ -665,21 +533,8 @@
 		};
 		E8B2D088132E9CA7002BE3D9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */;
 			buildSettings = {
 				test = "$(SRCROOT)";
-			};
-			name = Release;
-		};
-		E8B2D08A132E9CA7002BE3D9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		E8B2D08B132E9CA7002BE3D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 			};
 			name = Release;
 		};
@@ -712,15 +567,6 @@
 			buildConfigurations = (
 				E8B2D087132E9CA7002BE3D9 /* Debug */,
 				E8B2D088132E9CA7002BE3D9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E8B2D089132E9CA7002BE3D9 /* Build configuration list for PBXNativeTarget "poFramework4" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E8B2D08A132E9CA7002BE3D9 /* Debug */,
-				E8B2D08B132E9CA7002BE3D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

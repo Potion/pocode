@@ -28,7 +28,6 @@ private:
 
 
 
-// template implementations
 template <typename T>
 T* poResourceStore::add(T *r) {
 	resources.insert(r);

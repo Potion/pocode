@@ -1,11 +1,6 @@
-#ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
-#endif
-
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/glu.h>
 
-#if defined(__cplusplus)
 #include <string>
 #include <vector>
 #include <set>
@@ -13,11 +8,9 @@
 #include <stack>
 #include <map>
 #include <algorithm>
-#include <iostream>
 
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
-#include <boost/format.hpp>
 #include <boost/variant.hpp>
 #include <boost/foreach.hpp>
 #include <boost/function.hpp>
@@ -27,6 +20,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
+#include <boost/format.hpp>
 
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
@@ -38,5 +32,3 @@ namespace fs = boost::filesystem;
 typedef unsigned int uint;
 typedef unsigned char ubyte;
 typedef unsigned short ushort;
-
-#endif

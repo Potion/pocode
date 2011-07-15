@@ -38,13 +38,21 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	cleanupApplication();
+	
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:NSWindowWillCloseNotification object:nil];
+	
 	[windows release];
+	windows = nil;
+	
 	[shared_context release];
 }
 
 - (void)windowWillClose:(NSNotification*)notice {
-	NSWindow *win = (NSWindow*)notice;
-	[windows removeObject:win];
+	if(windows) {
+		NSWindow *win = (NSWindow*)notice;
+		[windows removeObject:win];
+	}
 }
 
 -(void)quit {
@@ -89,10 +97,11 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[context makeCurrentContext];
 	
 	NSWindow *window = [[NSWindow alloc] initWithContentRect:frame
-												   styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
+												   styleMask:style_mask
 													 backing:NSBackingStoreBuffered
 													   defer:YES
 													  screen:screen];
+	[window setFrameOrigin:frame.origin];
 	
 	poWindow *powin = new poWindow(str, 
 								   window, 
@@ -247,7 +256,9 @@ void applicationMakeWindowCurrent(poWindow* win) {
 void applicationMoveWindow(poWindow* win, poRect r) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	NSWindow *window = [app getWindowByAppWin:win];
-	[window setFrame:NSMakeRect(r.origin.x, r.origin.y, r.size.x, r.size.y) display:YES];
+	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
+	[window setFrameOrigin:NSMakePoint(r.origin.x, r.origin.y)];
+	
 }
 
 void applicationMakeWindowFullscreen(poWindow* win, bool value) {
@@ -264,6 +275,16 @@ float getWindowWidth() {
 float getWindowHeight() {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	return app.currentWindow->height();
+}
+
+poRect getWindowFrame() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->frame();
+}
+
+poRect getWindowBounds() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->bounds();
 }
 
 float getWindowFramerate() {
