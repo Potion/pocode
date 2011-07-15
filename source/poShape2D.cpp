@@ -621,13 +621,13 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 
 	if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
-		return;
+		return response;
 	}
 	
 	SVGPath *result = svgParseFromFile(svg.string().c_str());
 	if(!result) {
 		log("poShape2D: invalid svg file (%s)", svg.string().c_str());
-		return;
+		return response;
 	}
 	
 	while(result) {

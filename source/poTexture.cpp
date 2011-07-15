@@ -388,7 +388,7 @@ void poTextureAtlas::addImage(poImage *img, uint request) {
 	
 	requested_ids.push_back(request);
 	
-	return images.size() - 1;
+	return;
 }
 
 void poTextureAtlas::layoutAtlas() {

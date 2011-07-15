@@ -17,6 +17,7 @@
 #include <sys/param.h>
 #include <sys/sysctl.h>
 
+#include <Cocoa/Cocoa.h>
 #include <Foundation/Foundation.h>
 
 double getTime() {

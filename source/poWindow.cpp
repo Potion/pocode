@@ -12,6 +12,7 @@ void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
 		objUnderMouse(obj->getChild(i), mouse, hovers);
 	}
 	
+	mouse.y = getWindowHeight() - mouse.y;
 	if(obj->pointInside(mouse, true))
 		hovers.insert(obj);
 }
@@ -238,7 +239,7 @@ void poWindow::processEvents() {
 
 void poWindow::mouseDown(int x, int y, int mod) {
 	poEvent event;
-	event.position.set(x, height()-y, 0.f);
+	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DOWN_EVENT;
@@ -247,7 +248,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 
 void poWindow::mouseUp(int x, int y, int mod) {
 	poEvent event;
-	event.position.set(x, height()-y, 0.f);
+	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 
 	event.type = PO_MOUSE_UP_EVENT;
@@ -256,7 +257,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 
 void poWindow::mouseMove(int x, int y, int mod) {
 	poEvent event;
-	event.position.set(x, height()-y, 0.f);
+	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_MOVE_EVENT;
@@ -265,7 +266,7 @@ void poWindow::mouseMove(int x, int y, int mod) {
 
 void poWindow::mouseDrag(int x, int y, int mod) {
 	poEvent event;
-	event.position.set(x, height()-y, 0.f);
+	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DRAG_EVENT;
@@ -298,13 +299,13 @@ void poWindow::keyUp(int key, int code, int mod) {
 	received.push_back(event);
 }
 
-void poWindow::resize(int w, int h) {
-	resize(_bounds.origin.x, _bounds.origin.y, w, h);
+void poWindow::resized(int w, int h) {
+	resized(_bounds.origin.x, _bounds.origin.y, w, h);
 }
 
-void poWindow::resize(int x, int y, int w, int h) {
+void poWindow::resized(int x, int y, int w, int h) {
 	_bounds.set(x,y,w,h);
-	
+
 	poEvent event;
 	event.type = PO_WINDOW_RESIZED_EVENT;
 	received.push_back(event);

@@ -39,8 +39,8 @@ public:
 	void mouseWheel(int x, int y, int mod, int num_steps);
 	void keyDown(int key, int code, int mod);
 	void keyUp(int key, int code, int mod);
-	void resize(int w, int h);
-	void resize(int x, int y, int w, int h);
+	void resized(int w, int h);
+	void resized(int x, int y, int w, int h);
 	
 	void *osDependentHandle();
 

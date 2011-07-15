@@ -66,15 +66,17 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		self.appWindow = win;
 		
 		display_link = nil;
-		animating = YES;
 		self.fullscreen = NO;
 	}
 	return self;
 }
 
 -(void)dealloc {
+	[self stopAnimating];
+	
 	delete self.appWindow;
 	self.appWindow = nil;
+
 	[super dealloc];
 }
 
@@ -89,13 +91,15 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 -(void)viewDidMoveToWindow {
 	// make sure we cancelled any notifications we were working with
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResizeNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeScreenNotification object:nil];
 	
 	// we were either added or removed from a window
 	if(self.window) {
 		void (^resizeBlock)(NSNotification*) = ^(NSNotification*){
 			if(self.appWindow && self.window) {
 				NSRect rect = [self.window contentRectForFrameRect:self.window.frame];
-				self.appWindow->resize(rect.size.width, rect.size.height);
+				rect.origin = self.window.frame.origin;
+				self.appWindow->resize(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 			}
 		};
 		
@@ -104,19 +108,29 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 														  object:self.window
 														   queue:nil
 													  usingBlock:resizeBlock];
+
+		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidChangeScreenNotification 
+														  object:self.window
+														   queue:nil
+													  usingBlock:^(NSNotification*) {
+														  [self stopAnimating];
+														  [self startAnimating];
+													  }];
 		
-		if(animating)
-			[self startAnimating];
+		[self startAnimating];
 	}
 	else {
-		BOOL tmp = animating;
 		[self stopAnimating];
-		animating = tmp;
 	}
 }
 
+-(void)viewDidStartLiveResize {
+	[self stopAnimating];
+	[super viewDidEndLiveResize];
+}
+
 -(BOOL)isAnimating {
-	return animating;
+	return display_link != nil;
 }
 
 -(void)startAnimating {
@@ -125,7 +139,6 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		CVDisplayLinkCreateWithCGDisplay(displayID, &display_link);
 		CVDisplayLinkSetOutputCallback(display_link, MyDisplayLinkCallback, self);
 		CVDisplayLinkStart(display_link);
-		animating = YES;
 	}
 }
 
@@ -133,7 +146,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	if(display_link) {
 		CVDisplayLinkStop(display_link);
 		CVDisplayLinkRelease(display_link);
-		animating = NO;
+		display_link = nil;
 	}
 }
 

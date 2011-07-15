@@ -17,6 +17,7 @@ poWindow*	applicationCurrentWindow();
 void		applicationMoveWindow(poWindow*, poRect);
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);
+void		applicationReshapeWindow(poWindow*,poRect);
 
 float		getWindowWidth();
 float		getWindowHeight();
