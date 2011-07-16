@@ -3,14 +3,20 @@ v3
 r1
 cCheck dependencies
 cProcessInfoPlistFile /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist platform/main.plist
-cProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cgrbxbqawhqcuucggstshctluzwk/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
-cProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eqqivafshhatpeaoguomlkmxnqmp/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-cProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvjrwbsjguwfbdardinuqsknrehs/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
-cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
+cProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
+cProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
+cProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
 cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42
-cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
 cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42
+cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
+cCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
 cLd /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386
+cCpResource colorPicker/../platform/Debug.xcconfig build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig
+cCpResource colorPicker/../platform/Release.xcconfig build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig
+cCopyStringsFile /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings colorPicker/../platform/en.strings
+cCpResource platform/main.pch build/Debug/colorPicker.app/Contents/Resources/main.pch
+cCompileXIB /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.xib
+cTouch /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app
 
 N/Developer/SDKs/MacOSX10.6.sdk
 c000000004E17748E00000000000000EE
@@ -591,101 +597,6 @@ N/Potion/libraries/Boost/boost_1_45_0/boost/foreach_fwd.hpp
 c000000004C11033300000000000006A6
 t1276183347
 s1702
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format.hpp
-c00000000401344BE0000000000000883
-t1075004606
-s2179
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/alt_sstream.hpp
-c0000000042212B410000000000001D0E
-t1109470017
-s7438
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/alt_sstream_impl.hpp
-c000000004C37862600000000000034A6
-t1278707238
-s13478
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/compat_workarounds.hpp
-c000000004021553D0000000000000C2C
-t1075926333
-s3116
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/config_macros.hpp
-c00000000421C80CC0000000000000CC3
-t1109164236
-s3267
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/msvc_disambiguater.hpp
-c0000000042A987A700000000000006CE
-t1118406567
-s1742
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/unset_macros.hpp
-c00000000421C80CC0000000000000457
-t1109164236
-s1111
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/workarounds_gcc-2_95.hpp
-c0000000040FA00840000000000001316
-t1090125956
-s4886
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/detail/workarounds_stlport.hpp
-c00000000402A434A0000000000000652
-t1076511562
-s1618
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/exceptions.hpp
-c0000000044BF86D00000000000000D6F
-t1153402576
-s3439
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/feed_args.hpp
-c00000000476422280000000000002D58
-t1197744680
-s11608
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/format_class.hpp
-c000000004C3786260000000000001BC9
-t1278707238
-s7113
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/format_fwd.hpp
-c000000004021553D00000000000006BF
-t1075926333
-s1727
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/format_implementation.hpp
-c000000004C3786260000000000002E5B
-t1278707238
-s11867
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/free_funcs.hpp
-c000000004020D6B20000000000000A44
-t1075893938
-s2628
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/group.hpp
-c000000004764127E00000000000045D7
-t1197740670
-s17879
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/internals.hpp
-c000000004C3786260000000000001F88
-t1278707238
-s8072
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/internals_fwd.hpp
-c00000000401B0116000000000000080A
-t1075511574
-s2058
-
-N/Potion/libraries/Boost/boost_1_45_0/boost/format/parsing.hpp
-c000000004A145CE000000000000049F7
-t1242848480
-s18935
 
 N/Potion/libraries/Boost/boost_1_45_0/boost/function.hpp
 c000000004749B9D70000000000000864
@@ -3483,120 +3394,105 @@ t1073874962
 s2263
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app
-t1310747494
+t1310838243
 s102
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
-t1310747494
+t1310838098
 s1282
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
-t2
-s0
+t1310838239
+s5853128
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/PkgInfo
-t1310747494
+t1310838098
 s8
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig
-t2
-s0
+t1310838240
+s1210
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig
-t2
-s0
+t1310838240
+s1180
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings
-t2
-s0
+t1310838240
+s92
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.nib
-t2
-s0
+t1310838243
+s5229
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.pch
-t2
-s0
+t1310838240
+s792
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
-t1310747581
-s385124
+t1310838239
+s386944
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPicker.LinkFileList
-c000000004E206B660000000000000219
-t1310747494
+c000000004E21CE3E0000000000000219
+t1310838334
 s537
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
-t1310747579
-s572928
+t1310838168
+s563428
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
-t1310747547
-s2016
+t1310838146
+s1992
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
-t1310747581
-s307212
-
-N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.h
-c000000004E1F710C0000000000000273
-t1310683404
-s627
+t1310838154
+s308120
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm
-c000000004E1F759A00000000000022D0
-t1310684570
-s8912
+c000000004E21CDDE000000000000245D
+t1310838238
+s9309
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/Debug.xcconfig
-c000000004E2068CC0000000000000494
-t1310746828
-s1172
+c000000004E21CA6500000000000004BA
+t1310837349
+s1210
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/Release.xcconfig
-c000000004E2068BE000000000000047A
-t1310746814
-s1146
+c000000004E21CA65000000000000049C
+t1310837349
+s1180
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/en.strings
-c000000004E00BB0F000000000000002D
-t1308670735
+c000000004E21CA65000000000000002D
+t1310837349
 s45
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m
-c000000004E00BB0F0000000000000077
-t1308670735
+c000000004E21CA650000000000000077
+t1310837349
 s119
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.xib
-c000000004E00BB0F0000000000006176
-t1308670735
+c000000004E21CA660000000000006176
+t1310837350
 s24950
 
-N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.h
-c000000004E1F71170000000000000253
-t1310683415
-s595
-
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm
-c000000004E00C05A0000000000001307
-t1308672090
-s4871
+c000000004E21CA6600000000000013C7
+t1310837350
+s5063
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp
-c000000004E20530A0000000000000A8A
-t1310741258
-s2698
-
-N/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.h
-c000000004E1F7AEA000000000000020D
-t1310685930
-s525
+c000000004E21CD960000000000000C68
+t1310838166
+s3176
 
 N/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch
-c000000004E00BB0F0000000000000318
-t1308670735
+c000000004E21CA650000000000000318
+t1310837349
 s792
 
 N/Potion/poFramework/poFramework4/source/AttributedString.h
@@ -3620,9 +3516,9 @@ t1310147193
 s2151
 
 N/Potion/poFramework/poFramework4/source/poApplication.h
-c000000004E0B51EF000000000000042F
-t1309364719
-s1071
+c000000004E206EC60000000000000462
+t1310748358
+s1122
 
 N/Potion/poFramework/poFramework4/source/poCamera.h
 c000000004E0630960000000000000703
@@ -3675,9 +3571,9 @@ t1300207985
 s405
 
 N/Potion/poFramework/poFramework4/source/poObject.h
-c000000004E1C97FA00000000000012DD
-t1310496762
-s4829
+c000000004E21C22800000000000013D1
+t1310835240
+s5073
 
 N/Potion/poFramework/poFramework4/source/poObjectModifier.h
 c000000004DE6578D0000000000000153
@@ -3695,9 +3591,9 @@ t1309361065
 s1078
 
 N/Potion/poFramework/poFramework4/source/poResource.h
-c000000004DDE79DC000000000000029B
-t1306425820
-s667
+c000000004E20A96E000000000000027F
+t1310763374
+s639
 
 N/Potion/poFramework/poFramework4/source/poShape2D.h
 c000000004E1C9ACB0000000000001285
@@ -3725,53 +3621,154 @@ t1309280303
 s3944
 
 N/Potion/poFramework/poFramework4/source/poWindow.h
-c000000004E0B521C00000000000005E7
-t1309364764
-s1511
+c000000004E206ED400000000000005E9
+t1310748372
+s1513
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cgrbxbqawhqcuucggstshctluzwk/main.pch.gch
-t1310746852
-s134087583
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app
+t1310838098
+s102
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.gch
-t1310747571
-s91035103
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
+t1310838098
+s1282
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.gch
-t1310747497
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/PkgInfo
+t1310838098
+s8
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.nib
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.pch
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
+t1310838154
+s384936
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPicker.LinkFileList
+c000000004E21CD5100000000000001E9
+t1310838097
+s489
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
+t1310838168
+s563428
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
+t1310838146
+s1992
+
+N/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
+t1310838154
+s308120
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.h
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/Debug.xcconfig
+c000000004E21CA6500000000000004BA
+t1310837349
+s1210
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/Release.xcconfig
+c000000004E21CA65000000000000049C
+t1310837349
+s1180
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/en.strings
+c000000004E21CA65000000000000002D
+t1310837349
+s45
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xib
+c000000004E21CA660000000000006176
+t1310837350
+s24950
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.h
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.h
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/joshua_fisher/Desktop/colorPicker/platform/main.pch
+c000000004E21CA650000000000000318
+t1310837349
+s792
+
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.gch
+t1310838150
+s134087571
+
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch
+t1310741270
 s42551166
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.gch
-t1310747537
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch
+t1310741282
 s134087583
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.gch
-t1310747503
-s134087583
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.gch
+t1310838147
+s91035091
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eqqivafshhatpeaoguomlkmxnqmp/main.pch.gch
-t1310746832
-s42551166
-
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.gch
-t1310747578
-s134087583
-
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvjrwbsjguwfbdardinuqsknrehs/main.pch.gch
-t1310746845
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch
+t1310741275
 s91035103
 
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.gch
-t1310747532
-s91035103
-
-N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.gch
-t1310747500
-s91035103
+N/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.gch
+t1310838138
+s42551154
 
 Nplatform/main.plist
-c000000004E00BB0F00000000000003E2
-t1308670735
+c000000004E21CA6500000000000003E2
+t1310837349
 s994
 
 CBuild AST from /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm
@@ -3786,13 +3783,25 @@ r0
 CBuild AST from /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp
 r0
 
+CBuild AST from /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm
+r0
+
+CBuild AST from /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m
+r0
+
+CBuild AST from /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm
+r0
+
+CBuild AST from /Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp
+r0
+
 CCheck dependencies
 r0
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies3d456256a3d0b341^5d199056a3d0b341^---0#1#0#--18"Check dependencies
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies99f427be05d2b341^cd9260be05d2b341^---0#1#0#--18"Check dependencies
 
 CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
-s332440406.646277
-e332440459.377084
+s332531218.196000
+e332531221.559991
 r1
 xCompileC
 xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
@@ -3801,11 +3810,24 @@ xnormal
 xi386
 xobjective-c++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection99"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm9692a556a3d0b341^9c8a608ba3d0b341^---0#0#0#-19%DVTDocumentLocation2@107"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm0000000000000000^2282"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cgrbxbqawhqcuucggstshctluzwk/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection99"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mmf948321206d2b341^465d8f1506d2b341^---0#0#0#-19%DVTDocumentLocation2@107"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm0000000000000000^2306"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/AppDelegate.mm -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
+
+CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
+s332531038.148547
+e332531039.710260
+r1
+xCompileC
+xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
+x/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm
+xnormal
+xi386
+xobjective-c++
+xcom.apple.compilers.llvmgcc42
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection87"Compile /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mmcc28265e05d2b341^5bd2b55f05d2b341^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm0000000000000000^2162"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o colorPicker/../platform/AppDelegate.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch -MMD -MT dependencies -MF /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.d -c /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/AppDelegate.mm -o /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/AppDelegate.o
 
 CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42
-s332440406.647343
-e332440437.302385
+s332531209.546430
+e332531217.168455
 r1
 xCompileC
 xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
@@ -3814,11 +3836,24 @@ xnormal
 xi386
 xc++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp56f2a556a3d0b341^2f6c4d75a3d0b341^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp0000000000000000^2255"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvjrwbsjguwfbdardinuqsknrehs/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp9df78b0906d2b341^681f2b1106d2b341^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp0000000000000000^2279"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/colorPickerApp.cpp -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
+
+CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o /Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42
+s332530967.069106
+e332530968.640178
+r1
+xCompileC
+xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
+x/Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp
+xnormal
+xi386
+xc++
+xcom.apple.compilers.llvmgcc42
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cppa6d0111705d2b341^76e1a31805d2b341^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp0000000000000000^2135"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o colorPicker/colorPickerApp.cpp normal i386 c++ com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch -MMD -MT dependencies -MF /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.d -c /Users/joshua_fisher/Desktop/colorPicker/colorPicker/colorPickerApp.cpp -o /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPickerApp.o
 
 CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42
-s332440406.646278
-e332440415.743227
+s332531160.719369
+e332531200.205754
 r1
 xCompileC
 xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
@@ -3827,11 +3862,24 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.mc7bda556a3d0b341^c345be5fa3d0b341^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m0000000000000000^2213"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eqqivafshhatpeaoguomlkmxnqmp/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m4451b8d805d2b341^50ab340006d2b341^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m0000000000000000^2237"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.m -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
+
+CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42
+s332530942.429953
+e332530946.862359
+r1
+xCompileC
+xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
+x/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvmgcc42
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.md2366efe04d2b341^4cc3dc0205d2b341^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m0000000000000000^2093"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o colorPicker/../platform/main.m normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch -MMD -MT dependencies -MF /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.d -c /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.m -o /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/main.o
 
 CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
-s332440406.646714
-e332440459.325303
+s332531218.196190
+e332531221.502319
 r1
 xCompileC
 xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
@@ -3840,174 +3888,212 @@ xnormal
 xi386
 xobjective-c++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm00e3a556a3d0b341^1f47538ba3d0b341^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm0000000000000000^2287"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cgrbxbqawhqcuucggstshctluzwk/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Compile /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mme750321206d2b341^9697801506d2b341^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm0000000000000000^2311"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch -MMD -MT dependencies -MF /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.d -c /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/poOpenGLView.mm -o /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
+
+CCompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42
+s332530951.327961
+e332530954.280646
+r1
+xCompileC
+xbuild/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
+x/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm
+xnormal
+xi386
+xobjective-c++
+xcom.apple.compilers.llvmgcc42
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection88"Compile /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm4e28540705d2b341^38d8470a05d2b341^---0#0#0#-19%DVTDocumentLocation2@96"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm0000000000000000^2167"CompileC build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o colorPicker/../platform/poOpenGLView.mm normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -include /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch -MMD -MT dependencies -MF /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.d -c /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/poOpenGLView.mm -o /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/poOpenGLView.o
 
 CCompileXIB /Potion/poFramework/poFramework4/samples/colorPicker/colorPicker/../platform/main.xib
 r0
 
+CCompileXIB /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xib
+s332531040.089961
+e332531043.093359
+r1
+xCompileXIB
+x/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xib
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection83"Compiling /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xibd619176005d2b341^e6e6176305d2b341^---0#0#0#-19%DVTDocumentLocation2@89"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xib0000000000000000^464"CompileXIB colorPicker/../platform/main.xib    cd /Users/joshua_fisher/Desktop/colorPicker    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.nib /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/main.xib --sdk /Developer/SDKs/MacOSX10.6.sdk
+
 CCopyStringsFile /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings colorPicker/../platform/en.strings
 r0
 
+CCopyStringsFile /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings colorPicker/../platform/en.strings
+s332531040.086439
+e332531040.136609
+r1
+xCopyStringsFile
+x/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/en.strings
+xcolorPicker/../platform/en.strings
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Copy colorPicker/../platform/en.strings0130166005d2b341^ef1f236005d2b341^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/en.strings0000000000000000^373"CopyStringsFile build/Debug/colorPicker.app/Contents/Resources/en.strings colorPicker/../platform/en.strings    cd /Users/joshua_fisher/Desktop/colorPicker    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding UTF-16 --outdir /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources -- colorPicker/../platform/en.strings
+
 CCpResource colorPicker/../platform/Debug.xcconfig build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig
-r0
+s332531040.086019
+e332531040.088781
+r1
+xCpResource
+xcolorPicker/../platform/Debug.xcconfig
+xbuild/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Copy build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfigca15166005d2b341^62bc166005d2b341^---0#0#0#-19%DVTDocumentLocation2@118"file://localhost/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig000000bba8310042^427"CpResource colorPicker/../platform/Debug.xcconfig build/Debug/colorPicker.app/Contents/Resources/Debug.xcconfig    cd /Users/joshua_fisher/Desktop/colorPicker    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/Debug.xcconfig /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources
 
 CCpResource colorPicker/../platform/Release.xcconfig build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig
-r0
+s332531040.086423
+e332531040.089140
+r1
+xCpResource
+xcolorPicker/../platform/Release.xcconfig
+xbuild/Debug/colorPicker.app/Contents/Resources/Release.xcconfig
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection68"Copy build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig1b2e166005d2b341^13d2166005d2b341^---0#0#0#-19%DVTDocumentLocation2@120"file://localhost/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig000000bbfa2f0042^433"CpResource colorPicker/../platform/Release.xcconfig build/Debug/colorPicker.app/Contents/Resources/Release.xcconfig    cd /Users/joshua_fisher/Desktop/colorPicker    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/joshua_fisher/Desktop/colorPicker/colorPicker/../platform/Release.xcconfig /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources
 
 CCpResource platform/main.pch build/Debug/colorPicker.app/Contents/Resources/main.pch
-r0
+s332531040.086435
+e332531040.091210
+r1
+xCpResource
+xplatform/main.pch
+xbuild/Debug/colorPicker.app/Contents/Resources/main.pch
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Copy build/Debug/colorPicker.app/Contents/Resources/main.pcha838166005d2b341^b263176005d2b341^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources/main.pch000000c2f6290042^379"CpResource platform/main.pch build/Debug/colorPicker.app/Contents/Resources/main.pch    cd /Users/joshua_fisher/Desktop/colorPicker    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/joshua_fisher/Desktop/colorPicker/platform/main.pch /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Resources
 
 CLd /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386
-s332440459.378851
-e332440459.769694
-r0
+s332531221.561844
+e332531222.616286
+r1
 xLd
 x/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
 xnormal
 xi386
-old: bad codegen, pointer diff in TiXmlVisitor::TiXmlVisitor()to global weak symbol vtable for TiXmlVisitorfor architecture i386
-ocollect2: ld returned 1 exit status
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"Link /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker9d0d618ba3d0b341^4b05c58ba3d0b341^-192"ld: bad codegen, pointer diff in TiXmlVisitor::TiXmlVisitor()to global weak symbol vtable for TiXmlVisitorfor architecture i386Command /Developer/usr/bin/llvm-g++-4.2 failed with exit code 12(21%IDEActivityLogMessage2@123"Bad codegen, pointer diff in TiXmlVisitor::TiXmlVisitor()to global weak symbol vtable for TiXmlVisitorfor architecture i386-332440459#0#128#-0#-23%DVTTextDocumentLocation3@69"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#31"Apple Mach-O Linker (ld) Notice--2@63"Command /Developer/usr/bin/llvm-g++-4.2 failed with exit code 1-332440459#18446744073709551615#0#-2#--30"Apple Mach-O Linker (ld) Error--0#0#0#--855"Ld build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/llvm-g++-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -L/Potion/poFramework/poFramework4/xcode/build/Debug -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -filelist /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPicker.LinkFileList -mmacosx-version-min=10.6 -lpotionLib -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit -o /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"Link /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker60e68f1506d2b341^8ac79d1606d2b341^---0#0#0#--855"Ld build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/llvm-g++-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -L/Potion/poFramework/poFramework4/xcode/build/Debug -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -filelist /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPicker.LinkFileList -mmacosx-version-min=10.6 -lpotionLib -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit -o /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
+
+CLd /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386
+s332531039.711483
+e332531040.083595
+r1
+xLd
+x/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
+xnormal
+xi386
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Link /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker0038b65f05d2b341^be66156005d2b341^---0#0#0#--795"Ld build/Debug/colorPicker.app/Contents/MacOS/colorPicker normal i386    cd /Users/joshua_fisher/Desktop/colorPicker    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/llvm-g++-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/joshua_fisher/Desktop/colorPicker/build/Debug -L/Potion/poFramework/poFramework4/xcode/build/Debug -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -filelist /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/Objects-normal/i386/colorPicker.LinkFileList -mmacosx-version-min=10.6 -lpotionLib -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit -o /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/MacOS/colorPicker
 
 CProcessInfoPlistFile /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist platform/main.plist
-s332440294.191942
-e332440294.195161
+r0
+
+CProcessInfoPlistFile /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist platform/main.plist
+s332530898.007883
+e332530898.011817
 r1
 xProcessInfoPlistFile
-x/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
+x/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
 xplatform/main.plist
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection27"Process platform/main.plist1e3231e6a2d0b341^a91532e6a2d0b341^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.plist0000000000000000^450"ProcessInfoPlistFile build/Debug/colorPicker.app/Contents/Info.plist platform/main.plist    cd /Potion/poFramework/poFramework4/samples/colorPicker    builtin-infoPlistUtility platform/main.plist -genpkginfo /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection27"Process platform/main.plist7f1302d204d2b341^a30603d204d2b341^---0#0#0#-19%DVTDocumentLocation2@76"file://localhost/Users/joshua_fisher/Desktop/colorPicker/platform/main.plist0000000000000000^414"ProcessInfoPlistFile build/Debug/colorPicker.app/Contents/Info.plist platform/main.plist    cd /Users/joshua_fisher/Desktop/colorPicker    builtin-infoPlistUtility platform/main.plist -genpkginfo /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app/Contents/Info.plist
 
-CProcessPCH /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-asjznblhfcyovkdskihjpvgcchnn_ast/main.pch.pth platform/main.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+CProcessPCH /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-aeylwfklxjfdprcmnaxiexlqgmat/Index/PrecompiledHeaders/main-femoldvykfrgwmbwsbffpkhpnhev_ast/main.pch.pth platform/main.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
 r0
 
-CProcessPCH /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-ctsbythsjpqrzvakfbghiokwbmoa_ast/main.pch.pth platform/main.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+CProcessPCH /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-dxkjqexsfoszutemavbiidfxxzdp_ast/main.pch.pth platform/main.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
 r0
 
-CProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-s332440294.197599
-e332440297.313647
+CProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
+s332531134.424089
+e332531160.718040
 r1
 xProcessPCH
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.gch
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch89b732e6a2d0b341^8d5f50e9a2d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2128"ProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-djhsaavztzcbmtairkbkronviyix/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pche1b46cbe05d2b341^d0d0b7d805d2b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2172"ProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-efkaxsgpxshgfeefbbrqobxmrhel/main.pch.d
 
-CProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eqqivafshhatpeaoguomlkmxnqmp/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-abjpyhhvjscfevejtxkxcsuscfww_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-aqqgsyefbbgwrcfgmrrbgtkobjlt_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-btglqoyvjxzzfwapaaoayervigyj_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-bwqbzwylxhksslgdmlpuqtsjimix_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-cydddthmfkyctxgljkpoxkuneagq_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-deupletvrrwzlabszzknjdtfqwze_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-fxleaaagifsotkfygknnthqsjhsj_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-gbiccjtovnrhjmfmnpwivynalxgi_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cgrbxbqawhqcuucggstshctluzwk/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
-r0
-
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
-s332440347.571738
-e332440372.673718
+CProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42
+s332530898.014966
+e332530942.428623
 r1
-xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.gch
+xProcessPCH
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
-xc++
+xobjective-c
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch6476921ba3d0b341^a27dac34a3d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2142"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-cqverkfamgkrtsecyrbwmtmuemfn/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch2dee03d204d2b341^73b96dfe04d2b341^---0#0#0#-19%DVTDocumentLocation2@74"file://localhost/Users/joshua_fisher/Desktop/colorPicker/platform/main.pch0000000000000000^2052"ProcessPCH /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.gch platform/main.pch normal i386 objective-c com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -c /Users/joshua_fisher/Desktop/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-geuziscspzvaitcfphvnkywzjnnn/main.pch.d
 
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
-s332440320.828221
-e332440337.743870
+CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-aeylwfklxjfdprcmnaxiexlqgmat/Index/PrecompiledHeaders/main-alrzbohhfzuphxbnwycyakyrmxip_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-aeylwfklxjfdprcmnaxiexlqgmat/Index/PrecompiledHeaders/main-axagcpufnhfcnzbularoysgfzyss_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-blrakypwgccwjncgfsozestvjkos_ast/main.pch.pth platform/main.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH++ /Users/joshua_fisher/Library/Developer/Xcode/DerivedData/colorPicker-gcmufagzxdzihsgrcrmcaulxjuyo/Index/PrecompiledHeaders/main-ehrbcfgxwnhvfidkfwablkkdzmwl_ast/main.pch.pth platform/main.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
+s332530898.014381
+e332530951.326492
 r1
 xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.gch
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
 xobjective-c++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch2e20d400a3d0b341^226ebe11a3d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2154"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-dmubqdcqwivmryagbsypqrdgcrjk/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch8bc503d204d2b341^8594530705d2b341^---0#0#0#-19%DVTDocumentLocation2@74"file://localhost/Users/joshua_fisher/Desktop/colorPicker/platform/main.pch0000000000000000^2086"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -c /Users/joshua_fisher/Desktop/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-aaqenfzxfcehxddnrcbxotzfkejc/main.pch.d
 
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
-s332440294.197586
-e332440303.579873
+CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
+s332531134.424435
+e332531218.194591
 r1
 xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.gch
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
 xobjective-c++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pche1b632e6a2d0b341^7e7294efa2d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2134"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-eowiudsphnyedbhcuqfivfwkitow/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pchb5c66cbe05d2b341^f2d2311206d2b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2206"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-epowmfgbvdmzptcpanywriiozafg/main.pch.d
 
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42
-s332440347.571487
-e332440379.062071
+CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
+s332530898.014988
+e332530948.586097
 r1
 xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.gch
-xplatform/main.pch
-xnormal
-xi386
-xobjective-c++
-xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pchf46c921ba3d0b341^26e40f3ba3d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2162"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.gch platform/main.pch normal i386 objective-c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x objective-c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-esfzbkqzwlmatbafefvmcmynsliq/main.pch.d
-
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvjrwbsjguwfbdardinuqsknrehs/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
-r0
-
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
-s332440320.828721
-e332440333.222637
-r1
-xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.gch
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
 xc++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch6939d400a3d0b341^9bfe380da3d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2134"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fvnbarncmeijfsgrivxxmmhdqatd/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch23f403d204d2b341^8d0c960405d2b341^---0#0#0#-19%DVTDocumentLocation2@74"file://localhost/Users/joshua_fisher/Desktop/colorPicker/platform/main.pch0000000000000000^2066"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42    cd /Users/joshua_fisher/Desktop/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Users/joshua_fisher/Desktop/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Users/joshua_fisher/Desktop/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Users/joshua_fisher/Desktop/colorPicker/build/Debug -c /Users/joshua_fisher/Desktop/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-fkweembsotsuucenpwrbytimeugy/main.pch.d
 
-CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
-s332440294.197603
-e332440300.640375
+CProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42
+s332531134.424116
+e332531209.544966
 r1
 xProcessPCH++
-x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.gch
+x/var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch
 xplatform/main.pch
 xnormal
 xi386
 xc++
 xcom.apple.compilers.llvmgcc42
-lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pchf2b632e6a2d0b341^5feea3eca2d0b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2114"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-gqtnsusqxngockfuckkpmezwfpua/main.pch.d
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection28"Precompile platform/main.pch35b56cbe05d2b341^fd848b0906d2b341^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch0000000000000000^2186"ProcessPCH++ /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch platform/main.pch normal i386 c++ com.apple.compilers.llvmgcc42    cd /Potion/poFramework/poFramework4/samples/colorPicker    setenv LANG en_US.US-ASCII    /Developer/usr/bin/llvm-gcc-4.2 -x c++-header -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 -DDEBUG -DTIXML_USE_STL -isysroot /Developer/SDKs/MacOSX10.6.sdk -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-generated-files.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-own-target-headers.hmap -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-all-target-headers.hmap -iquote /Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/colorPicker-project-headers.hmap -iquote/Potion/poFramework/poFramework4/source -I/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/include -I/Potion/libraries/Boost/boost_1_45_0 -I/Potion/libraries/FreeImage -I/Potion/libraries/TinyXPath -I/Potion/libraries/FreeType -I/Potion/libraries/utf8 -I/Potion/libraries/libMikko -I/Potion/libraries/bz2 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources/i386 -I/Potion/poFramework/poFramework4/samples/colorPicker/build/colorPicker.build/Debug/colorPicker.build/DerivedSources -F/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug -c /Potion/poFramework/poFramework4/samples/colorPicker/platform/main.pch -o /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.gch -MMD -MT dependencies -MF /var/folders/dE/dEICNe7fH4GzcNenN8TumU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/main-ftpfdtyqrmvwhcelwrkbjpdbdxky/main.pch.d
 
 CTouch /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app
-r0
+s332531222.622766
+e332531222.628414
+r1
+xTouch
+x/Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection86"Touch /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app74799f1606d2b341^f0dfa01606d2b341^---0#0#0#--197"Touch build/Debug/colorPicker.app    cd /Potion/poFramework/poFramework4/samples/colorPicker    /usr/bin/touch -c /Potion/poFramework/poFramework4/samples/colorPicker/build/Debug/colorPicker.app
+
+CTouch /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app
+s332531043.110445
+e332531043.133493
+r1
+xTouch
+x/Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Touch /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.appc6521c6305d2b341^772c226305d2b341^---0#0#0#--173"Touch build/Debug/colorPicker.app    cd /Users/joshua_fisher/Desktop/colorPicker    /usr/bin/touch -c /Users/joshua_fisher/Desktop/colorPicker/build/Debug/colorPicker.app
 

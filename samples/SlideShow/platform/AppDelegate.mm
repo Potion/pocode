@@ -38,8 +38,13 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	cleanupApplication();
+	
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:NSWindowWillCloseNotification object:nil];
+	
 	[windows release];
 	windows = nil;
+	
 	[shared_context release];
 }
 
@@ -252,7 +257,7 @@ void applicationMoveWindow(poWindow* win, poRect r) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	NSWindow *window = [app getWindowByAppWin:win];
 	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
-	[window setFrameOrigin:CGPointMake(r.origin.x, r.origin.y)];
+	[window setFrameOrigin:NSMakePoint(r.origin.x, r.origin.y)];
 	
 }
 
@@ -260,6 +265,16 @@ void applicationMakeWindowFullscreen(poWindow* win, bool value) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	NSWindow *window = [app getWindowByAppWin:win];
 	[window.contentView setFullscreen:value];
+}
+
+void applicationReshapeWindow(poWindow* win, poRect r) {
+	NSWindow *window = (NSWindow*)win->osDependentHandle();
+	
+	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width(), r.height());
+	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
+	[window setFrame:new_frame display:YES];
+	
+	win->resized(r.width(), r.height());
 }
 
 float getWindowWidth() {
@@ -270,6 +285,11 @@ float getWindowWidth() {
 float getWindowHeight() {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	return app.currentWindow->height();
+}
+
+poRect getWindowFrame() {
+	AppDelegate *app = [NSApplication sharedApplication].delegate;
+	return app.currentWindow->frame();
 }
 
 poRect getWindowBounds() {

@@ -51,6 +51,8 @@ bool styleBold(long flags) {
 }
 
 bool traitMatchesFlags(const std::string &trait, long flags) {
+	if(trait == PO_FONT_REGULAR && !styleBold(flags) && !styleItalic(flags))
+		return true;
 	if(trait == PO_FONT_ITALIC &&  !styleBold(flags) && styleItalic(flags))
 		return true;
 	if(trait == PO_FONT_BOLD && styleBold(flags) && !styleItalic(flags))

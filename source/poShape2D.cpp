@@ -2,6 +2,7 @@
 #include "Helpers.h"
 #include "LineExtruder.h"
 #include "nanosvg.h"
+#include "poApplication.h"
 
 poShape2D::poShape2D()
 :	enable_fill(true)
@@ -578,8 +579,10 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	if(!visible())
 		return false;
 	
-	if(localize)
+	if(localize) {
+		point.y = getWindowHeight() - point.y;
 		point = globalToLocal(point);
+	}
 	
 	if(alpha_test_textures && isAttributeEnabled(ATTRIB_TEX_COORD)) {
 		bool opaque = false;

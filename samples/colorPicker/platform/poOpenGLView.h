@@ -26,4 +26,6 @@ class poWindow;
 -(void)startAnimating;
 -(void)stopAnimating;
 
+-(void)stepApplication;
+
 @end

@@ -82,11 +82,6 @@ poFont const*poTextBox::font(const std::string &name) {return _layout.font(name)
 poTextBox &poTextBox::layout() {_layout.layout(); return *this;}
 
 void poTextBox::draw() {
-//	applyColor(poColor::yellow);
-//	BOOST_FOREACH(layout_line &line, lines) {
-//		drawRect(poRect(poPoint(0,line.ypos),poPoint(line.width,_font->lineHeight())));
-//	}
-//
 	if(button) {
 		button->draw();
 	}

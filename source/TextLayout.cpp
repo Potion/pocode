@@ -214,12 +214,10 @@ void TextBoxLayout::doLayout() {
 		size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
 		
 		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
-			line.bounds.size.x -= spacer;
 			breakLine(line);
 		}
 	}
 
-	line.bounds.size.x -= spacer;
 	addGlyphsToLine(glyphs, size, line);
 	breakLine(line);
 	alignText();

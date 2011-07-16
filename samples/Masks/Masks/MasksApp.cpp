@@ -121,10 +121,14 @@ void MasksApp::setupAperture() {
 	}
 	
 	// make the masking object from a poShape2D
-	poOvalShape circle(size*1.7f, size*1.7f, 50);
-	poGeometryMask *mask = new poGeometryMask(&circle);
-	// and apply it
+	poShape2D *circle = new poOvalShape(size*1.7f, size*1.7f, 50);
+	poGeometryMask *mask = new poGeometryMask(circle);
+	// apply the mask
 	holder->addModifier(mask);
+
+	// i'm sticking the circle into the tree so it will get cleaned up when the app exits
+	circle->visible(false);
+	addChild(circle);
 }
 
 void MasksApp::setupInstructions() {
@@ -132,7 +136,7 @@ void MasksApp::setupInstructions() {
 	addChild(text);
 	
 	poFont reg("Lucida Grande", 20);
-	text->font(PO_FONT_REGULAR, &reg)
+	text->font(&reg)
 		.text("'⌘-o' to open\n"
 			  "'⌘-c' to close\n")
 		.layout();

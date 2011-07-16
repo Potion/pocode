@@ -48,7 +48,8 @@ void localizeEvent(poEvent &stored, poEvent &tolocal) {
     tolocal.message = stored.message;
 	
 	if(isMouseEvent(stored.type)) {
-		poPoint pt = stored.source->globalToLocal(tolocal.position);
+		// flip the coords so the local position can match the orientation of the global one
+		poPoint pt = stored.source->globalToLocal(poPoint(tolocal.position.x, getWindowHeight()-tolocal.position.y));
 		tolocal.local_position = pt;
 	}
 }
@@ -194,7 +195,7 @@ poObject *poEventCenter::notify(poEvent event) {
 			}
 			
 			// this one is an option
-			if(callback.event.source->pointInside(event.position, true)) {
+			if(callback.event.source->pointInside(event.position,true)) {
 				possibles.push_back(&callback);
 			}
 		}
@@ -202,13 +203,11 @@ poObject *poEventCenter::notify(poEvent event) {
 		if(!possibles.empty()) {
 			// sort callback sources by drawOrder
 			std::sort(possibles.begin(), possibles.end(), boost::bind(sortByDrawOrder<event_callback>, _1, _2));
-			
-			// we go thru and store all the ones that could send it
-			// then figure out which is closer to the top and send to that one
+			// the one closest to the top will be last
 			event_callback *the_one = possibles.back();
-			
+			// put it in terms of this object
 			localizeEvent(the_one->event, event);
-			
+			// and push it to the handler
 			the_one->receiver->eventHandler(&event);
 			// capture any user changes to the dictionary
 			the_one->event.dict = event.dict;
@@ -226,7 +225,6 @@ poObject *poEventCenter::notify(poEvent event) {
 			}
 
 			poEvent &stored_event = callback.event;
-
 			localizeEvent(stored_event, event);
 			callback.receiver->eventHandler(&event);
 			// capture any user changes to the dictionary

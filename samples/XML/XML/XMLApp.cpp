@@ -61,15 +61,6 @@ XMLApp::XMLApp() {
 	poTextBox *tb = new poTextBox(getWindowWidth(), getWindowHeight());
 	tb->text(ss.str()).layout();
 	addChild(tb);
-}
-
-XMLApp::~XMLApp() {
-}
-
-void XMLApp::eventHandler(poEvent *event) {
 	
-}
-
-void XMLApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-	
+	applicationQuit();
 }

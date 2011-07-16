@@ -32,9 +32,6 @@ namespace fs = boost::filesystem;
 #include "tinyxml.h"
 #include "xpath_static.h"
 
-class poFont;
-typedef std::map<std::string, poFont*> poFontMap;
-
 typedef unsigned int uint;
 typedef unsigned char ubyte;
 typedef unsigned short ushort;

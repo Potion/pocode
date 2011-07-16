@@ -12,8 +12,7 @@ void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
 		objUnderMouse(obj->getChild(i), mouse, hovers);
 	}
 	
-	mouse.y = getWindowHeight() - mouse.y;
-	if(obj->pointInside(mouse, true))
+	if(obj->pointInside(mouse,true))
 		hovers.insert(obj);
 }
 
@@ -145,6 +144,7 @@ void poWindow::processEvents() {
 				event.type = PO_MOUSE_PRESS_EVENT;
 				mouse_receiver = poEventCenter::get()->notify(event);
 				
+				// if some was under the mouse and they have a key press or release event make them the key responder
 				if(mouse_receiver && 
 				   (poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_PRESS_EVENT) ||
 					poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_RELEASE_EVENT)))
@@ -159,7 +159,7 @@ void poWindow::processEvents() {
 				// handle mouse up
 				poEventCenter::get()->notify(event);
 				
-				// something was previously clicked on
+				// something was previously clicked on so they have to get unclicked
 				if(mouse_receiver) {
 					// handle mouse release
 					event.type = PO_MOUSE_RELEASE_EVENT;
@@ -177,56 +177,67 @@ void poWindow::processEvents() {
 				// figure out who's down there
 				poPoint mouse = event.position;
 				
+				// pull up all objects under the mouse
 				std::set<poObject*> hovers;
 				objUnderMouse(root, mouse, hovers);
 				
 				std::vector<poObject*> did_enter;
 				std::vector<poObject*> did_leave;
 
+				// figure out who isn't in the list anymore
 				std::set_difference(mouse_hovers.begin(), mouse_hovers.end(),
 									hovers.begin(), hovers.end(),
 									std::inserter(did_leave, did_leave.end()));
+				// figure out who's new in the list
 				std::set_difference(hovers.begin(), hovers.end(),
 									mouse_hovers.begin(), mouse_hovers.end(),
 									std::inserter(did_enter, did_enter.end()));
-				
+				// notify the ones who've lost hover
 				event.type = PO_MOUSE_LEAVE_EVENT;
 				std::for_each(did_leave.begin(), did_leave.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
-				
+				// notify the ones who've gained it
 				event.type = PO_MOUSE_ENTER_EVENT;
 				std::for_each(did_enter.begin(), did_enter.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
-
+				// reset the list for next frame
 				mouse_hovers.clear();
 				mouse_hovers.insert(hovers.begin(), hovers.end());
 				
 				break;
 			}
 			case PO_MOUSE_DRAG_EVENT:
+				// there's some in particular who should get this
 				if(mouse_receiver)
 					poEventCenter::get()->routeBySource(mouse_receiver, event);
 				else {
+					// otherwise just pass on the drag as a move
 					event.type = PO_MOUSE_MOVE_EVENT;
 					poEventCenter::get()->notify(event);
 				}
 				break;
 				
 			case PO_KEY_DOWN_EVENT:
+				// everyone gets key down
 				poEventCenter::get()->notify(event);
 				if(key_receiver) {
+					// key receiver is the only one to get the press event
 					event.type = PO_KEY_PRESS_EVENT;
 					poEventCenter::get()->routeBySource(key_receiver, event);
 				}
 				break;
 				
 			case PO_KEY_UP_EVENT:
+				// everyone gets key up
 				poEventCenter::get()->notify(event);
 				if(key_receiver) {
+					// key receiver is the only one to get the release event
 					event.type = PO_KEY_RELEASE_EVENT;
 					poEventCenter::get()->routeBySource(key_receiver, event);
 				}
 				break;
 
 			case PO_WINDOW_RESIZED_EVENT:
+				// everyone who cares gets resize
+				// maybe this should be broadcast
 				poEventCenter::get()->notify(event);
 				break;
 				

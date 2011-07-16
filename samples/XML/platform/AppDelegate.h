@@ -8,6 +8,7 @@ class poWindow;
 {
 	NSMutableArray *windows;
 	NSOpenGLContext *shared_context;
+	poWindow *currentWindow;
 }
 
 @property (nonatomic,assign) poWindow *currentWindow;

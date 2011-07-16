@@ -7,36 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		875B9CB013B0E92C00063D7E /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CAF13B0E92C00063D7E /* Debug.xcconfig */; };
-		875B9CB213B0E92C00063D7E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CB113B0E92C00063D7E /* Release.xcconfig */; };
-		875B9CB513B0E92C00063D7E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CB413B0E92C00063D7E /* AppDelegate.mm */; };
-		875B9CB713B0E92C00063D7E /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CB613B0E92C00063D7E /* en.strings */; };
-		875B9CB913B0E92C00063D7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CB813B0E92C00063D7E /* main.m */; };
-		875B9CBB13B0E92C00063D7E /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBA13B0E92C00063D7E /* main.pch */; };
-		875B9CBE13B0E92C00063D7E /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875B9CBD13B0E92C00063D7E /* main.xib */; };
-		875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875B9CC013B0E92C00063D7E /* poOpenGLView.mm */; };
-		E83092CD13CFAE0E00836802 /* colorPickerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */; };
+		E8FD140F13D201E500C80007 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8FD140E13D201E500C80007 /* Debug.xcconfig */; };
+		E8FD141113D201E500C80007 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8FD141013D201E500C80007 /* Release.xcconfig */; };
+		E8FD141413D201E500C80007 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8FD141313D201E500C80007 /* AppDelegate.mm */; };
+		E8FD141613D201E500C80007 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8FD141513D201E500C80007 /* en.strings */; };
+		E8FD141813D201E500C80007 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FD141713D201E500C80007 /* main.m */; };
+		E8FD141A13D201E500C80007 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8FD141913D201E500C80007 /* main.pch */; };
+		E8FD141D13D201E600C80007 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8FD141C13D201E600C80007 /* main.xib */; };
+		E8FD142013D201E600C80007 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8FD141F13D201E600C80007 /* poOpenGLView.mm */; };
+		E8FD142413D201E600C80007 /* colorPickerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FD142313D201E600C80007 /* colorPickerApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		875B9CAA13B0E92C00063D7E /* colorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = colorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		875B9CAF13B0E92C00063D7E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		875B9CB113B0E92C00063D7E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		875B9CB313B0E92C00063D7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		875B9CB413B0E92C00063D7E /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		875B9CB613B0E92C00063D7E /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		875B9CB813B0E92C00063D7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		875B9CBA13B0E92C00063D7E /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		875B9CBC13B0E92C00063D7E /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		875B9CBD13B0E92C00063D7E /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		875B9CBF13B0E92C00063D7E /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		875B9CC013B0E92C00063D7E /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorPickerApp.cpp; sourceTree = "<group>"; };
-		E83092CC13CFAE0E00836802 /* colorPickerApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorPickerApp.h; sourceTree = "<group>"; };
+		E8FD140913D201E500C80007 /* colorPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = colorPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8FD140E13D201E500C80007 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8FD141013D201E500C80007 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8FD141213D201E500C80007 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8FD141313D201E500C80007 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8FD141513D201E500C80007 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8FD141713D201E500C80007 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8FD141913D201E500C80007 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8FD141B13D201E500C80007 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8FD141C13D201E600C80007 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8FD141E13D201E600C80007 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8FD141F13D201E600C80007 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8FD142213D201E600C80007 /* colorPickerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = colorPickerApp.h; sourceTree = "<group>"; };
+		E8FD142313D201E600C80007 /* colorPickerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = colorPickerApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		875B9CA713B0E92C00063D7E /* Frameworks */ = {
+		E8FD140613D201E500C80007 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,68 +46,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		875B9C9F13B0E92C00063D7E = {
+		E8FD13FE13D201E500C80007 = {
 			isa = PBXGroup;
 			children = (
-				875B9CAD13B0E92C00063D7E /* colorPicker */,
-				875B9CAB13B0E92C00063D7E /* Products */,
+				E8FD140C13D201E500C80007 /* colorPicker */,
+				E8FD140A13D201E500C80007 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		875B9CAB13B0E92C00063D7E /* Products */ = {
+		E8FD140A13D201E500C80007 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				875B9CAA13B0E92C00063D7E /* colorPicker.app */,
+				E8FD140913D201E500C80007 /* colorPicker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		875B9CAD13B0E92C00063D7E /* colorPicker */ = {
+		E8FD140C13D201E500C80007 /* colorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				E83092CA13CFADEA00836802 /* colorPicker */,
-				875B9CAE13B0E92C00063D7E /* platform */,
+				E8FD140D13D201E500C80007 /* platform */,
+				E8FD142113D201E600C80007 /* application */,
 			);
 			path = colorPicker;
 			sourceTree = "<group>";
 		};
-		875B9CAE13B0E92C00063D7E /* platform */ = {
+		E8FD140D13D201E500C80007 /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				875B9CAF13B0E92C00063D7E /* Debug.xcconfig */,
-				875B9CB113B0E92C00063D7E /* Release.xcconfig */,
-				875B9CB313B0E92C00063D7E /* AppDelegate.h */,
-				875B9CB413B0E92C00063D7E /* AppDelegate.mm */,
-				875B9CB613B0E92C00063D7E /* en.strings */,
-				875B9CB813B0E92C00063D7E /* main.m */,
-				875B9CBA13B0E92C00063D7E /* main.pch */,
-				875B9CBC13B0E92C00063D7E /* main.plist */,
-				875B9CBD13B0E92C00063D7E /* main.xib */,
-				875B9CBF13B0E92C00063D7E /* poOpenGLView.h */,
-				875B9CC013B0E92C00063D7E /* poOpenGLView.mm */,
+				E8FD140E13D201E500C80007 /* Debug.xcconfig */,
+				E8FD141013D201E500C80007 /* Release.xcconfig */,
+				E8FD141213D201E500C80007 /* AppDelegate.h */,
+				E8FD141313D201E500C80007 /* AppDelegate.mm */,
+				E8FD141513D201E500C80007 /* en.strings */,
+				E8FD141713D201E500C80007 /* main.m */,
+				E8FD141913D201E500C80007 /* main.pch */,
+				E8FD141B13D201E500C80007 /* main.plist */,
+				E8FD141C13D201E600C80007 /* main.xib */,
+				E8FD141E13D201E600C80007 /* poOpenGLView.h */,
+				E8FD141F13D201E600C80007 /* poOpenGLView.mm */,
 			);
 			name = platform;
 			sourceTree = "<group>";
 		};
-		E83092CA13CFADEA00836802 /* colorPicker */ = {
+		E8FD142113D201E600C80007 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				E83092CB13CFAE0E00836802 /* colorPickerApp.cpp */,
-				E83092CC13CFAE0E00836802 /* colorPickerApp.h */,
+				E8FD142213D201E600C80007 /* colorPickerApp.h */,
+				E8FD142313D201E600C80007 /* colorPickerApp.cpp */,
 			);
-			name = colorPicker;
+			name = application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		875B9CA913B0E92C00063D7E /* colorPicker */ = {
+		E8FD140813D201E500C80007 /* colorPicker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 875B9CC813B0E92C00063D7E /* Build configuration list for PBXNativeTarget "colorPicker" */;
+			buildConfigurationList = E8FD142713D201E600C80007 /* Build configuration list for PBXNativeTarget "colorPicker" */;
 			buildPhases = (
-				875B9CA613B0E92C00063D7E /* Sources */,
-				875B9CA713B0E92C00063D7E /* Frameworks */,
-				875B9CA813B0E92C00063D7E /* Resources */,
+				E8FD140513D201E500C80007 /* Sources */,
+				E8FD140613D201E500C80007 /* Frameworks */,
+				E8FD140713D201E500C80007 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -115,117 +115,111 @@
 			);
 			name = colorPicker;
 			productName = colorPicker;
-			productReference = 875B9CAA13B0E92C00063D7E /* colorPicker.app */;
+			productReference = E8FD140913D201E500C80007 /* colorPicker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		875B9CA113B0E92C00063D7E /* Project object */ = {
+		E8FD140013D201E500C80007 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = "Potion Design LLC";
+				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = 875B9CA413B0E92C00063D7E /* Build configuration list for PBXProject "colorPicker" */;
+			buildConfigurationList = E8FD140313D201E500C80007 /* Build configuration list for PBXProject "colorPicker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 875B9C9F13B0E92C00063D7E;
-			productRefGroup = 875B9CAB13B0E92C00063D7E /* Products */;
+			mainGroup = E8FD13FE13D201E500C80007;
+			productRefGroup = E8FD140A13D201E500C80007 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				875B9CA913B0E92C00063D7E /* colorPicker */,
+				E8FD140813D201E500C80007 /* colorPicker */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		875B9CA813B0E92C00063D7E /* Resources */ = {
+		E8FD140713D201E500C80007 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				875B9CB013B0E92C00063D7E /* Debug.xcconfig in Resources */,
-				875B9CB213B0E92C00063D7E /* Release.xcconfig in Resources */,
-				875B9CB713B0E92C00063D7E /* en.strings in Resources */,
-				875B9CBB13B0E92C00063D7E /* main.pch in Resources */,
-				875B9CBE13B0E92C00063D7E /* main.xib in Resources */,
+				E8FD140F13D201E500C80007 /* Debug.xcconfig in Resources */,
+				E8FD141113D201E500C80007 /* Release.xcconfig in Resources */,
+				E8FD141613D201E500C80007 /* en.strings in Resources */,
+				E8FD141A13D201E500C80007 /* main.pch in Resources */,
+				E8FD141D13D201E600C80007 /* main.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		875B9CA613B0E92C00063D7E /* Sources */ = {
+		E8FD140513D201E500C80007 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				875B9CB513B0E92C00063D7E /* AppDelegate.mm in Sources */,
-				875B9CB913B0E92C00063D7E /* main.m in Sources */,
-				875B9CC113B0E92C00063D7E /* poOpenGLView.mm in Sources */,
-				E83092CD13CFAE0E00836802 /* colorPickerApp.cpp in Sources */,
+				E8FD141413D201E500C80007 /* AppDelegate.mm in Sources */,
+				E8FD141813D201E500C80007 /* main.m in Sources */,
+				E8FD142013D201E600C80007 /* poOpenGLView.mm in Sources */,
+				E8FD142413D201E600C80007 /* colorPickerApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		875B9CC613B0E92C00063D7E /* Debug */ = {
+		E8FD142513D201E600C80007 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 875B9CAF13B0E92C00063D7E /* Debug.xcconfig */;
+			baseConfigurationReference = E8FD140E13D201E500C80007 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
-		875B9CC713B0E92C00063D7E /* Release */ = {
+		E8FD142613D201E600C80007 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 875B9CB113B0E92C00063D7E /* Release.xcconfig */;
+			baseConfigurationReference = E8FD141013D201E500C80007 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
-		875B9CC913B0E92C00063D7E /* Debug */ = {
+		E8FD142813D201E600C80007 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Debug;
 		};
-		875B9CCA13B0E92C00063D7E /* Release */ = {
+		E8FD142913D201E600C80007 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		875B9CA413B0E92C00063D7E /* Build configuration list for PBXProject "colorPicker" */ = {
+		E8FD140313D201E500C80007 /* Build configuration list for PBXProject "colorPicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				875B9CC613B0E92C00063D7E /* Debug */,
-				875B9CC713B0E92C00063D7E /* Release */,
+				E8FD142513D201E600C80007 /* Debug */,
+				E8FD142613D201E600C80007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		875B9CC813B0E92C00063D7E /* Build configuration list for PBXNativeTarget "colorPicker" */ = {
+		E8FD142713D201E600C80007 /* Build configuration list for PBXNativeTarget "colorPicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				875B9CC913B0E92C00063D7E /* Debug */,
-				875B9CCA13B0E92C00063D7E /* Release */,
+				E8FD142813D201E600C80007 /* Debug */,
+				E8FD142913D201E600C80007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 875B9CA113B0E92C00063D7E /* Project object */;
+	rootObject = E8FD140013D201E500C80007 /* Project object */;
 }

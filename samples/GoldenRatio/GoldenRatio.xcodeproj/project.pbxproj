@@ -31,8 +31,8 @@
 		2B5F7E141397D52000C6FBB3 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
 		2B5F7E161397D52000C6FBB3 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		2B5F7E171397D52000C6FBB3 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		2B5F7E1A1397D52000C6FBB3 /* GoldenRatioApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GoldenRatioApp.h; path = ../application/GoldenRatioApp.h; sourceTree = "<group>"; };
-		2B5F7E1B1397D52000C6FBB3 /* GoldenRatioApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GoldenRatioApp.cpp; path = ../application/GoldenRatioApp.cpp; sourceTree = "<group>"; };
+		2B5F7E1A1397D52000C6FBB3 /* GoldenRatioApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoldenRatioApp.h; sourceTree = "<group>"; };
+		2B5F7E1B1397D52000C6FBB3 /* GoldenRatioApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoldenRatioApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -31,8 +31,8 @@
 		2B0642B913A280B300D982FB /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
 		2B0642BB13A280B300D982FB /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		2B0642BC13A280B300D982FB /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		2B0642BF13A280B300D982FB /* AlignmentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AlignmentApp.h; path = ../application/AlignmentApp.h; sourceTree = "<group>"; };
-		2B0642C013A280B300D982FB /* AlignmentApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AlignmentApp.cpp; path = ../application/AlignmentApp.cpp; sourceTree = "<group>"; };
+		2B0642BF13A280B300D982FB /* AlignmentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlignmentApp.h; sourceTree = "<group>"; };
+		2B0642C013A280B300D982FB /* AlignmentApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AlignmentApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +215,7 @@
 				2B0642C613A280B300D982FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

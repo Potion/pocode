@@ -64,15 +64,17 @@ public:
     void            addModifier(poObjectModifier* mod);
 	bool			removeModifier(poObjectModifier* mod);
     void            removeAllModifiers(bool and_delete=true);
-    
+
+    // assumes that all incoming points are in window-native coordinates (0,0 is in the upper left)
 	// localize will convert global to local first
 	// otherwise, point is assumed to be local
 	virtual bool	pointInside(poPoint point, bool localize=false);
 	bool			pointInside(float x, float y, float z=0.f, bool localize=false);
-
+	// will convert a point from the coordinate system of obj into local coordinates
+	poPoint			objectToLocal(poObject* obj, poPoint point) const;
+	// be careful as these functions expect opengl-native coordinates
 	poPoint			globalToLocal(poPoint point) const;
 	poPoint			localToGlobal(poPoint point) const;
-	poPoint			objectToLocal(poObject* obj, poPoint point) const;
 
 	// BOUNDING BOX
 	poAlignment		alignment() const;
