@@ -51,8 +51,8 @@ public:
 	void pushToCard();
 	void pullFromCard();
 	
-	void bind(uint unit=0);
-	void unbind(uint unit=0);
+	void bind(uint unit=0) const;
+	void unbind(uint unit=0) const;
 	
 	void st(float s, float t);
 

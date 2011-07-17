@@ -41,7 +41,7 @@ unsigned int getNumCpus() {
 }
 
 poPoint deviceResolution() {
-	NSWindow *window = (NSWindow*)applicationCurrentWindow()->osDependentHandle();
+	NSWindow *window = (NSWindow*)applicationCurrentWindow()->getWindowHandle();
 	NSScreen *screen = [window screen];
 	
 	NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];

@@ -54,8 +54,6 @@
 		E80625CE1396FEFC00615CCB /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
 		E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E83091C813CCD69600836802 /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83091C613CCD69600836802 /* poFBO.cpp */; };
-		E83091CA13CCD6B100836802 /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E83091C913CCD6B100836802 /* poFBO.h */; };
 		E83092EE13D09C9100836802 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		E87AA03113B26BE40048947D /* poGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87AA02E13B26BE10048947D /* poGUI.cpp */; };
 		E87AA03213B26BE40048947D /* poGUI.h in Headers */ = {isa = PBXBuildFile; fileRef = E87AA02F13B26BE20048947D /* poGUI.h */; };
@@ -93,8 +91,6 @@
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
 		E80625911396FEDA00615CCB /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E83091C613CCD69600836802 /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFBO.cpp; path = ../source/poFBO.cpp; sourceTree = "<group>"; };
-		E83091C913CCD6B100836802 /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFBO.h; path = ../source/poFBO.h; sourceTree = "<group>"; };
 		E83092ED13D09C9100836802 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
 		E83095F1132FD0D600080C86 /* poMatrixSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixSet.h; path = ../source/poMatrixSet.h; sourceTree = "<group>"; };
@@ -118,17 +114,6 @@
 		E88E746313C753DB0051F026 /* AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttributedString.h; path = ../source/AttributedString.h; sourceTree = "<group>"; };
 		E890423E13BBBD7300877667 /* poVideo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poVideo.cpp; path = ../source/poVideo.cpp; sourceTree = "<group>"; };
 		E890423F13BBBD7300877667 /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../source/poVideo.h; sourceTree = "<group>"; };
-		E8A0B996138B0FE10024BC8C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E8A0B997138B0FE10024BC8C /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		E8A0B998138B0FE10024BC8C /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
-		E8A0B999138B0FE10024BC8C /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
-		E8A0B99A138B0FE10024BC8C /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
-		E8A0B99B138B0FE10024BC8C /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		E8A0B99C138B0FE10024BC8C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		E8A0B99D138B0FE10024BC8C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E8A0B99F138B0FE10024BC8C /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
-		E8A0B9A0138B0FE10024BC8C /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
-		E8A0B9A1138B0FE10024BC8C /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-lib.xcconfig"; sourceTree = "<group>"; };
 		E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-lib.xcconfig"; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
@@ -278,8 +263,6 @@
 				E87E18811368615A00DB6934 /* poImage.cpp */,
 				E87E18771367696800DB6934 /* poTexture.h */,
 				E87E18761367696800DB6934 /* poTexture.cpp */,
-				E83091C913CCD6B100836802 /* poFBO.h */,
-				E83091C613CCD69600836802 /* poFBO.cpp */,
 			);
 			name = imaging;
 			sourceTree = "<group>";
@@ -394,7 +377,6 @@
 				E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */,
 				E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */,
 				E88E746613C753DC0051F026 /* AttributedString.h in Headers */,
-				E83091CA13CCD6B100836802 /* poFBO.h in Headers */,
 				E83092EE13D09C9100836802 /* main.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,7 +477,6 @@
 				E890424113BBBD7300877667 /* poVideo.cpp in Sources */,
 				E8E7559813C60B2A00A91EB8 /* TextLayout.cpp in Sources */,
 				E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */,
-				E83091C813CCD69600836802 /* poFBO.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

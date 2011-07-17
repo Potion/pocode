@@ -14,9 +14,9 @@ int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
 poWindow*	applicationCurrentWindow();
-void		applicationMoveWindow(poWindow*, poRect);
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);
+void		applicationMoveWindow(poWindow*,poPoint);
 void		applicationReshapeWindow(poWindow*,poRect);
 
 float		getWindowWidth();

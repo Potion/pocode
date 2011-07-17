@@ -17,9 +17,6 @@ public:
 	poCamera();
 	poCamera(poColor clear);
 	
-	void setUp( poObject* obj );
-    void setDown( poObject* obj );
-
 	bool clearsBackground() const;
 	poCamera *clearsBackground(bool b);
 	
@@ -30,7 +27,13 @@ public:
 	bool resetsModelview() const;
 	poCamera *resetsModelview(bool b);
 	
+	bool fixedSize() const;
+	poCamera *fixedSize(bool b, poPoint p=poPoint());
+	
 protected:
+	virtual void doSetUp( poObject* obj );
+    virtual void doSetDown( poObject* obj );
+
 	virtual void setProjection() = 0;
 	virtual void setModelview() {}
 	virtual void saveAndUpdateGLSettings() {}
@@ -40,6 +43,8 @@ private:
     bool		clears_background;
     poColor		background_color;
 	bool		reset;
+	bool		is_fixed_size;
+	poPoint		fixed_size;
 };
 
 class poCamera2D : public poCamera
@@ -57,10 +62,12 @@ protected:
 class poOrthoCamera : public poCamera
 {
 public:
+	poOrthoCamera();
     poOrthoCamera(float w, float h, float n, float f);
 	poOrthoCamera(float x1, float y1, float x2, float y2, float n, float f);
 
-	void set(poRect r);
+	void set(poRect r, float n=-1, float f=1);
+	void set(float x1, float y1, float x2, float y2, float n, float f);
 	poRect get() const;
 	
 protected:
@@ -75,12 +82,11 @@ class poPerspectiveCamera : public poCamera
 public:
 	poPerspectiveCamera(float fov, float aspect, float near, float far);
 
-	virtual void setUp(poObject* obj);
-	
 	poPoint lookAt() const;
 	poPerspectiveCamera *lookAt(poPoint p);
 	
 protected:
+	virtual void doSetUp(poObject* obj);
 	virtual void setProjection();
 	virtual void setModelview();
 

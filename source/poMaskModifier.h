@@ -21,8 +21,9 @@ public:
 	poImageMask(const std::string &str);
 	virtual ~poImageMask();
 	
-	virtual void setUp( poObject* obj );
-	virtual void setDown( poObject* obj );
+protected:	
+	virtual void doSetUp( poObject* obj );
+	virtual void doSetDown( poObject* obj );
 	
 private:
 	poTexture *texture;
@@ -35,8 +36,9 @@ public:
 	// you are responsible for the object lifetime of this shape
 	poGeometryMask(poShape2D *shape);
 
-	virtual void setUp( poObject* obj );
-	virtual void setDown( poObject* obj );
+protected:
+	virtual void doSetUp( poObject* obj );
+	virtual void doSetDown( poObject* obj );
 	
 private:
 	poShape2D *shape;

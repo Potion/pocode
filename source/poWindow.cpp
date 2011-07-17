@@ -16,9 +16,9 @@ void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
 		hovers.insert(obj);
 }
 
-poWindow::poWindow(const char *title, void *handle, uint root_id, poRect b)
+poWindow::poWindow(const char *title, uint root_id, poRect b)
 :	title_(title)
-,	handle(handle)
+,	handle(NULL)
 ,	root(NULL)
 ,	_bounds(b)
 ,   mouse_receiver(NULL)
@@ -31,7 +31,6 @@ poWindow::poWindow(const char *title, void *handle, uint root_id, poRect b)
 {
 	makeCurrent();
 	root = createObjectForID(root_id);
-	root->inWindow(true);
 }
 
 poWindow::~poWindow() {
@@ -39,9 +38,8 @@ poWindow::~poWindow() {
 	delete root;
 }
 
-void poWindow::moveTo(poRect rect) {
-	_bounds = rect;
-	applicationMoveWindow(this, rect);
+void poWindow::moveTo(poPoint p) {
+	applicationMoveWindow(this, p);
 }
 
 void poWindow::fullscreen(bool b) {
@@ -322,8 +320,14 @@ void poWindow::resized(int x, int y, int w, int h) {
 	received.push_back(event);
 }
 
-void *poWindow::osDependentHandle() {
+void *poWindow::getWindowHandle() {
 	return handle;
+}
+
+void poWindow::setWindowHandle(void *handle) {
+	this->handle = handle;
+	if(root)
+		root->inWindow(handle != NULL);
 }
 
 

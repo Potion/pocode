@@ -14,24 +14,30 @@ poCamera::poCamera()
 :	reset(true)
 ,	clears_background(true)
 ,	background_color(poColor::black)
+,	is_fixed_size(false)
 {}
 
 poCamera::poCamera(poColor color) 
 :	reset(true)
 ,	clears_background(true)
 ,	background_color(color)
+,	is_fixed_size(false)
 {}
 
-void poCamera::setUp( poObject* obj ) {
+void poCamera::doSetUp( poObject* obj ) {
+	if(fixedSize())
+		glViewport(0, 0, fixed_size.x, fixed_size.y);
+	else
+		glViewport(0, 0, getWindowWidth(), getWindowHeight());
+
 	if(clears_background) {
         glClearColor(background_color.R, background_color.G, background_color.B, background_color.A);
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
-	
-	glViewport(0, 0, getWindowWidth(), getWindowHeight());
 
 	glMatrixMode(GL_PROJECTION);
     glPushMatrix();
+	glLoadIdentity();
 	setProjection();
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -43,7 +49,7 @@ void poCamera::setUp( poObject* obj ) {
 	saveAndUpdateGLSettings();
 }
 
-void poCamera::setDown( poObject* obj ) {
+void poCamera::doSetDown( poObject* obj ) {
 	restoreGLSettings();
 	
 	glMatrixMode(GL_PROJECTION);
@@ -62,6 +68,9 @@ poCamera* poCamera::backgroundColor(float r, float g, float b, float a) {backgro
 
 bool poCamera::resetsModelview() const {return reset;}
 poCamera* poCamera::resetsModelview(bool b) {reset = b; return this;}
+
+bool poCamera::fixedSize() const {return is_fixed_size;}
+poCamera* poCamera::fixedSize(bool b, poPoint p) {is_fixed_size=b; fixed_size=p;}
 
 
 // window camera
@@ -89,6 +98,15 @@ void poCamera2D::poCamera2D::restoreGLSettings() {
 
 
 // orthographic camera
+poOrthoCamera::poOrthoCamera()
+:	x1(-1)
+,	y1(-1)
+,	x2(1)
+,	y2(1)
+,	near(-1)
+,	far(1)
+{}
+
 poOrthoCamera::poOrthoCamera(float w, float h, float n, float f)
 :	x1(0)
 ,	y1(0)
@@ -107,11 +125,17 @@ poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, fl
 ,	far(f)
 {}
 
-void poOrthoCamera::set(poRect r) {
-	x1 = r.origin.x;
-	x2 = r.origin.x + r.size.x;
-	y1 = r.origin.y;
-	y2 = r.origin.y + r.size.y;
+void poOrthoCamera::set(poRect r, float n, float f) {
+	set(r.origin.x, r.origin.y, r.origin.x+r.size.x, r.origin.y+r.size.y, n, f);
+}
+
+void poOrthoCamera::set(float x1, float y1, float x2, float y2, float n, float f) {
+	this->x1 = x1;
+	this->x2 = x2;
+	this->y1 = y1;
+	this->y2 = y2;
+	near = n;
+	far = f;
 }
 
 poRect poOrthoCamera::get() const {
@@ -129,14 +153,14 @@ poPerspectiveCamera::poPerspectiveCamera(float fov, float aspect, float near, fl
 ,	far(far)
 {}
 
-void poPerspectiveCamera::setUp(poObject *obj) {
+poPoint poPerspectiveCamera::lookAt() const {return look_at;}
+poPerspectiveCamera *poPerspectiveCamera::lookAt(poPoint p) {look_at = p; return this;}
+	
+void poPerspectiveCamera::doSetUp(poObject *obj) {
 	curr_pos = obj->position();
 	poCamera::setUp(obj);
 }
 
-poPoint poPerspectiveCamera::lookAt() const {return look_at;}
-poPerspectiveCamera *poPerspectiveCamera::lookAt(poPoint p) {look_at = p; return this;}
-	
 void poPerspectiveCamera::setProjection() {
 	gluPerspective(fov, aspect, near, far);
 }

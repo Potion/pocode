@@ -25,7 +25,7 @@ poImageMask::~poImageMask() {
 	delete texture;
 }
 
-void poImageMask::setUp( poObject* obj ) {
+void poImageMask::doSetUp( poObject* obj ) {
 	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	
@@ -37,7 +37,7 @@ void poImageMask::setUp( poObject* obj ) {
 	glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
 }
 
-void poImageMask::setDown( poObject* obj ) {
+void poImageMask::doSetDown( poObject* obj ) {
 	glPopAttrib();
 //	glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	glDisable(GL_DEPTH_TEST);
@@ -51,11 +51,11 @@ poGeometryMask::poGeometryMask(poShape2D *shape)
 :	shape(shape)
 {}
 
-void poGeometryMask::setUp( poObject* obj ) {
+void poGeometryMask::doSetUp( poObject* obj ) {
 	startMasking(shape);
 }
 
-void poGeometryMask::setDown( poObject* obj ) {
+void poGeometryMask::doSetDown( poObject* obj ) {
 	stopMasking();
 }
 

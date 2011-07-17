@@ -10,6 +10,7 @@
 
 #include "poPoint.h"
 #include "poRect.h"
+#include "poColor.h"
 
 #define M_2PI (M_PI*2.0)
 #define M_HALF_PI (M_PI/2.0)
@@ -54,6 +55,10 @@ inline float poRand(float low, float high) {
 inline poPoint randomPointInRect(poRect r) {
 	return poPoint(poRand(r.origin.x,r.origin.x+r.size.x),
 				   poRand(r.origin.y,r.origin.y+r.size.y));
+}
+
+inline poColor randomColor(float alpha=1.f) {
+	return poColor(poRand(), poRand(), poRand(), alpha);
 }
 
 inline void capToRange(float *f, float low, float high) {

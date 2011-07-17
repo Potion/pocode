@@ -13,9 +13,25 @@ class poObject;
 class poObjectModifier
 {
 public:
-    poObjectModifier() { };
+    poObjectModifier() : _enabled(true) {}
     
-    virtual void setUp( poObject* obj ) { };
-    virtual void setDown( poObject* obj ) { };
+	bool enabled() const {return _enabled;}
+	void enabled(bool b) {_enabled = b;}
+	
+    void setUp( poObject* obj ) {
+		if(enabled())
+			doSetUp(obj);
+	}
+    void setDown( poObject* obj ) { 
+		if(enabled())
+			doSetDown(obj);
+	}
+	
+protected:
+	virtual void doSetUp(poObject*) = 0;
+	virtual void doSetDown(poObject*) = 0;
+	
+private:
+	bool _enabled;
 };
 

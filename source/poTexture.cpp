@@ -140,13 +140,15 @@ poTexture &poTexture::operator=(const poTexture &tex) {
 poTexture::~poTexture() {
 	if(_uid > 0) {
 		decrRefCount();
-		if(refCount() <= 0) {
-			if(isOnCard())
-				pullFromCard();
-			if(storingPixels())
-				deleteLocalMemory();
-			delete ref_count;
-		}
+	}
+	
+	if(refCount() <= 0) {
+		if(isOnCard())
+			pullFromCard();
+		delete ref_count;
+
+		if(storingPixels())
+			deleteLocalMemory();
 	}
 }
 
@@ -252,12 +254,12 @@ void poTexture::pullFromCard() {
 	}
 }
 
-void poTexture::bind(uint unit) {
+void poTexture::bind(uint unit) const {
 	glActiveTexture(GL_TEXTURE0+unit);
 	glBindTexture(GL_TEXTURE_2D, _uid);
 }
 
-void poTexture::unbind(uint unit) {
+void poTexture::unbind(uint unit) const {
 	glActiveTexture(GL_TEXTURE0+unit);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

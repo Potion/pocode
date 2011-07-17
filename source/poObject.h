@@ -64,6 +64,8 @@ public:
     void            addModifier(poObjectModifier* mod);
 	bool			removeModifier(poObjectModifier* mod);
     void            removeAllModifiers(bool and_delete=true);
+	int				numModifiers() const;
+	poObjectModifier *getModifier(int idx);
 
     // assumes that all incoming points are in window-native coordinates (0,0 is in the upper left)
 	// localize will convert global to local first

@@ -195,7 +195,7 @@ bool poObject::removeModifier(poObjectModifier* mod) {
 	return false;
 }
 
-void    poObject::removeAllModifiers(bool and_delete)
+void poObject::removeAllModifiers(bool and_delete)
 {
 	if(and_delete) {
 		BOOST_FOREACH(poObjectModifier* mod, modifiers) {
@@ -205,6 +205,13 @@ void    poObject::removeAllModifiers(bool and_delete)
     modifiers.clear();
 }
 
+int poObject::numModifiers() const {
+	return modifiers.size();
+}
+
+poObjectModifier *poObject::getModifier(int idx) {
+	return modifiers[idx];
+}
 
 bool poObject::pointInside(poPoint point, bool localize) {
 	if(!visible())

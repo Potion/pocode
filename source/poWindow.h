@@ -8,10 +8,10 @@ class poObject;
 
 class poWindow {
 public:
-	poWindow(const char *title, void *handle, uint root_id, poRect bounds);
+	poWindow(const char *title, uint root_id, poRect bounds);
 	~poWindow();
 
-	void moveTo(poRect rect);
+	void moveTo(poPoint p);
 	void fullscreen(bool b);
 
 	std::string title() const;
@@ -42,7 +42,8 @@ public:
 	void resized(int w, int h);
 	void resized(int x, int y, int w, int h);
 	
-	void *osDependentHandle();
+	void *getWindowHandle();
+	void setWindowHandle(void *handle);
 
 private:
 	bool closed_;
