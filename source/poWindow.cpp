@@ -114,6 +114,8 @@ void poWindow::update() {
 	
 	processEvents();
 	
+	draw_order_counter = 0;
+	
 	if(root)
 		root->_updateTree();
 }
@@ -121,6 +123,14 @@ void poWindow::update() {
 void poWindow::draw() {
 	if(root)
 		root->_drawTree();
+}
+
+// TODO: this shouldn't happen both here and in the event center
+// event center shouldn't go thru the tree to find the right object
+// it should all happen here in the window
+
+bool sortByDrawOrder(poObject *a, poObject *b) {
+	return a->drawOrder() < b->drawOrder();
 }
 
 void poWindow::processEvents() {
@@ -179,6 +189,15 @@ void poWindow::processEvents() {
 				std::set<poObject*> hovers;
 				objUnderMouse(root, mouse, hovers);
 				
+//				if(!hovers.empty()) {
+//					std::vector<poObject*> under_mouse(hovers.begin(), hovers.end());
+//					std::sort(under_mouse.begin(), under_mouse.end(), boost::bind(sortByDrawOrder, _1, _2));
+//					
+//					if(mouse_hovers.find(under_mouse.back()) == mouse_hovers.end()) {
+//						
+//					}
+//				}
+					   
 				std::vector<poObject*> did_enter;
 				std::vector<poObject*> did_leave;
 
@@ -328,6 +347,10 @@ void poWindow::setWindowHandle(void *handle) {
 	this->handle = handle;
 	if(root)
 		root->inWindow(handle != NULL);
+}
+
+int poWindow::nextDrawOrder() {
+	return draw_order_counter++;
 }
 
 

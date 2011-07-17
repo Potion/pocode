@@ -3,6 +3,7 @@
  */
 
 #include "poObject.h"
+#include "poWindow.h"
 #include "poApplication.h"
 
 poObject::poObject() 
@@ -363,6 +364,8 @@ void poObject::_updateTree() {
 	if(!visible())
 		return;
 	
+	_draw_order = applicationCurrentWindow()->nextDrawOrder();
+	
 	updateAllTweens();
 	update();
 	
@@ -406,7 +409,6 @@ void poObject::pushObjectMatrix() {
 
 	if(_parent) {
 		true_alpha = _parent->true_alpha * _alpha;
-		_draw_order = _parent->_draw_order + 1;
 	}
 	else {
 		true_alpha = _alpha;
