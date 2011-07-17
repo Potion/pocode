@@ -352,9 +352,10 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 	_height = h;
 	_pitch = p;
 	_mem_size = p * h;
-	_pixels = new ubyte[_mem_size]();
-	if(pixels)
+	if(pixels) {
+		_pixels = new ubyte[_mem_size]();
 		memcpy(_pixels, pixels, _mem_size);
+	}
 }
 
 

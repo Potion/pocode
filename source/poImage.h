@@ -22,6 +22,8 @@ enum ImageBitDepth {
 	IMAGE_32 = 32
 };
 
+long long totalImageBytesAllocated();
+
 class poImage 
 	: public poResource
 {

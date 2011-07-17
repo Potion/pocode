@@ -9,6 +9,14 @@
 #include "poImage.h"
 #include <FreeImage.h>
 
+static long long total_bytes = 0L;
+
+//total_bytes += FreeImage_GetInfoHeader(bitmap)->biSize;
+
+long long totalImageBytesAllocated() {
+	return total_bytes;
+}
+
 static void loadFreeImageIfNeeded() {
 	static bool free_image_loaded = false;
 	if(!free_image_loaded) {
