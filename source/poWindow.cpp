@@ -219,7 +219,7 @@ void poWindow::processEvents() {
 				mouse_hovers.clear();
 				mouse_hovers.insert(hovers.begin(), hovers.end());
 				
-				break;
+				break; 
 			}
 			case PO_MOUSE_DRAG_EVENT:
 				// there's some in particular who should get this
@@ -230,6 +230,8 @@ void poWindow::processEvents() {
 					event.type = PO_MOUSE_MOVE_EVENT;
 					poEventCenter::get()->notify(event);
 				}
+                event.type = PO_MOUSE_DRAG_EVERYWHERE_EVENT;
+                poEventCenter::get()->notify(event);
 				break;
 				
 			case PO_KEY_DOWN_EVENT:
