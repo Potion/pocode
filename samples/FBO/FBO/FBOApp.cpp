@@ -8,7 +8,6 @@
 
 static FBOGenerator *generator = NULL;
 static FBORenderer *renderer = NULL;
-static poPoint content_size(1920,1920);
 
 poObject *createObjectForID(uint uid) {
 	if(uid == 0) {
@@ -21,9 +20,9 @@ poObject *createObjectForID(uint uid) {
 void setupApplication() {
 	setCurrentPath("../..");
 	// first make the window that will draw the scene into the fbo
-	generator = static_cast<FBOGenerator*>(applicationCreateWindow(0, WINDOW_TYPE_FULLSCREEN, "FBOGenerator", 0, 0, 800, 800)->rootObject());
+	generator = static_cast<FBOGenerator*>(applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "FBOGenerator", 0, 0, 600, 600)->rootObject());
 	// then a window to show just the texture
-	renderer = static_cast<FBORenderer*>(applicationCreateWindow(1, WINDOW_TYPE_FULLSCREEN, "FBORenderer", -600, 100, 600, 600)->rootObject());
+	renderer = static_cast<FBORenderer*>(applicationCreateWindow(1, WINDOW_TYPE_NORMAL, "FBORenderer", 600, 0, 600, 600)->rootObject());
 	renderer->replaceTexture(generator->fbo->texture());
 }
 
@@ -37,21 +36,20 @@ FBOGenerator::FBOGenerator() {
 	
 	// fix the size of the viewport
 	poCamera *cam = new poCamera2D();
-	cam->fixedSize(true, content_size);
 	holder->addModifier(cam);
 	
 	// make the fbo modifier and attach it
-	fbo = new poFBO(content_size.x, content_size.y);
+	fbo = new poFBO(getWindowWidth(), getWindowHeight());
 	holder->addModifier(fbo);
 	
-	holder->addChild(new poRectShape(content_size.x, content_size.y));
+	holder->addChild(new poRectShape(getWindowWidth(), getWindowHeight()));
 	
 	// make the scene to render into the fbo (1 rotating shape)
 	poShape2D *obj = new poRectShape(200,200);
 	obj->placeTexture(poTexture("ike&tina.jpeg"));
 	holder->addChild(obj);
 	// setup the object's properties and animation
-	obj->position(content_size/2.f)
+	obj->position(getWindowWidth()/2.f, getWindowHeight()/2.f)
 		.alignment(PO_ALIGN_CENTER_CENTER)
 		.rotation_tween
 			.set(360)
@@ -100,8 +98,9 @@ FBORenderer::FBORenderer()
 void FBORenderer::update() {
 	if(next) {
 		poShape2D *obj = getChildAs<poShape2D>(this, 0);
-		obj->placeTexture(next, PO_TEX_FIT_NONE);
-		next = NULL;
+		obj->placeTexture(next, PO_TEX_FIT_EXACT);
+		delete next;
+        next = NULL;
 	}
 }
 

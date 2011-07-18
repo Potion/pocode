@@ -262,8 +262,11 @@ void poImage::load(const std::string &url, ImageBitDepth bpp) {
 void poImage::load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix) {
 	if(pix != NULL)
 		bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*(bpp/8), bpp, 0,0,0);
-	else
+	else {
 		bitmap = FreeImage_Allocate(w, h, bpp);
+		char black[] = {0,0,0,0};
+		FreeImage_FillBackground(bitmap, black);
+	}
 }
 
 void writeImageToCHeader(const std::string &str, poImage *img) {

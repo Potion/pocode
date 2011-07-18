@@ -21,6 +21,8 @@ public:
 	poTexture(GLenum format, GLenum internal_Format, GLenum type,
 			  uint width, uint height, uint pitch, ubyte const*pixels);
 	poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
+    poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels,
+              GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
 	poTexture(const poTexture &tex);
 	poTexture &operator=(const poTexture &tex);
 	~poTexture();

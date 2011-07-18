@@ -2,6 +2,7 @@
 #include "Helpers.h"
 #include "poObject.h"
 
+
 poFBO::poFBO(uint w, uint h)
 :	uid(0)
 ,	tex(NULL)
@@ -32,7 +33,7 @@ void poFBO::resize(uint w, uint h) {
 	// make sure its ok
 	GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if(GL_FRAMEBUFFER_COMPLETE != err) {
-		log("poFBO: error when creating framebuffer (%d)", err);
+		log("poFBO: error when creating framebuffer (%X)", err);
 		// something was wrong, so clean up
 		glDeleteFramebuffers(1, &uid);
 		uid = 0;
