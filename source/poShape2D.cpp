@@ -181,95 +181,53 @@ poPoint poShape2D::getTexCoord(int idx, uint unit) {
 }
 
 void fitNone(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / tex->width();
-		float t = points[i].y / tex->height();
-
-//		switch(align) {
-//			case PO_ALIGN_BOTTOM_LEFT:
-//				break;
-//			case PO_ALIGN_BOTTOM_CENTER:
-//				s = (1.f - s) / 2.f;
-//				break;
-//			case PO_ALIGN_BOTTOM_RIGHT:
-//				s = 1.f - s;
-//				break;
-//			case PO_ALIGN_CENTER_LEFT:
-//				t = (1.f - t) / 2.f;
-//				break;
-//			case PO_ALIGN_CENTER_CENTER:
-//				s = (1.f - s) / 2.f;
-//				t = (1.f - t) / 2.f;
-//				break;
-//			case PO_ALIGN_CENTER_RIGHT:
-//				s = 1.f - s;
-//				t = (1.f - t) / 2.f;
-//				break;
-//			case PO_ALIGN_TOP_LEFT:
-//				t = 1.f - t;
-//				break;
-//			case PO_ALIGN_TOP_CENTER:
-//				s = (1.f - s) / 2.f;
-//				t = 1.f - t;
-//				break;
-//			case PO_ALIGN_TOP_RIGHT:
-//				s = (1.f - s);
-//				t = 1.f - t;
-//				break;
-//		}
-		
-		coords[i].set(s*tex->s(),t*tex->t(),0.f);
+		float s = points[i].x / tex->width() - xoff;
+		float t = points[i].y / tex->height() - yoff;
+		coords[i].set(s,t,0.f);
 	}
 }
 
 void fitExact(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width();
-		float t = points[i].y / rect.height();
-		coords[i].set(s*tex->s(),t*tex->t(),0.f);
+		float s = points[i].x / rect.width() - xoff;
+		float t = points[i].y / rect.height() - yoff;
+		coords[i].set(s,t,0.f);
 	}
 }
 
 void fitHorizontal(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
-	float h_mod = rect.height() / (float)tex->height();
-	float scale = tex->width() / (float)tex->height();
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	float new_w = rect.width();
+	float new_h = new_w / (tex->width() / (float)tex->height());
 	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width();
-		float t = points[i].y / rect.height();
-		
-		t *= h_mod * scale;
-		
-//		if(align >= PO_ALIGN_CENTER_LEFT && align <= PO_ALIGN_CENTER_RIGHT) {
-//			t += t / 2.f;
-//		}
-//		else 
-//		if(align >= PO_ALIGN_TOP_LEFT && align <= PO_ALIGN_TOP_RIGHT) {
-//			t += 1.f - t;
-//		}
-		
-		coords[i].set(s*tex->s(),t*tex->t(),0.f);
+		float s = points[i].x / rect.width() - xoff;
+		float t = points[i].y / new_h - yoff;
+
+		coords[i].set(s,t,0.f);
 	}
 }
 
 void fitVertical(poRect rect, poTexture *tex, std::vector<poPoint> &coords, const std::vector<poPoint> &points, poAlignment align) {
-	float w_mod = rect.width() / (float)tex->width();
-	float scale = tex->height() / (float)tex->width();
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	float new_h = rect.height();
+	float new_w = new_h / (tex->height() / (float)tex->width());
 	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width();
-		float t = points[i].y / rect.height();
-		
-		s *= w_mod * scale;
-		
-//		if(align && !(align % 2)) {
-//			s += s / 2.f;
-//		}
-//		else 
-//		if(align && !(align % 3)) {
-//			s += 1.f - s;
-//		}
-		coords[i].set(s*tex->s(),t*tex->t(),0.f);
+		float s = points[i].x / new_w - xoff;
+		float t = points[i].y / rect.height() - yoff;
+		coords[i].set(s,t,0.f);
 	}
 }
 
@@ -325,22 +283,17 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAli
 				fitVertical(rect, tex, tex_coords[unit], points, align);
 				break;
 				
-			case PO_TEX_FIT_MIN:
-				if(tex->width() < tex->height())
-					fitHorizontal(rect, tex, tex_coords[unit], points, align);
-				else if(tex->height() < tex->width())
-					fitVertical(rect, tex, tex_coords[unit], points, align);
-				else
-					fitExact(rect, tex, tex_coords[unit], points);
-				break;
+			case PO_TEX_FIT_INSIDE:
+				float outside = rect.aspect();
+				float inside = tex->width() / tex->height();
 				
-			case PO_TEX_FIT_MAX:
-				if(tex->width() > tex->height())
-					fitHorizontal(rect, tex, tex_coords[unit], points, align);
-				else if(tex->height() > tex->width())
+				float new_h = rect.width() * (tex->height() / (float)tex->width());
+				
+				if(new_h > rect.height())
 					fitVertical(rect, tex, tex_coords[unit], points, align);
 				else
-					fitExact(rect, tex, tex_coords[unit], points);
+					fitHorizontal(rect, tex, tex_coords[unit], points, align);
+				
 				break;
 		}
 	}

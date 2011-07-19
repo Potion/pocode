@@ -40,6 +40,7 @@ unsigned int getNumCpus() {
     return (unsigned int)count;
 }
 
+#if not defined(TESTING)
 poPoint deviceResolution() {
 	NSWindow *window = (NSWindow*)applicationCurrentWindow()->getWindowHandle();
 	NSScreen *screen = [window screen];
@@ -47,6 +48,11 @@ poPoint deviceResolution() {
 	NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
 	return poPoint(size.width, size.height);
 }
+#else
+poPoint deviceResolution() {
+	return poPoint(72,72);
+}
+#endif
 
 void setCurrentPath(const fs::path &path) {
 	NSString *nsstr = [NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding];

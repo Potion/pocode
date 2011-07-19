@@ -38,6 +38,10 @@ poPoint poRect::center() const {
 	return poPoint(width()/2.f+origin.x, height()/2.f+origin.y);
 }
 
+float poRect::aspect() const {
+	return width() / height();
+}
+
 poRect &poRect::set(float x, float y, float w, float h) {
 	origin.set(x,y,0);
 	size.set(w,h,0);

@@ -21,6 +21,7 @@ public:
 	int height() const;
 	poRect frame() const;
 	poRect bounds() const;
+	poPoint centerPoint() const;
 	float framerate() const;
 	float lastFrameElapsed() const;
 	float lastFrameTime() const;

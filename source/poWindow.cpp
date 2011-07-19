@@ -71,6 +71,10 @@ poRect poWindow::bounds() const {
 	return poRect(poPoint(0,0), _bounds.size);
 }
 
+poPoint poWindow::centerPoint() const {
+	return poPoint(_bounds.width()/2.f, _bounds.height()/2.f);
+}
+
 int poWindow::height() const {
 	return _bounds.size.y;
 }
