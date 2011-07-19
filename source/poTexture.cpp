@@ -369,18 +369,39 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 
 
 
-
-
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	format(f)
+,	internal_format(f)
+,	min_filter(GL_LINEAR)
+,	mag_filter(GL_LINEAR)
+,	wrap_s(GL_CLAMP_TO_BORDER)
+,	wrap_t(GL_CLAMP_TO_BORDER)
 ,	bound_page(-1)
 {}
 
 poTextureAtlas::~poTextureAtlas() {
 	clearImages();
 	clearPages();
+}
+
+void poTextureAtlas::textureProperties(GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
+	min_filter = min;
+	mag_filter = mag;
+	wrap_s = wraps;
+	wrap_t = wrapt;
+}
+
+void poTextureAtlas::textureProperties(GLenum f, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
+	format = internal_format = f;
+	textureProperties(min,mag,wraps,wrapt);
+}
+
+void poTextureAtlas::textureProperties(GLenum f, GLenum i, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
+	format = f;
+	internal_format = i;
+	textureProperties(min,mag,wraps,wrapt);
 }
 
 void poTextureAtlas::clearImages() {
@@ -402,6 +423,9 @@ void poTextureAtlas::addImage(poImage *img, uint request) {
 	
 	return;
 }
+
+poPoint operator+(const poPoint &a, float f) {return poPoint(a.x+f, a.y+f);}
+poPoint operator-(const poPoint &a, float f) {return poPoint(a.x-f, a.y-f);}
 
 void poTextureAtlas::layoutAtlas() {
 	clearPages();
@@ -445,7 +469,8 @@ void poTextureAtlas::layoutAtlas() {
 	
 	for(int i=0; i<pages.size(); i++) {
 		poImage *img = pages[i];
-		textures[i] = new poTexture(format, img->width(), img->height(), img->pitch(), img->pixels());
+		textures[i] = new poTexture(format, img->width(), img->height(), img->pitch(), img->pixels(),
+									min_filter, mag_filter, wrap_s, wrap_t);
 	}
 }
 

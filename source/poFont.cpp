@@ -167,7 +167,7 @@ poPoint poFont::glyphAdvance() {
 }
 
 poImage *poFont::glyphImage() {
-	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_LIGHT);
 	
 	const FT_Bitmap bitmap = face->glyph->bitmap;
 	ubyte *buffer = new ubyte[bitmap.rows * bitmap.width]();
@@ -220,6 +220,7 @@ poBitmapFontAtlas::poBitmapFontAtlas(poFont *f, int pointSize)
 ,	_font(f->copy())
 ,	size(pointSize)
 {
+	textureProperties(GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
 	if(size < 0)
 		size = _font->pointSize();
 }

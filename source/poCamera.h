@@ -36,8 +36,8 @@ protected:
 
 	virtual void setProjection() = 0;
 	virtual void setModelview() {}
-	virtual void saveAndUpdateGLSettings() {}
-	virtual void restoreGLSettings() {}
+	virtual void saveAndUpdateGLSettings();
+	virtual void restoreGLSettings();
 	
 private:
     bool		clears_background;
@@ -55,8 +55,6 @@ public:
 	
 protected:
 	virtual void setProjection();
-	virtual void saveAndUpdateGLSettings();
-	virtual void restoreGLSettings();
 };
 
 class poOrthoCamera : public poCamera

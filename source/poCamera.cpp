@@ -59,6 +59,20 @@ void poCamera::doSetDown( poObject* obj ) {
 	glPopMatrix();
 }
 
+void poCamera::saveAndUpdateGLSettings() {
+	glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void poCamera::restoreGLSettings() {
+	glPopAttrib();
+}
+
 bool poCamera::clearsBackground() const {return clears_background;}
 poCamera* poCamera::clearsBackground(bool b) {clears_background = b; return this;}
 
@@ -80,20 +94,8 @@ poCamera2D::poCamera2D(poColor clear)
 :	poCamera(clear)
 {}
 
-void poCamera2D::poCamera2D::setProjection() {
+void poCamera2D::setProjection() {
 	gluOrtho2D(0, getWindowWidth(), getWindowHeight(), 0);
-}
-
-void poCamera2D::poCamera2D::saveAndUpdateGLSettings() {
-	glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-}
-
-void poCamera2D::poCamera2D::restoreGLSettings() {
-	glPopAttrib();
 }
 
 

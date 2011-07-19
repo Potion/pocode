@@ -267,6 +267,7 @@ void poImage::load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix) {
 		char black[] = {0,0,0,0};
 		FreeImage_FillBackground(bitmap, black);
 	}
+	
 }
 
 void writeImageToCHeader(const std::string &str, poImage *img) {

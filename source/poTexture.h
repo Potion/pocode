@@ -92,6 +92,11 @@ public:
 	poTextureAtlas(GLenum f, uint w, uint h);
 	virtual ~poTextureAtlas();
 
+	// set the texture properties that will get used
+	void textureProperties(GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
+	void textureProperties(GLenum format, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
+	void textureProperties(GLenum format, GLenum internal, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt);
+	
 	// move the list of images to pack
 	void clearImages();
 	// pass in the id you want to have associated with the image
@@ -141,7 +146,9 @@ private:
 	std::vector<poTexture*> textures;
 	std::map<uint,uint> uids;
 	// the is the format we want
-	GLenum format;
+	GLenum format, internal_format;
+	// and the texture properties
+	GLenum min_filter, mag_filter, wrap_s, wrap_t;
 	// store the last bound page so we can avoid rebinding
 	int bound_page, unit;
 };
