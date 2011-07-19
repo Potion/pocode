@@ -14,6 +14,10 @@ bool isArrowKey(unsigned int mod) {
 	return (mod & PO_NUMERIC_KEY_MASK) > 0 && (mod & PO_FUNCTION_KEY_MASK) > 0;
 }
 
+bool isMetaMask(unsigned int mod) {
+	return (mod & PO_KEY_META);
+}
+
 bool isKeyEvent(int type) {
 	return (type == PO_KEY_UP_EVENT			||
 			type == PO_KEY_DOWN_EVENT		||
@@ -29,7 +33,8 @@ bool isMouseEvent(int type) {
 			type == PO_MOUSE_ENTER_EVENT	||
 			type == PO_MOUSE_LEAVE_EVENT	||
 			type == PO_MOUSE_MOVE_EVENT		||
-			type == PO_MOUSE_DRAG_EVENT);
+			type == PO_MOUSE_DRAG_EVENT     ||
+            type == PO_MOUSE_DRAG_EVERYWHERE_EVENT );
 }
 
 bool isTouchEvent(int type) {

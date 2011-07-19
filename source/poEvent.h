@@ -24,6 +24,7 @@ enum {
 	PO_MOUSE_DOWN_EVENT,
 	PO_MOUSE_MOVE_EVENT,
 	PO_MOUSE_DRAG_EVENT,
+    PO_MOUSE_DRAG_EVERYWHERE_EVENT, 
 	PO_MOUSE_PRESS_EVENT,
 	PO_MOUSE_RELEASE_EVENT,
 	PO_MOUSE_ENTER_EVENT,
@@ -58,12 +59,22 @@ enum {
 	PO_LEFT_ARROW = 123,
 	PO_RIGHT_ARROW = 124,
 	
-	PO_RETURN_KEY = 36
+	PO_RETURN_KEY = 36,
+
+	PO_F1 = 122,
+	PO_F2 = 120,
+	PO_F3 = 99,
+	PO_F4 = 118,
+	PO_F5 = 96,
+	PO_F6 = 97,
+	PO_F7 = 98,
+	PO_F8 = 100
 };
 
 bool isNumericMask(unsigned int mod);
 bool isFunctionMask(unsigned int mod);
 bool isArrowKey(unsigned int mod);
+bool isMetaMask(unsigned int mod);
 
 bool isKeyEvent(int type);
 bool isMouseEvent(int type);

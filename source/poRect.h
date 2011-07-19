@@ -19,6 +19,7 @@ public:
 	float height() const;
 	float area() const;
 	poPoint center() const;
+	float aspect() const;
 	
 	poRect &set(float x, float y, float w, float h);
 	poRect &set(poPoint origin, poPoint size);
