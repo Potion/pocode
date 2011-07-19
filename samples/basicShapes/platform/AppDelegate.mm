@@ -104,10 +104,9 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[window setFrameOrigin:frame.origin];
 	
 	poWindow *powin = new poWindow(str, 
-								   window, 
 								   appId, 
 								   poRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height));
-	
+	powin->setWindowHandle(powin);
 	poOpenGLView *opengl = [[poOpenGLView alloc] initWithFrame:frame
 													   context:context
 														window:powin];
@@ -253,12 +252,11 @@ void applicationMakeWindowCurrent(poWindow* win) {
 	app.currentWindow = win;
 }
 
-void applicationMoveWindow(poWindow* win, poRect r) {
+void applicationMoveWindow(poWindow* win, poPoint p) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	NSWindow *window = [app getWindowByAppWin:win];
-	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
-	[window setFrameOrigin:NSMakePoint(r.origin.x, r.origin.y)];
-	
+//	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
+	[window setFrameOrigin:NSMakePoint(p.x, p.y)];
 }
 
 void applicationMakeWindowFullscreen(poWindow* win, bool value) {
@@ -268,7 +266,7 @@ void applicationMakeWindowFullscreen(poWindow* win, bool value) {
 }
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
-	NSWindow *window = (NSWindow*)win->osDependentHandle();
+	NSWindow *window = (NSWindow*)win->getWindowHandle();
 	
 	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width(), r.height());
 	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];

@@ -105,7 +105,6 @@ poTexture::poTexture(GLenum format, uint width, uint height, uint pitch, ubyte c
 	pushToCard();
 	
 	createRefCounter();
-	incrRefCount();
 }
 
 poTexture::poTexture(GLenum format, GLenum internal_format, GLenum type,
@@ -117,7 +116,6 @@ poTexture::poTexture(GLenum format, GLenum internal_format, GLenum type,
 	pushToCard();
 	
 	createRefCounter();
-	incrRefCount();
 }
 
 poTexture::poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) {
@@ -126,6 +124,16 @@ poTexture::poTexture(poImage *img, GLenum min, GLenum mag, GLenum wraps, GLenum 
 	}
 	else
 		loadNotFound();
+}
+
+poTexture::poTexture(GLenum format, uint width, uint height, uint pitch, ubyte const*pixels,
+                     GLenum min, GLenum mag, GLenum wraps, GLenum wrapt) 
+{
+    load(format, format, GL_UNSIGNED_BYTE, 
+         min, mag, wraps, wrapt,
+         width, height, pitch, pixels);
+    pushToCard();
+	createRefCounter();
 }
 
 poTexture::poTexture(const poTexture &tex) {
@@ -230,7 +238,7 @@ void poTexture::deleteLocalMemory() {
 }
 
 void poTexture::pushToCard() {
-	if(storingPixels() && !isOnCard()) {
+	if(!isOnCard()) {
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, pitch());
 		
@@ -271,7 +279,7 @@ void poTexture::st(float s, float t) {
 
 void poTexture::createRefCounter() {
 	ref_count = new uint[1];
-	*ref_count = 0;
+	*ref_count = 1;
 }
 
 void poTexture::incrRefCount() {
@@ -352,9 +360,11 @@ void poTexture::load(GLenum format, GLenum internal_format, GLenum type,
 	_height = h;
 	_pitch = p;
 	_mem_size = p * h;
-	_pixels = new ubyte[_mem_size]();
-	if(pixels)
+    _pixels = NULL;
+	if(pixels) {
+		_pixels = new ubyte[_mem_size]();
 		memcpy(_pixels, pixels, _mem_size);
+	}
 }
 
 

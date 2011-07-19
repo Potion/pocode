@@ -118,6 +118,8 @@ void poWindow::update() {
 	
 	processEvents();
 	
+	draw_order_counter = 0;
+	
 	if(root)
 		root->_updateTree();
 }
@@ -125,6 +127,14 @@ void poWindow::update() {
 void poWindow::draw() {
 	if(root)
 		root->_drawTree();
+}
+
+// TODO: this shouldn't happen both here and in the event center
+// event center shouldn't go thru the tree to find the right object
+// it should all happen here in the window
+
+bool sortByDrawOrder(poObject *a, poObject *b) {
+	return a->drawOrder() < b->drawOrder();
 }
 
 void poWindow::processEvents() {
@@ -183,6 +193,15 @@ void poWindow::processEvents() {
 				std::set<poObject*> hovers;
 				objUnderMouse(root, mouse, hovers);
 				
+//				if(!hovers.empty()) {
+//					std::vector<poObject*> under_mouse(hovers.begin(), hovers.end());
+//					std::sort(under_mouse.begin(), under_mouse.end(), boost::bind(sortByDrawOrder, _1, _2));
+//					
+//					if(mouse_hovers.find(under_mouse.back()) == mouse_hovers.end()) {
+//						
+//					}
+//				}
+					   
 				std::vector<poObject*> did_enter;
 				std::vector<poObject*> did_leave;
 
@@ -204,7 +223,7 @@ void poWindow::processEvents() {
 				mouse_hovers.clear();
 				mouse_hovers.insert(hovers.begin(), hovers.end());
 				
-				break;
+				break; 
 			}
 			case PO_MOUSE_DRAG_EVENT:
 				// there's some in particular who should get this
@@ -215,6 +234,8 @@ void poWindow::processEvents() {
 					event.type = PO_MOUSE_MOVE_EVENT;
 					poEventCenter::get()->notify(event);
 				}
+                event.type = PO_MOUSE_DRAG_EVERYWHERE_EVENT;
+                poEventCenter::get()->notify(event);
 				break;
 				
 			case PO_KEY_DOWN_EVENT:
@@ -332,6 +353,10 @@ void poWindow::setWindowHandle(void *handle) {
 	this->handle = handle;
 	if(root)
 		root->inWindow(handle != NULL);
+}
+
+int poWindow::nextDrawOrder() {
+	return draw_order_counter++;
 }
 
 

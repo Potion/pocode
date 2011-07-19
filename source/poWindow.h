@@ -46,6 +46,8 @@ public:
 	void *getWindowHandle();
 	void setWindowHandle(void *handle);
 
+	int nextDrawOrder();
+
 private:
 	bool closed_;
 	poRect _bounds;
@@ -60,6 +62,8 @@ private:
 	poObject *root;
     poObject *mouse_receiver, *key_receiver;
 	std::set<poObject*> mouse_hovers;
+	
+	int draw_order_counter;
 	
 	// store incoming events here
 	std::deque<poEvent> received;
