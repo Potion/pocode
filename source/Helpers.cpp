@@ -150,13 +150,13 @@ const char *currentTimeStr() {
 }
 
 void applyObjTransform(poObject *obj) {
-	poPoint trans = obj->position();
-	poPoint off = obj->offset();
-	float rotation = obj->rotation();
-	poPoint rot_axis = obj->rotationAxis();
-	poPoint scale = obj->scale();
+	poPoint trans = obj->position;
+	poPoint off = obj->offset;
+	float rotation = obj->rotation;
+	poPoint rot_axis = obj->rotationAxis;
+	poPoint scale = obj->scale;
 	
-	switch(obj->matrixOrder()) {
+	switch(obj->matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
 			glTranslatef(trans.x, trans.y, trans.z);
 			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);

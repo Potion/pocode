@@ -2,14 +2,6 @@
 
 #include "poPoint.h"
 
-enum poMatrixOrder
-{
-	// standard order
-	PO_MATRIX_ORDER_TRS,
-	// orbit order
-	PO_MATRIX_ORDER_RST
-};
-
 struct poMatrixSet
 {
 	poMatrixSet();

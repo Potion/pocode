@@ -40,3 +40,8 @@ float getWindowLastFrameDuration() {
 	poWindow *window = applicationCurrentWindow();
 	return window->lastFrameElapsed();
 }
+
+poPoint getWindowMousePosition() {
+	poWindow *window = applicationCurrentWindow();
+	return window->mousePosition();
+}

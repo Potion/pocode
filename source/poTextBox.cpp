@@ -11,14 +11,15 @@ using namespace std;
 #include "poTextBox.h"
 #include "SimpleDrawing.h"
 #include "poShapeBasics2D.h"
+#include "poResourceStore.h"
 
 #include <float.h>
 
 poTextBox::poTextBox()
 :	poObject()
-,	color(poColor::white)
+,	textColor(poColor::white)
 ,	atlas(NULL)
-,	draw_bounds(false)
+,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint())
 {
@@ -27,27 +28,24 @@ poTextBox::poTextBox()
 
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
-,	color(poColor::white)
+,	textColor(poColor::white)
 ,	atlas(NULL)
-,	draw_bounds(false)
+,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint(w,h))
 {
 	defaultFonts();
-	bounds(poRect(0,0,w,h));
+	bounds = poRect(0,0,w,h);
 }
 
 void poTextBox::defaultFonts() {
-	font(poFont("Lucida Grande", 20));
+	font(getFont("Lucida Grande", 20));
 }
 
 poTextBox::~poTextBox() {}
 
 std::string poTextBox::text() const {return _layout.text();}
 poTextBox &poTextBox::text(const std::string &str) {_layout.text(str); return *this; }
-
-poColor poTextBox::textColor() const {return color;}
-poTextBox &poTextBox::textColor(poColor c) {color = c; return *this;}
 
 poAlignment poTextBox::textAlignment() const {return _layout.alignment();}
 poTextBox &poTextBox::textAlignment(poAlignment al) {_layout.alignment(al); return *this;}
@@ -66,19 +64,18 @@ poTextBox & poTextBox::padding(float f) {_layout.padding(f); return *this;}
 poTextBox & poTextBox::padding(float h, float v) {_layout.padding(h,v); return *this;}
 poTextBox & poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r,t,b); return *this;}
 
-poTextBox   &poTextBox::drawBounds(bool b) {draw_bounds = b; return *this;}
-bool		poTextBox::drawBounds() const {return draw_bounds;}
-
 poTextBox &poTextBox::font(poFont *f, const std::string &name) {
-	font(*f,name);
-	return *this;
-}
-poTextBox &poTextBox::font(const poFont &f, const std::string &name) {
 	_layout.font(f,name);
-	atlas = BitmapFontCache().atlasForFont(_layout.font(name));
+	
+	if(f && !atlas) 
+		delete atlas;
+	
+	atlas = new poBitmapFontAtlas(f);
+	
 	return *this;
 }
 poFont const*poTextBox::font(const std::string &name) {return _layout.font(name);}
+
 poTextBox &poTextBox::layout() {_layout.layout(); return *this;}
 
 void poTextBox::draw() {
@@ -86,7 +83,7 @@ void poTextBox::draw() {
 		button->draw();
 	}
 	
-    if(draw_bounds) {
+    if(drawBounds) {
 		applyColor(poColor::white);
 		for(int i=0; i<_layout.numLines(); i++) {
 			drawStroke(_layout.getLine(i).bounds);
@@ -96,13 +93,13 @@ void poTextBox::draw() {
         drawStroke(textBounds());
 	
         applyColor(poColor::magenta);
-        drawStroke(bounds());
+        drawStroke(bounds);
 		
 		applyColor(poColor::red);
-		drawRect(poRect(-offset()-poPoint(5,5), poPoint(10,10)));
+		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
-	applyColor(poColor(textColor(), appliedAlpha()));
+	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<_layout.numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
@@ -117,10 +114,10 @@ poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth,
 	if(button)
 		delete button;
 
-	button = new poRectShape(bounds().width(), bounds().height(), rad);
-	button->fillColor(fill);
+	button = new poRectShape(bounds.width(), bounds.height(), rad);
+	button->fillColor = fill;
+	button->strokeColor = stroke;
 	button->generateStroke(strokeWidth);
-	button->strokeColor(stroke);
 	
 	return *this;
 }
@@ -131,6 +128,6 @@ poTextBox &poTextBox::debuttonize() {
 	return *this;
 }
 bool poTextBox::isButtonized() const {return button != NULL;}
-poColor poTextBox::buttonFill() const {return button->fillColor();}
-poColor poTextBox::buttonStroke() const {return button->strokeColor();}
+poColor poTextBox::buttonFill() const {return button->fillColor;}
+poColor poTextBox::buttonStroke() const {return button->strokeColor;}
 float poTextBox::buttonStrokeWidth() const {return button->strokeWidth();}

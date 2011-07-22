@@ -1,10 +1,6 @@
 #pragma once
 
-#include "poEnums.h"
-#include "poRect.h"
-#include "poEvent.h"
-
-class poObject;
+#include "poObject.h"
 
 class poWindow {
 public:
@@ -28,6 +24,8 @@ public:
 	bool isFullscreen() const;
 	poObject* rootObject() const;
 	bool wasClosed() const;
+	
+	poPoint mousePosition() const;
 
 	void makeCurrent();
 	void update();
@@ -60,8 +58,12 @@ private:
 	void *handle;
 	std::string title_;
 	poObject *root;
-    poObject *mouse_receiver, *key_receiver;
+	
+    poObject *key_receiver, *drag_target;
 	std::set<poObject*> mouse_hovers;
+	
+	// the global mouse position
+	poPoint mouse_pos;
 	
 	int draw_order_counter;
 	

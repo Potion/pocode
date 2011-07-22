@@ -9,9 +9,11 @@
 #pragma once
 
 #include "poObject.h"
-#include "poFont.h"
 #include "poTexture.h"
 #include "TextLayout.h"
+
+#include "poFont.h"
+#include "poBitmapFontAtlas.h"
 
 class poTextBox
 :	public poObject 
@@ -25,15 +27,15 @@ public:
 	// pass in text with embedded formatting
 	poTextBox &text(const std::string &str);
 	
-	poColor textColor() const;
-	poTextBox &textColor(poColor c);
-	
 	poAlignment textAlignment() const;
 	poTextBox &textAlignment(poAlignment al);
 
 	// actual bounds of the text
 	poRect textBounds() const;
-	
+
+	poColor textColor;
+    bool    drawBounds;
+
 	// these properties can be overridden inline 
 	// eg <span leading=13 tracking=.2>text will be leaded and tracked</span>
 	float leading() const;
@@ -52,13 +54,8 @@ public:
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
 	// <span>regular, when you want to override color, leading or tracking</span>
 	poTextBox &font(poFont *font, const std::string &name=PO_FONT_REGULAR);
-	poTextBox &font(const poFont &font, const std::string &name=PO_FONT_REGULAR);
 	poFont const*font(const std::string &name);
     
-    // show bounds
-    poTextBox&			drawBounds(bool b);
-	bool				drawBounds() const;
-	
 	poTextBox &layout();
 	void draw();
 	
@@ -73,13 +70,10 @@ public:
 private:
 	void defaultFonts();
 	
-	poColor color;
-    bool    draw_bounds;
-
-	poBitmapFontAtlas *atlas;
-	poShape2D *button;
-	
 	TextBoxLayout _layout;
+	poBitmapFontAtlas *atlas;
+
+	poShape2D *button;
 };
 
 

@@ -7,15 +7,8 @@
 //
 
 #include "poImage.h"
+#include "poTexture.h"
 #include <FreeImage.h>
-
-static long long total_bytes = 0L;
-
-//total_bytes += FreeImage_GetInfoHeader(bitmap)->biSize;
-
-long long totalImageBytesAllocated() {
-	return total_bytes;
-}
 
 static void loadFreeImageIfNeeded() {
 	static bool free_image_loaded = false;
@@ -25,21 +18,32 @@ static void loadFreeImageIfNeeded() {
 	}
 }
 
-poImage::poImage() {loadFreeImageIfNeeded();}
+poImage::poImage() 
+:	bitmap(NULL)
+,	tex(NULL)
+{
+	loadFreeImageIfNeeded();
+}
 
 poImage::poImage(const std::string &url)
+:	bitmap(NULL)
+,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
 	load(url);
 }
 
-poImage::poImage(const std::string &url, ImageBitDepth bpp) 
+poImage::poImage(const std::string &url, ImageBitDepth bpp)
+:	bitmap(NULL)
+,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
 	load(url, bpp);
 }
 
 poImage::poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *p) 
+:	bitmap(NULL)
+,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
 	load(w, h, bpp, p);
@@ -47,12 +51,19 @@ poImage::poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *p)
 
 poImage::~poImage() {
 	FreeImage_Unload(bitmap);
+	
+	if(tex) {
+		tex->image = NULL;
+	}
 }
 
 poImage *poImage::copy() {
-	poImage *img = new poImage();
-	img->bitmap = FreeImage_Clone(bitmap);
-	return img;
+	if(!isValid())
+		return NULL;
+	
+	poImage *response = new poImage();
+	response->bitmap = FreeImage_Clone(bitmap);
+	return response;
 }
 
 bool poImage::isValid() const {
@@ -221,6 +232,18 @@ void poImage::resize(float w, float h) {
 	bitmap = img;
 }
 
+poTexture *poImage::texture() {
+	if(!tex)
+		tex = new poTexture(this);
+	return tex;
+}
+
+poTexture *poImage::texture(poTextureConfig config) {
+	if(!tex)
+		tex = new poTexture(this,config);
+	return tex;
+}
+
 void poImage::clear() {
 	ubyte color[] = {0,0,0,0};
 	FreeImage_FillBackground(bitmap, &color[0]);
@@ -244,6 +267,19 @@ FIBITMAP *loadDIB(const std::string &url) {
 	if(!dib) {
 		printf("poImage: image file not found (%s)\n", url.c_str());
 		return NULL;
+	}
+
+	unsigned bpp = FreeImage_GetBPP(dib);
+	if(bpp == 24 || bpp == 32) {
+		// there has got to be a more efficient way of doing this
+		FIBITMAP *red = FreeImage_GetChannel(dib,FICC_RED);
+		FIBITMAP *blue = FreeImage_GetChannel(dib,FICC_BLUE);
+		
+		FreeImage_SetChannel(dib,red,FICC_BLUE);
+		FreeImage_SetChannel(dib,blue,FICC_RED);
+		
+		FreeImage_Unload(red);
+		FreeImage_Unload(blue);
 	}
 	
 	FreeImage_FlipVertical(dib);

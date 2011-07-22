@@ -8,48 +8,48 @@
 
 poObject::poObject() 
 :	_parent(NULL)
-,	_name("")
-,	_alpha(1.f)
-,	_scale(1.f, 1.f, 1.f)
-,	_position(0.f, 0.f, 0.f)
-,	_rotation(0.f)
-,	_rotation_axis(0.f, 0.f, 1.f)
-,	_offset(0.f, 0.f, 0.f)
-,	_bounds(0.f, 0.f, 0.f, 0.f)
+,	name("")
+,	alpha(1.f)
+,	scale(1.f, 1.f, 1.f)
+,	position(0.f, 0.f, 0.f)
+,	rotation(0.f)
+,	rotationAxis(0.f, 0.f, 1.f)
+,	offset(0.f, 0.f, 0.f)
+,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
-,	_visible(true)
+,	visible(true)
 ,	events(PO_LAST_EVENT)
-,	_matrix_order(PO_MATRIX_ORDER_TRS)
-,	_draw_order(0)
-,	position_tween(&_position)
-,	scale_tween(&_scale)
-,	offset_tween(&_offset)
-,	alpha_tween(&_alpha)
-,	rotation_tween(&_rotation)
+,	matrixOrder(PO_MATRIX_ORDER_TRS)
+,	draw_order(0)
+,	position_tween(&position)
+,	scale_tween(&scale)
+,	offset_tween(&offset)
+,	alpha_tween(&alpha)
+,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
 ,	in_window(false)
 {}
 
 poObject::poObject(const std::string &name)
 :	_parent(NULL)
-,	_name(name)
-,	_alpha(1.f)
-,	_scale(1.f, 1.f, 1.f)
-,	_position(0.f, 0.f, 0.f)
-,	_rotation(0.f)
-,	_rotation_axis(0.f, 0.f, 1.f)
-,	_offset(0.f, 0.f, 0.f)
-,	_bounds(0.f, 0.f, 0.f, 0.f)
+,	name(name)
+,	alpha(1.f)
+,	scale(1.f, 1.f, 1.f)
+,	position(0.f, 0.f, 0.f)
+,	rotation(0.f)
+,	rotationAxis(0.f, 0.f, 1.f)
+,	offset(0.f, 0.f, 0.f)
+,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
-,	_visible(true)
+,	visible(true)
 ,	events(PO_LAST_EVENT)
-,	_matrix_order(PO_MATRIX_ORDER_TRS)
-,	_draw_order(0)
-,	position_tween(&_position)
-,	scale_tween(&_scale)
-,	offset_tween(&_offset)
-,	alpha_tween(&_alpha)
-,	rotation_tween(&_rotation)
+,	matrixOrder(PO_MATRIX_ORDER_TRS)
+,	draw_order(0)
+,	position_tween(&position)
+,	scale_tween(&scale)
+,	offset_tween(&offset)
+,	alpha_tween(&alpha)
+,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
 ,	in_window(false)
 {}
@@ -215,7 +215,7 @@ poObjectModifier *poObject::getModifier(int idx) {
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {
-	if(!visible())
+	if(!visible)
 		return false;
 	
 	if(localize) {
@@ -223,7 +223,7 @@ bool poObject::pointInside(poPoint point, bool localize) {
 		point = globalToLocal(point);
 	}
 	
-	return bounds().contains(point);
+	return bounds.contains(point);
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
@@ -248,37 +248,37 @@ poObject& poObject::alignment(poAlignment align) {
 	_alignment = align; 
 	
 	// first calculate bounds
-	poRect frame = bounds();
+	poRect frame = bounds;
 	
 	// then set offset based upon bounds and alignment
 	switch(align) {
 		case PO_ALIGN_TOP_LEFT:
-			offset(0,0,0); break;
+			offset.set(0,0,0); break;
 		case PO_ALIGN_TOP_CENTER:
-			offset(-frame.width()/2.f,0,0); break;
+			offset.set(-frame.width()/2.f,0,0); break;
 		case PO_ALIGN_TOP_RIGHT:
-			offset(-frame.width(),0,0); break;
+			offset.set(-frame.width(),0,0); break;
 		case PO_ALIGN_CENTER_LEFT:
-			offset(0,-frame.height()/2.f,0); break;
+			offset.set(0,-frame.height()/2.f,0); break;
 		case PO_ALIGN_CENTER_CENTER:
-			offset(-frame.width()/2.f,-frame.height()/2.f,0); break;
+			offset.set(-frame.width()/2.f,-frame.height()/2.f,0); break;
 		case PO_ALIGN_CENTER_RIGHT:
-			offset(-frame.width(),-frame.height()/2.f,0); break;
+			offset.set(-frame.width(),-frame.height()/2.f,0); break;
 		case PO_ALIGN_BOTTOM_LEFT:
-			offset(0,-frame.height(),0); break;
+			offset.set(0,-frame.height(),0); break;
 		case PO_ALIGN_BOTTOM_CENTER:
-			offset(-frame.width()/2.f,-frame.height(),0); break;
+			offset.set(-frame.width()/2.f,-frame.height(),0); break;
 		case PO_ALIGN_BOTTOM_RIGHT:
-			offset(-frame.width(),-frame.height(),0); break;
+			offset.set(-frame.width(),-frame.height(),0); break;
 	}
 	
-	offset(offset()-frame.origin);
+	offset = offset-frame.origin;
 	
 	return *this;
 }
 
 poRect poObject::calculateBounds() {
-	poRect rect = bounds();
+	poRect rect = bounds;
 	BOOST_FOREACH(poObject* obj, children) {
 		poRect obj_b = obj->calculateBounds();
 		rect.include(objectToLocal(obj, obj_b.bottomRight()));
@@ -297,48 +297,12 @@ void			poObject::inWindow(bool b) {
 	}
 }
 
-std::string		poObject::name() const {return _name;}
-poObject&		poObject::name(const std::string &str) {_name = str; return *this;}
-
-float			poObject::alpha() const {return _alpha;}
-poObject&		poObject::alpha(float f) {_alpha = f; return *this;}
 float			poObject::appliedAlpha() const{return true_alpha;}
-
-poPoint			poObject::scale() const {return _scale;}
-poObject&		poObject::scale(poPoint pt) {_scale = pt; return *this;}
-poObject&		poObject::scale(float x, float y, float z) {return scale(poPoint(x,y,z));}
-
-poPoint			poObject::position() const {return _position;}
-poObject&		poObject::position(poPoint p) {_position = p; return *this;}
-poObject&		poObject::position(float x, float y, float z) {return position(poPoint(x,y,z));}
-
-float			poObject::rotation() const {return _rotation;}
-poObject&		poObject::rotation(float f) {_rotation = f; return *this;}
-
-poPoint			poObject::rotationAxis() const {return _rotation_axis;}
-poObject&		poObject::rotationAxis(poPoint p) {_rotation_axis = p; return *this;}
-poObject&		poObject::rotationAxis(float x, float y, float z) {return rotationAxis(poPoint(x,y,z));}
-
-poPoint			poObject::offset() const {return _offset;}
-poObject&		poObject::offset(poPoint p) {_offset = p; return *this;}
-poObject&		poObject::offset(float x, float y, float z) {return offset(poPoint(x,y,z));}
-
-poRect			poObject::bounds() const {return _bounds;}
-poObject&		poObject::bounds(poRect r) {_bounds = r; return *this;}
-
-bool			poObject::visible() const {return _visible;}
-poObject&		poObject::visible(bool b) {_visible = b; return *this;}
-
-poMatrixOrder	poObject::matrixOrder() const {return _matrix_order;}
-poObject&		poObject::matrixOrder(poMatrixOrder o) {_matrix_order = o; return *this;}
-
 poMatrixSet     poObject::matrixSet() const {return matrices;}
-
-
-int				poObject::drawOrder() const {return _draw_order;}
+int				poObject::drawOrder() const {return draw_order;}
 
 void poObject::_drawTree() {
-	if(!visible())
+	if(!visible)
 		return;
 	
 	pushObjectMatrix();
@@ -361,10 +325,10 @@ void poObject::_drawTree() {
 }
 
 void poObject::_updateTree() {
-	if(!visible())
+	if(!visible)
 		return;
 	
-	_draw_order = applicationCurrentWindow()->nextDrawOrder();
+	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	updateAllTweens();
 	update();
@@ -375,7 +339,7 @@ void poObject::_updateTree() {
 }
 
 void poObject::_broadcastEvent(poEvent* event) {
-	if(!visible())
+	if(!visible)
 		return;
 	// make sure its even a valid event
 	if(event->type < 0 || event->type >= PO_LAST_EVENT)
@@ -408,30 +372,30 @@ void poObject::pushObjectMatrix() {
 	glPushMatrix();
 
 	if(_parent) {
-		true_alpha = _parent->true_alpha * _alpha;
+		true_alpha = _parent->true_alpha * alpha;
 	}
 	else {
-		true_alpha = _alpha;
+		true_alpha = alpha;
 	}
 	
-	poPoint trans = _position;
+	poPoint trans = position;
 	
 	// now move depending on the matrix order
-	switch(_matrix_order) {
+	switch(matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
 			glTranslatef(trans.x, trans.y, trans.z);
-			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);
-			glScalef(_scale.x, _scale.y, _scale.z);
+			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
+			glScalef(scale.x, scale.y, scale.z);
 			break;
 			
 		case PO_MATRIX_ORDER_RST:
-			glRotatef(_rotation, _rotation_axis.x, _rotation_axis.y, _rotation_axis.z);
-			glScalef(_scale.x, _scale.y, _scale.z);
+			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
+			glScalef(scale.x, scale.y, scale.z);
 			glTranslatef(trans.x, trans.y, trans.z);
 			break;
 	}
 
-	glTranslatef(_offset.x, _offset.y, _offset.z);
+	glTranslatef(offset.x, offset.y, offset.z);
 	matrices.capture();
 }
 

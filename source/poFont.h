@@ -10,12 +10,12 @@
 #include "poRect.h"
 #include "poImage.h"
 #include "poTexture.h"
-#include "poResource.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
 class poShape2D;
+class poFontLoader;
 
 static const std::string PO_FONT_REGULAR = "span";
 static const std::string PO_FONT_ITALIC = "i";
@@ -26,15 +26,13 @@ class poFont;
 typedef std::map<std::string, poFont*> poFontMap;
 
 class poFont
-:	public poResource
 {
+	friend class poFontLoader;
+	
 public:
-	// pass in a family name or a font url
-	poFont(const std::string &family_or_url, int pointSize, const std::string &trait=PO_FONT_REGULAR);
 	virtual ~poFont();
 	
-	bool valid() const;
-	poFont *copy() const;
+	bool isValid() const;
 	
 	std::string familyName() const;
 	std::string styleName() const;
@@ -66,6 +64,8 @@ public:
 
 private:
 	poFont();
+	poFont(const std::string &family_or_url, int pointSize, const std::string &trait=PO_FONT_REGULAR);
+
 	void init();
 	void loadGlyph(int g);
 	
@@ -78,28 +78,5 @@ private:
 
 bool fontExists(const std::string &family_or_url);
 
-class poBitmapFontAtlas : public poTextureAtlas {
-public:
-	// if -1, it'll store the current point size of the font
-	poBitmapFontAtlas(poFont *font, int pointSize=-1);
-	virtual ~poBitmapFontAtlas();
-	
-	void cacheGlyph(uint glyph);
-	// you can't change the font from here
-	poFont const *font();
-	
-private:
-	int size;
-	poFont *_font;
-};
-
-class BitmapFontCache {
-public:
-	poBitmapFontAtlas *atlasForFont(poFont *font);
-	void releaseAtlasForFont(poFont *font);
-	
-private:
-	static boost::unordered_map<poFont,poBitmapFontAtlas*> atlases;
-};
-
 std::ostream &operator<<(std::ostream &o, const poFont &f);
+

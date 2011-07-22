@@ -94,12 +94,7 @@ struct StripAndIndex : public TiXmlVisitor {
 #pragma mark - TextLayout -
 std::string TextLayout::text() const {return _text;}
 void TextLayout::text(const std::string &str) {_text = str;}
-void TextLayout::font(poFont *f, const std::string &weight) {font(*f,weight);}
-void TextLayout::font(const poFont &f, const std::string &weight) {
-	if(fonts.find(weight) != fonts.end())
-		delete fonts[weight];
-	fonts[weight] = f.copy();
-}
+void TextLayout::font(poFont *f, const std::string &weight) {fonts[weight] = f;}
 poFont *const TextLayout::font(const std::string &weight) {return fonts[weight];}
 bool TextLayout::hasFont(const std::string &weight) {return fonts.find(weight) != fonts.end();}
 

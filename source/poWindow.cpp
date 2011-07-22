@@ -5,13 +5,13 @@
 #include "poApplication.h"
 
 void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
-	if(!(obj->isInWindow() && obj->visible()))
+	if(!(obj->isInWindow() && obj->visible))
 		return;
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
 		objUnderMouse(obj->getChild(i), mouse, hovers);
 	}
-	
+
 	if(obj->pointInside(mouse,true))
 		hovers.insert(obj);
 }
@@ -21,7 +21,7 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 ,	handle(NULL)
 ,	root(NULL)
 ,	_bounds(b)
-,   mouse_receiver(NULL)
+,   drag_target(NULL)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
 ,	closed_(false)
@@ -99,6 +99,10 @@ poObject *poWindow::rootObject() const {
 	return root;
 }
 
+poPoint poWindow::mousePosition() const {
+	return mouse_pos;
+}
+
 void poWindow::makeCurrent() {
 	applicationMakeWindowCurrent(this);
 }
@@ -129,10 +133,6 @@ void poWindow::draw() {
 		root->_drawTree();
 }
 
-// TODO: this shouldn't happen both here and in the event center
-// event center shouldn't go thru the tree to find the right object
-// it should all happen here in the window
-
 bool sortByDrawOrder(poObject *a, poObject *b) {
 	return a->drawOrder() < b->drawOrder();
 }
@@ -143,125 +143,128 @@ void poWindow::processEvents() {
 		return;
 	}
 	
+	// if there aren't any events, bail
+	if(received.empty())
+		return;
+	
+	// store the events
+	poEventCenter *center = poEventCenter::get();
+
+	// figure out who's down there
+	std::set<poObject*> hovers;
+	objUnderMouse(root, mouse_pos, hovers);
+	
+	std::vector<poObject*> over(hovers.begin(), hovers.end());
+	std::sort(over.begin(), over.end(), sortByDrawOrder);
+	
+	std::set<poObject*> did_enter;
+	std::set<poObject*> did_leave;
+	
+	// figure out who isn't in the list anymore
+	std::set_difference(mouse_hovers.begin(), mouse_hovers.end(),
+						hovers.begin(), hovers.end(),
+						std::inserter(did_leave, did_leave.end()));
+	// figure out who's new in the list
+	std::set_difference(hovers.begin(), hovers.end(),
+						mouse_hovers.begin(), mouse_hovers.end(),
+						std::inserter(did_enter, did_enter.end()));
+
+	// reset the list for next frame
+	mouse_hovers.clear();
+	mouse_hovers.insert(hovers.begin(), hovers.end());
+	
 	while(!received.empty()) {
 		poEvent event = received.front();
 		received.pop_front();
+
+		std::set<poObject*> filter;
+		if(!over.empty())
+			filter.insert(over.back());
 		
 		switch(event.type) {
-			case PO_MOUSE_DOWN_EVENT:
-				// handle mouse down
-				poEventCenter::get()->notify(event);
+			case PO_MOUSE_DOWN_EVERYWHERE_EVENT:
+				// handle mouse down everywhere
+				center->notify(event);
 
-				// then handle mouse pressed
-				event.type = PO_MOUSE_PRESS_EVENT;
-				mouse_receiver = poEventCenter::get()->notify(event);
-				
-				// if some was under the mouse and they have a key press or release event make them the key responder
-				if(mouse_receiver && 
-				   (poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_PRESS_EVENT) ||
-					poEventCenter::get()->objectHasEvent(mouse_receiver, PO_KEY_RELEASE_EVENT)))
-				{
-					key_receiver = mouse_receiver;
+				if(!hovers.empty()) {
+					// if someone is under the mouse make them the drag target
+					drag_target = over.back();
+
+					// tell the one guy if he got clicked on
+					event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
+					center->notifyFiltered(event, filter, false);
+					
+					// and tell everyone else they didn't
+					event.type = PO_MOUSE_DOWN_OUTSIDE_EVENT;
+					center->notifyFiltered(event, filter, true);
 				}
-				else
-					key_receiver = NULL;
+				
 				break;
 				
-			case PO_MOUSE_UP_EVENT:
+			case PO_MOUSE_UP_EVERYWHERE_EVENT:
 				// handle mouse up
 				poEventCenter::get()->notify(event);
 				
-				// something was previously clicked on so they have to get unclicked
-				if(mouse_receiver) {
-					// handle mouse release
-					event.type = PO_MOUSE_RELEASE_EVENT;
-					poEventCenter::get()->routeBySource(mouse_receiver, event);
-					// we're done directly routing mouse events
-					mouse_receiver = NULL;
+				// kill the drag target because the mouse is up
+				drag_target = NULL;
+				
+				if(!hovers.empty()) {
+					// do the bounds checked versions
+					event.type = PO_MOUSE_UP_INSIDE_EVENT;
+					center->notifyFiltered(event, filter, false);
+
+					event.type = PO_MOUSE_UP_OUTSIDE_EVENT;
+					center->notifyFiltered(event, filter, true);
 				}
+				
 				break;
 				
 			case PO_MOUSE_MOVE_EVENT:
-			{
 				// push through the mouse move
 				poEventCenter::get()->notify(event);
 				
-				// figure out who's down there
-				poPoint mouse = event.position;
+				if(!hovers.empty()) {
+					event.type = PO_MOUSE_OVER_EVENT;
+					center->notifyFiltered(event, filter, false);
+				}
 				
-				// pull up all objects under the mouse
-				std::set<poObject*> hovers;
-				objUnderMouse(root, mouse, hovers);
+				if(!did_enter.empty()) {
+					event.type = PO_MOUSE_ENTER_EVENT;
+					center->notifyFiltered(event, did_enter, false);
+				}
 				
-//				if(!hovers.empty()) {
-//					std::vector<poObject*> under_mouse(hovers.begin(), hovers.end());
-//					std::sort(under_mouse.begin(), under_mouse.end(), boost::bind(sortByDrawOrder, _1, _2));
-//					
-//					if(mouse_hovers.find(under_mouse.back()) == mouse_hovers.end()) {
-//						
-//					}
-//				}
-					   
-				std::vector<poObject*> did_enter;
-				std::vector<poObject*> did_leave;
-
-				// figure out who isn't in the list anymore
-				std::set_difference(mouse_hovers.begin(), mouse_hovers.end(),
-									hovers.begin(), hovers.end(),
-									std::inserter(did_leave, did_leave.end()));
-				// figure out who's new in the list
-				std::set_difference(hovers.begin(), hovers.end(),
-									mouse_hovers.begin(), mouse_hovers.end(),
-									std::inserter(did_enter, did_enter.end()));
-				// notify the ones who've lost hover
-				event.type = PO_MOUSE_LEAVE_EVENT;
-				std::for_each(did_leave.begin(), did_leave.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
-				// notify the ones who've gained it
-				event.type = PO_MOUSE_ENTER_EVENT;
-				std::for_each(did_enter.begin(), did_enter.end(), boost::bind(&poEventCenter::routeBySource, poEventCenter::get(), _1, event));
-				// reset the list for next frame
-				mouse_hovers.clear();
-				mouse_hovers.insert(hovers.begin(), hovers.end());
+				if(!did_leave.empty()) {
+					event.type = PO_MOUSE_LEAVE_EVENT;
+					center->notifyFiltered(event, did_leave, false);
+				}
 				
 				break; 
-			}
-			case PO_MOUSE_DRAG_EVENT:
-				// there's some in particular who should get this
-				if(mouse_receiver)
-					poEventCenter::get()->routeBySource(mouse_receiver, event);
-				else {
-					// otherwise just pass on the drag as a move
-					event.type = PO_MOUSE_MOVE_EVENT;
-					poEventCenter::get()->notify(event);
-				}
-                event.type = PO_MOUSE_DRAG_EVERYWHERE_EVENT;
+
+			case PO_MOUSE_DRAG_EVERYWHERE_EVENT:
                 poEventCenter::get()->notify(event);
+				
+				if(drag_target) {
+					std::set<poObject*> drag_filter;
+					drag_filter.insert(drag_target);
+					
+					event.type = PO_MOUSE_DRAG_EVENT;
+					center->notifyFiltered(event, drag_filter, false);
+				}
+				
 				break;
 				
 			case PO_KEY_DOWN_EVENT:
-				// everyone gets key down
-				poEventCenter::get()->notify(event);
-				if(key_receiver) {
-					// key receiver is the only one to get the press event
-					event.type = PO_KEY_PRESS_EVENT;
-					poEventCenter::get()->routeBySource(key_receiver, event);
-				}
+				center->notify(event);
 				break;
 				
 			case PO_KEY_UP_EVENT:
-				// everyone gets key up
-				poEventCenter::get()->notify(event);
-				if(key_receiver) {
-					// key receiver is the only one to get the release event
-					event.type = PO_KEY_RELEASE_EVENT;
-					poEventCenter::get()->routeBySource(key_receiver, event);
-				}
+				center->notify(event);
 				break;
 
 			case PO_WINDOW_RESIZED_EVENT:
 				// everyone who cares gets resize
 				// maybe this should be broadcast
-				poEventCenter::get()->notify(event);
+				center->notify(event);
 				break;
 				
 			default:
@@ -272,24 +275,30 @@ void poWindow::processEvents() {
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {
+	mouse_pos.set(x,y,1);
+	
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 	
-	event.type = PO_MOUSE_DOWN_EVENT;
+	event.type = PO_MOUSE_DOWN_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 
 void poWindow::mouseUp(int x, int y, int mod) {
+	mouse_pos.set(x,y,1);
+	
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 
-	event.type = PO_MOUSE_UP_EVENT;
+	event.type = PO_MOUSE_UP_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 
 void poWindow::mouseMove(int x, int y, int mod) {
+	mouse_pos.set(x,y,1);
+	
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
@@ -299,11 +308,13 @@ void poWindow::mouseMove(int x, int y, int mod) {
 }
 
 void poWindow::mouseDrag(int x, int y, int mod) {
+	mouse_pos.set(x,y,1);
+	
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.modifiers = mod;
 	
-	event.type = PO_MOUSE_DRAG_EVENT;
+	event.type = PO_MOUSE_DRAG_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 

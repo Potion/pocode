@@ -4,15 +4,10 @@
 
 #pragma once
 
+#include "poEnums.h"
 #include "poPoint.h"
 #include "poDictionary.h"
 #include "poEasingFunctions.h"
-
-enum poTweenRepeat {
-	PO_TWEEN_REPEAT_NONE,
-	PO_TWEEN_REPEAT_REGULAR,
-	PO_TWEEN_REPEAT_PINGPONG
-};
 
 class poObject;
 

@@ -5,30 +5,30 @@
 #include "poWindow.h"
 #include "Helpers.h"
 
-// have to override this as a borderless window returns NO for canBecomeKeyWindow
-@interface KeyFullscreenWindow : NSWindow {}
-@end
-@implementation KeyFullscreenWindow
--(BOOL)canBecomeKeyWindow {return YES;}
-@end
+poRect rectFromNSRect(NSRect r) {
+	return poRect(r.origin.x, r.origin.y, r.size.width, r.size.height);
+}
 
 std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
-@implementation AppDelegate
+@interface KeyWindow : NSWindow {} @end
+@implementation KeyWindow
+-(BOOL)canBecomeKeyWindow {return YES;}
+@end
 
+@implementation AppDelegate
 @synthesize currentWindow;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	// initialize the time
 	getTime();
-	
+	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
-	
-	// setup variables
-	self.currentWindow = nil;
-	shared_context = nil;
-	windows = [[NSMutableArray alloc] init];
-	
+	// make sure we have a context to share
+	shared_context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
+												shareContext:nil];
 	// and  setup the application
+	self.currentWindow = nil;
 	setupApplication();
 }
 
@@ -38,181 +38,161 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	cleanupApplication();
-	
-	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-	[center removeObserver:self name:NSWindowWillCloseNotification object:nil];
-	
-	[windows release];
-	windows = nil;
-	
 	[shared_context release];
-}
-
-- (void)windowWillClose:(NSNotification*)notice {
-	if(windows) {
-		NSWindow *win = (NSWindow*)notice;
-		[windows removeObject:win];
-	}
 }
 
 -(void)quit {
 	[[NSApplication sharedApplication] terminate:nil];
 }
 
--(NSWindow*)createWindow:(uint)appId 
+-(poWindow*)createWindow:(uint)appId 
 					type:(poWindowType)type 
 				   frame:(NSRect)frame 
 				   title:(const char*)str
 {
 	NSScreen *screen = nil;
 	NSEnumerator *screens = [[NSScreen screens] objectEnumerator];
-	while((screen = [screens nextObject]) && !NSPointInRect(frame.origin, [screen frame])) {}
-	if(screen == nil)
+	while((screen = [screens nextObject])) {
+		if(NSPointInRect(frame.origin, [screen frame]))
+			break;
+	}
+	if(!screen) {
 		screen = NSScreen.mainScreen;
+	}
 	
 	NSUInteger style_mask;
 	switch(type) {
+		case WINDOW_TYPE_FULLSCREEN:
+			frame = [screen frame];
+			// we still want the borderless mask so let it fall thru
 		case WINDOW_TYPE_BORDERLESS:
 			style_mask = NSBorderlessWindowMask;
 			break;
-		case WINDOW_TYPE_FULLSCREEN:
 		case WINDOW_TYPE_NORMAL:
 			style_mask = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
 			break;
 	}
 	
-	NSOpenGLContext *context = nil;
-	
-	if(!shared_context) {
-		shared_context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
-													shareContext:nil];
-		context = shared_context;
-	}
-	else {
-		context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
-											 shareContext:shared_context];
-	}
-	GLint swapInt = 1;
-    [context setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
+	// create the context
+	NSOpenGLContext *context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
+										 shareContext:shared_context];
 	[context makeCurrentContext];
+	// lock it so we can make our app window
+	CGLContextObj cglcontext = (CGLContextObj)context.CGLContextObj;
+	CGLLockContext(cglcontext);
+	// make sure we're tied to the vsync
+//	GLint swapInt = 1;
+//	[context setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
+	// make our window, using the opengl context we just made
+	poWindow *powin = new poWindow(str, appId, rectFromNSRect(frame));
+	// and let it go
+	CGLUnlockContext(cglcontext);
 	
-	NSWindow *window = [[NSWindow alloc] initWithContentRect:frame
-												   styleMask:style_mask
-													 backing:NSBackingStoreBuffered
-													   defer:YES
-													  screen:screen];
+	// create the window
+	NSWindow *window = [[KeyWindow alloc] initWithContentRect:frame
+													styleMask:style_mask
+													  backing:NSBackingStoreBuffered
+														defer:YES];
 	[window setFrameOrigin:frame.origin];
 	
-	poWindow *powin = new poWindow(str, 
-								   appId, 
-								   poRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height));
-	powin->setWindowHandle(powin);
-	poOpenGLView *opengl = [[poOpenGLView alloc] initWithFrame:frame
-													   context:context
-														window:powin];
-	
-	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-	[center addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:window];
-	
-	window.contentView = [opengl autorelease];
-	[window makeKeyAndOrderFront:nil];
+	// configure the window a little
 	[window setAcceptsMouseMovedEvents:YES];
 	[window setReleasedWhenClosed:YES];
-	[windows addObject:window];
 
-	if(type == WINDOW_TYPE_FULLSCREEN)
-		[self fullscreenWindow:window value:YES];
-	
-	return window;
-}
-
--(NSUInteger)numberWindows {
-	return windows.count;
-}
-
--(NSWindow*)getWindowByIndex:(int)index {
-	return [windows objectAtIndex:index];
-}
-
--(NSWindow*)getWindowByAppWin:(poWindow*)win {
-	for(NSWindow *window in windows) {
-		poOpenGLView *glview = window.contentView;
-		if(glview.appWindow == win)
-			return window;
-	}
-	return nil;
-}
-
--(void)closeWindow:(NSWindow*)window {
-	[window close];
-}
-
--(void)fullscreenWindow:(NSWindow*)win value:(BOOL)b {
-	if(b == YES) {
-		NSScreen *screen = win.screen;
-		NSWindow *window = [[KeyFullscreenWindow alloc] initWithContentRect:screen.frame
-													   styleMask:NSBorderlessWindowMask
-														 backing:NSBackingStoreBuffered
-														   defer:YES];
-		[window setLevel:CGShieldingWindowLevel()+1];
+	// in case its full screen
+	if(type == WINDOW_TYPE_FULLSCREEN) {
+		[window setLevel:NSMainMenuWindowLevel+1];
 		[window setOpaque:YES];
 		[window setHidesOnDeactivate:YES];
-		
-		window.contentView = win.contentView;
-		window.initialFirstResponder = win.contentView;
-		
-		[window setAcceptsMouseMovedEvents:YES];
-		[window makeKeyAndOrderFront:self];
-		[window setReleasedWhenClosed:YES];
-
-		// keep this window around
-		[windows addObject:window];
-		
-		// save the old window size
-		NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
-							  [NSValue valueWithRect:win.frame], @"frame",
-							  [NSNumber numberWithUnsignedInteger:win.styleMask], @"style",
-							  nil];
-		windows_fullscreen_restore[window.contentView] = dict;
-		[win close];
-		
-		CGDirectDisplayID display_id = [[screen.deviceDescription objectForKey:@"NSScreenNumber"] unsignedIntValue];
-		CGDisplayCapture(display_id);
 	}
-	else {
-		// release the screen
-		CGDirectDisplayID display_id = [[win.screen.deviceDescription objectForKey:@"NSScreenNumber"] unsignedIntValue];
-		CGDisplayRelease(display_id);
 
-		// get the stored window properties
-		NSDictionary *dict = windows_fullscreen_restore[win.contentView];
-		
-		NSRect rect = [[dict valueForKey:@"frame"] rectValue];
-		NSUInteger style = [[dict valueForKey:@"style"] unsignedIntegerValue];
-		
-		// clean up the dictionary
-		[dict release];
-		// and destroy the record
-		windows_fullscreen_restore[win.contentView] = nil;
+	NSRect glrect = frame;
+	glrect.origin = NSMakePoint(0.f, 0.f);
+	
+	poOpenGLView *opengl = [[poOpenGLView alloc] initWithFrame:glrect];
+	opengl.openGLContext = context;
+	// give the gl view an app window to draw
+	opengl.appWindow = powin;
+	// and tell the app window which window its in
+	powin->setWindowHandle(window);
+	
+	[window setContentView:opengl];
+	[window makeKeyAndOrderFront:self];
 
-		NSWindow *window = [[NSWindow alloc] initWithContentRect:rect
-													   styleMask:style
-														 backing:NSBackingStoreBuffered
-														   defer:YES];
-		
-		NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-		[center addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:window];
+	return powin;
+}
 
-		window.contentView = win.contentView;
-		window.initialFirstResponder = window.contentView;
+-(void)closeWindow:(poWindow*)window {
+	[(NSWindow*)window->getWindowHandle() close];
+}
 
-		[window makeKeyAndOrderFront:self];
-		[window setAcceptsMouseMovedEvents:YES];
-		[window setReleasedWhenClosed:YES];
+-(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
+	NSWindow *win = (NSWindow*)window->getWindowHandle();
 
-		[windows addObject:window];
-		[win close];
-	}
+//	if(b == YES) {
+//		// save the old window size
+//		NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+//							  [NSValue valueWithRect:win.frame], @"frame",
+//							  [NSNumber numberWithUnsignedInteger:win.styleMask], @"style",
+//							  nil];
+//		windows_fullscreen_restore[win.contentView] = dict;
+//		NSScreen *screen = win.screen;
+//		
+//		CGDirectDisplayID display_id = [[screen.deviceDescription objectForKey:@"NSScreenNumber"] unsignedIntValue];
+//		CGDisplayCapture(display_id);
+//
+//		NSWindow *window = [[NSWindow alloc] initWithContentRect:screen.frame
+//													   styleMask:NSBorderlessWindowMask
+//														 backing:NSBackingStoreBuffered
+//														   defer:YES];
+//		[window setLevel:NSMainMenuWindowLevel+1];
+//		[window setOpaque:YES];
+//		[window setHidesOnDeactivate:YES];
+//		
+//		[window setAcceptsMouseMovedEvents:YES];
+//		[window setReleasedWhenClosed:YES];
+//		
+//		[window makeKeyAndOrderFront:self];
+//
+//		// keep this window around
+//		[windows addObject:window];
+//		// and close the old one
+//		[win close];
+//	}
+//	else {
+//		// release the screen
+//		CGDirectDisplayID display_id = [[win.screen.deviceDescription objectForKey:@"NSScreenNumber"] unsignedIntValue];
+//		CGDisplayRelease(display_id);
+//
+//		// get the stored window properties
+//		NSDictionary *dict = windows_fullscreen_restore[win.contentView];
+//		
+//		NSRect rect = [[dict valueForKey:@"frame"] rectValue];
+//		NSUInteger style = [[dict valueForKey:@"style"] unsignedIntegerValue];
+//		
+//		// clean up the dictionary
+//		[dict release];
+//		// and destroy the record
+//		windows_fullscreen_restore[win.contentView] = nil;
+//
+//		NSWindow *window = [[NSWindow alloc] initWithContentRect:rect
+//													   styleMask:style
+//														 backing:NSBackingStoreBuffered
+//														   defer:YES];
+//		
+//		NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//		[center addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:window];
+//
+//		window.contentView = win.contentView;
+//		window.initialFirstResponder = window.contentView;
+//
+//		[window makeKeyAndOrderFront:self];
+//		[window setAcceptsMouseMovedEvents:YES];
+//		[window setReleasedWhenClosed:YES];
+//
+//		[windows addObject:window];
+//		[win close];
+//	}
 }
 
 @end
@@ -225,21 +205,16 @@ void applicationQuit() {
 
 poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	NSWindow *window = [app createWindow:root_id type:type frame:NSMakeRect(x,y,w,h) title:title];
-	poOpenGLView *glview = window.contentView;
-	return glview.appWindow;
+	return [app createWindow:root_id type:type frame:NSMakeRect(x,y,w,h) title:title];
 }
 
 int applicationNumberWindows() {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	return [app numberWindows];
+	return [NSApplication sharedApplication].windows.count;
 }
 
 poWindow* applicationGetWindow(int index) {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	NSWindow *window = [app getWindowByIndex:index];
-	poOpenGLView *glview = window.contentView;
-	return glview.appWindow;
+	NSWindow *window = [[NSApplication sharedApplication].windows objectAtIndex:index];
+	return ((poOpenGLView*)window.contentView).appWindow;
 }
 
 poWindow* applicationCurrentWindow() {
@@ -252,27 +227,21 @@ void applicationMakeWindowCurrent(poWindow* win) {
 	app.currentWindow = win;
 }
 
-void applicationMoveWindow(poWindow* win, poPoint p) {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	NSWindow *window = [app getWindowByAppWin:win];
-//	[window setFrame:NSMakeRect(0, 0, r.size.x, r.size.y) display:YES];
-	[window setFrameOrigin:NSMakePoint(p.x, p.y)];
-}
-
 void applicationMakeWindowFullscreen(poWindow* win, bool value) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	NSWindow *window = [app getWindowByAppWin:win];
-	[window.contentView setFullscreen:value];
+	[app fullscreenWindow:win value:value];
+}
+
+void applicationMoveWindow(poWindow* win, poPoint p) {
+	NSWindow *window = (NSWindow*)win->getWindowHandle();
+	[window setFrameOrigin:NSMakePoint(p.x, p.y)];
 }
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
 	NSWindow *window = (NSWindow*)win->getWindowHandle();
-	
 	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width(), r.height());
 	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
 	[window setFrame:new_frame display:YES];
-	
-	win->resized(r.width(), r.height());
 }
 
 float getWindowWidth() {

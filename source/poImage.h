@@ -8,33 +8,25 @@
 
 #pragma once
 
-#include "poResource.h"
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
+#include "poTextureConfig.h"
 
 struct FIBITMAP;
-
-enum ImageBitDepth {
-	IMAGE_8 = 8,
-	IMAGE_16 = 16,
-	IMAGE_24 = 24,
-	IMAGE_32 = 32
-};
-
-long long totalImageBytesAllocated();
+class poTexture;
+class poImageLoader;
 
 class poImage 
-	: public poResource
 {
-public:
-	poImage();
-	poImage(const std::string &url);
-	poImage(const std::string &url, ImageBitDepth bpp);
-	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
-	~poImage();
+	friend class poTexture;
+	friend class poImageLoader;
 	
+public:
+	~poImage();
+	// you own this one
 	poImage *copy();
+	
 	bool isValid() const;
 	
 	uint width() const;
@@ -61,12 +53,26 @@ public:
 	void resizeHeight(float h);
 	void resize(float w, float h);
 	
+	poTexture *texture();
+	poTexture *texture(poTextureConfig config);
+	
 private:
+	poImage();
+	poImage(const std::string &url);
+	poImage(const std::string &url, ImageBitDepth bpp);
+	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
+
 	void load(const std::string &url);
 	void load(const std::string &url, ImageBitDepth bpp);
 	void load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix);
+	
 	FIBITMAP *bitmap;
+	poTexture *tex;
 };
 
 // will append .cpp to the end of the filename
 void writeImageToCHeader(const std::string &filename, poImage *img);
+
+
+
+

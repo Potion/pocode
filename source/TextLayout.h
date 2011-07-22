@@ -30,7 +30,6 @@ public:
 	void text(const std::string &str);
 	
 	void font(poFont *f, const std::string &weight=PO_FONT_REGULAR);
-	void font(const poFont &f, const std::string &weight=PO_FONT_REGULAR);
 	poFont *const font(const std::string &weight=PO_FONT_REGULAR);
 	bool hasFont(const std::string &weight=PO_FONT_REGULAR);
 	
