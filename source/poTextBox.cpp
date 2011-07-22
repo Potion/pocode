@@ -45,38 +45,36 @@ void poTextBox::defaultFonts() {
 poTextBox::~poTextBox() {}
 
 std::string poTextBox::text() const {return _layout.text();}
-poTextBox &poTextBox::text(const std::string &str) {_layout.text(str); return *this; }
+poTextBox *poTextBox::text(const std::string &str) {_layout.text(str); return this; }
 
 poAlignment poTextBox::textAlignment() const {return _layout.alignment();}
-poTextBox &poTextBox::textAlignment(poAlignment al) {_layout.alignment(al); return *this;}
+void poTextBox::textAlignment(poAlignment al) {_layout.alignment(al);}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 
 float poTextBox::leading() const {return _layout.leading();}
-poTextBox &poTextBox::leading(float f) {_layout.leading(f); return *this;}
+void poTextBox::leading(float f) {_layout.leading(f); }
 float poTextBox::tracking() const {return _layout.tracking();}
-poTextBox & poTextBox::tracking(float f) {_layout.tracking(f); return *this;}
+void poTextBox::tracking(float f) {_layout.tracking(f); }
 float poTextBox::paddingLeft() const {return _layout.paddingLeft();}
 float poTextBox::paddingRight() const {return _layout.paddingRight();}
 float poTextBox::paddingTop() const {return _layout.paddingTop();}
 float poTextBox::paddingBottom() const {return _layout.paddingBottom();}
-poTextBox & poTextBox::padding(float f) {_layout.padding(f); return *this;}
-poTextBox & poTextBox::padding(float h, float v) {_layout.padding(h,v); return *this;}
-poTextBox & poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r,t,b); return *this;}
+void poTextBox::padding(float f) {_layout.padding(f); }
+void poTextBox::padding(float h, float v) {_layout.padding(h,v); }
+void poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r,t,b); }
 
-poTextBox &poTextBox::font(poFont *f, const std::string &name) {
+void poTextBox::font(poFont *f, const std::string &name) {
 	_layout.font(f,name);
 	
 	if(f && !atlas) 
 		delete atlas;
 	
 	atlas = new poBitmapFontAtlas(f);
-	
-	return *this;
 }
 poFont const*poTextBox::font(const std::string &name) {return _layout.font(name);}
 
-poTextBox &poTextBox::layout() {_layout.layout(); return *this;}
+poTextBox *poTextBox::layout() {_layout.layout(); return this;}
 
 void poTextBox::draw() {
 	if(button) {

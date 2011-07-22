@@ -26,6 +26,7 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 ,	fullscreen_(false)
 ,	closed_(false)
 ,	framecounter(0)
+,	total_framecount(0)
 ,	last_mark(0.0)
 ,	framerate_(0.f)
 {
@@ -83,6 +84,10 @@ float poWindow::framerate() const {
 	return framerate_;
 }
 
+int poWindow::framecount() const {
+	return total_framecount;
+}
+
 float poWindow::lastFrameElapsed() const {
 	return last_elapsed;
 }
@@ -110,6 +115,7 @@ void poWindow::makeCurrent() {
 void poWindow::update() {
 	double now = getTime();
 	
+	total_framecount++;
 	framecounter++;
 	if(now - last_mark >= 1.0) {
 		last_mark = now;

@@ -77,20 +77,6 @@ void poObject::removeEvent(int event_id) {
 	poEventCenter::get()->removeEvent(event_id);
 }
 
-void poObject::addChild(poObject* obj) {
-	addChild(obj, children.size());
-}
-
-void poObject::addChild(poObject *obj, int idx) {
-	if(obj->_parent) {
-		obj->_parent->removeChild(obj);
-	}
-	
-	obj->_parent = this;
-	obj->inWindow(in_window);
-	children.insert(children.begin()+idx, obj);
-}
-
 bool poObject::removeChild(poObject* obj) {
 	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
 	bool found = iter != children.end();

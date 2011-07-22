@@ -19,6 +19,7 @@ public:
 	poRect bounds() const;
 	poPoint centerPoint() const;
 	float framerate() const;
+	int framecount() const;
 	float lastFrameElapsed() const;
 	float lastFrameTime() const;
 	bool isFullscreen() const;
@@ -52,7 +53,7 @@ private:
 	bool fullscreen_;
 	
 	double last_mark, last_frame;
-	int framecounter;
+	int framecounter, total_framecount;
 	float framerate_, last_elapsed;
 	
 	void *handle;

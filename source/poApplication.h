@@ -29,6 +29,7 @@ poRect		getWindowFrame();
 poRect		getWindowBounds();
 poPoint		getWindowCenter();
 float		getWindowFramerate();
+int			getWindowFrameCount();
 float		getWindowLastFrameTime();
 float		getWindowLastFrameDuration();
 poPoint		getWindowMousePosition();

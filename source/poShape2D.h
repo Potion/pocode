@@ -56,6 +56,7 @@ public:
 	bool				closed;
 	bool				drawBounds;
 	bool				alphaTestTexture;
+	
 	poTween<poColor>	fill_color_tween;
 	
 protected:

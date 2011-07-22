@@ -45,16 +45,30 @@ public:
 	void			removeEvent(int event_id);
 	
 	// DISPLAY LIST
-	void			addChild(poObject* obj);
-	void			addChild(poObject* obj, int idx);
-	bool			removeChild(poObject* obj);
-	bool			removeChild(int at_idx, bool and_delete=true);
-	void			removeAllChildren(bool and_delete=true);
 	int				numChildren() const;
+
+	template <typename T>
+	T*				addChild(T* obj);
+	template <typename T>
+	T*				addChild(T* obj, int idx);
+
+	int				getChildIndex(poObject* child);
 	poObject*		getChild(int at_idx);
 	poObject*		getChild(const std::string &with_name);
 	poObject*		getLastChild();
-	int				getChildIndex(poObject* child);
+
+	template <typename T>
+	T*				getChildAs(int idx);
+	template <typename T>
+	T*				getChildAs(const std::string &name);
+	template <typename T>
+	T*				getLastChildAs();
+	
+	
+	bool			removeChild(poObject* obj);
+	bool			removeChild(int at_idx, bool and_delete=true);
+	void			removeAllChildren(bool and_delete=true);
+
 	// move it relative to its siblibings
 	void			moveChildToFront(poObject* child);
 	void			moveChildToBack(poObject* child);
@@ -142,12 +156,32 @@ private:
 };
 
 template <typename T>
-inline T *getChildAs(poObject *parent, int idx) {
-	return static_cast<T*>(parent->getChild(idx));
+T* poObject::addChild(T* obj) {
+	return addChild(obj, children.size());
 }
 
 template <typename T>
-inline T *getChildAs(poObject *parent, const std::string &name) {
-	return static_cast<T*>(parent->getChild(name));
+T* poObject::addChild(T* obj, int idx) {
+	if(obj->_parent) {
+		obj->_parent->removeChild(obj);
+	}
+	
+	obj->_parent = this;
+	obj->inWindow(in_window);
+	children.insert(children.begin()+idx, obj);
+
+	return obj;
 }
 
+template <typename T>
+T* poObject::getChildAs(int idx) {
+	return static_cast<T*>(getChild(idx));
+}
+template <typename T>
+T* poObject::getChildAs(const std::string &name) {
+	return static_cast<T*>(getChild(name));
+}
+template <typename T>
+T* poObject::getLastChildAs() {
+	return static_cast<T*>(getLastChild());
+}

@@ -19,6 +19,7 @@
 		E802C7A513D7933D00CBEB1C /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C79D13D785BB00CBEB1C /* poResourceStore.cpp */; };
 		E802C7A713D8699400CBEB1C /* Loaders.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C7A613D8699300CBEB1C /* Loaders.h */; };
 		E802C7A913D87BA300CBEB1C /* poTextureConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C7A813D87BA200CBEB1C /* poTextureConfig.h */; };
+		E802C7C713D9F49700CBEB1C /* poObjectConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C7C613D9F49400CBEB1C /* poObjectConfig.h */; };
 		E80625A01396FEFC00615CCB /* Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71413913E3A00E6848E /* Helpers.h */; };
 		E80625A11396FEFC00615CCB /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
 		E80625A21396FEFC00615CCB /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71513913E3A00E6848E /* poApplication.h */; };
@@ -132,6 +133,7 @@
 		E802C79D13D785BB00CBEB1C /* poResourceStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResourceStore.cpp; path = ../source/poResourceStore.cpp; sourceTree = "<group>"; };
 		E802C7A613D8699300CBEB1C /* Loaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Loaders.h; path = ../source/Loaders.h; sourceTree = "<group>"; };
 		E802C7A813D87BA200CBEB1C /* poTextureConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextureConfig.h; path = ../source/poTextureConfig.h; sourceTree = "<group>"; };
+		E802C7C613D9F49400CBEB1C /* poObjectConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectConfig.h; path = ../source/poObjectConfig.h; sourceTree = "<group>"; };
 		E80625911396FEDA00615CCB /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E80B019313D4E11F00A1A008 /* poPointTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poPointTest.cpp; sourceTree = "<group>"; };
 		E80B01B213D4E30600A1A008 /* needed_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = needed_functions.cpp; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			children = (
 				E8B2D0C2132E9F78002BE3D9 /* poObject.h */,
 				E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */,
+				E802C7C613D9F49400CBEB1C /* poObjectConfig.h */,
 				E8B2D0C8132E9F78002BE3D9 /* poShape2D.h */,
 				E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */,
 				AA09790B138593A800BBA07F /* poShapeBasics2D.h */,
@@ -423,6 +426,7 @@
 				E802C76413D7738F00CBEB1C /* poImageMask.h in Headers */,
 				E802C7A713D8699400CBEB1C /* Loaders.h in Headers */,
 				E802C7A913D87BA300CBEB1C /* poTextureConfig.h in Headers */,
+				E802C7C713D9F49700CBEB1C /* poObjectConfig.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
