@@ -248,7 +248,7 @@ poObject& poObject::alignment(poAlignment align) {
 	_alignment = align; 
 	
 	// first calculate bounds
-	poRect frame = bounds;
+	poRect frame = calculateBounds();
 	
 	// then set offset based upon bounds and alignment
 	switch(align) {

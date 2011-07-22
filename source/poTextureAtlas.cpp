@@ -78,9 +78,11 @@ void poTextureAtlas::layoutAtlas() {
 	
 	textures.resize(pages.size());
 	
+	poTextureConfig config(format);
+
 	for(int i=0; i<pages.size(); i++) {
 		poImage *img = pages[i];
-		textures[i] = img->texture();
+		textures[i] = img->texture(config);
 	}
 }
 

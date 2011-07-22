@@ -1,6 +1,11 @@
 #include "SimpleDrawing.h"
+
+#include "Helpers.h"
 #include "poTexture.h"
+
+#include <cfloat>
 #include <boost/assign/list_of.hpp>
+
 
 void applyColor(poColor color) {
 	glColor4fv(&color.R);
@@ -135,14 +140,27 @@ void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector
 	}
 }
 
+
 void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.origin.x / (float)rect.width();
 	float yoff = rect.origin.y / (float)rect.height();
 	
+	poPoint max(FLT_MIN, FLT_MIN);
+	
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / tex->width() - xoff;
 		float t = points[i].y / tex->height() - yoff;
+		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
 		coords[i].set(s,t,0.f);
+	}
+	
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
 	}
 }
 
@@ -154,11 +172,22 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 	float new_w = rect.width();
 	float new_h = new_w / (tex->width() / (float)tex->height());
 	
+	poPoint max(FLT_MIN, FLT_MIN);
+	
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / rect.width() - xoff;
 		float t = points[i].y / new_h - yoff;
 		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
 		coords[i].set(s,t,0.f);
+	}
+	
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
 	}
 }
 
@@ -169,10 +198,22 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 	float new_h = rect.height();
 	float new_w = new_h / (tex->height() / (float)tex->width());
 	
+	poPoint max(FLT_MIN, FLT_MIN);
+
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / new_w - xoff;
 		float t = points[i].y / rect.height() - yoff;
+		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
 		coords[i].set(s,t,0.f);
+	}
+
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
 	}
 }
 

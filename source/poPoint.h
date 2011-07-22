@@ -12,6 +12,7 @@ public:
 	poPoint();
 	poPoint(float x, float y, float z=0.f);
 	
+	poPoint &set(poPoint p);
 	poPoint &set(float x, float y, float z);
 	poPoint &setPolar(float deg, float mag);
 	

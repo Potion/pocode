@@ -36,3 +36,5 @@ size_t utf8strlen(const std::string &str);
 // get useful information about images and formats
 GLenum formatForBitDepth(enum ImageBitDepth bpp);
 ImageBitDepth bitDepthForFormat(GLenum format);
+
+poPoint alignInRect(poPoint max, poRect rect, poAlignment align);

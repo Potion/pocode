@@ -13,6 +13,13 @@ poPoint::poPoint(float x, float y, float z)
 :	x(x), y(y), z(z)
 {}
 
+poPoint &poPoint::set(poPoint p) {
+	this->x = p.x;
+	this->y = p.y;
+	this->z = p.z;
+	return *this;
+}
+
 poPoint &poPoint::set(float x, float y, float z) {
 	this->x = x;
 	this->y = y;
