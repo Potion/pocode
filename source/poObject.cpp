@@ -113,7 +113,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 
 	if(and_delete)
 		delete children[idx];
-	
+
 	children.erase(children.begin()+idx);
 	
 	return true;

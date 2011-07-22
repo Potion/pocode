@@ -49,6 +49,5 @@ private:
 	// this isn't too thurough right now
 	// you can screw yourself if you demand a format incompatible with the image
 	poTexture(poImage *img, poTextureConfig config);
-
 	poImage *image;
 };
