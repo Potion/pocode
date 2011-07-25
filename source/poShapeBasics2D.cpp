@@ -226,7 +226,7 @@ void    poStarShape::reshape( float _outerRadius, int nPoints, float depth )
 void    poStarShape::reshape( float _width, float _height, int nPoints, float depth )
 {
     // if the number of points is the same as before, just use the existing point
-    if ( nPoints == numPoints() )
+    if ( nPoints == numPoints() )   
     {
         width = _width;
         height = _height;

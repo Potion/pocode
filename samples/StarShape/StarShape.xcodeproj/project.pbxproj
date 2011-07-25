@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B10E9D513DE0609009C6289 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B10E9D413DE0609009C6289 /* Debug.xcconfig */; };
+		2B10E9D713DE0609009C6289 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B10E9D613DE0609009C6289 /* Release.xcconfig */; };
+		2B10E9DA13DE0609009C6289 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B10E9D913DE0609009C6289 /* AppDelegate.mm */; };
+		2B10E9DC13DE0609009C6289 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B10E9DB13DE0609009C6289 /* en.strings */; };
+		2B10E9DE13DE0609009C6289 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B10E9DD13DE0609009C6289 /* main.m */; };
+		2B10E9E013DE0609009C6289 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2B10E9DF13DE0609009C6289 /* main.pch */; };
+		2B10E9E313DE0609009C6289 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B10E9E213DE0609009C6289 /* main.xib */; };
+		2B10E9E613DE0609009C6289 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B10E9E513DE0609009C6289 /* poOpenGLView.mm */; };
+		2B10E9EA13DE0609009C6289 /* StarShapeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B10E9E913DE0609009C6289 /* StarShapeApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B10E9CF13DE0609009C6289 /* StarShape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShape.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B10E9D413DE0609009C6289 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2B10E9D613DE0609009C6289 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2B10E9D813DE0609009C6289 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2B10E9D913DE0609009C6289 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2B10E9DB13DE0609009C6289 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2B10E9DD13DE0609009C6289 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2B10E9DF13DE0609009C6289 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2B10E9E113DE0609009C6289 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2B10E9E213DE0609009C6289 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2B10E9E413DE0609009C6289 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2B10E9E513DE0609009C6289 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2B10E9E813DE0609009C6289 /* StarShapeApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarShapeApp.h; sourceTree = "<group>"; };
+		2B10E9E913DE0609009C6289 /* StarShapeApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StarShapeApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B10E9CC13DE0609009C6289 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B10E9C413DE0609009C6289 = {
+			isa = PBXGroup;
+			children = (
+				2B10E9D213DE0609009C6289 /* StarShape */,
+				2B10E9D013DE0609009C6289 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B10E9D013DE0609009C6289 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B10E9CF13DE0609009C6289 /* StarShape.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B10E9D213DE0609009C6289 /* StarShape */ = {
+			isa = PBXGroup;
+			children = (
+				2B10E9D313DE0609009C6289 /* platform */,
+				2B10E9E713DE0609009C6289 /* application */,
+			);
+			path = StarShape;
+			sourceTree = "<group>";
+		};
+		2B10E9D313DE0609009C6289 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2B10E9D413DE0609009C6289 /* Debug.xcconfig */,
+				2B10E9D613DE0609009C6289 /* Release.xcconfig */,
+				2B10E9D813DE0609009C6289 /* AppDelegate.h */,
+				2B10E9D913DE0609009C6289 /* AppDelegate.mm */,
+				2B10E9DB13DE0609009C6289 /* en.strings */,
+				2B10E9DD13DE0609009C6289 /* main.m */,
+				2B10E9DF13DE0609009C6289 /* main.pch */,
+				2B10E9E113DE0609009C6289 /* main.plist */,
+				2B10E9E213DE0609009C6289 /* main.xib */,
+				2B10E9E413DE0609009C6289 /* poOpenGLView.h */,
+				2B10E9E513DE0609009C6289 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2B10E9E713DE0609009C6289 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2B10E9E813DE0609009C6289 /* StarShapeApp.h */,
+				2B10E9E913DE0609009C6289 /* StarShapeApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B10E9CE13DE0609009C6289 /* StarShape */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B10E9ED13DE0609009C6289 /* Build configuration list for PBXNativeTarget "StarShape" */;
+			buildPhases = (
+				2B10E9CB13DE0609009C6289 /* Sources */,
+				2B10E9CC13DE0609009C6289 /* Frameworks */,
+				2B10E9CD13DE0609009C6289 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StarShape;
+			productName = StarShape;
+			productReference = 2B10E9CF13DE0609009C6289 /* StarShape.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B10E9C613DE0609009C6289 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2B10E9C913DE0609009C6289 /* Build configuration list for PBXProject "StarShape" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2B10E9C413DE0609009C6289;
+			productRefGroup = 2B10E9D013DE0609009C6289 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B10E9CE13DE0609009C6289 /* StarShape */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B10E9CD13DE0609009C6289 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B10E9D513DE0609009C6289 /* Debug.xcconfig in Resources */,
+				2B10E9D713DE0609009C6289 /* Release.xcconfig in Resources */,
+				2B10E9DC13DE0609009C6289 /* en.strings in Resources */,
+				2B10E9E013DE0609009C6289 /* main.pch in Resources */,
+				2B10E9E313DE0609009C6289 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B10E9CB13DE0609009C6289 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B10E9DA13DE0609009C6289 /* AppDelegate.mm in Sources */,
+				2B10E9DE13DE0609009C6289 /* main.m in Sources */,
+				2B10E9E613DE0609009C6289 /* poOpenGLView.mm in Sources */,
+				2B10E9EA13DE0609009C6289 /* StarShapeApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B10E9EB13DE0609009C6289 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B10E9D413DE0609009C6289 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B10E9EC13DE0609009C6289 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B10E9D613DE0609009C6289 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2B10E9EE13DE0609009C6289 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B10E9EF13DE0609009C6289 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B10E9C913DE0609009C6289 /* Build configuration list for PBXProject "StarShape" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B10E9EB13DE0609009C6289 /* Debug */,
+				2B10E9EC13DE0609009C6289 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B10E9ED13DE0609009C6289 /* Build configuration list for PBXNativeTarget "StarShape" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B10E9EE13DE0609009C6289 /* Debug */,
+				2B10E9EF13DE0609009C6289 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2B10E9C613DE0609009C6289 /* Project object */;
+}
