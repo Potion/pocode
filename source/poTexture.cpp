@@ -140,28 +140,44 @@ poTextureConfig::poTextureConfig(GLenum format)
 poTexture::poTexture()
 :	image(NULL)
 ,	uid(0)
+,	_width(0)
+,	_height(0)
 {}
 
 poTexture::poTexture(poImage *img)
 :	image(NULL)
 ,	uid(0)
+,	_width(0)
+,	_height(0)
 {
-	if(img && img->isValid()) {
+	if(img) {
 		image = img;
 		formatsForBitDepth(image->bpp(), &config.format, &config.internalFormat, &config.type);
 		load();
 	}
 }
 
-poTexture::poTexture(poImage *img, poTextureConfig config)
+poTexture::poTexture(poImage *img, poTextureConfig cfg)
+:	image(NULL)
+,	uid(0)
+,	_width(0)
+,	_height(0)
+{
+	if(img) {
+		image = img;
+		config = cfg;
+		load();
+	}
+}
+
+poTexture::poTexture(uint width, uint height, poTextureConfig config)
 :	image(NULL)
 ,	uid(0)
 ,	config(config)
+,	_width(width)
+,	_height(height)
 {
-	if(img && img->isValid()) {
-		image = img;
-		load();
-	}
+	load();
 }
 
 poTexture::~poTexture() {
@@ -181,32 +197,50 @@ poColor poTexture::colorAtPoint(poPoint p) const {
 }
 
 uint poTexture::width() const {
-	return image->width();
+	if(image)
+		return image->width();
+	return _width;
 }
 
 uint poTexture::height() const {
-	return image->height();
+	if(image)
+		return image->height();
+	return _height;
 }
 
 void poTexture::load() {
-	if(!isLoaded() && image != NULL) {
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, image->pitch());
-		
-		glGenTextures(1, &uid);
-		glBindTexture(GL_TEXTURE_2D, uid);
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
-		
-		float trans[] = {0.f, 0.f, 0.f, 0.f};
-		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+	if(!isLoaded()) {
+		if(image != NULL && image->isValid()) {
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, image->pitch());
+			
+			glGenTextures(1, &uid);
+			glBindTexture(GL_TEXTURE_2D, uid);
+			
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+			float trans[] = {0.f, 0.f, 0.f, 0.f};
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, image->width(), image->height(), 0, config.format, config.type, image->pixels());
-		
-		glBindTexture(GL_TEXTURE_2D, 0);
+			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, image->width(), image->height(), 0, config.format, config.type, image->pixels());
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		else if(_width > 0 && _height > 0) {
+			glGenTextures(1, &uid);
+			glBindTexture(GL_TEXTURE_2D, uid);
+			
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+			float trans[] = {0.f, 0.f, 0.f, 0.f};
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+			
+			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, _width, _height, 0, config.format, config.type, NULL);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 }
 

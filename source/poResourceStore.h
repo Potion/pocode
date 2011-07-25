@@ -21,6 +21,7 @@ public:
 	poResourceStore();
 	virtual ~poResourceStore();
 	
+	Obj* notFound();
 	Obj* get(Key k, int gid=DEFAULT_REZ_GROUP);
 	
 	std::set<Obj*> getGroup(int gid);
@@ -42,8 +43,10 @@ private:
 };
 
 
+poFont *getFont(); // the not_found image
 poFont *getFont(const std::string &name_or_url, int size, const std::string &weight=PO_FONT_REGULAR, int gid=DEFAULT_REZ_GROUP);
 
+poImage *getImage(); // the not_found image
 poImage *getImage(const std::string &url_or_key, int gid=DEFAULT_REZ_GROUP);
 poImage *getImage(const std::string &url_or_key, ImageBitDepth bpp, int gid=DEFAULT_REZ_GROUP);
 poImage *getImage(const std::string &url_or_key, uint w, uint h, ImageBitDepth bpp, const ubyte *pixels, int gid=DEFAULT_REZ_GROUP);
@@ -63,6 +66,11 @@ poResourceStore<LoaderT>::~poResourceStore() {
 	for(iter; iter!=resources.end(); ++iter)
 		delete iter->second.obj;
 	resources.clear();
+}
+
+template <typename LoaderT>
+typename LoaderT::Obj* poResourceStore<LoaderT>::notFound() {
+	return &LoaderT::not_found;
 }
 
 template <typename LoaderT>
@@ -123,5 +131,4 @@ void poResourceStore<LoaderT>::deleteGroup(int gid)	{
 			++iter;
 	}
 }
-
 

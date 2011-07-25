@@ -16,23 +16,25 @@
 		E8814FFE13DDDB9700F6E0E1 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8814FFD13DDDB9700F6E0E1 /* main.xib */; };
 		E881500113DDDB9700F6E0E1 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E881500013DDDB9700F6E0E1 /* poOpenGLView.mm */; };
 		E881500513DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */; };
+		E881500C13DDDD8F00F6E0E1 /* enumNames.c in Sources */ = {isa = PBXBuildFile; fileRef = E881500B13DDDD8F00F6E0E1 /* enumNames.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E8814FEA13DDDB9700F6E0E1 /* AlphaTestTexture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlphaTestTexture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8814FEF13DDDB9700F6E0E1 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8814FF113DDDB9700F6E0E1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		E8814FF313DDDB9700F6E0E1 /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8814FF313DDDB9700F6E0E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
 		E8814FF413DDDB9700F6E0E1 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
 		E8814FF613DDDB9700F6E0E1 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
 		E8814FF813DDDB9700F6E0E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
 		E8814FFA13DDDB9700F6E0E1 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		E8814FFC13DDDB9700F6E0E1 /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8814FFC13DDDB9700F6E0E1 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
 		E8814FFD13DDDB9700F6E0E1 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		E8814FFF13DDDB9700F6E0E1 /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8814FFF13DDDB9700F6E0E1 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		E881500013DDDB9700F6E0E1 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		E881500313DDDB9700F6E0E1 /* AlphaTestTextureApp.h */ = {isa = PBXFileReference; path = AlphaTestTextureApp.h; sourceTree = "<group>"; };
+		E881500313DDDB9700F6E0E1 /* AlphaTestTextureApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlphaTestTextureApp.h; sourceTree = "<group>"; };
 		E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AlphaTestTextureApp.cpp; sourceTree = "<group>"; };
+		E881500B13DDDD8F00F6E0E1 /* enumNames.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = enumNames.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				E881500313DDDB9700F6E0E1 /* AlphaTestTextureApp.h */,
 				E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */,
+				E881500B13DDDD8F00F6E0E1 /* enumNames.c */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				E8814FF913DDDB9700F6E0E1 /* main.m in Sources */,
 				E881500113DDDB9700F6E0E1 /* poOpenGLView.mm in Sources */,
 				E881500513DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp in Sources */,
+				E881500C13DDDD8F00F6E0E1 /* enumNames.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
