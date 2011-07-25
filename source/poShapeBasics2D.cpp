@@ -219,7 +219,7 @@ void    poStarShape::reshape( float _outerRadius, int nPoints, float depth )
     }
 	
 	calculateBounds();
-	if(isStrokeEnabled())
+	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
 
@@ -248,6 +248,6 @@ void    poStarShape::reshape( float _width, float _height, int nPoints, float de
     }
 	
 	calculateBounds();
-	if(isStrokeEnabled())
+	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
