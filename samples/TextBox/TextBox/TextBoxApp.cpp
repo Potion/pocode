@@ -1,6 +1,8 @@
 #include "TextBoxApp.h"
-#include "poApplication.h"
+
 #include "poCamera.h"
+#include "poApplication.h"
+#include "poResourceStore.h"
 
 #define PADDING 20
 
@@ -20,18 +22,18 @@ TextBoxApp::TextBoxApp() {
 
 	tb = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
 	tb->textAlignment(PO_ALIGN_TOP_CENTER)
-		.font(poFont("Courier", 20))
+		.font(getFont("Courier", 20))
 		.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.")
-		.layout()
-		.position(PADDING,PADDING);
+		.layout();
+	tb->position.set(PADDING,PADDING,1);
 	addChild(tb);
 	
 	tb2 = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
 	tb2->textAlignment(PO_ALIGN_TOP_CENTER)
-		.font(poFont("Courier", 20))
+		.font(getFont("Courier", 20))
 		.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.")
-		.layout()
-		.position(PADDING,getWindowHeight()/2+PADDING);
+		.layout();
+	tb2->position.set(PADDING,getWindowHeight()/2+PADDING,1);
 	addChild(tb2);
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
@@ -41,14 +43,14 @@ void TextBoxApp::eventHandler(poEvent *event) {
 	if(event->type == PO_KEY_DOWN_EVENT){
 		switch (event->keyChar){
 			case 'b': 
-				tb->drawBounds(!tb->drawBounds()); 
+				tb->drawBounds = !tb->drawBounds; 
 				break;
 			case '+': 
-				tb->font(poFont("Courier", tb->font(PO_FONT_REGULAR)->pointSize()+1));
+				tb->font(getFont("Courier", tb->font(PO_FONT_REGULAR)->pointSize()+1));
 				tb->layout();
 				break;
 			case '-':
-				tb->font(poFont("Courier", tb->font(PO_FONT_REGULAR)->pointSize()-1));
+				tb->font(getFont("Courier", tb->font(PO_FONT_REGULAR)->pointSize()-1));
 				tb->layout();
 				break;
 		}

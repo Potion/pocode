@@ -26,25 +26,24 @@ bool isKeyEvent(int type) {
 }
 
 bool isMouseEvent(int type) {
-	return (type == PO_MOUSE_UP_EVENT		||
-			type == PO_MOUSE_DOWN_EVENT		||
-			type == PO_MOUSE_RELEASE_EVENT	||
-			type == PO_MOUSE_PRESS_EVENT	||
-			type == PO_MOUSE_ENTER_EVENT	||
-			type == PO_MOUSE_LEAVE_EVENT	||
-			type == PO_MOUSE_MOVE_EVENT		||
-			type == PO_MOUSE_DRAG_EVENT     ||
-            type == PO_MOUSE_DRAG_EVERYWHERE_EVENT );
+	return (type == PO_MOUSE_UP_INSIDE_EVENT		||
+			type == PO_MOUSE_UP_OUTSIDE_EVENT		||
+			type == PO_MOUSE_UP_EVERYWHERE_EVENT	||
+			type == PO_MOUSE_DOWN_INSIDE_EVENT		||
+			type == PO_MOUSE_DOWN_OUTSIDE_EVENT		||
+			type == PO_MOUSE_DOWN_EVERYWHERE_EVENT	||
+			type == PO_MOUSE_MOVE_EVENT				||
+			type ==	PO_MOUSE_DRAG_EVENT				||
+			type == PO_MOUSE_DRAG_EVERYWHERE_EVENT	||
+			type == PO_MOUSE_ENTER_EVENT			||
+			type == PO_MOUSE_OVER_EVENT				||
+			type == PO_MOUSE_LEAVE_EVENT);
 }
 
 bool isTouchEvent(int type) {
 	return (type == PO_TOUCH_BEGAN_EVENT	||
 			type == PO_TOUCH_ENDED_EVENT	||
 			type == PO_TOUCH_MOVED_EVENT);
-}
-
-bool isBoundsCheckedEvent(int type) {
-	return	(type == PO_MOUSE_PRESS_EVENT);
 }
 
 void localizeEvent(poEvent &stored, poEvent &tolocal) {
@@ -132,8 +131,6 @@ poEventCenter::poEventCenter()
 :	events(PO_LAST_EVENT)
 ,	bcheck_event(PO_LAST_EVENT)
 {
-	for(int i=0; i<PO_LAST_EVENT; i++)
-		bcheck_event[i] = isBoundsCheckedEvent(i);
 }
 
 int poEventCenter::registerForEvent(int eventType, poObject *source, std::string message, const poDictionary& dict) {
@@ -179,65 +176,48 @@ void poEventCenter::removeAllEvents(poObject* obj) {
 	}
 }
 
-template <typename T>
-bool sortByDrawOrder(T *a, T *b) {
-	return a->event.source->drawOrder() < b->event.source->drawOrder();
+void poEventCenter::notify(poEvent event) {
+	if(event.type >= events.size())
+		return;
+	
+	std::vector<event_callback> &event_vec = events[event.type];
+	for(int i=0; i<event_vec.size(); i++) {
+		event_callback &callback = event_vec[i];
+		
+		poEvent &stored_event = callback.event;
+		localizeEvent(stored_event, event);
+		callback.receiver->eventHandler(&event);
+		
+		// capture any user changes to the dictionary
+		stored_event.dict = event.dict;
+	}
 }
 
-poObject *poEventCenter::notify(poEvent event) {
+void poEventCenter::notifyFiltered(poEvent event, const std::set<poObject*> &filter, bool exclude) {
 	if(event.type >= events.size())
-		return NULL;
+		return;
 	
-	if(bcheck_event[event.type]) {
-		std::vector<event_callback> &event_vec = events[event.type];
-		std::vector<event_callback*> possibles;
+	std::vector<event_callback> &event_vec = events[event.type];
+	for(int i=0; i<event_vec.size(); i++) {
+		event_callback &callback = event_vec[i];
 		
-		for(int i=0; i<event_vec.size(); i++) {
-			event_callback &callback = event_vec[i];
-            
-			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+		if(!(callback.event.source->isInWindow() && callback.event.source->visible))
+			continue;
+		
+		if(!filter.empty()) {
+			bool contains = filter.find(callback.event.source) != filter.end();
+			if(exclude && contains)
 				continue;
-			}
-			
-			// this one is an option
-			if(callback.event.source->pointInside(event.position,true)) {
-				possibles.push_back(&callback);
-			}
+			else if(!exclude && !contains)
+				continue;
 		}
 		
-		if(!possibles.empty()) {
-			// sort callback sources by drawOrder
-			std::sort(possibles.begin(), possibles.end(), boost::bind(sortByDrawOrder<event_callback>, _1, _2));
-			// the one closest to the top will be last
-			event_callback *the_one = possibles.back();
-			// put it in terms of this object
-			localizeEvent(the_one->event, event);
-			// and push it to the handler
-			the_one->receiver->eventHandler(&event);
-			// capture any user changes to the dictionary
-			the_one->event.dict = event.dict;
-			// tell the container we found someone
-			return the_one->event.source;
-		}
+		poEvent &stored_event = callback.event;
+		localizeEvent(stored_event, event);
+		callback.receiver->eventHandler(&event);
+		// capture any user changes to the dictionary
+		stored_event.dict = event.dict;
 	}
-	else {
-		std::vector<event_callback> &event_vec = events[event.type];
-		for(int i=0; i<event_vec.size(); i++) {
-			event_callback &callback = event_vec[i];
-			
-			if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
-				continue;
-			}
-
-			poEvent &stored_event = callback.event;
-			localizeEvent(stored_event, event);
-			callback.receiver->eventHandler(&event);
-			// capture any user changes to the dictionary
-			stored_event.dict = event.dict;
-		}
-	}
-	
-	return NULL;
 }
 
 bool poEventCenter::routeBySource(poObject *obj, poEvent event) {
@@ -246,7 +226,7 @@ bool poEventCenter::routeBySource(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
-		if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+		if(!(callback.event.source->isInWindow() && callback.event.source->visible)) {
 			continue;
 		}
 
@@ -266,7 +246,7 @@ bool poEventCenter::routeBySink(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
-		if(!(callback.event.source->isInWindow() && callback.event.source->visible())) {
+		if(!(callback.event.source->isInWindow() && callback.event.source->visible)) {
 			continue;
 		}
 

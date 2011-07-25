@@ -159,7 +159,7 @@ poPoint poPerspectiveCamera::lookAt() const {return look_at;}
 poPerspectiveCamera *poPerspectiveCamera::lookAt(poPoint p) {look_at = p; return this;}
 	
 void poPerspectiveCamera::doSetUp(poObject *obj) {
-	curr_pos = obj->position();
+	curr_pos = obj->position;
 	poCamera::setUp(obj);
 }
 

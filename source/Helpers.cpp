@@ -150,13 +150,13 @@ const char *currentTimeStr() {
 }
 
 void applyObjTransform(poObject *obj) {
-	poPoint trans = obj->position();
-	poPoint off = obj->offset();
-	float rotation = obj->rotation();
-	poPoint rot_axis = obj->rotationAxis();
-	poPoint scale = obj->scale();
+	poPoint trans = obj->position;
+	poPoint off = obj->offset;
+	float rotation = obj->rotation;
+	poPoint rot_axis = obj->rotationAxis;
+	poPoint scale = obj->scale;
 	
-	switch(obj->matrixOrder()) {
+	switch(obj->matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
 			glTranslatef(trans.x, trans.y, trans.z);
 			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);
@@ -217,4 +217,38 @@ void log(const char *format, ...) {
 
 size_t utf8strlen(const std::string &str) {
 	return utf8::unchecked::distance(str.begin(), str.end());
+}
+
+poPoint alignInRect(poPoint max, poRect rect, poAlignment align) {
+	poPoint offset;
+	switch(align) {
+		case PO_ALIGN_TOP_LEFT:
+			offset.set(0.f, 0.f, 0.f);
+			break;
+		case PO_ALIGN_TOP_CENTER:
+			offset.set((max.x - 1.f)/2.f, 0.f, 0.f);
+			break;
+		case PO_ALIGN_TOP_RIGHT:
+			offset.set(max.x - 1.f, 0.f, 0.f);
+			break;
+		case PO_ALIGN_CENTER_LEFT:
+			offset.set(0.f, (max.y - 1.f)/2.f, 0.f);
+			break;
+		case PO_ALIGN_CENTER_CENTER:
+			offset.set((max.x - 1.f)/2.f, (max.y - 1.f)/2.f, 0.f);
+			break;
+		case PO_ALIGN_CENTER_RIGHT:
+			offset.set(max.x - 1.f, (max.y - 1.f)/2.f, 0.f);
+			break;
+		case PO_ALIGN_BOTTOM_LEFT:
+			offset.set(0.f, max.y - 1.f, 0.f);
+			break;
+		case PO_ALIGN_BOTTOM_CENTER:
+			offset.set((max.x - 1.f)/2.f, max.y - 1.f, 0.f);
+			break;
+		case PO_ALIGN_BOTTOM_RIGHT:
+			offset.set(max.x - 1.f, max.y - 1.f, 0.f);
+			break;
+	}
+	return offset;
 }

@@ -39,6 +39,7 @@ public:
 	poPoint bottomLeft() const;
 	poPoint topRight() const;
 	poPoint bottomRight() const;
+	std::vector<poPoint> corners() const;
 	
 	poPoint remap(poRect from, poPoint p);
 	

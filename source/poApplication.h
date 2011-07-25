@@ -1,10 +1,6 @@
 #pragma once
 
-#include "poEnums.h"
-#include "poRect.h"
-
-class poObject;
-class poWindow;
+#include "poWindow.h"
 
 // close all windows and exit the application
 void		applicationQuit();
@@ -33,6 +29,8 @@ poRect		getWindowFrame();
 poRect		getWindowBounds();
 poPoint		getWindowCenter();
 float		getWindowFramerate();
+int			getWindowFrameCount();
 float		getWindowLastFrameTime();
 float		getWindowLastFrameDuration();
+poPoint		getWindowMousePosition();
 

@@ -25,6 +25,7 @@ class poWindow;
 class poObject
 :	public boost::noncopyable
 {
+	friend class poWindow;
 public:
 	static const int INVALID_INDEX = -1;
 	
@@ -44,16 +45,30 @@ public:
 	void			removeEvent(int event_id);
 	
 	// DISPLAY LIST
-	void			addChild(poObject* obj);
-	void			addChild(poObject* obj, int idx);
-	bool			removeChild(poObject* obj);
-	bool			removeChild(int at_idx, bool and_delete=true);
-	void			removeAllChildren(bool and_delete=true);
 	int				numChildren() const;
+
+	template <typename T>
+	T*				addChild(T* obj);
+	template <typename T>
+	T*				addChild(T* obj, int idx);
+
+	int				getChildIndex(poObject* child);
 	poObject*		getChild(int at_idx);
 	poObject*		getChild(const std::string &with_name);
 	poObject*		getLastChild();
-	int				getChildIndex(poObject* child);
+
+	template <typename T>
+	T*				getChildAs(int idx);
+	template <typename T>
+	T*				getChildAs(const std::string &name);
+	template <typename T>
+	T*				getLastChildAs();
+	
+	
+	bool			removeChild(poObject* obj);
+	bool			removeChild(int at_idx, bool and_delete=true);
+	void			removeAllChildren(bool and_delete=true);
+
 	// move it relative to its siblibings
 	void			moveChildToFront(poObject* child);
 	void			moveChildToBack(poObject* child);
@@ -66,6 +81,13 @@ public:
     void            removeAllModifiers(bool and_delete=true);
 	int				numModifiers() const;
 	poObjectModifier *getModifier(int idx);
+	
+//	template <typename T>
+//	T				getProperty(const std::string &prop, T def=T()) const;
+//	template <typename T>
+//	void			setProperty(const std::string &prop, T value);
+//	poDictionary	getProperties() const;
+//	void			setProperties(const poDictionary &dict);
 
     // assumes that all incoming points are in window-native coordinates (0,0 is in the upper left)
 	// localize will convert global to local first
@@ -81,54 +103,30 @@ public:
 	// BOUNDING BOX
 	poAlignment		alignment() const;
 	virtual poObject& alignment(poAlignment align);
+	
 	// recursively compute the bounds of you and your children
 	virtual poRect	calculateBounds();
 	
 	// OBJECT PROPERTIES
 	poObject*		parent() const;
 	bool			isInWindow() const;
-	
-	std::string		name() const;
-	poObject&		name(const std::string &str);
-	
-	float			alpha() const;
-	poObject&		alpha(float f);
 	// this is the alpha with parent alpha pre-multiplied
 	float			appliedAlpha() const;
-	
-	
-	poPoint			scale() const;
-	poObject&		scale(poPoint pt);
-	poObject&		scale(float x, float y, float z=1.f);
-	
-	poPoint			position() const;
-	poObject&		position(poPoint p);
-	poObject&		position(float x, float y, float z=0.f);
-	
-	float			rotation() const;
-	poObject&		rotation(float f);
-	
-	poPoint			rotationAxis() const;
-	poObject&		rotationAxis(poPoint p);
-	poObject&		rotationAxis(float x, float y, float z);
-	
-	poPoint			offset() const;
-	poObject&		offset(poPoint p);
-	poObject&		offset(float x, float y, float z);
-		
-	poRect			bounds() const;
-	poObject&		bounds(poRect r);
-	
-	bool			visible() const;
-	poObject&		visible(bool b);
-	
-	poMatrixOrder	matrixOrder() const;
-	poObject&		matrixOrder(poMatrixOrder o);
-    
     poMatrixSet     matrixSet() const;
-	
 	int				drawOrder() const;
 	
+	std::string		name;
+	float			alpha;
+	poPoint			scale;
+	poPoint			position;
+	float			rotation;
+	poPoint			rotationAxis;
+	poPoint			offset;
+	poRect			bounds;
+	bool			visible;
+	bool			boundsAreFixed;
+	poMatrixOrder	matrixOrder;
+
 	poTween<poPoint>	position_tween;
 	poTween<poPoint>	scale_tween;
 	poTween<poPoint>	offset_tween;
@@ -144,6 +142,9 @@ public:
 protected:
 	// if you add new tweens make sure to update them here 
 	virtual void	updateAllTweens();
+	// add any properties you want to expose
+//	virtual void	registerProperty();
+	// this is the combination of all your parent's alphas with your own
 	float			true_alpha;
 
 private:
@@ -156,34 +157,53 @@ private:
     poObjectModifierVec     modifiers;
 	poEventTable            events;
 	
-	poMatrixSet		matrices;
-	
 	poObject*		_parent;
-	std::string		_name;
-	float			_alpha;
-	poPoint			_scale;
-	poPoint			_position;
-	float			_rotation;
-	poPoint			_rotation_axis;
-	poPoint			_offset;
-	poRect			_bounds;
 	poAlignment		_alignment;
-	bool			_visible;
-	poMatrixOrder	_matrix_order;
-	int				_draw_order;
+
+	poMatrixSet		matrices;
+	int				draw_order;
 	bool			in_window;
-	bool			fixed_bounds;
-	
-	friend class poWindow;
 };
 
 template <typename T>
-inline T *getChildAs(poObject *parent, int idx) {
-	return static_cast<T*>(parent->getChild(idx));
+T* poObject::addChild(T* obj) {
+	return addChild(obj, children.size());
 }
 
 template <typename T>
-inline T *getChildAs(poObject *parent, const std::string &name) {
-	return static_cast<T*>(parent->getChild(name));
+T* poObject::addChild(T* obj, int idx) {
+	if(obj->_parent) {
+		obj->_parent->removeChild(obj);
+	}
+	
+	obj->_parent = this;
+	obj->inWindow(in_window);
+	children.insert(children.begin()+idx, obj);
+
+	return obj;
 }
 
+template <typename T>
+T* poObject::getChildAs(int idx) {
+	return static_cast<T*>(getChild(idx));
+}
+template <typename T>
+T* poObject::getChildAs(const std::string &name) {
+	return static_cast<T*>(getChild(name));
+}
+template <typename T>
+T* poObject::getLastChildAs() {
+	return static_cast<T*>(getLastChild());
+}
+
+
+
+//template <typename T>
+//T poObject::getProperty(const std::string &prop, T def=T()) const {
+//	
+//}
+//
+//template <typename T>
+//void poObject::setProperty(const std::string &prop, T value) {
+//	
+//}

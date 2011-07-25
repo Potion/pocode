@@ -31,6 +31,11 @@ float getWindowFramerate() {
 	return window->framerate();
 }
 
+int getWindowFrameCount() {
+	poWindow *window = applicationCurrentWindow();
+	return window->framecount();
+}
+
 float getWindowLastFrameTime() {
 	poWindow *window = applicationCurrentWindow();
 	return window->lastFrameTime();
@@ -39,4 +44,9 @@ float getWindowLastFrameTime() {
 float getWindowLastFrameDuration() {
 	poWindow *window = applicationCurrentWindow();
 	return window->lastFrameElapsed();
+}
+
+poPoint getWindowMousePosition() {
+	poWindow *window = applicationCurrentWindow();
+	return window->mousePosition();
 }

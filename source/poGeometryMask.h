@@ -8,29 +8,10 @@
 
 #pragma once
 
-#include "poTexture.h"
+#include "poShape2D.h"
 #include "poObjectModifier.h"
 
-class poShape2D;
-
-class poImageMask 
-:	public poObjectModifier
-{
-public:
-	poImageMask(poTexture *tex);
-	poImageMask(const std::string &str);
-	virtual ~poImageMask();
-	
-protected:	
-	virtual void doSetUp( poObject* obj );
-	virtual void doSetDown( poObject* obj );
-	
-private:
-	poTexture *texture;
-};
-
-class poGeometryMask
-:	public poObjectModifier
+class poGeometryMask : public poObjectModifier
 {
 public:
 	// you are responsible for the object lifetime of this shape

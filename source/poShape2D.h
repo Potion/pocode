@@ -8,8 +8,6 @@
 #include "SimpleDrawing.h"
 #include "poTexture.h"
 
-#define MAX_TEXTURE_UNITS 8
-
 class poShape2D
 :	public poObject
 {
@@ -32,72 +30,33 @@ public:
 	poPoint				getPoint(int idx);
     bool                setPoint(int idx, poPoint p );
 	const std::vector<poPoint> &getPoints();
-	poPoint				getTexCoord(int idx, uint unit=0);
 	
     // texture management, will copy the texture
-	poShape2D&			placeTexture(poTexture *tex, uint unit=0);
-	poShape2D&			placeTexture(const poTexture &tex, uint unit=0);
-	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, uint unit=0);
-	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, uint unit=0);
-	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align, uint unit=0);
-	poShape2D&			placeTexture(const poTexture &tex, poTextureFitOption fit, poAlignment align, uint unit=0);
-	
-	poShape2D&			placeImage(poImage *img, uint unit=0);
-	poShape2D&			placeImage(poImage *img, poTextureFitOption fit, poAlignment align=PO_ALIGN_CENTER_CENTER, uint unit=0);
+	poShape2D&			placeTexture(poTexture *tex);
+	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit);
+	poShape2D&			placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
 
-	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate, uint unit=0);
-	poShape2D&			disableTransformTexture(uint unit=0);
-	
-	poShape2D&			generateStroke(int strokeWidth, StrokePlacementProperty place=STROKE_PLACE_CENTER, StrokeJoinProperty join=STROKE_JOIN_MITRE, StrokeCapProperty cap=STROKE_CAP_BUTT);
-    
-	// get and set shape properties
-	poShape2D&          enableFill(bool b);
-    bool                isFillEnabled() const;
-    
-	poShape2D&          enableStroke(bool b);
-    bool                isStrokeEnabled() const;
-    
-    int                 strokeWidth() const;
-    
-	poShape2D&          fillColor(poColor c);
-    poShape2D&          fillColor( float r, float g, float b, float a=1.0 );
-    poColor             fillColor() const;
-    
-	poShape2D&          strokeColor(poColor c);
-    poShape2D&          strokeColor( float r, float g, float b, float a=1.0 );
-    poColor             strokeColor() const;
-    
-	poShape2D&          fillDrawStyle(GLenum e);
-    GLenum              fillDrawStyle() const;
-    
-    poShape2D&          useSimpleStroke( bool b );
-    bool                isSimpleStrokeEnabled() const;
-    
-    StrokeCapProperty   capStyle() const;
-    
-    StrokeJoinProperty  joinStyle() const;
-    
-	poShape2D&          closed(bool b);
-    bool                isClosed() const;
-	
-	poShape2D&			drawBounds(bool b);
-	bool				drawBounds() const;
-    
-    GLenum              textureCombineFunction(uint unit=0) const;
-	poShape2D&          textureCombineFunction(GLenum func, uint unit=0);
-	poTexture const*	texture(uint unit=0) const;
-	
-	bool				alphaTestTextures() const;
-	poShape2D&			alphaTestTextures(bool b);
-    
-    poShape2D&          enableAttribute(VertexAttribute a);
-	poShape2D&          disableAttribute(VertexAttribute a);
-    bool                isAttributeEnabled(VertexAttribute a) const;
+	poShape2D&			transformTexture(poPoint pt, poPoint scale, float rotate);
 
-    // localize will convert global to local first
+    poStrokeCapProperty   capStyle() const;
+    poStrokeJoinProperty  joinStyle() const;
+	int                 strokeWidth() const;
+	poShape2D&			generateStroke(int strokeWidth, poStrokePlacementProperty place=PO_STROKE_PLACE_CENTER, poStrokeJoinProperty join=PO_STROKE_JOIN_MITRE, poStrokeCapProperty cap=PO_STROKE_CAP_BUTT);
+
+	// localize will convert global to local first
 	// otherwise, point is assumed to be local
 	virtual bool        pointInside(poPoint point, bool localize=false);
 
+	GLenum				fillDrawStyle;
+    poColor				fillColor;
+	poColor				strokeColor;
+	bool				fillEnabled;
+	bool				strokeEnabled;
+	bool				useSimpleStroke;
+	bool				closed;
+	bool				drawBounds;
+	bool				alphaTestTexture;
+	
 	poTween<poColor>	fill_color_tween;
 	
 protected:
@@ -105,35 +64,14 @@ protected:
     
 private:    
 	std::vector<poPoint>    points;
-	std::vector<poPoint>    tex_coords[MAX_TEXTURE_UNITS];
+	std::vector<poPoint>    tex_coords;
 	std::vector<poPoint>    stroke;
 
-	bool                    enable_fill;
-	bool                    enable_stroke;
-	int                     stroke_width;
-	poColor                 fill_color;
-	poColor                 stroke_color;
-	GLenum                  fill_draw_style;
-	int                     enabled_attributes;
-    bool                    use_simple_stroke;
-	StrokeCapProperty       cap;
-	StrokeJoinProperty      join;
-	bool                    closed_;
-	bool					draw_bounds;
-	bool					alpha_test_textures;
-	
-	struct tex_transform {
-		tex_transform() : translate(), scale(1,1,1), rotate(0.f), in_use(false) {}
-		poPoint translate;
-		poPoint scale;
-		float rotate;
-		bool in_use;
-	};
-	tex_transform tex_transforms[MAX_TEXTURE_UNITS];
-    
-	std::vector<GLenum>         tex_combo_func;
-	std::vector<poTexture*>     textures;
-	poResourceStore				resources;
+	poTexture*				texture;
+
+	poStrokeCapProperty     cap;
+	poStrokeJoinProperty    join;
+	int						stroke_width;
 };
 
 std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg);

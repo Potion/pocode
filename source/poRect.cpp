@@ -119,6 +119,15 @@ poPoint poRect::bottomRight() const {
 	return origin + size;
 }
 
+std::vector<poPoint> poRect::corners() const {
+	std::vector<poPoint> response;
+	response.push_back(topLeft());
+	response.push_back(topRight());
+	response.push_back(bottomRight());
+	response.push_back(bottomLeft());
+	return response;
+}
+
 std::string poRect::toString() const {
 	return (boost::format("%.2f %.2f %.2f %.2f") % origin.x % origin.y % size.x % size.y).str();
 }

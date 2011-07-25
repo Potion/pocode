@@ -7,57 +7,46 @@
 //
 
 #include "poShapeBasics2D.h"
+#include "poResourceStore.h"
 #include "Helpers.h"
 
 
 #pragma mark poRectShape
 
-poRectShape::poRectShape()
-{
-    construct( 100,100,0.f );
+poRectShape::poRectShape() {
+	construct(100,100,0);
 }
 
-poRectShape::poRectShape( float _width, float _height, float rad )
-{
-    construct( _width, _height, rad );
+poRectShape::poRectShape(float width, float height, float rad) {
+	construct(width,height,rad);
 }
 
-poRectShape::poRectShape( poImage *img) {
-	construct(img->width(), img->height(), 0.f);
-	poTexture tex(img);
-	placeTexture(&tex);
+poRectShape::poRectShape(poTexture* tex, poTextureFitOption fit, poAlignment align) {
+	construct(tex->width(), tex->height(), 0);
+	placeTexture(tex, fit, align);
 }
 
-poRectShape::poRectShape( poTexture* tex )
-{
-    construct( tex->width(), tex->height(), 0.f );
-    placeTexture( tex );
+poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
+	poImage *img = getImage(str);
+	if(img->isValid()) {
+		construct(img->width(), img->height(), 0);
+		placeTexture(img->texture(), fit, align);
+	}
 }
 
-poRectShape::poRectShape( const poTexture &tex ) {
-	construct(tex.width(), tex.height(), 0.f);
-	placeTexture(tex);
+poRectShape::poRectShape(float width, float height, poTexture* tex, poTextureFitOption fit, poAlignment align) {
+	construct(width, height, 0);
+	placeTexture(tex, fit, align);
 }
 
-poRectShape::poRectShape( const std::string &str) {
-	poTexture tex(str);
-	construct(tex.width(), tex.height(), 0.f);
-	placeTexture(&tex);
-}
-
-void    poRectShape::reshape( float w, float h, float rad )
+void poRectShape::reshape( float w, float h, float rad )
 {
 	clearPoints();
 	construct(w, h, rad);
 	
 	calculateBounds();
-	if(isStrokeEnabled())
+	if(strokeEnabled)
 		generateStroke(strokeWidth());
-}
-
-poRectShape::poRectShape( float w, float h, poTexture* tex, poTextureFitOption fit ) {
-	construct(w, h, 0);
-	placeTexture(tex, fit);
 }
 
 void poRectShape::construct( float w, float h, float rad )
@@ -108,7 +97,7 @@ void    poOvalShape::reshape( float _width, float _height, int nPoints )
     }
 	
 	calculateBounds();
-	if(isStrokeEnabled())
+	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
 
@@ -147,9 +136,9 @@ void    poLineShape::construct( poPoint A, poPoint B )
     addPoint( A );
     addPoint( B );
     
-    closed( false );
-    enableFill( false );
-	generateStroke(1,STROKE_PLACE_CENTER,STROKE_JOIN_MITRE,STROKE_CAP_ROUND);
+    closed = false;
+    fillEnabled = false;
+	generateStroke(1,PO_STROKE_PLACE_CENTER,PO_STROKE_JOIN_MITRE,PO_STROKE_CAP_ROUND);
 }
 
 // ============== poStarShape ================================

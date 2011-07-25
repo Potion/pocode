@@ -4,72 +4,12 @@
 
 #pragma once
 
+#include "poEnums.h"
 #include "poDictionary.h"
 
 class poEvent;
 typedef std::vector<poEvent*> poEventVec;
 typedef std::vector<poEventVec> poEventTable;
-
-enum {
-	PO_TOUCH_BEGAN_EVENT = 0,
-	PO_TOUCH_ENDED_EVENT,
-	PO_TOUCH_MOVED_EVENT,
-
-	PO_KEY_UP_EVENT,
-	PO_KEY_DOWN_EVENT,
-	PO_KEY_PRESS_EVENT,
-	PO_KEY_RELEASE_EVENT,
-
-	PO_MOUSE_UP_EVENT,
-	PO_MOUSE_DOWN_EVENT,
-	PO_MOUSE_MOVE_EVENT,
-	PO_MOUSE_DRAG_EVENT,
-    PO_MOUSE_DRAG_EVERYWHERE_EVENT, 
-	PO_MOUSE_PRESS_EVENT,
-	PO_MOUSE_RELEASE_EVENT,
-	PO_MOUSE_ENTER_EVENT,
-	PO_MOUSE_LEAVE_EVENT,
-	
-	PO_WINDOW_RESIZED_EVENT,
-	
-	PO_LAST_EVENT
-};
-
-enum {
-	// key event mask
-	PO_KEY_CTRL		= 1,
-	PO_KEY_SHIFT	= 2,
-	PO_KEY_ALT		= 2 << 1,
-	PO_KEY_META		= 2 << 2,
-	// mouse event mask
-	PO_MOUSE_LEFT	= 2 << 3,
-	PO_MOUSE_MIDDLE	= 2 << 4,
-	PO_MOUSE_RIGHT	= 2 << 5,
-	// specific key 
-	PO_NUMERIC_KEY_MASK = (1 << 21),
-	PO_FUNCTION_KEY_MASK = (1 << 23),
-};
-
-enum {
-	// also need to check the modifier flags
-	// for arrows, numeric mask and function mask should both be set
-	// these numbers are the keyCode
-	PO_UP_ARROW = 126,
-	PO_DOWN_ARROW = 125,
-	PO_LEFT_ARROW = 123,
-	PO_RIGHT_ARROW = 124,
-	
-	PO_RETURN_KEY = 36,
-
-	PO_F1 = 122,
-	PO_F2 = 120,
-	PO_F3 = 99,
-	PO_F4 = 118,
-	PO_F5 = 96,
-	PO_F6 = 97,
-	PO_F7 = 98,
-	PO_F8 = 100
-};
 
 bool isNumericMask(unsigned int mod);
 bool isFunctionMask(unsigned int mod);
@@ -132,8 +72,11 @@ public:
 	void removeAllEvents(poObject* obj);
 	
 	// tell anyone who cares that this happened
-	// returns the object that will generate the event, if its bounds checked
-	poObject *notify(poEvent event);
+	void notify(poEvent event);
+	// same but filters the receivers
+	// true	=omit those on the filter list
+	// false=omit those off the filter list
+	void notifyFiltered(poEvent event, const std::set<poObject*> &filter, bool exclude);
 	// check if this obj wants to get this event, then send it
 	// return if the event was sent
 	bool routeBySource(poObject *obj, poEvent event);
