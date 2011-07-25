@@ -59,3 +59,20 @@ protected:
 };
 
 
+class poStarShape : public poShape2D
+{
+public:
+    poStarShape();
+    poStarShape( float _outerRadius, int numPoints, float depth );
+    poStarShape( float _width, float _height, int numPoints, float depth );
+    
+    void reshape( float _outerRadius, int numPoints, float depth );
+    void reshape( float _width, float _height, int numPoints, float depth );
+    
+protected:
+    void construct( float _outerRadius, int numPoints, float depth );
+    void construct( float _width, float _height, int numPoints, float depth );
+    
+    float width, height, depth;
+    float outerRadius, innerRadius;
+};
