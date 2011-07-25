@@ -81,6 +81,13 @@ public:
     void            removeAllModifiers(bool and_delete=true);
 	int				numModifiers() const;
 	poObjectModifier *getModifier(int idx);
+	
+//	template <typename T>
+//	T				getProperty(const std::string &prop, T def=T()) const;
+//	template <typename T>
+//	void			setProperty(const std::string &prop, T value);
+//	poDictionary	getProperties() const;
+//	void			setProperties(const poDictionary &dict);
 
     // assumes that all incoming points are in window-native coordinates (0,0 is in the upper left)
 	// localize will convert global to local first
@@ -135,6 +142,9 @@ public:
 protected:
 	// if you add new tweens make sure to update them here 
 	virtual void	updateAllTweens();
+	// add any properties you want to expose
+//	virtual void	registerProperty();
+	// this is the combination of all your parent's alphas with your own
 	float			true_alpha;
 
 private:
@@ -185,3 +195,15 @@ template <typename T>
 T* poObject::getLastChildAs() {
 	return static_cast<T*>(getLastChild());
 }
+
+
+
+//template <typename T>
+//T poObject::getProperty(const std::string &prop, T def=T()) const {
+//	
+//}
+//
+//template <typename T>
+//void poObject::setProperty(const std::string &prop, T value) {
+//	
+//}
