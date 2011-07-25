@@ -92,6 +92,8 @@
 		E80B01B013D4E27100A1A008 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E80B01B313D4E30600A1A008 /* needed_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80B01B213D4E30600A1A008 /* needed_functions.cpp */; };
 		E83092EE13D09C9100836802 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
+		E8814FDC13DDD10900F6E0E1 /* Loaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */; };
+		E8814FDD13DDD10900F6E0E1 /* Loaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */; };
 		E88E746613C753DC0051F026 /* AttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* AttributedString.h */; };
 		E890424113BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E890424213BBBD7300877667 /* poVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = E890423F13BBBD7300877667 /* poVideo.h */; };
@@ -150,6 +152,7 @@
 		E87E18811368615A00DB6934 /* poImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage.cpp; path = ../source/poImage.cpp; sourceTree = "<group>"; };
 		E87E18821368615B00DB6934 /* poImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poImage.h; path = ../source/poImage.h; sourceTree = "<group>"; };
 		E87E18951369884B00DB6934 /* poResourceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResourceStore.h; path = ../source/poResourceStore.h; sourceTree = "<group>"; };
+		E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Loaders.cpp; path = ../source/Loaders.cpp; sourceTree = "<group>"; };
 		E88E746313C753DB0051F026 /* AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttributedString.h; path = ../source/AttributedString.h; sourceTree = "<group>"; };
 		E890423E13BBBD7300877667 /* poVideo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poVideo.cpp; path = ../source/poVideo.cpp; sourceTree = "<group>"; };
 		E890423F13BBBD7300877667 /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../source/poVideo.h; sourceTree = "<group>"; };
@@ -288,6 +291,7 @@
 				E8E755C713C62F8B00A91EB8 /* poXML.h */,
 				E8E755C613C62F8B00A91EB8 /* poXML.cpp */,
 				E802C7A613D8699300CBEB1C /* Loaders.h */,
+				E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */,
 				E87E18951369884B00DB6934 /* poResourceStore.h */,
 				E802C79D13D785BB00CBEB1C /* poResourceStore.cpp */,
 			);
@@ -524,6 +528,7 @@
 				E802C76113D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */,
 				E802C76613D773EE00CBEB1C /* poImageMask.cpp in Sources */,
 				E802C7A313D7933B00CBEB1C /* poResourceStore.cpp in Sources */,
+				E8814FDC13DDD10900F6E0E1 /* Loaders.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +566,7 @@
 				E802C76213D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */,
 				E802C76713D773EE00CBEB1C /* poImageMask.cpp in Sources */,
 				E802C7A513D7933D00CBEB1C /* poResourceStore.cpp in Sources */,
+				E8814FDD13DDD10900F6E0E1 /* Loaders.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

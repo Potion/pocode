@@ -14,10 +14,16 @@ poResourceStore<poImageLoader>* imageStore() {
 	return store;
 }
 
-
+poFont *getFont() {
+	return fontStore()->notFound();
+}
 
 poFont *getFont(const std::string &n, int s, const std::string &w, int g) {
 	return fontStore()->get(poFontSpec(n,s,w),g);
+}
+
+poImage *getImage() {
+	return imageStore()->notFound();
 }
 
 poImage *getImage(const std::string &n, int g) {

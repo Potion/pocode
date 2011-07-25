@@ -80,7 +80,7 @@ poColor::poColor()
 :	R(0.f)
 ,   G(0.f)
 ,   B(0.f)
-,   A(1.f)
+,   A(0.f)
 {}
 
 poColor::poColor(float r, float g, float b, float a)

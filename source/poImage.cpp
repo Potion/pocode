@@ -8,6 +8,7 @@
 
 #include "poImage.h"
 #include "poTexture.h"
+#include "poResourceStore.h"
 #include <FreeImage.h>
 
 static void loadFreeImageIfNeeded() {
@@ -59,7 +60,7 @@ poImage::~poImage() {
 
 poImage *poImage::copy() {
 	if(!isValid())
-		return NULL;
+		return getImage();
 	
 	poImage *response = new poImage();
 	response->bitmap = FreeImage_Clone(bitmap);
@@ -99,7 +100,7 @@ ubyte const*poImage::pixels() const {
 }
 
 poColor poImage::getPixel(poPoint p) const {
-	if(p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+	if(!isValid() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
 		return poColor();
 
 	uint x = p.x;
@@ -116,10 +117,10 @@ poColor poImage::getPixel(poPoint p) const {
 			ret.set255(bits[x*2], bits[x*2], bits[x*2], bits[x*2+1]);
 			break;
 		case IMAGE_24:
-			ret.set255(bits[x*3+2], bits[x*3+1], bits[x*3], 255);
+			ret.set255(bits[x*3+0], bits[x*3+1], bits[x*3+2], 255);
 			break;
 		case IMAGE_32:
-			ret.set255(bits[x*4+2], bits[x*4+1], bits[x*4], bits[x*4+3]);
+			ret.set255(bits[x*4+0], bits[x*4+1], bits[x*4+2], bits[x*4+3]);
 			break;
 	}
 	
@@ -143,14 +144,14 @@ void poImage::setPixel(poPoint p, poColor c) {
 			bits[x*2+1] = c.A * 255;
 			break;
 		case IMAGE_24:
-			bits[x*3] = c.B * c.A * 255;
+			bits[x*3] = c.R * c.A * 255;
 			bits[x*3+1] = c.G * c.A * 255;
-			bits[x*3+2] = c.R * c.A * 255;
+			bits[x*3+2] = c.B * c.A * 255;
 			break;
 		case IMAGE_32:
-			bits[x*4] = c.B * 255;
+			bits[x*4] = c.R * 255;
 			bits[x*4+1] = c.G * 255;
-			bits[x*4+2] = c.R * 255;
+			bits[x*4+2] = c.B * 255;
 			bits[x*4+3] = c.A * 255;
 			break;
 	}

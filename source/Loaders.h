@@ -31,6 +31,8 @@ public:
 	typedef poFontSpec Key;
 	typedef poFont Obj;
 	
+	static poFont not_found;
+	
 	poFont *load(poFontSpec config) {
 		if(fontExists(config.nameOrUrl))
 			return new poFont(config.nameOrUrl, config.pointSize, config.weight);
@@ -75,9 +77,11 @@ public:
 	typedef poImageSpec Key;
 	typedef poImage Obj;
 	
+	static poImage not_found;
+	
 	poImage* load(const poImageSpec &config) {
 		poImage *img = NULL;
-		
+
 		if(config.pixels != NULL || (config.width > 0 && config.height > 0))
 			img = new poImage(config.width, config.height, config.bpp, config.pixels);
 		else if(config.bpp != NUM_IMAGE_DEPTHS)
@@ -88,6 +92,8 @@ public:
 		if(!img->isValid()) {
 			delete img;
 			img = NULL;
+			
+			return &not_found;
 		}
 		
 		return img;

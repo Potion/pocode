@@ -23,6 +23,8 @@ class poTexture
 	friend class poImage;
 
 public:
+	// this will make an imageless texture
+	// useful for when you just need to allocate space on the graphics card
 	poTexture(uint width, uint height, poTextureConfig config);
 	~poTexture();
 	
@@ -44,10 +46,15 @@ public:
 	float s, t;
 
 private:
+	void loadDummy();
+	
 	poTexture();
 	poTexture(poImage *img);
 	// this isn't too thurough right now
 	// you can screw yourself if you demand a format incompatible with the image
 	poTexture(poImage *img, poTextureConfig config);
 	poImage *image;
+	
+	// will only be used when the image is null
+	uint _width, _height;
 };
