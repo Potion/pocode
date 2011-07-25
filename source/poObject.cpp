@@ -365,6 +365,7 @@ void poObject::pushObjectMatrix() {
 	}
 	
 	poPoint trans = position;
+	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	// now move depending on the matrix order
 	switch(matrixOrder) {
