@@ -25,6 +25,8 @@ poCamera::poCamera(poColor color)
 {}
 
 void poCamera::doSetUp( poObject* obj ) {
+	saveAndUpdateGLSettings();
+
 	if(fixedSize())
 		glViewport(0, 0, fixed_size.x, fixed_size.y);
 	else
@@ -45,8 +47,6 @@ void poCamera::doSetUp( poObject* obj ) {
 	if(reset)
 		glLoadIdentity();
 	setModelview();
-
-	saveAndUpdateGLSettings();
 }
 
 void poCamera::doSetDown( poObject* obj ) {

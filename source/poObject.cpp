@@ -167,10 +167,19 @@ void poObject::moveChildBackward(poObject* child) {
 	addChild(child, idx+1);
 }
 
+bool poObject::removeModifier(int idx, bool and_delete) {
+	if(idx >= 0 && idx < modifiers.size()) {
+		if(and_delete)
+			delete modifiers[idx];
+		modifiers.erase(modifiers.begin() + idx);
+	}
+}
 
-bool poObject::removeModifier(poObjectModifier* mod) {
+bool poObject::removeModifier(poObjectModifier* mod, bool and_delete) {
 	poObjectModifierVec::iterator found = std::find(modifiers.begin(), modifiers.end(), mod);
 	if(found != modifiers.end()) {
+		if(and_delete)
+			delete *found;
 		modifiers.erase(found);
 		return true;
 	}
@@ -189,10 +198,6 @@ void poObject::removeAllModifiers(bool and_delete)
 
 int poObject::numModifiers() const {
 	return modifiers.size();
-}
-
-poObjectModifier *poObject::getModifier(int idx) {
-	return modifiers[idx];
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {

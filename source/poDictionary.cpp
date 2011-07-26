@@ -95,11 +95,19 @@ void poDictionary::write(const fs::path &url) const {
 
 
 
-poCommon *poCommon::get() {
-	static poCommon *instance = NULL;
+void deleteCommon(poDictionary* dict) {
+	dict->write("common.xml");
+	delete dict;
+}
+
+poDictionary *poCommon::get() {
+	using namespace boost;
+	
+	static shared_ptr<poDictionary> instance;
 	if(!instance) {
-		instance = new poCommon();
+		instance = shared_ptr<poDictionary>(new poDictionary(), deleteCommon);
+		instance->read("common.xml");
 	}
-	return instance;
+	return instance.get();
 }
 

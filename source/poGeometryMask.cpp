@@ -13,12 +13,26 @@ poGeometryMask::poGeometryMask(poShape2D *shape)
 :	shape(shape)
 {}
 
+poGeometryMask::~poGeometryMask() {
+	if(shape)
+		delete shape;
+}
+
+void poGeometryMask::setShape(poShape2D *s) {
+	if(shape)
+		delete shape;
+	shape = s;
+	enabled(shape != NULL);
+}
+
 void poGeometryMask::doSetUp( poObject* obj ) {
-	startMasking(shape);
+	if(shape)
+		startMasking(shape);
 }
 
 void poGeometryMask::doSetDown( poObject* obj ) {
-	stopMasking();
+	if(shape)
+		stopMasking();
 }
 
 

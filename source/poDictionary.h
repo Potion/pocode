@@ -54,7 +54,7 @@ class poCommon
 :	public poDictionary
 {
 public:
-	static poCommon *get();
+	static poDictionary *get();
 	
 private:
 	explicit poCommon() {}

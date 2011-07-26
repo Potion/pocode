@@ -78,10 +78,12 @@ public:
     // MODIFIERS
 	template <typename T>
     T*				addModifier(T* mod);
-	bool			removeModifier(poObjectModifier* mod);
+	template <typename T>
+	T*				getModifier(int idx);
+	bool			removeModifier(int idx, bool and_delete=true);
+	bool			removeModifier(poObjectModifier* mod, bool and_delete=true);
     void            removeAllModifiers(bool and_delete=true);
 	int				numModifiers() const;
-	poObjectModifier *getModifier(int idx);
 	
 //	template <typename T>
 //	T				getProperty(const std::string &prop, T def=T()) const;
@@ -203,7 +205,10 @@ T* poObject::addModifier(T* mod)
     modifiers.push_back( mod );
 	return mod;
 }
-
+template <typename T>
+T* poObject::getModifier(int idx) {
+	return static_cast<T*>(modifiers[idx]);
+}
 
 
 //template <typename T>

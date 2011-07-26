@@ -16,6 +16,9 @@ class poGeometryMask : public poObjectModifier
 public:
 	// you are responsible for the object lifetime of this shape
 	poGeometryMask(poShape2D *shape);
+	virtual ~poGeometryMask();
+	
+	void setShape(poShape2D *shape);
 
 protected:
 	virtual void doSetUp( poObject* obj );

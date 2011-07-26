@@ -151,8 +151,10 @@ struct removeIfNoEvent{
 	}
 };
 
-void sortedFilteredVectorFromSet(std::set<poObject*> &objs, int type) {
-	
+void sortedFilteredVectorFromSet(std::set<poObject*> &objs, std::vector<poObject*> &sorted, int type) {
+	sorted.assign(objs.begin(), objs.end());
+	sorted.erase(std::remove_if(sorted.begin(), sorted.end(), removeIfNoEvent(PO_MOUSE_DOWN_INSIDE_EVENT)), sorted.end());
+	std::sort(sorted.begin(), sorted.end(), sortByDrawOrder);
 }
 
 void poWindow::processEvents() {
@@ -200,24 +202,22 @@ void poWindow::processEvents() {
 				center->notify(event);
 
 				if(!hovers.empty()) {
-					std::vector<poObject*> over(hovers.begin(), hovers.end());
-					over.erase(std::remove_if(over.begin(), over.end(), removeIfNoEvent(PO_MOUSE_DOWN_INSIDE_EVENT)), over.end());
-					std::sort(over.begin(), over.end(), sortByDrawOrder);
+					std::vector<poObject*> over;
+					sortedFilteredVectorFromSet(hovers, over, PO_MOUSE_DOWN_INSIDE_EVENT);
 					
 					// if someone is under the mouse make them the drag target
 					drag_target = over.back();
-
 					filter.insert(drag_target);
 					
 					// tell the one guy if he got clicked on
 					event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
 					center->notifyFiltered(event, filter, false);
-					
-					// and tell everyone else they didn't
-					event.type = PO_MOUSE_DOWN_OUTSIDE_EVENT;
-					center->notifyFiltered(event, filter, true);
 				}
-				
+
+				// and tell everyone else they didn't
+				event.type = PO_MOUSE_DOWN_OUTSIDE_EVENT;
+				center->notifyFiltered(event, filter, true);
+
 				break;
 				
 			case PO_MOUSE_UP_EVERYWHERE_EVENT:
