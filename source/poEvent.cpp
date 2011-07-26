@@ -183,13 +183,15 @@ void poEventCenter::notify(poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
-		
 		poEvent &stored_event = callback.event;
-		localizeEvent(stored_event, event);
-		callback.receiver->eventHandler(&event);
-		
-		// capture any user changes to the dictionary
-		stored_event.dict = event.dict;
+		if(stored_event.source->visible) {
+			// prep the event for sending
+			localizeEvent(stored_event, event);
+			// push it out
+			callback.receiver->eventHandler(&event);
+			// capture any user changes to the dictionary
+			stored_event.dict = event.dict;
+		}
 	}
 }
 

@@ -1,4 +1,16 @@
+//
+//  poResourceStore.cpp
+//  poFramework4
+//
+//  Created by Joshua Fisher on 7/26/11.
+//  Copyright 2011 Potion Design. All rights reserved.
+//
+
+#include "Loaders.h"
+#include "ResourceStore.h"
+
 #include "poResourceStore.h"
+
 
 poResourceStore<poFontLoader> *fontStore() {
 	static poResourceStore<poFontLoader> *store = NULL;

@@ -76,7 +76,8 @@ public:
 	void			moveChildBackward(poObject* child);
 	
     // MODIFIERS
-    void            addModifier(poObjectModifier* mod);
+	template <typename T>
+    T*				addModifier(T* mod);
 	bool			removeModifier(poObjectModifier* mod);
     void            removeAllModifiers(bool and_delete=true);
 	int				numModifiers() const;
@@ -194,6 +195,13 @@ T* poObject::getChildAs(const std::string &name) {
 template <typename T>
 T* poObject::getLastChildAs() {
 	return static_cast<T*>(getLastChild());
+}
+
+template <typename T>
+T* poObject::addModifier(T* mod)
+{
+    modifiers.push_back( mod );
+	return mod;
 }
 
 

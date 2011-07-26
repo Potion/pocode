@@ -168,11 +168,6 @@ void poObject::moveChildBackward(poObject* child) {
 }
 
 
-void    poObject::addModifier(poObjectModifier* mod)
-{
-    modifiers.push_back( mod );
-}
-
 bool poObject::removeModifier(poObjectModifier* mod) {
 	poObjectModifierVec::iterator found = std::find(modifiers.begin(), modifiers.end(), mod);
 	if(found != modifiers.end()) {
