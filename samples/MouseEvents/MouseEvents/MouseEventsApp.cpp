@@ -20,7 +20,8 @@ MouseEventsApp::MouseEventsApp() {
     float height = getWindowHeight();
 	
     rectangle = new poRectShape(width-100,height-100);
-    rectangle->fillColor(poColor::lt_grey).position(50,50);
+    rectangle->fillColor = poColor::lt_grey;
+	rectangle->position = poPoint(50,50, 0.f);
     addChild(rectangle);
 
     
