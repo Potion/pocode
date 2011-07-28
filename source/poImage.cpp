@@ -203,6 +203,7 @@ poColor operator*(const poColor& c, float f) {
 	response.R *= f;
 	response.G *= f;
 	response.B *= f;
+	response.A *= f;
 	return response;
 }
 
@@ -211,6 +212,7 @@ poColor operator/(const poColor& c, float f) {
 	response.R /= f;
 	response.G /= f;
 	response.B /= f;
+	response.A /= f;
 	return response;
 }
 
@@ -219,6 +221,7 @@ poColor operator+(const poColor &a, const poColor &b) {
 	response.R = a.R + b.R;
 	response.G = a.G + b.G;
 	response.B = a.B + b.B;
+	response.A = a.A + b.A;
 	return response;
 }
 
@@ -236,7 +239,7 @@ void poImage::blur(int kernel_size, float sig) {
 	
 	for(int y=0; y<height(); y++)
 		for(int x=0; x<width(); x++) {
-			poColor sum(0,0,0,1);
+			poColor sum;
 			float k_tot = 0;
 			
 			for(int i=-hk; i<hk; i++) {
@@ -256,7 +259,7 @@ void poImage::blur(int kernel_size, float sig) {
 	
 	for(int y=0; y<height(); y++)
 		for(int x=0; x<width(); x++) {
-			poColor sum(0,0,0,1);
+			poColor sum;
 			float k_tot = 0;
 			
 			for(int i=-hk; i<hk; i++) {

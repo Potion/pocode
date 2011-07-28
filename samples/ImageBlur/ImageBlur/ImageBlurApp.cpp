@@ -12,16 +12,17 @@ poObject *createObjectForID(uint uid) {
 
 void setupApplication() {
 	lookUpAndSetPath("resources");
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "ImageBlur", 100, 100, 500, 500);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "ImageBlur", 100, 100, 900, 900);
 }
 
 void cleanupApplication() {
 }
 
 ImageBlurApp::ImageBlurApp() {
-	addModifier(new poCamera2D(poColor::black));
+	addModifier(new poCamera2D(poColor::grey));
+
 	
-	poImage *img = getImage("check.jpeg");
+	poImage *img = getImage("villain.png");
 
 	poImage *blur = img->copy();
 	blur->blur(3,2);
