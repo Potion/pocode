@@ -38,6 +38,7 @@ TextBoxApp::TextBoxApp() {
 	tb2->position.set(PADDING,getWindowHeight()/2+PADDING,1);
 	addChild(tb2);
 	
+	
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 

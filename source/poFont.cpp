@@ -162,7 +162,7 @@ poPoint poFont::glyphAdvance() {
 poImage *poFont::glyphImage() {
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_LIGHT);
 
-	int padding = 10;
+	int padding = GLYPH_PADDING * 2;
 	
 	const FT_Bitmap bitmap = face->glyph->bitmap;
 	ubyte *buffer = new ubyte[(bitmap.rows+padding) * (bitmap.width+padding)]();
