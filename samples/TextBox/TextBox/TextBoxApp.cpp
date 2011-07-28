@@ -19,20 +19,22 @@ void cleanupApplication() {
 
 TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D(poColor::black));
-
+	
 	tb = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
-	tb->textAlignment(PO_ALIGN_TOP_CENTER)
-		.font(getFont("Courier", 20))
-		.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.")
-		.layout();
+	tb->textAlignment(PO_ALIGN_TOP_CENTER);
+	tb->drawBounds = true;
+	tb->font(getFont("Courier", 20));
+	tb->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
+	tb->layout();
 	tb->position.set(PADDING,PADDING,1);
 	addChild(tb);
 	
 	tb2 = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
-	tb2->textAlignment(PO_ALIGN_TOP_CENTER)
-		.font(getFont("Courier", 20))
-		.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.")
-		.layout();
+	tb2->drawBounds = true;
+	tb2->textAlignment(PO_ALIGN_TOP_CENTER);
+	tb2->font(getFont("Courier", 20));
+	tb2->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
+	tb2->layout();
 	tb2->position.set(PADDING,getWindowHeight()/2+PADDING,1);
 	addChild(tb2);
 	

@@ -70,8 +70,8 @@ BinPacker::pack_rect *BinPacker::pack_rect::insert(uint w, uint h) {
 
 
 
-BinPacker::BinPacker(uint w, uint h)
-:	width(w), height(h), handles(0)
+BinPacker::BinPacker(uint w, uint h, uint p)
+:	width(w), height(h), padding(p), handles(0)
 {}
 
 BinPacker::~BinPacker() {
@@ -113,10 +113,10 @@ poRect BinPacker::packPosition(uint handle, uint *page) {
 				*page = i;
 			
 			float x, y, w, h;
-			x = pages[i]->pack[handle]->x;
-			y = pages[i]->pack[handle]->y;
-			w = pages[i]->pack[handle]->width;
-			h = pages[i]->pack[handle]->height;
+			x = pages[i]->pack[handle]->x + padding/2;
+			y = pages[i]->pack[handle]->y + padding/2;
+			w = pages[i]->pack[handle]->width - padding;
+			h = pages[i]->pack[handle]->height - padding;
 			
 			return poRect(x, y, w, h);
 		}
@@ -137,15 +137,14 @@ void BinPacker::pack() {
 
 	std::list<insert_rect> unused(rectangles.begin(),rectangles.end());
 
-	uint insert_height = 0;
-	uint count=0, used_area=0;
+	uint insert_height=0, count=0, used_area=0;
 
 	pack_page *page = new pack_page();
 	pages.push_back(page);
 
 	while(!unused.empty()) {
 		// save this new row's height
-		uint row_height = unused.front().h;
+		uint row_height = unused.front().h + padding;
 
 		// we've run out of space on this page
 		if(insert_height + row_height >= height) {
@@ -166,7 +165,7 @@ void BinPacker::pack() {
 		i=unused.begin(), e=unused.end();
 		while(i != e) {
 			insert_rect rect = *i;
-			pack_rect *packed = row->insert(rect.w, rect.h);
+			pack_rect *packed = row->insert(rect.w+padding, rect.h+padding);
 			// managed to insert into this row
 			if(NULL != packed) {
 				// store this guy in the packing manifest
