@@ -97,6 +97,7 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
+	glDisable(GL_MULTISAMPLE);
 	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<_layout.numLines(); i++) {
@@ -106,6 +107,7 @@ void poTextBox::draw() {
 		}
 	}
 	atlas->stopDrawing();
+	glEnable(GL_MULTISAMPLE);
 }
 
 poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {

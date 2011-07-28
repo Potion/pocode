@@ -8,7 +8,14 @@
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
 ,	height(h)
-,	format(f)
+,	config(f)
+,	bound_page(-1)
+{}
+
+poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
+:	width(w)
+,	height(h)
+,	config(c)
 ,	bound_page(-1)
 {}
 
@@ -29,7 +36,7 @@ void poTextureAtlas::addImage(poImage *img, uint request) {
 	poImage *copy = img->copy();
 	images.push_back(copy);
 	
-	ImageBitDepth bpp = bitDepthForFormat(format);
+	ImageBitDepth bpp = bitDepthForFormat(config.format);
 	copy->changeBpp(bpp);
 	
 	requested_ids.push_back(request);
@@ -49,7 +56,7 @@ void poTextureAtlas::layoutAtlas() {
 	
 	poImageLoader loader;
 	for(int i=0; i<pack.numPages(); i++) {
-		ImageBitDepth depth = bitDepthForFormat(format);
+		ImageBitDepth depth = bitDepthForFormat(config.format);
 		pages.push_back(loader.load(poImageSpec("",width,height,depth,NULL)));
 	}
 	
@@ -78,8 +85,6 @@ void poTextureAtlas::layoutAtlas() {
 	
 	textures.resize(pages.size());
 	
-	poTextureConfig config(format);
-
 	for(int i=0; i<pages.size(); i++) {
 		poImage *img = pages[i];
 		textures[i] = img->texture(config);

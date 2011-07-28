@@ -50,3 +50,10 @@ poPoint getWindowMousePosition() {
 	poWindow *window = applicationCurrentWindow();
 	return window->mousePosition();
 }
+
+poPoint getWindowInvMousePosition() {
+	poWindow *window = applicationCurrentWindow();
+	poPoint response = window->mousePosition();
+	response.y = window->bounds().height() - response.y;
+	return response;
+}

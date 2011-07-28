@@ -2,7 +2,7 @@
 
 
 poBitmapFontAtlas::poBitmapFontAtlas(poFont *f, int pointSize)
-:	poTextureAtlas(GL_ALPHA,512,512)
+:	poTextureAtlas(poTextureConfig(GL_ALPHA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR),512,512)
 ,	_font(f)
 ,	size(pointSize)
 {
