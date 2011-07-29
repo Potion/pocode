@@ -39,12 +39,13 @@ protected:
 	virtual void saveAndUpdateGLSettings();
 	virtual void restoreGLSettings();
 	
+	poPoint		fixed_size;
+
 private:
     bool		clears_background;
     poColor		background_color;
 	bool		reset;
 	bool		is_fixed_size;
-	poPoint		fixed_size;
 };
 
 class poCamera2D : public poCamera

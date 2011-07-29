@@ -95,7 +95,10 @@ poCamera2D::poCamera2D(poColor clear)
 {}
 
 void poCamera2D::setProjection() {
-	gluOrtho2D(0, getWindowWidth(), getWindowHeight(), 0);
+	if(fixedSize())
+		gluOrtho2D(0, fixed_size.x, fixed_size.y, 0);
+	else
+		gluOrtho2D(0, getWindowWidth(), getWindowHeight(), 0);
 }
 
 

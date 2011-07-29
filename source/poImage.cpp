@@ -50,6 +50,14 @@ poImage::poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *p)
 	load(w, h, bpp, p);
 }
 
+poImage::poImage(const poImage &img)
+:	bitmap(NULL)
+,	tex(NULL)
+{
+	if(img.isValid())
+		bitmap = FreeImage_Clone(img.bitmap);
+}
+
 poImage::~poImage() {
 	FreeImage_Unload(bitmap);
 	
@@ -188,6 +196,88 @@ void poImage::changeBpp(ImageBitDepth bpp) {
 
 void poImage::composite(poImage *img, poRect into) {
 	FreeImage_Paste(bitmap, img->bitmap, into.origin.x, into.origin.y, 256);
+}
+
+poColor operator*(const poColor& c, float f) {
+	poColor response(c);
+	response.R *= f;
+	response.G *= f;
+	response.B *= f;
+	response.A *= f;
+	return response;
+}
+
+poColor operator/(const poColor& c, float f) {
+	poColor response(c);
+	response.R /= f;
+	response.G /= f;
+	response.B /= f;
+	response.A /= f;
+	return response;
+}
+
+poColor operator+(const poColor &a, const poColor &b) {
+	poColor response(a);
+	response.R = a.R + b.R;
+	response.G = a.G + b.G;
+	response.B = a.B + b.B;
+	response.A = a.A + b.A;
+	return response;
+}
+
+void poImage::blur(int kernel_size, float sig) {
+	float e = 2.718281828f;
+	int hk = kernel_size / 2;
+	
+	float *kernel = new float[kernel_size];
+	for(int i=0; i<kernel_size; i++) {
+		float contrib = powf(i - hk, 2) / (2 * sig*sig);
+		kernel[i] = powf(e, -contrib);
+	}
+	
+	poImage img(*this);
+	
+	for(int y=0; y<height(); y++)
+		for(int x=0; x<width(); x++) {
+			poColor sum;
+			float k_tot = 0;
+			
+			for(int i=-hk; i<hk; i++) {
+				if(x+i < 0 || x+i >= width())
+					continue;
+				
+				float k = kernel[i+hk];
+				k_tot += k;
+				
+				poColor c = getPixel(poPoint(x+i,y));
+				
+				sum = sum + (c*k);
+			}
+			
+			img.setPixel(poPoint(x,y), sum/k_tot);
+		}
+	
+	for(int y=0; y<height(); y++)
+		for(int x=0; x<width(); x++) {
+			poColor sum;
+			float k_tot = 0;
+			
+			for(int i=-hk; i<hk; i++) {
+				if(y+i < 0 || y+i >= height())
+					continue;
+				
+				float k = kernel[i+hk];
+				k_tot += k;
+				
+				poColor c = img.getPixel(poPoint(x,y+i));
+				
+				sum = sum + (c*k);
+			}
+			
+			setPixel(poPoint(x,y), sum/k_tot);
+		}
+	
+	delete [] kernel;
 }
 
 void poImage::flip(poOrientation dir) {

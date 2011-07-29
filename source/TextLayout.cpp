@@ -169,7 +169,8 @@ void TextBoxLayout::doLayout() {
 	
 	poFont *fnt = font(PO_FONT_REGULAR);
 
-	if(leading() < 0.f)
+	bool has_leading = leading() >= 0.f;
+	if(!has_leading)
 		leading(fnt->lineHeight());
 	
 	fnt->glyph(' ');
@@ -218,6 +219,9 @@ void TextBoxLayout::doLayout() {
 	addGlyphsToLine(glyphs, size, line);
 	breakLine(line);
 	alignText();
+	
+	if(!has_leading)
+		leading(-1);
 }
 
 poPoint TextBoxLayout::size() const {return _size;}

@@ -33,4 +33,5 @@ int			getWindowFrameCount();
 float		getWindowLastFrameTime();
 float		getWindowLastFrameDuration();
 poPoint		getWindowMousePosition();
+poPoint		getWindowInvMousePosition();
 

@@ -22,6 +22,10 @@ static const std::string PO_FONT_ITALIC = "i";
 static const std::string PO_FONT_BOLD = "b";
 static const std::string PO_FONT_BOLD_ITALIC = "bi";
 
+// glyphs each have some padding built into the image
+// it has to be subtracted from the glyph origin before drawing
+const static int GLYPH_PADDING = 5;
+
 class poFont;
 typedef std::map<std::string, poFont*> poFontMap;
 

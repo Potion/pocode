@@ -14,7 +14,7 @@
 class BinPacker {
 public:
 	// init with page size
-	BinPacker(uint width, uint height);
+	BinPacker(uint width, uint height, uint padding=6);
 	~BinPacker();
 
 	void reset();
@@ -61,6 +61,6 @@ private:
 	void render(pack_rect *rect);
 	void resetPackMap();
 	
-	uint width, height, handles;
+	uint width, height, padding, handles;
 	float wasted_pixels;
 };

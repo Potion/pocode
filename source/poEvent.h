@@ -11,10 +11,16 @@ class poEvent;
 typedef std::vector<poEvent*> poEventVec;
 typedef std::vector<poEventVec> poEventTable;
 
-bool isNumericMask(unsigned int mod);
-bool isFunctionMask(unsigned int mod);
-bool isArrowKey(unsigned int mod);
-bool isMetaMask(unsigned int mod);
+bool isNumericMask(poEvent*);
+bool isFunctionMask(poEvent*);
+bool isArrowKey(poEvent*);
+bool isMetaMask(poEvent*);
+bool isAltMask(poEvent*);
+bool isShiftMask(poEvent*);
+bool isCtrlMask(poEvent*);
+bool isLeftMouse(poEvent*);
+bool isRightMouse(poEvent*);
+bool isCenterMouse(poEvent*);
 
 bool isKeyEvent(int type);
 bool isMouseEvent(int type);

@@ -161,15 +161,18 @@ poPoint poFont::glyphAdvance() {
 
 poImage *poFont::glyphImage() {
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_LIGHT);
+
+	int padding = GLYPH_PADDING * 2;
 	
 	const FT_Bitmap bitmap = face->glyph->bitmap;
-	ubyte *buffer = new ubyte[bitmap.rows * bitmap.width]();
+	ubyte *buffer = new ubyte[(bitmap.rows+padding) * (bitmap.width+padding)]();
 	
 	for(int i=0; i<bitmap.rows; i++)
-		memcpy(buffer+i*bitmap.width, bitmap.buffer+i*bitmap.pitch, bitmap.width);
+		memcpy(buffer+(i+padding/2)*(bitmap.width+padding)+padding/2, bitmap.buffer+i*bitmap.pitch, bitmap.width);
 	
 	poImageLoader loader;
-	poImage *img = loader.load(poImageSpec("", bitmap.width, bitmap.rows, IMAGE_8, buffer));
+	poImage *img = loader.load(poImageSpec("", bitmap.width+padding, bitmap.rows+padding, IMAGE_8, buffer));
+	
 	delete [] buffer;
 	return img;
 }

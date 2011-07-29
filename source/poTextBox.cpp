@@ -97,15 +97,17 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
+	glDisable(GL_MULTISAMPLE);
 	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<_layout.numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
+			atlas->drawUID(glyph.glyph, glyph.bbox.origin-poPoint(5,5));
 		}
 	}
 	atlas->stopDrawing();
+	glEnable(GL_MULTISAMPLE);
 }
 
 poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {

@@ -80,17 +80,21 @@ enum {
 
 enum {
 	// key event mask
-	PO_KEY_CTRL		= 1,
-	PO_KEY_SHIFT	= 2,
-	PO_KEY_ALT		= 2 << 1,
-	PO_KEY_META		= 2 << 2,
-	// mouse event mask
-	PO_MOUSE_LEFT	= 2 << 3,
-	PO_MOUSE_MIDDLE	= 2 << 4,
-	PO_MOUSE_RIGHT	= 2 << 5,
+	PO_KEY_CAPS		= 1 << 16,
+	PO_KEY_SHIFT	= 1 << 17,
+	PO_KEY_CTRL		= 1 << 18,
+	PO_KEY_ALT		= 1 << 19,
+	PO_KEY_META		= 1 << 20,
 	// specific key 
-	PO_NUMERIC_KEY_MASK = (1 << 21),
-	PO_FUNCTION_KEY_MASK = (1 << 23),
+	PO_NUMERIC_KEY_MASK = 1 << 21,
+	PO_FUNCTION_KEY_MASK = 1 << 23,
+};
+
+enum {
+	// mouse event mask
+	PO_MOUSE_LEFT	= 1,
+	PO_MOUSE_MIDDLE	= 1 << 1,
+	PO_MOUSE_RIGHT	= 1 << 2,
 };
 
 enum {

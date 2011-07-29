@@ -43,6 +43,7 @@ public:
 	
 	void changeBpp(ImageBitDepth bpp);
 	void composite(poImage *img, poRect into);
+	void blur(int kernel_size, float sig);
 	void clear();
 	
 	void flip(poOrientation dir);
@@ -61,6 +62,7 @@ private:
 	poImage(const std::string &url);
 	poImage(const std::string &url, ImageBitDepth bpp);
 	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
+	poImage(const poImage &img);
 
 	void load(const std::string &url);
 	void load(const std::string &url, ImageBitDepth bpp);

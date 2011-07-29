@@ -8,6 +8,7 @@ class poTextureAtlas
 {
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
+	poTextureAtlas(poTextureConfig config, uint w, uint h);
 	virtual ~poTextureAtlas();
 	
 	// move the list of images to pack
@@ -58,8 +59,8 @@ private:
 	// the textures of the atlas
 	std::vector<poTexture*> textures;
 	std::map<uint,uint> uids;
-	// the is the format we want
-	GLenum format;
+	// this is the configuration we want for the atlas
+	poTextureConfig config;
 	// store the last bound page so we can avoid rebinding
 	int bound_page, unit;
 };
