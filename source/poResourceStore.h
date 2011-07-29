@@ -21,3 +21,24 @@ poImage *getImage(const std::string &url_or_key, int gid=DEFAULT_REZ_GROUP);
 poImage *getImage(const std::string &url_or_key, ImageBitDepth bpp, int gid=DEFAULT_REZ_GROUP);
 poImage *getImage(const std::string &url_or_key, uint w, uint h, ImageBitDepth bpp, const ubyte *pixels, int gid=DEFAULT_REZ_GROUP);
 
+
+
+#include "Loaders.h"
+#include "ResourceStore.h"
+
+static poResourceStore<poFontLoader> *fontStore() {
+	using namespace boost;
+	static shared_ptr< poResourceStore<poFontLoader> > store;
+	if(!store)
+		store.reset(new poResourceStore<poFontLoader>());
+	return store.get();
+}
+
+static poResourceStore<poImageLoader>* imageStore() {
+	using namespace boost;
+	static shared_ptr< poResourceStore<poImageLoader> > store;
+	if(!store)
+		store.reset(new poResourceStore<poImageLoader>());
+	return store.get();
+}
+

@@ -6,25 +6,8 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "Loaders.h"
-#include "ResourceStore.h"
-
 #include "poResourceStore.h"
 
-
-poResourceStore<poFontLoader> *fontStore() {
-	static poResourceStore<poFontLoader> *store = NULL;
-	if(!store)
-		store = new poResourceStore<poFontLoader>();
-	return store;
-}
-
-poResourceStore<poImageLoader>* imageStore() {
-	static poResourceStore<poImageLoader> *store = NULL;
-	if(!store)
-		store = new poResourceStore<poImageLoader>();
-	return store;
-}
 
 poFont *getFont() {
 	return fontStore()->notFound();
