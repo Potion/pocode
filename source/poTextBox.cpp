@@ -94,7 +94,7 @@ void poTextBox::draw() {
         drawStroke(bounds);
 		
 		applyColor(poColor::red);
-		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+		drawRect(poRect(-offset, poPoint(10,10)));
     }
 
 	glDisable(GL_MULTISAMPLE);
@@ -103,7 +103,7 @@ void poTextBox::draw() {
 	for(int i=0; i<_layout.numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin-poPoint(5,5));
+			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
 		}
 	}
 	atlas->stopDrawing();

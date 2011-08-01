@@ -25,6 +25,7 @@ extern void		cleanupApplication();
 // information about the current windowfloat		
 float		getWindowWidth();
 float		getWindowHeight();
+float		getWindowAspect();
 poRect		getWindowFrame();
 poRect		getWindowBounds();
 poPoint		getWindowCenter();

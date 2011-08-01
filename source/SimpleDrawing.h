@@ -17,7 +17,7 @@ void drawRect(float x, float y, float w, float h, poTexture* texture, bool flip=
 void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip=false);
 void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit);
 void drawRect(poTexture* tex, bool flip=false);
-void drawPoints(const std::vector<poPoint> &points);
+void drawPoints(GLenum type, const std::vector<poPoint> &points);
 
 
 // figures out tex coords to fit texture in rect

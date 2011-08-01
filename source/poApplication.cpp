@@ -11,6 +11,11 @@ float getWindowHeight() {
 	return window->height();
 }
 
+float getWindowAspect() {
+	poWindow *window = applicationCurrentWindow();
+	return window->width() / (float)window->height();
+}
+
 poRect getWindowFrame() {
 	poWindow *window = applicationCurrentWindow();
 	return window->frame();
