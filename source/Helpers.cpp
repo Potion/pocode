@@ -185,7 +185,7 @@ void startMasking(poShape2D *mask) {
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glStencilFunc(GL_ALWAYS, 1, 1);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	drawPoints(mask->getPoints());
+	drawPoints(GL_TRIANGLE_FAN, mask->getPoints());
 	
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glStencilFunc(GL_EQUAL, 1, 1);

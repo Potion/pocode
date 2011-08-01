@@ -121,13 +121,12 @@ void drawRect(poTexture* tex, bool flip) {
 	drawRect(0,0,tex->width(),tex->height(),tex, flip);
 }
 
-void drawPoints(const std::vector<poPoint> &points) {
+void drawPoints(GLenum type, const std::vector<poPoint> &points) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, &points[0]);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, points.size());
+	glDrawArrays(type, 0, points.size());
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
-
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.origin.x / (float)rect.width();
