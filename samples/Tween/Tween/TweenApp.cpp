@@ -22,20 +22,23 @@ TweenApp::TweenApp()
 	zoomed = false;
     
     pho = new poRectShape(50,50);
-    pho->generateStroke(2).strokeColor(poColor::cyan).fillColor(poColor::dk_grey);
-    pho->position(20,20,0);
+    pho->generateStroke(2).strokeColor = poColor::cyan;
+	pho->generateStroke(2).fillColor = poColor::dk_grey;
+    pho->position = poPoint(20,20,0);
     addChild(pho);
 	
 	banh = new poOvalShape(50,50,3);
-	banh->generateStroke(2).strokeColor(poColor::yellow).fillColor(poColor::dk_grey);
-	banh->position(150,150,0);
-	banh->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	banh->generateStroke(2).strokeColor = poColor::yellow;
+	banh->generateStroke(2).fillColor = poColor::dk_grey;
+	banh->position = poPoint(150,150,0);
+	banh->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     addChild(banh);
 
 	mi = new poOvalShape(50,50,100);
-	mi->generateStroke(2).strokeColor(poColor::magenta).fillColor(poColor::dk_grey);
-	mi->position(450,150,0);
-	mi->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	mi->generateStroke(2).strokeColor = poColor::magenta;
+	mi->generateStroke(2).fillColor = poColor::dk_grey;
+	mi->position = poPoint(450,150,0);
+	mi->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     addChild(mi);
 	
     // SLERP (mid-point easing is default)
@@ -64,7 +67,7 @@ void TweenApp::update() {
 }
 
 void TweenApp::eventHandler(poEvent *event) {
-	if(event->type == PO_MOUSE_PRESS_EVENT){
+	if(event->type == PO_MOUSE_DOWN_INSIDE_EVENT){
 		
 		poPoint val;
 		
