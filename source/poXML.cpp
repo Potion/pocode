@@ -177,9 +177,7 @@ bool poXMLDocument::write(const fs::path &p) {
 	doc->save_file(p.c_str());
 }
 
-bool poXMLDocument::isValid() {
-	return doc;
-}
+poXMLDocument::operator bool() const {return doc;}
 
 void poXMLDocument::dump() {
 	doc->print(std::cout);

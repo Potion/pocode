@@ -108,7 +108,8 @@ public:
 	bool read(const fs::path &p);
 	bool readStr(const std::string &str);
 	bool write(const fs::path &p);
-	bool isValid();
+
+	operator bool() const;
 	
 	void dump();
 	
