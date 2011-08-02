@@ -218,6 +218,7 @@
 				E88E746113C66C0B0051F026 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

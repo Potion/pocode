@@ -21,46 +21,53 @@ void setupApplication() {
 }
 
 void cleanupApplication() {
+
 }
 
 XMLApp::XMLApp() {
 	addModifier(new poCamera2D(poColor::black));
 
-	poXMLNode node = poXMLDocument("test.xml").rootNode();
-	
-	poXPathResult result = node.find("/root/container[@attrib1=1]/@attrib1");
-	assert(result.numMatches() == 1);
-	assert(result.getInt() == 1);
-	
-	result = node.find("//container");
-	assert(result.numMatches() == 2);
-	
-	node = node.find("//container[1]").getNode();
-	assert(node.intAttribute("attrib1") == 1);
-	assert(node.realAttribute("attrib2") == 5.4);
-	assert(node.attribute("attrib3") == "blank");
-	assert(node.name() == "container");
-	
-	result = node.find("./obj");
-	assert(result.numMatches() == 4);
-	for(int i=0; i<4; i++) {
-		printf("%s\n", result.getNode(i).getText().c_str());
+	poXMLDocument doc("test.xml");
+	poXMLNode root = doc.rootNode();
+
+	poXPathResult rez = root.find("//container");
+	for(int i=0; i<rez.numMatches(); i++) {
+		poXMLNode node = rez.getNode(i);
+		printf("%s: %d children", node.name().c_str(), node.numChildren());
+
+		std::vector<std::string> attribs = node.attributeNames();
+		for(int i=0; i<attribs.size(); i++) {
+			printf(" (%s,%s)", attribs[i].c_str(), node.stringAttribute(attribs[i]).c_str());
+		}
+		printf("\n");
+		
+		node = node.getChild("obj");
+		while(node) {
+			printf("\tnode: %s\n", node.name().c_str());
+			node = node.nextSibling();
+		}
 	}
 	
-	node = node.find("//container[2]").getNode();
-	result = node.find("./obj");
-	for(int i=0; i<4; i++) {
-		printf("%d\n", result.getNode(i).getInt());
+	
+	printf("\n\n");
+	for(int i=0; i<root.numChildren(); i++) {
+		poXMLNode node = root.getChild(i);
+		printf("%s: %d children\n", node.name().c_str(), node.numChildren());
+
+		for(int j=0; j<node.numChildren(); j++) {
+			poXMLNode child = node.getChild(j);
+			printf("\tnode: %s\n", child.name().c_str());
+		}
 	}
 	
-	std::stringstream ss;
-	std::ifstream input("test.xml");
-	ss << input.rdbuf();
-	input.close();
+	poXMLNode node = root.addChild("container");
+	node.addAttribute("attrib1", 50);
+	node.addAttribute("attrib2", 4.2f);
+	node.addAttribute("attrib3", "blank");
 	
-	poTextBox *tb = new poTextBox(getWindowWidth(), getWindowHeight());
-	tb->text(ss.str()).layout();
-	addChild(tb);
+	doc.write("test2.xml");
 	
 	applicationQuit();
 }
+
+
