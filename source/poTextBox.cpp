@@ -18,7 +18,6 @@ using namespace std;
 poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
-,	atlas(NULL)
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint())
@@ -29,7 +28,6 @@ poTextBox::poTextBox()
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
 ,	textColor(poColor::white)
-,	atlas(NULL)
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint(w,h))
@@ -73,13 +71,8 @@ void poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r
 
 void poTextBox::font(poFont *f, const std::string &name) {
 	_layout.font(f,name);
-	
-	if(f && !atlas) 
-		delete atlas;
-	
-	atlas = new poBitmapFontAtlas(f);
 }
-poFont const*poTextBox::font(const std::string &name) {return _layout.font(name);}
+poFont *poTextBox::font(const std::string &name) {return _layout.font(name);}
 
 poTextBox *poTextBox::layout() {_layout.layout(); return this;}
 
@@ -104,13 +97,15 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset, poPoint(10,10)));
     }
 
+	poBitmapFontAtlas *atlas = this->font(PO_FONT_REGULAR)->atlas();
+	
 	glDisable(GL_MULTISAMPLE);
 	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
+			atlas->drawUID(glyph.glyph, glyph.bbox.origin-poPoint(5,5));
 		}
 	}
 	atlas->stopDrawing();

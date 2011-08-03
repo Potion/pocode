@@ -6,6 +6,7 @@
 class poBitmapFontAtlas : public poTextureAtlas {
 public:
 	// if -1, it'll store the current point size of the font
+	// it does not own the font, make sure the font stays in scope
 	poBitmapFontAtlas(poFont *font, int pointSize=-1);
 	virtual ~poBitmapFontAtlas();
 	

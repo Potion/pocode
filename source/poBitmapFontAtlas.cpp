@@ -10,9 +10,7 @@ poBitmapFontAtlas::poBitmapFontAtlas(poFont *f, int pointSize)
 		size = _font->pointSize();
 }
 
-poBitmapFontAtlas::~poBitmapFontAtlas() {
-	delete _font;
-}
+poBitmapFontAtlas::~poBitmapFontAtlas() {}
 
 void poBitmapFontAtlas::cacheGlyph(uint glyph) {
 	if(!hasUID(glyph)) {

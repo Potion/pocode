@@ -62,8 +62,9 @@ typename LoaderT::Obj* poResourceStore<LoaderT>::notFound() {
 
 template <typename LoaderT>
 typename LoaderT::Obj* poResourceStore<LoaderT>::get(Key k, int gid) {
-	if(resources.find(k) != resources.end())
+	if(resources.find(k) != resources.end()) {
 		return resources[k].obj;
+	}
 	
 	Obj *obj = loader.load(k);
 	if(!obj)

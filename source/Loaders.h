@@ -8,20 +8,22 @@
 class poFontSpec {
 public:
 	poFontSpec(const std::string &name_or_url, int size, const std::string &weight=PO_FONT_REGULAR)
-	: nameOrUrl(name_or_url), pointSize(size), weight(weight)
-	{}
+	: nameOrUrl(name_or_url), pointSize(size), weight(weight), hashed(0)
+	{
+		boost::hash_combine(hashed,name_or_url);
+		boost::hash_combine(hashed,size);
+		boost::hash_combine(hashed,weight);
+	}
 	
 	bool operator<(const poFontSpec &rhs) const {
-		if(nameOrUrl < rhs.nameOrUrl)
-			return true;
-		if(weight < rhs.weight)
-			return true;
-		return pointSize < rhs.pointSize;
+		return hashed < rhs.hashed;
 	}
 	
 	std::string nameOrUrl;
 	std::string weight;
 	int pointSize;
+	
+	size_t hashed;
 };
 
 #pragma mark poFontLoader

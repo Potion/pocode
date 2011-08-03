@@ -38,7 +38,6 @@ TextBoxApp::TextBoxApp() {
 	tb2->position.set(PADDING,getWindowHeight()/2+PADDING,1);
 	addChild(tb2);
 	
-	
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
@@ -53,9 +52,14 @@ void TextBoxApp::eventHandler(poEvent *event) {
 				tb->layout();
 				break;
 			case '-':
-				tb->font(getFont("Courier", tb->font(PO_FONT_REGULAR)->pointSize()-1));
+			{
+				std::string font_name = "Courier";
+				int font_size = tb->font(PO_FONT_REGULAR)->pointSize();
+				
+				tb->font(getFont(font_name, font_size-1));
 				tb->layout();
 				break;
+			}
 		}
 	}
 	

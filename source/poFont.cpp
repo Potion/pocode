@@ -10,6 +10,7 @@
 #include "poShape2D.h"
 #include "Helpers.h"
 #include "Loaders.h"
+#include "poBitmapFontAtlas.h"
 
 #ifdef _WIN32
 
@@ -72,11 +73,13 @@ void deleteFT_Face(FT_Face face) {
 poFont::poFont() 
 :	face()
 ,	size(0)
+,	_atlas(NULL)
 {}
 
 poFont::poFont(const std::string &family_or_url, int sz, const std::string &trait)
 :	face()
 ,	size(0)
+,	_atlas(NULL)
 {
 	init();
 	
@@ -104,7 +107,9 @@ poFont::poFont(const std::string &family_or_url, int sz, const std::string &trai
 	glyph(0);
 }
 
-poFont::~poFont() {}
+poFont::~poFont() {
+	deleteFontAtlas();
+}
 
 void poFont::init() {
 	if(!lib)
@@ -198,6 +203,21 @@ std::string poFont::toString() const {
 void poFont::loadGlyph(int g) {
 	uint idx = FT_Get_Char_Index(face.get(), g);
 	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP);
+}
+
+poBitmapFontAtlas *poFont::atlas() {
+	if(!_atlas) {
+		_atlas = new poBitmapFontAtlas(this);
+	}
+	
+	return _atlas;
+}
+
+void poFont::deleteFontAtlas() {
+	if(_atlas) {
+		delete _atlas;
+		_atlas = NULL;
+	}
 }
 
 bool fontExists(const std::string &family) {
