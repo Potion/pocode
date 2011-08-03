@@ -134,6 +134,10 @@ int poTweenBase::getRepeatCount() const {
 	return repeat_counter;
 }
 
+float poTweenBase::getProgress() const {
+	return (float)std::min(1.0, std::max(0.0, (time - begin_time - delay) / duration));
+}
+
 void poTweenBase::reset() {
 	state = NOT_RUNNING;
 }

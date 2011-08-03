@@ -38,6 +38,8 @@ public:
 	bool isComplete() const;
 	bool isRepeating() const;
 	int getRepeatCount() const;
+	// [0 .. 1] number won't be meaningful if tweenFunc = gotoFunc
+	float getProgress() const;
 	
 protected:
 	void reset();
