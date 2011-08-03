@@ -32,6 +32,8 @@ public:
 
 	// actual bounds of the text
 	poRect textBounds() const;
+	
+	void reshape(int w, int h);
 
 	poColor textColor;
     bool    drawBounds;
