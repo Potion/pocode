@@ -33,6 +33,9 @@ public:
 	// actual bounds of the text
 	poRect textBounds() const;
 
+	uint numLines() const;
+	poRect boundsForLine(uint num) const;
+
 	poColor textColor;
     bool    drawBounds;
 

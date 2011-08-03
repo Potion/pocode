@@ -52,6 +52,9 @@ void poTextBox::textAlignment(poAlignment al) {_layout.alignment(al);}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 
+uint poTextBox::numLines() const {return _layout.numLines();}
+poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
+
 float poTextBox::leading() const {return _layout.leading();}
 void poTextBox::leading(float f) {_layout.leading(f); }
 float poTextBox::tracking() const {return _layout.tracking();}
@@ -83,8 +86,8 @@ void poTextBox::draw() {
 	
     if(drawBounds) {
 		applyColor(poColor::white);
-		for(int i=0; i<_layout.numLines(); i++) {
-			drawStroke(_layout.getLine(i).bounds);
+		for(int i=0; i<numLines(); i++) {
+			drawStroke(boundsForLine(i));
 		}
 		
         applyColor(poColor::dk_grey);
@@ -100,7 +103,7 @@ void poTextBox::draw() {
 	glDisable(GL_MULTISAMPLE);
 	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
-	for(int i=0; i<_layout.numLines(); i++) {
+	for(int i=0; i<numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 			atlas->cacheGlyph(glyph.glyph);
 			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
