@@ -99,7 +99,9 @@ poFont *const TextLayout::font(const std::string &weight) {return fonts[weight];
 bool TextLayout::hasFont(const std::string &weight) {return fonts.find(weight) != fonts.end();}
 
 uint TextLayout::numLines() const {return lines.size();}
-layout_line TextLayout::getLine(uint i) const {return lines[i];}
+poRect TextLayout::boundsForLine(uint line_num) const {return lines[line_num].bounds;}
+layout_line TextLayout::getLine(uint line_num) const {return lines[line_num];}
+
 poRect TextLayout::textBounds() const {return text_bounds;}
 
 void TextLayout::prepareText() {

@@ -36,7 +36,9 @@ public:
 	virtual void layout();
 	
 	uint numLines() const;
-	layout_line getLine(uint i) const;
+	poRect boundsForLine(uint line_num) const;
+	
+	layout_line getLine(uint line_num) const;
 
 	poRect textBounds() const;
 

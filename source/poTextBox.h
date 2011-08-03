@@ -35,6 +35,9 @@ public:
 	
 	void reshape(int w, int h);
 
+	uint numLines() const;
+	poRect boundsForLine(uint num) const;
+
 	poColor textColor;
     bool    drawBounds;
 
