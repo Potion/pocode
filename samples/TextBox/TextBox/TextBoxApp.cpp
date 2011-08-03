@@ -4,6 +4,8 @@
 #include "poApplication.h"
 #include "poResourceStore.h"
 
+#include "SimpleDrawing.h"
+
 #define PADDING 20
 
 poObject *createObjectForID(uint uid) {
@@ -29,6 +31,7 @@ TextBoxApp::TextBoxApp() {
 	tb->position.set(PADDING,PADDING,1);
 	addChild(tb);
 	
+	
 	tb2 = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
 	tb2->drawBounds = true;
 	tb2->textAlignment(PO_ALIGN_TOP_CENTER);
@@ -39,6 +42,15 @@ TextBoxApp::TextBoxApp() {
 	addChild(tb2);
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
+}
+
+void TextBoxApp::draw() {
+	// testing simple text drawing
+	poPoint pos(5,5);
+	poFont *font = getFont("Helvetica", 15);
+	drawString("quick brown fox blah blah", font, pos);
+	drawLine(pos+poPoint(.5,.5), poPoint(pos.x+.5,pos.y+15.5));
+	drawLine(pos+poPoint(.5,.5), poPoint(pos.x+100.5,pos.y+.5));
 }
 
 void TextBoxApp::eventHandler(poEvent *event) {

@@ -12,6 +12,8 @@
 class TextBoxApp : public poObject {
 public:
 	TextBoxApp();
+	
+	virtual void draw();
 	virtual void eventHandler(poEvent *event);
 
 	poTextBox *tb, *tb2;

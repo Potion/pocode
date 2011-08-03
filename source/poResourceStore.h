@@ -11,6 +11,9 @@
 #include "poFont.h"
 #include "poImage.h"
 
+#include "Loaders.h"
+#include "ResourceStore.h"
+
 #define DEFAULT_REZ_GROUP -1
 
 poFont *getFont(); // the not_found image
@@ -22,9 +25,6 @@ poImage *getImage(const std::string &url_or_key, ImageBitDepth bpp, int gid=DEFA
 poImage *getImage(const std::string &url_or_key, uint w, uint h, ImageBitDepth bpp, const ubyte *pixels, int gid=DEFAULT_REZ_GROUP);
 
 
-
-#include "Loaders.h"
-#include "ResourceStore.h"
 
 static poResourceStore<poFontLoader> *fontStore() {
 	using namespace boost;

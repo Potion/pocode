@@ -37,6 +37,9 @@ public:
 	void drawUID(uint uid, poPoint p);
 	// reset the texture state to what it was
 	void stopDrawing();
+
+protected:
+	bool bindInfo(int *bound_page, int *bound_unit);
 	
 private:
 	void clearPages();

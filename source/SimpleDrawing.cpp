@@ -2,8 +2,10 @@
 
 #include "Helpers.h"
 #include "poTexture.h"
+#include "poBitmapFontAtlas.h"
 
 #include <cfloat>
+#include <utf8.h>
 #include <boost/assign/list_of.hpp>
 
 
@@ -253,5 +255,31 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 	}
 }
 
+void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
+	if(ptSize > 0)
+		font->pointSize(ptSize);
+	
+	poBitmapFontAtlas *atlas = getBitmapFont(font);
+
+	font->glyph(' ');
+	float spacer = font->glyphAdvance().x * tracking;
+
+	atlas->startDrawing(0);
+	
+	std::string::const_iterator ch = str.begin();
+	while(ch != str.end()) {
+		uint codepoint = utf8::next(ch, str.end());
+		font->glyph(codepoint);
+		
+		poPoint adv = font->glyphAdvance();
+		
+		atlas->cacheGlyph(codepoint);
+		atlas->drawUID(codepoint, pos-poPoint(5,5)+font->glyphBearing());
+		
+		pos.x += adv.x * tracking;
+	}
+	
+	atlas->stopDrawing();
+}
 
 

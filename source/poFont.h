@@ -67,10 +67,6 @@ public:
 	
 	std::string toString() const;
 
-	// don't store this pointer as it might disappear without notice
-	poBitmapFontAtlas *atlas();
-	void deleteFontAtlas();
-
 private:
 	poFont();
 	poFont(const std::string &family_or_url, int pointSize, const std::string &trait=PO_FONT_REGULAR);
@@ -83,8 +79,6 @@ private:
 
 	std::string _url;
 	int size, _glyph;
-	
-	poBitmapFontAtlas *_atlas;
 };
 
 bool fontExists(const std::string &family_or_url);

@@ -97,7 +97,7 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset, poPoint(10,10)));
     }
 
-	poBitmapFontAtlas *atlas = this->font(PO_FONT_REGULAR)->atlas();
+	poBitmapFontAtlas *atlas = getBitmapFont(this->font(PO_FONT_REGULAR));
 	
 	glDisable(GL_MULTISAMPLE);
 	applyColor(poColor(textColor, appliedAlpha()));

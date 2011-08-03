@@ -182,7 +182,7 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 }
 
 void poTextureAtlas::drawUID(uint uid, poPoint p) {
-	drawUID(uid, poRect(p,poPoint(1,1)));
+	drawUID(uid, poRect(p.x,p.y,1,1));
 }
 
 void poTextureAtlas::stopDrawing() {
@@ -197,4 +197,16 @@ void poTextureAtlas::stopDrawing() {
 	glPopClientAttrib();
 	glPopAttrib();
 }
+
+bool poTextureAtlas::bindInfo(int *bp, int *bu) {
+	if(bound_page >= 0) {
+		*bp = bound_page;
+		*bu = unit;
+		return true;
+	}
+	return false;
+}
+
+
+
 
