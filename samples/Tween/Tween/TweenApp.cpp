@@ -22,22 +22,25 @@ TweenApp::TweenApp()
 	zoomed = false;
     
     pho = new poRectShape(50,50);
-    pho->generateStroke(2).strokeColor = poColor::cyan;
-	pho->generateStroke(2).fillColor = poColor::dk_grey;
     pho->position = poPoint(20,20,0);
+	pho->fillColor = poColor::dk_grey;
+	pho->strokeColor = poColor::cyan;
+    pho->generateStroke(2);
     addChild(pho);
 	
 	banh = new poOvalShape(50,50,3);
-	banh->generateStroke(2).strokeColor = poColor::yellow;
-	banh->generateStroke(2).fillColor = poColor::dk_grey;
 	banh->position = poPoint(150,150,0);
+	banh->fillColor = poColor::dk_grey;
+	banh->strokeColor = poColor::yellow;
+	banh->generateStroke(2);
 	banh->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     addChild(banh);
 
 	mi = new poOvalShape(50,50,100);
-	mi->generateStroke(2).strokeColor = poColor::magenta;
-	mi->generateStroke(2).fillColor = poColor::dk_grey;
 	mi->position = poPoint(450,150,0);
+	mi->fillColor = poColor::dk_grey;
+	mi->strokeColor = poColor::magenta;
+	mi->generateStroke(2);
 	mi->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     addChild(mi);
 	
@@ -54,7 +57,9 @@ TweenApp::TweenApp()
 		.setRepeat(PO_TWEEN_REPEAT_REGULAR)		//	repeat is set to loop
 		.setTweenFunction(linearFunc)			//	linear (no ease)
 		.setDuration(2)							//	Easing functions require a duration
+		.setDelay(2,true)
 		.start();
+
 	
 	simple_tween.set(1.f).setTweenFunction(linearFunc).setDuration(1.f).setRepeat(PO_TWEEN_REPEAT_PINGPONG).setNotification(this,"done").start();
 }
@@ -88,5 +93,5 @@ void TweenApp::eventHandler(poEvent *event) {
 }
 
 void TweenApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-	printf("%s (%f)\n", msg.c_str(), simple_tween_val);
+//	printf("%s (%f)\n", msg.c_str(), simple_tween_val);
 }

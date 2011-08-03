@@ -28,7 +28,8 @@ public:
 	poTweenBase& setNotification(poObject *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
 	poTweenBase& setTweenFunction(poTweenFunction func);
 	poTweenBase& setDuration(double duration);
-	poTweenBase& setDelay(double delay);
+	// default will not take delay into account when repeating
+	poTweenBase& setDelay(double delay, bool delayOnRepeat=false);
 	poTweenBase& setExtraValues(double e1, double e2);
 	
 	poTweenBase& start();
@@ -70,6 +71,8 @@ private:
 	double time, last_time;
 	double begin_time, end_time, duration, delay;
 	double extra1, extra2;
+	
+	bool delay_on_repeat;
 	
 	poTweenFinishedCallback callback;
 };

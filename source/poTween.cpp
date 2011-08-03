@@ -17,6 +17,7 @@ poTweenBase::poTweenBase()
 ,	extra1(0.99f)
 ,	extra2(0.001f)
 ,	time(0.0)
+,	delay_on_repeat(false)
 {}
 
 poTweenBase::~poTweenBase() {}
@@ -45,12 +46,12 @@ void poTweenBase::update() {
 			
 			if(repeat_type & PO_TWEEN_REPEAT_REGULAR && repeat_ok) {
 				setValueToBegin();
-				startWithDelay(false);
+				startWithDelay(delay_on_repeat);
 			}
 			else if(repeat_type & PO_TWEEN_REPEAT_PINGPONG && repeat_ok) {
 				setValueToEnd();
 				swapBeginAndEnd();
-				startWithDelay(false);
+				startWithDelay(delay_on_repeat);
 			}
 			else {
 				state = COMPLETE;
@@ -90,8 +91,9 @@ poTweenBase& poTweenBase::setDuration(double dur) {
 	return *this;
 }
 
-poTweenBase& poTweenBase::setDelay(double del) {
+poTweenBase& poTweenBase::setDelay(double del, bool d) {
 	delay = del;
+	delay_on_repeat = d;
 	return *this;
 }
 
