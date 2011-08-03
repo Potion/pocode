@@ -67,6 +67,7 @@ public:
 	
 	std::string toString() const;
 
+	// don't store this pointer as it might disappear without notice
 	poBitmapFontAtlas *atlas();
 	void deleteFontAtlas();
 

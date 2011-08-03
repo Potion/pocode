@@ -8,6 +8,18 @@ poBitmapFontAtlas::poBitmapFontAtlas(poFont *f, int pointSize)
 {
 	if(size < 0)
 		size = _font->pointSize();
+
+	_font->pointSize(size);
+	
+	for(int i=32; i<128; i++) {
+		_font->glyph(i);
+		
+		poImage *img = _font->glyphImage();
+		addImage(img, i);
+		layoutAtlas();
+		
+		delete img;
+	}
 }
 
 poBitmapFontAtlas::~poBitmapFontAtlas() {}
