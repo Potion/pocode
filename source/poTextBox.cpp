@@ -51,6 +51,10 @@ poAlignment poTextBox::textAlignment() const {return _layout.alignment();}
 void poTextBox::textAlignment(poAlignment al) {_layout.alignment(al);}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
+void poTextBox::reshape(int w, int h) {
+	bounds.size.set(w,h,0);
+	_layout.size(bounds.size);
+}
 
 uint poTextBox::numLines() const {return _layout.numLines();}
 poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
