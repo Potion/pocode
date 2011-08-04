@@ -15,6 +15,7 @@
 #include "poCamera.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
+#include "poResourceStore.h"
 
 poObject *createObjectForID(uint uid) {
 	return new testApp();
@@ -33,15 +34,16 @@ testApp::testApp() {
 	addModifier(new poCamera2D());
     
     //load image from pwd
-    myImage = new poImage("images/GH_0002d.jpg");
-	applicationReshapeWindow(applicationCurrentWindow(), poRect(0,0,myImage->width(),myImage->height()));
+    myImage = getImage("images/GH_0002d.jpg");
+//	applicationReshapeWindow(applicationCurrentWindow(), poRect(0,0,myImage->width(),myImage->height()));
 	
     //create new poRectShape and give it an image to create a texture quickly
-    image = new poRectShape(myImage);
+    image = new poRectShape(myImage->width(), myImage->height());
+	image->placeTexture( myImage->texture() );
     //set alignment to center for horiz and vert
     image->alignment(PO_ALIGN_CENTER_CENTER);
     //position image in the center of the screen
-    image->position(getWindowWidth()/2, getWindowHeight()/2);
+    image->position.set(getWindowWidth()/2, getWindowHeight()/2, 0);
     //add poRect (image) to stage
     addChild(image);
 }

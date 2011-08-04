@@ -11,21 +11,26 @@
 
 class poWindow;
 
-@interface poOpenGLView : NSOpenGLView {
+@interface poOpenGLView : NSView {
+@private
 	CVDisplayLinkRef display_link;
-	BOOL fullscreen;
+	NSOpenGLContext *context;
+	NSOpenGLPixelFormat *format;
+	
 	poWindow *appWindow;
 }
 
 @property (nonatomic,assign) poWindow *appWindow;
-@property (nonatomic,assign) BOOL fullscreen;
+@property (nonatomic,retain) NSOpenGLContext *openGLContext;
 
--(id)initWithFrame:(NSRect)frm context:(NSOpenGLContext*)cxt window:(poWindow*)win;
++(NSOpenGLPixelFormat*)defaultPixelFormat;
+
+-(id)initWithFrame:(NSRect)frm;
+
+-(void)update;
 
 -(BOOL)isAnimating;
 -(void)startAnimating;
 -(void)stopAnimating;
-
--(void)stepApplication;
 
 @end
