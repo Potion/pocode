@@ -19,5 +19,4 @@ public:
 	virtual void eventHandler(poEvent *event);
     
     vector<poOvalShape*> seeds;
-    poResourceStore resources;
 };

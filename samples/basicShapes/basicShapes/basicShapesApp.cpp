@@ -20,32 +20,32 @@ basicShapesApp::basicShapesApp() {
     
     // make custom shape, orange
     customShape = new poShape2D();
-    customShape->addPoint( -30,-40 );
-    customShape->addPoint( 60,-50 );
-    customShape->addPoint( 50,30 );
-    customShape->addPoint( -50,40 );
-    customShape->position( 150,75 );
-    customShape->fillColor( poColor::orange );
+    customShape->addPoint( -30, -40 );
+    customShape->addPoint( 60, -50 );
+    customShape->addPoint( 50, 30 );
+    customShape->addPoint( -50, 40 );
+    customShape->position.set( 150, 75, 0 );
+    customShape->fillColor = poColor::orange;
     addChild( customShape );
     
     // make rectangular shape, yellow
     rectShape = new poRectShape( 150,100 );
-    rectShape->position( 450,75 );
-    rectShape->fillColor( poColor::yellow );
+    rectShape->position = poPoint( 450, 75, 0 );
+    rectShape->fillColor = poColor::yellow;
     rectShape->alignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShape );
    
     // make rectangular shape with image + transparency
     rectShapeWithImage = new poRectShape( "apple.jpg" );
-    rectShapeWithImage->position( 150,225 );
-    rectShapeWithImage->scale( 0.5, 0.5,1 );
+    rectShapeWithImage->position.set( 150, 225, 0 );
+    rectShapeWithImage->scale.set( 0.5, 0.5, 1 );
     rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShapeWithImage );
     
     // make oval shape, green
     ovalShape = new poOvalShape( 100,100, 50 );
-    ovalShape->position( 450,225 );
-    ovalShape->fillColor( poColor::green );
+    ovalShape->position.set( 450, 225, 0 );
+    ovalShape->fillColor = poColor::green;
     addChild( ovalShape );
 }
 

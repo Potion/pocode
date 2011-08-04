@@ -38,32 +38,19 @@ void StarShapeApp::eventHandler(poEvent *event) {
 	if( event->type == PO_KEY_DOWN_EVENT ){
         switch (event->keyChar) {
                 
-            case '>':
-                numPoints++;
-                break;
+            case '>':	numPoints++;	break;
                 
-            case '<':
-                numPoints--;
-                break;
+            case '<':	numPoints--;	break;
                 
-            case 'f':
-                radius++;
-                break;
+            case 'f':	radius++;	break;
                 
-            case 'v':
-                radius--;
-                break;
+            case 'v':	radius--;	break;
                 
-            case 'g':
-                depth++;
-                break;
+            case 'g':	depth++;	break;
                 
-            case 'b':
-                depth--;
-                break;
+            case 'b':	depth--;	break;
                 
-            default:
-                break;
+            default:	break;
         }
     }
 }
