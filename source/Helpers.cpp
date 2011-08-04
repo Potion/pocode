@@ -180,7 +180,7 @@ void startMasking(poShape2D *mask) {
 	glPushAttrib(GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_STENCIL_TEST);
 	
-	glClear(GL_STENCIL_BUFFER_BIT);
+//	glClear(GL_STENCIL_BUFFER_BIT);
 	
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glStencilFunc(GL_ALWAYS, 1, 1);
