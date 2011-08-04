@@ -68,9 +68,7 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(node.type() == node_pcdata) {
 		data->string.append(node.value());
 	}
-		
-	printf("%d: '%s' '%s' '%s'\n-----------\n", node.type(), node.name(), node.value(), node.child_value());
-	
+			
 	xml_node child = node.first_child();
 	while(child) {
 		parseText(child, data);
