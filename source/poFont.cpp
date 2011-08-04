@@ -18,12 +18,15 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-bool urlForFontFamilyName(const std::string &family, std::string &response) {
+bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
 	CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 	
-	CFStringRef cfstr = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
-	CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, cfstr);
-	CFRelease(cfstr);
+	CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
+	CFStringRef sty_str = CFStringCreateWithBytes(NULL, (const UInt8*)style.c_str(), style.size(), kCFStringEncodingUTF8, false);
+	CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, fam_str);
+	CFDictionaryAddValue(attributes, kCTFontStyleNameAttribute, sty_str);
+	CFRelease(fam_str);
+	CFRelease(sty_str);
 	
 	CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
 	CFRelease(attributes);
@@ -44,27 +47,6 @@ bool urlForFontFamilyName(const std::string &family, std::string &response) {
 
 #endif
 
-bool styleItalic(long flags) {
-	return flags & FT_STYLE_FLAG_ITALIC;
-}
-
-bool styleBold(long flags) {
-	return flags & FT_STYLE_FLAG_BOLD;
-}
-
-bool traitMatchesFlags(const std::string &trait, long flags) {
-	if(trait == PO_FONT_REGULAR && !styleBold(flags) && !styleItalic(flags))
-		return true;
-	if(trait == PO_FONT_ITALIC &&  !styleBold(flags) && styleItalic(flags))
-		return true;
-	if(trait == PO_FONT_BOLD && styleBold(flags) && !styleItalic(flags))
-		return true;
-	if(trait == PO_FONT_BOLD_ITALIC && styleBold(flags) && styleItalic(flags))
-		return true;
-	
-	return false;
-}
-
 FT_Library poFont::lib = NULL;
 void deleteFT_Face(FT_Face face) {
 	FT_Done_Face(face);
@@ -75,7 +57,7 @@ poFont::poFont()
 ,	size(0)
 {}
 
-poFont::poFont(const std::string &family_or_url, int sz, const std::string &trait)
+poFont::poFont(const std::string &family_or_url, int sz, const std::string &style)
 :	face()
 ,	size(0)
 {
@@ -84,20 +66,22 @@ poFont::poFont(const std::string &family_or_url, int sz, const std::string &trai
 	std::string url = "";
 	if(fs::exists(family_or_url))
 		url = family_or_url;
-	else if(!urlForFontFamilyName(family_or_url, url))
+	else if(!urlForFontFamilyName(family_or_url, style, url))
 		printf("poFont: can't find font (%s)\n", family_or_url.c_str());
 	
 	FT_Face tmp;
 	FT_New_Face(lib, url.c_str(), 0, &tmp);
-	for(int i=0; i<tmp->num_faces; i++) {
+	for(int i=1; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
 		FT_New_Face(lib, url.c_str(), i, &f);
-		if(traitMatchesFlags(trait, f->style_flags)) {
+		
+		if(style == f->style_name) {
 			FT_Done_Face(tmp);
 			tmp = f;
 		}
-		else
+		else {
 			FT_Done_Face(f);
+		}
 	}
 	
 	face = boost::shared_ptr<FT_FaceRec_>(tmp,deleteFT_Face);
@@ -151,8 +135,11 @@ poRect poFont::glyphBounds() {
 }
 
 poPoint poFont::glyphBearing() {
-	return poPoint(face->glyph->metrics.horiBearingX >> 6,
-				   (face->size->metrics.ascender - face->glyph->metrics.horiBearingY) >> 6);
+	
+	poPoint natural_bearing	(face->glyph->metrics.horiBearingX >> 6,
+							(face->size->metrics.ascender - face->glyph->metrics.horiBearingY) >> 6);
+	poPoint padding_bearing = poPoint(GLYPH_PADDING,GLYPH_PADDING);
+	return natural_bearing - padding_bearing;
 }
 
 poPoint poFont::glyphAdvance() {
@@ -161,7 +148,7 @@ poPoint poFont::glyphAdvance() {
 }
 
 poImage *poFont::glyphImage() {
-	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_LIGHT);
+	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 
 	int padding = GLYPH_PADDING * 2;
 	
@@ -198,12 +185,12 @@ std::string poFont::toString() const {
 
 void poFont::loadGlyph(int g) {
 	uint idx = FT_Get_Char_Index(face.get(), g);
-	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP);
+	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
 }
 
 bool fontExists(const std::string &family) {
 	std::string url;
-	return 	fs::exists(family) || urlForFontFamilyName(family, url);
+	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
 }
 
 std::ostream &operator<<(std::ostream &o, const poFont &f) {

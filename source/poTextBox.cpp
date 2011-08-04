@@ -105,7 +105,7 @@ void poTextBox::draw() {
 	for(int i=0; i<numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin-poPoint(5,5));
+			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
 		}
 	}
 	atlas->stopDrawing();
