@@ -138,8 +138,7 @@ poPoint poFont::glyphBearing() {
 	
 	poPoint natural_bearing	(face->glyph->metrics.horiBearingX >> 6,
 							(face->size->metrics.ascender - face->glyph->metrics.horiBearingY) >> 6);
-	poPoint padding_bearing = poPoint(GLYPH_PADDING,GLYPH_PADDING);
-	return natural_bearing - padding_bearing;
+	return natural_bearing;
 }
 
 poPoint poFont::glyphAdvance() {

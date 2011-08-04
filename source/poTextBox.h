@@ -15,6 +15,11 @@
 #include "poFont.h"
 #include "poBitmapFontAtlas.h"
 
+static const std::string PO_TEXT_REGULAR = "span";
+static const std::string PO_TEXT_ITALIC = "i";
+static const std::string PO_TEXT_BOLD = "b";
+static const std::string PO_TEXT_BOLD_ITALIC = "bi";
+
 class poTextBox
 :	public poObject 
 {
@@ -58,7 +63,7 @@ public:
 	// font name correspondes to html tag embedded in the text
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
 	// <span>regular, when you want to override color, leading or tracking</span>
-	void font(poFont *font, const std::string &name=PO_FONT_REGULAR);
+	void font(poFont *font, const std::string &name=PO_TEXT_REGULAR);
 	poFont *font(const std::string &name);
     
 	poTextBox *layout();

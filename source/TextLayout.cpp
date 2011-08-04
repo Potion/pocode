@@ -8,8 +8,9 @@
 
 #include "TextLayout.h"
 
+#include <pugixml.hpp>
+
 #include <utf8.h>
-#include <tinyxml.h>
 #include <boost/tokenizer.hpp>
 
 #include "poMath.h"
@@ -18,6 +19,68 @@
 
 
 #pragma mark - Layout Helper -
+
+struct parse_data {
+	parse_data(TextLayout *layout) : layout(layout) {}
+	
+	TextLayout *layout;
+	po::AttributedString string;
+	std::stack<po::RangeDict> dict;
+};
+
+void parseText(const pugi::xml_node &node, parse_data *data) {
+	using namespace pugi;
+	
+	if(!node)
+		return;
+	
+	if(node.type() == node_element) {
+		po::RangeDict range;
+		range.range.start = utf8strlen(data->string.str());
+		
+		if(data->layout->hasFont(node.name())) {
+			range.dict.setPtr("font", data->layout->font(node.name()));
+		}
+		else if(!strcmp("u", node.name())) {
+			range.dict.setBool("u",true);
+		}
+		
+		xml_attribute attrib = node.first_attribute();
+		while(attrib) {
+			if(!strcmp(attrib.name(),"tracking")) {
+				range.dict.setFloat("tracking", attrib.as_float());
+			}
+			else 
+			if(!strcmp(attrib.name(),"color")) {
+				std::istringstream val_str(attrib.value());
+				
+				poColor c;
+				val_str >> c;
+				range.dict.setColor("color", c);
+			}
+			
+			attrib = attrib.next_attribute();
+		}
+		
+		data->dict.push(range);
+	}
+	else 
+	if(node.type() == node_pcdata) {
+		data->string.append(node.value());
+	}
+		
+	printf("%d: '%s' '%s' '%s'\n-----------\n", node.type(), node.name(), node.value(), node.child_value());
+	
+	xml_node child = node.first_child();
+	while(child) {
+		parseText(child, data);
+		child = child.next_sibling();
+	}
+	
+	
+}
+
+/*
 struct StripAndIndex : public TiXmlVisitor {
 	StripAndIndex(po::AttributedString &str, TextLayout *layout) 
 	:	stripped(str)
@@ -33,22 +96,8 @@ struct StripAndIndex : public TiXmlVisitor {
 		po::RangeDict range;
 		range.range.start = utf8strlen(stripped.str());
 
-		// we're supporting span, i, b, bi, and u tags
-		if(ele.ValueStr() == PO_FONT_REGULAR) {
-			if(layout->hasFont())
-				range.dict.setPtr("font", layout->font()); 
-		}
-		else if(ele.ValueStr() == PO_FONT_ITALIC) {
-			if(layout->hasFont(PO_FONT_ITALIC))
-				range.dict.setPtr("font", layout->font(PO_FONT_ITALIC));
-		}
-		else if(ele.ValueStr() == PO_FONT_BOLD) {
-			if(layout->hasFont(PO_FONT_BOLD))
-				range.dict.setPtr("font", layout->font(PO_FONT_BOLD));
-		}
-		else if(ele.ValueStr() == PO_FONT_BOLD_ITALIC) {
-			if(layout->hasFont(PO_FONT_BOLD_ITALIC))
-				range.dict.setPtr("font", layout->font(PO_FONT_BOLD_ITALIC));
+		if(layout->hasFont(ele.ValueStr())) {
+			range.dict.setPtr("font", layout->font(ele.ValueStr()));
 		}
 		else if(ele.ValueStr() == "u") {
 			range.dict.setBool("u", true);
@@ -83,14 +132,16 @@ struct StripAndIndex : public TiXmlVisitor {
 		range.range.end = utf8strlen(stripped.str());
 		stripped.append(range);
 		
+		printf("%s\n", ele.Value());
 		return true;
 	}
 	virtual bool Visit(const TiXmlText &ele) {
+		printf("%s", ele.Value());
 		stripped.append(ele.ValueStr());
 		return true;
 	}
 };
-
+*/
 #pragma mark - TextLayout -
 std::string TextLayout::text() const {return _text;}
 void TextLayout::text(const std::string &str) {_text = str;}
@@ -107,21 +158,20 @@ poRect TextLayout::textBounds() const {return text_bounds;}
 void TextLayout::prepareText() {
 	// clean up
 	lines.clear();
-	_parsed = po::AttributedString();
 	text_bounds.set(0,0,0,0);
 
-	std::string xml = (boost::format("<span>%1%</span>")%text()).str();
+	std::stringstream xml;
+	xml << "<span>" << text() << "</span>";
 	
-	bool is_condensed = TiXmlBase::IsWhiteSpaceCondensed();
-	TiXmlBase::SetCondenseWhiteSpace(false);
+	using namespace pugi;
+
+	xml_document doc;
+	doc.load(xml, parse_ws_pcdata | parse_cdata, encoding_utf8);
 	
-	TiXmlDocument doc;
-	doc.Parse(xml.c_str(), NULL, TIXML_ENCODING_UTF8);
+	parse_data pd(this);
+	parseText(doc.first_child(), &pd);
 	
-	StripAndIndex stripped(_parsed, this);
-	doc.Accept(&stripped);
-	
-	TiXmlBase::SetCondenseWhiteSpace(is_condensed);
+	_parsed = pd.string;
 }
 
 void TextLayout::layout() {
@@ -169,7 +219,7 @@ void TextBoxLayout::doLayout() {
 
 	layout_line line;
 	
-	poFont *fnt = font(PO_FONT_REGULAR);
+	poFont *fnt = font();
 
 	bool has_leading = leading() >= 0.f;
 	if(!has_leading)
@@ -315,7 +365,7 @@ void TextBoxLayout::alignText() {
 		line.bounds.origin += glyphOffset;
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
-			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
+			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset - poPoint(GLYPH_PADDING,GLYPH_PADDING));
 		}
 		
 		replaceLine(i, line);

@@ -10,7 +10,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextTest", 100, 100, 1000, 800);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextTest", 100, 100, 800, 800);
 }
 
 void cleanupApplication() {
@@ -19,42 +19,31 @@ void cleanupApplication() {
 TextTestApp::TextTestApp() {
 	addModifier(new poCamera2D());
 	
-	poFont *light = getFont("Helvetica Neue", 30, "Regular");
+	poFont *reg = getFont("Georgia", 30, "Regular");
 	poFont *italic = getFont("Helvetica Neue", 30, "Italic");
 	poFont *bold = getFont("Helvetica Neue", 30, "Bold");
 	poFont *bold_italic = getFont("Helvetica Neue", 30, "Bold Italic");
+	poFont *con_bold = getFont("Helvetica Neue", 30, "Condensed Bold");
 
-	std::string text = "ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890";
+	std::string text =	"<b>ABCDEFGHIJKLM</b>\n"
+						"<i>NOPQRSTUVWXYZ</i>\n"
+						"<span>abcdefghijklm</span>\n"
+						"<bi>nopqrstuvwxyz</bi>\n"
+						"<cb>1234567890</cb>Hello";
 	
 	poTextBox *tb;
-	
-	tb = addChild(new poTextBox(300,300));
-	tb->position.set(20,10,0);
-	tb->font(light);
-	tb->text(text);
+	tb = addChild(new poTextBox(getWindowWidth(), getWindowHeight()));
+	tb->alignment(PO_ALIGN_CENTER_CENTER);
 	tb->textAlignment(PO_ALIGN_CENTER_CENTER);
-	tb->layout();
-	
-	tb = addChild(new poTextBox(300,300));
-	tb->position.set(340,10,0);
-	tb->font(italic);
+	tb->position = getWindowCenter();
+	tb->font(reg, "span");
+	tb->font(italic, "i");
+	tb->font(bold, "b");
+	tb->font(bold_italic, "bi");
+	tb->font(con_bold, "cb");
 	tb->text(text);
-	tb->textAlignment(PO_ALIGN_CENTER_CENTER);
 	tb->layout();
-	
-	tb = addChild(new poTextBox(300,300));
-	tb->position.set(20,320,0);
-	tb->font(bold);
-	tb->text(text);
-	tb->textAlignment(PO_ALIGN_CENTER_CENTER);
-	tb->layout();
-
-	tb = addChild(new poTextBox(300,300));
-	tb->position.set(340,320,0);
-	tb->font(bold_italic);
-	tb->text(text);
-	tb->textAlignment(PO_ALIGN_CENTER_CENTER);
-	tb->layout();
+	tb->drawBounds = true;
 }
 
 TextTestApp::~TextTestApp() {
