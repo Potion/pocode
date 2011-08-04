@@ -228,6 +228,7 @@ void TextBoxLayout::doLayout() {
 	fnt->glyph(' ');
 
 	float spacer = fnt->glyphAdvance().x * tracking();
+	float baseline = fnt->ascender();
 
 	poPoint size(0,0);
 	vector<layout_glyph> glyphs;
@@ -265,7 +266,8 @@ void TextBoxLayout::doLayout() {
 		glyphs.push_back(glyph);
 		
 		size.x += (fnt->glyphAdvance().x - kern.x) * tracking();
-		size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
+//		size.y = std::max(glyph.bbox.height(), size.y);
+		size.y = fnt->lineHeight();
 		
 		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
 			line.bounds.size.x -= spacer;
@@ -365,7 +367,7 @@ void TextBoxLayout::alignText() {
 		line.bounds.origin += glyphOffset;
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
-			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset - poPoint(GLYPH_PADDING,GLYPH_PADDING));
+			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
 		}
 		
 		replaceLine(i, line);

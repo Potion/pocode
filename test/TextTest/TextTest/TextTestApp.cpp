@@ -3,6 +3,7 @@
 #include "poCamera.h"
 #include "poTextBox.h"
 #include "poApplication.h"
+#include "SimpleDrawing.h"
 #include "poResourceStore.h"
 
 poObject *createObjectForID(uint uid) {
@@ -47,6 +48,10 @@ TextTestApp::TextTestApp() {
 }
 
 TextTestApp::~TextTestApp() {
+}
+
+void TextTestApp::draw() {
+	drawString("Hello people", getFont("Georgia", 30, "Regular"), poPoint(0,0));
 }
 
 void TextTestApp::eventHandler(poEvent *event) {
