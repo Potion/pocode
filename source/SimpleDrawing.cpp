@@ -14,6 +14,11 @@ void applyColor(poColor color) {
 }
 
 void drawQuad(GLenum type, float x, float y, float w, float h) {
+	x = floor(x) + .5f;
+	y = floor(y) + .5f;
+	w = floor(w);
+	h = floor(h);
+	
 	GLfloat quad[4*3] = {
 		x, y, 0, 
 		x, y+h, 0, 
@@ -39,6 +44,9 @@ void drawStroke(float x, float y, float w, float h) {
 }
 
 void drawLine(poPoint a, poPoint b) {
+	a = floor(a) + poPoint(0.5f, 0.5f);
+	b = floor(b) + poPoint(0.5f, 0.5f);
+	
 	GLfloat points[2*3] = {
 		a.x, a.y, a.z, 
 		b.x, b.y, b.z
@@ -73,6 +81,8 @@ void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
 }
 
 void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
+	rect.origin = floor(rect.origin) + poPoint(.5f, .5f);
+	
 	GLfloat quad[4*3] = { 
 		rect.origin.x, rect.origin.y, 0, 
 		rect.origin.x, rect.origin.y+rect.size.y, 0, 
@@ -272,9 +282,10 @@ void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, f
 		font->glyph(codepoint);
 		
 		poPoint adv = font->glyphAdvance();
+		poPoint org = round(pos+font->glyphBearing());
 		
 		atlas->cacheGlyph(codepoint);
-		atlas->drawUID(codepoint, pos-poPoint(5,5)+font->glyphBearing());
+		atlas->drawUID(codepoint, pos+font->glyphBearing());
 		
 		pos.x += adv.x * tracking;
 	}

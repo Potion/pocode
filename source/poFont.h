@@ -69,7 +69,7 @@ public:
 
 private:
 	poFont();
-	poFont(const std::string &family_or_url, int pointSize, const std::string &trait=PO_FONT_REGULAR);
+	poFont(const std::string &family_or_url, int pointSize, const std::string &style);
 
 	void init();
 	void loadGlyph(int g);

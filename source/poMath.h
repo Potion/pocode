@@ -77,12 +77,20 @@ inline float roundSym(float f) {
 	return (f > 0.0) ? floor(f + 0.5) : ceil(f - 0.5);
 }
 
+inline poPoint roundSym(poPoint p) {
+	return poPoint(roundSym(p.x), roundSym(p.y), roundSym(p.z));
+}
+
 inline float round(float f) {
 	return floor(f + 0.5);
 }
 
 inline poPoint round(poPoint p) {
 	return poPoint(round(p.x), round(p.y), round(p.z));
+}
+
+inline poPoint floor(poPoint p) {
+	return poPoint(floor(p.x), floor(p.y), floor(p.z));
 }
 
 template <typename T>

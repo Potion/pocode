@@ -49,4 +49,3 @@ bool compare(poPoint a, poPoint b, float range=1.0e-6f);
 std::ostream &operator<<(std::ostream &o, const poPoint &p);
 std::istream &operator>>(std::istream &i, poPoint &p);
 
-

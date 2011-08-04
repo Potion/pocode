@@ -203,13 +203,18 @@ void TextBoxLayout::doLayout() {
 		
 		fnt->glyph(codepoint);
 		
+		poPoint kern(0,0);
+		if(fnt->hasKerning() && !glyphs.empty()) {
+			kern = fnt->kernGlyphs(glyphs.back().glyph, codepoint);
+		}
+		
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(size.x, 0) + fnt->glyphBearing();
+		glyph.bbox.origin += poPoint(size.x-kern.x, 0) + fnt->glyphBearing();
 		glyphs.push_back(glyph);
 		
-		size.x += fnt->glyphAdvance().x*tracking();
+		size.x += (fnt->glyphAdvance().x - kern.x) * tracking();
 		size.y = std::max(glyph.bbox.origin.y + glyph.bbox.size.y, size.y);
 		
 		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {

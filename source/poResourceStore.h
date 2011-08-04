@@ -17,7 +17,7 @@
 #define DEFAULT_REZ_GROUP -1
 
 poFont *getFont(); // the not_found image
-poFont *getFont(const std::string &name_or_url, int size, const std::string &weight=PO_FONT_REGULAR, int gid=DEFAULT_REZ_GROUP);
+poFont *getFont(const std::string &name_or_url, int size, const std::string &style="Regular", int gid=DEFAULT_REZ_GROUP);
 
 poImage *getImage(); // the not_found image
 poImage *getImage(const std::string &url_or_key, int gid=DEFAULT_REZ_GROUP);

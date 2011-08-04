@@ -14,7 +14,7 @@
 class BinPacker {
 public:
 	// init with page size
-	BinPacker(uint width, uint height, uint padding=6);
+	BinPacker(uint width, uint height, uint padding=0);
 	~BinPacker();
 
 	void reset();
