@@ -25,7 +25,6 @@ struct parse_data {
 	
 	TextLayout *layout;
 	po::AttributedString string;
-	std::stack<po::RangeDict> dict;
 };
 
 void parseText(const pugi::xml_node &node, parse_data *data) {
@@ -34,14 +33,16 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(!node)
 		return;
 	
+	po::RangeDict range;
+	
 	if(node.type() == node_element) {
-		po::RangeDict range;
 		range.range.start = utf8strlen(data->string.str());
-		
+
 		if(data->layout->hasFont(node.name())) {
 			range.dict.setPtr("font", data->layout->font(node.name()));
 		}
-		else if(!strcmp("u", node.name())) {
+		
+		if(!strcmp("u", node.name())) {
 			range.dict.setBool("u",true);
 		}
 		
@@ -52,97 +53,37 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 			}
 			else 
 			if(!strcmp(attrib.name(),"color")) {
-				std::istringstream val_str(attrib.value());
-				
 				poColor c;
-				val_str >> c;
-				range.dict.setColor("color", c);
+				if(c.set(attrib.value())) {
+					range.dict.setColor("color", c);
+				}
 			}
 			
 			attrib = attrib.next_attribute();
 		}
-		
-		data->dict.push(range);
 	}
 	else 
 	if(node.type() == node_pcdata) {
 		data->string.append(node.value());
 	}
-		
-	printf("%d: '%s' '%s' '%s'\n-----------\n", node.type(), node.name(), node.value(), node.child_value());
-	
+
 	xml_node child = node.first_child();
 	while(child) {
 		parseText(child, data);
 		child = child.next_sibling();
 	}
 	
-	
+	if(node.type() == node_element) {
+		range.range.end = utf8strlen(data->string.str());
+		data->string.append(range);
+	}
 }
 
-/*
-struct StripAndIndex : public TiXmlVisitor {
-	StripAndIndex(po::AttributedString &str, TextLayout *layout) 
-	:	stripped(str)
-	,	layout(layout) 
-	{}
-	
-	po::AttributedString &stripped;
-	TextLayout *layout;
-
-	std::stack<po::RangeDict> dicts;
-	
-	virtual bool VisitEnter(const TiXmlElement &ele, const TiXmlAttribute* attribs) {
-		po::RangeDict range;
-		range.range.start = utf8strlen(stripped.str());
-
-		if(layout->hasFont(ele.ValueStr())) {
-			range.dict.setPtr("font", layout->font(ele.ValueStr()));
-		}
-		else if(ele.ValueStr() == "u") {
-			range.dict.setBool("u", true);
-		}
-		
-		while(attribs) {
-			if(attribs->NameTStr() == "tracking") {
-				range.dict.setFloat("tracking", attribs->DoubleValue());
-			}
-			else if(attribs->NameTStr() == "color") {
-				std::istringstream val_str(attribs->Value());
-
-				poColor c;
-				val_str >> c;
-				
-				std::cout << c << std::endl;
-				
-				range.dict.setColor("color", c);
-			}
-			
-			attribs = attribs->Next();
-		};
-
-		dicts.push(range);
-		
-		return true;
-	}
-	virtual bool VisitExit(const TiXmlElement &ele) {
-		po::RangeDict range = dicts.top();
-		dicts.pop();
-
-		range.range.end = utf8strlen(stripped.str());
-		stripped.append(range);
-		
-		printf("%s\n", ele.Value());
-		return true;
-	}
-	virtual bool Visit(const TiXmlText &ele) {
-		printf("%s", ele.Value());
-		stripped.append(ele.ValueStr());
-		return true;
-	}
-};
-*/
 #pragma mark - TextLayout -
+TextLayout::TextLayout()
+:	rich(false)
+{}
+
 std::string TextLayout::text() const {return _text;}
 void TextLayout::text(const std::string &str) {_text = str;}
 void TextLayout::font(poFont *f, const std::string &weight) {fonts[weight] = f;}
@@ -153,6 +94,13 @@ uint TextLayout::numLines() const {return lines.size();}
 poRect TextLayout::boundsForLine(uint line_num) const {return lines[line_num].bounds;}
 layout_line TextLayout::getLine(uint line_num) const {return lines[line_num];}
 
+bool TextLayout::richText() const {return rich;}
+void TextLayout::richText(bool b) {rich = b;}
+
+poDictionary TextLayout::dictionaryForIndex(int idx) {
+	return _parsed.attributes(idx);
+}
+
 poRect TextLayout::textBounds() const {return text_bounds;}
 
 void TextLayout::prepareText() {
@@ -161,7 +109,7 @@ void TextLayout::prepareText() {
 	text_bounds.set(0,0,0,0);
 
 	std::stringstream xml;
-	xml << "<span>" << text() << "</span>";
+	xml << "<SPECIAL_HOLDER_TAG_PLEASE_IGNORE>" << text() << "</SPECIAL_HOLDER_TAG_PLEASE_IGNORE>";
 	
 	using namespace pugi;
 
@@ -219,55 +167,82 @@ void TextBoxLayout::doLayout() {
 
 	layout_line line;
 	
-	poFont *fnt = font();
-
 	bool has_leading = leading() >= 0.f;
-	if(!has_leading)
-		leading(fnt->lineHeight());
 	
-	fnt->glyph(' ');
-
-	float spacer = fnt->glyphAdvance().x * tracking();
-	float baseline = fnt->ascender();
+	layout_glyph dummy_glyph;
+	dummy_glyph.glyph = ' ';
+	dummy_glyph.bbox = poRect();
 
 	poPoint size(0,0);
 	vector<layout_glyph> glyphs;
+	
+	int counter = 0;
+	
+	poFont *fnt = font();
+	fnt->glyph(' ');
+	float spacer = fnt->glyphAdvance().x * tracking();
+	if(!has_leading)
+		leading(fnt->lineHeight());
 	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
 		uint codepoint = utf8::next(ch, str.end());
 		
+		if(richText()) {
+			poDictionary dict = parsedText().attributes(counter++);
+			
+			bool font_changed = false;
+			if(dict.has("font")) {
+				poFont *tmp = dict.getPtr<poFont>("font");
+				if(tmp != fnt) {
+					fnt = tmp;
+					font_changed = true;
+				}
+			}
+			else {
+				if(fnt != font()) {
+					fnt = font();
+					font_changed = true;
+				}
+			}
+			
+			if(font_changed) {
+				fnt->glyph(' ');
+				spacer = fnt->glyphAdvance().x * tracking();
+				if(!has_leading)
+					leading(fnt->lineHeight());
+			}
+		}
+		
 		if(codepoint == ' ') {
+			glyphs.push_back(dummy_glyph);
 			size.x += spacer;
 			addGlyphsToLine(glyphs, size, line);
 			continue;
 		}
 		if(codepoint == '\n') {
+			glyphs.push_back(dummy_glyph);
 			addGlyphsToLine(glyphs, size, line);
 			breakLine(line);
 			continue;
 		}
 		else if(codepoint == '\t') {
+			glyphs.push_back(dummy_glyph);
 			size.x += spacer * 4;
 			continue;
 		}
 		
 		fnt->glyph(codepoint);
 		
-		poPoint kern(0,0);
-		if(fnt->hasKerning() && !glyphs.empty()) {
-			kern = fnt->kernGlyphs(glyphs.back().glyph, codepoint);
-		}
-		
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(size.x-kern.x, 0) + fnt->glyphBearing();
+		glyph.bbox.origin += poPoint(size.x, 0) + fnt->glyphBearing();
 		glyphs.push_back(glyph);
 		
-		size.x += (fnt->glyphAdvance().x - kern.x) * tracking();
+		size.x += fnt->glyphAdvance().x * tracking();
 //		size.y = std::max(glyph.bbox.height(), size.y);
-		size.y = fnt->lineHeight();
+		size.y = leading();
 		
 		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
 			line.bounds.size.x -= spacer;

@@ -4,6 +4,7 @@
 
 #include "poColor.h"
 #include "poMath.h"
+#include "Helpers.h"
 
 #define min3(a,b,c) a < b ? (a < c ? a : c) : (b < c ? b : c)
 #define max3(a,b,c) a > b ? (a > c ? a : c) : (b > c ? b : c)
@@ -21,7 +22,6 @@ const poColor poColor::blue = poColor(0,.18,.58);
 const poColor poColor::green = poColor(.19, .67, .23);
 const poColor poColor::cyan = poColor(0,1,1);
 const poColor poColor::magenta = poColor(1,0,1);
-
 
 poHSVColor rgba2hsv(poColor rgba) {
 	float r = rgba.R * rgba.A;
@@ -116,6 +116,24 @@ poColor &poColor::set255(float r, float g, float b, float a) {
 	B = b / 255.f;
 	A = a / 255.f;
 	return *this;
+}
+
+bool poColor::set(const std::string &str) {
+	int r,g,b,a;
+	
+	int written = sscanf(str.c_str(), "#%2x%2x%2x%2x", &r,&g,&b,&a);
+	
+	if(written == 4)		{set255(r,g,b,a); return true;}
+	else if(written == 3)	{set255(r,g,b,255); return true;}
+	
+	written = sscanf(str.c_str(), "rgb(%d,%d,%d)", &r,&g,&b);
+	if(written == 3)		{set255(r,g,b,255); return true;}
+	
+	written = sscanf(str.c_str(), "rgba(%d,%d,%d,%d)", &r,&g,&b,&a);
+	if(written == 4)		{set255(r,g,b,a); return true;}
+	
+	R = G = B = A = 0.f;
+	return false;
 }
 
 std::string poColor::toString() const {

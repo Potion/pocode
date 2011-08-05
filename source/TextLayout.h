@@ -26,19 +26,28 @@ struct layout_line {
 
 class TextLayout {
 public:
+	TextLayout();
+	
 	std::string text() const;
 	void text(const std::string &str);
 	
-	void font(poFont *f, const std::string &style="span");
-	poFont *const font(const std::string &style="span");
-	bool hasFont(const std::string &style="span");
+	// style corresponds to the tag used to display it
+	// ''=regular, 'b'=bold, 'i'=italic, etc
+	// you can set any font equal to any tag then use that tag in your text box
+	void font(poFont *f, const std::string &style="");
+	poFont *const font(const std::string &style="");
+	bool hasFont(const std::string &style="");
 	
 	virtual void layout();
 	
 	uint numLines() const;
 	poRect boundsForLine(uint line_num) const;
 	
+	bool richText() const;
+	void richText(bool b);
+	
 	layout_line getLine(uint line_num) const;
+	poDictionary dictionaryForIndex(int idx);
 
 	poRect textBounds() const;
 
@@ -60,6 +69,7 @@ private:
 	po::AttributedString _parsed;
 	std::vector<layout_line> lines;
 	poRect text_bounds;
+	bool rich;
 };
 
 class TextBoxLayout : public TextLayout {

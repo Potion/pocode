@@ -31,8 +31,8 @@ namespace po {
 			float be_dist = abs(b.range.end - idx);
 			
 			if(as_dist == bs_dist)
-				return ae_dist < be_dist;
-			return as_dist < bs_dist;
+				return ae_dist > be_dist;
+			return as_dist > bs_dist;
 		}
 	};
 
@@ -40,7 +40,7 @@ namespace po {
 		int idx;
 		OutsideRange(int idx) : idx(idx) {}
 		bool operator()(const RangeDict &a) {
-			return !(a.range.start <= idx && a.range.end >= idx);
+			return !(a.range.start <= idx && a.range.end > idx);
 		}
 	};
 
@@ -66,7 +66,7 @@ namespace po {
 			// TODO verify this does what i want
 			DictionaryVec filtered;
 			// strip out any ranges that just don't apply
-			std::remove_copy_if(attribs.begin(), attribs.end(), filtered.begin(), OutsideRange(idx));
+			std::remove_copy_if(attribs.begin(), attribs.end(), back_inserter(filtered), OutsideRange(idx));
 			// sort by distance to the current idx
 			// criteria:
 			//	start closest to idx should be towards the end of the list
