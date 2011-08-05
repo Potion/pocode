@@ -171,9 +171,6 @@ void TextBoxLayout::doLayout() {
 	dummy_glyph.bbox = poRect();
 
 	line_layout_props props;
-	props.broke = true;
-	props.glyph_count = 0;
-
 	poFont *fnt = NULL;
 
 	std::string::const_iterator ch = str.begin();
@@ -189,9 +186,6 @@ void TextBoxLayout::doLayout() {
 			props.broke = false;
 		}
 
-		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph
-		uint codepoint = utf8::next(ch, str.end());
-		
 		// if we're parsing the fanciness
 		if(richText()) {
 			// get the dictionary for this position
@@ -226,12 +220,14 @@ void TextBoxLayout::doLayout() {
 
 		// keep track of how many glyphs we have total
 		props.glyph_count++;
+		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph
+		uint codepoint = utf8::next(ch, str.end());
 		
 		// handle whitespace specially
 		if(::iswspace(codepoint)) {
 			props.line.glyphs.push_back(dummy_glyph);
 			// any whitespace indicates a new word
-			props.line.word_count++;
+			addWordToLine(props);
 
 			switch(codepoint) {
 				case ' ':
@@ -260,25 +256,42 @@ void TextBoxLayout::doLayout() {
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(props.line.bounds.size.x, 0) + fnt->glyphBearing();
-		props.line.glyphs.push_back(glyph);
+		glyph.bbox.origin += poPoint(props.word.width, 0) + fnt->glyphBearing();
+		props.word.glyphs.push_back(glyph);
 		
 		// update the pen x position
-		props.line.bounds.size.x += fnt->glyphAdvance().x * tracking();
+		props.word.width += fnt->glyphAdvance().x * tracking();
 
 		// check if we've gone over
-		if(props.line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
+		if(props.line.bounds.size.x + props.word.width > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
 			// there might be an erant space at the end
 			if(props.line.glyphs.back().glyph == ' ')
 				props.line.bounds.size.x -= props.spacer;
+			
 			breakLine(props);
 		}
 	}
 
 	// just in case, make sure the current glyphs get onto the last line
+	addWordToLine(props);
 	breakLine(props);
 	// and do the alignment
 	alignText();
+}
+
+void TextBoxLayout::addWordToLine(line_layout_props &props) {
+	if(!props.word.glyphs.empty()) {
+		props.line.word_count++;
+		for(int i=0; i<props.word.glyphs.size(); i++) {
+			layout_glyph &glyph = props.word.glyphs[i];
+			glyph.bbox.origin += props.line.bounds.size;
+			props.line.glyphs.push_back(glyph);
+		}
+	}
+	
+	props.line.bounds.size.x += props.word.width;
+	
+	props.word = word_layout();
 }
 
 void TextBoxLayout::breakLine(line_layout_props &props) {

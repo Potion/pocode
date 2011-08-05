@@ -30,15 +30,18 @@ TextTestApp::TextTestApp() {
 	con_bold = getFont("Helvetica Neue", 30, "Condensed Bold");
 	huge = getFont("Helvetica Neue", 70, "a");
 		
-	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
-						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
-						"<a color='#ff0000'>aB</a>cdefghijklm\n"
-						"nopqrstuv<bi color='#f0f000'>wxyz</bi>\n"
-						"<cb>1234567890</cb> Hello";
+//	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
+//						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
+//						"<a color='#ff0000'>aB</a>cdefghijklm\n"
+//						"nopqrstuv<bi color='#f0f000'>wxyz</bi>\n"
+//						"<cb>1234567890</cb> Hello";
 	
 	
-	tb = addChild(new poTextBox(getWindowWidth(), getWindowHeight()));
-	tb->richText(true);
+	std::string text = "hello world, lets make sure the line doesn't break in the middle of the word";
+	
+//	tb = addChild(new poTextBox(getWindowWidth(), getWindowHeight()));
+//	tb->richText(true);
+	tb = addChild(new poTextBox(300,300));
 	tb->alignment(PO_ALIGN_CENTER_CENTER);
 	tb->textAlignment(PO_ALIGN_CENTER_CENTER);
 	tb->position = getWindowCenter();
@@ -50,8 +53,8 @@ TextTestApp::TextTestApp() {
 	tb->font(huge, "a");
 	tb->text(text);
 	tb->layout();
-
-	tb->drawBounds = true;
+	
+//	tb->drawBounds = true;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
 }

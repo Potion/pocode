@@ -100,16 +100,24 @@ protected:
 	virtual void doLayout();
 	
 private:
+	struct word_layout {
+		word_layout() : width(0.f) {}
+		float width;
+		std::vector<layout_glyph> glyphs;
+	};
+	
 	struct line_layout_props {
+		line_layout_props() : max_line_height(0), max_drop(0), broke(true), glyph_count(0), spacer(0) {}
 		float max_line_height;
 		float max_drop;
 		bool broke;
 		int glyph_count;
 		float spacer;
+		word_layout word;
 		layout_line line;
 	};
 
-//	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint &size, layout_line &line);
+	void addWordToLine(line_layout_props &props);
 	void breakLine(line_layout_props &props);
 	void alignText();
 
