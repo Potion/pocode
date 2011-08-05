@@ -11,7 +11,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextTest", 100, 100, 800, 800);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextTest", 100, 100, 300, 300);
 }
 
 void cleanupApplication() {
@@ -36,7 +36,6 @@ TextTestApp::TextTestApp() {
 //						"nopqrstuv<bi color='#f0f000'>wxyz</bi>\n"
 //						"<cb>1234567890</cb> Hello";
 	
-	
 	std::string text = "hello world, lets make sure the line doesn't break in the middle of the word";
 	
 //	tb = addChild(new poTextBox(getWindowWidth(), getWindowHeight()));
@@ -53,15 +52,10 @@ TextTestApp::TextTestApp() {
 	tb->font(huge, "a");
 	tb->text(text);
 	tb->layout();
-	
-	tb->reshape(tb->textBounds().size);
-	tb->layout();
-	tb->alignment(PO_ALIGN_CENTER_CENTER);
 
-	tb->drawBounds = true;
+//	tb->drawBounds = true;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
-	
 }
 
 TextTestApp::~TextTestApp() {}
