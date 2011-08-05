@@ -39,6 +39,7 @@ public:
 	poRect textBounds() const;
 	
 	void reshape(int w, int h);
+	void reshape(poPoint p);
 
 	bool richText() const;
 	void richText(bool b);

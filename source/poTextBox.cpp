@@ -57,6 +57,10 @@ void poTextBox::reshape(int w, int h) {
 bool poTextBox::richText() const {return _layout.richText();}
 void poTextBox::richText(bool b) {_layout.richText(b);}
 
+void poTextBox::reshape(poPoint p){
+    reshape(p.x,p.y);
+}
+
 uint poTextBox::numLines() const {return _layout.numLines();}
 poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
 
