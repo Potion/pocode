@@ -161,6 +161,8 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 		poRect size = sizeForUID(uid);
 		poRect coords = coordsForUID(uid);
 		
+		rect.origin += originAdjust();
+		
 		GLfloat quad[4*3] = { 
 			rect.origin.x, rect.origin.y, 0, 
 			rect.origin.x, rect.origin.y+(size.size.y*rect.size.y), 0, 

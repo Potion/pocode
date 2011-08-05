@@ -35,12 +35,14 @@ public:
 	void cacheGlyph(uint glyph);
 	// you can't change the font from here
 	poFont const *font();
-	
+
 private:
 	// if -1, it'll store the current point size of the font
 	// it does not own the font, make sure the font stays in scope
 	poBitmapFontAtlas(poFont *font, int pointSize=0);
 	virtual ~poBitmapFontAtlas();
+
+	virtual poPoint originAdjust();
 
 	int size;
 	poFont *_font;

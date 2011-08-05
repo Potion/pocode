@@ -29,12 +29,13 @@ TextTestApp::TextTestApp() {
 	bold_italic = getFont("Helvetica Neue", 30, "Bold Italic");
 	con_bold = getFont("Helvetica Neue", 30, "Condensed Bold");
 	huge = getFont("Helvetica Neue", 70, "a");
-	
+		
 	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
 						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
-						"<a color='#ff0000'>a</a>bcdefghijklm\n"
+						"<a color='#ff0000'>aB</a>cdefghijklm\n"
 						"nopqrstuv<bi color='#f0f000'>wxyz</bi>\n"
-						"<cb>1234567890</cb>Hello";
+						"<cb>1234567890</cb> Hello";
+	
 	
 	tb = addChild(new poTextBox(getWindowWidth(), getWindowHeight()));
 	tb->richText(true);
@@ -49,10 +50,19 @@ TextTestApp::TextTestApp() {
 	tb->font(huge, "a");
 	tb->text(text);
 	tb->layout();
-	
+
+	tb->drawBounds = true;
+
 	addEvent(PO_KEY_DOWN_EVENT,this);
 }
 
 TextTestApp::~TextTestApp() {}
-void TextTestApp::eventHandler(poEvent *event) {}
+void TextTestApp::eventHandler(poEvent *event) {
+	if(event->type == PO_KEY_DOWN_EVENT) {
+		if(event->keyChar == ' ') {
+			tb->richText(!tb->richText());
+			tb->layout();
+		}
+	}
+}
 void TextTestApp::messageHandler(const std::string &msg, const poDictionary& dict) {}

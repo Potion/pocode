@@ -46,7 +46,7 @@ public:
 
 	uint numLines() const;
 	poRect boundsForLine(uint num) const;
-
+	
 	poColor textColor;
     bool    drawBounds;
 

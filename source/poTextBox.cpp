@@ -92,6 +92,9 @@ void poTextBox::draw() {
 		applyColor(poColor::white);
 		for(int i=0; i<numLines(); i++) {
 			drawStroke(boundsForLine(i));
+			BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+				drawStroke(glyph.bbox);
+			}
 		}
 		
         applyColor(poColor::dk_grey);
@@ -112,14 +115,13 @@ void poTextBox::draw() {
 	atlas->startDrawing(0);
 	for(int i=0; i<numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+			applyColor(poColor(textColor, appliedAlpha()));
 			
 			if(_layout.richText()) {
 				poDictionary dict = _layout.dictionaryForIndex(count);
 				
 				if(dict.has("color"))
 					applyColor(poColor(dict.getColor("color"), appliedAlpha()));
-				else
-					applyColor(poColor(textColor, appliedAlpha()));
 
 				if(dict.has("font")) {
 					poBitmapFontAtlas *a = getBitmapFont(dict.getPtr<poFont>("font"));

@@ -164,134 +164,156 @@ void TextBoxLayout::doLayout() {
 	if(str.empty())
 		return;
 
-	layout_line line;
-	
 	bool has_leading = leading() >= 0.f;
 	
 	layout_glyph dummy_glyph;
 	dummy_glyph.glyph = ' ';
 	dummy_glyph.bbox = poRect();
 
-	poPoint size(0,0);
-	vector<layout_glyph> glyphs;
-	
-	int counter = 0;
-	
-	poFont *fnt = font();
-	fnt->glyph(' ');
-	float spacer = fnt->glyphAdvance().x * tracking();
-	if(!has_leading)
-		leading(fnt->lineHeight());
-	
+	line_layout_props props;
+	props.broke = true;
+	props.glyph_count = 0;
+
+	poFont *fnt = NULL;
+
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
+		// if we broke to a new line last pass reset the line height, etc
+		if(props.broke) {
+			fnt = font();
+			fnt->glyph(' ');
+
+			props.max_line_height = font()->lineHeight();
+			props.max_drop = font()->ascender();
+			props.spacer = font()->glyphAdvance().x * tracking();
+			props.broke = false;
+		}
+
+		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph
 		uint codepoint = utf8::next(ch, str.end());
 		
+		// if we're parsing the fanciness
 		if(richText()) {
-			poDictionary dict = parsedText().attributes(counter++);
+			// get the dictionary for this position
+			poDictionary dict = parsedText().attributes(props.glyph_count);
 			
 			bool font_changed = false;
+			// check if the font has changed
 			if(dict.has("font")) {
+				// there's one in hte dictionary
 				poFont *tmp = dict.getPtr<poFont>("font");
+				// and it isn't the same as last time
 				if(tmp != fnt) {
 					fnt = tmp;
 					font_changed = true;
 				}
 			}
 			else {
+				// there's nothing in the dictionary
 				if(fnt != font()) {
+					// and the current font isn't the default one
 					fnt = font();
 					font_changed = true;
 				}
 			}
-			
+						
+			// do what we need to do when the font switches
 			if(font_changed) {
 				fnt->glyph(' ');
-				spacer = fnt->glyphAdvance().x * tracking();
-				if(!has_leading)
-					leading(fnt->lineHeight());
+				props.spacer = fnt->glyphAdvance().x * tracking();
 			}
 		}
+
+		// keep track of how many glyphs we have total
+		props.glyph_count++;
 		
-		if(codepoint == ' ') {
-			glyphs.push_back(dummy_glyph);
-			size.x += spacer;
-			addGlyphsToLine(glyphs, size, line);
-			continue;
-		}
-		if(codepoint == '\n') {
-			glyphs.push_back(dummy_glyph);
-			addGlyphsToLine(glyphs, size, line);
-			breakLine(line);
-			continue;
-		}
-		else if(codepoint == '\t') {
-			glyphs.push_back(dummy_glyph);
-			size.x += spacer * 4;
+		// handle whitespace specially
+		if(::iswspace(codepoint)) {
+			props.line.glyphs.push_back(dummy_glyph);
+			// any whitespace indicates a new word
+			props.line.word_count++;
+
+			switch(codepoint) {
+				case ' ':
+					props.line.bounds.size.x += props.spacer;
+					break;
+					
+				case '\n':
+					breakLine(props);
+					break;
+					
+				case '\t':
+					props.line.bounds.size.x += props.spacer * 4;
+					break;
+			}
+			
 			continue;
 		}
 		
+		// make sure we change glyphs
 		fnt->glyph(codepoint);
 		
+		props.max_line_height = std::max(props.max_line_height, fnt->glyphBounds().height());
+		props.max_drop = std::max(props.max_drop, -fnt->glyphBearing().y);
+		
+		// store all the info we need to render
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(size.x, 0) + fnt->glyphBearing();
-		glyphs.push_back(glyph);
+		glyph.bbox.origin += poPoint(props.line.bounds.size.x, 0) + fnt->glyphBearing();
+		props.line.glyphs.push_back(glyph);
 		
-		size.x += fnt->glyphAdvance().x * tracking();
-//		size.y = std::max(glyph.bbox.height(), size.y);
-		size.y = leading();
-		
-		if(size.x + line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && line.word_count >= 1) {
-			line.bounds.size.x -= spacer;
-			breakLine(line);
+		// update the pen x position
+		props.line.bounds.size.x += fnt->glyphAdvance().x * tracking();
+
+		// check if we've gone over
+		if(props.line.bounds.size.x > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
+			// there might be an erant space at the end
+			if(props.line.glyphs.back().glyph == ' ')
+				props.line.bounds.size.x -= props.spacer;
+			breakLine(props);
 		}
 	}
 
-	addGlyphsToLine(glyphs, size, line);
-	breakLine(line);
+	// just in case, make sure the current glyphs get onto the last line
+	breakLine(props);
+	// and do the alignment
 	alignText();
-	
-	if(!has_leading)
-		leading(-1);
 }
 
-poPoint TextBoxLayout::size() const {return _size;}
-void TextBoxLayout::size(poPoint s) {_size = s;}
-float TextBoxLayout::tracking() const {return _tracking;}
-void TextBoxLayout::tracking(float f) {_tracking = f;}
-float TextBoxLayout::leading() const {return _leading;}
-void TextBoxLayout::leading(float f) {_leading = f;}
-float TextBoxLayout::paddingLeft() const {return _padding[0];}
-float TextBoxLayout::paddingRight() const {return _padding[1];}
-float TextBoxLayout::paddingTop() const {return _padding[2];}
-float TextBoxLayout::paddingBottom() const {return _padding[3];}
-void TextBoxLayout::padding(float f) {_padding[0] = _padding[1] = _padding[2] = _padding[3] = f;}
-void TextBoxLayout::padding(float h, float v) {_padding[0] = _padding[1] = h; _padding[2] = _padding[3] = v;}
-void TextBoxLayout::padding(float l, float r, float t, float b) {_padding[0] = l; _padding[1] = r; _padding[2] = t; _padding[3] = b;}
-poAlignment TextBoxLayout::alignment() const {return _alignment;}
-void TextBoxLayout::alignment(poAlignment a) {_alignment = a;}
-
-void TextBoxLayout::addGlyphsToLine(std::vector<layout_glyph> &glyphs, poPoint &size, layout_line &line) {
-	BOOST_FOREACH(layout_glyph &glyph, glyphs) {
-		glyph.bbox.origin = glyph.bbox.origin + poPoint(line.bounds.size.x, line.bounds.origin.y);
-		line.glyphs.push_back(glyph);
+void TextBoxLayout::breakLine(line_layout_props &props) {
+	if(!props.line.glyphs.empty()) {
+		// save the start pos
+		float start_y = props.line.bounds.origin.y;
+		
+		// reset the bounds
+		props.line.bounds = poRect();
+		
+		for(int i=0; i<props.line.glyphs.size(); i++) {
+			layout_glyph &glyph = props.line.glyphs[i];
+			// move the glyph down to the baseline + the start position
+			glyph.bbox.origin.y += props.max_drop + start_y;
+			if(i == 0) {
+				// if its the first one set teh line bounds to it
+				props.line.bounds = glyph.bbox;
+			}
+			else {
+				// otherwise expand the line bounds
+				props.line.bounds.include(glyph.bbox);
+			}
+		}
+		
+//		// jump back to the old start pos
+//		props.line.bounds.origin.y = start_y;
+		// save the line
+		addLine(props.line);
+		
+		// and set up hte next line
+		props.line = layout_line();
+		props.line.bounds.origin.y = start_y + props.max_line_height;
 	}
 	
-	line.bounds.size.x += size.x;
-	line.bounds.size.y = std::max(line.bounds.size.y, size.y);
-	line.word_count += 1;
-	
-	glyphs.clear();
-	size.set(0,0,0);
-}
-
-void TextBoxLayout::breakLine(layout_line &line) {
-	addLine(line);
-
-	line = layout_line();
-	line.bounds.origin.y = numLines() * leading();
+	props.broke = true;
 }
 
 void TextBoxLayout::alignText() {
@@ -338,7 +360,7 @@ void TextBoxLayout::alignText() {
 		glyphOffset.x += paddingLeft();
 		glyphOffset.y += paddingBottom();
 		
-		line.bounds.origin += glyphOffset;
+		line.bounds.origin = round(line.bounds.origin + glyphOffset);
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
 			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
@@ -350,4 +372,19 @@ void TextBoxLayout::alignText() {
 	recalculateTextBounds();
 }
 
+poPoint TextBoxLayout::size() const {return _size;}
+void TextBoxLayout::size(poPoint s) {_size = s;}
+float TextBoxLayout::tracking() const {return _tracking;}
+void TextBoxLayout::tracking(float f) {_tracking = f;}
+float TextBoxLayout::leading() const {return _leading;}
+void TextBoxLayout::leading(float f) {_leading = f;}
+float TextBoxLayout::paddingLeft() const {return _padding[0];}
+float TextBoxLayout::paddingRight() const {return _padding[1];}
+float TextBoxLayout::paddingTop() const {return _padding[2];}
+float TextBoxLayout::paddingBottom() const {return _padding[3];}
+void TextBoxLayout::padding(float f) {_padding[0] = _padding[1] = _padding[2] = _padding[3] = f;}
+void TextBoxLayout::padding(float h, float v) {_padding[0] = _padding[1] = h; _padding[2] = _padding[3] = v;}
+void TextBoxLayout::padding(float l, float r, float t, float b) {_padding[0] = l; _padding[1] = r; _padding[2] = t; _padding[3] = b;}
+poAlignment TextBoxLayout::alignment() const {return _alignment;}
+void TextBoxLayout::alignment(poAlignment a) {_alignment = a;}
 

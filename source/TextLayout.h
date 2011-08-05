@@ -100,8 +100,17 @@ protected:
 	virtual void doLayout();
 	
 private:
-	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint &size, layout_line &line);
-	void breakLine(layout_line &line);
+	struct line_layout_props {
+		float max_line_height;
+		float max_drop;
+		bool broke;
+		int glyph_count;
+		float spacer;
+		layout_line line;
+	};
+
+//	void addGlyphsToLine(std::vector<layout_glyph> &glpyhs, poPoint &size, layout_line &line);
+	void breakLine(line_layout_props &props);
 	void alignText();
 
 	poPoint _size;

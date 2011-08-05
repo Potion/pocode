@@ -40,6 +40,7 @@ public:
 
 protected:
 	bool bindInfo(int *bound_page, int *bound_unit);
+	virtual poPoint originAdjust() {return poPoint();}
 	
 private:
 	void clearPages();
