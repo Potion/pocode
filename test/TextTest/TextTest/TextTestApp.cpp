@@ -54,9 +54,14 @@ TextTestApp::TextTestApp() {
 	tb->text(text);
 	tb->layout();
 	
-//	tb->drawBounds = true;
+	tb->reshape(tb->textBounds().size);
+	tb->layout();
+	tb->alignment(PO_ALIGN_CENTER_CENTER);
+
+	tb->drawBounds = true;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
+	
 }
 
 TextTestApp::~TextTestApp() {}

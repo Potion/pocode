@@ -300,20 +300,20 @@ void TextBoxLayout::breakLine(line_layout_props &props) {
 		float start_y = props.line.bounds.origin.y;
 		
 		// reset the bounds
-		props.line.bounds = poRect();
+		props.line.bounds = poRect(0, start_y, 0, 0);
 		
 		for(int i=0; i<props.line.glyphs.size(); i++) {
 			layout_glyph &glyph = props.line.glyphs[i];
 			// move the glyph down to the baseline + the start position
 			glyph.bbox.origin.y += props.max_drop + start_y;
-			if(i == 0) {
-				// if its the first one set teh line bounds to it
-				props.line.bounds = glyph.bbox;
-			}
-			else {
+//			if(i == 0) {
+//				// if its the first one set teh line bounds to it
+//				props.line.bounds = glyph.bbox;
+//			}
+//			else {
 				// otherwise expand the line bounds
 				props.line.bounds.include(glyph.bbox);
-			}
+//			}
 		}
 		
 //		// jump back to the old start pos

@@ -364,7 +364,7 @@ void poObject::pushObjectMatrix() {
 		true_alpha = alpha;
 	}
 	
-	poPoint trans = position;
+	poPoint trans = round(position);
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	// now move depending on the matrix order
@@ -382,7 +382,8 @@ void poObject::pushObjectMatrix() {
 			break;
 	}
 
-	glTranslatef(offset.x, offset.y, offset.z);
+	poPoint off = round(offset);
+	glTranslatef(off.x, off.y, off.z);
 	matrices.capture();
 }
 
