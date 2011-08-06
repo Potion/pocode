@@ -15,7 +15,7 @@
 #include "poFont.h"
 #include "poBitmapFontAtlas.h"
 
-static const std::string PO_TEXT_REGULAR = "span";
+static const std::string PO_TEXT_REGULAR = "";
 static const std::string PO_TEXT_ITALIC = "i";
 static const std::string PO_TEXT_BOLD = "b";
 static const std::string PO_TEXT_BOLD_ITALIC = "bi";
@@ -41,9 +41,12 @@ public:
 	void reshape(int w, int h);
 	void reshape(poPoint p);
 
+	bool richText() const;
+	void richText(bool b);
+
 	uint numLines() const;
 	poRect boundsForLine(uint num) const;
-
+	
 	poColor textColor;
     bool    drawBounds;
 
@@ -65,7 +68,7 @@ public:
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>
 	// <span>regular, when you want to override color, leading or tracking</span>
 	void font(poFont *font, const std::string &name=PO_TEXT_REGULAR);
-	poFont *font(const std::string &name);
+	poFont *font(const std::string &name=PO_TEXT_REGULAR);
     
 	poTextBox *layout();
 	void draw();

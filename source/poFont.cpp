@@ -127,8 +127,8 @@ void poFont::glyph(int g) {
 }
 
 poRect poFont::glyphBounds() {
-	float x = -GLYPH_PADDING;
-	float y = -GLYPH_PADDING;
+	float x = 0;
+	float y = 0;
 	float w = face->glyph->metrics.width >> 6;
 	float h = face->glyph->metrics.height >> 6;
 	return poRect(x, y, w, h);
@@ -136,7 +136,7 @@ poRect poFont::glyphBounds() {
 
 poPoint poFont::glyphBearing() {
 	poPoint natural_bearing	(face->glyph->metrics.horiBearingX >> 6,
-							(face->size->metrics.ascender - face->glyph->metrics.horiBearingY) >> 6);
+							-(face->glyph->metrics.horiBearingY >> 6));
 	return natural_bearing;
 }
 

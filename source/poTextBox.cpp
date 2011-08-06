@@ -54,10 +54,12 @@ void poTextBox::reshape(int w, int h) {
 	_layout.size(bounds.size);
 }
 
+bool poTextBox::richText() const {return _layout.richText();}
+void poTextBox::richText(bool b) {_layout.richText(b);}
+
 void poTextBox::reshape(poPoint p){
     reshape(p.x,p.y);
 }
-
 
 uint poTextBox::numLines() const {return _layout.numLines();}
 poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
@@ -90,6 +92,9 @@ void poTextBox::draw() {
 		applyColor(poColor::white);
 		for(int i=0; i<numLines(); i++) {
 			drawStroke(boundsForLine(i));
+			BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+				drawStroke(glyph.bbox);
+			}
 		}
 		
         applyColor(poColor::dk_grey);
@@ -102,13 +107,37 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset, poPoint(10,10)));
     }
 
-	poBitmapFontAtlas *atlas = getBitmapFont(this->font(PO_TEXT_REGULAR));
+	poBitmapFontAtlas *reg = getBitmapFont(this->font());
+	poBitmapFontAtlas *atlas = reg;
 	
+	int count = 0;
 	glDisable(GL_MULTISAMPLE);
-	applyColor(poColor(textColor, appliedAlpha()));
 	atlas->startDrawing(0);
 	for(int i=0; i<numLines(); i++) {
 		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+			applyColor(poColor(textColor, appliedAlpha()));
+			
+			if(_layout.richText()) {
+				poDictionary dict = _layout.dictionaryForIndex(count);
+				
+				if(dict.has("color"))
+					applyColor(poColor(dict.getColor("color"), appliedAlpha()));
+
+				if(dict.has("font")) {
+					poBitmapFontAtlas *a = getBitmapFont(dict.getPtr<poFont>("font"));
+					if(a != atlas) {
+						atlas = a;
+						atlas->startDrawing(0);
+					}
+				}
+				else if(atlas != reg) {
+					atlas = reg;
+					atlas->startDrawing(0);
+				}
+				
+				count++;
+			}
+			
 			atlas->cacheGlyph(glyph.glyph);
 			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
 		}

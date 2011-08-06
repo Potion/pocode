@@ -107,3 +107,4 @@ void poBitmapFontAtlas::cacheGlyph(uint glyph) {
 }
 
 poFont const *poBitmapFontAtlas::font() {return _font;}
+poPoint poBitmapFontAtlas::originAdjust() {return -poPoint(GLYPH_PADDING, GLYPH_PADDING);}
