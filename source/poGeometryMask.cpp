@@ -9,8 +9,9 @@
 #include "poGeometryMask.h"
 #include "Helpers.h"
 
-poGeometryMask::poGeometryMask(poShape2D *shape)
+poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil)
 :	shape(shape)
+,	clears_stencil(clearsStencil)
 {}
 
 poGeometryMask::~poGeometryMask() {
@@ -26,8 +27,11 @@ void poGeometryMask::setShape(poShape2D *s) {
 }
 
 void poGeometryMask::doSetUp( poObject* obj ) {
-	if(shape)
+	if(shape) {
+		if(clears_stencil)
+			glClear(GL_STENCIL_BUFFER_BIT);
 		startMasking(shape);
+	}
 }
 
 void poGeometryMask::doSetDown( poObject* obj ) {
