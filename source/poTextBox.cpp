@@ -21,8 +21,23 @@ poTextBox::poTextBox()
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint())
+,	fit_height_to_bounds(true)
+,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
+}
+
+poTextBox::poTextBox(int w) 
+:	poObject()
+,	textColor(poColor::white)
+,	drawBounds(false)
+,	button(NULL)
+,	_layout(poPoint(w,0))
+,	fit_height_to_bounds(true)
+,	text_align(PO_ALIGN_TOP_LEFT)
+{
+	defaultFonts();
+	bounds = poRect(0,0,w,0);
 }
 
 poTextBox::poTextBox(int w, int h) 
@@ -31,6 +46,8 @@ poTextBox::poTextBox(int w, int h)
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint(w,h))
+,	fit_height_to_bounds(false)
+,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
 	bounds = poRect(0,0,w,h);
@@ -45,8 +62,8 @@ poTextBox::~poTextBox() {}
 std::string poTextBox::text() const {return _layout.text();}
 poTextBox *poTextBox::text(const std::string &str) {_layout.text(str); return this; }
 
-poAlignment poTextBox::textAlignment() const {return _layout.alignment();}
-void poTextBox::textAlignment(poAlignment al) {_layout.alignment(al);}
+poAlignment poTextBox::textAlignment() const {return text_align;}
+void poTextBox::textAlignment(poAlignment al) {text_align = al;}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 void poTextBox::reshape(int w, int h) {
@@ -81,7 +98,17 @@ void poTextBox::font(poFont *f, const std::string &name) {
 }
 poFont *poTextBox::font(const std::string &name) {return _layout.font(name);}
 
-poTextBox *poTextBox::layout() {_layout.layout(); return this;}
+poTextBox *poTextBox::layout() {
+	_layout.layout();
+	
+	if(fit_height_to_bounds)
+		bounds.size.y = textBounds().size.y;
+
+	alignment(alignment());
+	_layout.alignment(text_align);
+	
+	return this;
+}
 
 void poTextBox::draw() {
 	if(button) {
@@ -119,7 +146,8 @@ void poTextBox::draw() {
 			
 			if(_layout.richText()) {
 				poDictionary dict = _layout.dictionaryForIndex(count);
-				
+				count++;
+
 				if(dict.has("color"))
 					applyColor(poColor(dict.getColor("color"), appliedAlpha()));
 
@@ -134,8 +162,6 @@ void poTextBox::draw() {
 					atlas = reg;
 					atlas->startDrawing(0);
 				}
-				
-				count++;
 			}
 			
 			atlas->cacheGlyph(glyph.glyph);

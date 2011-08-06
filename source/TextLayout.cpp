@@ -142,9 +142,11 @@ void TextLayout::replaceLine(int i, const layout_line &line) {
 }
 
 void TextLayout::recalculateTextBounds() {
-	text_bounds = lines[0].bounds;
-	for(int i=1; i<numLines(); i++)
-		text_bounds.include(lines[i].bounds);
+	if(!lines.empty()) {
+		text_bounds = lines[0].bounds;
+		for(int i=1; i<numLines(); i++)
+			text_bounds.include(lines[i].bounds);
+	}
 }
 
 #pragma mark - TextBoxLayout -
@@ -171,6 +173,7 @@ void TextBoxLayout::doLayout() {
 	dummy_glyph.bbox = poRect();
 
 	line_layout_props props;
+	
 	poFont *fnt = NULL;
 
 	std::string::const_iterator ch = str.begin();
@@ -190,7 +193,9 @@ void TextBoxLayout::doLayout() {
 		if(richText()) {
 			// get the dictionary for this position
 			poDictionary dict = parsedText().attributes(props.glyph_count);
-			
+			// keep track of how many glyphs we have total
+			props.glyph_count++;
+
 			bool font_changed = false;
 			// check if the font has changed
 			if(dict.has("font")) {
@@ -215,23 +220,22 @@ void TextBoxLayout::doLayout() {
 			if(font_changed) {
 				fnt->glyph(' ');
 				props.spacer = fnt->glyphAdvance().x * tracking();
+				props.max_line_height = std::max(props.max_line_height, fnt->lineHeight());
 			}
 		}
 
-		// keep track of how many glyphs we have total
-		props.glyph_count++;
 		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph
 		uint codepoint = utf8::next(ch, str.end());
 		
 		// handle whitespace specially
 		if(::iswspace(codepoint)) {
-			props.line.glyphs.push_back(dummy_glyph);
+			props.word.glyphs.push_back(dummy_glyph);
 			// any whitespace indicates a new word
 			addWordToLine(props);
 
 			switch(codepoint) {
 				case ' ':
-					props.line.bounds.size.x += props.spacer;
+					props.word.width += props.spacer;
 					break;
 					
 				case '\n':
@@ -239,7 +243,7 @@ void TextBoxLayout::doLayout() {
 					break;
 					
 				case '\t':
-					props.line.bounds.size.x += props.spacer * 4;
+					props.word.width += props.spacer * 4;
 					break;
 			}
 			
@@ -249,9 +253,6 @@ void TextBoxLayout::doLayout() {
 		// make sure we change glyphs
 		fnt->glyph(codepoint);
 		
-		props.max_line_height = std::max(props.max_line_height, fnt->glyphBounds().height());
-		props.max_drop = std::max(props.max_drop, -fnt->glyphBearing().y);
-		
 		// store all the info we need to render
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
@@ -259,6 +260,8 @@ void TextBoxLayout::doLayout() {
 		glyph.bbox.origin += poPoint(props.word.width, 0) + fnt->glyphBearing();
 		props.word.glyphs.push_back(glyph);
 		
+		props.max_drop = std::max(props.max_drop, -fnt->glyphBearing().y);
+
 		// update the pen x position
 		props.word.width += fnt->glyphAdvance().x * tracking();
 
@@ -275,8 +278,6 @@ void TextBoxLayout::doLayout() {
 	// just in case, make sure the current glyphs get onto the last line
 	addWordToLine(props);
 	breakLine(props);
-	// and do the alignment
-	alignText();
 }
 
 void TextBoxLayout::addWordToLine(line_layout_props &props) {
@@ -337,34 +338,18 @@ void TextBoxLayout::alignText() {
 		
 		switch(_alignment) {
 			case PO_ALIGN_TOP_LEFT:
+			case PO_ALIGN_CENTER_LEFT:
+			case PO_ALIGN_BOTTOM_LEFT:
 				break;
 			case PO_ALIGN_TOP_CENTER:
+			case PO_ALIGN_CENTER_CENTER:
+			case PO_ALIGN_BOTTOM_CENTER:
 				glyphOffset.x = (_size.x - line.bounds.size.x)/2;
 				break;
 			case PO_ALIGN_TOP_RIGHT:
-				glyphOffset.x = (_size.x - line.bounds.size.x); 
-				break;
-			case PO_ALIGN_CENTER_LEFT:
-				glyphOffset.y = (_size.y - text_bounds.height())/2;
-				break;
-			case PO_ALIGN_CENTER_CENTER:
-				glyphOffset.x = (_size.x - line.bounds.size.x)/2;
-				glyphOffset.y = (_size.y - text_bounds.height())/2;
-				break;
 			case PO_ALIGN_CENTER_RIGHT:
-				glyphOffset.x = (_size.x - line.bounds.size.x); 
-				glyphOffset.y = (_size.y - text_bounds.height())/2;
-				break;
-			case PO_ALIGN_BOTTOM_LEFT:
-				glyphOffset.y = (_size.y - text_bounds.height());
-				break;
-			case PO_ALIGN_BOTTOM_CENTER:
-				glyphOffset.x = (_size.x - line.bounds.size.x)/2; 
-				glyphOffset.y = (_size.y - text_bounds.height());
-				break;
 			case PO_ALIGN_BOTTOM_RIGHT:
 				glyphOffset.x = (_size.x - line.bounds.size.x); 
-				glyphOffset.y = (_size.y - text_bounds.height());
 				break;
 		}
 		
@@ -397,5 +382,5 @@ void TextBoxLayout::padding(float f) {_padding[0] = _padding[1] = _padding[2] = 
 void TextBoxLayout::padding(float h, float v) {_padding[0] = _padding[1] = h; _padding[2] = _padding[3] = v;}
 void TextBoxLayout::padding(float l, float r, float t, float b) {_padding[0] = l; _padding[1] = r; _padding[2] = t; _padding[3] = b;}
 poAlignment TextBoxLayout::alignment() const {return _alignment;}
-void TextBoxLayout::alignment(poAlignment a) {_alignment = a;}
+void TextBoxLayout::alignment(poAlignment a) {_alignment = a; alignText();}
 

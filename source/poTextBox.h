@@ -25,6 +25,7 @@ class poTextBox
 {
 public:
 	poTextBox();
+	poTextBox(int w);
 	poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
@@ -84,6 +85,8 @@ public:
 private:
 	void defaultFonts();
 	
+	bool fit_height_to_bounds;
+	poAlignment text_align;
 	TextBoxLayout _layout;
 	poShape2D *button;
 };
