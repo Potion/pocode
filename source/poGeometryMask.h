@@ -15,7 +15,7 @@ class poGeometryMask : public poObjectModifier
 {
 public:
 	// you are responsible for the object lifetime of this shape
-	poGeometryMask(poShape2D *shape);
+	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
 	virtual ~poGeometryMask();
 	
 	void setShape(poShape2D *shape);
@@ -26,4 +26,5 @@ protected:
 	
 private:
 	poShape2D *shape;
+	bool clears_stencil;
 };

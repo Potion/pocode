@@ -260,10 +260,10 @@ void TextBoxLayout::doLayout() {
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(size.x-kern.x, 0) + fnt->glyphBearing();
+		glyph.bbox.origin += poPoint(size.x, 0) + fnt->glyphBearing();
 		glyphs.push_back(glyph);
 		
-		size.x += (fnt->glyphAdvance().x - kern.x) * tracking();
+		size.x += (fnt->glyphAdvance().x) * tracking();
 //		size.y = std::max(glyph.bbox.height(), size.y);
 		size.y = fnt->lineHeight();
 		
