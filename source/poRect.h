@@ -23,6 +23,7 @@ public:
 	
 	poRect &set(float x, float y, float w, float h);
 	poRect &set(poPoint origin, poPoint size);
+	bool set(const std::string &str);
 
 	poRect &include(float x, float y);
 	poRect &include(const poPoint &pt);

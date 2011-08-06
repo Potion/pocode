@@ -82,6 +82,7 @@ public:
 	std::vector<poXMLNode> getChildren();
 	std::vector<poXMLNode> getChildren(const std::string &name);
 
+	poXMLNode	firstChild();
 	poXMLNode	nextSibling();
 	poXMLNode	nextSibling(const std::string &name);
 	

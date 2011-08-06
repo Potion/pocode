@@ -54,6 +54,18 @@ poRect &poRect::set(poPoint o, poPoint s) {
 	return *this;
 }
 
+bool poRect::set(const std::string &str) {
+	float x, y, w, h;
+	int wrote = sscanf(str.c_str(), "rect(%f,%f,%f,%f)", &x, &y, &w, &h);
+	if(wrote < 4) {
+		set(0,0,0,0);
+		return false;
+	}
+	
+	set(x,y,w,h);
+	return true;
+}
+
 poRect &poRect::include(float x, float y) {
     poPoint maxPoint = origin + size;
     

@@ -52,8 +52,6 @@ TextTestApp::TextTestApp() {
 	tb->font(huge, "a");
 	tb->text(text);
 	tb->layout();
-	
-	
 	tb->drawBounds = true;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
