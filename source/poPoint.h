@@ -15,6 +15,10 @@ public:
 	poPoint &set(poPoint p);
 	poPoint &set(float x, float y, float z);
 	poPoint &setPolar(float deg, float mag);
+
+	// point(x,y) or point(x,y,z)
+	bool set(const std::string &str);
+
 	
 	std::string toString() const;
 	

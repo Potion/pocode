@@ -33,6 +33,19 @@ poPoint &poPoint::setPolar(float deg, float mag) {
 	return *this;
 }
 
+bool poPoint::set(const std::string &str) {
+	int count = sscanf(str.c_str(), "point(%f,%f,%f)", &x, &y, &z);
+	if(count == 2)
+		z = 0.f;
+	else if(count < 2) {
+		x = 0;
+		y = 0;
+		z = 0;
+		return false;
+	}
+	return true;
+}
+
 std::string poPoint::toString() const {
 	return (boost::format("%f %f %f")%x%y%z).str();
 }

@@ -53,7 +53,7 @@ TextTestApp::TextTestApp() {
 	tb->text(text);
 	tb->layout();
 
-//	tb->drawBounds = true;
+	tb->drawBounds = true;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
 }

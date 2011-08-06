@@ -123,6 +123,8 @@ std::vector<poXMLNode> poXMLNode::getChildren(const std::string &name) {
 	return response;
 }
 
+poXMLNode poXMLNode::firstChild() {return poXMLNode(doc,node.first_child());}
+
 poXMLNode poXMLNode::nextSibling() {return poXMLNode(doc,node.next_sibling());}
 poXMLNode poXMLNode::nextSibling(const std::string &name) {return poXMLNode(doc,node.next_sibling(name.c_str()));}
 
