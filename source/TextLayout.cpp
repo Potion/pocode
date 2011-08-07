@@ -48,9 +48,11 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 		
 		xml_attribute attrib = node.first_attribute();
 		while(attrib) {
-			if(!strcmp(attrib.name(),"tracking")) {
+			if(!strcmp(attrib.name(),"tracking"))
 				range.dict.setFloat("tracking", attrib.as_float());
-			}
+			else
+			if(!strcmp(attrib.name(),"leading"))
+				range.dict.setFloat("leading", attrib.as_float());
 			else 
 			if(!strcmp(attrib.name(),"color")) {
 				poColor c;
@@ -151,7 +153,7 @@ void TextLayout::recalculateTextBounds() {
 
 #pragma mark - TextBoxLayout -
 TextBoxLayout::TextBoxLayout(poPoint s)
-:	_size(s), _tracking(1.f), _leading(-1.f), _alignment(PO_ALIGN_TOP_LEFT)
+:	_size(s), _tracking(1.f), _leading(1.f), _alignment(PO_ALIGN_LEFT)
 {
 	padding(0.f);
 }
@@ -166,8 +168,9 @@ void TextBoxLayout::doLayout() {
 	if(str.empty())
 		return;
 
-	bool has_leading = leading() >= 0.f;
-	
+	// will add this in to the top and bottom when a glyph excedes the default line height
+	float line_padding_fudge = 2;
+
 	layout_glyph dummy_glyph;
 	dummy_glyph.glyph = ' ';
 	dummy_glyph.bbox = poRect();
@@ -175,7 +178,8 @@ void TextBoxLayout::doLayout() {
 	line_layout_props props;
 	
 	poFont *fnt = NULL;
-
+	float spacer = 0;
+	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
 		// if we broke to a new line last pass reset the line height, etc
@@ -184,11 +188,18 @@ void TextBoxLayout::doLayout() {
 			fnt->glyph(' ');
 
 			props.max_line_height = fnt->lineHeight();
-			props.max_drop = 0;//fnt->ascender();
-			props.spacer = fnt->glyphAdvance().x * tracking();
+			props.max_drop = fnt->ascender();
+			props.leading = leading();
+			
 			props.broke = false;
+			
+			spacer = fnt->glyphAdvance().x;
 		}
 
+		// keep track of local changes to tracking
+		// could be overidden in rich text
+		float tracking_tmp = tracking();
+		
 		// if we're parsing the fanciness
 		if(richText()) {
 			// get the dictionary for this position
@@ -219,8 +230,15 @@ void TextBoxLayout::doLayout() {
 			// do what we need to do when the font switches
 			if(font_changed) {
 				fnt->glyph(' ');
-				props.spacer = fnt->glyphAdvance().x * tracking();
-				props.max_line_height = std::max(props.max_line_height, fnt->lineHeight());
+				spacer = fnt->glyphAdvance().x;
+			}
+			
+			if(dict.has("tracking")) {
+				tracking_tmp = dict.getFloat("tracking");
+			}
+			
+			if(dict.has("leading")) {
+				props.leading = dict.getFloat("leading");
 			}
 		}
 
@@ -228,29 +246,38 @@ void TextBoxLayout::doLayout() {
 		uint codepoint = utf8::next(ch, str.end());
 		
 		// handle whitespace specially
+		// any whitespace indicates a new word
 		if(::iswspace(codepoint)) {
-			props.word.glyphs.push_back(dummy_glyph);
-			// any whitespace indicates a new word
-			addWordToLine(props);
-
 			switch(codepoint) {
 				case ' ':
-					props.word.width += props.spacer;
+					props.last_space = spacer;
 					break;
 					
 				case '\n':
-					breakLine(props);
+					props.broke = true;
 					break;
 					
 				case '\t':
-					props.word.width += props.spacer * 4;
+					props.last_space = spacer * 4;
 					break;
 			}
+			
+			// make the line knows about the space
+			props.last_space *= tracking_tmp;
+			// put a dummy glyph in there for indexing the properties dictionary
+			// we have to keep glyphs and codepoints at 1:1
+			props.word.glyphs.push_back(dummy_glyph);
+			// dump the word into the line
+			addWordToLine(props);
+
+			// if the whitespace indicated a linebreak, then do so
+			if(props.broke)
+				breakLine(props);
 			
 			continue;
 		}
 		
-		// make sure we change glyphs
+		// change glyph
 		fnt->glyph(codepoint);
 		
 		// store all the info we need to render
@@ -260,17 +287,15 @@ void TextBoxLayout::doLayout() {
 		glyph.bbox.origin += poPoint(props.word.width, 0) + fnt->glyphBearing();
 		props.word.glyphs.push_back(glyph);
 		
-		props.max_drop = std::max(props.max_drop, -fnt->glyphBearing().y);
+		// see if we need to update our line height
+		props.max_drop = std::max(props.max_drop, -fnt->glyphBearing().y + line_padding_fudge);
+		props.max_line_height = std::max(props.max_line_height, props.max_drop + fnt->glyphDescender() + line_padding_fudge);
 
 		// update the pen x position
-		props.word.width += fnt->glyphAdvance().x * tracking();
+		props.word.width += fnt->glyphAdvance().x * tracking_tmp;
 
 		// check if we've gone over
 		if(props.line.bounds.size.x + props.word.width > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
-			// there might be an erant space at the end
-			if(props.line.glyphs.back().glyph == ' ')
-				props.line.bounds.size.x -= props.spacer;
-			
 			breakLine(props);
 		}
 	}
@@ -290,7 +315,7 @@ void TextBoxLayout::addWordToLine(line_layout_props &props) {
 		}
 	}
 	
-	props.line.bounds.size.x += props.word.width;
+	props.line.bounds.size.x += props.word.width + props.last_space;
 	
 	props.word = word_layout();
 }
@@ -304,25 +329,18 @@ void TextBoxLayout::breakLine(line_layout_props &props) {
 			layout_glyph &glyph = props.line.glyphs[i];
 			// move the glyph down to the baseline + the start position
 			glyph.bbox.origin.y += props.max_drop + start_y;
-			
-			if(i == 0) {
-				// if its the first one set teh line bounds to it
-				props.line.bounds = glyph.bbox;
-			}
-			else {
-				// otherwise expand the line bounds
-				props.line.bounds.include(glyph.bbox);
-			}
 		}
 		
-//		// jump back to the old start pos
-//		props.line.bounds.origin.y = start_y;
+		// words all end with a space, so take off the space for it
+		props.line.bounds.size.x -= props.last_space;
+		// and bump the line height
+		props.line.bounds.size.y = props.max_line_height;
 		// save the line
 		addLine(props.line);
 		
 		// and set up hte next line
 		props.line = layout_line();
-		props.line.bounds.origin.y = start_y + props.max_line_height;
+		props.line.bounds.origin.y = start_y + props.max_line_height * props.leading;
 	}
 	
 	props.broke = true;

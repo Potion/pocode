@@ -45,21 +45,23 @@ public:
 	float lineHeight() const;
 	float ascender() const;
 	float descender() const;
+	// maximum bbox for this font face at this size
 	float underlinePosition() const;
 	float underlineThickness() const;
 
 	int glyph() const;
 	void glyph(int g);
-	// uses the previously set glyph
-	poRect glyphBounds();
-	poPoint glyphBearing();
-	poPoint glyphAdvance();
-	// you have to delete the results
-	poImage *glyphImage();
-	poShape2D *glyphOutline();
+	// functions starting with 'glyph' return info about the current codepoint
+	poRect glyphBounds() const;
+	poRect glyphFrame() const;
+	float glyphDescender() const;
+	poPoint glyphBearing() const;
+	poPoint glyphAdvance() const;
+	poImage *glyphImage() const;
+	poShape2D *glyphOutline() const;
 
-	poPoint kernGlyphs(int glyph1, int glyph2);
-	
+	poPoint kernGlyphs(int glyph1, int glyph2) const;
+
 	std::string toString() const;
 
 private:

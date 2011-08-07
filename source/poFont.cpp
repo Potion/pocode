@@ -115,6 +115,7 @@ void poFont::pointSize(int sz) {
 float poFont::lineHeight() const {return face->size->metrics.height >> 6;}
 float poFont::ascender() const {return face->size->metrics.ascender >> 6;}
 float poFont::descender() const {return face->size->metrics.descender >> 6;}
+
 float poFont::underlinePosition() const {return face->underline_position >> 6;}
 float poFont::underlineThickness() const {return face->underline_thickness >> 6;}
 
@@ -126,7 +127,7 @@ void poFont::glyph(int g) {
 	}
 }
 
-poRect poFont::glyphBounds() {
+poRect poFont::glyphBounds() const {
 	float x = 0;
 	float y = 0;
 	float w = face->glyph->metrics.width >> 6;
@@ -134,18 +135,26 @@ poRect poFont::glyphBounds() {
 	return poRect(x, y, w, h);
 }
 
-poPoint poFont::glyphBearing() {
-	poPoint natural_bearing	(face->glyph->metrics.horiBearingX >> 6,
-							-(face->glyph->metrics.horiBearingY >> 6));
-	return natural_bearing;
+poRect poFont::glyphFrame() const {
+	return poRect(glyphBearing(), glyphBounds().size);
 }
 
-poPoint poFont::glyphAdvance() {
+float poFont::glyphDescender() const {
+	poRect r = glyphFrame();
+	return r.height() + r.origin.y;
+}
+
+poPoint poFont::glyphBearing() const {
+	return poPoint(face->glyph->metrics.horiBearingX >> 6,
+				   -(face->glyph->metrics.horiBearingY >> 6));
+}
+
+poPoint poFont::glyphAdvance() const {
 	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
 				   face->glyph->metrics.vertAdvance >> 6);
 }
 
-poImage *poFont::glyphImage() {
+poImage *poFont::glyphImage() const {
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 
 	int padding = GLYPH_PADDING * 2;
@@ -163,9 +172,9 @@ poImage *poFont::glyphImage() {
 	return img;
 }
 
-poShape2D *poFont::glyphOutline() {}
+poShape2D *poFont::glyphOutline() const {}
 
-poPoint poFont::kernGlyphs(int glyph1, int glyph2) {
+poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	if(!hasKerning()) {
 		return poPoint(0,0);
 	}

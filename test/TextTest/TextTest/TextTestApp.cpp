@@ -23,7 +23,6 @@ poFont *reg, *italic, *bold, *bold_italic, *con_bold, *huge;
 TextTestApp::TextTestApp() {
 	addModifier(new poCamera2D());
 	
-	
 	reg = getFont("Helvetica Neue", 30, "Regular");
 	italic = getFont("Helvetica Neue", 30, "Italic");
 	bold = getFont("Helvetica Neue", 30, "Bold");
@@ -33,16 +32,16 @@ TextTestApp::TextTestApp() {
 		
 	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
 						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
-						"<a color='#ff0000'>aBp</a>cdefghijklm\n"
-						"nopqrstuv<bi color='#f0f000'>wxyz</bi>\n"
+						"<a color='#ff0000'>aBp</a><span tracking='1.5'>cdefghi</span>jklm\n"
+						"nopqr<bi color='#f0f000'>stuvwxyz</bi>\n"
 						"<cb>1234567890</cb> Hello";
+
+//	std::string text = "hello world, lets make sure the line doesn't break in the middle of the pepper";
 	
-//	std::string text = "hello world, lets make sure the line doesn't break in the middle of the word";
-	
-	tb = addChild(new poTextBox(400));
+	tb = addChild(new poTextBox(300));
 	tb->richText(true);
 	tb->alignment(PO_ALIGN_BOTTOM_LEFT);
-//	tb->textAlignment(PO_ALIGN_BOTTOM_LEFT);
+	tb->textAlignment(PO_ALIGN_LEFT);
 	tb->position = getWindowCenter();
 	tb->font(reg, PO_TEXT_REGULAR);
 	tb->font(italic, PO_TEXT_ITALIC);
@@ -50,9 +49,11 @@ TextTestApp::TextTestApp() {
 	tb->font(bold_italic, PO_TEXT_BOLD_ITALIC);
 	tb->font(con_bold, "cb");
 	tb->font(huge, "a");
+	tb->leading(.85f);
 	tb->text(text);
 	tb->layout();
-	tb->drawBounds = true;
+	
+//	tb->drawBounds = PO_TEXT_BOX_STROKE_LINE;
 
 	addEvent(PO_KEY_DOWN_EVENT,this);
 }

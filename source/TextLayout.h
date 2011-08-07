@@ -107,12 +107,13 @@ private:
 	};
 	
 	struct line_layout_props {
-		line_layout_props() : max_line_height(0), max_drop(0), broke(true), glyph_count(0), spacer(0) {}
+		line_layout_props() : max_line_height(0), max_drop(0), broke(true), glyph_count(0), last_space(0), leading(1) {}
 		float max_line_height;
 		float max_drop;
 		bool broke;
 		int glyph_count;
-		float spacer;
+		float last_space;
+		float leading;
 		word_layout word;
 		layout_line line;
 	};

@@ -20,6 +20,15 @@ static const std::string PO_TEXT_ITALIC = "i";
 static const std::string PO_TEXT_BOLD = "b";
 static const std::string PO_TEXT_BOLD_ITALIC = "bi";
 
+enum {
+	PO_TEXT_BOX_STROKE_BOUNDS = 1,
+	PO_TEXT_BOX_STROKE_TEXT_BOUNDS = 1<<1,
+	PO_TEXT_BOX_STROKE_LINE = 1<<2,
+	PO_TEXT_BOX_STROKE_GLYPH = 1<<3,
+	
+	PO_TEXT_BOX_STROKE_ALL = PO_TEXT_BOX_STROKE_TEXT_BOUNDS | PO_TEXT_BOX_STROKE_LINE | PO_TEXT_BOX_STROKE_GLYPH
+};
+
 class poTextBox
 :	public poObject 
 {
@@ -48,15 +57,22 @@ public:
 	uint numLines() const;
 	poRect boundsForLine(uint num) const;
 	
+	// overide with color property in rich text mode
 	poColor textColor;
-    bool    drawBounds;
+	
+	// you can use the PO_TEXT_BOX_STROKE_* to control debugging
+	// true and false are still ok, but it'll only give minimal info
+    int		drawBounds;
 
-	// these properties can be overridden inline 
-	// eg <span leading=13 tracking=.2>text will be leaded and tracked</span>
+	// these can be overridden inline with a span
+	// eg <span leading='.9' tracking='1.1'>leaded and tracked differently</span>
+	// there can be only 1 leading for a line tho, so be careful as it'll the one it has when the line breaks
 	float leading() const;
 	void leading(float f);
 	float tracking() const;
 	void tracking(float f);
+	
+	
 	float paddingLeft() const;
 	float paddingRight() const;
 	float paddingTop() const;

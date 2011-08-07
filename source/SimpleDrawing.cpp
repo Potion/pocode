@@ -13,6 +13,10 @@ void applyColor(poColor color) {
 	glColor4fv(&color.R);
 }
 
+void applyColor(poColor c, float a) {
+	glColor4f(c.R, c.G, c.B, c.A*a);
+}
+
 void drawQuad(GLenum type, float x, float y, float w, float h) {
 	x = floor(x) + .5f;
 	y = floor(y) + .5f;

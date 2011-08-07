@@ -116,22 +116,31 @@ void poTextBox::draw() {
 	}
 	
     if(drawBounds) {
-		applyColor(poColor::white);
 		for(int i=0; i<numLines(); i++) {
-			drawStroke(boundsForLine(i));
-			BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
-				drawStroke(glyph.bbox);
+			
+			if(drawBounds & PO_TEXT_BOX_STROKE_GLYPH) {
+				applyColor(poColor::lt_grey, .5f);
+				BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+					drawStroke(glyph.bbox);
+				}
+			}
+			
+			if(drawBounds & PO_TEXT_BOX_STROKE_LINE) {
+				applyColor(poColor::white, .6f);
+				drawStroke(boundsForLine(i));
 			}
 		}
 		
-        applyColor(poColor::dk_grey);
-        drawStroke(textBounds());
-	
-        applyColor(poColor::magenta);
+		if(drawBounds & PO_TEXT_BOX_STROKE_TEXT_BOUNDS) {
+			applyColor(poColor::grey, .7f);
+			drawStroke(textBounds());
+		}
+		
+        applyColor(poColor::dk_grey, .8f);
         drawStroke(bounds);
 		
 		applyColor(poColor::red);
-		drawRect(poRect(-offset, poPoint(10,10)));
+		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
 	poBitmapFontAtlas *reg = getBitmapFont(this->font());

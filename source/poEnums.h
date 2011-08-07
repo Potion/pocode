@@ -28,9 +28,15 @@ enum poAlignment {
 	PO_ALIGN_BOTTOM_CENTER,
 	PO_ALIGN_BOTTOM_RIGHT,
 	
+	// for code clarity in cases where only one direction matters 
+	PO_ALIGN_LEFT	= PO_ALIGN_TOP_LEFT,
+	PO_ALIGN_RIGHT	= PO_ALIGN_TOP_RIGHT,
+	PO_ALIGN_CENTER	= PO_ALIGN_CENTER_CENTER,
+	PO_ALIGN_TOP	= PO_ALIGN_TOP_LEFT,
+	PO_ALIGN_BOTTOM	= PO_ALIGN_BOTTOM_LEFT,
+	
 	PO_ALIGN_NUM_OPTIONS
 };
-
 
 #pragma mark - Matrix enums
 
