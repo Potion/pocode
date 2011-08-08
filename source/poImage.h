@@ -26,8 +26,8 @@ public:
 	~poImage();
 	// you own this one
 	poImage *copy();
-	
-	bool isValid() const;
+
+	operator bool() const;
 	
 	uint width() const;
 	uint height() const;

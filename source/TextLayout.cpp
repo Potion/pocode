@@ -16,16 +16,38 @@
 #include "poMath.h"
 #include "Helpers.h"
 #include "poDictionary.h"
+#include "poResourceStore.h"
 
 
 #pragma mark - Layout Helper -
+
+struct image_data {
+	poImage *image;
+	poAlignment align;
+};
 
 struct parse_data {
 	parse_data(TextLayout *layout) : layout(layout) {}
 	
 	TextLayout *layout;
 	po::AttributedString string;
+	
+	std::vector<image_data> images;
 };
+
+image_data parseImageNode(const pugi::xml_node &node) {
+	image_data img;
+	img.image = NULL;
+	img.align = PO_ALIGN_TOP_LEFT;
+	
+	img.image = getImage(node.attribute("src").value());
+	if(img.image) {
+		
+	}
+	else {
+		
+	}
+}
 
 void parseText(const pugi::xml_node &node, parse_data *data) {
 	using namespace pugi;
@@ -46,6 +68,10 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 			range.dict.setBool("u",true);
 		}
 		
+		if(!strcmp("img", node.name())) {
+			image_data img = parseImageNode(node);
+		}
+
 		xml_attribute attrib = node.first_attribute();
 		while(attrib) {
 			if(!strcmp(attrib.name(),"tracking"))
