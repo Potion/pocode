@@ -12,5 +12,5 @@
 		<obj>22</obj>
 		<obj>23</obj>
 	</container>
-	<container attrib1="50" attrib2="4.2" attrib3="blank" />
+	<container attrib1="50" attrib2="4.2" attrib3="blank">100.449997</container>
 </root>
