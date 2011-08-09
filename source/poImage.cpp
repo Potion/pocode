@@ -54,7 +54,7 @@ poImage::poImage(const poImage &img)
 :	bitmap(NULL)
 ,	tex(NULL)
 {
-	if(img.isValid())
+	if(img)
 		bitmap = FreeImage_Clone(img.bitmap);
 }
 
@@ -67,7 +67,7 @@ poImage::~poImage() {
 }
 
 poImage *poImage::copy() {
-	if(!isValid())
+	if(!this->operator bool())
 		return getImage();
 	
 	poImage *response = new poImage();
@@ -75,7 +75,7 @@ poImage *poImage::copy() {
 	return response;
 }
 
-bool poImage::isValid() const {
+poImage::operator bool() const {
 	return bitmap != NULL;
 }
 
@@ -108,7 +108,7 @@ ubyte const*poImage::pixels() const {
 }
 
 poColor poImage::getPixel(poPoint p) const {
-	if(!isValid() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+	if(!this->operator bool() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
 		return poColor();
 
 	uint x = p.x;
