@@ -112,6 +112,9 @@ uint poXMLNode::numChildren() const {
 
 poXMLNode poXMLNode::addChild(const std::string &name) {return poXMLNode(doc,node.append_child(name.c_str()));}
 
+void poXMLNode::removeChild(const std::string &name) {node.remove_child(name.c_str());}
+void poXMLNode::removeAttribute(const std::string &name) {node.remove_attribute(name.c_str());}
+
 poXMLNode poXMLNode::getChild(uint idx) {
 	std::vector<poXMLNode> kids = getChildren();
 	return kids[idx];

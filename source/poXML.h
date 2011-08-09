@@ -75,6 +75,9 @@ public:
 	uint		numChildren() const;
 	
 	poXMLNode	addChild(const std::string &name);
+
+	void		removeChild(const std::string &name);
+	void		removeAttribute(const std::string &name);
 	
 	poXMLNode	getChild(uint idx);
 	poXMLNode	getChild(const std::string &name);
