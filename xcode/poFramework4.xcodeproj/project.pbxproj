@@ -252,13 +252,13 @@
 		E8B2D0B4132E9F4D002BE3D9 /* potionLib */ = {
 			isa = PBXGroup;
 			children = (
-				E8E7559113C60A1F00A91EB8 /* animation */,
+				E8E7559213C60A5D00A91EB8 /* poObject */,
 				E8E7558D13C6099A00A91EB8 /* application */,
-				E8E7558F13C609C600A91EB8 /* core */,
-				E8E7559413C60AF900A91EB8 /* helpers */,
+				E8E7559113C60A1F00A91EB8 /* animation */,
 				E8E7559013C609F600A91EB8 /* imaging */,
 				E8E7559313C60ADC00A91EB8 /* modifiers */,
-				E8E7559213C60A5D00A91EB8 /* poObject */,
+				E8E7558F13C609C600A91EB8 /* core */,
+				E8E7559413C60AF900A91EB8 /* helpers */,
 			);
 			name = potionLib;
 			sourceTree = "<group>";
