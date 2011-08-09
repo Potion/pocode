@@ -60,7 +60,6 @@ TweenApp::TweenApp()
 		.setDelay(2,true)
 		.start();
 
-	
 	simple_tween.set(1.f).setTweenFunction(linearFunc).setDuration(1.f).setRepeat(PO_TWEEN_REPEAT_PINGPONG).setNotification(this,"done").start();
 }
 
@@ -93,5 +92,10 @@ void TweenApp::eventHandler(poEvent *event) {
 }
 
 void TweenApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-//	printf("%s (%f)\n", msg.c_str(), simple_tween_val);
+	if(msg == "done") {
+		printf("%s (%f)\n", msg.c_str(), simple_tween_val);
+		// reregister to get it again
+		poTweenBase *tween = dict.getPtr<poTweenBase>("tween");
+		tween->setNotification(this, msg);
+	}
 }

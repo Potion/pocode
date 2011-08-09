@@ -57,8 +57,11 @@ void poTweenBase::update() {
 				state = COMPLETE;
 			}
 			
-			if(callback)
-				callback();
+			if(callback) {
+				poTweenFinishedCallback cb = callback;
+				poTweenFinishedCallback().swap(callback);
+				cb();
+			}
 		}
 	}
 }
@@ -114,8 +117,11 @@ poTweenBase& poTweenBase::start() {
 poTweenBase& poTweenBase::stop(bool jump_to_end) {
 	if(state == RUNNING) {
 		state = NOT_RUNNING;
+		
 		if(jump_to_end)
 			setValueToEnd();
+
+		poTweenFinishedCallback().swap(callback);
 	}
 	return *this;
 }

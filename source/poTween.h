@@ -25,6 +25,11 @@ public:
 	void update();
 	
 	poTweenBase& setRepeat(poTweenRepeat type, int count=-1);
+	// cancelling notification:
+	//		passing obj=NULL
+	//		calling 'stop'
+	// notifications only happen once
+	// reregister in the notification callback if you want to get one for the next repeat
 	poTweenBase& setNotification(poObject *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
 	poTweenBase& setTweenFunction(poTweenFunction func);
 	poTweenBase& setDuration(double duration);

@@ -6,7 +6,7 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "poGeometryMask.h"
+#include "poMask.h"
 #include "Helpers.h"
 
 poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil)
@@ -24,6 +24,10 @@ void poGeometryMask::setShape(poShape2D *s) {
 		delete shape;
 	shape = s;
 	enabled(shape != NULL);
+}
+
+bool poGeometryMask::pointInside(poPoint p) {
+	
 }
 
 void poGeometryMask::doSetUp( poObject* obj ) {
