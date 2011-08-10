@@ -150,7 +150,7 @@ poTexture::poTexture(poImage *img)
 ,	_width(0)
 ,	_height(0)
 {
-	if(img) {
+	if(img && *img) {
 		image = img;
 		formatsForBitDepth(image->bpp(), &config.format, &config.internalFormat, &config.type);
 		load();
@@ -163,7 +163,7 @@ poTexture::poTexture(poImage *img, poTextureConfig cfg)
 ,	_width(0)
 ,	_height(0)
 {
-	if(img) {
+	if(img && *img) {
 		image = img;
 		config = cfg;
 		load();

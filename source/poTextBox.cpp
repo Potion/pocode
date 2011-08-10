@@ -146,6 +146,8 @@ void poTextBox::draw() {
 	poBitmapFontAtlas *reg = getBitmapFont(this->font());
 	poBitmapFontAtlas *atlas = reg;
 	
+	glPushAttrib(GL_TEXTURE_BIT | GL_ENABLE_BIT);
+	
 	int count = 0;
 	glDisable(GL_MULTISAMPLE);
 	atlas->startDrawing(0);
@@ -179,6 +181,8 @@ void poTextBox::draw() {
 	}
 	atlas->stopDrawing();
 	glEnable(GL_MULTISAMPLE);
+	
+	glPopAttrib();
 }
 
 poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {
