@@ -58,7 +58,9 @@ public:
 	bool				alphaTestTexture;
 	
 	poTween<poColor>	fill_color_tween;
-	
+
+	virtual void		stopAllTweens(bool recurse=false);
+
 protected:
 	virtual void		updateAllTweens();
     

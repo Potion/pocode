@@ -25,6 +25,11 @@ public:
 	void update();
 	
 	poTweenBase& setRepeat(poTweenRepeat type, int count=-1);
+	// cancelling notification:
+	//		passing obj=NULL
+	//		calling 'stop'
+	// notifications only happen once
+	// reregister in the notification callback if you want to get one for the next repeat
 	poTweenBase& setNotification(poObject *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
 	poTweenBase& setTweenFunction(poTweenFunction func);
 	poTweenBase& setDuration(double duration);
@@ -116,13 +121,20 @@ class poTween : public poTweenBase
 public:
 	typedef T value_type;
 
+	// let the tween make the value
+	poTween(value_type val) : shared(new value_type(val)) {value = shared.get();}
+	// give a pointer to the tween instead
 	poTween(value_type *addr) : value(addr) {}
+
 	poTween &set(value_type end_value) {
 		reset();
 		begin = *value;
 		end = end_value;
 		return *this;
 	}
+	
+	void setValue(value_type val) {*value = val;}
+	value_type getValue() const {return *value;}
 	
 protected:
 	void setValueToBegin()	{*value = begin;}
@@ -139,4 +151,6 @@ protected:
 private:
 	value_type *value;
 	value_type begin, end;
+		
+	boost::shared_ptr<value_type> shared;
 };

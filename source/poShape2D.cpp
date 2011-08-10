@@ -279,6 +279,11 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	return false;
 }
 
+void poShape2D::stopAllTweens(bool recurse) {
+	poObject::stopAllTweens(recurse);
+	fill_color_tween.stop();
+}
+
 void poShape2D::updateAllTweens() {
 	poObject::updateAllTweens();
 	fill_color_tween.update();

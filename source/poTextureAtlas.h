@@ -34,6 +34,7 @@ public:
 	// organize it so there are minimal texture switches
 	// size should be between 0..1, will scale
 	void drawUID(uint uid, poRect r);
+	// this one will draw the subtex at its native size
 	void drawUID(uint uid, poPoint p);
 	// reset the texture state to what it was
 	void stopDrawing();

@@ -1,5 +1,6 @@
 #include "poObjectTestApp.h"
 
+#include "poMask.h"
 #include "poCamera.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
@@ -18,6 +19,7 @@ void cleanupApplication() {
 poObjectTestApp::poObjectTestApp() {
 	addModifier(new poCamera2D());
 	
+	
 	poShape2D *shape;
 	
 	for(int i=0; i<10; i++) {
@@ -28,6 +30,10 @@ poObjectTestApp::poObjectTestApp() {
 		shape->addEvent(PO_MOUSE_UP_INSIDE_EVENT, this, (boost::format("obj%d")%i).str());
 	}
 	
+	shape = new poOvalShape(800,800,140);
+	shape->position = getWindowCenter();
+	
+	addModifier(new poGeometryMask(shape));
 }
 
 poObjectTestApp::~poObjectTestApp() {
