@@ -42,6 +42,10 @@ public:
 	void resized(int w, int h);
 	void resized(int x, int y, int w, int h);
 	
+	void touchBegin(int x, int y, int ID );
+	void touchMove(int x, int y, int ID );
+	void touchEnd(int x, int y, int ID );
+	
 	void *getWindowHandle();
 	void setWindowHandle(void *handle);
 

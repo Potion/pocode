@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B7FB78C13F21A3B00697C15 /* flyingText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7FB78A13F21A3B00697C15 /* flyingText.cpp */; };
 		E8EA3B2413F1EEEF005BA68C /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */; };
 		E8EA3B2613F1EEEF005BA68C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */; };
 		E8EA3B2913F1EEEF005BA68C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8EA3B2813F1EEEF005BA68C /* AppDelegate.mm */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B7FB78A13F21A3B00697C15 /* flyingText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = flyingText.cpp; sourceTree = "<group>"; };
+		2B7FB78B13F21A3B00697C15 /* flyingText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingText.h; sourceTree = "<group>"; };
 		E8EA3B1E13F1EEEF005BA68C /* SplitText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitText.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 			children = (
 				E8EA3B3713F1EEEF005BA68C /* SplitTextApp.h */,
 				E8EA3B3813F1EEEF005BA68C /* SplitTextApp.cpp */,
+				2B7FB78A13F21A3B00697C15 /* flyingText.cpp */,
+				2B7FB78B13F21A3B00697C15 /* flyingText.h */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 				E8EA3B2D13F1EEEF005BA68C /* main.m in Sources */,
 				E8EA3B3513F1EEEF005BA68C /* poOpenGLView.mm in Sources */,
 				E8EA3B3913F1EEEF005BA68C /* SplitTextApp.cpp in Sources */,
+				2B7FB78C13F21A3B00697C15 /* flyingText.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +224,7 @@
 				E8EA3B3E13F1EEEF005BA68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

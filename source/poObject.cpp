@@ -415,5 +415,6 @@ void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoin
 	local_event->uid = global_event->uid;
 	local_event->timestamp = global_event->timestamp;
 	local_event->previous_position = global_event->previous_position;
+	local_event->touchID = global_event->touchID;
 	// don't touch the message or the dictionary
 }
