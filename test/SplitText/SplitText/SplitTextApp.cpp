@@ -77,7 +77,7 @@ void SplitTextApp::restartDynamicEntrance() {
 			.set(200.f)
 			.setDelay(i*.1f)
 			.setDuration(1.f)
-			.setTweenFunction(linearFunc)
+			.setTweenFunction(quadInOutFunc)
 			.start();
 		
 		tweens.push_back(tween);
