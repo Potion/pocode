@@ -5,8 +5,8 @@
 #include "poApplication.h"
 
 void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
-	if(!(obj->isInWindow() && obj->visible))
-		return;
+	if(!(obj->isInWindow() && obj->visible && obj->alpha > 0.01))
+		return; 
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
 		objUnderMouse(obj->getChild(i), mouse, hovers);
@@ -300,27 +300,34 @@ void poWindow::processEvents() {
 				std::set<poObject*> touch_hovers;
 				objUnderMouse(root, event.position, touch_hovers);
 				
-				if(!touch_hovers.empty()) {
-				
+				if(!touch_hovers.empty()) 
+				{
 					// find top-most clicked on object
 					// tell the one guy if he got clicked on
-					event.type = PO_TOUCH_INSIDE_EVENT;
+					
 					poObject* topObject = NULL;
 					int topDrawOrder = 0;
+					
+					// look for top object with event.type = PO_TOUCH_INSIDE_EVENT;
 					BOOST_FOREACH(poObject *obj, touch_hovers) 
 					{
-						center->routeBySource( obj, event );
-
-						//printf("object %x %d\n", obj, obj->drawOrder());
+						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_INSIDE_EVENT) )
+							continue;
+						
 						if ( obj->drawOrder() > topDrawOrder )
 						{
 							topDrawOrder = obj->drawOrder();
 							topObject = obj;
 						}
 					}
-					//if ( topObject != NULL )
-					//	center->routeBySource( topObject, event );
+					if ( topObject != NULL )
+					{
+						event.type = PO_TOUCH_INSIDE_EVENT;
+						center->routeBySource( topObject, event );
+					}
 				}
+				
+				printf("\n");
 				break;
 			}
 			case PO_TOUCH_MOVED_EVENT:
@@ -332,12 +339,13 @@ void poWindow::processEvents() {
 				std::set<poObject*> touch_hovers;
 				objUnderMouse(root, event.position, touch_hovers);
 				
-				
 				if(!touch_hovers.empty()) {
 		
 					// tell the one guy if he got clicked on
 					event.type = PO_TOUCH_OVER_EVENT;
 					BOOST_FOREACH(poObject *obj, touch_hovers) {
+						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_OVER_EVENT) )
+							continue;  
 						center->routeBySource( obj, event );
 					}
 				}
