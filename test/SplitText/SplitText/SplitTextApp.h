@@ -4,19 +4,13 @@
 
 #include "poObject.h"
 
-#include "TextLayout.h"
+#include "flyingText.h"
 
 class SplitTextApp : public poObject {
 public:
 	SplitTextApp();
 
-	void draw();
 	void eventHandler(poEvent *event);
 	
-	void restartDynamicEntrance();
-	
-	TextBoxLayout layout;
-
-	std::vector< float > offsets;
-	std::vector< poTween<float> > tweens;
+	flyingText* t;
 };
