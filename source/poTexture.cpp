@@ -210,7 +210,7 @@ uint poTexture::height() const {
 
 void poTexture::load() {
 	if(!isLoaded()) {
-		if(image != NULL && image->isValid()) {
+		if(image != NULL && image) {
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, image->pitch());
 			

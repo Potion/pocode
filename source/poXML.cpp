@@ -47,9 +47,26 @@ poXMLNode::operator bool() const {return (bool)node;}
 std::string poXMLNode::name() const {return node.name();}
 void poXMLNode::setName(const std::string &str) {node.set_name(str.c_str());}
 
-void poXMLNode::setInnerString(const std::string &str) {node.first_child().set_value(str.c_str());}
-void poXMLNode::setInnerInt(int i) {node.first_child().set_value(LCAST(std::string,i).c_str());}
-void poXMLNode::setInnerFloat(float f) {node.first_child().set_value(LCAST(std::string,f).c_str());}
+void poXMLNode::setInnerString(const std::string &str) {
+	if(!node.first_child())
+		node.append_child(node_pcdata);
+	
+	node.first_child().set_value(str.c_str());
+}
+
+void poXMLNode::setInnerInt(int i) {
+	if(!node.first_child())
+		node.append_child(node_pcdata);
+	
+	node.first_child().set_value(LCAST(std::string,i).c_str());
+}
+
+void poXMLNode::setInnerFloat(float f) {
+	if(!node.first_child())
+		node.append_child(node_pcdata);
+	
+	node.first_child().set_value(LCAST(std::string,f).c_str());
+}
 
 int poXMLNode::innerInt() const {return boost::lexical_cast<int>(node.child_value());}
 float poXMLNode::innerFloat() const {return boost::lexical_cast<float>(node.child_value());}
@@ -94,6 +111,9 @@ uint poXMLNode::numChildren() const {
 }
 
 poXMLNode poXMLNode::addChild(const std::string &name) {return poXMLNode(doc,node.append_child(name.c_str()));}
+
+void poXMLNode::removeChild(const std::string &name) {node.remove_child(name.c_str());}
+void poXMLNode::removeAttribute(const std::string &name) {node.remove_attribute(name.c_str());}
 
 poXMLNode poXMLNode::getChild(uint idx) {
 	std::vector<poXMLNode> kids = getChildren();

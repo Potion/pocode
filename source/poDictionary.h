@@ -35,6 +35,9 @@ public:
 	poPoint         getPoint(const std::string &name) const {return boost::get<poPoint>(items.at(name));}
 	poDictionary&	setPoint(const std::string &name, poPoint p) {items[name] = p; return *this; }
 	
+//	poDictionary	getDictionary(const std::string &name) const {return boost::get<poDictionary>(items.at(name));}
+//	poDictionary&	setDictionary(const std::string &name, const poDictionary &dict) {items[name] = dict; return *this;}
+	
 	template <typename T>
 	T*				getPtr(const std::string &name) const {return static_cast<T*>(boost::get<void*>(items.at(name)));}
 	poDictionary&	setPtr(const std::string &name, void* obj) {items[name] = obj; return *this;}

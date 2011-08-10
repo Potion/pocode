@@ -346,6 +346,19 @@ void poObject::_broadcastEvent(poEvent* event) {
 	}
 }
 
+void poObject::stopAllTweens(bool recurse) {
+	position_tween.stop();
+	scale_tween.stop();
+	offset_tween.stop();
+	alpha_tween.stop();
+	rotation_tween.stop();
+	
+	if(recurse) {
+		BOOST_FOREACH(poObject* obj, children)
+			obj->stopAllTweens(true);
+	}
+}
+
 void poObject::updateAllTweens() {
 	position_tween.update();
 	scale_tween.update();

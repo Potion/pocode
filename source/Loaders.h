@@ -91,7 +91,7 @@ public:
 		else
 			img = new poImage(config.url);
 		
-		if(!img->isValid()) {
+		if(!img) {
 			delete img;
 			img = NULL;
 			

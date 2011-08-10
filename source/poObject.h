@@ -135,6 +135,8 @@ public:
 	poTween<poPoint>	offset_tween;
 	poTween<float>		alpha_tween;
 	poTween<float>		rotation_tween;
+	
+	virtual void	stopAllTweens(bool recurse=false);
 
 	// TREE TRAVERSAL
 	void			_drawTree();
@@ -145,8 +147,6 @@ public:
 protected:
 	// if you add new tweens make sure to update them here 
 	virtual void	updateAllTweens();
-	// add any properties you want to expose
-//	virtual void	registerProperty();
 	// this is the combination of all your parent's alphas with your own
 	float			true_alpha;
 

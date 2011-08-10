@@ -1,4 +1,4 @@
-#include "poImageMask.h"
+#include "poMask.h"
 #include "SimpleDrawing.h"
 #include "poResourceStore.h"
 
@@ -11,7 +11,13 @@ poImageMask::poImageMask(const std::string &str)
 	image = getImage(str, IMAGE_8);
 }
 
+bool poImageMask::pointInside(poPoint p) {
+	
+}
+
 void poImageMask::doSetUp( poObject* obj ) {
+	my_obj = obj;
+	
 	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	

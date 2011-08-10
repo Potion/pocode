@@ -153,7 +153,7 @@ struct removeIfNoEvent{
 
 void sortedFilteredVectorFromSet(std::set<poObject*> &objs, std::vector<poObject*> &sorted, int type) {
 	sorted.assign(objs.begin(), objs.end());
-	sorted.erase(std::remove_if(sorted.begin(), sorted.end(), removeIfNoEvent(PO_MOUSE_DOWN_INSIDE_EVENT)), sorted.end());
+	sorted.erase(std::remove_if(sorted.begin(), sorted.end(), removeIfNoEvent(type)), sorted.end());
 	std::sort(sorted.begin(), sorted.end(), sortByDrawOrder);
 }
 
@@ -228,6 +228,11 @@ void poWindow::processEvents() {
 				drag_target = NULL;
 				
 				if(!hovers.empty()) {
+					std::vector<poObject*> over;
+					sortedFilteredVectorFromSet(hovers, over, PO_MOUSE_UP_INSIDE_EVENT);
+
+					filter.insert(over.back());
+
 					// do the bounds checked versions
 					event.type = PO_MOUSE_UP_INSIDE_EVENT;
 					center->notifyFiltered(event, filter, false);
