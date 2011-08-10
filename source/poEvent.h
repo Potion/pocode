@@ -44,7 +44,7 @@ public:
 
 	// mouse or key modifiers
 	unsigned int modifiers;
-
+	
 	// mouse events
 	poPoint position, local_position;
 
@@ -52,6 +52,9 @@ public:
 	int keyCode;
 	// with modifiers applied
 	int keyChar;
+	
+	// multitouch ID
+	int touchID;
 
 	// touch events
 	uint32_t uid;
