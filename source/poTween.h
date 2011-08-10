@@ -121,13 +121,20 @@ class poTween : public poTweenBase
 public:
 	typedef T value_type;
 
+	// let the tween make the value
+	poTween(value_type val) : shared(new value_type(val)) {value = shared.get();}
+	// give a pointer to the tween instead
 	poTween(value_type *addr) : value(addr) {}
+
 	poTween &set(value_type end_value) {
 		reset();
 		begin = *value;
 		end = end_value;
 		return *this;
 	}
+	
+	void setValue(value_type val) {*value = val;}
+	value_type getValue() const {return *value;}
 	
 protected:
 	void setValueToBegin()	{*value = begin;}
@@ -144,4 +151,6 @@ protected:
 private:
 	value_type *value;
 	value_type begin, end;
+		
+	boost::shared_ptr<value_type> shared;
 };

@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8EA3B2413F1EEEF005BA68C /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */; };
+		E8EA3B2613F1EEEF005BA68C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */; };
+		E8EA3B2913F1EEEF005BA68C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8EA3B2813F1EEEF005BA68C /* AppDelegate.mm */; };
+		E8EA3B2B13F1EEEF005BA68C /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2A13F1EEEF005BA68C /* en.strings */; };
+		E8EA3B2D13F1EEEF005BA68C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8EA3B2C13F1EEEF005BA68C /* main.m */; };
+		E8EA3B2F13F1EEEF005BA68C /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B2E13F1EEEF005BA68C /* main.pch */; };
+		E8EA3B3213F1EEEF005BA68C /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8EA3B3113F1EEEF005BA68C /* main.xib */; };
+		E8EA3B3513F1EEEF005BA68C /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8EA3B3413F1EEEF005BA68C /* poOpenGLView.mm */; };
+		E8EA3B3913F1EEEF005BA68C /* SplitTextApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EA3B3813F1EEEF005BA68C /* SplitTextApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8EA3B1E13F1EEEF005BA68C /* SplitText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitText.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8EA3B2713F1EEEF005BA68C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8EA3B2813F1EEEF005BA68C /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8EA3B2A13F1EEEF005BA68C /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8EA3B2C13F1EEEF005BA68C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8EA3B2E13F1EEEF005BA68C /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8EA3B3013F1EEEF005BA68C /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8EA3B3113F1EEEF005BA68C /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8EA3B3313F1EEEF005BA68C /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8EA3B3413F1EEEF005BA68C /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8EA3B3713F1EEEF005BA68C /* SplitTextApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitTextApp.h; sourceTree = "<group>"; };
+		E8EA3B3813F1EEEF005BA68C /* SplitTextApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SplitTextApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8EA3B1B13F1EEEF005BA68C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8EA3B1313F1EEEF005BA68C = {
+			isa = PBXGroup;
+			children = (
+				E8EA3B2113F1EEEF005BA68C /* SplitText */,
+				E8EA3B1F13F1EEEF005BA68C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8EA3B1F13F1EEEF005BA68C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA3B1E13F1EEEF005BA68C /* SplitText.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8EA3B2113F1EEEF005BA68C /* SplitText */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA3B2213F1EEEF005BA68C /* platform */,
+				E8EA3B3613F1EEEF005BA68C /* application */,
+			);
+			path = SplitText;
+			sourceTree = "<group>";
+		};
+		E8EA3B2213F1EEEF005BA68C /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */,
+				E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */,
+				E8EA3B2713F1EEEF005BA68C /* AppDelegate.h */,
+				E8EA3B2813F1EEEF005BA68C /* AppDelegate.mm */,
+				E8EA3B2A13F1EEEF005BA68C /* en.strings */,
+				E8EA3B2C13F1EEEF005BA68C /* main.m */,
+				E8EA3B2E13F1EEEF005BA68C /* main.pch */,
+				E8EA3B3013F1EEEF005BA68C /* main.plist */,
+				E8EA3B3113F1EEEF005BA68C /* main.xib */,
+				E8EA3B3313F1EEEF005BA68C /* poOpenGLView.h */,
+				E8EA3B3413F1EEEF005BA68C /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8EA3B3613F1EEEF005BA68C /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA3B3713F1EEEF005BA68C /* SplitTextApp.h */,
+				E8EA3B3813F1EEEF005BA68C /* SplitTextApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8EA3B1D13F1EEEF005BA68C /* SplitText */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8EA3B3C13F1EEEF005BA68C /* Build configuration list for PBXNativeTarget "SplitText" */;
+			buildPhases = (
+				E8EA3B1A13F1EEEF005BA68C /* Sources */,
+				E8EA3B1B13F1EEEF005BA68C /* Frameworks */,
+				E8EA3B1C13F1EEEF005BA68C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SplitText;
+			productName = SplitText;
+			productReference = E8EA3B1E13F1EEEF005BA68C /* SplitText.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8EA3B1513F1EEEF005BA68C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8EA3B1813F1EEEF005BA68C /* Build configuration list for PBXProject "SplitText" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8EA3B1313F1EEEF005BA68C;
+			productRefGroup = E8EA3B1F13F1EEEF005BA68C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8EA3B1D13F1EEEF005BA68C /* SplitText */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8EA3B1C13F1EEEF005BA68C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8EA3B2413F1EEEF005BA68C /* Debug.xcconfig in Resources */,
+				E8EA3B2613F1EEEF005BA68C /* Release.xcconfig in Resources */,
+				E8EA3B2B13F1EEEF005BA68C /* en.strings in Resources */,
+				E8EA3B2F13F1EEEF005BA68C /* main.pch in Resources */,
+				E8EA3B3213F1EEEF005BA68C /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8EA3B1A13F1EEEF005BA68C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8EA3B2913F1EEEF005BA68C /* AppDelegate.mm in Sources */,
+				E8EA3B2D13F1EEEF005BA68C /* main.m in Sources */,
+				E8EA3B3513F1EEEF005BA68C /* poOpenGLView.mm in Sources */,
+				E8EA3B3913F1EEEF005BA68C /* SplitTextApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8EA3B3A13F1EEEF005BA68C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8EA3B2313F1EEEF005BA68C /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8EA3B3B13F1EEEF005BA68C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8EA3B2513F1EEEF005BA68C /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8EA3B3D13F1EEEF005BA68C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8EA3B3E13F1EEEF005BA68C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8EA3B1813F1EEEF005BA68C /* Build configuration list for PBXProject "SplitText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8EA3B3A13F1EEEF005BA68C /* Debug */,
+				E8EA3B3B13F1EEEF005BA68C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8EA3B3C13F1EEEF005BA68C /* Build configuration list for PBXNativeTarget "SplitText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8EA3B3D13F1EEEF005BA68C /* Debug */,
+				E8EA3B3E13F1EEEF005BA68C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8EA3B1513F1EEEF005BA68C /* Project object */;
+}
