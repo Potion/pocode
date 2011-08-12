@@ -128,11 +128,11 @@ inline bool quartInOutFunc(float *v, float bv, float ev,
 						   double e1, double e2) 
 {
 	double t2 = (t - b) / d * 2.f;
-	if(t < 1.f)
+	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2 + bv;
 	else {
 		t2 -= 2.f;
-		return -(ev-bv)/2.f * (t2*t2*t2*t2-2.f) + bv;
+		*v = -(ev-bv)/2.f * (t2*t2*t2*t2-2.f) + bv;
 	}
 	return (t-b) >= d;
 }
