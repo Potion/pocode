@@ -253,7 +253,7 @@ inline bool circInOutFunc(float *v, float bv, float ev,
 						  double t, double b, double e, double d,
 						  double e1, double e2) 
 {
-	double t2 = (t - d) / d * 2.f;
+	double t2 = (t - b) / d * 2.f;
 	if(t2 < 1)
 		*v = -(ev-bv)/2.f * (::sqrtf(1.f - t2*t2) - 1.f) + bv;
 	else {
