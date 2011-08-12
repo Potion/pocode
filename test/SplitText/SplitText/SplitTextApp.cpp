@@ -34,4 +34,3 @@ void SplitTextApp::eventHandler(poEvent *event) {
 		}
 	}
 }
-

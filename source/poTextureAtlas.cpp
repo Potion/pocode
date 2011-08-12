@@ -192,6 +192,9 @@ void poTextureAtlas::stopDrawing() {
 		textures[bound_page]->unbind(unit);
 		bound_page = -1;
 	}
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);

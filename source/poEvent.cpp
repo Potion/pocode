@@ -39,7 +39,9 @@ bool isMouseEvent(int type) {
 bool isTouchEvent(int type) {
 	return (type == PO_TOUCH_BEGAN_EVENT	||
 			type == PO_TOUCH_ENDED_EVENT	||
-			type == PO_TOUCH_MOVED_EVENT);
+			type == PO_TOUCH_MOVED_EVENT	||
+			type == PO_TOUCH_INSIDE_EVENT	||
+			type == PO_TOUCH_OVER_EVENT );
 }
 
 void localizeEvent(poEvent &stored, poEvent &tolocal) {
@@ -47,7 +49,7 @@ void localizeEvent(poEvent &stored, poEvent &tolocal) {
 	tolocal.dict = stored.dict;
     tolocal.message = stored.message;
 	
-	if(isMouseEvent(stored.type)) {
+	if(isMouseEvent(stored.type) || isTouchEvent(stored.type)) {
 		// flip the coords so the local position can match the orientation of the global one
 		poPoint pt = stored.source->globalToLocal(poPoint(tolocal.position.x, getWindowHeight()-tolocal.position.y));
 		tolocal.local_position = pt;
@@ -62,6 +64,7 @@ poEvent::poEvent()
 ,	uid(0)
 ,	timestamp(0.0)
 ,	modifiers(0)
+,   touchID(-1)
 {}
 
 poEvent::poEvent(const poEvent &e)
@@ -77,6 +80,7 @@ poEvent::poEvent(const poEvent &e)
 ,	modifiers(e.modifiers)
 ,   message(e.message)
 ,	dict(e.dict)
+,   touchID(-1)
 {}
 
 poEvent::poEvent(int type, poObject* from, std::string _message, const poDictionary& dict)
@@ -89,6 +93,7 @@ poEvent::poEvent(int type, poObject* from, std::string _message, const poDiction
 ,	modifiers(0)
 ,   message(_message)
 ,	dict(dict)
+,   touchID(-1)
 {
 }
 
@@ -105,6 +110,7 @@ poEvent &poEvent::operator=(const poEvent &e) {
 	modifiers = e.modifiers;
 	dict = e.dict;
     message = e.message;
+	touchID = e.touchID;
 	return *this;
 }
 
