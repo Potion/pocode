@@ -193,7 +193,9 @@ bool poTexture::opaqueAtPoint(poPoint p) const {
 }
 
 poColor poTexture::colorAtPoint(poPoint p) const {
-	return image->getPixel(p);
+	if(image && *image)
+		return image->getPixel(p);
+	return poColor();
 }
 
 uint poTexture::width() const {
