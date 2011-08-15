@@ -1,0 +1,238 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E800FFEF13EA0277008441D7 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E800FFEE13EA0277008441D7 /* poVBO.cpp */; };
+		E84162A113E6F20800C5993F /* glmTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E841629F13E6F20800C5993F /* glmTestApp.cpp */; };
+		E84162B213E6F27F00C5993F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84162A813E6F27F00C5993F /* AppDelegate.mm */; };
+		E84162B313E6F27F00C5993F /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E84162A913E6F27F00C5993F /* Debug.xcconfig */; };
+		E84162B413E6F27F00C5993F /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E84162AA13E6F27F00C5993F /* en.strings */; };
+		E84162B513E6F27F00C5993F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E84162AB13E6F27F00C5993F /* main.m */; };
+		E84162B713E6F27F00C5993F /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E84162AE13E6F27F00C5993F /* main.xib */; };
+		E84162B813E6F27F00C5993F /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84162B013E6F27F00C5993F /* poOpenGLView.mm */; };
+		E84162B913E6F27F00C5993F /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E84162B113E6F27F00C5993F /* Release.xcconfig */; };
+		E84162BC13E6F48D00C5993F /* poMatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84162BA13E6F48D00C5993F /* poMatrixStack.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E800FFEE13EA0277008441D7 /* poVBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poVBO.cpp; path = glmTest/poVBO.cpp; sourceTree = SOURCE_ROOT; };
+		E800FFF113EA0293008441D7 /* poVBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVBO.h; path = glmTest/poVBO.h; sourceTree = SOURCE_ROOT; };
+		E841626113E30E0600C5993F /* glmTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glmTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E841629F13E6F20800C5993F /* glmTestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glmTestApp.cpp; path = glmTest/glmTestApp.cpp; sourceTree = SOURCE_ROOT; };
+		E84162A013E6F20800C5993F /* glmTestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glmTestApp.h; path = glmTest/glmTestApp.h; sourceTree = SOURCE_ROOT; };
+		E84162A713E6F27F00C5993F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = platform/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		E84162A813E6F27F00C5993F /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = platform/AppDelegate.mm; sourceTree = SOURCE_ROOT; };
+		E84162A913E6F27F00C5993F /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = platform/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		E84162AA13E6F27F00C5993F /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en.strings; path = platform/en.strings; sourceTree = SOURCE_ROOT; };
+		E84162AB13E6F27F00C5993F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = platform/main.m; sourceTree = SOURCE_ROOT; };
+		E84162AC13E6F27F00C5993F /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.pch; path = platform/main.pch; sourceTree = SOURCE_ROOT; };
+		E84162AD13E6F27F00C5993F /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = main.plist; path = platform/main.plist; sourceTree = SOURCE_ROOT; };
+		E84162AE13E6F27F00C5993F /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = main.xib; path = platform/main.xib; sourceTree = SOURCE_ROOT; };
+		E84162AF13E6F27F00C5993F /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = platform/poOpenGLView.h; sourceTree = SOURCE_ROOT; };
+		E84162B013E6F27F00C5993F /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = platform/poOpenGLView.mm; sourceTree = SOURCE_ROOT; };
+		E84162B113E6F27F00C5993F /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = platform/Release.xcconfig; sourceTree = SOURCE_ROOT; };
+		E84162BA13E6F48D00C5993F /* poMatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixStack.cpp; path = glmTest/poMatrixStack.cpp; sourceTree = SOURCE_ROOT; };
+		E84162BB13E6F48D00C5993F /* poMatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixStack.h; path = glmTest/poMatrixStack.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E841625E13E30E0600C5993F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E841625613E30E0600C5993F = {
+			isa = PBXGroup;
+			children = (
+				E841626413E30E0600C5993F /* EigenTest */,
+				E841626213E30E0600C5993F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E841626213E30E0600C5993F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E841626113E30E0600C5993F /* glmTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E841626413E30E0600C5993F /* EigenTest */ = {
+			isa = PBXGroup;
+			children = (
+				E841626513E30E0600C5993F /* platform */,
+				E841627913E30E0600C5993F /* application */,
+			);
+			path = EigenTest;
+			sourceTree = "<group>";
+		};
+		E841626513E30E0600C5993F /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E84162A713E6F27F00C5993F /* AppDelegate.h */,
+				E84162A813E6F27F00C5993F /* AppDelegate.mm */,
+				E84162A913E6F27F00C5993F /* Debug.xcconfig */,
+				E84162AA13E6F27F00C5993F /* en.strings */,
+				E84162AB13E6F27F00C5993F /* main.m */,
+				E84162AC13E6F27F00C5993F /* main.pch */,
+				E84162AD13E6F27F00C5993F /* main.plist */,
+				E84162AE13E6F27F00C5993F /* main.xib */,
+				E84162AF13E6F27F00C5993F /* poOpenGLView.h */,
+				E84162B013E6F27F00C5993F /* poOpenGLView.mm */,
+				E84162B113E6F27F00C5993F /* Release.xcconfig */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E841627913E30E0600C5993F /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E841629F13E6F20800C5993F /* glmTestApp.cpp */,
+				E84162A013E6F20800C5993F /* glmTestApp.h */,
+				E84162BA13E6F48D00C5993F /* poMatrixStack.cpp */,
+				E84162BB13E6F48D00C5993F /* poMatrixStack.h */,
+				E800FFEE13EA0277008441D7 /* poVBO.cpp */,
+				E800FFF113EA0293008441D7 /* poVBO.h */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E841626013E30E0600C5993F /* glmTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E841627F13E30E0600C5993F /* Build configuration list for PBXNativeTarget "glmTest" */;
+			buildPhases = (
+				E841625D13E30E0600C5993F /* Sources */,
+				E841625E13E30E0600C5993F /* Frameworks */,
+				E841625F13E30E0600C5993F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = glmTest;
+			productName = EigenTest;
+			productReference = E841626113E30E0600C5993F /* glmTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E841625813E30E0600C5993F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E841625B13E30E0600C5993F /* Build configuration list for PBXProject "glmTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E841625613E30E0600C5993F;
+			productRefGroup = E841626213E30E0600C5993F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E841626013E30E0600C5993F /* glmTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E841625F13E30E0600C5993F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E84162B313E6F27F00C5993F /* Debug.xcconfig in Resources */,
+				E84162B413E6F27F00C5993F /* en.strings in Resources */,
+				E84162B713E6F27F00C5993F /* main.xib in Resources */,
+				E84162B913E6F27F00C5993F /* Release.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E841625D13E30E0600C5993F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E84162A113E6F20800C5993F /* glmTestApp.cpp in Sources */,
+				E84162B213E6F27F00C5993F /* AppDelegate.mm in Sources */,
+				E84162B513E6F27F00C5993F /* main.m in Sources */,
+				E84162B813E6F27F00C5993F /* poOpenGLView.mm in Sources */,
+				E84162BC13E6F48D00C5993F /* poMatrixStack.cpp in Sources */,
+				E800FFEF13EA0277008441D7 /* poVBO.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E841627D13E30E0600C5993F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E84162A913E6F27F00C5993F /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E841627E13E30E0600C5993F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E84162B113E6F27F00C5993F /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E841628013E30E0600C5993F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = glmTest;
+			};
+			name = Debug;
+		};
+		E841628113E30E0600C5993F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = glmTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E841625B13E30E0600C5993F /* Build configuration list for PBXProject "glmTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E841627D13E30E0600C5993F /* Debug */,
+				E841627E13E30E0600C5993F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E841627F13E30E0600C5993F /* Build configuration list for PBXNativeTarget "glmTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E841628013E30E0600C5993F /* Debug */,
+				E841628113E30E0600C5993F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E841625813E30E0600C5993F /* Project object */;
+}

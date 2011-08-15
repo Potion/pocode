@@ -64,6 +64,10 @@ int poWindow::width() const {
 	return _bounds.size.x;
 }
 
+poPoint poWindow::dimensions() const {
+	return _bounds.size;
+}
+
 poRect poWindow::frame() const {
 	return _bounds;
 }

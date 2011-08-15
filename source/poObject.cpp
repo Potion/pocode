@@ -5,6 +5,7 @@
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
+#include "poMatrixStack.h"
 
 poObject::poObject() 
 :	_parent(NULL)
@@ -368,8 +369,6 @@ void poObject::updateAllTweens() {
 }
 
 void poObject::pushObjectMatrix() {
-	glPushMatrix();
-
 	if(_parent) {
 		true_alpha = _parent->true_alpha * alpha;
 	}
@@ -380,30 +379,35 @@ void poObject::pushObjectMatrix() {
 	poPoint trans = round(position);
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
+	poMatrixStack *stack = poMatrixStack::get();
+	stack->pushModelview();
+	
 	// now move depending on the matrix order
 	switch(matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
-			glTranslatef(trans.x, trans.y, trans.z);
-			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
-			glScalef(scale.x, scale.y, scale.z);
+			stack->translate(trans);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
 			break;
 			
 		case PO_MATRIX_ORDER_RST:
-			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
-			glScalef(scale.x, scale.y, scale.z);
-			glTranslatef(trans.x, trans.y, trans.z);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			stack->translate(trans);
 			break;
 	}
 
-	poPoint off = round(offset);
-	glTranslatef(off.x, off.y, off.z);
-	matrices.capture();
+	stack->translate(round(offset));
+	
+	matrices.modelview = stack->getModelview();
+	matrices.projection = stack->getProjection();
+
+	poRect vp = stack->getViewport();
+	matrices.viewport = glm::vec4(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
 }
 
 void poObject::popObjectMatrix() {
-
-	// and reset gl
-	glPopMatrix();
+	poMatrixStack::get()->popModelview();
 }
 
 void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {

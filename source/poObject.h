@@ -8,11 +8,13 @@
 #include "poEvent.h"
 #include "poDictionary.h"
 #include "poMatrixSet.h"
+#include "poMatrixStack.h"
 #include "poEnums.h"
 #include "poPoint.h"
 #include "poColor.h"
 #include "poRect.h"
 #include "poObjectModifier.h"
+
 
 class poObject;
 typedef std::vector<poObject*> poObjectVec;
