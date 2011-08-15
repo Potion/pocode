@@ -477,6 +477,7 @@
 		E8B2D062132E9CA7002BE3D9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
 			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */;

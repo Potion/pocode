@@ -128,11 +128,11 @@ inline bool quartInOutFunc(float *v, float bv, float ev,
 						   double e1, double e2) 
 {
 	double t2 = (t - b) / d * 2.f;
-	if(t < 1.f)
+	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2 + bv;
 	else {
 		t2 -= 2.f;
-		return -(ev-bv)/2.f * (t2*t2*t2*t2-2.f) + bv;
+		*v = -(ev-bv)/2.f * (t2*t2*t2*t2-2.f) + bv;
 	}
 	return (t-b) >= d;
 }
@@ -253,7 +253,7 @@ inline bool circInOutFunc(float *v, float bv, float ev,
 						  double t, double b, double e, double d,
 						  double e1, double e2) 
 {
-	double t2 = (t - d) / d * 2.f;
+	double t2 = (t - b) / d * 2.f;
 	if(t2 < 1)
 		*v = -(ev-bv)/2.f * (::sqrtf(1.f - t2*t2) - 1.f) + bv;
 	else {
