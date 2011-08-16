@@ -39,7 +39,7 @@ void ScribbleApp::messageHandler(const std::string &msg, const poDictionary& dic
 void ScribbleApp::update(){
 	if(doneScribbling){
 		for(int i=0; i<dots.size(); i++){
-			dots[i]->update(locations[i]->x, locations[i]->y);
+			dots[i]->position.set(locations[i]);
 		}
 	}
 }
@@ -123,7 +123,7 @@ void ScribbleApp::drawScribble(){
 //			ofSetColor(0, 0, 0);
 //			ofSetLineWidth(3.0);
 			// draw a line from prev vertex to next vertex
-			poLineShape( start, end );
+			poLineShape( start->x, start->y, end->x, end->y );
 		}
 	}
 }
