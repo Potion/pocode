@@ -7,6 +7,8 @@ class poWindow;
 @interface AppDelegate : NSObject <NSApplicationDelegate> 
 {
 	NSOpenGLContext *shared_context;
+	NSMutableDictionary *window_settings;
+
 	poWindow *currentWindow;
 }
 
