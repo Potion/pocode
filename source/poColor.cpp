@@ -137,7 +137,7 @@ bool poColor::set(const std::string &str) {
 }
 
 std::string poColor::toString() const {
-	return (boost::format("%f %f %f %f")%R%G%B%A).str();
+	return (boost::format("rgba(%f,%f,%f,%f)")%int(R*255)%int(G*255)%int(B*255)%int(A*255)).str();
 }
 
 
@@ -168,11 +168,6 @@ poHSVColor &poHSVColor::set(float h, float s, float v) {
 std::ostream &operator<<(std::ostream &o, const poColor &c) {
 	o << c.toString();
 	return o;
-}
-
-std::istream &operator>>(std::istream &i, poColor &c) {
-	i >> c.R >> c.G >> c.B >> c.A;
-	return i;
 }
 
 poColor hashPointerForColor(void *ptr) {

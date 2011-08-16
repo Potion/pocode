@@ -3,6 +3,7 @@
 #include "LineExtruder.h"
 #include "nanosvg.h"
 #include "poApplication.h"
+#include "poResourceStore.h"
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
@@ -287,6 +288,72 @@ void poShape2D::stopAllTweens(bool recurse) {
 void poShape2D::updateAllTweens() {
 	poObject::updateAllTweens();
 	fill_color_tween.update();
+}
+
+void poShape2D::read(poXMLNode node) {
+	fillDrawStyle = node.getChild("fillDrawStyle").innerInt();
+	fillColor.set(node.getChild("fillColor").innerString());
+	strokeColor.set(node.getChild("strokeColor").innerString());
+	fillEnabled = node.getChild("fillEnabled").innerInt();
+	strokeEnabled = node.getChild("strokeEnabled").innerInt();
+	useSimpleStroke = node.getChild("useSimpleStroke").innerInt();
+	closed = node.getChild("closed").innerInt();
+	drawBounds = node.getChild("drawBounds").innerInt();
+	alphaTestTexture = node.getChild("alphaTestTexture").innerInt();
+	cap = poStrokeCapProperty(node.getChild("cap").innerInt());
+	join = poStrokeJoinProperty(node.getChild("join").innerInt());
+	stroke_width = node.getChild("stroke_width").innerInt();
+
+	std::string pstr = node.getChild("points").innerString();
+	std::string str = base64_decode(pstr);
+	
+	points.resize(str.size() / sizeof(poPoint));
+	memcpy(&points[0],str.c_str(),str.size());
+	
+	poXMLNode tex = node.getChild("texture");
+	if(tex) {
+		std::string url = tex.stringAttribute("url");
+		texture = getImage(url)->texture();
+		str = base64_decode(node.getChild("tex_coords").innerString());
+		tex_coords.resize(str.size() / sizeof(poPoint));
+		memcpy(&tex_coords[0],str.c_str(),str.size());
+	}
+
+	poObject::read(node);
+	generateStroke(stroke_width);
+}
+
+void poShape2D::write(poXMLNode &node) {
+	node.addChild("fillDrawStyle").setInnerInt(fillDrawStyle);
+	node.addChild("fillColor").setInnerString(fillColor.toString());
+	node.addChild("strokeColor").setInnerString(strokeColor.toString());
+	node.addChild("fillEnabled").setInnerInt(fillEnabled);
+	node.addChild("strokeEnabled").setInnerInt(strokeEnabled);
+	node.addChild("useSimpleStroke").setInnerInt(useSimpleStroke);
+	node.addChild("closed").setInnerInt(closed);
+	node.addChild("drawBounds").setInnerInt(drawBounds);
+	node.addChild("alphaTestTexture").setInnerInt(alphaTestTexture);
+	node.addChild("cap").setInnerInt(cap);
+	node.addChild("join").setInnerInt(join);
+	node.addChild("stroke_width").setInnerInt(stroke_width);
+
+	int points_sz = sizeof(poPoint)*points.size();
+	const unsigned char *points_ptr = (const unsigned char*)&points[0];
+	node.addChild("points").handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
+		
+	if(texture && texture->image() && *(texture->image())) {
+		poXMLNode tex = node.addChild("texture");
+		// this is only going to work in the most simple case
+		tex.addAttribute("url",texture->image()->url());
+		
+		// write points out as binary
+		points_sz = sizeof(poPoint)*tex_coords.size();
+		points_ptr = (const unsigned char*)&tex_coords[0];
+		tex.handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
+	}
+	
+	poObject::write(node);
+	node.setAttribute("type","poShape2D");
 }
 
 std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {

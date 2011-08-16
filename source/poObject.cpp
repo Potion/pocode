@@ -7,8 +7,11 @@
 #include "poApplication.h"
 #include "poMatrixStack.h"
 
+static uint PO_OBJECT_UID = 0;
+
 poObject::poObject() 
 :	_parent(NULL)
+,	_uid(PO_OBJECT_UID++)
 ,	name("")
 ,	alpha(1.f)
 ,	scale(1.f, 1.f, 1.f)
@@ -19,7 +22,6 @@ poObject::poObject()
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
-,	events(PO_LAST_EVENT)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
 ,	position_tween(&position)
@@ -33,6 +35,7 @@ poObject::poObject()
 
 poObject::poObject(const std::string &name)
 :	_parent(NULL)
+,	_uid(PO_OBJECT_UID++)
 ,	name(name)
 ,	alpha(1.f)
 ,	scale(1.f, 1.f, 1.f)
@@ -43,7 +46,6 @@ poObject::poObject(const std::string &name)
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
-,	events(PO_LAST_EVENT)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
 ,	position_tween(&position)
@@ -124,6 +126,18 @@ poObject* poObject::getChild(int idx) {
 	if(idx < 0 || idx >= children.size())
 		return NULL;
 	return *(children.begin()+idx);
+}
+
+poObject* poObject::getChildWithUID(uint UID) {
+	BOOST_FOREACH(poObject *obj, children) {
+		poObject *resp = obj->getChildWithUID(UID);
+		if(resp) return resp;
+	}
+	
+	if(UID == uid())
+		return this;
+	
+	return NULL;
 }
 
 poObject* poObject::getChild(const std::string &name) {
@@ -275,6 +289,7 @@ poRect poObject::calculateBounds() {
 }
 
 poObject*		poObject::parent() const {return _parent;}
+uint			poObject::uid() const {return _uid;}
 
 bool			poObject::isInWindow() const {return in_window;}
 void			poObject::inWindow(bool b) {
@@ -341,7 +356,7 @@ void poObject::_broadcastEvent(poEvent* event) {
 	poPoint local_point = globalToLocal(event->position);
 	
 	// handle every event like this we have
-	BOOST_FOREACH(poEvent *e, events[event->type]) {
+	BOOST_FOREACH(poEvent *e, poEventCenter::get()->eventsForObject(this,event->type)) {
 		localizeEvent(e, event, local_point);
 		eventHandler(e);
 	}
@@ -358,6 +373,75 @@ void poObject::stopAllTweens(bool recurse) {
 		BOOST_FOREACH(poObject* obj, children)
 			obj->stopAllTweens(true);
 	}
+}
+
+void poObject::read(poXMLNode node) {
+	_uid = (uint)node.getChild("uid").innerInt();
+	name = node.getChild("name").innerString();
+	position.set(node.getChild("position").innerString());
+	scale.set(node.getChild("scale").innerString());
+	alpha = node.getChild("alpha").innerFloat();
+	rotation = node.getChild("rotation").innerFloat();
+	rotationAxis.set(node.getChild("rotationAxis").innerString());
+	offset.set(node.getChild("offset").innerString());
+	bounds.set(node.getChild("bounds").innerString());
+	visible = node.getChild("visible").innerInt();
+	boundsAreFixed = node.getChild("boundsAreFixed").innerInt();
+	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").innerInt());
+	_alignment = poAlignment(node.getChild("alignment").innerInt());
+	
+//	poXMLNode event_node = node.getChild("events").firstChild();
+//	while(event_node) {
+//		event_node = event_node.nextSibling();
+//		uint sink = (uint)event_node.intAttribute("sink");
+//		uint type = (uint)event_node.intAttribute("type");
+//		std::string msg = event_node.innerString();
+//	}
+	
+	alignment(_alignment);
+}
+
+void poObject::write(poXMLNode &node) {
+	node.addAttribute("type", "poObject");
+
+	node.addChild("uid").setInnerInt(uid());
+	node.addChild("name").setInnerString(name);
+	node.addChild("position").setInnerString(position.toString());
+	node.addChild("scale").setInnerString(scale.toString());
+	node.addChild("alpha").setInnerFloat(alpha);
+	node.addChild("rotation").setInnerFloat(rotation);
+	node.addChild("rotationAxis").setInnerString(rotationAxis.toString());
+	node.addChild("offset").setInnerString(offset.toString());
+	node.addChild("bounds").setInnerString(bounds.toString());
+	node.addChild("visible").setInnerInt(visible);
+	node.addChild("boundsAreFixed").setInnerInt(boundsAreFixed);
+	node.addChild("matrixOrder").setInnerInt(matrixOrder);
+	node.addChild("alignment").setInnerInt(_alignment);
+	
+//	poEventCenter *center = poEventCenter::get();
+//	poXMLNode events_node = node.addChild("events");
+//	for(int i=0; i<PO_LAST_EVENT; i++) {
+//		if(center->objectHasEvent(this, i)) {
+//			std::vector<poEvent*> event_vec = center->eventsForObject(this, i);
+//			for(int j=0; j<event_vec.size(); j++) {
+//				poXMLNode event_node = events_node.addChild("event");
+//				event_node.addAttribute("sink", (int)event_vec[j]->source->uid());
+//				event_node.addAttribute("type", event_vec[j]->type);
+//
+//				event_node.addChild("msg");
+//				event_node.setInnerString(event_vec[j]->message);
+//				
+//				event_node.addChild("dict");
+//				event_node.setInnerString(event_vec[j]->dict.toString());
+//			}
+//		}
+//	}
+	
+//	poXMLNode kids_node = node.addChild("children");
+//	for(int i=0; i<numChildren(); i++) {
+//		poXMLNode kid_node = kids_node.addChild("child");
+//		getChild(i)->write(kid_node);
+//	}
 }
 
 void poObject::updateAllTweens() {

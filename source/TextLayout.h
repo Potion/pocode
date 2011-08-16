@@ -92,6 +92,9 @@ public:
 	void padding(float f);
 	void padding(float h, float v);
 	void padding(float l, float r, float t, float b);
+
+	int tabWidth() const;
+	void tabWidth(int tw);
 	
 	poAlignment alignment() const;
 	void alignment(poAlignment a);
@@ -122,6 +125,7 @@ private:
 	void breakLine(line_layout_props &props);
 	void alignText();
 
+	int tab_width;
 	poPoint _size;
 	float _tracking;
 	float _leading;

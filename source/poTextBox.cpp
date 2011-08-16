@@ -93,6 +93,9 @@ void poTextBox::padding(float f) {_layout.padding(f); }
 void poTextBox::padding(float h, float v) {_layout.padding(h,v); }
 void poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r,t,b); }
 
+void poTextBox::tabWidth(int tw) {_layout.tabWidth(tw);}
+int poTextBox::tabWidth() const {return _layout.tabWidth();}
+
 void poTextBox::font(poFont *f, const std::string &name) {
 	_layout.font(f,name);
 }

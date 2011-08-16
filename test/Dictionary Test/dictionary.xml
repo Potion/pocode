@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<root>
+	<entry type="4" key="color">rgba(255,0,0,255)</entry>
+	<entry type="5" key="point">point(25,-8.5,100)</entry>
+	<entry type="0" key="bool">0</entry>
+	<entry type="3" key="string">Hello Worlds</entry>
+	<entry type="1" key="int">13</entry>
+	<entry type="2" key="float">3.14159</entry>
+</root>

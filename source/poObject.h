@@ -14,7 +14,7 @@
 #include "poColor.h"
 #include "poRect.h"
 #include "poObjectModifier.h"
-
+#include "poXML.h"
 
 class poObject;
 typedef std::vector<poObject*> poObjectVec;
@@ -56,6 +56,7 @@ public:
 
 	int				getChildIndex(poObject* child);
 	poObject*		getChild(int at_idx);
+	poObject*		getChildWithUID(uint uid);
 	poObject*		getChild(const std::string &with_name);
 	poObject*		getLastChild();
 
@@ -65,7 +66,6 @@ public:
 	T*				getChildAs(const std::string &name);
 	template <typename T>
 	T*				getLastChildAs();
-	
 	
 	bool			removeChild(poObject* obj);
 	bool			removeChild(int at_idx, bool and_delete=true);
@@ -114,6 +114,7 @@ public:
 	
 	// OBJECT PROPERTIES
 	poObject*		parent() const;
+	uint			uid() const;
 	bool			isInWindow() const;
 	// this is the alpha with parent alpha pre-multiplied
 	float			appliedAlpha() const;
@@ -140,6 +141,12 @@ public:
 	
 	virtual void	stopAllTweens(bool recurse=false);
 
+	// parent passes the child's node into the child
+	virtual void read(poXMLNode node);
+	// parent makes the child, who then fills out the node
+	// in subclasses, the type attribute should be set after calling poObject::write(node)
+	virtual void write(poXMLNode &node);
+	
 	// TREE TRAVERSAL
 	void			_drawTree();
 	void			_updateTree();
@@ -160,8 +167,8 @@ private:
 	
 	poObjectVec             children;
     poObjectModifierVec     modifiers;
-	poEventTable            events;
 	
+	uint			_uid;
 	poObject*		_parent;
 	poAlignment		_alignment;
 

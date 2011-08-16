@@ -141,7 +141,9 @@ std::vector<poPoint> poRect::corners() const {
 }
 
 std::string poRect::toString() const {
-	return (boost::format("%.2f %.2f %.2f %.2f") % origin.x % origin.y % size.x % size.y).str();
+	std::stringstream ss;
+	ss << "rect(" << origin.x << "," << origin.y << "," << size.x << "," << size.y << ")";
+	return ss.str();
 }
 
 poPoint poRect::remap(poRect from, poPoint p) {
@@ -160,9 +162,4 @@ poPoint poRect::remap(poRect from, poPoint p) {
 std::ostream &operator<<(std::ostream &o, const poRect &r) {
 	o << r.toString();
 	return o;
-}
-
-std::istream &operator>>(std::istream &i, poRect &r) {
-	i >> r.origin >> r.size;
-	return i;
 }

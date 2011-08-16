@@ -62,7 +62,7 @@ poImage::~poImage() {
 	FreeImage_Unload(bitmap);
 	
 	if(tex) {
-		tex->image = NULL;
+		tex->_image = NULL;
 	}
 }
 
@@ -335,6 +335,10 @@ poTexture *poImage::texture(poTextureConfig config) {
 	return tex;
 }
 
+std::string poImage::url() const {
+	return _url;
+}
+
 void poImage::clear() {
 	ubyte color[] = {0,0,0,0};
 	FreeImage_FillBackground(bitmap, &color[0]);
@@ -379,6 +383,7 @@ FIBITMAP *loadDIB(const std::string &url) {
 
 void poImage::load(const std::string &url) {
 	bitmap = loadDIB(url);
+	_url = url;
 }
 
 void poImage::load(const std::string &url, ImageBitDepth bpp) {

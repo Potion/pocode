@@ -44,6 +44,8 @@ public:
 	GLuint uid;
 	poTextureConfig config;
 	float s, t;
+	
+	poImage const *image() const;
 
 private:
 	void loadDummy();
@@ -53,7 +55,7 @@ private:
 	// this isn't too thurough right now
 	// you can screw yourself if you demand a format incompatible with the image
 	poTexture(poImage *img, poTextureConfig config);
-	poImage *image;
+	poImage *_image;
 	
 	// will only be used when the image is null
 	uint _width, _height;

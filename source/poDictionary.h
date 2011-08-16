@@ -6,6 +6,7 @@
 
 #include "poColor.h"
 #include "poPoint.h"
+#include <pugixml.hpp>
 
 class poObject;
 
@@ -27,7 +28,7 @@ public:
 	poDictionary&	setFloat(const std::string &name, float f) {items[name] = f; return *this; }
 	
 	std::string     getString(const std::string &name) const {return boost::get<std::string>(items.at(name));}
-	poDictionary&	setString(const std::string &name, std::string &s) {items[name] = s; return *this; }
+	poDictionary&	setString(const std::string &name, const std::string &s) {items[name] = s; return *this; }
 	
 	poColor         getColor(const std::string &name) const {return boost::get<poColor>(items.at(name));}
 	poDictionary&	setColor(const std::string &name, poColor c) {items[name] = c; return *this; }
@@ -47,8 +48,13 @@ public:
 	
 	bool			read(const fs::path &url);
 	void			write(const fs::path &url) const;
+	
+	void			set(const std::string &str);
+	std::string		toString() const;
 
 protected:
+	void			set(pugi::xml_node root);
+	void			unset(pugi::xml_node root) const;
 	boost::unordered_map<std::string, poProperty> items;
 };
 

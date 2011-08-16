@@ -163,7 +163,10 @@ poXMLNode::poXMLNode(boost::shared_ptr<pugi::xml_document> doc, xml_node node)
 #pragma mark - poXMLDocument -
 
 poXMLDocument::poXMLDocument()
-{}
+:	doc(new xml_document())
+{
+	doc->append_child("root");
+}
 
 poXMLDocument::poXMLDocument(const fs::path &p) {
 	read(p);
@@ -174,6 +177,7 @@ poXMLNode poXMLDocument::rootNode() {
 }
 
 bool poXMLDocument::read(const fs::path &p) {
+	doc.reset();
 	doc = boost::shared_ptr<xml_document>(new xml_document());
 	xml_parse_result result = doc->load_file(p.c_str(), parse_default, encoding_utf8);
 	if(!result) {
@@ -185,6 +189,7 @@ bool poXMLDocument::read(const fs::path &p) {
 }
 
 bool poXMLDocument::readStr(const std::string &str) {
+	doc.reset();
 	doc = boost::shared_ptr<xml_document>(new xml_document());
 	xml_parse_result result = doc->load(str.c_str());
 	if(!result) {

@@ -48,4 +48,3 @@ public:
 };
 
 std::ostream &operator<<(std::ostream &o, const poRect &r);
-std::istream &operator>>(std::istream &i, poRect &r);

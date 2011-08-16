@@ -94,7 +94,7 @@ public:
 	// does an object care about a given event
 	bool objectHasEvent(poObject *obj, int eventType);
 	// get the stored event for this this object/action
-	poEvent &eventForObject(poObject *obj, int eventType);
+	std::vector<poEvent*> eventsForObject(poObject *obj, int eventType);
 	
 	// append this event type to the list ... should be an int >= PO_LAST_EVENT 
 	void addEventType(int eventType, bool isChecked);

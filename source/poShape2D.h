@@ -61,6 +61,9 @@ public:
 
 	virtual void		stopAllTweens(bool recurse=false);
 
+	virtual void		read(poXMLNode node);
+	virtual void		write(poXMLNode &node);
+
 protected:
 	virtual void		updateAllTweens();
     

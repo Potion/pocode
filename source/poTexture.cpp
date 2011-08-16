@@ -138,40 +138,40 @@ poTextureConfig::poTextureConfig(GLenum format)
 {}
 
 poTexture::poTexture()
-:	image(NULL)
+:	_image(NULL)
 ,	uid(0)
 ,	_width(0)
 ,	_height(0)
 {}
 
 poTexture::poTexture(poImage *img)
-:	image(NULL)
+:	_image(NULL)
 ,	uid(0)
 ,	_width(0)
 ,	_height(0)
 {
 	if(img && *img) {
-		image = img;
-		formatsForBitDepth(image->bpp(), &config.format, &config.internalFormat, &config.type);
+		_image = img;
+		formatsForBitDepth(_image->bpp(), &config.format, &config.internalFormat, &config.type);
 		load();
 	}
 }
 
 poTexture::poTexture(poImage *img, poTextureConfig cfg)
-:	image(NULL)
+:	_image(NULL)
 ,	uid(0)
 ,	_width(0)
 ,	_height(0)
 {
 	if(img && *img) {
-		image = img;
+		_image = img;
 		config = cfg;
 		load();
 	}
 }
 
 poTexture::poTexture(uint width, uint height, poTextureConfig config)
-:	image(NULL)
+:	_image(NULL)
 ,	uid(0)
 ,	config(config)
 ,	_width(width)
@@ -183,8 +183,8 @@ poTexture::poTexture(uint width, uint height, poTextureConfig config)
 poTexture::~poTexture() {
 	unload();
 	
-	if(image)
-		image->tex = NULL;
+	if(_image)
+		_image->tex = NULL;
 }
 
 bool poTexture::opaqueAtPoint(poPoint p) const {
@@ -193,28 +193,28 @@ bool poTexture::opaqueAtPoint(poPoint p) const {
 }
 
 poColor poTexture::colorAtPoint(poPoint p) const {
-	if(image && *image)
-		return image->getPixel(p);
+	if(_image && *_image)
+		return _image->getPixel(p);
 	return poColor();
 }
 
 uint poTexture::width() const {
-	if(image)
-		return image->width();
+	if(_image && *_image)
+		return _image->width();
 	return _width;
 }
 
 uint poTexture::height() const {
-	if(image)
-		return image->height();
+	if(_image && *_image)
+		return _image->height();
 	return _height;
 }
 
 void poTexture::load() {
 	if(!isLoaded()) {
-		if(image != NULL && image) {
+		if(_image != NULL && *_image) {
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, image->pitch());
+			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, _image->pitch());
 			
 			glGenTextures(1, &uid);
 			glBindTexture(GL_TEXTURE_2D, uid);
@@ -226,7 +226,7 @@ void poTexture::load() {
 			float trans[] = {0.f, 0.f, 0.f, 0.f};
 			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, image->width(), image->height(), 0, config.format, config.type, image->pixels());
+			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, _image->width(), _image->height(), 0, config.format, config.type, _image->pixels());
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		else if(_width > 0 && _height > 0) {
@@ -255,6 +255,10 @@ void poTexture::unload() {
 
 bool poTexture::isLoaded() const {
 	return uid > 0;
+}
+
+poImage const *poTexture::image() const {
+	return _image;
 }
 
 void poTexture::bind(uint unit) const {

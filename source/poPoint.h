@@ -18,8 +18,6 @@ public:
 
 	// point(x,y) or point(x,y,z)
 	bool set(const std::string &str);
-
-	
 	std::string toString() const;
 	
 	bool operator==(poPoint rhs);
@@ -51,5 +49,4 @@ poPoint normalize(poPoint pt);
 bool compare(poPoint a, poPoint b, float range=1.0e-6f);
 
 std::ostream &operator<<(std::ostream &o, const poPoint &p);
-std::istream &operator>>(std::istream &i, poPoint &p);
 

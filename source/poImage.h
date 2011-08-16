@@ -57,6 +57,9 @@ public:
 	poTexture *texture();
 	poTexture *texture(poTextureConfig config);
 	
+	// where the image came from, if anywhere
+	std::string url() const;
+	
 private:
 	poImage();
 	poImage(const std::string &url);
@@ -70,6 +73,7 @@ private:
 	
 	FIBITMAP *bitmap;
 	poTexture *tex;
+	std::string _url;
 };
 
 // will append .cpp to the end of the filename

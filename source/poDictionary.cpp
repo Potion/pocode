@@ -7,6 +7,7 @@
 //
 
 #include "poDictionary.h"
+#include <sstream>
 
 std::vector<std::string> poDictionary::keys() const {
 	std::vector<std::string> response;
@@ -19,22 +20,75 @@ std::vector<std::string> poDictionary::keys() const {
 bool poDictionary::read(const fs::path &url) {
 	if(!fs::exists(url) || !fs::is_regular_file(url))
 		return false;
+
+	using namespace pugi;
+	xml_document doc;
+	xml_parse_result result = doc.load_file(url.c_str(), parse_default, encoding_utf8);
+	if(!result) {
+		return false;
+	}
+
+	set(doc.first_child());
+	return true;
+}
+
+void poDictionary::write(const fs::path &url) const {
+	using namespace pugi;
 	
-	TiXmlDocument doc(url.c_str());
-	doc.LoadFile();
+	xml_document doc;
+	xml_node root = doc.append_child("root");
 	
-	TiXmlElement *root = doc.RootElement();
+	unset(root);
+	doc.save_file(url.c_str());
+}
+
+void poDictionary::set(const std::string &str) {
+	using namespace pugi;
+	xml_document doc;
+	xml_parse_result result = doc.load(str.c_str());
+	if(!result) {
+		return;
+	}
+	set(doc.first_child());
+}
+
+std::string poDictionary::toString() const {
+	using namespace pugi;
 	
-	TiXmlNode *child = NULL;
-	while((child = root->IterateChildren("key", child))) {
-		TiXmlElement *k = child->ToElement();
-		int type;
-		k->Attribute("type", &type);
+	xml_document doc;
+	xml_node root = doc.append_child("root");
+
+	unset(root);
+	
+	std::ostringstream ss;
+	doc.save(ss);
+	
+	return ss.str();
+}
+
+void poDictionary::unset(pugi::xml_node root) const {
+	using namespace pugi;
+	
+	boost::unordered_map<std::string,poProperty>::const_iterator iter = items.begin();
+	while(iter != items.end()) {
+		xml_node node = root.append_child("entry");
 		
-		std::string key = k->GetText();
-		std::string value = child->NextSibling()->ToElement()->GetText();
+		node.append_attribute("type").set_value(iter->second.which());
+		node.append_attribute("key").set_value(iter->first.c_str());
+		node.append_child(node_pcdata).set_value(boost::lexical_cast<std::string>(iter->second).c_str());
 		
-		std::stringstream ss(value);
+		iter++;
+	}
+}
+
+void poDictionary::set(pugi::xml_node node) {
+	items.clear();
+	
+	node = node.first_child();
+	while(node) {
+		uint type = node.attribute("type").as_uint();
+		std::string key = node.attribute("key").value();
+		const char *value = node.child_value();
 		
 		switch(type) {
 			case 0:
@@ -52,48 +106,22 @@ bool poDictionary::read(const fs::path &url) {
 			case 4:
 			{
 				poColor color;
-				ss >> color;
-				setColor(key, color);
+				if(color.set(value))
+					setColor(key, color);
 				break;
 			}
 			case 5:
 			{
 				poPoint point;
-				ss >> point;
-				setPoint(key, point);
+				if(point.set(value))
+					setPoint(key, point);
 				break;
 			}
 		}
-	}
-	
-	return true;
-}
-
-void poDictionary::write(const fs::path &url) const {
-	TiXmlDocument doc;
-	TiXmlElement *root = new TiXmlElement("root");
-	doc.LinkEndChild(root);
-	
-	TiXmlElement *key, *value;
-	
-	boost::unordered_map<std::string,poProperty>::const_iterator iter = items.begin();
-	while(iter != items.end()) {
-		key = new TiXmlElement("key");
-		key->SetAttribute("type", iter->second.which());
-		key->LinkEndChild(new TiXmlText(iter->first));
-		root->LinkEndChild(key);
 		
-		value = new TiXmlElement("value");
-		value->LinkEndChild(new TiXmlText(boost::lexical_cast<std::string>(iter->second)));
-		root->LinkEndChild(value);
-		
-		iter++;
+		node = node.next_sibling();
 	}
-	
-	doc.SaveFile(url.c_str());
 }
-
-
 
 void deleteCommon(poDictionary* dict) {
 	dict->write("common.xml");

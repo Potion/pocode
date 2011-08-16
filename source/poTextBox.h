@@ -72,7 +72,6 @@ public:
 	float tracking() const;
 	void tracking(float f);
 	
-	
 	float paddingLeft() const;
 	float paddingRight() const;
 	float paddingTop() const;
@@ -80,6 +79,9 @@ public:
 	void padding(float f);
 	void padding(float h, float v);
 	void padding(float l, float r, float t, float b);
+	
+	void tabWidth(int tw);
+	int tabWidth() const;
 	
 	// font name correspondes to html tag embedded in the text
 	// eg <i>italic</i> <u>underlined</u> <b>bold</b> <b><i>bold italic</b></i>

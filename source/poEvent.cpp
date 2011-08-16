@@ -273,15 +273,15 @@ bool poEventCenter::objectHasEvent(poObject *obj, int eventType) {
 	return false;
 }
 
-poEvent &poEventCenter::eventForObject(poObject *obj, int eventType) {
+std::vector<poEvent*> poEventCenter::eventsForObject(poObject *obj, int eventType) {
+	std::vector<poEvent*> response;
+	
 	std::vector<event_callback> &event_vec = events[eventType];
 	for(int i=0; i<event_vec.size(); i++) {
 		if(obj == event_vec[i].event.source)
-			return event_vec[i].event;
+			response.push_back(&(event_vec[i].event));
 	}
-	
-	static poEvent event;
-	return event;
+	return response;
 }
 
 void poEventCenter::addEventType(int eventType, bool isChecked) {

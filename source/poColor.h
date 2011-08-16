@@ -50,7 +50,6 @@ public:
 };
 
 std::ostream &operator<<(std::ostream &o, const poColor &c);
-std::istream &operator>>(std::istream &i, poColor &c);
 
 poColor hashPointerForColor(void *ptr);
 poColor blendColors(poColor c1, poColor c2, float pct);

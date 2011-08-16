@@ -179,7 +179,7 @@ void TextLayout::recalculateTextBounds() {
 
 #pragma mark - TextBoxLayout -
 TextBoxLayout::TextBoxLayout(poPoint s)
-:	_size(s), _tracking(1.f), _leading(1.f), _alignment(PO_ALIGN_LEFT)
+:	_size(s), _tracking(1.f), _leading(1.f), _alignment(PO_ALIGN_LEFT), tab_width(4)
 {
 	padding(0.f);
 }
@@ -284,8 +284,12 @@ void TextBoxLayout::doLayout() {
 					break;
 					
 				case '\t':
-					props.last_space = spacer * 4;
+				{
+					float s = spacer * tab_width;
+					float w = props.line.bounds.width() + props.word.width;
+					props.last_space = (floor(w/s) + 1) * s - w;
 					break;
+				}
 			}
 			
 			// make the line knows about the space
@@ -427,4 +431,6 @@ void TextBoxLayout::padding(float h, float v) {_padding[0] = _padding[1] = h; _p
 void TextBoxLayout::padding(float l, float r, float t, float b) {_padding[0] = l; _padding[1] = r; _padding[2] = t; _padding[3] = b;}
 poAlignment TextBoxLayout::alignment() const {return _alignment;}
 void TextBoxLayout::alignment(poAlignment a) {_alignment = a; alignText();}
+int TextBoxLayout::tabWidth() const {return tab_width;}
+void TextBoxLayout::tabWidth(int tw) {tab_width = tw;}
 
