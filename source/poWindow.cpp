@@ -64,6 +64,10 @@ int poWindow::width() const {
 	return _bounds.size.x;
 }
 
+poPoint poWindow::dimensions() const {
+	return _bounds.size;
+}
+
 poRect poWindow::frame() const {
 	return _bounds;
 }
@@ -341,13 +345,34 @@ void poWindow::processEvents() {
 				
 				if(!touch_hovers.empty()) {
 		
-					// tell the one guy if he got clicked on
+					poObject* topObject = NULL;
+					int topDrawOrder = 0;
+					
 					event.type = PO_TOUCH_OVER_EVENT;
+					// look for top object with event.type = PO_TOUCH_INSIDE_EVENT;
+					BOOST_FOREACH(poObject *obj, touch_hovers) 
+					{
+						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_OVER_EVENT) )
+							continue;
+						
+						if ( obj->drawOrder() > topDrawOrder )
+						{
+							topDrawOrder = obj->drawOrder();
+							topObject = obj;
+						}
+					}
+					if ( topObject != NULL )
+					{
+						center->routeBySource( topObject, event );
+					}
+					
+					// tell the one guy if he got clicked on
+					/*event.type = PO_TOUCH_OVER_EVENT;
 					BOOST_FOREACH(poObject *obj, touch_hovers) {
 						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_OVER_EVENT) )
 							continue;  
 						center->routeBySource( obj, event );
-					}
+					}*/
 				}
 				break;
 			}

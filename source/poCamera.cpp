@@ -8,6 +8,8 @@
 
 #include "poCamera.h"
 #include "poApplication.h"
+#include "poMatrixStack.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 // camera base class
 poCamera::poCamera()
@@ -27,36 +29,35 @@ poCamera::poCamera(poColor color)
 void poCamera::doSetUp( poObject* obj ) {
 	saveAndUpdateGLSettings();
 
+	poMatrixStack *stack = poMatrixStack::get();
+	
 	if(fixedSize())
-		glViewport(0, 0, fixed_size.x, fixed_size.y);
+		stack->pushViewport(poRect(poPoint(),fixed_size));
 	else
-		glViewport(0, 0, getWindowWidth(), getWindowHeight());
+		stack->pushViewport(poRect(poPoint(),getWindowDimensions()));
 
 	if(clears_background) {
         glClearColor(background_color.R, background_color.G, background_color.B, background_color.A);
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
 
-	glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-	glLoadIdentity();
+	stack->pushProjection();
 	setProjection();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
+
 	if(reset)
-		glLoadIdentity();
+		stack->pushModelview(glm::mat4());
+	else 
+		stack->pushModelview();
 	setModelview();
 }
 
 void poCamera::doSetDown( poObject* obj ) {
 	restoreGLSettings();
 	
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
+	poMatrixStack *stack = poMatrixStack::get();
+	stack->popProjection();
+	stack->popModelview();
+	stack->popViewport();
 }
 
 void poCamera::saveAndUpdateGLSettings() {
@@ -95,10 +96,12 @@ poCamera2D::poCamera2D(poColor clear)
 {}
 
 void poCamera2D::setProjection() {
+	poMatrixStack *stack = poMatrixStack::get();
+
 	if(fixedSize())
-		gluOrtho2D(0, fixed_size.x, fixed_size.y, 0);
+		stack->pushProjection(glm::ortho(0.f, fixed_size.x, fixed_size.y, 0.f));
 	else
-		gluOrtho2D(0, getWindowWidth(), getWindowHeight(), 0);
+		stack->pushProjection(glm::ortho(0.f, getWindowWidth(), getWindowHeight(), 0.f));
 }
 
 
@@ -167,12 +170,20 @@ void poPerspectiveCamera::doSetUp(poObject *obj) {
 }
 
 void poPerspectiveCamera::setProjection() {
-	gluPerspective(fov, aspect, near, far);
+	poMatrixStack *stack = poMatrixStack::get();
+	stack->pushProjection(glm::perspective(fov, aspect, near, far));
 }
 
 void poPerspectiveCamera::setModelview() {
-	gluLookAt(curr_pos.x, curr_pos.y, curr_pos.z, look_at.x, look_at.y, look_at.z, 0, 1, 0);
-    glScalef(-1,-1,1);
+	using namespace glm;
+	
+	poMatrixStack *stack = poMatrixStack::get();
+	
+	vec3 eye(curr_pos.x, curr_pos.y, curr_pos.z);
+	vec3 center(look_at.x, look_at.y, look_at.z);
+	vec3 up(0,1,0);
+	stack->pushModelview(glm::lookAt(eye,center,up));
+	stack->scale(poPoint(-1,-1,1));
 }
 
 

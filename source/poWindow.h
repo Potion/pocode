@@ -15,6 +15,7 @@ public:
 	int y() const;
 	int width() const;
 	int height() const;
+	poPoint dimensions() const;
 	poRect frame() const;
 	poRect bounds() const;
 	poPoint centerPoint() const;

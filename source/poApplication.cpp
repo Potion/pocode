@@ -11,6 +11,11 @@ float getWindowHeight() {
 	return window->height();
 }
 
+poPoint getWindowDimensions() {
+	poWindow *window = applicationCurrentWindow();
+	return window->dimensions();
+}
+
 float getWindowAspect() {
 	poWindow *window = applicationCurrentWindow();
 	return window->width() / (float)window->height();

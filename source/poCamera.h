@@ -40,11 +40,11 @@ protected:
 	virtual void restoreGLSettings();
 	
 	poPoint		fixed_size;
+	bool		reset;
 
 private:
     bool		clears_background;
     poColor		background_color;
-	bool		reset;
 	bool		is_fixed_size;
 };
 

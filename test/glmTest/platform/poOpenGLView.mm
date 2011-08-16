@@ -71,21 +71,21 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	if(self) {
 		display_link = nil;
 		
-//		[[NSNotificationCenter defaultCenter] addObserverForName:NSViewGlobalFrameDidChangeNotification
-//														  object:self
-//														   queue:nil
-//													  usingBlock:^(NSNotification* notice) {
-//														  [self update];
-//													  }];
-//		
+		[[NSNotificationCenter defaultCenter] addObserverForName:NSViewGlobalFrameDidChangeNotification
+														  object:self
+														   queue:nil
+													  usingBlock:^(NSNotification* notice) {
+														  [self update];
+													  }];
+		
 	}
 	return self;
 }
 
 -(void)dealloc {
-//	[[NSNotificationCenter defaultCenter] removeObserver:self
-//													name:NSViewGlobalFrameDidChangeNotification
-//												  object:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:NSViewGlobalFrameDidChangeNotification
+												  object:self];
 	
 	[self stopAnimating];
 	
@@ -125,22 +125,10 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	[super viewDidMoveToWindow];
 	
 	NSWindow *window = self.window;
-	if(window) {
-		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidResizeNotification
-														  object:window
-														   queue:nil
-													  usingBlock:^(NSNotification* notice) {
-														  [self update];
-													  }];
+	if(window)
 		[self startAnimating];
-	}
-	else {
-		[[NSNotificationCenter defaultCenter] removeObserver:self
-														name:NSWindowDidResizeNotification
-													  object:nil];
-
+	else
 		[self stopAnimating];
-	}
 }
 
 -(BOOL)isAnimating {
