@@ -219,12 +219,20 @@ bool poObject::pointInside(poPoint point, bool localize) {
 	if(!visible)
 		return false;
 	
-	if(localize) {
-		point.y = getWindowHeight() - point.y;
-		point = globalToLocal(point);
-	}
 	
-	return bounds.contains(point);
+    BOOST_FOREACH(poObject* obj, children) {
+		if ( obj->pointInside( point, localize ) )
+            return true;
+	}
+    
+    return false;
+    
+    /*(if(localize) {
+     point.y = getWindowHeight() - point.y;
+     point = globalToLocal(point);
+     }
+     
+     return bounds.contains(point);*/
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
