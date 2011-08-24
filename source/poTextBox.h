@@ -59,7 +59,7 @@ public:
 	
     // LAYOUT
     // You MUST call layout after making any changes to poTextBox. Otherwise, you will not see
-    // the changes in the text box/
+    // the changes in the text box.
     poTextBox*          layout();
 
     // TEXTBOX PROPERTIES
