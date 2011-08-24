@@ -15,13 +15,15 @@ layout(poPoint(width,0))
 	delay = del;
 	duration = dur;
 	h_shift = shift;
+	oVal = 0;
 	
 	layout.font(getFont("Helvetica",20));
 	layout.text(text);
 	layout.alignment(PO_ALIGN_CENTER);
 	layout.layout();
-
-	restartDynamicEntrance();
+	
+	reset();
+	fly();
 }
 
 flyingText::~flyingText() 
@@ -51,6 +53,9 @@ void flyingText::draw()
 			bbox.origin.x += offsets[i];
 			bbox.origin.y += val;
 			
+			oVal += val/(start_y-end_y)/43634.4;
+			applyColor(poColor::white, oVal);
+//			printf("value : %f \n", oVal );
 			atlas->drawUID(glyph.glyph, bbox.origin);
 		}
 	}
@@ -61,10 +66,15 @@ void flyingText::eventHandler(poEvent *event)
 {
 }
 
-void flyingText::restartDynamicEntrance()
-{
+void flyingText::reset(){
+	
 	offsets.clear();
 	tweens.clear();
+	oVal = 0;
+}
+
+void flyingText::fly()
+{
 	
 	for(int i=0; i<layout.numLines(); i++) {
 		poTween<float> tween(start_y);
@@ -72,11 +82,18 @@ void flyingText::restartDynamicEntrance()
 		.set(end_y)
 		.setDelay(i*delay)
 		.setDuration(duration)
-		.setTweenFunction(expoOutFunc)
+		.setTweenFunction(quartOutFunc)
 		.start();
 		
 		tweens.push_back(tween);
 		
 		offsets.push_back(poRand(-h_shift,h_shift));
+	}
+}
+
+void flyingText::fadeTo(float alpha){
+	
+	for(int i=0; i<layout.numLines(); i++) {
+		
 	}
 }

@@ -22,7 +22,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "glmTestApp", 100, 100, 800, 800);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "glmTestApp", 100, 100, 600, 300);
 }
 
 void cleanupApplication() {
@@ -72,7 +72,7 @@ void glmTestApp::draw() {
 		track.erase(track.begin());
 	
 	// the stock projection matrix, we'll keep the same aspect ratio
-	stack->pushProjection(perspective(65.f, getWindowAspect(), 0.01f, 100.f));
+	stack->pushProjection(perspective(30.f, getWindowAspect(), 0.01f, 100.f));
 	// define the camera transform (eye, center, up)
 	stack->pushModelview(lookAt(eye, vec3(0,0,0), vec3(0,1,0)));
 	stack->rotate(rot*180/M_PI, poPoint(1,0,0));
