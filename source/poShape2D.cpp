@@ -11,7 +11,7 @@ poShape2D::poShape2D()
 ,	stroke_width(0)
 ,	fillColor(1,1,1,1)
 ,	strokeColor(1,1,1,1)
-,   useSimpleStroke(false)
+,   useSimpleStroke(true)
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
 ,	texture(NULL)
@@ -72,14 +72,10 @@ void poShape2D::draw() {
 		{
 			glLineWidth( stroke_width );
 			glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
-			glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
-			if ( closed && points.size() > 2)
-			{
-				glBegin( GL_LINE_STRIP );
-				glVertex2f( points[0].x,points[0].y );
-				glVertex2f( points.back().x, points.back().y );
-				glEnd();
-			}
+            if ( closed )
+                glDrawArrays(GL_LINE_LOOP, 0, (int)points.size());
+            else
+                glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
 		}
 	}
 	
@@ -196,6 +192,7 @@ poStrokeCapProperty poShape2D::capStyle() const {return cap;}
 poStrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
 poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
+    useSimpleStroke = false;
 	stroke_width = strokeWidth;
 	this->cap = cap;
 	this->join = join;
