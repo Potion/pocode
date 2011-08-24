@@ -25,12 +25,13 @@ typedef std::vector<poObjectModifier*> poObjectModifierVec;
 class poWindow;
 
 // CLASS NOTES
+//
 // poObject is the central object in the potionCode library. All potionCode graphic objects
 // (including poShape2D, poRectShape and poTextBox) are subclasses of poObject.
 //
 // All poObjects and poObject subclasses:
 //
-// + Have position, scale, rotation, offset and tranparency (alpha).
+// + Have position, scale, rotation, offset and tranparency (alpha) properties.
 // + Have a list of children that are also poObjects (this forms the scene graph).
 // + Can register for and receive events, including mouse, keyboard and touch events.
 // + Have a set of tweens for basic animation (animation may also be done in the "update" method).
@@ -53,6 +54,8 @@ public:
     // "update" is called once per frame. It should be used for implementing animation.
     // "eventHandler" is called when the object receives an event. Events are registered using "addEvent".
     // "messageHander" is a general utility method used for passing messages between any two poObjects.
+    // The only method you should call explictly is messageHandler. The other three are called automatically
+    // if the object is added to the scene graph.
 	virtual void        draw();
 	virtual void        update();
 	virtual void        eventHandler(poEvent *event);

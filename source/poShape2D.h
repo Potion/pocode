@@ -31,7 +31,9 @@ class poShape2D : public poObject
 public:
 	poShape2D();
 
-    // DRAW
+    // DRAWING
+    // The draw() method is called automatically if a shape is added to the scene graph.
+    // You should not need to call the draw() method yourself.
 	virtual void            draw();
 
     // SHAPE POINTS
