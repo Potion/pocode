@@ -118,6 +118,14 @@ poColor &poColor::set255(float r, float g, float b, float a) {
 	return *this;
 }
 
+poColor &poColor::set(poColor *fromColor) {
+	R = fromColor->R;
+	G = fromColor->G;
+	B = fromColor->B;
+	A = fromColor->A;
+	return *this;
+}
+
 bool poColor::set(const std::string &str) {
 	int r,g,b,a;
 	
