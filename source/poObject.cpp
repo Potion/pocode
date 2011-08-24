@@ -219,12 +219,20 @@ bool poObject::pointInside(poPoint point, bool localize) {
 	if(!visible)
 		return false;
 	
-	if(localize) {
-		point.y = getWindowHeight() - point.y;
-		point = globalToLocal(point);
-	}
 	
-	return bounds.contains(point);
+    BOOST_FOREACH(poObject* obj, children) {
+		if ( obj->pointInside( point, localize ) )
+            return true;
+	}
+    
+    return false;
+    
+    /*(if(localize) {
+     point.y = getWindowHeight() - point.y;
+     point = globalToLocal(point);
+     }
+     
+     return bounds.contains(point);*/
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
@@ -389,15 +397,6 @@ void poObject::read(poXMLNode node) {
 	boundsAreFixed = node.getChild("boundsAreFixed").innerInt();
 	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").innerInt());
 	_alignment = poAlignment(node.getChild("alignment").innerInt());
-	
-//	poXMLNode event_node = node.getChild("events").firstChild();
-//	while(event_node) {
-//		event_node = event_node.nextSibling();
-//		uint sink = (uint)event_node.intAttribute("sink");
-//		uint type = (uint)event_node.intAttribute("type");
-//		std::string msg = event_node.innerString();
-//	}
-	
 	alignment(_alignment);
 }
 
@@ -417,31 +416,6 @@ void poObject::write(poXMLNode &node) {
 	node.addChild("boundsAreFixed").setInnerInt(boundsAreFixed);
 	node.addChild("matrixOrder").setInnerInt(matrixOrder);
 	node.addChild("alignment").setInnerInt(_alignment);
-	
-//	poEventCenter *center = poEventCenter::get();
-//	poXMLNode events_node = node.addChild("events");
-//	for(int i=0; i<PO_LAST_EVENT; i++) {
-//		if(center->objectHasEvent(this, i)) {
-//			std::vector<poEvent*> event_vec = center->eventsForObject(this, i);
-//			for(int j=0; j<event_vec.size(); j++) {
-//				poXMLNode event_node = events_node.addChild("event");
-//				event_node.addAttribute("sink", (int)event_vec[j]->source->uid());
-//				event_node.addAttribute("type", event_vec[j]->type);
-//
-//				event_node.addChild("msg");
-//				event_node.setInnerString(event_vec[j]->message);
-//				
-//				event_node.addChild("dict");
-//				event_node.setInnerString(event_vec[j]->dict.toString());
-//			}
-//		}
-//	}
-	
-//	poXMLNode kids_node = node.addChild("children");
-//	for(int i=0; i<numChildren(); i++) {
-//		poXMLNode kid_node = kids_node.addChild("child");
-//		getChild(i)->write(kid_node);
-//	}
 }
 
 void poObject::updateAllTweens() {
