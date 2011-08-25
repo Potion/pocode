@@ -216,23 +216,28 @@ int poObject::numModifiers() const {
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {
+    
+    // if invisible, return false
 	if(!visible)
 		return false;
 	
-	
+	// check pointInside for all children
     BOOST_FOREACH(poObject* obj, children) {
 		if ( obj->pointInside( point, localize ) )
             return true;
 	}
     
-    return false;
+    // if there are children, but no pointInside, return false
+    if ( numChildren() > 0 )
+        return false;
     
-    /*(if(localize) {
-     point.y = getWindowHeight() - point.y;
-     point = globalToLocal(point);
-     }
-     
-     return bounds.contains(point);*/
+    // if there are no children, check bounds rect
+    if(localize) 
+    {
+        point.y = getWindowHeight() - point.y;
+        point = globalToLocal(point);
+    }
+    return bounds.contains(point);
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
