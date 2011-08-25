@@ -22,6 +22,39 @@
 	true if tween is finished
  */
 
+
+#define PO_TWEEN_GOTO_FUNC goToFunc
+#define PO_TWEEN_LINEAR_FUNC linearFunc
+
+#define PO_TWEEN_QUAD_IN_FUNC quadInFunc
+#define PO_TWEEN_QUAD_OUT_FUNC quadOutFunc
+#define PO_TWEEN_QUAD_INOUT_FUNC quadInOutFunc
+
+#define PO_TWEEN_CUBE_IN_FUNC cubeInFunc
+#define PO_TWEEN_CUBE_OUT_FUNC cubeOutFunc
+#define PO_TWEEN_CUBE_INOUT_FUNC cubeInOutFunc
+
+#define PO_TWEEN_QUART_IN_FUNC quartInFunc
+#define PO_TWEEN_QUART_OUT_FUNC quartOutFunc
+#define PO_TWEEN_QUART_INOUT_FUNC quartInOutFunc
+
+#define PO_TWEEN_QUINT_IN_FUNC quintInFunc
+#define PO_TWEEN_QUINT_OUT_FUNC quintOutFunc
+#define PO_TWEEN_QUINT_INOUT_FUNC quintInOutFunc
+
+#define PO_TWEEN_SINUS_IN_FUNC sinusInFunc
+#define PO_TWEEN_SINUS_OUT_FUNC sinusOutFunc
+#define PO_TWEEN_SINUS_INOUT_FUNC sinusInOutFunc
+
+#define PO_TWEEN_EXPO_IN_FUNC expoInFunc
+#define PO_TWEEN_EXPO_OUT_FUNC expoOutFunc
+#define PO_TWEEN_EXPO_INOUT_FUNC expoInOutFunc
+
+#define PO_TWEEN_CIRC_IN_FUNC circInFunc
+#define PO_TWEEN_CIRC_OUT_FUNC circOutFunc
+#define PO_TWEEN_CIRC_INOUT_FUNC circInOutFunc
+
+
 inline bool goToFunc(float *v, float bv, float ev, 
 					 double t, double b, double e, double d,
 					 double e1, double e2)
