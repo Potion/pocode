@@ -327,9 +327,9 @@
 		E8E7559113C60A1F00A91EB8 /* animation */ = {
 			isa = PBXGroup;
 			children = (
-				E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */,
 				E8B2D0CA132E9F78002BE3D9 /* poTween.h */,
 				E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */,
+				E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */,
 			);
 			name = animation;
 			sourceTree = "<group>";

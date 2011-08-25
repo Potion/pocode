@@ -7,20 +7,27 @@
 #include "poMath.h"
 #include <cmath>
 
-/*	args:
-	1. v	= ptr to the value to be modified
-	2. bv	= start value
-	3. ev	= end value
-	4. t	= time right now
-	5. beginning time
-	6. ending time
-	7. duration
-	8. extra value for specific easing functions
-	9. extra value for specific easing functions
- 
-	return:
-	true if tween is finished
- */
+// FILE NOTES
+//
+// This file contains all of the tweening functions used by poTween. In general, you don't need to call
+// these methods directly. Instead, just pass them into poTween's setTweenFunction().
+//
+// All of the tween functions have the same signature (i.e. take the same arguments in the same order.)
+//
+// The arguments are used as follows:
+//
+//	1. v	= ptr to the float value to be modified
+//	2. bv	= start value
+//	3. ev	= end value
+//	4. t	= time right now
+//	5. b    = beginning time
+//	6. e    = ending time
+//	7. d    = duration
+//	8. e1   = extra value for specific easing functions
+//	9. e2   = extra value for specific easing functions
+//
+//	All of the tween function return true if the tween is completed.
+//  Otherwise, they return false.
 
 
 #define PO_TWEEN_GOTO_FUNC goToFunc
