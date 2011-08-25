@@ -25,16 +25,17 @@ typedef std::vector<poObjectModifier*> poObjectModifierVec;
 class poWindow;
 
 // CLASS NOTES
+//
 // poObject is the central object in the potionCode library. All potionCode graphic objects
 // (including poShape2D, poRectShape and poTextBox) are subclasses of poObject.
 //
 // All poObjects and poObject subclasses:
 //
-// + Have position, scale, rotation, offset and tranparency (alpha)
-// + Have a list of children that are also poObjects (this forms the scene graph)
-// + Can register for and receive events, including mouse, keyboard and touch events
-// + Have a set of tweens for basic animation (animation may also be done in the "update" method)
-// + Have a list of poObjectModifiers that can modify the object and/or OpenGl state
+// + Have position, scale, rotation, offset and tranparency (alpha) properties.
+// + Have a list of children that are also poObjects (this forms the scene graph).
+// + Can register for and receive events, including mouse, keyboard and touch events.
+// + Have a set of tweens for basic animation (animation may also be done in the "update" method).
+// + Have a list of poObjectModifiers that can modify the object and/or OpenGl state.
 
 
 class poObject : public boost::noncopyable
@@ -53,6 +54,8 @@ public:
     // "update" is called once per frame. It should be used for implementing animation.
     // "eventHandler" is called when the object receives an event. Events are registered using "addEvent".
     // "messageHander" is a general utility method used for passing messages between any two poObjects.
+    // The only method you should call explictly is messageHandler. The other three are called automatically
+    // if the object is added to the scene graph.
 	virtual void        draw();
 	virtual void        update();
 	virtual void        eventHandler(poEvent *event);
@@ -133,14 +136,6 @@ public:
 	void                _updateTree();
 	void                _broadcastEvent(poEvent* event);
 
-    //	template <typename T>
-    //	T				getProperty(const std::string &prop, T def=T()) const;
-    //	template <typename T>
-    //	void			setProperty(const std::string &prop, T value);
-    //	poDictionary	getProperties() const;
-    //	void			setProperties(const poDictionary &dict);
-    
-    
     // OBJECT PROPERTIES (DIRECTLY ACCESSIBLE)
     // These properties may be set directly either inside or outside the class.
     // Changes to these properties require no additional computation.

@@ -31,6 +31,7 @@ poRect getWindowBounds() {
 	return window->bounds();
 }
 
+
 poPoint getWindowCenter() {
 	poWindow *window = applicationCurrentWindow();
 	return window->centerPoint();
