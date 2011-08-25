@@ -46,6 +46,7 @@ enum {
 // The text that is passed into the text() method may be formatted using basic HTML tags as follows:
 //      TB-text( "This is in <b>bold</b>. This is in <i>italic</i>." );
 // You will also need to specify the bold and italic fonts explicitly using the font method.
+// The richText setting must be on to see the effects on the text
 
 
 class poTextBox
