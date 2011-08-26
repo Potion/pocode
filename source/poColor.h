@@ -18,6 +18,7 @@ public:
 	poColor(poColor c, float mult_alpha);
 	
 	poColor &set(float r, float g, float b, float a=1.f);
+    poColor &set(poColor *fromColor);
 	poColor &set255(float r, float g, float b, float a=255.f);
 	// can either be #ffffff or rgb(255,255,255)
 	bool	set(const std::string &str);

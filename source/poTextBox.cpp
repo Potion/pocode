@@ -81,6 +81,22 @@ void poTextBox::reshape(poPoint p){
 uint poTextBox::numLines() const {return _layout.numLines();}
 poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
 
+int     poTextBox::numLettersForLine( int lineIndex )
+{ 
+    return _layout.numLettersForLine( lineIndex );
+}
+
+poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex )
+{
+    return _layout.boundsForLetterOnLine( letterIndex, lineIndex );
+}
+
+void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds )
+{
+    _layout.boundsForLetterOnLine( letterIndex, lineIndex ) = newBounds;
+}
+
+
 float poTextBox::leading() const {return _layout.leading();}
 void poTextBox::leading(float f) {_layout.leading(f); }
 float poTextBox::tracking() const {return _layout.tracking();}

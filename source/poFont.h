@@ -27,40 +27,42 @@ typedef std::map<std::string, poFont*> poFontMap;
 
 class poFont
 {
-	friend class poFontLoader;
+	friend class        poFontLoader;
 	
 public:
-	virtual ~poFont();
+	virtual             ~poFont();
 	
-	bool isValid() const;
+	bool                isValid() const;
 	
-	std::string familyName() const;
-	std::string styleName() const;
-	std::string url() const;
-	bool hasKerning() const;
+	std::string         familyName() const;
+	std::string         styleName() const;
+	std::string         url() const;
+	bool                hasKerning() const;
 	
-	int pointSize() const;
-	void pointSize(int size);
+	int                 pointSize() const;
+	void                pointSize(int size);
 
-	float lineHeight() const;
-	float ascender() const;
-	float descender() const;
+	float               lineHeight() const;
+	float               ascender() const;
+	float               descender() const;
+    
 	// maximum bbox for this font face at this size
-	float underlinePosition() const;
-	float underlineThickness() const;
+	float               underlinePosition() const;
+	float               underlineThickness() const;
 
-	int glyph() const;
-	void glyph(int g);
+	int                 glyph() const;
+	void                glyph(int g);
+    
 	// functions starting with 'glyph' return info about the current codepoint
-	poRect glyphBounds() const;
-	poRect glyphFrame() const;
-	float glyphDescender() const;
-	poPoint glyphBearing() const;
-	poPoint glyphAdvance() const;
-	poImage *glyphImage() const;
-	poShape2D *glyphOutline() const;
+	poRect              glyphBounds() const;
+	poRect              glyphFrame() const;
+	float               glyphDescender() const;
+	poPoint             glyphBearing() const;
+	poPoint             glyphAdvance() const;
+	poImage             *glyphImage() const;
+	poShape2D           *glyphOutline() const;
 
-	poPoint kernGlyphs(int glyph1, int glyph2) const;
+	poPoint             kernGlyphs(int glyph1, int glyph2) const;
 
 	std::string toString() const;
 
@@ -68,14 +70,15 @@ private:
 	poFont();
 	poFont(const std::string &family_or_url, int pointSize, const std::string &style);
 
-	void init();
-	void loadGlyph(int g);
+	void                init();
+	void                loadGlyph(int g);
 	
-	static FT_Library lib;
 	boost::shared_ptr<FT_FaceRec_> face;
 
-	std::string _url;
-	int size, _glyph;
+	std::string         _url;
+	int size,           _glyph;
+    
+    static FT_Library   lib;
 };
 
 bool fontExists(const std::string &family_or_url);
