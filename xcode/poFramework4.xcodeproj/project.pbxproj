@@ -269,11 +269,11 @@
 		E8E7558D13C6099A00A91EB8 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E8C7E71513913E3A00E6848E /* poApplication.h */,
 				E802C72013D5E3F100CBEB1C /* poApplication.cpp */,
 				E8C7E71713913E3A00E6848E /* poWindow.h */,
 				E8C7E71613913E3A00E6848E /* poWindow.cpp */,
+				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 			);
 			name = application;
 			sourceTree = "<group>";
