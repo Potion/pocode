@@ -41,8 +41,10 @@ public:
 	virtual void layout();
 	
 	uint numLines() const;
-	poRect boundsForLine(uint line_num) const;
-	
+	poRect  boundsForLine(uint line_num) const;
+	int     numLettersForLine(uint line_num);
+    poRect& boundsForLetterOnLine( uint letterIndex, uint lineIndex );
+    
 	bool richText() const;
 	void richText(bool b);
 	

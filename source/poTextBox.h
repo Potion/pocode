@@ -126,6 +126,9 @@ public:
     // LINES OF TEXT
 	uint                numLines() const;
 	poRect              boundsForLine(uint num) const;
+    int                 numLettersForLine( int lineIndex );
+    poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
+    void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds );
 	
     // DEBUGGING
     // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
