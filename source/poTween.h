@@ -126,15 +126,15 @@ public:
 	typedef T value_type;
     
 	// Construct a poTween with an initial value.
-	poTween(value_type val) {
-        shared = new value_type(val);
-        value = shared.get();
+	poTween(value_type val) 
+	:	shared(new value_type(val))
+	{
+		value = shared.get();
     }
     
 	// Construct a tween using a pointer to value.
-	poTween(value_type *addr) {
-        value = addr;
-    }
+	poTween(value_type *addr) : value(addr) 
+	{}
     
     // Set a tween's destination.
 	poTween &set(value_type end_value) {
