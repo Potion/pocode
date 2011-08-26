@@ -117,9 +117,15 @@ void TextLayout::font(poFont *f, const std::string &weight) {fonts[weight] = f;}
 poFont *const TextLayout::font(const std::string &weight) {return fonts[weight];}
 bool TextLayout::hasFont(const std::string &weight) {return fonts.find(weight) != fonts.end();}
 
-uint TextLayout::numLines() const {return lines.size();}
-poRect TextLayout::boundsForLine(uint line_num) const {return lines[line_num].bounds;}
+uint        TextLayout::numLines() const {return lines.size();}
+poRect      TextLayout::boundsForLine(uint line_num) const {return lines[line_num].bounds;}
 layout_line TextLayout::getLine(uint line_num) const {return lines[line_num];}
+
+int         TextLayout::numLettersForLine(uint line_num) { return lines[line_num].glyphs.size(); }
+poRect&     TextLayout::boundsForLetterOnLine(uint letter_num, uint line_num)
+{
+    return lines[line_num].glyphs[letter_num].bbox;
+}
 
 bool TextLayout::richText() const {return rich;}
 void TextLayout::richText(bool b) {rich = b;}
