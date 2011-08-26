@@ -87,7 +87,7 @@ int     poTextBox::numLettersForLine( int lineIndex )
 }
 
 poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex )
-{ 
+{
     return _layout.boundsForLetterOnLine( letterIndex, lineIndex );
 }
 

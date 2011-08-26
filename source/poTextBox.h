@@ -31,8 +31,6 @@ enum {
 // CLASS NOTES
 //
 // poTextBox derives directly from poObject. It is one of the most commonly used objects in potionCode.
-//
-// You MUST call the layout() method in order to see any changes in your poTextBox take effect.
 // 
 // A simple poTextBox may be constructed as follows:
 // 
@@ -43,10 +41,14 @@ enum {
 //      TB->textColor = poColor::black;
 //      TB->layout();
 //
+// You MUST call the layout() method in order to see any changes in your poTextBox take effect.
+//
 // The text that is passed into the text() method may be formatted using basic HTML tags as follows:
+//
 //      TB-text( "This is in <b>bold</b>. This is in <i>italic</i>." );
+//
 // You will also need to specify the bold and italic fonts explicitly using the font method.
-// The richText setting must be on to see the effects on the text
+// The richText setting must be on to see the effects on the text.
 
 
 class poTextBox
