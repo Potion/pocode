@@ -82,7 +82,7 @@ void flyingText::fly()
 		.set(end_y)
 		.setDelay(i*delay)
 		.setDuration(duration)
-		.setTweenFunction(quartOutFunc)
+		.setTweenFunction(quadOutFunc)
 		.start();
 		
 		tweens.push_back(tween);

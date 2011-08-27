@@ -45,6 +45,7 @@ void poRectShape::reshape( float w, float h, float rad )
 	construct(w, h, rad);
 	
 	calculateBounds();
+	alignment(alignment());
 	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
