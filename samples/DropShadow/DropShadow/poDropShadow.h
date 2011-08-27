@@ -2,6 +2,13 @@
 
 /*	Created by Jonathan Bobrow on 7/27/11.
  *	Copyright 2011 Potion. All rights reserved.
+ *
+ *
+ *	poDropShadow employs a 9 space grid to create a dynamically sized
+ *	rectangular drop shadow.  Circles can also use this method, but the
+ *	dimensions should be set to 0.
+ *	
+ *	currently uses loaded pngs for textures
  */
 
 #include "poObject.h"
@@ -31,5 +38,5 @@ public:
 	poRectShape* bottom_right;
 	
 	poPoint* dimensions;
-	float spread; 
+	float spread, alpha; 
 };

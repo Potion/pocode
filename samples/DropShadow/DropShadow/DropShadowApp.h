@@ -16,4 +16,5 @@ public:
 	
 	poRectShape* item;
 	poDropShadow* shadow;
+
 };

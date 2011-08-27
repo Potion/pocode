@@ -13,7 +13,9 @@ poDropShadow::poDropShadow( poPoint dimensions, float spread, float alpha )
 	bottom_center = new poRectShape( dimensions.x, spread );
 	bottom_right = new poRectShape( spread, spread );
 	
-	poImage* tex = getImage("dropShadowAssets/dropShadow_top_left.png");
+	poImage* tex;
+	
+	tex = getImage("dropShadowAssets/dropShadow_top_left.png");
 	top_left->alignment( PO_ALIGN_BOTTOM_RIGHT );
 	top_left->position = poPoint( 0.f, 0.f );
 	top_left->placeTexture( tex->texture(), PO_TEX_FIT_EXACT);
@@ -118,4 +120,5 @@ void poDropShadow::setSpread( poPoint dimensions, float spread){
 	bottom_left->reshape( spread, spread );
 	bottom_center->reshape( dimensions.x, spread );
 	bottom_right->reshape( spread, spread );
+
 }

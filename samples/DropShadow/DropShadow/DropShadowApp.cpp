@@ -40,6 +40,7 @@ void DropShadowApp::eventHandler(poEvent *event) {
 	
 	shadow->setAlpha(event->position.x / 600.f);
 	shadow->setSpread(item->bounds.size, event->position.y / 3.f);
+	
 }
 
 void DropShadowApp::messageHandler(const std::string &msg, const poDictionary& dict) {
