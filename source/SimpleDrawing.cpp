@@ -2,7 +2,7 @@
 
 #include "Helpers.h"
 #include "poTexture.h"
-#include "poBitmapFontAtlas.h"
+#include "poBitmapFont.h"
 
 #include <cfloat>
 #include <utf8.h>
@@ -273,12 +273,12 @@ void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, f
 	if(ptSize > 0)
 		font->pointSize(ptSize);
 	
-	poBitmapFontAtlas *atlas = getBitmapFont(font);
+	poBitmapFont *bitmapFont = getBitmapFont(font);
 
 	font->glyph(' ');
 	float spacer = font->glyphAdvance().x * tracking;
 
-	atlas->startDrawing(0);
+	bitmapFont->setUpFont();
 	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
@@ -288,13 +288,12 @@ void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, f
 		poPoint adv = font->glyphAdvance();
 		poPoint org = round(pos+font->glyphBearing());
 		
-		atlas->cacheGlyph(codepoint);
-		atlas->drawUID(codepoint, pos+font->glyphBearing());
+		bitmapFont->drawGlyph( codepoint, pos+font->glyphBearing() );
 		
 		pos.x += adv.x * tracking;
 	}
 	
-	atlas->stopDrawing();
+	bitmapFont->setDownFont();
 }
 
 

@@ -12,40 +12,46 @@ public:
 	virtual ~poTextureAtlas();
 	
 	// move the list of images to pack
-	void clearImages();
-	// pass in the id you want to have associated with the image
-	void addImage(poImage *img, uint requested_id);
+	void            clearImages();
+	
+    // pass in the id you want to have associated with the image
+	void            addImage(poImage *img, uint requested_id);
+    
 	// will redo all the bin packing with the current set of images
-	void layoutAtlas();
+	void            layoutAtlas();
 	
-	bool hasUID(uint uid);
-	int numPages();
-	poPoint dimensions() const;
+	bool            hasUID(uint uid);
+	int             numPages();
+	poPoint         dimensions() const;
 	
-	uint pageForUID(uint uid);
-	poRect coordsForUID(uint uid);
-	poRect sizeForUID(uint uid);
-	poTexture *textureForPage(uint pg);
+	uint            pageForUID(uint uid);
+	poRect          coordsForUID(uint uid);
+	poRect          sizeForUID(uint uid);
+	poTexture*      textureForPage(uint pg);
 	
 	// start drawing sets up the texture state
-	void startDrawing(uint unit=0);
+	void            startDrawing(uint unit=0);
+    
 	// draws will shift the texture as needed,
 	// tho user can look at the pages for what it wants to draw and
 	// organize it so there are minimal texture switches
 	// size should be between 0..1, will scale
-	void drawUID(uint uid, poRect r);
+	void            drawUID(uint uid, poRect r);
+    
 	// this one will draw the subtex at its native size
-	void drawUID(uint uid, poPoint p);
+	void            drawUID(uint uid, poPoint p);
+    
 	// reset the texture state to what it was
-	void stopDrawing();
+	void            stopDrawing();
+
+    bool            bindInfo(int *bound_page, int *bound_unit);
 
 protected:
-	bool bindInfo(int *bound_page, int *bound_unit);
 	virtual poPoint originAdjust() {return poPoint();}
 	
 private:
-	void clearPages();
-	void bindPage(uint page);
+	void            clearPages();
+	void            bindPage(uint page);
 	
 	struct ImageLookup {
 		uint page;
@@ -53,19 +59,24 @@ private:
 		poPoint size;
 	};
 	
-	int width, height;
-	std::vector<ImageLookup> coords;
+	int                         width, height;
+	std::vector<ImageLookup>    coords;
+    
 	// the items to be atlased
-	std::vector<poImage*> images;
+	std::vector<poImage*>       images;
+    
 	// users control the ids
-	std::vector<uint> requested_ids;
+	std::vector<uint>           requested_ids;
+    
 	// the pages of the atlas
-	std::vector<poImage*> pages;
+	std::vector<poImage*>       pages;
+    
 	// the textures of the atlas
-	std::vector<poTexture*> textures;
-	std::map<uint,uint> uids;
+	std::vector<poTexture*>     textures;
+	std::map<uint,uint>         uids;
+    
 	// this is the configuration we want for the atlas
-	poTextureConfig config;
+	poTextureConfig             config;
 	// store the last bound page so we can avoid rebinding
-	int bound_page, unit;
+	int                         bound_page, unit;
 };

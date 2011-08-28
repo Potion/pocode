@@ -14,17 +14,13 @@ GLenum formatForBitDepth(ImageBitDepth bpp) {
 	switch(bpp) {
 		case IMAGE_8:
 			return GL_LUMINANCE;
-			
 		case IMAGE_16:
 			return GL_LUMINANCE_ALPHA;
-			
 		case IMAGE_24:
 			return GL_RGB;
-			
 		case IMAGE_32:
 			return GL_RGBA;
 	}
-	
 	return GL_LUMINANCE;
 }
 
@@ -33,17 +29,13 @@ ImageBitDepth bitDepthForFormat(GLenum format) {
 		case GL_LUMINANCE:
 		case GL_ALPHA:
 			return IMAGE_8;
-			
 		case GL_LUMINANCE_ALPHA:
 			return IMAGE_16;
-			
 		case GL_RGB:
 			return IMAGE_24;
-			
 		case GL_RGBA:
 			return IMAGE_32;
 	}
-	
 	return IMAGE_8;
 }
 
@@ -189,7 +181,7 @@ poTexture::~poTexture() {
 
 bool poTexture::opaqueAtPoint(poPoint p) const {
 	poColor color = colorAtPoint(p);
-	return color.A > 0;
+	return color.A > 0.0;
 }
 
 poColor poTexture::colorAtPoint(poPoint p) const {

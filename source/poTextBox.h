@@ -13,7 +13,7 @@
 #include "TextLayout.h"
 
 #include "poFont.h"
-#include "poBitmapFontAtlas.h"
+#include "poBitmapFont.h"
 
 static const std::string PO_TEXT_REGULAR = "";
 static const std::string PO_TEXT_ITALIC = "i";

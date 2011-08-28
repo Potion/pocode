@@ -10,53 +10,95 @@
 
 #include "poPoint.h"
 #include "poColor.h"
-#include "poTextureConfig.h"
 
 class poImage;
+class poTextureConfig;
 
-/* usually you'll create a texture thru an image
- * only in some cases will you want to create a texture without an image
- * for example: fbo or video where the entire imaging process happens on the graphics card
- */
+// This utlity class contains the settings for a poTexture.
+class poTextureConfig {
+public:
+	poTextureConfig();
+	poTextureConfig(GLenum format);
+	
+	poTextureConfig &setFormat(GLenum f)			{format = f; return *this;};
+	poTextureConfig &setInternalFormat(GLenum f)	{internalFormat = f; return *this;}
+	poTextureConfig &setType(GLenum f)				{type = f; return *this;}
+	poTextureConfig &setMinFilter(GLenum f)			{minFilter = f; return *this;}
+	poTextureConfig &setMagFilter(GLenum f)			{magFilter = f; return *this;}
+	poTextureConfig &setWrapS(GLenum f)				{wrapS = f; return *this;}
+	poTextureConfig &setWrapT(GLenum f)				{wrapT = f; return *this;}
+	
+	GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
+};
+
+
+// CLASS NOTES
+//
+// A poTexture is a type of image that can be attached to poShape2D objects.
+//
+// It is rare that you will neeed to construct a poTexture directly. Instead, poTexture's
+// are usually derived from poImage objects.
+//
+// poTexture's are also used in frame buffer objects (FBO's) and in video display.
+//
+
 class poTexture 
 {
-	friend class poImage;
+	friend class    poImage;
 
 public:
 	// this will make an imageless texture
 	// useful for when you just need to allocate space on the graphics card
 	poTexture(uint width, uint height, poTextureConfig config);
 	~poTexture();
+    
+    // TEXTURE PROPERTIES
+    uint                width() const;
+	uint                height() const;
 	
-	bool opaqueAtPoint(poPoint p) const;
-	poColor colorAtPoint(poPoint p) const;
+    // PIXEL LOOKUP
+    // These methods refer to the poImage used to generate the texture.
+    // opaqueAtPoint() is used by pointInside() in poShape2D objects
+    // to limit hit testing to just the opaque part of an image. 
+	bool                opaqueAtPoint(poPoint p) const;
+	poColor             colorAtPoint(poPoint p) const;
 
-	uint width() const;
-	uint height() const;
+    // TEXTURE LOADING
+    // Textures must be loaded onto the graphics card before they are used.
+    // Textures may be removed from the graphcis card using the unload() method.
+    // In general, textures are loaded once and not unloaded until the program exits. 
+	void                load();
+	void                unload();
+	bool                isLoaded() const;
+    
+    // TEXTURE BINDING
+    // Once a texture is loaded on the graphics card, it is enabled and disabled
+    // using the bind and unbind methods. These methods are called automatically
+    // by poShape2D if a texture is attached.
+	void                bind(uint unit=0) const;
+	void                unbind(uint unit=0) const;
+
+    // TEXTURE CONFIGURATION
+	poTextureConfig     config;
+    GLuint              uid;
+	float               s, t;
 	
-	void bind(uint unit=0) const;
-	void unbind(uint unit=0) const;
-
-	void load();
-	void unload();
-	bool isLoaded() const;
-
-	GLuint uid;
-	poTextureConfig config;
-	float s, t;
-	
-	poImage const *image() const;
+	poImage const*      image() const;
 
 private:
-	void loadDummy();
+	void                loadDummy();
 	
 	poTexture();
 	poTexture(poImage *img);
-	// this isn't too thurough right now
+	// this isn't too thorough right now
 	// you can screw yourself if you demand a format incompatible with the image
 	poTexture(poImage *img, poTextureConfig config);
-	poImage *_image;
+    
+	poImage             *_image;
 	
 	// will only be used when the image is null
-	uint _width, _height;
+	uint                _width, _height;
 };
+
+
+

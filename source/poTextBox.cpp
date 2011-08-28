@@ -162,43 +162,65 @@ void poTextBox::draw() {
 		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
-	poBitmapFontAtlas *reg = getBitmapFont(this->font());
-	poBitmapFontAtlas *atlas = reg;
+	poBitmapFont *regFont = getBitmapFont(this->font());
+	poBitmapFont *bitmapFont = regFont;
 	
 	glPushAttrib(GL_TEXTURE_BIT | GL_ENABLE_BIT);
 	
 	int count = 0;
 	glDisable(GL_MULTISAMPLE);
-	atlas->startDrawing(0);
-	for(int i=0; i<numLines(); i++) {
-		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
-			applyColor(poColor(textColor, appliedAlpha()));
-			
-			if(_layout.richText()) {
-				poDictionary dict = _layout.dictionaryForIndex(count);
-				count++;
-
-				if(dict.has("color"))
-					applyColor(poColor(dict.getColor("color"), appliedAlpha()));
-
-				if(dict.has("font")) {
-					poBitmapFontAtlas *a = getBitmapFont(dict.getPtr<poFont>("font"));
-					if(a != atlas) {
-						atlas = a;
-						atlas->startDrawing(0);
-					}
-				}
-				else if(atlas != reg) {
-					atlas = reg;
-					atlas->startDrawing(0);
-				}
-			}
-			
-			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin);
-		}
-	}
-	atlas->stopDrawing();
+    
+    // draw regular (NON-RICH) text
+    if( ! _layout.richText() )
+    {
+        bitmapFont->setUpFont();
+        for(int i=0; i<numLines(); i++) 
+        {
+            BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
+            {
+                applyColor( poColor(textColor, appliedAlpha()) );
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+            }
+        }
+        bitmapFont->setDownFont();
+    }
+    
+    // draw RICH text
+    if ( _layout.richText() )
+    {
+        bitmapFont->setUpFont();
+        for(int i=0; i<numLines(); i++) 
+        {
+            BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
+            {
+                applyColor(poColor(textColor, appliedAlpha()));
+                
+                poDictionary dict = _layout.dictionaryForIndex(count);
+                count++;
+                
+                if(dict.has("color"))
+                    applyColor(poColor(dict.getColor("color"), appliedAlpha()));
+                
+                if(dict.has("font")) {
+                    poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));
+                    if(newFont != bitmapFont) {
+                        bitmapFont = newFont;
+                        bitmapFont->setUpFont();
+                    }
+                }
+                else if(bitmapFont != regFont) {
+                    bitmapFont = regFont;
+                    bitmapFont->setUpFont();
+                }
+                
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+            }
+        }
+        bitmapFont->setDownFont();
+    }
+    
+    
+	
 	glEnable(GL_MULTISAMPLE);
 	
 	glPopAttrib();

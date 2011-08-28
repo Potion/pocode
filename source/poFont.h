@@ -16,14 +16,23 @@
 
 class poShape2D;
 class poFontLoader;
-class poBitmapFontAtlas;
-
-// glyphs each have some padding built into the image
-// it has to be subtracted from the glyph origin before drawing
-const static int GLYPH_PADDING = 5;
+class poBitmapFont;
 
 class poFont;
 typedef std::map<std::string, poFont*> poFontMap;
+
+// CLASS NOTES
+//
+// A poFont implements general font functionality. A single poFont object represents a single
+// font face in a single font size.
+//
+// You cannot construct a new font directly. You can load a new font as follows:
+//
+//      poFont* font = getFont("Courier", 20);
+//
+// Using getFont() ensures that the same font is not loaded and constructed multiple times.
+//
+// 
 
 class poFont
 {
@@ -32,8 +41,10 @@ class poFont
 public:
 	virtual             ~poFont();
 	
+    // FONT LOADING
 	bool                isValid() const;
 	
+    // FONT PROPERTIES
 	std::string         familyName() const;
 	std::string         styleName() const;
 	std::string         url() const;
@@ -46,14 +57,17 @@ public:
 	float               ascender() const;
 	float               descender() const;
     
+    // UNDERLINE
 	// maximum bbox for this font face at this size
 	float               underlinePosition() const;
 	float               underlineThickness() const;
 
+    // CURRENT GLYPH
+    // Get and set the current glyph.
 	int                 glyph() const;
 	void                glyph(int g);
     
-	// functions starting with 'glyph' return info about the current codepoint
+	// These functions (starting with 'glyph') return info about the current codepoint.
 	poRect              glyphBounds() const;
 	poRect              glyphFrame() const;
 	float               glyphDescender() const;
@@ -64,7 +78,7 @@ public:
 
 	poPoint             kernGlyphs(int glyph1, int glyph2) const;
 
-	std::string toString() const;
+	std::string         toString() const;
 
 private:
 	poFont();
@@ -80,6 +94,10 @@ private:
     
     static FT_Library   lib;
 };
+
+// glyphs each have some padding built into the image
+// it has to be subtracted from the glyph origin before drawing
+const static int GLYPH_PADDING = 5;
 
 bool fontExists(const std::string &family_or_url);
 

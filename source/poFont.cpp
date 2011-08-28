@@ -10,7 +10,7 @@
 #include "poShape2D.h"
 #include "Helpers.h"
 #include "Loaders.h"
-#include "poBitmapFontAtlas.h"
+#include "poBitmapFont.h"
 
 #ifdef _WIN32
 
