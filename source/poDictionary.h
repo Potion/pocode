@@ -12,6 +12,32 @@ class poObject;
 
 typedef boost::variant<bool, int, float, std::string, poColor, poPoint, void*> poProperty;
 
+// CLASS NOTES
+//
+// poDictionary implements a light-weight dictionary object. The dictionary can hold any number of uniquely
+// named objects. The objects may be bools, ints, floats, strings, pointers, poPoints or poColors.
+//
+// A poDictionary is constructed and used as follows:
+//
+//      poDictionary D;
+//
+//      D.setInt( "age", 30 );
+//      D.setString( "name", "bob" );
+//      D.setColor( "hairColor", poColor::red );
+// 
+//      int age = D.getInt( "age" );
+//      std::string name = D.getInt( "name" );
+//      poColor hairColor = D.getColor( "hairColor" );
+//
+// poDictionary is used within poEvent system and by the messageHandler method of poObject.
+// poDictionary allows for quick and simple way to pass around small bits of arbitrary data.
+//
+// poDictionary's may written and read to an XML file very easily using the read()
+// and write() methods.
+//
+// Also, see the poCommon class below for application wide setting using a poDictionary.
+//
+
 class poDictionary {
 public:
 	bool			has(const std::string &name) const {return items.find(name) != items.end();}
@@ -59,8 +85,7 @@ protected:
 };
 
 
-class poCommon
-:	public poDictionary
+class poCommon : public poDictionary
 {
 public:
 	static poDictionary *get();
@@ -69,3 +94,4 @@ private:
 	explicit poCommon() {}
 	~poCommon() {}
 };
+

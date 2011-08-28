@@ -8,6 +8,12 @@
 poBitmapFont*   getBitmapFont(poFont *font, int size=0);
 
 
+// CLASS NOTES
+//
+// Coming soon...
+//
+// 
+
 class poBitmapFontCache;
 
 class poBitmapFont : public poTextureAtlas {

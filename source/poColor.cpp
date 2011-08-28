@@ -18,8 +18,8 @@ const poColor poColor::dk_grey = poColor(.25, .25, .25);
 const poColor poColor::red = poColor(1,0,0);
 const poColor poColor::yellow = poColor(1,1,0);
 const poColor poColor::orange = poColor(1.0, 0.5, 0.2);
-const poColor poColor::blue = poColor(0,.18,.58);
-const poColor poColor::green = poColor(.19, .67, .23);
+const poColor poColor::blue = poColor(0,1,0);
+const poColor poColor::green = poColor(0,1,0);
 const poColor poColor::cyan = poColor(0,1,1);
 const poColor poColor::magenta = poColor(1,0,1);
 
@@ -102,7 +102,7 @@ poColor::poColor(poColor c, float mult_alpha)
 ,	A(c.A*mult_alpha)
 {}
 
-poColor &poColor::set(float r, float g, float b, float a) {
+poColor& poColor::set(float r, float g, float b, float a) {
 	R = r; 
 	G = g;
 	B = b;
@@ -110,12 +110,18 @@ poColor &poColor::set(float r, float g, float b, float a) {
 	return *this;
 }
 
-poColor &poColor::set255(float r, float g, float b, float a) {
+poColor& poColor::set255(float r, float g, float b, float a) {
 	R = r / 255.f;
 	G = g / 255.f;
 	B = b / 255.f;
 	A = a / 255.f;
 	return *this;
+}
+
+poColor& poColor::setHSV(float h, float s, float v, float a)
+{
+    *this = hsv2rgba( poHSVColor(h,s,v) );
+    A = a;
 }
 
 poColor &poColor::set(poColor *fromColor) {

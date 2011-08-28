@@ -28,7 +28,7 @@
 // This will load the image, generate the image texture, create a poRectShape equal to the image size,
 // and assign the texture to the shape.
 //
-// A poRectShape may also have rounded corers:
+// A poRectShape may also have rounded corners:
 //      poRectShape* S = new poRectShape( 100,200,10 );
 
 class poRectShape : public poShape2D

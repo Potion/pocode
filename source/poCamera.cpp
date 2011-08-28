@@ -154,23 +154,27 @@ void poOrthoCamera::setProjection() {
 	glOrtho(x1, x2, y2, y1, near, far);
 }
 
-poPerspectiveCamera::poPerspectiveCamera(float fov, float aspect, float near, float far)
+
+
+poPerspectiveCamera::poPerspectiveCamera(float fov, float near, float far)
 :	fov(fov)
-,	aspect(aspect)
 ,	near(near)
 ,	far(far)
 {}
 
-poPoint poPerspectiveCamera::lookAt() const {return look_at;}
-poPerspectiveCamera *poPerspectiveCamera::lookAt(poPoint p) {look_at = p; return this;}
+poPoint poPerspectiveCamera::lookAtPosition() const {return look_at_pos;}
+poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {look_at_pos = p; return this;}
 	
+poPoint                 poPerspectiveCamera::cameraPosition() const  {return camera_pos;}
+poPerspectiveCamera*    poPerspectiveCamera::cameraPosition(poPoint p) {camera_pos = p; return this;}
+
 void poPerspectiveCamera::doSetUp(poObject *obj) {
-	curr_pos = obj->position;
-	poCamera::setUp(obj);
+	poCamera::doSetUp(obj);
 }
 
 void poPerspectiveCamera::setProjection() {
 	poMatrixStack *stack = poMatrixStack::get();
+    float aspect = getWindowAspect();
 	stack->pushProjection(glm::perspective(fov, aspect, near, far));
 }
 
@@ -179,11 +183,13 @@ void poPerspectiveCamera::setModelview() {
 	
 	poMatrixStack *stack = poMatrixStack::get();
 	
-	vec3 eye(curr_pos.x, curr_pos.y, curr_pos.z);
-	vec3 center(look_at.x, look_at.y, look_at.z);
+	vec3 eye(camera_pos.x, camera_pos.y, camera_pos.z);
+	vec3 center(look_at_pos.x, look_at_pos.y, look_at_pos.z);
 	vec3 up(0,1,0);
 	stack->pushModelview(glm::lookAt(eye,center,up));
 	stack->scale(poPoint(-1,-1,1));
 }
+
+
 
 
