@@ -162,12 +162,12 @@ int poObject::getChildIndex(poObject* obj) {
 
 void poObject::moveChildToFront(poObject* child) {
 	removeChild(child);
-	addChild(child, 0);
+	addChild(child);
 }
 
 void poObject::moveChildToBack(poObject* child) {
 	removeChild(child);
-	addChild(child);
+	addChild(child, 0);
 }
 
 void poObject::moveChildForward(poObject* child) {
@@ -225,14 +225,14 @@ bool poObject::pointInside(poPoint point, bool localize) {
             return true;
 	}
     
-    return false;
+//    return false;
     
-    /*(if(localize) {
+    if(localize) {
      point.y = getWindowHeight() - point.y;
      point = globalToLocal(point);
      }
      
-     return bounds.contains(point);*/
+     return bounds.contains(point);
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
