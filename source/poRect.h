@@ -14,7 +14,6 @@
 // poRect is not a poObject and hence cannot be added to the scene graph. See poRectShape.
 // 
 // 
-//
 
 
 class poRect 
