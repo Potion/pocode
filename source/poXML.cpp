@@ -206,7 +206,7 @@ bool poXMLDocument::write(const fs::path &p) {
 
 poXMLDocument::operator bool() const {return doc;}
 
-void poXMLDocument::dump() {
+void poXMLDocument::print() {
 	doc->print(std::cout);
 }
 
