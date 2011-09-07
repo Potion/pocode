@@ -74,7 +74,11 @@ public:
 	template <typename T>
 	T*                  addChild(T* obj);
 	template <typename T>
-	T*                  addChild(T* obj, int idx);
+	T*                  addChild(T* obj, int idx); 
+    template <typename T, typename TT>
+	T*                  addChildBefore(T* obj, TT* before);
+    template <typename T, typename TT>
+	T*                  addChildAfter(T* obj, TT* after);
 	int                 getChildIndex(poObject* child);
 	poObject*           getChild(int at_idx);
 	poObject*           getChildWithUID(uint uid);
@@ -219,6 +223,19 @@ T* poObject::addChild(T* obj, int idx) {
 	children.insert(children.begin()+idx, obj);
 
 	return obj;
+}
+
+template <typename T, typename TT>
+T* poObject::addChildBefore(T* obj, TT* before) {
+	int idx = getChildIndex(before);
+    idx = (idx <= 0) ? 0 : idx - 1;
+    return addChild(obj, idx);
+}
+
+template <typename T, typename TT>
+T* poObject::addChildAfter(T* obj, TT* after) {
+	int idx = getChildIndex(after);
+    return addChild(obj, idx);
 }
 
 template <typename T>
