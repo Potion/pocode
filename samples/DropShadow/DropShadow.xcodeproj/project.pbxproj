@@ -220,6 +220,7 @@
 				2B60056C14083E3C00BE53AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

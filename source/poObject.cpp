@@ -162,12 +162,12 @@ int poObject::getChildIndex(poObject* obj) {
 
 void poObject::moveChildToFront(poObject* child) {
 	removeChild(child);
-	addChild(child);
+	addChild(child, 0);
 }
 
 void poObject::moveChildToBack(poObject* child) {
 	removeChild(child);
-	addChild(child, 0);
+	addChild(child);
 }
 
 void poObject::moveChildForward(poObject* child) {
