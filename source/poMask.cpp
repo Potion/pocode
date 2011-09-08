@@ -40,7 +40,7 @@ void poGeometryMask::doSetUp( poObject* obj ) {
 		if(clears_stencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
         
-		glPushMatrix();
+		poMatrixStack::get()->pushModelview();
         applyObjTransform(shape);
         
         glPushAttrib(GL_STENCIL_BUFFER_BIT);
@@ -54,7 +54,7 @@ void poGeometryMask::doSetUp( poObject* obj ) {
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
         glStencilFunc(GL_EQUAL, 1, 1);
         
-        glPopMatrix();
+        poMatrixStack::get()->popModelview();
 	}
 }
 
@@ -85,7 +85,7 @@ void poImageMask::doSetUp( poObject* obj ) {
 	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	
-	glClear(GL_STENCIL_BUFFER_BIT);
+//	glClear(GL_STENCIL_BUFFER_BIT);
 	
 	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
 	drawRect(image->texture());

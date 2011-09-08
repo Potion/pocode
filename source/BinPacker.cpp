@@ -204,8 +204,9 @@ void BinPacker::render(BinPacker::pack_rect *r) {
 	}
 }
 
+#include "poMatrixStack.h"
 void BinPacker::render() {
-	glPushMatrix();
+	poMatrixStack::get()->pushModelview();
 	
 	BOOST_FOREACH(pack_page *page, pages) {
 		glColor4f(1.f,1.f,1.f,1);
@@ -215,10 +216,10 @@ void BinPacker::render() {
 			render(rect);
 		}
 
-		glTranslatef(width, 0, 0);
+		poMatrixStack::get()->translate(poPoint(width, 0, 0));
 	}
 	
-	glPopMatrix();
+	poMatrixStack::get()->popModelview();
 }
 
 

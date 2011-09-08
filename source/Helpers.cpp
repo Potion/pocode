@@ -165,25 +165,27 @@ void applyObjTransform(poObject *obj) {
 	poPoint rot_axis = obj->rotationAxis;
 	poPoint scale = obj->scale;
 	
+	poMatrixStack *stack = poMatrixStack::get();
+	
 	switch(obj->matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
-			glTranslatef(trans.x, trans.y, trans.z);
-			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);
-			glScalef(scale.x, scale.y, scale.z);
+			stack->translate(trans);
+			stack->rotate(rotation, rot_axis);
+			stack->scale(scale);
 			break;
 			
 		case PO_MATRIX_ORDER_RST:
-			glRotatef(rotation, rot_axis.x, rot_axis.y, rot_axis.z);
-			glScalef(scale.x, scale.y, scale.z);
-			glTranslatef(trans.x, trans.y, trans.z);
+			stack->rotate(rotation, rot_axis);
+			stack->scale(scale);
+			stack->translate(trans);
 			break;
 	}
-	
-	glTranslatef(off.x, off.y, off.z);
+
+	stack->translate(off);
 }
 
 void startMasking(poShape2D *mask) {
-	glPushMatrix();
+	poMatrixStack::get()->pushModelview();
 	applyObjTransform(mask);
 	
 	glPushAttrib(GL_STENCIL_BUFFER_BIT);
@@ -199,7 +201,7 @@ void startMasking(poShape2D *mask) {
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glStencilFunc(GL_EQUAL, 1, 1);
 	
-	glPopMatrix();
+	poMatrixStack::get()->pushModelview();
 }
 
 void stopMasking() {
