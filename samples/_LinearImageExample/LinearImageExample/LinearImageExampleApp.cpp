@@ -13,6 +13,7 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "Helpers.h"
+#include "poResourceStore.h"
 
 
 
@@ -33,17 +34,19 @@ LinearImageExampleApp::LinearImageExampleApp() {
 	//load event listeners
     addModifier(new poCamera2D(poColor::black));
     addEvent(PO_MOUSE_MOVE_EVENT, this);
-    addEvent(PO_MOUSE_DOWN_EVENT, this);
-    addEvent(PO_MOUSE_UP_EVENT, this);
+    addEvent(PO_MOUSE_DOWN_EVERYWHERE_EVENT, this);
+    addEvent(PO_MOUSE_UP_EVERYWHERE_EVENT, this);
     addEvent(PO_KEY_DOWN_EVENT, this);
     addEvent(PO_KEY_UP_EVENT, this);
     
     //load image
-    myImage = new poImage("images/GH_0002d.jpg");
+    myImage = getImage("images/GH_0002d.jpg");
 	applicationReshapeWindow(applicationCurrentWindow(), poRect(0,0,myImage->width(),myImage->height()));
 	
-    imageRect  = new poRectShape(myImage);
-    imageRect->position(0,0);
+    imageRect  = new poRectShape(myImage->width(), myImage->height());
+    imageRect->placeTexture(myImage->texture());
+
+    imageRect->position.set(0, 0, 0);
        
     //init variables
     mSignal = 0.0f;
@@ -55,14 +58,14 @@ LinearImageExampleApp::LinearImageExampleApp() {
     mLine = new poShape2D();
     mLine->addPoint(0, 0);
     mLine->addPoint(myImage->width(), 0);
-    mLine->strokeColor(poColor::white);
+    mLine->strokeColor = poColor::white;
     mLine->generateStroke(2);
     //addChild(mLine);
     
     //init colored lines
     for(int i=0; i<myImage->width(); i++) {
         poLineShape* p = new poLineShape(poPoint(0,0), poPoint(0,getWindowHeight()));
-        p->position(i, 0);
+        p->position.set(i, 0, 0);
         addChild(p);
     }
 }
@@ -71,8 +74,8 @@ void LinearImageExampleApp::draw() {
 
     //loop through line of colors vector and set fill for each line
     for (int i=0; i<pixelWideLineColors.size(); i++) {
-        poLineShape* p = getChildAs<poLineShape>(this, i);
-        p->strokeColor(pixelWideLineColors[i]);
+        poLineShape* p = getChildAs<poLineShape>(i);
+        p->strokeColor = (poColor)pixelWideLineColors[i];
     }
 }
 
@@ -94,7 +97,7 @@ void LinearImageExampleApp::update() {
     getPixelWideLine(mSignal);
     
     //move indicator line
-    mLine->position(0, mSignal); 
+    mLine->position.set(0, mSignal,0); 
 }
 
 void LinearImageExampleApp::getPixelWideLine(int yPos) {
@@ -120,10 +123,10 @@ void LinearImageExampleApp::eventHandler(poEvent *event) {
             mouseX = eventPos.x;
             mouseY = eventPos.y;
             break;
-        case PO_MOUSE_DOWN_EVENT:
+        case PO_MOUSE_DOWN_EVERYWHERE_EVENT:
             bMousePressed = true;
             break;
-        case PO_MOUSE_UP_EVENT:
+        case PO_MOUSE_UP_EVERYWHERE_EVENT:
             bMousePressed = false;
             break;
         case PO_KEY_DOWN_EVENT:
@@ -131,7 +134,7 @@ void LinearImageExampleApp::eventHandler(poEvent *event) {
             if(!bKeyPressed) {
                 addChild(imageRect);
                 addChild(mLine);
-                cout << "KEY DOWN" << endl;
+                //cout << "KEY DOWN" << endl;
             }
             bKeyPressed = true;
             break;
@@ -139,7 +142,7 @@ void LinearImageExampleApp::eventHandler(poEvent *event) {
             if(bKeyPressed){
                 removeChild(imageRect);
                 removeChild(mLine);
-                cout << "\tKEY UP" << endl;
+                //cout << "\tKEY UP" << endl;
             }
             bKeyPressed = false;
             break;
