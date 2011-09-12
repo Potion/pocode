@@ -7,12 +7,12 @@
 
 class poFontSpec {
 public:
-	poFontSpec(const std::string &name_or_url, int size, const std::string &weight=PO_FONT_REGULAR)
-	: nameOrUrl(name_or_url), pointSize(size), weight(weight), hashed(0)
+	poFontSpec(const std::string &name_or_url, int size, const std::string &style="Regular")
+	: nameOrUrl(name_or_url), pointSize(size), style(style), hashed(0)
 	{
 		boost::hash_combine(hashed,name_or_url);
 		boost::hash_combine(hashed,size);
-		boost::hash_combine(hashed,weight);
+		boost::hash_combine(hashed,style);
 	}
 	
 	bool operator<(const poFontSpec &rhs) const {
@@ -20,7 +20,7 @@ public:
 	}
 	
 	std::string nameOrUrl;
-	std::string weight;
+	std::string style;
 	int pointSize;
 	
 	size_t hashed;
@@ -37,7 +37,7 @@ public:
 	
 	poFont *load(poFontSpec config) {
 		if(fontExists(config.nameOrUrl))
-			return new poFont(config.nameOrUrl, config.pointSize, config.weight);
+			return new poFont(config.nameOrUrl, config.pointSize, config.style);
 		return NULL;
 	}
 };
@@ -91,7 +91,7 @@ public:
 		else
 			img = new poImage(config.url);
 		
-		if(!img->isValid()) {
+		if(!img) {
 			delete img;
 			img = NULL;
 			

@@ -1,16 +1,13 @@
 #pragma once
 
 #include "poPoint.h"
+#include <glm/glm.hpp>
 
 struct poMatrixSet
 {
-	poMatrixSet();
-	bool		isZero() const;
-	void		capture();
 	poPoint		globalToLocal(poPoint pt) const;
 	poPoint		localToGlobal(poPoint pt) const;
 	
-    GLdouble    modelMatrix[16];
-    GLdouble    projectMatrix[16];
-    GLint       viewport[4];
+	glm::mat4	modelview, projection;
+	glm::vec4	viewport;
 };

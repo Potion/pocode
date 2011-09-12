@@ -8,6 +8,7 @@
 #include "poFont.h"
 
 void applyColor(poColor color);
+void applyColor(poColor color, float alpha);
 void drawStroke(poRect rect);
 void drawStroke(float x, float y, float w, float h);
 void drawLine(poPoint a, poPoint b);

@@ -92,8 +92,8 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	CGLContextObj cglcontext = (CGLContextObj)context.CGLContextObj;
 	CGLLockContext(cglcontext);
 	// make sure we're tied to the vsync
-//	GLint swapInt = 1;
-//	[context setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
+	GLint swapInt = 1;
+	[context setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
 	// make our window, using the opengl context we just made
 	poWindow *powin = new poWindow(str, appId, rectFromNSRect(frame));
 	// and let it go

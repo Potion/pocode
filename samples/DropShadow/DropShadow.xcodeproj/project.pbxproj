@@ -1,0 +1,228 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B60055714083E3C00BE53AF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B60055614083E3C00BE53AF /* AppDelegate.mm */; };
+		2B60055914083E3C00BE53AF /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B60055814083E3C00BE53AF /* en.strings */; };
+		2B60055B14083E3C00BE53AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B60055A14083E3C00BE53AF /* main.m */; };
+		2B60055D14083E3C00BE53AF /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2B60055C14083E3C00BE53AF /* main.pch */; };
+		2B60056014083E3C00BE53AF /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B60055F14083E3C00BE53AF /* main.xib */; };
+		2B60056314083E3C00BE53AF /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B60056214083E3C00BE53AF /* poOpenGLView.mm */; };
+		2B60056714083E3C00BE53AF /* DropShadowApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B60056614083E3C00BE53AF /* DropShadowApp.cpp */; };
+		2B60056F14083EE100BE53AF /* poDropShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B60056E14083EE100BE53AF /* poDropShadow.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B60054E14083E3C00BE53AF /* DropShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B60055314083E3C00BE53AF /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2B60055414083E3C00BE53AF /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2B60055514083E3C00BE53AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2B60055614083E3C00BE53AF /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2B60055814083E3C00BE53AF /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2B60055A14083E3C00BE53AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2B60055C14083E3C00BE53AF /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2B60055E14083E3C00BE53AF /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2B60055F14083E3C00BE53AF /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2B60056114083E3C00BE53AF /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2B60056214083E3C00BE53AF /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2B60056514083E3C00BE53AF /* DropShadowApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropShadowApp.h; sourceTree = "<group>"; };
+		2B60056614083E3C00BE53AF /* DropShadowApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DropShadowApp.cpp; sourceTree = "<group>"; };
+		2B60056D14083EE100BE53AF /* poDropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poDropShadow.h; sourceTree = "<group>"; };
+		2B60056E14083EE100BE53AF /* poDropShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poDropShadow.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B60054B14083E3C00BE53AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B60054314083E3C00BE53AF = {
+			isa = PBXGroup;
+			children = (
+				2B60055114083E3C00BE53AF /* DropShadow */,
+				2B60054F14083E3C00BE53AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B60054F14083E3C00BE53AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B60054E14083E3C00BE53AF /* DropShadow.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B60055114083E3C00BE53AF /* DropShadow */ = {
+			isa = PBXGroup;
+			children = (
+				2B60055214083E3C00BE53AF /* platform */,
+				2B60056414083E3C00BE53AF /* application */,
+			);
+			path = DropShadow;
+			sourceTree = "<group>";
+		};
+		2B60055214083E3C00BE53AF /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2B60055314083E3C00BE53AF /* Debug.xcconfig */,
+				2B60055414083E3C00BE53AF /* Release.xcconfig */,
+				2B60055514083E3C00BE53AF /* AppDelegate.h */,
+				2B60055614083E3C00BE53AF /* AppDelegate.mm */,
+				2B60055814083E3C00BE53AF /* en.strings */,
+				2B60055A14083E3C00BE53AF /* main.m */,
+				2B60055C14083E3C00BE53AF /* main.pch */,
+				2B60055E14083E3C00BE53AF /* main.plist */,
+				2B60055F14083E3C00BE53AF /* main.xib */,
+				2B60056114083E3C00BE53AF /* poOpenGLView.h */,
+				2B60056214083E3C00BE53AF /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2B60056414083E3C00BE53AF /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2B60056D14083EE100BE53AF /* poDropShadow.h */,
+				2B60056E14083EE100BE53AF /* poDropShadow.cpp */,
+				2B60056514083E3C00BE53AF /* DropShadowApp.h */,
+				2B60056614083E3C00BE53AF /* DropShadowApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B60054D14083E3C00BE53AF /* DropShadow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B60056A14083E3C00BE53AF /* Build configuration list for PBXNativeTarget "DropShadow" */;
+			buildPhases = (
+				2B60054A14083E3C00BE53AF /* Sources */,
+				2B60054B14083E3C00BE53AF /* Frameworks */,
+				2B60054C14083E3C00BE53AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DropShadow;
+			productName = DropShadow;
+			productReference = 2B60054E14083E3C00BE53AF /* DropShadow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B60054514083E3C00BE53AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 2B60054814083E3C00BE53AF /* Build configuration list for PBXProject "DropShadow" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2B60054314083E3C00BE53AF;
+			productRefGroup = 2B60054F14083E3C00BE53AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B60054D14083E3C00BE53AF /* DropShadow */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B60054C14083E3C00BE53AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B60055914083E3C00BE53AF /* en.strings in Resources */,
+				2B60055D14083E3C00BE53AF /* main.pch in Resources */,
+				2B60056014083E3C00BE53AF /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B60054A14083E3C00BE53AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B60055714083E3C00BE53AF /* AppDelegate.mm in Sources */,
+				2B60055B14083E3C00BE53AF /* main.m in Sources */,
+				2B60056314083E3C00BE53AF /* poOpenGLView.mm in Sources */,
+				2B60056714083E3C00BE53AF /* DropShadowApp.cpp in Sources */,
+				2B60056F14083EE100BE53AF /* poDropShadow.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B60056814083E3C00BE53AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B60055314083E3C00BE53AF /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B60056914083E3C00BE53AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B60055414083E3C00BE53AF /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2B60056B14083E3C00BE53AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B60056C14083E3C00BE53AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B60054814083E3C00BE53AF /* Build configuration list for PBXProject "DropShadow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B60056814083E3C00BE53AF /* Debug */,
+				2B60056914083E3C00BE53AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B60056A14083E3C00BE53AF /* Build configuration list for PBXNativeTarget "DropShadow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B60056B14083E3C00BE53AF /* Debug */,
+				2B60056C14083E3C00BE53AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2B60054514083E3C00BE53AF /* Project object */;
+}

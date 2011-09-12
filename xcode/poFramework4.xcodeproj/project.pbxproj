@@ -10,13 +10,9 @@
 		E802C72113D5E3F100CBEB1C /* poApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C72013D5E3F100CBEB1C /* poApplication.cpp */; };
 		E802C75D13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */; };
 		E802C75E13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */; };
-		E802C76113D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76013D76FEC00CBEB1C /* poBitmapFontAtlas.cpp */; };
-		E802C76213D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76013D76FEC00CBEB1C /* poBitmapFontAtlas.cpp */; };
-		E802C76413D7738F00CBEB1C /* poImageMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C76313D7738F00CBEB1C /* poImageMask.h */; };
-		E802C76613D773EE00CBEB1C /* poImageMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76513D773EE00CBEB1C /* poImageMask.cpp */; };
-		E802C76713D773EE00CBEB1C /* poImageMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76513D773EE00CBEB1C /* poImageMask.cpp */; };
+		E802C76113D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */; };
+		E802C76213D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */; };
 		E802C7A713D8699400CBEB1C /* Loaders.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C7A613D8699300CBEB1C /* Loaders.h */; };
-		E802C7A913D87BA300CBEB1C /* poTextureConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C7A813D87BA200CBEB1C /* poTextureConfig.h */; };
 		E80625A01396FEFC00615CCB /* Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71413913E3A00E6848E /* Helpers.h */; };
 		E80625A11396FEFC00615CCB /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71313913E3A00E6848E /* Helpers.cpp */; };
 		E80625A21396FEFC00615CCB /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71513913E3A00E6848E /* poApplication.h */; };
@@ -51,8 +47,7 @@
 		E80625C21396FEFC00615CCB /* poImage.h in Headers */ = {isa = PBXBuildFile; fileRef = E87E18821368615B00DB6934 /* poImage.h */; };
 		E80625C31396FEFC00615CCB /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E80625C41396FEFC00615CCB /* poObjectModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D18FA41386BF3E0087288A /* poObjectModifier.h */; };
-		E80625C51396FEFC00615CCB /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FE4AEA13968EE300E99864 /* poGeometryMask.h */; };
-		E80625C61396FEFC00615CCB /* poGeometryMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poGeometryMask.cpp */; };
+		E80625C61396FEFC00615CCB /* poMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMask.cpp */; };
 		E80625C71396FEFC00615CCB /* poCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F01E8E21386279D008F0EE1 /* poCamera.h */; };
 		E80625C81396FEFC00615CCB /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
 		E80625C91396FEFC00615CCB /* poObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0C2132E9F78002BE3D9 /* poObject.h */; };
@@ -63,7 +58,7 @@
 		E80625CE1396FEFC00615CCB /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E85EE94B13731F9C0066679A /* poTextBox.h */; };
 		E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E80B019413D4E11F00A1A008 /* poPointTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80B019313D4E11F00A1A008 /* poPointTest.cpp */; };
+		E80B019413D4E11F00A1A008 /* poPoint_Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80B019313D4E11F00A1A008 /* poPoint_Test.cpp */; };
 		E80B019513D4E23A00A1A008 /* poTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */; };
 		E80B019713D4E24E00A1A008 /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
 		E80B019813D4E24E00A1A008 /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
@@ -82,22 +77,25 @@
 		E80B01A613D4E25E00A1A008 /* poImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18811368615A00DB6934 /* poImage.cpp */; };
 		E80B01A713D4E25E00A1A008 /* poTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E87E18761367696800DB6934 /* poTexture.cpp */; };
 		E80B01A813D4E26600A1A008 /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
-		E80B01A913D4E26600A1A008 /* poGeometryMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poGeometryMask.cpp */; };
+		E80B01A913D4E26600A1A008 /* poMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMask.cpp */; };
 		E80B01AB13D4E27100A1A008 /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
 		E80B01AC13D4E27100A1A008 /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
 		E80B01AD13D4E27100A1A008 /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
 		E80B01AF13D4E27100A1A008 /* poTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E85EE94A13731F9C0066679A /* poTextBox.cpp */; };
-		E80B01B013D4E27100A1A008 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
 		E80B01B313D4E30600A1A008 /* needed_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80B01B213D4E30600A1A008 /* needed_functions.cpp */; };
 		E83092EE13D09C9100836802 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		E841619213DF08CA00C5993F /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E841619113DF08CA00C5993F /* poResourceStore.cpp */; };
 		E841619313DF08CA00C5993F /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E841619113DF08CA00C5993F /* poResourceStore.cpp */; };
 		E841619513DF08F900C5993F /* poResourceStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E841619413DF08F900C5993F /* poResourceStore.h */; };
+		E86F939413F987FC00D924F0 /* poMatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939013F987FC00D924F0 /* poMatrixStack.cpp */; };
+		E86F939513F987FC00D924F0 /* poMatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939013F987FC00D924F0 /* poMatrixStack.cpp */; };
+		E86F939613F987FC00D924F0 /* poMatrixStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939113F987FC00D924F0 /* poMatrixStack.h */; };
+		E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
+		E86F939813F987FC00D924F0 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
+		E86F939913F987FC00D924F0 /* poVBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939313F987FC00D924F0 /* poVBO.h */; };
 		E8814FDC13DDD10900F6E0E1 /* Loaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */; };
 		E8814FDD13DDD10900F6E0E1 /* Loaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */; };
 		E88E746613C753DC0051F026 /* AttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* AttributedString.h */; };
-		E890424113BBBD7300877667 /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E890423E13BBBD7300877667 /* poVideo.cpp */; };
-		E890424213BBBD7300877667 /* poVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = E890423F13BBBD7300877667 /* poVideo.h */; };
 		E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
 		E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CE963C13B004E900DFB769 /* LineExtruder.h */; };
 		E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */; };
@@ -106,6 +104,9 @@
 		E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E7559613C60B2A00A91EB8 /* TextLayout.h */; };
 		E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E755C713C62F8B00A91EB8 /* poXML.h */; };
+		E8E9EACA13F0390200FB2D57 /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
+		E8E9EACC13F03A5700FB2D57 /* poObject_Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E9EACB13F03A5700FB2D57 /* poObject_Test.cpp */; };
+		E8E9EAFD13F048AB00FB2D57 /* poMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E9EAFC13F048AB00FB2D57 /* poMask.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -128,14 +129,11 @@
 		E802C72013D5E3F100CBEB1C /* poApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poApplication.cpp; path = ../source/poApplication.cpp; sourceTree = "<group>"; };
 		E802C75A13D7683900CBEB1C /* poTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextureAtlas.h; path = ../source/poTextureAtlas.h; sourceTree = "<group>"; };
 		E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextureAtlas.cpp; path = ../source/poTextureAtlas.cpp; sourceTree = "<group>"; };
-		E802C75F13D76F9100CBEB1C /* poBitmapFontAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBitmapFontAtlas.h; path = ../source/poBitmapFontAtlas.h; sourceTree = "<group>"; };
-		E802C76013D76FEC00CBEB1C /* poBitmapFontAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBitmapFontAtlas.cpp; path = ../source/poBitmapFontAtlas.cpp; sourceTree = "<group>"; };
-		E802C76313D7738F00CBEB1C /* poImageMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poImageMask.h; path = ../source/poImageMask.h; sourceTree = "<group>"; };
-		E802C76513D773EE00CBEB1C /* poImageMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImageMask.cpp; path = ../source/poImageMask.cpp; sourceTree = "<group>"; };
+		E802C75F13D76F9100CBEB1C /* poBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBitmapFont.h; path = ../source/poBitmapFont.h; sourceTree = "<group>"; };
+		E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBitmapFont.cpp; path = ../source/poBitmapFont.cpp; sourceTree = "<group>"; };
 		E802C7A613D8699300CBEB1C /* Loaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Loaders.h; path = ../source/Loaders.h; sourceTree = "<group>"; };
-		E802C7A813D87BA200CBEB1C /* poTextureConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextureConfig.h; path = ../source/poTextureConfig.h; sourceTree = "<group>"; };
 		E80625911396FEDA00615CCB /* libpotionLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E80B019313D4E11F00A1A008 /* poPointTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poPointTest.cpp; sourceTree = "<group>"; };
+		E80B019313D4E11F00A1A008 /* poPoint_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poPoint_Test.cpp; sourceTree = "<group>"; };
 		E80B01B213D4E30600A1A008 /* needed_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = needed_functions.cpp; sourceTree = "<group>"; };
 		E83092ED13D09C9100836802 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
@@ -149,6 +147,10 @@
 		E841ED7A1369AB640029C2F4 /* glInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glInfo.h; path = ../source/glInfo.h; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
 		E85EE94B13731F9C0066679A /* poTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextBox.h; path = ../source/poTextBox.h; sourceTree = "<group>"; };
+		E86F939013F987FC00D924F0 /* poMatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixStack.cpp; path = ../source/poMatrixStack.cpp; sourceTree = "<group>"; };
+		E86F939113F987FC00D924F0 /* poMatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixStack.h; path = ../source/poMatrixStack.h; sourceTree = "<group>"; };
+		E86F939213F987FC00D924F0 /* poVBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poVBO.cpp; path = ../source/poVBO.cpp; sourceTree = "<group>"; };
+		E86F939313F987FC00D924F0 /* poVBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVBO.h; path = ../source/poVBO.h; sourceTree = "<group>"; };
 		E87E18761367696800DB6934 /* poTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture.cpp; path = ../source/poTexture.cpp; sourceTree = "<group>"; };
 		E87E18771367696800DB6934 /* poTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTexture.h; path = ../source/poTexture.h; sourceTree = "<group>"; };
 		E87E18811368615A00DB6934 /* poImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage.cpp; path = ../source/poImage.cpp; sourceTree = "<group>"; };
@@ -156,8 +158,6 @@
 		E87E18951369884B00DB6934 /* ResourceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourceStore.h; path = ../source/ResourceStore.h; sourceTree = "<group>"; };
 		E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Loaders.cpp; path = ../source/Loaders.cpp; sourceTree = "<group>"; };
 		E88E746313C753DB0051F026 /* AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttributedString.h; path = ../source/AttributedString.h; sourceTree = "<group>"; };
-		E890423E13BBBD7300877667 /* poVideo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poVideo.cpp; path = ../source/poVideo.cpp; sourceTree = "<group>"; };
-		E890423F13BBBD7300877667 /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../source/poVideo.h; sourceTree = "<group>"; };
 		E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-lib.xcconfig"; sourceTree = "<group>"; };
 		E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-lib.xcconfig"; sourceTree = "<group>"; };
 		E8B02F391363512F0068FB5D /* poMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath.cpp; path = ../source/poMath.cpp; sourceTree = "<group>"; };
@@ -192,11 +192,12 @@
 		E8E7559613C60B2A00A91EB8 /* TextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextLayout.h; path = ../source/TextLayout.h; sourceTree = "<group>"; };
 		E8E755C613C62F8B00A91EB8 /* poXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML.cpp; path = ../source/poXML.cpp; sourceTree = "<group>"; };
 		E8E755C713C62F8B00A91EB8 /* poXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poXML.h; path = ../source/poXML.h; sourceTree = "<group>"; };
+		E8E9EACB13F03A5700FB2D57 /* poObject_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poObject_Test.cpp; sourceTree = "<group>"; };
+		E8E9EAFC13F048AB00FB2D57 /* poMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMask.h; path = ../source/poMask.h; sourceTree = "<group>"; };
 		E8F4E49C139E734B0001E860 /* regression */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = regression; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
-		E8FE4AE913968EE300E99864 /* poGeometryMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poGeometryMask.cpp; path = ../source/poGeometryMask.cpp; sourceTree = "<group>"; };
-		E8FE4AEA13968EE300E99864 /* poGeometryMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poGeometryMask.h; path = ../source/poGeometryMask.h; sourceTree = "<group>"; };
+		E8FE4AE913968EE300E99864 /* poMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMask.cpp; path = ../source/poMask.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +218,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F59A5E51409D42A0070E84A /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E8FB2407133A996C00111A69 /* poFont.h */,
+				E8FB2406133A996C00111A69 /* poFont.cpp */,
+				E802C75F13D76F9100CBEB1C /* poBitmapFont.h */,
+				E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
+		7F9E4BBD140AE78B00548BDB /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
+				E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */,
+				E8E755C713C62F8B00A91EB8 /* poXML.h */,
+				E8E755C613C62F8B00A91EB8 /* poXML.cpp */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		7F9E4BBE140AE86100548BDB /* math */ = {
+			isa = PBXGroup;
+			children = (
+				E8B2D0BE132E9F78002BE3D9 /* poMath.h */,
+				E8B02F391363512F0068FB5D /* poMath.cpp */,
+				E83095F1132FD0D600080C86 /* poMatrixSet.h */,
+				E83095F0132FD0D600080C86 /* poMatrixSet.cpp */,
+				E86F939113F987FC00D924F0 /* poMatrixStack.h */,
+				E86F939013F987FC00D924F0 /* poMatrixStack.cpp */,
+			);
+			name = math;
+			sourceTree = "<group>";
+		};
+		7F9E4BBF140AE8B300548BDB /* common */ = {
+			isa = PBXGroup;
+			children = (
+				E830965913315F2D00080C86 /* poEnums.h */,
+				E841619413DF08F900C5993F /* poResourceStore.h */,
+				E841619113DF08CA00C5993F /* poResourceStore.cpp */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
 		E8A0B995138B0FBA0024BC8C /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,13 +295,17 @@
 		E8B2D0B4132E9F4D002BE3D9 /* potionLib */ = {
 			isa = PBXGroup;
 			children = (
-				E8E7559113C60A1F00A91EB8 /* animation */,
+				E8E7559213C60A5D00A91EB8 /* poObjects */,
+				7F9E4BBF140AE8B300548BDB /* common */,
 				E8E7558D13C6099A00A91EB8 /* application */,
-				E8E7558F13C609C600A91EB8 /* core */,
-				E8E7559413C60AF900A91EB8 /* helpers */,
+				E8E7559113C60A1F00A91EB8 /* animation */,
+				7F59A5E51409D42A0070E84A /* fonts */,
 				E8E7559013C609F600A91EB8 /* imaging */,
 				E8E7559313C60ADC00A91EB8 /* modifiers */,
-				E8E7559213C60A5D00A91EB8 /* poObject */,
+				E8E7558F13C609C600A91EB8 /* graphics */,
+				7F9E4BBD140AE78B00548BDB /* data */,
+				7F9E4BBE140AE86100548BDB /* math */,
+				E8E7559413C60AF900A91EB8 /* helpers */,
 			);
 			name = potionLib;
 			sourceTree = "<group>";
@@ -263,55 +313,38 @@
 		E8E7558D13C6099A00A91EB8 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E8C7E71513913E3A00E6848E /* poApplication.h */,
 				E802C72013D5E3F100CBEB1C /* poApplication.cpp */,
 				E8C7E71713913E3A00E6848E /* poWindow.h */,
 				E8C7E71613913E3A00E6848E /* poWindow.cpp */,
+				E8B2D0BC132E9F78002BE3D9 /* poEvent.h */,
+				E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
 		};
-		E8E7558F13C609C600A91EB8 /* core */ = {
+		E8E7558F13C609C600A91EB8 /* graphics */ = {
 			isa = PBXGroup;
 			children = (
 				E8B2D0B6132E9F78002BE3D9 /* poColor.h */,
 				E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */,
-				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
-				E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */,
-				E830965913315F2D00080C86 /* poEnums.h */,
-				E8B2D0BC132E9F78002BE3D9 /* poEvent.h */,
-				E8B2D0BB132E9F78002BE3D9 /* poEvent.cpp */,
-				E8B2D0BE132E9F78002BE3D9 /* poMath.h */,
-				E8B02F391363512F0068FB5D /* poMath.cpp */,
-				E83095F1132FD0D600080C86 /* poMatrixSet.h */,
-				E83095F0132FD0D600080C86 /* poMatrixSet.cpp */,
 				E8B2D0C4132E9F78002BE3D9 /* poPoint.h */,
 				E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */,
 				E8B2D0C6132E9F78002BE3D9 /* poRect.h */,
 				E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */,
-				E841619413DF08F900C5993F /* poResourceStore.h */,
-				E841619113DF08CA00C5993F /* poResourceStore.cpp */,
-				E8E755C713C62F8B00A91EB8 /* poXML.h */,
-				E8E755C613C62F8B00A91EB8 /* poXML.cpp */,
 			);
-			name = core;
+			name = graphics;
 			sourceTree = "<group>";
 		};
 		E8E7559013C609F600A91EB8 /* imaging */ = {
 			isa = PBXGroup;
 			children = (
-				E8FB2407133A996C00111A69 /* poFont.h */,
-				E8FB2406133A996C00111A69 /* poFont.cpp */,
 				E87E18821368615B00DB6934 /* poImage.h */,
 				E87E18811368615A00DB6934 /* poImage.cpp */,
 				E87E18771367696800DB6934 /* poTexture.h */,
 				E87E18761367696800DB6934 /* poTexture.cpp */,
-				E802C7A813D87BA200CBEB1C /* poTextureConfig.h */,
 				E802C75A13D7683900CBEB1C /* poTextureAtlas.h */,
 				E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */,
-				E802C75F13D76F9100CBEB1C /* poBitmapFontAtlas.h */,
-				E802C76013D76FEC00CBEB1C /* poBitmapFontAtlas.cpp */,
 			);
 			name = imaging;
 			sourceTree = "<group>";
@@ -319,14 +352,14 @@
 		E8E7559113C60A1F00A91EB8 /* animation */ = {
 			isa = PBXGroup;
 			children = (
-				E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */,
 				E8B2D0CA132E9F78002BE3D9 /* poTween.h */,
 				E8B2D0C9132E9F78002BE3D9 /* poTween.cpp */,
+				E8B2D0BA132E9F78002BE3D9 /* poEasingFunctions.h */,
 			);
 			name = animation;
 			sourceTree = "<group>";
 		};
-		E8E7559213C60A5D00A91EB8 /* poObject */ = {
+		E8E7559213C60A5D00A91EB8 /* poObjects */ = {
 			isa = PBXGroup;
 			children = (
 				E8B2D0C2132E9F78002BE3D9 /* poObject.h */,
@@ -337,10 +370,8 @@
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
-				E890423F13BBBD7300877667 /* poVideo.h */,
-				E890423E13BBBD7300877667 /* poVideo.cpp */,
 			);
-			name = poObject;
+			name = poObjects;
 			sourceTree = "<group>";
 		};
 		E8E7559313C60ADC00A91EB8 /* modifiers */ = {
@@ -349,10 +380,8 @@
 				E8D18FA41386BF3E0087288A /* poObjectModifier.h */,
 				7F01E8E21386279D008F0EE1 /* poCamera.h */,
 				7F01E8E11386279D008F0EE1 /* poCamera.cpp */,
-				E8FE4AEA13968EE300E99864 /* poGeometryMask.h */,
-				E8FE4AE913968EE300E99864 /* poGeometryMask.cpp */,
-				E802C76313D7738F00CBEB1C /* poImageMask.h */,
-				E802C76513D773EE00CBEB1C /* poImageMask.cpp */,
+				E8E9EAFC13F048AB00FB2D57 /* poMask.h */,
+				E8FE4AE913968EE300E99864 /* poMask.cpp */,
 			);
 			name = modifiers;
 			sourceTree = "<group>";
@@ -360,6 +389,7 @@
 		E8E7559413C60AF900A91EB8 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E88E746313C753DB0051F026 /* AttributedString.h */,
 				E8E51B3E13A13E5D008C67FF /* BinPacker.h */,
 				E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */,
@@ -369,11 +399,13 @@
 				E8CE963B13B004E800DFB769 /* LineExtruder.cpp */,
 				E802C7A613D8699300CBEB1C /* Loaders.h */,
 				E8814FDB13DDD10800F6E0E1 /* Loaders.cpp */,
-				E87E18951369884B00DB6934 /* ResourceStore.h */,
 				E830965B13315F2D00080C86 /* SimpleDrawing.h */,
 				E830965A13315F2D00080C86 /* SimpleDrawing.cpp */,
+				E87E18951369884B00DB6934 /* ResourceStore.h */,
 				E8E7559613C60B2A00A91EB8 /* TextLayout.h */,
 				E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */,
+				E86F939313F987FC00D924F0 /* poVBO.h */,
+				E86F939213F987FC00D924F0 /* poVBO.cpp */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -382,7 +414,8 @@
 			isa = PBXGroup;
 			children = (
 				E80B01B213D4E30600A1A008 /* needed_functions.cpp */,
-				E80B019313D4E11F00A1A008 /* poPointTest.cpp */,
+				E80B019313D4E11F00A1A008 /* poPoint_Test.cpp */,
+				E8E9EACB13F03A5700FB2D57 /* poObject_Test.cpp */,
 			);
 			path = regression;
 			sourceTree = "<group>";
@@ -414,7 +447,6 @@
 				E80625C01396FEFC00615CCB /* poTexture.h in Headers */,
 				E80625C21396FEFC00615CCB /* poImage.h in Headers */,
 				E80625C41396FEFC00615CCB /* poObjectModifier.h in Headers */,
-				E80625C51396FEFC00615CCB /* poGeometryMask.h in Headers */,
 				E80625C71396FEFC00615CCB /* poCamera.h in Headers */,
 				E80625C91396FEFC00615CCB /* poObject.h in Headers */,
 				E80625CB1396FEFC00615CCB /* poShape2D.h in Headers */,
@@ -422,15 +454,15 @@
 				E80625CF1396FEFC00615CCB /* poTextBox.h in Headers */,
 				E8E51B4113A13E5E008C67FF /* BinPacker.h in Headers */,
 				E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */,
-				E890424213BBBD7300877667 /* poVideo.h in Headers */,
 				E8E7559913C60B2A00A91EB8 /* TextLayout.h in Headers */,
 				E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */,
 				E88E746613C753DC0051F026 /* AttributedString.h in Headers */,
 				E83092EE13D09C9100836802 /* main.pch in Headers */,
-				E802C76413D7738F00CBEB1C /* poImageMask.h in Headers */,
 				E802C7A713D8699400CBEB1C /* Loaders.h in Headers */,
-				E802C7A913D87BA300CBEB1C /* poTextureConfig.h in Headers */,
 				E841619513DF08F900C5993F /* poResourceStore.h in Headers */,
+				E8E9EAFD13F048AB00FB2D57 /* poMask.h in Headers */,
+				E86F939613F987FC00D924F0 /* poMatrixStack.h in Headers */,
+				E86F939913F987FC00D924F0 /* poVBO.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +509,7 @@
 		E8B2D062132E9CA7002BE3D9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
 			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */;
@@ -516,7 +549,7 @@
 				E80625BD1396FEFC00615CCB /* poMatrixSet.cpp in Sources */,
 				E80625C11396FEFC00615CCB /* poTexture.cpp in Sources */,
 				E80625C31396FEFC00615CCB /* poImage.cpp in Sources */,
-				E80625C61396FEFC00615CCB /* poGeometryMask.cpp in Sources */,
+				E80625C61396FEFC00615CCB /* poMask.cpp in Sources */,
 				E80625C81396FEFC00615CCB /* poCamera.cpp in Sources */,
 				E80625CA1396FEFC00615CCB /* poObject.cpp in Sources */,
 				E80625CC1396FEFC00615CCB /* poShape2D.cpp in Sources */,
@@ -524,15 +557,15 @@
 				E80625D01396FEFC00615CCB /* poTextBox.cpp in Sources */,
 				E8E51B4013A13E5E008C67FF /* BinPacker.cpp in Sources */,
 				E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */,
-				E890424113BBBD7300877667 /* poVideo.cpp in Sources */,
 				E8E7559813C60B2A00A91EB8 /* TextLayout.cpp in Sources */,
 				E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */,
 				E802C72113D5E3F100CBEB1C /* poApplication.cpp in Sources */,
 				E802C75D13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */,
-				E802C76113D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */,
-				E802C76613D773EE00CBEB1C /* poImageMask.cpp in Sources */,
+				E802C76113D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */,
 				E8814FDC13DDD10900F6E0E1 /* Loaders.cpp in Sources */,
 				E841619213DF08CA00C5993F /* poResourceStore.cpp in Sources */,
+				E86F939413F987FC00D924F0 /* poMatrixStack.cpp in Sources */,
+				E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,7 +573,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E80B019413D4E11F00A1A008 /* poPointTest.cpp in Sources */,
+				E8E9EACA13F0390200FB2D57 /* poWindow.cpp in Sources */,
+				E80B019413D4E11F00A1A008 /* poPoint_Test.cpp in Sources */,
 				E80B019513D4E23A00A1A008 /* poTween.cpp in Sources */,
 				E80B019713D4E24E00A1A008 /* poColor.cpp in Sources */,
 				E80B019813D4E24E00A1A008 /* poDictionary.cpp in Sources */,
@@ -559,18 +593,19 @@
 				E80B01A613D4E25E00A1A008 /* poImage.cpp in Sources */,
 				E80B01A713D4E25E00A1A008 /* poTexture.cpp in Sources */,
 				E80B01A813D4E26600A1A008 /* poCamera.cpp in Sources */,
-				E80B01A913D4E26600A1A008 /* poGeometryMask.cpp in Sources */,
+				E80B01A913D4E26600A1A008 /* poMask.cpp in Sources */,
 				E80B01AB13D4E27100A1A008 /* poObject.cpp in Sources */,
 				E80B01AC13D4E27100A1A008 /* poShape2D.cpp in Sources */,
 				E80B01AD13D4E27100A1A008 /* poShapeBasics2D.cpp in Sources */,
 				E80B01AF13D4E27100A1A008 /* poTextBox.cpp in Sources */,
-				E80B01B013D4E27100A1A008 /* poVideo.cpp in Sources */,
 				E80B01B313D4E30600A1A008 /* needed_functions.cpp in Sources */,
 				E802C75E13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */,
-				E802C76213D76FEC00CBEB1C /* poBitmapFontAtlas.cpp in Sources */,
-				E802C76713D773EE00CBEB1C /* poImageMask.cpp in Sources */,
+				E802C76213D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */,
 				E8814FDD13DDD10900F6E0E1 /* Loaders.cpp in Sources */,
 				E841619313DF08CA00C5993F /* poResourceStore.cpp in Sources */,
+				E8E9EACC13F03A5700FB2D57 /* poObject_Test.cpp in Sources */,
+				E86F939513F987FC00D924F0 /* poMatrixStack.cpp in Sources */,
+				E86F939813F987FC00D924F0 /* poVBO.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,8 +21,23 @@ poTextBox::poTextBox()
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint())
+,	fit_height_to_bounds(true)
+,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
+}
+
+poTextBox::poTextBox(int w) 
+:	poObject()
+,	textColor(poColor::white)
+,	drawBounds(false)
+,	button(NULL)
+,	_layout(poPoint(w,0))
+,	fit_height_to_bounds(true)
+,	text_align(PO_ALIGN_TOP_LEFT)
+{
+	defaultFonts();
+	bounds = poRect(0,0,w,0);
 }
 
 poTextBox::poTextBox(int w, int h) 
@@ -31,6 +46,8 @@ poTextBox::poTextBox(int w, int h)
 ,	drawBounds(false)
 ,	button(NULL)
 ,	_layout(poPoint(w,h))
+,	fit_height_to_bounds(false)
+,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
 	bounds = poRect(0,0,w,h);
@@ -45,8 +62,8 @@ poTextBox::~poTextBox() {}
 std::string poTextBox::text() const {return _layout.text();}
 poTextBox *poTextBox::text(const std::string &str) {_layout.text(str); return this; }
 
-poAlignment poTextBox::textAlignment() const {return _layout.alignment();}
-void poTextBox::textAlignment(poAlignment al) {_layout.alignment(al);}
+poAlignment poTextBox::textAlignment() const {return text_align;}
+void poTextBox::textAlignment(poAlignment al) {text_align = al;}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 void poTextBox::reshape(int w, int h) {
@@ -54,8 +71,31 @@ void poTextBox::reshape(int w, int h) {
 	_layout.size(bounds.size);
 }
 
+bool poTextBox::richText() const {return _layout.richText();}
+void poTextBox::richText(bool b) {_layout.richText(b);}
+
+void poTextBox::reshape(poPoint p){
+    reshape(p.x,p.y);
+}
+
 uint poTextBox::numLines() const {return _layout.numLines();}
 poRect poTextBox::boundsForLine(uint num) const {return _layout.boundsForLine(num);}
+
+int     poTextBox::numLettersForLine( int lineIndex )
+{ 
+    return _layout.numLettersForLine( lineIndex );
+}
+
+poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex )
+{
+    return _layout.boundsForLetterOnLine( letterIndex, lineIndex );
+}
+
+void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds )
+{
+    _layout.boundsForLetterOnLine( letterIndex, lineIndex ) = newBounds;
+}
+
 
 float poTextBox::leading() const {return _layout.leading();}
 void poTextBox::leading(float f) {_layout.leading(f); }
@@ -69,12 +109,25 @@ void poTextBox::padding(float f) {_layout.padding(f); }
 void poTextBox::padding(float h, float v) {_layout.padding(h,v); }
 void poTextBox::padding(float l, float r, float t, float b) {_layout.padding(l,r,t,b); }
 
+void poTextBox::tabWidth(int tw) {_layout.tabWidth(tw);}
+int poTextBox::tabWidth() const {return _layout.tabWidth();}
+
 void poTextBox::font(poFont *f, const std::string &name) {
 	_layout.font(f,name);
 }
 poFont *poTextBox::font(const std::string &name) {return _layout.font(name);}
 
-poTextBox *poTextBox::layout() {_layout.layout(); return this;}
+poTextBox *poTextBox::layout() {
+	_layout.layout();
+	
+	if(fit_height_to_bounds)
+		bounds.size.y = textBounds().size.y;
+
+	alignment(alignment());
+	_layout.alignment(text_align);
+	
+	return this;
+}
 
 void poTextBox::draw() {
 	if(button) {
@@ -82,34 +135,95 @@ void poTextBox::draw() {
 	}
 	
     if(drawBounds) {
-		applyColor(poColor::white);
 		for(int i=0; i<numLines(); i++) {
-			drawStroke(boundsForLine(i));
+			
+			if(drawBounds & PO_TEXT_BOX_STROKE_GLYPH) {
+				applyColor(poColor::lt_grey, .5f);
+				BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
+					drawStroke(glyph.bbox);
+				}
+			}
+			
+			if(drawBounds & PO_TEXT_BOX_STROKE_LINE) {
+				applyColor(poColor::white, .6f);
+				drawStroke(boundsForLine(i));
+			}
 		}
 		
-        applyColor(poColor::dk_grey);
-        drawStroke(textBounds());
-	
-        applyColor(poColor::magenta);
+		if(drawBounds & PO_TEXT_BOX_STROKE_TEXT_BOUNDS) {
+			applyColor(poColor::grey, .7f);
+			drawStroke(textBounds());
+		}
+		
+        applyColor(poColor::dk_grey, .8f);
         drawStroke(bounds);
 		
 		applyColor(poColor::red);
-		drawRect(poRect(-offset, poPoint(10,10)));
+		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
-	poBitmapFontAtlas *atlas = getBitmapFont(this->font(PO_FONT_REGULAR));
+	poBitmapFont *regFont = getBitmapFont(this->font());
+	poBitmapFont *bitmapFont = regFont;
 	
+	glPushAttrib(GL_TEXTURE_BIT | GL_ENABLE_BIT);
+	
+	int count = 0;
 	glDisable(GL_MULTISAMPLE);
-	applyColor(poColor(textColor, appliedAlpha()));
-	atlas->startDrawing(0);
-	for(int i=0; i<numLines(); i++) {
-		BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
-			atlas->cacheGlyph(glyph.glyph);
-			atlas->drawUID(glyph.glyph, glyph.bbox.origin-poPoint(5,5));
-		}
-	}
-	atlas->stopDrawing();
+    
+    // draw regular (NON-RICH) text
+    if( ! _layout.richText() )
+    {
+        bitmapFont->setUpFont();
+        for(int i=0; i<numLines(); i++) 
+        {
+            BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
+            {
+                applyColor( poColor(textColor, appliedAlpha()) );
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+            }
+        }
+        bitmapFont->setDownFont();
+    }
+    
+    // draw RICH text
+    if ( _layout.richText() )
+    {
+        bitmapFont->setUpFont();
+        for(int i=0; i<numLines(); i++) 
+        {
+            BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
+            {
+                applyColor(poColor(textColor, appliedAlpha()));
+                
+                poDictionary dict = _layout.dictionaryForIndex(count);
+                count++;
+                
+                if(dict.has("color"))
+                    applyColor(poColor(dict.getColor("color"), appliedAlpha()));
+                
+                if(dict.has("font")) {
+                    poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));
+                    if(newFont != bitmapFont) {
+                        bitmapFont = newFont;
+                        bitmapFont->setUpFont();
+                    }
+                }
+                else if(bitmapFont != regFont) {
+                    bitmapFont = regFont;
+                    bitmapFont->setUpFont();
+                }
+                
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+            }
+        }
+        bitmapFont->setDownFont();
+    }
+    
+    
+	
 	glEnable(GL_MULTISAMPLE);
+	
+	glPopAttrib();
 }
 
 poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {

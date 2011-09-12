@@ -54,6 +54,18 @@ poRect &poRect::set(poPoint o, poPoint s) {
 	return *this;
 }
 
+bool poRect::set(const std::string &str) {
+	float x, y, w, h;
+	int wrote = sscanf(str.c_str(), "rect(%f,%f,%f,%f)", &x, &y, &w, &h);
+	if(wrote < 4) {
+		set(0,0,0,0);
+		return false;
+	}
+	
+	set(x,y,w,h);
+	return true;
+}
+
 poRect &poRect::include(float x, float y) {
     poPoint maxPoint = origin + size;
     
@@ -129,7 +141,9 @@ std::vector<poPoint> poRect::corners() const {
 }
 
 std::string poRect::toString() const {
-	return (boost::format("%.2f %.2f %.2f %.2f") % origin.x % origin.y % size.x % size.y).str();
+	std::stringstream ss;
+	ss << "rect(" << origin.x << "," << origin.y << "," << size.x << "," << size.y << ")";
+	return ss.str();
 }
 
 poPoint poRect::remap(poRect from, poPoint p) {
@@ -148,9 +162,4 @@ poPoint poRect::remap(poRect from, poPoint p) {
 std::ostream &operator<<(std::ostream &o, const poRect &r) {
 	o << r.toString();
 	return o;
-}
-
-std::istream &operator>>(std::istream &i, poRect &r) {
-	i >> r.origin >> r.size;
-	return i;
 }

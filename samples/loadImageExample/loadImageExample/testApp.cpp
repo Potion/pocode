@@ -33,18 +33,20 @@ void cleanupApplication() {
 testApp::testApp() {
 	addModifier(new poCamera2D());
     
-    //load image from pwd
-    myImage = getImage("images/GH_0002d.jpg");
-//	applicationReshapeWindow(applicationCurrentWindow(), poRect(0,0,myImage->width(),myImage->height()));
+	/**
+	 *	hold an image in the resource store with getImage
+	 *	create new poRectShape and pass it the image texture
+	 *	rect size will equal texture size
+	 *	set alignment to center
+	 *	position image in the center of the screen
+	 *	add to stage
+	 */
 	
-    //create new poRectShape and give it an image to create a texture quickly
-    image = new poRectShape(myImage->width(), myImage->height());
-	image->placeTexture( myImage->texture() );
-    //set alignment to center for horiz and vert
+    myImage = getImage("images/GH_0002d.jpg");
+	
+	image = new poRectShape(myImage->texture());
     image->alignment(PO_ALIGN_CENTER_CENTER);
-    //position image in the center of the screen
     image->position.set(getWindowWidth()/2, getWindowHeight()/2, 0);
-    //add poRect (image) to stage
     addChild(image);
 }
 

@@ -1,43 +1,18 @@
 #include "poMatrixSet.h"
-
-
-poMatrixSet::poMatrixSet() { 
-	memset(modelMatrix, 0, 16*sizeof(GLdouble)); 
-	memset(projectMatrix, 0, 16*sizeof(GLdouble)); 
-	memset(viewport, 0, 4*sizeof(int)); 
-}
-
-bool poMatrixSet::isZero() const { 
-	return (viewport[0]==0.0 && 
-			viewport[1]==0.0 && 
-			viewport[2]==0.0 && 
-			viewport[3]==0.0 ); 
-}
-
-void poMatrixSet::capture() {
-	glGetIntegerv( GL_VIEWPORT, viewport );
-	glGetDoublev( GL_MODELVIEW_MATRIX, modelMatrix );
-	glGetDoublev( GL_PROJECTION_MATRIX, projectMatrix );
-}
+#include <glm/gtc/matrix_transform.hpp>
 
 poPoint poMatrixSet::globalToLocal(poPoint pt) const {
-	GLdouble objX, objY, objZ;
-	GLdouble winX = pt.x, winY = pt.y, winZ = 0;
+	using namespace glm;
 	
-	gluUnProject(winX, winY, winZ,
-				 modelMatrix, projectMatrix, viewport, 
-				 &objX, &objY, &objZ);
-	
-	return poPoint(objX, objY, 0);
+	vec3 win(pt.x, pt.y, pt.z);
+	vec3 response = unProject(win, modelview, projection, viewport);
+	return poPoint(response.x, response.y, response.z);
 }
 
 poPoint poMatrixSet::localToGlobal(poPoint pt) const {
-	GLdouble objX = pt.x, objY = pt.y, objZ = pt.z;
-	GLdouble winX, winY, winZ;
+	using namespace glm;
 	
-	gluProject(objX, objY, objZ ,
-			   modelMatrix, projectMatrix, viewport, 
-			   &winX, &winY, &winZ);
-	
-	return poPoint(winX, winY, 0);
+	vec3 obj(pt.x, pt.y, pt.z);
+	vec3 response = project(obj, modelview, projection, viewport);
+	return poPoint(response.x, response.y, response.z);
 }

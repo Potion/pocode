@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #include "poWindow.h"
 
+static NSLock *lock = [[NSLock alloc] init];
+
 CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								const CVTimeStamp *inNow,
 								const CVTimeStamp *inOutputTime,
@@ -18,20 +20,34 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								void *displayLinkContext)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
-	
-	if(CVDisplayLinkIsRunning(displayLink)) {
-		[self stepApplication];
+
+	[lock lock];
+	if([self canDraw]) {
+		NSOpenGLContext *context = [self openGLContext];
+		CGLContextObj cglcontext = (CGLContextObj)[context CGLContextObj];
+
+		CGLLockContext(cglcontext);
+		[context makeCurrentContext];
+		
+		self.appWindow->makeCurrent();
+		self.appWindow->update();
+		self.appWindow->draw();
+
+		CGLUnlockContext(cglcontext);
+
+		[context flushBuffer];
 	}
-	
+	[lock unlock];
+
 	[pool release];
 	return kCVReturnSuccess;
 }
 
 @implementation poOpenGLView
 
-@synthesize appWindow;
-@synthesize fullscreen;
+@synthesize appWindow, openGLContext=context;
 
 +(NSOpenGLPixelFormat*)defaultPixelFormat {
 	NSOpenGLPixelFormatAttribute attributes[] = {
@@ -50,29 +66,36 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
 }
 
--(id)initWithFrame:(NSRect)frm 
-		   context:(NSOpenGLContext*)cxt
-			window:(poWindow*)win
-{
-	self = [super initWithFrame:frm pixelFormat:[poOpenGLView defaultPixelFormat]];
+-(id)initWithFrame:(NSRect)frm {
+	self = [super initWithFrame:frm];
 	if(self) {
-		self.openGLContext = cxt;
-		
-		[self.openGLContext makeCurrentContext];
-		self.appWindow = win;
-		
 		display_link = nil;
-		self.fullscreen = NO;
+		
+//		[[NSNotificationCenter defaultCenter] addObserverForName:NSViewGlobalFrameDidChangeNotification
+//														  object:self
+//														   queue:nil
+//													  usingBlock:^(NSNotification* notice) {
+//														  [self update];
+//													  }];
+//		
 	}
 	return self;
 }
 
 -(void)dealloc {
+//	[[NSNotificationCenter defaultCenter] removeObserver:self
+//													name:NSViewGlobalFrameDidChangeNotification
+//												  object:self];
+	
 	[self stopAnimating];
 	
-	delete self.appWindow;
-	self.appWindow = nil;
-
+	if(self.appWindow) {
+		delete self.appWindow;
+		self.appWindow = NULL;
+	}
+	
+	self.openGLContext = nil;
+	
 	[super dealloc];
 }
 
@@ -84,50 +107,40 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	return YES;
 }
 
--(void)viewWillMoveToWindow {
-	// lets go ahead and draw one so the framebuffer is ready when we're visible
-	[self stepApplication];
+-(void)update {
+	NSRect rect = [self.window contentRectForFrameRect:self.window.frame];
+	rect.origin = self.window.frame.origin;
+	self.appWindow->resized(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	[context update];
+}
+
+-(void)lockFocus {
+	[super lockFocus];
+	if(context.view != self)
+		[context setView:self];
+	[context makeCurrentContext];
 }
 
 -(void)viewDidMoveToWindow {
-	// make sure we cancelled any notifications we were working with
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResizeNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeScreenNotification object:nil];
+	[super viewDidMoveToWindow];
 	
-	// we were either added or removed from a window
-	if(self.window) {
-		void (^resizeBlock)(NSNotification*) = ^(NSNotification*){
-			if(self.appWindow && self.window) {
-				NSRect rect = [self.window contentRectForFrameRect:self.window.frame];
-				rect.origin = self.window.frame.origin;
-				self.appWindow->resized(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-			}
-		};
-		
-		resizeBlock(nil);
-		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidResizeNotification 
-														  object:self.window
+	NSWindow *window = self.window;
+	if(window) {
+		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidResizeNotification
+														  object:window
 														   queue:nil
-													  usingBlock:resizeBlock];
-
-		[[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidChangeScreenNotification 
-														  object:self.window
-														   queue:nil
-													  usingBlock:^(NSNotification*) {
-														  [self stopAnimating];
-														  [self startAnimating];
+													  usingBlock:^(NSNotification* notice) {
+														  [self update];
 													  }];
-		
 		[self startAnimating];
 	}
 	else {
+		[[NSNotificationCenter defaultCenter] removeObserver:self
+														name:NSWindowDidResizeNotification
+													  object:nil];
+
 		[self stopAnimating];
 	}
-}
-
--(void)viewWillStartLiveResize {
-	[self stopAnimating];
-	[super viewWillStartLiveResize];
 }
 
 -(BOOL)isAnimating {
@@ -145,18 +158,9 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 
 -(void)stopAnimating {
 	if(display_link) {
-		CVDisplayLinkStop(display_link);
 		CVDisplayLinkRelease(display_link);
 		display_link = nil;
 	}
-}
-
--(void)stepApplication {
-	[self.openGLContext makeCurrentContext];
-	self.appWindow->makeCurrent();
-	self.appWindow->update();
-	self.appWindow->draw();
-	[self.openGLContext flushBuffer];
 }
 
 -(void)keyDown:(NSEvent*)event {

@@ -5,9 +5,13 @@
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
+#include "poMatrixStack.h"
+
+static uint PO_OBJECT_UID = 0;
 
 poObject::poObject() 
 :	_parent(NULL)
+,	_uid(PO_OBJECT_UID++)
 ,	name("")
 ,	alpha(1.f)
 ,	scale(1.f, 1.f, 1.f)
@@ -18,7 +22,6 @@ poObject::poObject()
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
-,	events(PO_LAST_EVENT)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
 ,	position_tween(&position)
@@ -32,6 +35,7 @@ poObject::poObject()
 
 poObject::poObject(const std::string &name)
 :	_parent(NULL)
+,	_uid(PO_OBJECT_UID++)
 ,	name(name)
 ,	alpha(1.f)
 ,	scale(1.f, 1.f, 1.f)
@@ -42,7 +46,6 @@ poObject::poObject(const std::string &name)
 ,	bounds(0.f, 0.f, 0.f, 0.f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
-,	events(PO_LAST_EVENT)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	draw_order(0)
 ,	position_tween(&position)
@@ -125,6 +128,18 @@ poObject* poObject::getChild(int idx) {
 	return *(children.begin()+idx);
 }
 
+poObject* poObject::getChildWithUID(uint UID) {
+	BOOST_FOREACH(poObject *obj, children) {
+		poObject *resp = obj->getChildWithUID(UID);
+		if(resp) return resp;
+	}
+	
+	if(UID == uid())
+		return this;
+	
+	return NULL;
+}
+
 poObject* poObject::getChild(const std::string &name) {
 	poObjectVec::iterator iter = std::find_if(children.begin(), children.end(), boost::bind(&poObject::name, _1) == name);
 	if(iter != children.end())
@@ -201,15 +216,28 @@ int poObject::numModifiers() const {
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {
+    
+    // if invisible, return false
 	if(!visible)
 		return false;
 	
-	if(localize) {
-		point.y = getWindowHeight() - point.y;
-		point = globalToLocal(point);
+	// check pointInside for all children
+    BOOST_FOREACH(poObject* obj, children) {
+		if ( obj->pointInside( point, localize ) )
+            return true;
 	}
-	
-	return bounds.contains(point);
+    
+    // if there are children, but no pointInside, return false
+    if ( numChildren() > 0 )
+        return false;
+    
+    // if there are no children, check bounds rect
+    if(localize) 
+    {
+        point.y = getWindowHeight() - point.y;
+        point = globalToLocal(point);
+    }
+    return bounds.contains(point);
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
@@ -274,6 +302,7 @@ poRect poObject::calculateBounds() {
 }
 
 poObject*		poObject::parent() const {return _parent;}
+uint			poObject::uid() const {return _uid;}
 
 bool			poObject::isInWindow() const {return in_window;}
 void			poObject::inWindow(bool b) {
@@ -340,10 +369,58 @@ void poObject::_broadcastEvent(poEvent* event) {
 	poPoint local_point = globalToLocal(event->position);
 	
 	// handle every event like this we have
-	BOOST_FOREACH(poEvent *e, events[event->type]) {
+	BOOST_FOREACH(poEvent *e, poEventCenter::get()->eventsForObject(this,event->type)) {
 		localizeEvent(e, event, local_point);
 		eventHandler(e);
 	}
+}
+
+void poObject::stopAllTweens(bool recurse) {
+	position_tween.stop();
+	scale_tween.stop();
+	offset_tween.stop();
+	alpha_tween.stop();
+	rotation_tween.stop();
+	
+	if(recurse) {
+		BOOST_FOREACH(poObject* obj, children)
+			obj->stopAllTweens(true);
+	}
+}
+
+void poObject::read(poXMLNode node) {
+	_uid = (uint)node.getChild("uid").innerInt();
+	name = node.getChild("name").innerString();
+	position.set(node.getChild("position").innerString());
+	scale.set(node.getChild("scale").innerString());
+	alpha = node.getChild("alpha").innerFloat();
+	rotation = node.getChild("rotation").innerFloat();
+	rotationAxis.set(node.getChild("rotationAxis").innerString());
+	offset.set(node.getChild("offset").innerString());
+	bounds.set(node.getChild("bounds").innerString());
+	visible = node.getChild("visible").innerInt();
+	boundsAreFixed = node.getChild("boundsAreFixed").innerInt();
+	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").innerInt());
+	_alignment = poAlignment(node.getChild("alignment").innerInt());
+	alignment(_alignment);
+}
+
+void poObject::write(poXMLNode &node) {
+	node.addAttribute("type", "poObject");
+
+	node.addChild("uid").setInnerInt(uid());
+	node.addChild("name").setInnerString(name);
+	node.addChild("position").setInnerString(position.toString());
+	node.addChild("scale").setInnerString(scale.toString());
+	node.addChild("alpha").setInnerFloat(alpha);
+	node.addChild("rotation").setInnerFloat(rotation);
+	node.addChild("rotationAxis").setInnerString(rotationAxis.toString());
+	node.addChild("offset").setInnerString(offset.toString());
+	node.addChild("bounds").setInnerString(bounds.toString());
+	node.addChild("visible").setInnerInt(visible);
+	node.addChild("boundsAreFixed").setInnerInt(boundsAreFixed);
+	node.addChild("matrixOrder").setInnerInt(matrixOrder);
+	node.addChild("alignment").setInnerInt(_alignment);
 }
 
 void poObject::updateAllTweens() {
@@ -355,8 +432,6 @@ void poObject::updateAllTweens() {
 }
 
 void poObject::pushObjectMatrix() {
-	glPushMatrix();
-
 	if(_parent) {
 		true_alpha = _parent->true_alpha * alpha;
 	}
@@ -364,32 +439,38 @@ void poObject::pushObjectMatrix() {
 		true_alpha = alpha;
 	}
 	
-	poPoint trans = position;
+	poPoint trans = round(position);
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
+	
+	poMatrixStack *stack = poMatrixStack::get();
+	stack->pushModelview();
 	
 	// now move depending on the matrix order
 	switch(matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
-			glTranslatef(trans.x, trans.y, trans.z);
-			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
-			glScalef(scale.x, scale.y, scale.z);
+			stack->translate(trans);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
 			break;
 			
 		case PO_MATRIX_ORDER_RST:
-			glRotatef(rotation, rotationAxis.x, rotationAxis.y, rotationAxis.z);
-			glScalef(scale.x, scale.y, scale.z);
-			glTranslatef(trans.x, trans.y, trans.z);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			stack->translate(trans);
 			break;
 	}
 
-	glTranslatef(offset.x, offset.y, offset.z);
-	matrices.capture();
+	stack->translate(round(offset));
+	
+	matrices.modelview = stack->getModelview();
+	matrices.projection = stack->getProjection();
+
+	poRect vp = stack->getViewport();
+	matrices.viewport = glm::vec4(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
 }
 
 void poObject::popObjectMatrix() {
-
-	// and reset gl
-	glPopMatrix();
+	poMatrixStack::get()->popModelview();
 }
 
 void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {
@@ -401,5 +482,6 @@ void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoin
 	local_event->uid = global_event->uid;
 	local_event->timestamp = global_event->timestamp;
 	local_event->previous_position = global_event->previous_position;
+	local_event->touchID = global_event->touchID;
 	// don't touch the message or the dictionary
 }

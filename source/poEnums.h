@@ -1,8 +1,17 @@
 #pragma once
 
 
+
+// FILE NOTES
+//
+// This file contains enumerated values used throughough potionCode.
+//
+
+
 #pragma mark - Window Enums
 
+// PO_WINDW_TYPE
+// Used by applicationCreateWindow() prior to application launch
 enum poWindowType {
 	WINDOW_TYPE_NORMAL=0,
 	WINDOW_TYPE_BORDERLESS,
@@ -10,13 +19,16 @@ enum poWindowType {
 };
 
 
-
+// poOrientation
 #pragma mark - General Enums
 enum poOrientation {
 	PO_VERTICAL=0,
 	PO_HORIZONTAL
 };
 
+// poAlignment
+// Used by all poObjects as arguments to the alignment() method.
+// Also used by poTextBoxes in the textAlignment() method.
 enum poAlignment {
 	PO_ALIGN_TOP_LEFT=0,
 	PO_ALIGN_TOP_CENTER,
@@ -28,12 +40,20 @@ enum poAlignment {
 	PO_ALIGN_BOTTOM_CENTER,
 	PO_ALIGN_BOTTOM_RIGHT,
 	
+	// for code clarity in cases where only one direction matters 
+	PO_ALIGN_LEFT	= PO_ALIGN_TOP_LEFT,
+	PO_ALIGN_RIGHT	= PO_ALIGN_TOP_RIGHT,
+	PO_ALIGN_CENTER	= PO_ALIGN_CENTER_CENTER,
+	PO_ALIGN_TOP	= PO_ALIGN_TOP_LEFT,
+	PO_ALIGN_BOTTOM	= PO_ALIGN_BOTTOM_LEFT,
+	
 	PO_ALIGN_NUM_OPTIONS
 };
 
-
 #pragma mark - Matrix enums
 
+// poMatrixOrder
+// Used by poObjects to determine the order of the matrix transormations on every frame.
 enum poMatrixOrder
 {
 	// standard order
@@ -42,13 +62,16 @@ enum poMatrixOrder
 	PO_MATRIX_ORDER_RST
 };
 
-
-
 #pragma mark - Event enums
+
+// PO_EVENT TYPES
+// This is a list of all poEvent types. These are used in addEvent() and in the eventHandker implementations.
 enum {
 	PO_TOUCH_BEGAN_EVENT = 0,
 	PO_TOUCH_ENDED_EVENT,
 	PO_TOUCH_MOVED_EVENT,
+	PO_TOUCH_INSIDE_EVENT,
+	PO_TOUCH_OVER_EVENT,
 	
 	PO_KEY_UP_EVENT,
 	PO_KEY_DOWN_EVENT,
@@ -78,6 +101,8 @@ enum {
 	PO_LAST_EVENT
 };
 
+
+// PO_EVENT SPECIAL KEYS
 enum {
 	// key event mask
 	PO_KEY_CAPS		= 1 << 16,
@@ -90,6 +115,8 @@ enum {
 	PO_FUNCTION_KEY_MASK = 1 << 23,
 };
 
+
+// PO_EVENT MOUSE BUTTON LEFT and RIGHT
 enum {
 	// mouse event mask
 	PO_MOUSE_LEFT	= 1,
@@ -121,7 +148,7 @@ enum {
 
 #pragma mark - Image Enums
 
-// the image bit depth
+// IMAGE DEPTH for poImage
 enum ImageBitDepth {
 	IMAGE_8 = 8,
 	IMAGE_16 = 16,
@@ -131,7 +158,7 @@ enum ImageBitDepth {
 	NUM_IMAGE_DEPTHS
 };
 
-// use these to fit textures in a shape
+// PO TEXTURE FITTING OPTIONS
 enum poTextureFitOption {
 	PO_TEX_FIT_NONE=0,
 	PO_TEX_FIT_EXACT,
@@ -146,6 +173,7 @@ enum poTextureFitOption {
 
 #pragma mark - Stroke Enums
 
+// PO_SHAPE_2D STROKE OPTIONS
 enum poStrokePlacementOption {
 	PO_STROKE_INSIDE=0,
 	PO_STROKE_OUTSIDE,
@@ -173,6 +201,7 @@ enum poStrokeJoinProperty {
 
 #pragma mark - Tween Enums
 
+// PO_TWEEN REPEAT OPTIONS
 enum poTweenRepeat {
 	PO_TWEEN_REPEAT_NONE,
 	PO_TWEEN_REPEAT_REGULAR,

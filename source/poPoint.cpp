@@ -33,8 +33,23 @@ poPoint &poPoint::setPolar(float deg, float mag) {
 	return *this;
 }
 
+bool poPoint::set(const std::string &str) {
+	int count = sscanf(str.c_str(), "point(%f,%f,%f)", &x, &y, &z);
+	if(count == 2)
+		z = 0.f;
+	else if(count < 2) {
+		x = 0;
+		y = 0;
+		z = 0;
+		return false;
+	}
+	return true;
+}
+
 std::string poPoint::toString() const {
-	return (boost::format("%f %f %f")%x%y%z).str();
+	std::stringstream ss;
+	ss << "point(" << x << "," << y << "," << z << ")";
+	return ss.str();
 }
 
 bool poPoint::operator==(poPoint rhs) {
@@ -141,9 +156,4 @@ bool compare(poPoint a, poPoint b, float range) {
 std::ostream &operator<<(std::ostream &o, const poPoint &p) {
 	o << p.toString();
 	return o;
-}
-
-std::istream &operator>>(std::istream &i, poPoint &p) {
-	i >> p.x >> p.y >> p.z;
-	return i;
 }

@@ -64,6 +64,7 @@ XMLApp::XMLApp() {
 	node.addAttribute("attrib1", 50);
 	node.addAttribute("attrib2", 4.2f);
 	node.addAttribute("attrib3", "blank");
+	node.setInnerFloat(100.45f);
 	
 	doc.write("test2.xml");
 	

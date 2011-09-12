@@ -11,11 +11,12 @@ void setupApplication() {
 }
 
 void cleanupApplication() {
+	
 }
 
 MouseEventsApp::MouseEventsApp() {
 	addModifier(new poCamera2D(poColor::grey));
-    
+	
     float width = getWindowWidth();
     float height = getWindowHeight();
 	

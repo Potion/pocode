@@ -54,7 +54,7 @@ poImage::poImage(const poImage &img)
 :	bitmap(NULL)
 ,	tex(NULL)
 {
-	if(img.isValid())
+	if(img)
 		bitmap = FreeImage_Clone(img.bitmap);
 }
 
@@ -62,12 +62,12 @@ poImage::~poImage() {
 	FreeImage_Unload(bitmap);
 	
 	if(tex) {
-		tex->image = NULL;
+		tex->_image = NULL;
 	}
 }
 
 poImage *poImage::copy() {
-	if(!isValid())
+	if(!this->operator bool())
 		return getImage();
 	
 	poImage *response = new poImage();
@@ -75,7 +75,7 @@ poImage *poImage::copy() {
 	return response;
 }
 
-bool poImage::isValid() const {
+poImage::operator bool() const {
 	return bitmap != NULL;
 }
 
@@ -108,7 +108,7 @@ ubyte const*poImage::pixels() const {
 }
 
 poColor poImage::getPixel(poPoint p) const {
-	if(!isValid() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+	if(!this->operator bool() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
 		return poColor();
 
 	uint x = p.x;
@@ -335,6 +335,10 @@ poTexture *poImage::texture(poTextureConfig config) {
 	return tex;
 }
 
+std::string poImage::url() const {
+	return _url;
+}
+
 void poImage::clear() {
 	ubyte color[] = {0,0,0,0};
 	FreeImage_FillBackground(bitmap, &color[0]);
@@ -379,6 +383,7 @@ FIBITMAP *loadDIB(const std::string &url) {
 
 void poImage::load(const std::string &url) {
 	bitmap = loadDIB(url);
+	_url = url;
 }
 
 void poImage::load(const std::string &url, ImageBitDepth bpp) {

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<root type="poShape2D">
+	<fillDrawStyle>6</fillDrawStyle>
+	<fillColor>rgba(0,45,147,255)</fillColor>
+	<strokeColor>rgba(255,127,51,255)</strokeColor>
+	<fillEnabled>1</fillEnabled>
+	<strokeEnabled>1</strokeEnabled>
+	<useSimpleStroke>0</useSimpleStroke>
+	<closed>1</closed>
+	<drawBounds>1</drawBounds>
+	<alphaTestTexture>0</alphaTestTexture>
+	<cap>0</cap>
+	<join>0</join>
+	<stroke_width>10</stroke_width>
+	<points><![CDATA[AAAAAAAAAAAAAAAAAAB7QwAAAAAAAAAAAAB7QwAASUMAAAAAAAAAAAAASUMAAAAA]]></points>
+	<texture url="imgres.jpeg"><![CDATA[AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA]]></texture>
+	<uid>1</uid>
+	<name></name>
+	<position>point(512,384,0)</position>
+	<scale>point(1,1,1)</scale>
+	<alpha>1</alpha>
+	<rotation>0</rotation>
+	<rotationAxis>point(0,0,1)</rotationAxis>
+	<offset>point(-125.5,-100.5,0)</offset>
+	<bounds>rect(0,0,251,201)</bounds>
+	<visible>1</visible>
+	<boundsAreFixed>225</boundsAreFixed>
+	<matrixOrder>0</matrixOrder>
+	<alignment>4</alignment>
+</root>

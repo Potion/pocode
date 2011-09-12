@@ -4,6 +4,7 @@
 
 #include "poColor.h"
 #include "poMath.h"
+#include "Helpers.h"
 
 #define min3(a,b,c) a < b ? (a < c ? a : c) : (b < c ? b : c)
 #define max3(a,b,c) a > b ? (a > c ? a : c) : (b > c ? b : c)
@@ -17,11 +18,10 @@ const poColor poColor::dk_grey = poColor(.25, .25, .25);
 const poColor poColor::red = poColor(1,0,0);
 const poColor poColor::yellow = poColor(1,1,0);
 const poColor poColor::orange = poColor(1.0, 0.5, 0.2);
-const poColor poColor::blue = poColor(0,.18,.58);
-const poColor poColor::green = poColor(.19, .67, .23);
+const poColor poColor::blue = poColor(0,1,0);
+const poColor poColor::green = poColor(0,1,0);
 const poColor poColor::cyan = poColor(0,1,1);
 const poColor poColor::magenta = poColor(1,0,1);
-
 
 poHSVColor rgba2hsv(poColor rgba) {
 	float r = rgba.R * rgba.A;
@@ -102,7 +102,7 @@ poColor::poColor(poColor c, float mult_alpha)
 ,	A(c.A*mult_alpha)
 {}
 
-poColor &poColor::set(float r, float g, float b, float a) {
+poColor& poColor::set(float r, float g, float b, float a) {
 	R = r; 
 	G = g;
 	B = b;
@@ -110,7 +110,7 @@ poColor &poColor::set(float r, float g, float b, float a) {
 	return *this;
 }
 
-poColor &poColor::set255(float r, float g, float b, float a) {
+poColor& poColor::set255(float r, float g, float b, float a) {
 	R = r / 255.f;
 	G = g / 255.f;
 	B = b / 255.f;
@@ -118,8 +118,40 @@ poColor &poColor::set255(float r, float g, float b, float a) {
 	return *this;
 }
 
+poColor& poColor::setHSV(float h, float s, float v, float a)
+{
+    *this = hsv2rgba( poHSVColor(h,s,v) );
+    A = a;
+}
+
+poColor &poColor::set(poColor *fromColor) {
+	R = fromColor->R;
+	G = fromColor->G;
+	B = fromColor->B;
+	A = fromColor->A;
+	return *this;
+}
+
+bool poColor::set(const std::string &str) {
+	int r,g,b,a;
+	
+	int written = sscanf(str.c_str(), "#%2x%2x%2x%2x", &r,&g,&b,&a);
+	
+	if(written == 4)		{set255(r,g,b,a); return true;}
+	else if(written == 3)	{set255(r,g,b,255); return true;}
+	
+	written = sscanf(str.c_str(), "rgb(%d,%d,%d)", &r,&g,&b);
+	if(written == 3)		{set255(r,g,b,255); return true;}
+	
+	written = sscanf(str.c_str(), "rgba(%d,%d,%d,%d)", &r,&g,&b,&a);
+	if(written == 4)		{set255(r,g,b,a); return true;}
+	
+	R = G = B = A = 0.f;
+	return false;
+}
+
 std::string poColor::toString() const {
-	return (boost::format("%f %f %f %f")%R%G%B%A).str();
+	return (boost::format("rgba(%f,%f,%f,%f)")%int(R*255)%int(G*255)%int(B*255)%int(A*255)).str();
 }
 
 
@@ -150,11 +182,6 @@ poHSVColor &poHSVColor::set(float h, float s, float v) {
 std::ostream &operator<<(std::ostream &o, const poColor &c) {
 	o << c.toString();
 	return o;
-}
-
-std::istream &operator>>(std::istream &i, poColor &c) {
-	i >> c.R >> c.G >> c.B >> c.A;
-	return i;
 }
 
 poColor hashPointerForColor(void *ptr) {
