@@ -96,12 +96,15 @@ public:
 	poObject*           getChildWithUID(uint uid);
 	poObject*           getChild(const std::string &with_name);
 	poObject*           getLastChild();
+	std::vector<poObject*>  getChildren(const std::string &with_name);
 	template <typename T> 
     T*                  getChildAs(int idx);
 	template <typename T>
 	T*                  getChildAs(const std::string &name);
 	template <typename T>
 	T*                  getLastChildAs();
+	template <typename T>
+	std::vector<T*>     getChildrenAs(const std::string &name);
 	bool                removeChild(poObject* obj);
 	bool                removeChild(int at_idx, bool and_delete=true);
 	void                removeAllChildren(bool and_delete=true);
@@ -303,6 +306,14 @@ T* poObject::getChildAs(const std::string &name) {
 template <typename T>
 T* poObject::getLastChildAs() {
 	return static_cast<T*>(getLastChild());
+}
+
+template <typename T>
+std::vector<T*> poObject::getChildrenAs(const std::string &name) {
+    std::vector<T*> childrenT;
+	BOOST_FOREACH(poObject *obj, getChildren(name))
+        childrenT.push_back(static_cast<T*>(obj));
+	return childrenT;
 }
 
 template <typename T>
