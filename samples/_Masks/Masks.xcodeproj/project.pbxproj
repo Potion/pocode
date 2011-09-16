@@ -218,6 +218,7 @@
 				E87A9FD113B24E180048947D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

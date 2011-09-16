@@ -153,6 +153,14 @@ poObject* poObject::getLastChild() {
 	return children.back();
 }
 
+std::vector<poObject*> poObject::getChildren(const std::string &name) {
+    std::vector<poObject*> childrenP;
+	BOOST_FOREACH(poObject *obj, children)
+        if(obj->name == name)
+            childrenP.push_back(obj);
+	return childrenP;
+}
+
 int poObject::getChildIndex(poObject* obj) {
 	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
 	if(iter != children.end())

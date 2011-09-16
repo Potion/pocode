@@ -1,12 +1,14 @@
 #include "MasksApp.h"
 
+#include "poMask.h"
 #include "Helpers.h"
 #include "poCamera.h"
 #include "poTextBox.h"
 #include "poDictionary.h"
 #include "poApplication.h"
-#include "poMaskModifier.h"
 #include "poShapeBasics2D.h"
+#include "poResourceStore.h"
+
 
 poObject *createObjectForID(uint uid) {
 	return new MasksApp();
@@ -34,11 +36,11 @@ MasksApp::MasksApp() {
 	addEvent(PO_KEY_DOWN_EVENT, this);
 
 	setupSurprise();
-	setupAperture();
-	setupInstructions();
+//	setupAperture();
+//	setupInstructions();
 	
 	// and start the animation
-	start();
+//	start();
 }
 
 void MasksApp::eventHandler(poEvent *event) {
@@ -57,10 +59,10 @@ void MasksApp::eventHandler(poEvent *event) {
 			}
 			break;
 			
-		case PO_MOUSE_PRESS_EVENT:
+		case PO_MOUSE_DOWN_INSIDE_EVENT:
 		case PO_MOUSE_DRAG_EVENT:
 			// as you drag the image around make sure to also save it in the config file
-			event->source->position(event->position);
+			event->source->position = event->position;
 			poCommon::get()->setPoint("panda position", event->position);
 			break;
 	}
@@ -74,24 +76,24 @@ void MasksApp::setupSurprise() {
 	img->addModifier(new poImageMask("mask.jpg"));
 	
 	// reposition the surprise by clicking and dragging
-	img->addEvent(PO_MOUSE_PRESS_EVENT, this);
+	img->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
 	img->addEvent(PO_MOUSE_DRAG_EVENT, this);
 	
 	// check the settings dictionary for where to put the thing
-	poCommon *common = poCommon::get();
+	poDictionary *common = poCommon::get();
 	std::string key = "panda position";
 	
 	poPoint location(0,0);
 	// if the settings has it
 	if(common->has(key))
 		// move the panda to the right spot
-		img->position(common->getPoint(key));
+		img->position = common->getPoint(key);
 }
 
 void MasksApp::setupAperture() {
 	// make a holder for the leaves of the aperture
 	holder = new poObject();
-	holder->position(getWindowWidth()/2,getWindowHeight()/2,0);
+	holder->position.set(getWindowWidth()/2,getWindowHeight()/2,0);
 	addChild(holder);
 	
 	// make the elements of the aperture
@@ -109,12 +111,12 @@ void MasksApp::setupAperture() {
 		shape->addPoint(p3);
 		
 		// fill out the parameter for this shape
-		shape->fillColor(hashPointerForColor(shape))
-			.fillDrawStyle(GL_TRIANGLES)
+		shape->fillColor = hashPointerForColor(shape);
+		shape->fillDrawStyle = GL_TRIANGLES;
 			// change the order in which transformations get applied
-			.matrixOrder(PO_MATRIX_ORDER_RST)
+		shape->matrixOrder = PO_MATRIX_ORDER_RST;
 			// this is in degrees
-			.rotation(rad2deg(i*step*2.f));
+		shape->rotation = rad2deg(i*step*2.f);
 		
 		// store the triangle in the holder
 		holder->addChild(shape);
@@ -124,10 +126,10 @@ void MasksApp::setupAperture() {
 	poShape2D *circle = new poOvalShape(size*1.7f, size*1.7f, 50);
 	poGeometryMask *mask = new poGeometryMask(circle);
 	// apply the mask
-	holder->addModifier(mask);
+//	holder->addModifier(mask);
 
 	// i'm sticking the circle into the tree so it will get cleaned up when the app exits
-	circle->visible(false);
+	circle->visible = false;
 	addChild(circle);
 }
 
@@ -135,17 +137,15 @@ void MasksApp::setupInstructions() {
 	poTextBox *text = new poTextBox(200,200);
 	addChild(text);
 	
-	poFont reg("Lucida Grande", 20);
-	text->font(&reg)
-		.text("'⌘-o' to open\n"
-			  "'⌘-c' to close\n")
-		.layout();
+	text->font(getFont("Lucida Grande", 20));
+	text->text("'⌘-o' to open\n'⌘-c' to close\n");
+	text->layout();
 }
 
 void MasksApp::start() {
 	// every poObject has a batch of tweens built-in
 	holder->rotation_tween
-		.set(holder->rotation() + 360)
+		.set(holder->rotation + 360)
 		.setTweenFunction(linearFunc)
 		.setDuration(5.f)
 		.setRepeat(PO_TWEEN_REPEAT_REGULAR)
@@ -158,7 +158,7 @@ void MasksApp::stop() {
 
 void MasksApp::open() {
 	for(int i=0; i<holder->numChildren(); i++) {
-		poShape2D *shape = getChildAs<poShape2D>(holder, i);
+		poShape2D *shape = holder->getChildAs<poShape2D>(i);
 		shape->position_tween
 			.set(poPoint(0,100,0))
 			.setTweenFunction(quadInOutFunc)
@@ -169,7 +169,7 @@ void MasksApp::open() {
 
 void MasksApp::close() {
 	for(int i=0; i<holder->numChildren(); i++) {
-		poShape2D *shape = getChildAs<poShape2D>(holder, i);
+		poShape2D *shape = holder->getChildAs<poShape2D>(i);
 		shape->position_tween
 			.set(poPoint(0,0,0))
 			.start();
