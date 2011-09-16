@@ -355,3 +355,7 @@ std::string base64_decode(std::string const& encoded_string) {
 	return ret;
 }
 
+
+int poToInt(std::string s) {
+    return atoi(s.c_str());
+}

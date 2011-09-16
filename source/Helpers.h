@@ -4,6 +4,9 @@
 #include "poFont.h"
 #include "poTexture.h"
 
+#include <sstream>
+#include <boost/lexical_cast.hpp>
+
 // in seconds
 double getTime();
 unsigned int getNumCpus();
@@ -68,4 +71,19 @@ poPoint alignInRect(poPoint max, poRect rect, poAlignment align);
 
 std::string base64_encode(unsigned char const* data, unsigned int len);
 std::string base64_decode(std::string const& s);
+
+
+//Convert anything to string (templated so put it here)
+template <class T>
+inline std::string poToString (const T& t) {
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
+};
+
+
+//Convert to string to int
+int poToInt(std::string s);
+
+
 
