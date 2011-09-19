@@ -1,0 +1,31 @@
+# Compiled Source #
+*.com
+*.class
+*.o
+*.so
+*.obj
+
+# Xcode Noise
+*~.nib
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*.xcworkspace
+xcuserdata/
+build/
+
+# OSX Noise
+.DS_Store
+profile
+
+# SVN Noise
+.svn
+
+# Visual Studio Noise
+*.vcproj.*.user
+*.ncb
+*.aps
+*.suo
+*.htm
