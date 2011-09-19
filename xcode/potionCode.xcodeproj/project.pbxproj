@@ -639,8 +639,8 @@
 					"$(PUGIXML)",
 					"$(SQLITE)",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "$(INSTALL_DIR)include/";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(INSTALL_DIR)include/";
+				PRIVATE_HEADERS_FOLDER_PATH = /include;
+				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SQLITE = /usr/lib/libsqlite3.0.dylib;
 			};
 			name = Release;
@@ -651,11 +651,11 @@
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)/";
 				HEADERS = /PotionCode/source;
-				INSTALL_DIR = /PotionCode/libraries/potionCode;
+				INSTALL_DIR = "$(LIBRARIES)/potionCode";
 				INSTALL_PATH = "$(INSTALL_DIR)";
 				LIBRARIES = /PotionCode/libraries;
-				PRIVATE_HEADERS_FOLDER_PATH = include/;
-				PUBLIC_HEADERS_FOLDER_PATH = include/;
+				PRIVATE_HEADERS_FOLDER_PATH = /include;
+				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SKIP_INSTALL = YES;
 				test = "$(SRCROOT)";
 			};
@@ -676,8 +676,8 @@
 					"$(PUGIXML)",
 					"$(SQLITE)",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "$(INSTALL_DIR)include/";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(INSTALL_DIR)include/";
+				PRIVATE_HEADERS_FOLDER_PATH = /include;
+				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SQLITE = /usr/lib/libsqlite3.0.dylib;
 			};
 			name = Debug;
@@ -706,11 +706,11 @@
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)/";
 				HEADERS = /PotionCode/source;
-				INSTALL_DIR = /PotionCode/libraries/potionCode;
+				INSTALL_DIR = "$(LIBRARIES)/potionCode";
 				INSTALL_PATH = "$(INSTALL_DIR)";
 				LIBRARIES = /PotionCode/libraries;
-				PRIVATE_HEADERS_FOLDER_PATH = include/;
-				PUBLIC_HEADERS_FOLDER_PATH = include/;
+				PRIVATE_HEADERS_FOLDER_PATH = /include;
+				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SKIP_INSTALL = YES;
 				test = "$(SRCROOT)";
 			};
