@@ -523,7 +523,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */;
+			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "potionCode" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -649,9 +649,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug-lib.xcconfig */;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)";
-				INSTALL_DIR = "$(LIBRARIES)/poFramework4/";
+				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)/";
+				HEADERS = /PotionCode/source;
+				INSTALL_DIR = /PotionCode/libraries/potionCode;
 				INSTALL_PATH = "$(INSTALL_DIR)";
+				LIBRARIES = /PotionCode/libraries;
 				PRIVATE_HEADERS_FOLDER_PATH = include/;
 				PUBLIC_HEADERS_FOLDER_PATH = include/;
 				SKIP_INSTALL = YES;
@@ -702,9 +704,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B9A1138B0FE10024BC8C /* Release-lib.xcconfig */;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)";
-				INSTALL_DIR = "$(LIBRARIES)/poFramework4/";
+				CONFIGURATION_BUILD_DIR = "$(INSTALL_DIR)/";
+				HEADERS = /PotionCode/source;
+				INSTALL_DIR = /PotionCode/libraries/potionCode;
 				INSTALL_PATH = "$(INSTALL_DIR)";
+				LIBRARIES = /PotionCode/libraries;
 				PRIVATE_HEADERS_FOLDER_PATH = include/;
 				PUBLIC_HEADERS_FOLDER_PATH = include/;
 				SKIP_INSTALL = YES;
@@ -741,7 +745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "poFramework4" */ = {
+		E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "potionCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8B2D088132E9CA7002BE3D9 /* Release */,
