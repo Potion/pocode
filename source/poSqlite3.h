@@ -40,12 +40,13 @@ public:
 
 class poSqlite3 {
 public:
-	poSqlite3(bool bVerbose=false);
+    poSqlite3(bool bVerbose=false);
+	poSqlite3(std::string url, bool bVerbose=false);
 	virtual ~poSqlite3();
     
     sqlite3 *db;
     
-    bool loadFile(std::string url);
+    bool openDatabase(std::string url);
     
     poSqlite3Result query(std::string query);
      
