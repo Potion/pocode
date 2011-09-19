@@ -177,6 +177,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B9FB09613B1985800C6A86D /* Debug.xcconfig */;
 			buildSettings = {
+				HEADERS = "$(LIBRARIES)/potionCode/include";
+				LIBRARIES = /PotionCode/libraries;
+				POTIONLIB = "$(LIBRARIES)/potionCode";
 			};
 			name = Debug;
 		};
@@ -184,6 +187,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B9FB09813B1985800C6A86D /* Release.xcconfig */;
 			buildSettings = {
+				HEADERS = "$(LIBRARIES)/potionCode/include";
+				LIBRARIES = /PotionCode/libraries;
+				POTIONLIB = "$(LIBRARIES)/potionCode";
 			};
 			name = Release;
 		};
