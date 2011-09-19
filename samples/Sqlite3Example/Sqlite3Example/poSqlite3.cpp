@@ -1,25 +1,15 @@
 #include "poSqlite3.h"
 
-#pragma mark - poSqlite3 -
-
 poSqlite3::poSqlite3(bool bVerbose) {
     this->bVerbose = bVerbose;
 }
-
-
-poSqlite3::poSqlite3(std::string url, bool bVerbose) {
-    this->bVerbose = bVerbose;
-    
-    openDatabase(url);
-}
-
 
 poSqlite3::~poSqlite3() {
     close();
 }
 
 
-bool poSqlite3::openDatabase(std::string url) {
+bool poSqlite3::loadFile(std::string url) {
     int error = sqlite3_open(url.c_str(), &db);
     
     if(error) {
@@ -52,6 +42,7 @@ void poSqlite3::close() {
         bLoaded = false;
     }
 }
+
 
 poSqlite3Result poSqlite3::query(std::string query) {
     poSqlite3Result results;
@@ -128,8 +119,8 @@ poSqlite3Result poSqlite3::query(std::string query) {
 
 
 
-#pragma mark - poSqlite3Result -
-
+//-------------------------------------------------------
+//Result Class
 poSqlite3Result::poSqlite3Result() {
     
 }

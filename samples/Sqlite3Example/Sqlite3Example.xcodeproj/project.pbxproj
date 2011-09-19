@@ -16,6 +16,7 @@
 		E43F4AD4142401BD00D647A7 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43F4AD3142401BD00D647A7 /* main.xib */; };
 		E43F4AD7142401BD00D647A7 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E43F4AD6142401BD00D647A7 /* poOpenGLView.mm */; };
 		E43F4ADB142401BD00D647A7 /* Sqlite3ExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4ADA142401BD00D647A7 /* Sqlite3ExampleApp.cpp */; };
+		E43F4AE7142401FE00D647A7 /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4AE5142401FE00D647A7 /* poSqlite3.cpp */; };
 		E43F4AE91424021D00D647A7 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F4AE81424021D00D647A7 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,8 @@
 		E43F4AD6142401BD00D647A7 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		E43F4AD9142401BD00D647A7 /* Sqlite3ExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sqlite3ExampleApp.h; sourceTree = "<group>"; };
 		E43F4ADA142401BD00D647A7 /* Sqlite3ExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sqlite3ExampleApp.cpp; sourceTree = "<group>"; };
+		E43F4AE5142401FE00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poSqlite3.cpp; sourceTree = "<group>"; };
+		E43F4AE6142401FE00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poSqlite3.h; sourceTree = "<group>"; };
 		E43F4AE81424021D00D647A7 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,6 +99,8 @@
 		E43F4AD8142401BD00D647A7 /* application */ = {
 			isa = PBXGroup;
 			children = (
+				E43F4AE5142401FE00D647A7 /* poSqlite3.cpp */,
+				E43F4AE6142401FE00D647A7 /* poSqlite3.h */,
 				E43F4AD9142401BD00D647A7 /* Sqlite3ExampleApp.h */,
 				E43F4ADA142401BD00D647A7 /* Sqlite3ExampleApp.cpp */,
 			);
@@ -168,6 +173,7 @@
 				E43F4ACF142401BD00D647A7 /* main.m in Sources */,
 				E43F4AD7142401BD00D647A7 /* poOpenGLView.mm in Sources */,
 				E43F4ADB142401BD00D647A7 /* Sqlite3ExampleApp.cpp in Sources */,
+				E43F4AE7142401FE00D647A7 /* poSqlite3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
