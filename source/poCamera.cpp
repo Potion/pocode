@@ -41,13 +41,7 @@ void poCamera::doSetUp( poObject* obj ) {
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
 
-	stack->pushProjection();
 	setProjection();
-
-	if(reset)
-		stack->pushModelview(glm::mat4());
-	else 
-		stack->pushModelview();
 	setModelview();
 }
 
@@ -58,6 +52,14 @@ void poCamera::doSetDown( poObject* obj ) {
 	stack->popProjection();
 	stack->popModelview();
 	stack->popViewport();
+}
+
+void poCamera::setProjection() {
+	poMatrixStack::get()->pushProjection(glm::mat4());
+}
+
+void poCamera::setModelview() {
+	poMatrixStack::get()->pushModelview(glm::mat4());
 }
 
 void poCamera::saveAndUpdateGLSettings() {
@@ -97,13 +99,9 @@ poCamera2D::poCamera2D(poColor clear)
 
 void poCamera2D::setProjection() {
 	poMatrixStack *stack = poMatrixStack::get();
-
-	if(fixedSize())
-		stack->pushProjection(glm::ortho(0.f, fixed_size.x, fixed_size.y, 0.f));
-	else
-		stack->pushProjection(glm::ortho(0.f, getWindowWidth(), getWindowHeight(), 0.f));
+	poRect viewp = stack->getViewport();
+	stack->pushProjection(glm::ortho(viewp.origin.x, viewp.size.x, viewp.origin.y, viewp.size.y));
 }
-
 
 // orthographic camera
 poOrthoCamera::poOrthoCamera()

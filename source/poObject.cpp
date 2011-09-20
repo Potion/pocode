@@ -5,6 +5,8 @@
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
+
+#include "poOpenGLState.h"
 #include "poMatrixStack.h"
 
 static uint PO_OBJECT_UID = 0;
@@ -333,7 +335,7 @@ void poObject::_drawTree() {
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
-    
+	
 	draw();
 	
 	BOOST_FOREACH(poObject* obj, children) {

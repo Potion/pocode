@@ -3,6 +3,9 @@
 #include "LineExtruder.h"
 #include "nanosvg.h"
 #include "poApplication.h"
+
+#include "poShader.h"
+#include "poOpenGLState.h"
 #include "poResourceStore.h"
 
 poShape2D::poShape2D()
@@ -27,18 +30,23 @@ void poShape2D::draw() {
 	
 	// do shape fill
 	if ( fillEnabled ) {
+		poShaderProgram *shader = poOpenGLState::get()->boundShader();
+		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+		
 		// load shape point vertex array
-		glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
+		glEnableVertexAttribArray(0);
 
 		// setup textures and texture coordinates
 		if(texture != NULL) {
 			glPushAttrib(GL_TEXTURE_BIT);
 			
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[0].x));
-			
-			texture->bind();
-			glEnable(GL_TEXTURE_2D);
+			shader->uniform1("tex", (int)0);
+
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(tex_coords[0].x));
+			glEnableVertexAttribArray(1);
+
+			poOpenGLState::get()->bindTexture(texture);
 		}
 
 		// set the color
@@ -48,35 +56,37 @@ void poShape2D::draw() {
 		
 		// disable textures
 		if(texture != NULL) {
-			texture->unbind();
-			glPopAttrib();
+			poOpenGLState::get()->unbindTexture();
 		}
 	}
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		// make sure this stuff is off
-		glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		
 		// set stroke color
 		applyColor(poColor(strokeColor, appliedAlpha()));
+		
+		poShaderProgram *shader = basicProgram1();
+		poOpenGLState::get()->bindShader(shader);
+		
+		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 		
 		// use standard OpenGL stroke or custom generated stroke
 		if ( !useSimpleStroke )
 		{
-			glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(stroke[0]));
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
 		}
 		else
 		{
 			glLineWidth( stroke_width );
-			glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
             if ( closed )
                 glDrawArrays(GL_LINE_LOOP, 0, (int)points.size());
             else
                 glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
 		}
+		
+		poOpenGLState::get()->unbindShader();
 	}
 	
 	// pop attributes
@@ -169,12 +179,16 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	removeAllShaderModifiers(this);
+
 	if(tex) {
 		poRect rect = calculateBounds();
 		
 		tex_coords.clear();
 		tex_coords.resize(points.size());
 		textureFit(rect, tex, fit, align, tex_coords, points);
+		
+		addModifier(basicProgram2());
 	}
 	
 	texture = tex;

@@ -3,6 +3,7 @@
 #include "poCamera.h"
 #include "Helpers.h"
 
+
 poObject *createObjectForID(uint uid) {
 	return new basicShapesApp();
 }
@@ -16,7 +17,8 @@ void cleanupApplication() {
 }
 
 basicShapesApp::basicShapesApp() {
-	addModifier(new poCamera2D(poColor::black));
+	addModifier(new poCamera2D());
+	addModifier(basicProgram1());
     
     // make custom shape, orange
     customShape = new poShape2D();

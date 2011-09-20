@@ -130,6 +130,8 @@ public:
     T*                  addModifier(T* mod);
 	template <typename T>
 	T*                  getModifier(int idx);
+	template <typename T>
+	std::vector<T*>		getModifiers();
 	bool                removeModifier(int idx, bool and_delete=true);
 	bool                removeModifier(poObjectModifier* mod, bool and_delete=true);
     void                removeAllModifiers(bool and_delete=true);
@@ -261,7 +263,6 @@ private:
     //@}
 };
 
-
 /*! THESE METHODS MUST BE PLACED HERE INSTEAD OF THE CPP FILES, BECAUSE THEY ARE TEMPLATED.*/
 
 template <typename T>
@@ -325,6 +326,25 @@ T* poObject::addModifier(T* mod)
 template <typename T>
 T* poObject::getModifier(int idx) {
 	return static_cast<T*>(modifiers[idx]);
+}
+
+template <typename T>
+std::vector<T*> poObject::getModifiers() {
+	std::vector<T*> mods;
+	BOOST_FOREACH(poObjectModifier *mod, modifiers) {
+		T* modT = dynamic_cast<T*>(mod);
+		if(modT)
+			mods.push_back(modT);
+	}
+	return mods;
+}
+
+static std::vector<poShaderProgram*> removeAllShaderModifiers(poObject *obj) {
+	std::vector<poShaderProgram*> programs = obj->getModifiers<poShaderProgram>();
+	BOOST_FOREACH(poShaderProgram *program, programs) {
+		obj->removeModifier(program, false);
+	}
+	return programs;
 }
 
 
