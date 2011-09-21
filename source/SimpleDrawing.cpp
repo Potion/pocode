@@ -3,18 +3,21 @@
 #include "Helpers.h"
 #include "poTexture.h"
 #include "poBitmapFont.h"
+#include "poOpenGLState.h"
+#include "poMatrixStack.h"
 
 #include <cfloat>
 #include <utf8.h>
 #include <boost/assign/list_of.hpp>
 
+static poColor theColor(1.f, 1.f, 1.f, 1.f);
 
 void applyColor(poColor color) {
-	glColor4fv(&color.R);
+	theColor = color;
 }
 
 void applyColor(poColor c, float a) {
-	glColor4f(c.R, c.G, c.B, c.A*a);
+	theColor = poColor(c,a);
 }
 
 void drawQuad(GLenum type, float x, float y, float w, float h) {
@@ -32,11 +35,15 @@ void drawQuad(GLenum type, float x, float y, float w, float h) {
 	
 	if(type == GL_LINE_STRIP || type == GL_LINE_LOOP)
 		std::swap(quad[7], quad[10]);
+
+	poOpenGLState::get()->bindShader(basicProgram1());
+	basicProgram1()->uniform4v("color", &theColor.R, 1);
+	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, quad);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 	glDrawArrays(type, 0, 4);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	
+	poOpenGLState::get()->unbindShader();
 }
 
 void drawStroke(poRect rect) {
@@ -56,10 +63,14 @@ void drawLine(poPoint a, poPoint b) {
 		b.x, b.y, b.z
 	};
 	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, points);
+	poOpenGLState::get()->bindShader(basicProgram1());
+	basicProgram1()->uniform4v("color", &theColor.R, 1);
+	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+	
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
 	glDrawArrays(GL_LINES, 0, 2);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	
+	poOpenGLState::get()->unbindShader();
 }
 
 void drawRect(poRect rect) {
@@ -111,26 +122,17 @@ void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
 //		memcpy(tcoords+row_sz*3, tmp, row_sz);
 	}
 	
-	glPushAttrib(GL_TEXTURE_BIT);
-	glPushClientAttrib(GL_TEXTURE_BIT);
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glClientActiveTexture(GL_TEXTURE0);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	glVertexPointer(3, GL_FLOAT, 0, quad);
-	glTexCoordPointer(2, GL_FLOAT, 0, tcoords);
-	
-	texture->bind(0);
-	
-	glEnable(GL_TEXTURE_2D);
+	poOpenGLState::get()->bindTexture(texture);
+	poOpenGLState::get()->bindShader(basicProgram2());
+	basicProgram1()->uniform4v("color", &theColor.R, 1);
+	basicProgram2()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+	basicProgram2()->uniform1("tex", (int)texture->uid);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	glPopClientAttrib();
-	glPopAttrib();
+	poOpenGLState::get()->unbindTexture();
 }
 
 void drawRect(poTexture* tex, bool flip) {
@@ -138,10 +140,12 @@ void drawRect(poTexture* tex, bool flip) {
 }
 
 void drawPoints(GLenum type, const std::vector<poPoint> &points) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, &points[0]);
+	poOpenGLState::get()->bindShader(basicProgram1());
+	basicProgram1()->uniform4v("color", &theColor.R, 1);
+	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glDrawArrays(type, 0, points.size());
-	glDisableClientState(GL_VERTEX_ARRAY);
+	poOpenGLState::get()->unbindShader();
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
@@ -257,15 +261,17 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 			textureFitVertical(rect, tex, align, coords, points);
 			break;
 			
-		case PO_TEX_FIT_INSIDE:
+		case PO_TEX_FIT_INSIDE: 
+		{
 			float new_h = rect.width() * (tex->height() / (float)tex->width());
-			
 			if(new_h > rect.height())
 				textureFitVertical(rect, tex, align, coords, points);
 			else
 				textureFitHorizontal(rect, tex, align, coords, points);
-			
 			break;
+		}
+		default:
+			;
 	}
 }
 

@@ -1,5 +1,10 @@
 #include "poVBO.h"
 
+#ifdef POTION_IOS
+	#define glMapBuffer glMapBufferOES
+	#define glUnmapBuffer glUnmapBufferOES
+#endif
+
 poVBO::poVBO()
 :	target(GL_ARRAY_BUFFER)
 {

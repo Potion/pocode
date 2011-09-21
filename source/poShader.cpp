@@ -231,18 +231,19 @@ poShaderProgram *basicProgram1() {
 	static poShaderProgram *program = NULL;
 	if(!program) {
 		std::string vert = 
-		"uniform mat4 mvp;"
-		"attribute vec4 position;"
-		"varying vec4 color;"
-		"void main() {"
-		"	color = gl_Color;"
-		"	gl_Position = mvp * position;"
+		"uniform mat4 mvp;\n"
+		
+		"attribute vec4 position;\n"
+		
+		"void main() {\n"
+		"	gl_Position = mvp * position;\n"
 		"}";
 		
 		std::string frag = 
-		"varying vec4 color;"
-		"void main() {"
-		"	gl_FragColor = color;"
+		"uniform vec4 color;\n"
+
+		"void main() {\n"
+		"	gl_FragColor = color;\n"
 		"}";
 		
 		program = new poShaderProgram(vert,frag);
@@ -264,19 +265,17 @@ poShaderProgram *basicProgram2() {
 		"attribute vec2 textureCoordinate;"
 		
 		"varying vec2 texCoord;"
-		"varying vec4 color;"
 		
 		"void main() {"
-		"	color = gl_Color;"
 		"	texCoord = textureCoordinate;"
 		"	gl_Position = mvp * position;"
 		"}";
 		
 		std::string frag = 
+		"uniform vec4 color;\n"
 		"uniform sampler2D tex;\n"
 
 		"varying vec2 texCoord;\n"
-		"varying vec4 color;\n"
 		
 		"void main() {\n"
 		"	vec4 texColor = texture2D(tex,texCoord);\n"

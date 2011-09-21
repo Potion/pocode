@@ -48,9 +48,8 @@ public:
 	// you own this one
 	poImage *copy();
 
-	operator bool() const;
-	
     // IMAGE PROPERTIES
+	bool				isValid() const;
 	uint                width() const;
 	uint                height() const;
 	poPoint             dimensions() const;

@@ -197,7 +197,9 @@ bool poObject::removeModifier(int idx, bool and_delete) {
 		if(and_delete)
 			delete modifiers[idx];
 		modifiers.erase(modifiers.begin() + idx);
+		return true;
 	}
+	return false;
 }
 
 bool poObject::removeModifier(poObjectModifier* mod, bool and_delete) {

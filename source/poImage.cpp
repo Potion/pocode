@@ -54,7 +54,7 @@ poImage::poImage(const poImage &img)
 :	bitmap(NULL)
 ,	tex(NULL)
 {
-	if(img)
+	if(img.isValid())
 		bitmap = FreeImage_Clone(img.bitmap);
 }
 
@@ -67,7 +67,7 @@ poImage::~poImage() {
 }
 
 poImage *poImage::copy() {
-	if(!this->operator bool())
+	if(!isValid())
 		return getImage();
 	
 	poImage *response = new poImage();
@@ -75,7 +75,7 @@ poImage *poImage::copy() {
 	return response;
 }
 
-poImage::operator bool() const {
+bool poImage::isValid() const {
 	return bitmap != NULL;
 }
 
@@ -108,7 +108,7 @@ ubyte const*poImage::pixels() const {
 }
 
 poColor poImage::getPixel(poPoint p) const {
-	if(!this->operator bool() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
+	if(!isValid() || p.x < 0 || p.y < 0 || p.x >= width() || p.y >=height())
 		return poColor();
 
 	uint x = p.x;
@@ -130,6 +130,8 @@ poColor poImage::getPixel(poPoint p) const {
 		case IMAGE_32:
 			ret.set255(bits[x*4+0], bits[x*4+1], bits[x*4+2], bits[x*4+3]);
 			break;
+		default:
+			;
 	}
 	
 	return ret;
@@ -162,6 +164,8 @@ void poImage::setPixel(poPoint p, poColor c) {
 			bits[x*4+2] = c.B * 255;
 			bits[x*4+3] = c.A * 255;
 			break;
+		default:
+			;
 	}
 }
 
@@ -188,6 +192,8 @@ void poImage::changeBpp(ImageBitDepth bpp) {
 			case IMAGE_32:	
 				dst = FreeImage_ConvertTo32Bits(bitmap); 
 				break;
+			default:
+				;
 		}
 		FreeImage_Unload(bitmap);
 		bitmap = dst;

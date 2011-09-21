@@ -34,9 +34,8 @@ poBitmapFont::~poBitmapFont() {}
 void poBitmapFont::cacheGlyph(uint glyph) {
 	if(!hasUID(glyph)) {
 		// if we're in the middle of drawing we have to do this to avoid a flash in the texture
-		int bound_page, bound_unit;
-		bool bound = bindInfo(&bound_page, &bound_unit);
-		if(bound)
+		bool drawing = isDrawing();
+		if(drawing)
 			stopDrawing();
 		
 		_font->pointSize(size);
@@ -48,14 +47,14 @@ void poBitmapFont::cacheGlyph(uint glyph) {
 		
 		delete img;
 		
-		if(bound)
-			startDrawing(bound_unit);
+		if(drawing)
+			startDrawing();
 	}
 }
 
 void    poBitmapFont::drawSingleGlyph( uint glyph, poPoint position )
 {
-    startDrawing(0);
+    startDrawing();
     cacheGlyph(glyph);
     drawUID( glyph, position );
     stopDrawing();
@@ -69,7 +68,7 @@ void    poBitmapFont::drawGlyph( uint glyph, poPoint position )
 
 void    poBitmapFont::setUpFont()
 {
-    startDrawing(0);
+    startDrawing();
 }
 
 void    poBitmapFont::setDownFont()

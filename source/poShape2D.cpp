@@ -24,10 +24,6 @@ poShape2D::poShape2D()
 {}
 
 void poShape2D::draw() {
-	// push attributes
-	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	
 	// do shape fill
 	if ( fillEnabled ) {
 		poShaderProgram *shader = poOpenGLState::get()->boundShader();
@@ -39,8 +35,6 @@ void poShape2D::draw() {
 
 		// setup textures and texture coordinates
 		if(texture != NULL) {
-			glPushAttrib(GL_TEXTURE_BIT);
-			
 			shader->uniform1("tex", (int)0);
 
 			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(tex_coords[0].x));
@@ -89,8 +83,6 @@ void poShape2D::draw() {
 		poOpenGLState::get()->unbindShader();
 	}
 	
-	// pop attributes
-	glPopClientAttrib();
 	
 	if(drawBounds) {
 		applyColor(poColor::red);
@@ -272,7 +264,7 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	}
 	
 	// test point inside for given drawstyle
-	if ( (fillDrawStyle == GL_POLYGON || fillDrawStyle == GL_TRIANGLE_FAN) && points.size() >= 3 )
+	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 )
 	{
 		for( int i=1; i<points.size()-1; i++ )
 			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
@@ -352,7 +344,7 @@ void poShape2D::write(poXMLNode &node) {
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
 	node.addChild("points").handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
 		
-	if(texture && texture->image() && *(texture->image())) {
+	if(texture && texture->image() && texture->image()->isValid()) {
 		poXMLNode tex = node.addChild("texture");
 		// this is only going to work in the most simple case
 		tex.addAttribute("url",texture->image()->url());

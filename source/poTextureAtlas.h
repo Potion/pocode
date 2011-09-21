@@ -30,7 +30,7 @@ public:
 	poTexture*      textureForPage(uint pg);
 	
 	// start drawing sets up the texture state
-	void            startDrawing(uint unit=0);
+	void            startDrawing();
     
 	// draws will shift the texture as needed,
 	// tho user can look at the pages for what it wants to draw and
@@ -44,14 +44,13 @@ public:
 	// reset the texture state to what it was
 	void            stopDrawing();
 
-    bool            bindInfo(int *bound_page, int *bound_unit);
+    bool            isDrawing();
 
 protected:
 	virtual poPoint originAdjust() {return poPoint();}
 	
 private:
 	void            clearPages();
-	void            bindPage(uint page);
 	
 	struct ImageLookup {
 		uint page;
@@ -77,6 +76,6 @@ private:
     
 	// this is the configuration we want for the atlas
 	poTextureConfig             config;
-	// store the last bound page so we can avoid rebinding
-	int                         bound_page, unit;
+	
+	bool						is_drawing;
 };

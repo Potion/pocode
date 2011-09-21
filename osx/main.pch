@@ -1,13 +1,20 @@
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/glu.h>
 
-#include <string>
-#include <vector>
+#ifdef POTION_IOS
+	#include <OpenGLES/ES2/gl.h>
+	#include <OpenGLES/ES2/glext.h>
+#else
+	#include <OpenGL/OpenGL.h>
+	#include <OpenGL/glu.h>
+#endif
+
+#include <map>
 #include <set>
 #include <list>
+#include <string>
+#include <vector>
 #include <stack>
-#include <map>
 #include <algorithm>
+#include <iostream>
 
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
@@ -25,9 +32,6 @@
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
-
-#include "tinyxml.h"
-#include "xpath_static.h"
 
 typedef unsigned int uint;
 typedef unsigned char ubyte;

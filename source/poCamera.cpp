@@ -63,8 +63,6 @@ void poCamera::setModelview() {
 }
 
 void poCamera::saveAndUpdateGLSettings() {
-	glPushAttrib(GL_COLOR_BUFFER_BIT | GL_VIEWPORT_BIT);
-	
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 
@@ -73,7 +71,6 @@ void poCamera::saveAndUpdateGLSettings() {
 }
 
 void poCamera::restoreGLSettings() {
-	glPopAttrib();
 }
 
 bool poCamera::clearsBackground() const {return clears_background;}
@@ -149,7 +146,7 @@ poRect poOrthoCamera::get() const {
 }
 
 void poOrthoCamera::setProjection() {
-	glOrtho(x1, x2, y2, y1, near, far);
+	poMatrixStack::get()->pushProjection(glm::ortho(x1,x2,y2,y1,near,far));
 }
 
 

@@ -9,6 +9,7 @@
 #include "poTexture.h"
 #include "poImage.h"
 #include "Helpers.h"
+#include "poOpenGLState.h"
 
 GLenum formatForBitDepth(ImageBitDepth bpp) {
 	switch(bpp) {
@@ -20,6 +21,8 @@ GLenum formatForBitDepth(ImageBitDepth bpp) {
 			return GL_RGB;
 		case IMAGE_32:
 			return GL_RGBA;
+		default:
+			return 0;
 	}
 	return GL_LUMINANCE;
 }
@@ -43,25 +46,25 @@ bool formatsForBitDepth(ImageBitDepth bpp, GLenum *format, GLenum *internal_form
 	switch(bpp) {
 		case IMAGE_8:
 			*format = GL_LUMINANCE;
-			*internal_format = GL_LUMINANCE8;
+			*internal_format = GL_LUMINANCE;
 			*type = GL_UNSIGNED_BYTE;
 			return true;
 			
 		case IMAGE_16:
-			*format = GL_LUMINANCE8_ALPHA8;
-			*internal_format = 2;
+			*format = GL_LUMINANCE_ALPHA;
+			*internal_format = GL_LUMINANCE_ALPHA;
 			*type = GL_UNSIGNED_BYTE;
 			return true;
 			
 		case IMAGE_24:
 			*format = GL_RGB;
-			*internal_format = GL_RGB8;
+			*internal_format = GL_RGB;
 			*type = GL_UNSIGNED_BYTE;
 			return true;
 			
 		case IMAGE_32:
 			*format = GL_RGBA;
-			*internal_format = GL_RGBA8;
+			*internal_format = GL_RGBA;
 			*type = GL_UNSIGNED_BYTE;
 			return true;
 			
@@ -94,18 +97,18 @@ size_t bytesForPixelFormat(GLenum format) {
 GLenum internalForFormat(GLenum f) {
 	switch(f) {
 		case GL_LUMINANCE:
-			return GL_LUMINANCE8;
+			return GL_LUMINANCE;
 		case GL_ALPHA:
-			return GL_ALPHA8;
+			return GL_ALPHA;
 		case GL_LUMINANCE_ALPHA:
-			return GL_LUMINANCE8_ALPHA8;
+			return GL_LUMINANCE_ALPHA;
 		case GL_RGB:
-			return GL_RGB8;
+			return GL_RGB;
 		case GL_RGBA:
-			return GL_RGBA8;
+			return GL_RGBA;
 		default:
 			log("poTexture: unsupported texture format (%s)\n", f);
-			return GL_LUMINANCE8;
+			return GL_LUMINANCE;
 	}
 }
 
@@ -115,8 +118,13 @@ poTextureConfig::poTextureConfig()
 ,	type(GL_UNSIGNED_BYTE)
 ,	minFilter(GL_NEAREST)
 ,	magFilter(GL_NEAREST)
+#ifdef POTION_IOS
+,	wrapS(GL_CLAMP_TO_EDGE)
+,	wrapT(GL_CLAMP_TO_EDGE)
+#else
 ,	wrapS(GL_CLAMP_TO_BORDER)
 ,	wrapT(GL_CLAMP_TO_BORDER)
+#endif
 {}
 
 poTextureConfig::poTextureConfig(GLenum format)
@@ -125,8 +133,13 @@ poTextureConfig::poTextureConfig(GLenum format)
 ,	type(GL_UNSIGNED_BYTE)
 ,	minFilter(GL_NEAREST)
 ,	magFilter(GL_NEAREST)
+#ifdef POTION_IOS
+,	wrapS(GL_CLAMP_TO_EDGE)
+,	wrapT(GL_CLAMP_TO_EDGE)
+#else
 ,	wrapS(GL_CLAMP_TO_BORDER)
 ,	wrapT(GL_CLAMP_TO_BORDER)
+#endif
 {}
 
 poTexture::poTexture()
@@ -142,7 +155,7 @@ poTexture::poTexture(poImage *img)
 ,	_width(0)
 ,	_height(0)
 {
-	if(img && *img) {
+	if(img && img->isValid()) {
 		_image = img;
 		formatsForBitDepth(_image->bpp(), &config.format, &config.internalFormat, &config.type);
 		load();
@@ -155,7 +168,7 @@ poTexture::poTexture(poImage *img, poTextureConfig cfg)
 ,	_width(0)
 ,	_height(0)
 {
-	if(img && *img) {
+	if(img && img->isValid()) {
 		_image = img;
 		config = cfg;
 		load();
@@ -185,56 +198,66 @@ bool poTexture::opaqueAtPoint(poPoint p) const {
 }
 
 poColor poTexture::colorAtPoint(poPoint p) const {
-	if(_image && *_image)
+	if(_image && _image->isValid())
 		return _image->getPixel(p);
 	return poColor();
 }
 
 uint poTexture::width() const {
-	if(_image && *_image)
+	if(_image && _image->isValid())
 		return _image->width();
 	return _width;
 }
 
 uint poTexture::height() const {
-	if(_image && *_image)
+	if(_image && _image->isValid())
 		return _image->height();
 	return _height;
 }
 
 void poTexture::load() {
 	if(!isLoaded()) {
-		if(_image != NULL && *_image) {
+		float w, h;
+		const ubyte *pix;
+		
+		if(_image != NULL && _image->isValid()) {
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+#ifndef POTION_IOS
+			// sucks that this doesn't exist with opengl es
+			// we'll cross this bridge later if necessary
+			// possible solution is at
+			// http://stackoverflow.com/questions/205522/opengl-subtexturing/205569#205569
 			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, _image->pitch());
+#endif			
+			w = _image->width();
+			h = _image->height();
+			pix = _image->pixels();
 			
-			glGenTextures(1, &uid);
-			glBindTexture(GL_TEXTURE_2D, uid);
-			
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
-			float trans[] = {0.f, 0.f, 0.f, 0.f};
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-
-			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, _image->width(), _image->height(), 0, config.format, config.type, _image->pixels());
-			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		else if(_width > 0 && _height > 0) {
-			glGenTextures(1, &uid);
-			glBindTexture(GL_TEXTURE_2D, uid);
-			
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
-			float trans[] = {0.f, 0.f, 0.f, 0.f};
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-			
-			glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, _width, _height, 0, config.format, config.type, NULL);
-			glBindTexture(GL_TEXTURE_2D, 0);
+			w = _width;
+			h = _height;
+			pix = NULL;
 		}
+		
+		glGenTextures(1, &uid);
+		glBindTexture(GL_TEXTURE_2D, uid);
+		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+#ifdef POTION_IOS
+		// we'll probably need to modify the default texture shader to deal with this
+		// see this thread from cairo
+		// http://lists.freedesktop.org/archives/cairo/2011-February/021715.html
+#else
+		float trans[] = {0.f, 0.f, 0.f, 0.f};
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+#endif
+
+		glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, w, h, 0, config.format, config.type, pix);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
 
@@ -253,14 +276,12 @@ poImage const *poTexture::image() const {
 	return _image;
 }
 
-void poTexture::bind(uint unit) const {
-	glActiveTexture(GL_TEXTURE0+unit);
-	glBindTexture(GL_TEXTURE_2D, uid);
+void poTexture::bind() {
+	poOpenGLState::get()->bindTexture(this);
 }
 
-void poTexture::unbind(uint unit) const {
-	glActiveTexture(GL_TEXTURE0+unit);
-	glBindTexture(GL_TEXTURE_2D, 0);
+void poTexture::unbind() {
+	poOpenGLState::get()->unbindTexture();
 }
 
 //void loadNotFound() {

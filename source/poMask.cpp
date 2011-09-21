@@ -9,6 +9,7 @@
 #include "poMask.h"
 #include "Helpers.h"
 #include "SimpleDrawing.h"
+#include "poOpenGLState.h"
 #include "poResourceStore.h"
 
 // ============ poGeometryMask =============== //
@@ -35,16 +36,14 @@ bool poGeometryMask::pointInside(poPoint p) {
 }
 
 void poGeometryMask::doSetUp( poObject* obj ) {
-	
     if(shape) {
 		if(clears_stencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
         
 		poMatrixStack::get()->pushModelview();
         applyObjTransform(shape);
-        
-        glPushAttrib(GL_STENCIL_BUFFER_BIT);
-        glEnable(GL_STENCIL_TEST);
+  
+		poOpenGLState::get()->enable(GL_STENCIL_TEST);
     
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
         glStencilFunc(GL_ALWAYS, 1, 1);
@@ -60,7 +59,7 @@ void poGeometryMask::doSetUp( poObject* obj ) {
 
 void poGeometryMask::doSetDown( poObject* obj ) {
 	if(shape)
-		glPopAttrib();
+		poOpenGLState::get()->disable(GL_STENCIL_TEST);
 }
 
 
@@ -82,7 +81,6 @@ bool poImageMask::pointInside(poPoint p) {
 void poImageMask::doSetUp( poObject* obj ) {
 	my_obj = obj;
 	
-	glPushAttrib(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	
 //	glClear(GL_STENCIL_BUFFER_BIT);
@@ -94,7 +92,6 @@ void poImageMask::doSetUp( poObject* obj ) {
 }
 
 void poImageMask::doSetDown( poObject* obj ) {
-	glPopAttrib();
 }
 
 
