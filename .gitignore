@@ -1,3 +1,6 @@
+#Staging (build) dirs for libs
+staging/
+
 # Compiled Source #
 *.com
 *.class
