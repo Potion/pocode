@@ -3,7 +3,7 @@
 
 using namespace glm;
 
-boost::thread_specific_ptr<poMatrixStack> instance;
+static boost::thread_specific_ptr<poMatrixStack> instance;
 
 poMatrixStack *poMatrixStack::get() {
 	if(!instance.get())
@@ -36,12 +36,14 @@ glm::mat4 poMatrixStack::getModelview()	{return modelview.top();}
 glm::mat4 poMatrixStack::getProjection(){return projection.top();}
 poRect poMatrixStack::getViewport()		{return viewport.top();}
 
+glm::mat4 poMatrixStack::transformation() {return projection.top() * modelview.top();}
+
 // set it to opengl
 void poMatrixStack::load() {
 	poRect vp = viewport.top();
 	glScissor(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
 	glViewport(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
-	glLoadMatrixf(value_ptr(projection.top() * modelview.top()));
+//	glLoadMatrixf(value_ptr(projection.top() * modelview.top()));
 }
 
 // modify the top modelview

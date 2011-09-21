@@ -54,8 +54,8 @@ protected:
 	virtual void        doSetUp( poObject* obj );
     virtual void        doSetDown( poObject* obj );
 
-	virtual void        setProjection() = 0;
-	virtual void        setModelview() {}
+	virtual void        setProjection();
+	virtual void        setModelview();
 	virtual void        saveAndUpdateGLSettings();
 	virtual void        restoreGLSettings();
 	

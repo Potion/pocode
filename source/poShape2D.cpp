@@ -3,6 +3,9 @@
 #include "LineExtruder.h"
 #include "nanosvg.h"
 #include "poApplication.h"
+
+#include "poShader.h"
+#include "poOpenGLState.h"
 #include "poResourceStore.h"
 
 poShape2D::poShape2D()
@@ -21,24 +24,23 @@ poShape2D::poShape2D()
 {}
 
 void poShape2D::draw() {
-	// push attributes
-	glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	
 	// do shape fill
 	if ( fillEnabled ) {
+		poShaderProgram *shader = poOpenGLState::get()->boundShader();
+		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+		
 		// load shape point vertex array
-		glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
+		glEnableVertexAttribArray(0);
 
 		// setup textures and texture coordinates
 		if(texture != NULL) {
-			glPushAttrib(GL_TEXTURE_BIT);
-			
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glTexCoordPointer(2, GL_FLOAT, sizeof(poPoint), &(tex_coords[0].x));
-			
-			texture->bind();
-			glEnable(GL_TEXTURE_2D);
+			shader->uniform1("tex", (int)0);
+
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(tex_coords[0].x));
+			glEnableVertexAttribArray(1);
+
+			poOpenGLState::get()->bindTexture(texture);
 		}
 
 		// set the color
@@ -48,39 +50,39 @@ void poShape2D::draw() {
 		
 		// disable textures
 		if(texture != NULL) {
-			texture->unbind();
-			glPopAttrib();
+			poOpenGLState::get()->unbindTexture();
 		}
 	}
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		// make sure this stuff is off
-		glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		
 		// set stroke color
 		applyColor(poColor(strokeColor, appliedAlpha()));
+		
+		poShaderProgram *shader = basicProgram1();
+		poOpenGLState::get()->bindShader(shader);
+		
+		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 		
 		// use standard OpenGL stroke or custom generated stroke
 		if ( !useSimpleStroke )
 		{
-			glVertexPointer(3, GL_FLOAT, sizeof(poPoint), &(stroke[0]));
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(stroke[0]));
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
 		}
 		else
 		{
 			glLineWidth( stroke_width );
-			glVertexPointer(3, GL_FLOAT, 0, &(points[0].x));
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
             if ( closed )
                 glDrawArrays(GL_LINE_LOOP, 0, (int)points.size());
             else
                 glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
 		}
+		
+		poOpenGLState::get()->unbindShader();
 	}
 	
-	// pop attributes
-	glPopClientAttrib();
 	
 	if(drawBounds) {
 		applyColor(poColor::red);
@@ -169,12 +171,16 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	removeAllShaderModifiers(this);
+
 	if(tex) {
 		poRect rect = calculateBounds();
 		
 		tex_coords.clear();
 		tex_coords.resize(points.size());
 		textureFit(rect, tex, fit, align, tex_coords, points);
+		
+		addModifier(basicProgram2());
 	}
 	
 	texture = tex;
@@ -258,7 +264,7 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	}
 	
 	// test point inside for given drawstyle
-	if ( (fillDrawStyle == GL_POLYGON || fillDrawStyle == GL_TRIANGLE_FAN) && points.size() >= 3 )
+	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 )
 	{
 		for( int i=1; i<points.size()-1; i++ )
 			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
@@ -338,7 +344,7 @@ void poShape2D::write(poXMLNode &node) {
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
 	node.addChild("points").handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
 		
-	if(texture && texture->image() && *(texture->image())) {
+	if(texture && texture->image() && texture->image()->isValid()) {
 		poXMLNode tex = node.addChild("texture");
 		// this is only going to work in the most simple case
 		tex.addAttribute("url",texture->image()->url());

@@ -5,18 +5,22 @@
 #include "BinPacker.h"
 #include "Helpers.h"
 
+#include "poShader.h"
+#include "poMatrixStack.h"
+#include "poOpenGLState.h"
+
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	config(f)
-,	bound_page(-1)
+,	is_drawing(false)
 {}
 
 poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	config(c)
-,	bound_page(-1)
+,	is_drawing(false)
 {}
 
 poTextureAtlas::~poTextureAtlas() {
@@ -130,33 +134,16 @@ void poTextureAtlas::clearPages() {
 	uids.clear();
 }
 
-void poTextureAtlas::startDrawing(uint unit) {
-	this->unit = unit;
-	if(bound_page >= 0)
-		stopDrawing();
-	
-	glPushAttrib(GL_TEXTURE_BIT);
-	glPushClientAttrib(GL_TEXTURE_BIT);
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	
-	glClientActiveTexture(GL_TEXTURE0+unit);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	glEnable(GL_TEXTURE_2D);
-}
-
-void poTextureAtlas::bindPage(uint page) {
-	if(page != bound_page) {
-		textures[page]->bind(unit);
-		bound_page = page;
-	}
+void poTextureAtlas::startDrawing() {
+	is_drawing = true;
+	poOpenGLState::get()->bindTexture(textures[0]);
+	poOpenGLState::get()->bindShader(basicProgram2());
 }
 
 void poTextureAtlas::drawUID(uint uid, poRect rect) {
 	if(hasUID(uid)) {
 		uint page = pageForUID(uid);
-		bindPage(page);
+		poOpenGLState::get()->bindTexture(textures[page]);
 		
 		poRect size = sizeForUID(uid);
 		poRect coords = coordsForUID(uid);
@@ -176,9 +163,11 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 			coords.origin.x+coords.size.x, coords.origin.y,
 			coords.origin.x+coords.size.x, coords.origin.y+coords.size.y
 		};
-		
-		glVertexPointer(3, GL_FLOAT, 0, quad);
-		glTexCoordPointer(2, GL_FLOAT, 0, tcoords);
+
+		basicProgram2()->uniform1("tex", (int)textures[page]->uid);
+		basicProgram2()->uniformMat4("transformation", glm::value_ptr(poMatrixStack::get()->transformation()));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 }
@@ -188,28 +177,13 @@ void poTextureAtlas::drawUID(uint uid, poPoint p) {
 }
 
 void poTextureAtlas::stopDrawing() {
-	if(bound_page >=0) {
-		textures[bound_page]->unbind(unit);
-		bound_page = -1;
-	}
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	glPopClientAttrib();
-	glPopAttrib();
+	poOpenGLState::get()->unbindTexture();
+	poOpenGLState::get()->unbindShader();
+	is_drawing = false;
 }
 
-bool poTextureAtlas::bindInfo(int *bp, int *bu) {
-	if(bound_page >= 0) {
-		*bp = bound_page;
-		*bu = unit;
-		return true;
-	}
-	return false;
+bool poTextureAtlas::isDrawing() {
+	return is_drawing;
 }
 
 

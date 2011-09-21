@@ -5,6 +5,8 @@
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
+
+#include "poOpenGLState.h"
 #include "poMatrixStack.h"
 
 static uint PO_OBJECT_UID = 0;
@@ -195,7 +197,9 @@ bool poObject::removeModifier(int idx, bool and_delete) {
 		if(and_delete)
 			delete modifiers[idx];
 		modifiers.erase(modifiers.begin() + idx);
+		return true;
 	}
+	return false;
 }
 
 bool poObject::removeModifier(poObjectModifier* mod, bool and_delete) {
@@ -333,7 +337,7 @@ void poObject::_drawTree() {
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
-    
+	
 	draw();
 	
 	BOOST_FOREACH(poObject* obj, children) {

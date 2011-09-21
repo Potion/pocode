@@ -17,7 +17,12 @@
 #include <sys/param.h>
 #include <sys/sysctl.h>
 
-#include <Cocoa/Cocoa.h>
+#ifdef POTION_IOS
+	#include <UIKit/UIKit.h>
+#else
+	#include <Cocoa/Cocoa.h>
+#endif
+
 #include <Foundation/Foundation.h>
 
 double getTime() {
@@ -40,19 +45,16 @@ unsigned int getNumCpus() {
     return (unsigned int)count;
 }
 
-#if not defined(TESTING)
 poPoint deviceResolution() {
+#ifdef POTION_IOS
+#else
 	NSWindow *window = (NSWindow*)applicationCurrentWindow()->getWindowHandle();
 	NSScreen *screen = [window screen];
 	
 	NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
 	return poPoint(size.width, size.height);
-}
-#else
-poPoint deviceResolution() {
-	return poPoint(72,72);
-}
 #endif
+}
 
 void setCurrentPath(const fs::path &path) {
 	NSString *nsstr = [NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding];
@@ -188,7 +190,6 @@ void startMasking(poShape2D *mask) {
 	poMatrixStack::get()->pushModelview();
 	applyObjTransform(mask);
 	
-	glPushAttrib(GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_STENCIL_TEST);
 	
 //	glClear(GL_STENCIL_BUFFER_BIT);
@@ -205,7 +206,7 @@ void startMasking(poShape2D *mask) {
 }
 
 void stopMasking() {
-	glPopAttrib();
+	glDisable(GL_STENCIL_TEST);
 }
 
 void log(const char *format, ...) {

@@ -18,6 +18,7 @@
 #include <stack>
 
 #include "poRect.h"
+#include "poShader.h"
 
 class poMatrixStack : boost::noncopyable {
 public:
@@ -41,6 +42,9 @@ public:
 	glm::mat4 getModelview();
 	glm::mat4 getProjection();
 	poRect getViewport();
+	
+	// projection * modelview
+	glm::mat4 transformation();
 
 	// set it to opengl
 	void load();

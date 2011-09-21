@@ -16,7 +16,11 @@
 
 #elif defined __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
-#include <ApplicationServices/ApplicationServices.h>
+#ifdef POTION_IOS
+	#include <CoreText/CoreText.h>
+#else
+	#include <ApplicationServices/ApplicationServices.h>
+#endif
 
 bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
 	CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);

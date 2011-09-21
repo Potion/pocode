@@ -18,6 +18,7 @@ staging/
 *.xcworkspace
 xcuserdata/
 build/
+projects/
 
 # OSX Noise
 .DS_Store

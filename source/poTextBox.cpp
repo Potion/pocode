@@ -165,10 +165,7 @@ void poTextBox::draw() {
 	poBitmapFont *regFont = getBitmapFont(this->font());
 	poBitmapFont *bitmapFont = regFont;
 	
-	glPushAttrib(GL_TEXTURE_BIT | GL_ENABLE_BIT);
-	
 	int count = 0;
-	glDisable(GL_MULTISAMPLE);
     
     // draw regular (NON-RICH) text
     if( ! _layout.richText() )
@@ -218,12 +215,6 @@ void poTextBox::draw() {
         }
         bitmapFont->setDownFont();
     }
-    
-    
-	
-	glEnable(GL_MULTISAMPLE);
-	
-	glPopAttrib();
 }
 
 poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth, float rad) {
