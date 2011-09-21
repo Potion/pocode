@@ -165,7 +165,11 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 		};
 
 		basicProgram2()->uniform1("tex", (int)textures[page]->uid);
-		basicProgram2()->uniformMat4("transformation", glm::value_ptr(poMatrixStack::get()->transformation()));
+
+        poColor curr = currentColor();
+        basicProgram2()->uniform4v("color", &curr.R, 1);
+		
+        basicProgram2()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

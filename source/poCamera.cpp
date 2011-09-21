@@ -97,7 +97,7 @@ poCamera2D::poCamera2D(poColor clear)
 void poCamera2D::setProjection() {
 	poMatrixStack *stack = poMatrixStack::get();
 	poRect viewp = stack->getViewport();
-	stack->pushProjection(glm::ortho(viewp.origin.x, viewp.size.x, viewp.origin.y, viewp.size.y));
+	stack->pushProjection(glm::ortho(viewp.origin.x, viewp.size.x + viewp.origin.x, viewp.size.y + viewp.origin.y, viewp.origin.y));
 }
 
 // orthographic camera

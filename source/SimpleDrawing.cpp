@@ -20,6 +20,10 @@ void applyColor(poColor c, float a) {
 	theColor = poColor(c,a);
 }
 
+poColor currentColor() {
+    return theColor;
+}
+
 void drawQuad(GLenum type, float x, float y, float w, float h) {
 	x = floor(x) + .5f;
 	y = floor(y) + .5f;
