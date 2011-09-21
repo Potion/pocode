@@ -21,8 +21,8 @@ GCC_PREFIX_HEADER	= platform/main.pch
 
 GCC_WARN_CHECK_SWITCH_STATEMENTS = NO
 
-HEADERS				= /Potion/poFramework/poFramework4/source
-LIBRARIES			= /Potion/libraries
+HEADERS				= /PotionCode/source
+LIBRARIES			= /PotionCode/libraries
 BOOST				= $(LIBRARIES)/Boost/boost_1_45_0
 BOOSTL				= $(BOOST)/stage/lib
 FREEIMAGE			= $(LIBRARIES)/FreeImage
