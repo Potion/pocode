@@ -71,7 +71,7 @@ public:
 	void            touchBegin(int x, int y, int id, int tapCount );
 	void            touchMove(int x, int y, int id, int tapCount );
 	void            touchEnd(int x, int y, int id, int tapCount );
-    void            touchCancelled(int x, int y, int ID, int tapCount );
+    void            touchCancelled(int x, int y, int id, int tapCount );
     
     
     // DRAW ORDER COUNTER

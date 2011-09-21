@@ -20,8 +20,6 @@ enum poWindowType {
 
 
 // poOrientation
-
-
 #pragma mark - General Enums
 enum poOrientation {
     PO_VERTICAL_UP = 0,
