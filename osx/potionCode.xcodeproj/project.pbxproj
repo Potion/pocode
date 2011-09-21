@@ -678,7 +678,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0/staging/lib,
+					/PotionCode/libraries/Boost/boost_1_45_0/stage/lib,
 					/PotionCode/libraries/FreeImage,
 					/PotionCode/libraries/FreeType,
 					/PotionCode/libraries/libMikko,
@@ -690,6 +690,7 @@
 					"-lfreetype_ios",
 					"-lMikko_ios",
 					"-lpugixml_ios",
+					"-lboost_ios",
 				);
 				PRODUCT_NAME = PotionCode_iOS;
 				SDKROOT = iphoneos;
@@ -730,7 +731,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0/staging/lib,
+					/PotionCode/libraries/Boost/boost_1_45_0/stage/lib,
 					/PotionCode/libraries/FreeImage,
 					/PotionCode/libraries/FreeType,
 					/PotionCode/libraries/libMikko,
@@ -742,6 +743,7 @@
 					"-lfreetype_ios",
 					"-lMikko_ios",
 					"-lpugixml_ios",
+					"-lboost_ios",
 				);
 				PRODUCT_NAME = PotionCode_iOS_d;
 				SDKROOT = iphoneos;
