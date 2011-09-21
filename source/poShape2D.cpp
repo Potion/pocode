@@ -27,6 +27,9 @@ void poShape2D::draw() {
 	// do shape fill
 	if ( fillEnabled ) {
 		poShaderProgram *shader = poOpenGLState::get()->boundShader();
+		
+		poColor color(fillColor, appliedAlpha());
+		shader->uniform4v("color", &color.R, 1);
 		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 		
 		// load shape point vertex array
@@ -56,12 +59,12 @@ void poShape2D::draw() {
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		// set stroke color
-		applyColor(poColor(strokeColor, appliedAlpha()));
+		poColor color(strokeColor, appliedAlpha());
 		
 		poShaderProgram *shader = basicProgram1();
 		poOpenGLState::get()->bindShader(shader);
 		
+		shader->uniform4v("color", &color.R, 1);
 		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
 		
 		// use standard OpenGL stroke or custom generated stroke
