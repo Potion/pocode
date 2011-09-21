@@ -82,6 +82,9 @@ public:
 	// The touchID stores the identifier of a touch event. All touch events connected
     // to a single touch movement should have the same touchID.
 	int             touchID;
+    
+    //Touches have a tap count in iOS, useful for double/triple tap events
+    int             tapCount;
 
 	// These properties are used for event tracking.
 	uint32_t        uid;
