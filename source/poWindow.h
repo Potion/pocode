@@ -11,6 +11,13 @@
 // potionCode can support multiple windows. Each window may contains its own scene graph,
 // or may share a common scene graph.
 
+typedef struct {
+    int id;
+    int uid;
+    std::set<poObject *> prevObjsBeneath;
+    poObject *dragTarget;
+} interactionPoint;
+
 class poWindow {
 public:
 	poWindow(const char *title, uint root_id, poRect bounds);
@@ -61,9 +68,10 @@ public:
 	void            resized(int w, int h);
 	void            resized(int x, int y, int w, int h);
 	
-	void            touchBegin(int x, int y, int ID );
-	void            touchMove(int x, int y, int ID );
-	void            touchEnd(int x, int y, int ID );
+	void            touchBegin(int x, int y, int id, int tapCount );
+	void            touchMove(int x, int y, int id, int tapCount );
+	void            touchEnd(int x, int y, int id, int tapCount );
+    void            touchCancelled(int x, int y, int id, int tapCount );
     
     
     // DRAW ORDER COUNTER
@@ -76,13 +84,25 @@ private:
     // THE SCENE GRAPH ROOT NODE
 	poObject        *root;
     
+    // EVENT CENTER REF
+    poEventCenter *center;
+    
+    
     // EVENT PROCESSING
 	// Incoming events are stored in the "received" event queue. This event queue is processed and then cleared
     // once per frame by the processEvents method. Queuing the events allows for thread-safe operation.
 	void                    processEvents();
+    
+    void processInteractionEvent(poEvent event);
+    void processMouseEvent(poEvent event, std::set<poObject*> &objsBeneath);
+    void processTouchEvent(poEvent event, std::set<poObject*> &objsBeneath);
+    void processKeyEvent(poEvent event);
+    
+    //Share Vars for event processing
+    void setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject*> &prevObjsBeneath, std::set<poObject*> &enter, std::set<poObject*> &leave);
+    
     std::deque<poEvent>     received;    
-    poObject                *key_receiver, *drag_target;
-	std::set<poObject*>     mouse_hovers;
+    poObject                *key_receiver;
 	
     // WINDOW PROPERTIES (PRIVATE)
 	bool            closed_;
@@ -98,9 +118,18 @@ private:
 	
 	// GLOBAL MOUSE POSITION
 	poPoint         mouse_pos;
+    
+    //MOUSE INTERACTION POINT
+    interactionPoint mouse;
+    
+    // TOUCH EVENTS
+    std::vector<interactionPoint *> trackedTouches;
+    void trackTouch(interactionPoint *t);
+    interactionPoint * getTouch(int uid);
+    void untrackTouch(int uid);
 	
     // DRAW ORDER COUNTER
-    int             draw_order_counter;
+    int draw_order_counter;
     
 };
 

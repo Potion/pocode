@@ -4,16 +4,16 @@
 #include "Helpers.h"
 #include "poApplication.h"
 
-void objUnderMouse(poObject *obj, poPoint &mouse, std::set<poObject*> &hovers) {
+void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
 	if(!(obj->isInWindow() && obj->visible && obj->alpha > 0.01))
 		return; 
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
-		objUnderMouse(obj->getChild(i), mouse, hovers);
+		objUnderPoint(obj->getChild(i), pnt, objsBeneath);
 	}
 
-	if(obj->pointInside(mouse,true))
-		hovers.insert(obj);
+	if(obj->pointInside(pnt,true))
+		objsBeneath.insert(obj);
 }
 
 poWindow::poWindow(const char *title, uint root_id, poRect b)
@@ -21,7 +21,6 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 ,	handle(NULL)
 ,	root(NULL)
 ,	_bounds(b)
-,   drag_target(NULL)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
 ,	closed_(false)
@@ -32,6 +31,8 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 {
 	makeCurrent();
 	root = createObjectForID(root_id);
+    
+    center = poEventCenter::get();
 }
 
 poWindow::~poWindow() {
@@ -162,7 +163,7 @@ void sortedFilteredVectorFromSet(std::set<poObject*> &objs, std::vector<poObject
 }
 
 void poWindow::processEvents() {
-	if(!root) {
+   if(!root) {
 		received.clear();
 		return;
 	}
@@ -171,217 +172,159 @@ void poWindow::processEvents() {
 	if(received.empty())
 		return;
 	
-	// store the events
-	poEventCenter *center = poEventCenter::get();
-
-	// figure out who's down there
-	std::set<poObject*> hovers;
-	objUnderMouse(root, mouse_pos, hovers);
-	
-	std::set<poObject*> did_enter;
-	std::set<poObject*> did_leave;
-	
-	// figure out who isn't in the list anymore
-	std::set_difference(mouse_hovers.begin(), mouse_hovers.end(),
-						hovers.begin(), hovers.end(),
-						std::inserter(did_leave, did_leave.end()));
-	// figure out who's new in the list
-	std::set_difference(hovers.begin(), hovers.end(),
-						mouse_hovers.begin(), mouse_hovers.end(),
-						std::inserter(did_enter, did_enter.end()));
-
-	// reset the list for next frame
-	mouse_hovers.clear();
-	mouse_hovers.insert(hovers.begin(), hovers.end());
-	
-	std::set<poObject*> filter;
-
 	while(!received.empty()) {
+        //Get Event
 		poEvent event = received.front();
 		received.pop_front();
-		
-		switch(event.type) {
-			case PO_MOUSE_DOWN_EVERYWHERE_EVENT:
-				// handle mouse down everywhere
-				center->notify(event);
+        
+        //Check type, take appropriate action
+        if(isTouchEvent(event.type) || isMouseEvent(event.type)) {
+           processInteractionEvent(event);
+        }
+        
+        else if(isKeyEvent(event.type)) {
+            processKeyEvent(event);
+        }
+        
+        else if( event.type == PO_WINDOW_RESIZED_EVENT) {
+                // everyone who cares gets resize
+                // maybe this should be broadcast
+                center->notify(event);
+        }
+        
+        else {
+            std::cout << "Unknown event type!" << std::endl;
+        }
+    }
+}
 
-				if(!hovers.empty()) {
-					std::vector<poObject*> over;
-					sortedFilteredVectorFromSet(hovers, over, PO_MOUSE_DOWN_INSIDE_EVENT);
-					
-					// if someone is under the mouse make them the drag target
-					drag_target = over.back();
-					filter.insert(drag_target);
-					
-					// tell the one guy if he got clicked on
-					event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
-					center->notifyFiltered(event, filter, false);
-				}
 
-				// and tell everyone else they didn't
-				event.type = PO_MOUSE_DOWN_OUTSIDE_EVENT;
-				center->notifyFiltered(event, filter, true);
+void poWindow::processInteractionEvent(poEvent event) {
+    //Get the appropriate point (mouse or touch)
+    interactionPoint *pt;
+    
+    if(isTouchEvent(event.type)) {
+        pt = getTouch(event.uid);
+    } else {
+        pt = &mouse;
+    }
+    
+    //Get the Objects Beneath
+    std::set<poObject*> objsBeneath;
+    objUnderPoint(root, event.position, objsBeneath);
+    
+    //Find objects that the point entered and left
+    std::set<poObject*> did_enter;
+	std::set<poObject*> did_leave;
+    setEnterLeave(objsBeneath, pt->prevObjsBeneath, did_enter, did_leave);
+    
+    //Filter for inside/outside events
+    std::set<poObject*> filter;
+    std::vector<poObject*> listeningObjs;
+    
+    
+    // Notify general subscribers
+    center->notify(event);
+    
+    //Dispatch Appropriate touch or mouse events
+    switch (event.type) {
+        case PO_MOUSE_DOWN_EVERYWHERE_EVENT:
+        case PO_TOUCH_BEGAN_EVERYWHERE_EVENT:
+            //Send events to objects beneath, set drag target, etc
+            if(!objsBeneath.empty()) {
+                event.type = isTouchEvent(event.type) ? PO_TOUCH_BEGAN_INSIDE_EVENT : PO_MOUSE_DOWN_INSIDE_EVENT;
+                
+                //Find listening objects
+                sortedFilteredVectorFromSet(objsBeneath, listeningObjs, event.type);
+                
+                // if an object is under the interaction point (and listening) make them the drag target
+                pt->dragTarget = listeningObjs.back();
+                filter.insert(pt->dragTarget);
+                
+                // Filtered object gets inside event
+                center->notifyFiltered(event, filter, false);
+            }
+            
+            // Everything else gets mouse up outside
+            event.type = isTouchEvent(event.type) ? PO_TOUCH_BEGAN_OUTSIDE_EVENT : PO_MOUSE_DOWN_OUTSIDE_EVENT;
+            center->notifyFiltered(event, filter, true);
+            break;
+            
+        case PO_MOUSE_MOVE_EVENT:
+        case PO_TOUCH_MOVED_EVERYWHERE_EVENT:
+            // Notify ENTER/LEAVE Subscribers
+            if(!objsBeneath.empty()) {
+                event.type = isTouchEvent(event.type) ? PO_TOUCH_OVER_EVENT : PO_MOUSE_OVER_EVENT;
+                center->notifyFiltered(event, filter, false);
+            }
+            
+            if(!did_enter.empty()) {
+                event.type = isTouchEvent(event.type) ? PO_TOUCH_ENTER_EVENT : PO_MOUSE_ENTER_EVENT;
+                center->notifyFiltered(event, did_enter, false);
+            }
+            
+            if(!did_leave.empty()) {
+                event.type = isTouchEvent(event.type) ? PO_TOUCH_LEAVE_EVENT : PO_MOUSE_LEAVE_EVENT;
+                center->notifyFiltered(event, did_leave, false);
+            }
+            break;
+            
+        case PO_MOUSE_UP_EVERYWHERE_EVENT:
+        case PO_TOUCH_ENDED_EVERYWHERE_EVENT:
+            // Kill the drag target (no longer dragging)
+            pt->dragTarget = NULL;
+            
+            // Filtered object gets inside event
+            if(!objsBeneath.empty()) {
+                event.type = isTouchEvent(event.type) ? PO_TOUCH_ENDED_INSIDE_EVENT : PO_MOUSE_UP_INSIDE_EVENT;
+                
+                sortedFilteredVectorFromSet(objsBeneath, listeningObjs, event.type);
+                filter.insert(listeningObjs.back());
+                center->notifyFiltered(event, filter, false);
+            }
+            
+            //Everyone else gets outside event
+            event.type = isTouchEvent(event.type) ? PO_TOUCH_ENDED_OUTSIDE_EVENT : PO_MOUSE_UP_OUTSIDE_EVENT;
+            center->notifyFiltered(event, filter, true);
+            break;
+    }
+}
 
-				break;
-				
-			case PO_MOUSE_UP_EVERYWHERE_EVENT:
-				// handle mouse up
-				poEventCenter::get()->notify(event);
-				
-				// kill the drag target because the mouse is up
-				drag_target = NULL;
-				
-				if(!hovers.empty()) {
-					std::vector<poObject*> over;
-					sortedFilteredVectorFromSet(hovers, over, PO_MOUSE_UP_INSIDE_EVENT);
 
-					filter.insert(over.back());
+void poWindow::setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject*> &prevObjsBeneath, std::set<poObject*> &enter, std::set<poObject*> &leave) {
+    enter.clear();
+    leave.clear();
+    
+    // figure out who isn't in the list anymore
+    std::set_difference(prevObjsBeneath.begin(), prevObjsBeneath.end(),
+                        objsBeneath.begin(), objsBeneath.end(),
+                        std::inserter(leave, leave.end()));
+    
+    // figure out who's new in the list
+    std::set_difference(objsBeneath.begin(), objsBeneath.end(),
+                        prevObjsBeneath.begin(), prevObjsBeneath.end(),
+                        std::inserter(enter, enter.end()));
+    
+    // reset the list for next frame
+    prevObjsBeneath.clear();
+    prevObjsBeneath.insert(objsBeneath.begin(), objsBeneath.end());
+}
 
-					// do the bounds checked versions
-					event.type = PO_MOUSE_UP_INSIDE_EVENT;
-					center->notifyFiltered(event, filter, false);
 
-					event.type = PO_MOUSE_UP_OUTSIDE_EVENT;
-					center->notifyFiltered(event, filter, true);
-				}
-				
-				break;
-				
-			case PO_MOUSE_MOVE_EVENT:
-				// push through the mouse move
-				poEventCenter::get()->notify(event);
-				
-				if(!hovers.empty()) {
-					event.type = PO_MOUSE_OVER_EVENT;
-					center->notifyFiltered(event, filter, false);
-				}
-				
-				if(!did_enter.empty()) {
-					event.type = PO_MOUSE_ENTER_EVENT;
-					center->notifyFiltered(event, did_enter, false);
-				}
-				
-				if(!did_leave.empty()) {
-					event.type = PO_MOUSE_LEAVE_EVENT;
-					center->notifyFiltered(event, did_leave, false);
-				}
-				
-				break; 
-
-			case PO_MOUSE_DRAG_EVERYWHERE_EVENT:
-                poEventCenter::get()->notify(event);
-				
-				if(drag_target) {
-					std::set<poObject*> drag_filter;
-					drag_filter.insert(drag_target);
-					
-					event.type = PO_MOUSE_DRAG_EVENT;
-					center->notifyFiltered(event, drag_filter, false);
-				}
-				
-				break;
-				
-			case PO_KEY_DOWN_EVENT:
-				center->notify(event);
-				break;
-				
-			case PO_KEY_UP_EVENT:
-				center->notify(event);
-				break;
-
-			case PO_WINDOW_RESIZED_EVENT:
-				// everyone who cares gets resize
-				// maybe this should be broadcast
-				center->notify(event);
-				break;
-				
-			case PO_TOUCH_BEGAN_EVENT:
-			{
-				// handle mouse down everywhere
-				center->notify(event);
-				
-				// figure out who's down there
-				std::set<poObject*> touch_hovers;
-				objUnderMouse(root, event.position, touch_hovers);
-				
-				if(!touch_hovers.empty()) 
-				{
-					// find top-most clicked on object
-					// tell the one guy if he got clicked on
-					
-					poObject* topObject = NULL;
-					int topDrawOrder = 0;
-					
-					// look for top object with event.type = PO_TOUCH_INSIDE_EVENT;
-					BOOST_FOREACH(poObject *obj, touch_hovers) 
-					{
-						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_INSIDE_EVENT) )
-							continue;
-						
-						if ( obj->drawOrder() > topDrawOrder )
-						{
-							topDrawOrder = obj->drawOrder();
-							topObject = obj;
-						}
-					}
-					if ( topObject != NULL )
-					{
-						event.type = PO_TOUCH_INSIDE_EVENT;
-						center->routeBySource( topObject, event );
-					}
-				}
-				
-				printf("\n");
-				break;
-			}
-			case PO_TOUCH_MOVED_EVENT:
-			{
-				// handle mouse down everywhere
-				center->notify(event);
-				
-				// figure out who's down there
-				std::set<poObject*> touch_hovers;
-				objUnderMouse(root, event.position, touch_hovers);
-				
-				if(!touch_hovers.empty()) {
-		
-					poObject* topObject = NULL;
-					int topDrawOrder = 0;
-					
-					event.type = PO_TOUCH_OVER_EVENT;
-					// look for top object with event.type = PO_TOUCH_INSIDE_EVENT;
-					BOOST_FOREACH(poObject *obj, touch_hovers) 
-					{
-						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_OVER_EVENT) )
-							continue;
-						
-						if ( obj->drawOrder() > topDrawOrder )
-						{
-							topDrawOrder = obj->drawOrder();
-							topObject = obj;
-						}
-					}
-					if ( topObject != NULL )
-					{
-						center->routeBySource( topObject, event );
-					}
-					
-					// tell the one guy if he got clicked on
-					/*event.type = PO_TOUCH_OVER_EVENT;
-					BOOST_FOREACH(poObject *obj, touch_hovers) {
-						if ( ! poEventCenter::get()->objectHasEvent(obj,PO_TOUCH_OVER_EVENT) )
-							continue;  
-						center->routeBySource( obj, event );
-					}*/
-				}
-				break;
-			}
-				
-			default:
-				// just eat it
-				break;
-		}
-	}
+void poWindow::processKeyEvent(poEvent event) {
+    switch (event.type) {
+        case PO_KEY_DOWN_EVENT:
+            center->notify(event);
+            break;
+            
+        case PO_KEY_UP_EVENT:
+            center->notify(event);
+            break;
+            
+        default:
+            // just eat it
+            break;
+    }
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {
@@ -454,9 +397,11 @@ void poWindow::keyUp(int key, int code, int mod) {
 	received.push_back(event);
 }
 
+
 void poWindow::resized(int w, int h) {
 	resized(_bounds.origin.x, _bounds.origin.y, w, h);
 }
+
 
 void poWindow::resized(int x, int y, int w, int h) {
 	_bounds.set(x,y,w,h);
@@ -466,34 +411,113 @@ void poWindow::resized(int x, int y, int w, int h) {
 	received.push_back(event);
 }
 
-void poWindow::touchBegin(int x, int y, int ID )
+
+void poWindow::touchBegin(int x, int y, int id, int tapCount )
 {
+    //Track touch
+    interactionPoint *t = new interactionPoint();
+    t->uid = id;
+    trackTouch(t);
+    
+    //Fire Event
 	poEvent event;
 	event.position.set(x, y, 0.f);
-	event.touchID = ID;
+	event.touchID = t->uid;
+    event.uid   = id;
+    event.tapCount = tapCount;
 	
-	event.type = PO_TOUCH_BEGAN_EVENT;
+	event.type = PO_TOUCH_BEGAN_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 
-void poWindow::touchMove(int x, int y, int ID )
+
+void poWindow::touchMove(int x, int y, int ID, int tapCount )
 {
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.touchID = ID;
+    event.tapCount = tapCount;
 	
-	event.type = PO_TOUCH_MOVED_EVENT;
+	event.type = PO_TOUCH_MOVED_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 
-void poWindow::touchEnd(int x, int y, int ID )
+
+void poWindow::touchEnd(int x, int y, int ID, int tapCount )
 {
+    untrackTouch(ID);
+    
 	poEvent event;
 	event.position.set(x, y, 0.f);
 	event.touchID = ID;
+    event.tapCount = tapCount;
 	
-	event.type = PO_TOUCH_ENDED_EVENT;
+	event.type = PO_TOUCH_ENDED_EVERYWHERE_EVENT;
 	received.push_back(event);
+}
+
+
+void poWindow::touchCancelled(int x, int y, int ID, int tapCount )
+{
+    poEvent event;
+	event.position.set(x, y, 0.f);
+	event.touchID = ID;
+    event.tapCount = tapCount;
+	
+	event.type = PO_TOUCH_CANCELLED_EVENT;
+	received.push_back(event);
+}
+
+
+void poWindow::trackTouch(interactionPoint *t) 
+{
+    int totalTouches = trackedTouches.size();
+    
+    //See if there are any empty slots
+    for(int i=0; i<trackedTouches.size(); i++) {
+        if(trackedTouches[i] == NULL) {
+            t->id = i;
+            trackedTouches[i] = t;
+            return;
+        }
+    }
+    
+    //If the touch wasn't found, add it
+    trackedTouches.push_back(t);
+}
+
+
+interactionPoint *poWindow::getTouch(int uid) 
+{
+    for(int i=0;i<trackedTouches.size(); i++) {
+        if(trackedTouches[i]->uid == uid) {
+            return trackedTouches[i];
+        }
+    }
+}
+
+
+void poWindow::untrackTouch(int uid) 
+{
+    int totalTouches = trackedTouches.size();
+    
+    //Find touch
+    for(int i=0; i<totalTouches - 1; i++) {
+        if(trackedTouches[i]->uid == uid) {
+            // If it is found (and not the last item in the vector) delete it and set to null
+            // (Saving spot for another touch)
+            delete trackedTouches[i];
+            trackedTouches[i] = NULL;
+            return;
+        }
+    }
+    
+    //If touch isn't found, it SHOULD be the last one...
+    //double check then pop it off the vector
+    if(trackedTouches.back()->uid == uid) {
+        delete trackedTouches.back();
+        trackedTouches.pop_back();
+    }
 }
 
 void *poWindow::getWindowHandle() {
@@ -509,5 +533,3 @@ void poWindow::setWindowHandle(void *handle) {
 int poWindow::nextDrawOrder() {
 	return draw_order_counter++;
 }
-
-
