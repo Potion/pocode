@@ -44,7 +44,6 @@ void poRectShape::reshape( float w, float h, float rad )
 	clearPoints();
 	construct(w, h, rad);
 	
-	calculateBounds();
 	alignment(alignment());
 	if(strokeEnabled)
 		generateStroke(strokeWidth());
@@ -97,7 +96,6 @@ void    poOvalShape::reshape( float _width, float _height, int nPoints )
         construct( _width, _height, nPoints );
     }
 	
-	calculateBounds();
 	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
@@ -219,7 +217,6 @@ void    poStarShape::reshape( float _outerRadius, int nPoints, float depth )
         construct( _outerRadius, nPoints, depth );
     }
 	
-	calculateBounds();
 	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }
@@ -248,7 +245,6 @@ void    poStarShape::reshape( float _width, float _height, int nPoints, float de
         construct( _width, _height, nPoints, depth );
     }
 	
-	calculateBounds();
 	if(strokeEnabled)
 		generateStroke(strokeWidth());
 }

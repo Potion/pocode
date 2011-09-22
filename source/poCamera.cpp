@@ -95,8 +95,6 @@ void poCamera2D::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	poRect viewp = stack->getViewport();
 	stack->pushProjection(glm::ortho(viewp.x, viewp.width + viewp.x, viewp.height + viewp.y, viewp.y));
-    
-    std::cout << viewp << std::endl;
 }
 
 // orthographic camera

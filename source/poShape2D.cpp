@@ -55,18 +55,22 @@ void poShape2D::draw() {
 	
 	if(drawBounds) {
 		po::setColor(poColor::red);
-		po::drawStroke(bounds);
+		po::drawStroke(getBounds());
 		po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
 	}
 }
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
-	if(points.empty())
-		bounds = poRect(p,poPoint());
-	else
+	if(points.empty()) {
+        position.set(p);
+        setSize(0,0);
+    }
+	else {
+        poRect bounds = getBounds();
 		bounds.include(p);
-	
+        setSize(bounds.width, bounds.height);
+	}
 	points.push_back(p);
 	return *this;
 }
@@ -141,7 +145,7 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
 	if(tex) {
-		poRect rect = calculateBounds();
+		poRect rect = getBounds();
 		
 		tex_coords.clear();
 		tex_coords.resize(points.size());

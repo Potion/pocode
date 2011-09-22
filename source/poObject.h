@@ -75,6 +75,22 @@ public:
 	void                removeEvent(int event_id);
     //@}
 
+    /*! Width/height should never be set directly!*/
+	/** @name SETTERS/GETTERS */
+    //@{
+    float               getWidth();
+    void                setWidth(float width);
+    
+    float               getHeight();
+    void                setHeight(float height);
+    
+    void                setSize(float width, float height);
+    
+    poRect              getBounds();
+    poRect              getFrame();
+    //@}
+    
+    
 
     /*! The scene graph is a tree structure composed of poObjects and subclasses of poObject.
      A potionCode app is itself a poObject and is also the root of the tree.
@@ -155,7 +171,6 @@ public:
     //@{
 	poAlignment         alignment() const;
 	virtual poObject&   alignment(poAlignment align);
-	virtual poRect      calculateBounds();
 	//@}
     
     
@@ -191,9 +206,9 @@ public:
 	float               rotation;
 	poPoint             rotationAxis;
 	poPoint             offset;
-	poRect              bounds;
 	bool                visible;
-	bool                boundsAreFixed;
+	bool                bFixedWidth;
+    bool                bFixedHeight;
 	poMatrixOrder       matrixOrder;
     //@}
     
@@ -224,6 +239,8 @@ public:
     
     
 protected:
+    float width, height;
+    
     /** @name PROTECTED PROPERTIES*/
     //@{
 	virtual void        updateAllTweens();//new tween types should be updated here

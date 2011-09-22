@@ -38,7 +38,7 @@ poTextBox::poTextBox(int w)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
-	bounds = poRect(0,0,w,0);
+	width = w;
 }
 
 poTextBox::poTextBox(int w, int h) 
@@ -51,7 +51,8 @@ poTextBox::poTextBox(int w, int h)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 {
 	defaultFonts();
-	bounds = poRect(0,0,w,h);
+	width   = w;
+    height  = h;
 }
 
 void poTextBox::defaultFonts() {
@@ -68,8 +69,8 @@ void poTextBox::textAlignment(poAlignment al) {text_align = al;}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 void poTextBox::reshape(int w, int h) {
-	bounds.setSize(w,h);
-	_layout.size(bounds.getSize());
+	setSize(w,h);
+	_layout.size(poPoint(width, height));
 }
 
 bool poTextBox::richText() const {return _layout.richText();}
@@ -122,7 +123,7 @@ poTextBox *poTextBox::layout() {
 	_layout.layout();
 	
 	if(fit_height_to_bounds)
-		bounds.height = textBounds().height;
+		height = textBounds().height;
 
 	alignment(alignment());
 	_layout.alignment(text_align);
@@ -157,7 +158,7 @@ void poTextBox::draw() {
 		}
 		
         po::setColor(poColor::dk_grey, .8f);
-        po::drawStroke(bounds);
+        po::drawStroke(getBounds());
 		
 		po::setColor(poColor::red);
 		po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
@@ -222,7 +223,7 @@ poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth,
 	if(button)
 		delete button;
 
-	button = new poRectShape(bounds.width, bounds.height, rad);
+	button = new poRectShape(width, height, rad);
 	button->fillColor = fill;
 	button->strokeColor = stroke;
 	button->generateStroke(strokeWidth);
