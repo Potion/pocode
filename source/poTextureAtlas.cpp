@@ -163,7 +163,10 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 
 		poBasicRenderer::get()->setFromState();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), tcoords);
+
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		
 		texState.restore();

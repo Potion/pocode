@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2BFF93C0139D56B70063995D /* MouseEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MouseEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BFF93C0139D56B70063995D /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BFF93C5139D56B70063995D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		2BFF93C7139D56B70063995D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		2BFF93C9139D56B70063995D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 		2BFF93C1139D56B70063995D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BFF93C0139D56B70063995D /* MouseEvents.app */,
+				2BFF93C0139D56B70063995D /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			);
 			name = MouseEvents;
 			productName = MouseEvents;
-			productReference = 2BFF93C0139D56B70063995D /* MouseEvents.app */;
+			productReference = 2BFF93C0139D56B70063995D /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

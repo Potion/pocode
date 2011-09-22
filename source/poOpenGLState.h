@@ -79,8 +79,14 @@ public:
 	void saveBlend();
 	void restoreBlend();
 	
+	GLint maxVertexAttribs();
+	void enableVertexAttribArray(GLuint);
+	void disableVertexAttribArray(GLuint);
+	
 private:
 	poOpenGLState();
+	
+	int max_vert_attribs;
 	
 	std::stack<po::StencilState> stencilStack;
 	std::stack<po::TextureState> textureStack;
