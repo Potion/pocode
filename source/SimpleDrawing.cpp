@@ -35,6 +35,9 @@ namespace {
 		poBasicRenderer::get()->setFromState();
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
+
+		glEnableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
 		glDrawArrays(type, 0, 4);
 		
 		state.restore();
@@ -72,7 +75,11 @@ void po::drawLine(poPoint a, poPoint b) {
 	
 	poBasicRenderer::get()->setFromState();
 
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
+
+	glEnableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	glDrawArrays(GL_LINES, 0, 2);
 	
 	state.restore();
@@ -123,7 +130,10 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
 	poBasicRenderer::get()->setFromState();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), tcoords);
+	
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	
 	texState.restore();
@@ -137,6 +147,9 @@ void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
 	poBasicRenderer::get()->setFromState();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
+	
+	glEnableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
 }
 
@@ -148,6 +161,9 @@ void po::drawPoints(GLenum type, GLuint tex_id, const std::vector<poPoint> &poin
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &tex_coords[0]);
+	
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
 	
 	texState.restore();
@@ -158,6 +174,9 @@ void drawPoints(GLenum type, const std::vector<poPoint> &points, poTexture *text
 	poBasicRenderer::get()->setFromState();
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
+	
+	glEnableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
 }
 

@@ -12,8 +12,10 @@ static boost::thread_specific_ptr<poOpenGLState> instance;
 
 // the holder
 poOpenGLState::poOpenGLState() 
-:	color(poColor::blue)
-{}
+:	color(poColor::white)
+{
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &max_vert_attribs);
+}
 
 poOpenGLState *poOpenGLState::get() {
 	if(!instance.get())
@@ -105,6 +107,9 @@ void poOpenGLState::restoreBlend() {
 	}
 }
 
+GLint poOpenGLState::maxVertexAttribs() {
+	return max_vert_attribs;
+}
 
 // the states
 po::StencilState::StencilState() {

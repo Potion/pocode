@@ -67,7 +67,16 @@ void basicShapesApp::draw() {
 //	po::setColor(poColor::white);
 //	po::drawPoints(GL_TRIANGLE_FAN, points);
 
-	po::setColor(poColor::white);
+//	poTexture *tex = getImage("apple.jpg")->texture();
+//	glEnable(GL_TEXTURE_2D);
+//	glBindTexture(GL_TEXTURE_2D, tex->uid);
+//	glBegin(GL_QUADS);
+//	glVertex2f(-.5,-.5);	glTexCoord2f(0,0);
+//	glVertex2f(.5,-.5);		glTexCoord2f(0,1);
+//	glVertex2f(.5,.5);		glTexCoord2f(1,1);
+//	glVertex2f(-.5,.5);		glTexCoord2f(1,0);
+//	glEnd();
+	
 	po::drawRect(poRect(0,0,200,200), getImage("apple.jpg")->texture());
 }
 

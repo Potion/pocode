@@ -25,6 +25,8 @@ MouseEventsApp::MouseEventsApp() {
 	rectangle->position = poPoint(50,50, 0.f);
     addChild(rectangle);
 
+	
+	return;
     
 	// linked to an object with a bounding box
     rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);

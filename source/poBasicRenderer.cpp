@@ -25,7 +25,7 @@ const char* default_frag =
 
 	"void main() {\n"
 	"	if(bool(flags & TEXTURE)) {\n"
-	"		gl_FragColor = vec4(texture2D(tex,texCoord).r,1.0,sin(texCoord.x),cos(texCoord.y)) * color;\n"
+	"		gl_FragColor = texture2D(tex,texCoord) * color;\n"
 	"	}\n"
 	"	else {\n"
 	"		gl_FragColor = color;\n"
@@ -125,18 +125,16 @@ poBasicRenderer::poBasicRenderer()
 		uid = 0;
 		return;
 	}
-	
+
+	glDeleteShader(vert);
+	glDeleteShader(frag);
+
 	mvp_uniform = glGetUniformLocation(uid, "mvp");
 	color_uniform = glGetUniformLocation(uid, "color");
 	tex_uniform = glGetUniformLocation(uid, "tex");
 	flags_uniform = glGetUniformLocation(uid, "flags");
-
-	glDeleteShader(vert);
-	glDeleteShader(frag);
 	
 	glUseProgram(uid);
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 }
 
 void poBasicRenderer::setMVP(const glm::mat4 &mvp) {
