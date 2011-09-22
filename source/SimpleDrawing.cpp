@@ -51,7 +51,7 @@ void drawQuad(GLenum type, float x, float y, float w, float h) {
 }
 
 void drawStroke(poRect rect) {
-	drawStroke(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y);
+	drawStroke(rect.x, rect.y, rect.width, rect.height);
 }
 
 void drawStroke(float x, float y, float w, float h) {
@@ -78,7 +78,7 @@ void drawLine(poPoint a, poPoint b) {
 }
 
 void drawRect(poRect rect) {
-	drawRect(rect.origin.x, rect.origin.y, rect.size.x, rect.size.y);
+	drawRect(rect.x, rect.y, rect.width, rect.height);
 }
 
 void drawRect(float x, float y, float w, float h) {
@@ -100,20 +100,20 @@ void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
 }
 
 void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
-	rect.origin = floor(rect.origin) + poPoint(.5f, .5f);
+    rect.setPosition(floor(rect.getPosition()) + poPoint(.5f, .5f));
 	
 	GLfloat quad[4*3] = { 
-		rect.origin.x, rect.origin.y, 0, 
-		rect.origin.x, rect.origin.y+rect.size.y, 0, 
-		rect.origin.x+rect.size.x, rect.origin.y, 0, 
-		rect.origin.x+rect.size.x, rect.origin.y+rect.size.y, 0 
+		rect.x,  rect.y, 0, 
+		rect.x,  rect.y+rect.height, 0, 
+		rect.x+rect.width, rect.y, 0, 
+		rect.x+rect.width, rect.y+rect.height, 0 
 	};
 	
 	GLfloat tcoords[4*2] = {
-		coords.origin.x, coords.origin.y,
-		coords.origin.x, coords.origin.y+coords.size.y,
-		coords.origin.x+coords.size.x, coords.origin.y,
-		coords.origin.x+coords.size.x, coords.origin.y+coords.size.y
+		coords.x, coords.y,
+		coords.x, coords.y+coords.height,
+		coords.x+coords.width, coords.y,
+		coords.x+coords.width, coords.y+coords.height
 	};
 	
 	if(flip) {
@@ -153,20 +153,20 @@ void drawPoints(GLenum type, const std::vector<poPoint> &points) {
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float xoff = rect.origin.x / (float)rect.width();
-	float yoff = rect.origin.y / (float)rect.height();
+	float xoff = rect.x / (float)rect.width;
+	float yoff = rect.y / (float)rect.height;
 	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width() - xoff;
-		float t = points[i].y / rect.height() - yoff;
+		float s = points[i].x / rect.width - xoff;
+		float t = points[i].y / rect.height - yoff;
 		coords[i].set(s,t,0.f);
 	}
 }
 
 
 void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float xoff = rect.origin.x / (float)rect.width();
-	float yoff = rect.origin.y / (float)rect.height();
+	float xoff = rect.x / (float)rect.width;
+	float yoff = rect.y / (float)rect.height;
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
@@ -189,16 +189,16 @@ void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<
 
 
 void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float xoff = rect.origin.x / (float)rect.width();
-	float yoff = rect.origin.y / (float)rect.height();
+	float xoff = rect.x / (float)rect.width;
+	float yoff = rect.y / (float)rect.height;
 	
-	float new_w = rect.width();
+	float new_w = rect.width;
 	float new_h = new_w / (tex->width() / (float)tex->height());
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / rect.width() - xoff;
+		float s = points[i].x / rect.width - xoff;
 		float t = points[i].y / new_h - yoff;
 		
 		max.x = std::max(s, max.x);
@@ -215,17 +215,17 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 }
 
 void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	float xoff = rect.origin.x / (float)rect.width();
-	float yoff = rect.origin.y / (float)rect.height();
+	float xoff = rect.x / (float)rect.width;
+	float yoff = rect.y / (float)rect.height;
 	
-	float new_h = rect.height();
+	float new_h = rect.height;
 	float new_w = new_h / (tex->height() / (float)tex->width());
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / new_w - xoff;
-		float t = points[i].y / rect.height() - yoff;
+		float t = points[i].y / rect.height - yoff;
 		
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
@@ -242,7 +242,7 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 
 std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align) {
 	std::vector<poPoint> coords(4);
-	std::vector<poPoint> points = rect.corners();
+	std::vector<poPoint> points = rect.getCorners();
 	textureFit(rect, tex, fit, align, coords, points);
 	return coords;
 }
@@ -267,8 +267,8 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 			
 		case PO_TEX_FIT_INSIDE: 
 		{
-			float new_h = rect.width() * (tex->height() / (float)tex->width());
-			if(new_h > rect.height())
+			float new_h = rect.width * (tex->height() / (float)tex->width());
+			if(new_h > rect.height)
 				textureFitVertical(rect, tex, align, coords, points);
 			else
 				textureFitHorizontal(rect, tex, align, coords, points);

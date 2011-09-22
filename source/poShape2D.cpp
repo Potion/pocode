@@ -88,9 +88,7 @@ void poShape2D::draw() {
 	
 	
 	if(drawBounds) {
-		applyColor(poColor::red);
-		drawStroke(bounds);
-		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+		//drawBoundingBox();
 	}
 }
 

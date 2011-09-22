@@ -201,7 +201,7 @@ void poImage::changeBpp(ImageBitDepth bpp) {
 }
 
 void poImage::composite(poImage *img, poRect into) {
-	FreeImage_Paste(bitmap, img->bitmap, into.origin.x, into.origin.y, 256);
+	FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, 256);
 }
 
 poColor operator*(const poColor& c, float f) {

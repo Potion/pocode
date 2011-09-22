@@ -8,6 +8,8 @@
 
 #define PADDING 20
 
+#include "poShapeBasics2D.h"
+
 poObject *createObjectForID(uint uid) {
 	return new TextBoxApp();
 }
@@ -21,6 +23,10 @@ void cleanupApplication() {
 
 TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D(poColor::black));
+	addModifier(basicProgram1());
+    
+    poRectShape * test = addChild(new poRectShape(500,500));
+    test->fillColor.set255(255,255,255);
 	
 	tb = new poTextBox(getWindowWidth()-2*PADDING, getWindowHeight()/2-2*PADDING);
 	tb->textAlignment(PO_ALIGN_TOP_CENTER);

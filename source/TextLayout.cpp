@@ -292,7 +292,7 @@ void TextBoxLayout::doLayout() {
 				case '\t':
 				{
 					float s = spacer * tab_width;
-					float w = props.line.bounds.width() + props.word.width;
+					float w = props.line.bounds.width + props.word.width;
 					props.last_space = (floor(w/s) + 1) * s - w;
 					break;
 				}
@@ -320,7 +320,7 @@ void TextBoxLayout::doLayout() {
 		layout_glyph glyph;
 		glyph.glyph = codepoint;
 		glyph.bbox = fnt->glyphBounds();
-		glyph.bbox.origin += poPoint(props.word.width, 0) + fnt->glyphBearing();
+        glyph.bbox.setPosition(glyph.bbox.getPosition() + poPoint(props.word.width, 0) + fnt->glyphBearing());
 		props.word.glyphs.push_back(glyph);
 		
 		// see if we need to update our line height
@@ -331,7 +331,7 @@ void TextBoxLayout::doLayout() {
 		props.word.width += fnt->glyphAdvance().x * tracking_tmp;
 
 		// check if we've gone over
-		if(props.line.bounds.size.x + props.word.width > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
+		if(props.line.bounds.width + props.word.width > (_size.x-paddingLeft()-paddingRight()) && props.line.word_count >= 1) {
 			breakLine(props);
 		}
 	}
@@ -346,12 +346,12 @@ void TextBoxLayout::addWordToLine(line_layout_props &props) {
 		props.line.word_count++;
 		for(int i=0; i<props.word.glyphs.size(); i++) {
 			layout_glyph &glyph = props.word.glyphs[i];
-			glyph.bbox.origin += props.line.bounds.size;
+            glyph.bbox.setPosition(glyph.bbox.getPosition() + props.line.bounds.getSize());
 			props.line.glyphs.push_back(glyph);
 		}
 	}
 	
-	props.line.bounds.size.x += props.word.width + props.last_space;
+	props.line.bounds.width += props.word.width + props.last_space;
 	
 	props.word = word_layout();
 }
@@ -359,24 +359,24 @@ void TextBoxLayout::addWordToLine(line_layout_props &props) {
 void TextBoxLayout::breakLine(line_layout_props &props) {
 	if(!props.line.glyphs.empty()) {
 		// save the start pos
-		float start_y = props.line.bounds.origin.y;
+		float start_y = props.line.bounds.y;
 		
 		for(int i=0; i<props.line.glyphs.size(); i++) {
 			layout_glyph &glyph = props.line.glyphs[i];
 			// move the glyph down to the baseline + the start position
-			glyph.bbox.origin.y += props.max_drop + start_y;
+			glyph.bbox.y += props.max_drop + start_y;
 		}
 		
 		// words all end with a space, so take off the space for it
-		props.line.bounds.size.x -= props.last_space;
+		props.line.bounds.width -= props.last_space;
 		// and bump the line height
-		props.line.bounds.size.y = props.max_line_height;
+		props.line.bounds.height = props.max_line_height;
 		// save the line
 		addLine(props.line);
 		
 		// and set up hte next line
 		props.line = layout_line();
-		props.line.bounds.origin.y = start_y + props.max_line_height * props.leading;
+		props.line.bounds.y = start_y + props.max_line_height * props.leading;
 	}
 	
 	props.broke = true;
@@ -398,22 +398,22 @@ void TextBoxLayout::alignText() {
 			case PO_ALIGN_TOP_CENTER:
 			case PO_ALIGN_CENTER_CENTER:
 			case PO_ALIGN_BOTTOM_CENTER:
-				glyphOffset.x = (_size.x - line.bounds.size.x)/2;
+				glyphOffset.x = (_size.x - line.bounds.width)/2;
 				break;
 			case PO_ALIGN_TOP_RIGHT:
 			case PO_ALIGN_CENTER_RIGHT:
 			case PO_ALIGN_BOTTOM_RIGHT:
-				glyphOffset.x = (_size.x - line.bounds.size.x); 
+				glyphOffset.x = (_size.x - line.bounds.width); 
 				break;
 		}
 		
 		glyphOffset.x += paddingLeft();
 		glyphOffset.y += paddingBottom();
 		
-		line.bounds.origin = round(line.bounds.origin + glyphOffset);
+		line.bounds.setPosition(round(line.bounds.getPosition() + glyphOffset));
 		
 		BOOST_FOREACH(layout_glyph &glyph, line.glyphs) {
-			glyph.bbox.origin = round(glyph.bbox.origin + glyphOffset);
+			glyph.bbox.setPosition(round(glyph.bbox.getPosition() + glyphOffset));
 		}
 		
 		replaceLine(i, line);

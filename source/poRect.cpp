@@ -8,49 +8,79 @@
 using namespace std;
 
 poRect::poRect() 
-:	origin(0,0)
-,	size(0,0)
+:	x(0)
+,	y(0)
+,   width(0)
+,   height(0)
 {}
 
-poRect::poRect(float x, float y, float w, float h) {
-	origin.set(x,y,0);
-	size.set(w,h,0);
-}
+poRect::poRect(float x, float y, float w, float h)
+:	x(x)
+,	y(y)
+,   width(w)
+,   height(h)
+{}
 
 poRect::poRect(const poPoint &p1, const poPoint &p2)
-:	origin(p1)
-,	size(p2)
+:	x(p1.x)
+,   y(p1.y)
+,	width(p2.x)
+,   height(p2.y)
 {}
 
-float poRect::width() const {
-	return size.x;
+poRect& poRect::setPosition(float x, float y) {
+    this->x = x;
+    this->y = y;
+    return *this;
 }
 
-float poRect::height() const {
-	return size.y;
+poRect& poRect::setPosition(poPoint pos) {
+    x = pos.x;
+    y = pos.y;
+    return *this;
 }
 
-float poRect::area() const {
-	return width()*height();
+poPoint poRect::getPosition() const {
+	return poPoint(x,y);
 }
 
-poPoint poRect::center() const {
-	return poPoint(width()/2.f+origin.x, height()/2.f+origin.y);
+poRect& poRect::setSize(float width, float height) {
+    this->width = width;
+    this->height = height;
+    return *this;
 }
 
-float poRect::aspect() const {
-	return width() / height();
+poRect& poRect::setSize(poPoint size) {
+    width = size.x;
+    height = size.y;
+    return *this;
+}
+
+poPoint poRect::getSize() const {
+	return poPoint(width, height);
+}
+
+float poRect::getArea() const {
+	return width * height;
+}
+
+poPoint poRect::getCenter() const {
+	return poPoint(width/2.f + x, height/2.f+y);
+}
+
+float poRect::getAspect() const {
+	return width / height;
 }
 
 poRect &poRect::set(float x, float y, float w, float h) {
-	origin.set(x,y,0);
-	size.set(w,h,0);
+    setPosition(x,y);
+    setSize(w,h);
 	return *this;
 }
 
-poRect &poRect::set(poPoint o, poPoint s) {
-	origin = o;
-	size = s;
+poRect &poRect::set(poPoint pos, poPoint size) {
+	setPosition(pos);
+	setSize(size);
 	return *this;
 }
 
@@ -67,14 +97,18 @@ bool poRect::set(const std::string &str) {
 }
 
 poRect &poRect::include(float x, float y) {
-    poPoint maxPoint = origin + size;
+    poPoint maxPoint = getPosition() + getSize();
     
-    maxPoint.x = std::max(x, maxPoint.x);
-	maxPoint.y = std::max(y, maxPoint.y);
-    origin.x = std::min(x, origin.x);
-	origin.y = std::min(y, origin.y);
-    size.x = maxPoint.x-origin.x;
-    size.y = maxPoint.y-origin.y;
+    poPoint pos = getPosition();
+    
+    maxPoint.x  = std::max(x, maxPoint.x);
+	maxPoint.y  = std::max(y, maxPoint.y);
+    pos.x       = std::min(x, pos.x);
+	pos.y       = std::min(y, pos.y);
+    width       = maxPoint.x-pos.x;
+    height      = maxPoint.y-pos.y;
+    
+    setPosition(pos);
 	return *this;
 }
 
@@ -83,75 +117,77 @@ poRect &poRect::include(const poPoint &pt) {
 }
 
 poRect &poRect::include(const poRect &rect) {
-	include(rect.origin);
-	return include(rect.origin + rect.size);
+	include(rect.getPosition());
+	return include(rect.getPosition() + rect.getSize());
 }
 
 poRect &poRect::scale(float scalar) {
+    poPoint size = getSize();
 	size *= scalar;
+    setSize(size);
 	return *this;
 }
 
 poRect &poRect::scale(float scalar, const poPoint &pt) {
-	origin = (origin - pt) * scalar + pt;
-	size *= scalar;
+    setPosition((getPosition() - pt) * scalar + pt);
+    setSize(getSize() * scalar);
 	return *this;
 }
 
 poRect &poRect::inset(poPoint p) {
-	origin += p;
-	size -= p * 2;
+	setPosition(getPosition() + p);
+    setSize(getSize() - (p *2));
 	return *this;
 }
 
 bool poRect::contains(float x, float y) const {
-	return	x >= origin.x && 
-			x <= (origin.x+size.x) && 
-			y >= origin.y && 
-			y <= (origin.y+size.y);
+	return	x >= this->x && 
+			x <= (this->x+width) && 
+			y >= this->y && 
+			y <= (this->y+height);
 }
 
 bool poRect::contains(const poPoint &pt) const {
 	return contains(pt.x, pt.y);
 }
 
-poPoint poRect::topLeft() const {
-	return origin;
+poPoint poRect::getTopLeft() const {
+	return getPosition();
 }
 
-poPoint poRect::bottomLeft() const {
-	return poPoint(origin.x, origin.y+size.y);
+poPoint poRect::getBottomLeft() const {
+	return poPoint(x, y + height);
 }
 
-poPoint poRect::topRight() const {
-	return poPoint(origin.x+size.x, origin.y);
+poPoint poRect::getTopRight() const {
+	return poPoint(x+width, y);
 }
 
-poPoint poRect::bottomRight() const {
-	return origin + size;
+poPoint poRect::getBottomRight() const {
+	return getPosition() + getSize();
 }
 
-std::vector<poPoint> poRect::corners() const {
+std::vector<poPoint> poRect::getCorners() const {
 	std::vector<poPoint> response;
-	response.push_back(topLeft());
-	response.push_back(topRight());
-	response.push_back(bottomRight());
-	response.push_back(bottomLeft());
+	response.push_back(getTopLeft());
+	response.push_back(getTopRight());
+	response.push_back(getBottomRight());
+	response.push_back(getBottomLeft());
 	return response;
 }
 
 std::string poRect::toString() const {
 	std::stringstream ss;
-	ss << "rect(" << origin.x << "," << origin.y << "," << size.x << "," << size.y << ")";
+	ss << "rect(" << x << "," << y << "," << width << "," << height << ")";
 	return ss.str();
 }
 
 poPoint poRect::remap(poRect from, poPoint p) {
-	poPoint from_ll = from.topLeft();
-	poPoint from_ur = from.bottomRight();
+	poPoint from_ll = from.getTopLeft();
+	poPoint from_ur = from.getBottomRight();
 	
-	poPoint to_ll = topLeft();
-	poPoint to_ur = bottomRight();
+	poPoint to_ll = getTopLeft();
+	poPoint to_ur = getBottomRight();
 
 	poPoint pt;
 	pt.x = poMapf(from_ll.x, from_ur.x, p.x, to_ll.x, to_ur.x);

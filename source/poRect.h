@@ -15,7 +15,6 @@
 // 
 // 
 
-
 class poRect 
 {
 public:
@@ -27,22 +26,27 @@ public:
 
     // RECT SET METHODS
     poRect&         set(float x, float y, float w, float h);
-	poRect&         set(poPoint origin, poPoint size);
+	poRect&         set(poPoint pos, poPoint size);
 	bool            set(const std::string &str);
     
+    poRect&         setPosition(float x, float y);
+    poRect&         setPosition(poPoint pos);
+    poRect&         setSize(float w, float h);
+    poRect&         setSize(poPoint size);
+    
     // RECT PROPERTIES
-	float           width() const;
-	float           height() const;
-	float           area() const;
-	poPoint         center() const;
-	float           aspect() const;
+	poPoint         getPosition() const;
+	poPoint         getSize() const;
+	float           getArea() const;
+	poPoint         getCenter() const;
+	float           getAspect() const;
 	
     // RECT CORNERS
-    poPoint         topLeft() const;
-	poPoint         bottomLeft() const;
-	poPoint         topRight() const;
-	poPoint         bottomRight() const;
-	std::vector<poPoint> corners() const;
+    poPoint         getTopLeft() const;
+	poPoint         getBottomLeft() const;
+	poPoint         getTopRight() const;
+	poPoint         getBottomRight() const;
+	std::vector<poPoint> getCorners() const;
 
     // RECT EXPANSION
 	poRect&         include(float x, float y);
@@ -64,7 +68,7 @@ public:
     // RECT TO STRING
 	std::string     toString() const;
     
-    poPoint         size, origin;
+    float           x,y,width,height;
 };
 
 std::ostream &operator<<(std::ostream &o, const poRect &r);

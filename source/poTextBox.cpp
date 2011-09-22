@@ -12,6 +12,8 @@ using namespace std;
 #include "SimpleDrawing.h"
 #include "poShapeBasics2D.h"
 #include "poResourceStore.h"
+#include "poShader.h"
+#include "poOpenGLState.h"
 
 #include <float.h>
 
@@ -67,8 +69,8 @@ void poTextBox::textAlignment(poAlignment al) {text_align = al;}
 
 poRect poTextBox::textBounds() const {return _layout.textBounds();}
 void poTextBox::reshape(int w, int h) {
-	bounds.size.set(w,h,0);
-	_layout.size(bounds.size);
+	bounds.setSize(w,h);
+	_layout.size(bounds.getSize());
 }
 
 bool poTextBox::richText() const {return _layout.richText();}
@@ -121,7 +123,7 @@ poTextBox *poTextBox::layout() {
 	_layout.layout();
 	
 	if(fit_height_to_bounds)
-		bounds.size.y = textBounds().size.y;
+		bounds.height = textBounds().height;
 
 	alignment(alignment());
 	_layout.alignment(text_align);
@@ -176,7 +178,7 @@ void poTextBox::draw() {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
                 applyColor( poColor(textColor, appliedAlpha()) );
-                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
         bitmapFont->setDownFont();
@@ -210,7 +212,7 @@ void poTextBox::draw() {
                     bitmapFont->setUpFont();
                 }
                 
-                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
         bitmapFont->setDownFont();
@@ -221,7 +223,7 @@ poTextBox &poTextBox::buttonize(poColor fill, poColor stroke, float strokeWidth,
 	if(button)
 		delete button;
 
-	button = new poRectShape(bounds.width(), bounds.height(), rad);
+	button = new poRectShape(bounds.width, bounds.height, rad);
 	button->fillColor = fill;
 	button->strokeColor = stroke;
 	button->generateStroke(strokeWidth);
