@@ -63,9 +63,11 @@ public:
 	static const poColor green;
     static const poColor cyan;
     static const poColor magenta;
+	static const poColor transparent;
 };
 
-
+bool operator==(const poColor &c1, const poColor &c2);
+bool operator!=(const poColor &c1, const poColor &c2);
 
 // CLASS NOTES
 //

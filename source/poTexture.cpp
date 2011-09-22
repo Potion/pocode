@@ -276,6 +276,138 @@ poImage const *poTexture::image() const {
 	return _image;
 }
 
+void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+
+std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	std::vector<poPoint> coords(4);
+	std::vector<poPoint> points = rect.corners();
+	textureFit(rect, tex, fit, align, coords, points);
+	return coords;
+}
+
+void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	switch(fit) {
+		case PO_TEX_FIT_NONE:
+			textureFitNone(rect, tex, align, coords, points);
+			break;
+			
+		case PO_TEX_FIT_EXACT:
+			textureFitExact(rect, tex, align, coords, points);
+			break;
+			
+		case PO_TEX_FIT_H:
+			textureFitHorizontal(rect, tex, align, coords, points);
+			break;
+			
+		case PO_TEX_FIT_V:
+			textureFitVertical(rect, tex, align, coords, points);
+			break;
+			
+		case PO_TEX_FIT_INSIDE: 
+		{
+			float new_h = rect.width() * (tex->height() / (float)tex->width());
+			if(new_h > rect.height())
+				textureFitVertical(rect, tex, align, coords, points);
+			else
+				textureFitHorizontal(rect, tex, align, coords, points);
+			break;
+		}
+		default:
+			;
+	}
+}
+
+void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / rect.width() - xoff;
+		float t = points[i].y / rect.height() - yoff;
+		coords[i].set(s,t,0.f);
+	}
+}
+
+
+void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	poPoint max(FLT_MIN, FLT_MIN);
+	
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / tex->width() - xoff;
+		float t = points[i].y / tex->height() - yoff;
+		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
+		coords[i].set(s,t,0.f);
+	}
+	
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
+	}
+}
+
+
+void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	float new_w = rect.width();
+	float new_h = new_w / (tex->width() / (float)tex->height());
+	
+	poPoint max(FLT_MIN, FLT_MIN);
+	
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / rect.width() - xoff;
+		float t = points[i].y / new_h - yoff;
+		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
+		coords[i].set(s,t,0.f);
+	}
+	
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
+	}
+}
+
+void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+	float xoff = rect.origin.x / (float)rect.width();
+	float yoff = rect.origin.y / (float)rect.height();
+	
+	float new_h = rect.height();
+	float new_w = new_h / (tex->height() / (float)tex->width());
+	
+	poPoint max(FLT_MIN, FLT_MIN);
+	
+	for(int i=0; i<points.size(); i++) {
+		float s = points[i].x / new_w - xoff;
+		float t = points[i].y / rect.height() - yoff;
+		
+		max.x = std::max(s, max.x);
+		max.y = std::max(t, max.y);
+		
+		coords[i].set(s,t,0.f);
+	}
+	
+	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	
+	for(int i=0; i<coords.size(); i++) {
+		coords[i] -= offset;
+	}
+}
+
 //void loadNotFound() {
 //	static poImage *img = NULL;
 //	if(!img) {

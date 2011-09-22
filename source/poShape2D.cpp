@@ -27,56 +27,36 @@ poShape2D::poShape2D()
 void poShape2D::draw() {
 	// do shape fill
 	if ( fillEnabled ) {
-		// load shape vertex array
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
-		glEnableVertexAttribArray(0);
-
-		// save the texture state if need be
-		poTextureState texState(texture ? texture->uid : 0);
-		
-		// setup texture and texture coordinates
-		if(texture != NULL) {
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(tex_coords[0].x));
-			glEnableVertexAttribArray(1);
-		}
-
 		// set the color
-		setColor(fillColor, appliedAlpha());
+		po::setColor(fillColor, appliedAlpha());
 
-		// configure the renderer
-		poBasicRenderer::get()->setFromState();
-		
-		// actually draw the filled shape
-		glDrawArrays(fillDrawStyle, 0, (int)points.size());
+		if(texture != NULL) {
+			po::drawPoints(fillDrawStyle, texture->uid, points, tex_coords);
+		}
+		else {
+			po::drawPoints(fillDrawStyle, points);
+		}
 	}
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		setColor(strokeColor, appliedAlpha());
+		po::setColor(strokeColor, appliedAlpha());
 
-		poTextureState state();
-		poBasicRenderer::get()->setFromState();
-		
 		if(useSimpleStroke) {
 			// use crappy OpenGL stroke
 			glLineWidth( stroke_width );
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
-            if ( closed )
-                glDrawArrays(GL_LINE_LOOP, 0, (int)points.size());
-            else
-                glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
+			GLenum primitiveType = closed ? GL_LINE_LOOP : GL_LINE_STRIP;
+			po::drawPoints(primitiveType, points);
 		}
 		else {
-			// otherwise draw the nice one we went to all the trouble to make for you
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(stroke[0]));
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
+			po::drawPoints(GL_TRIANGLE_STRIP, stroke);
 		}
 	}	
 	
 	if(drawBounds) {
-		setColor(poColor::red);
-		drawStroke(bounds);
-		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+		po::setColor(poColor::red);
+		po::drawStroke(bounds);
+		po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
 	}
 }
 

@@ -10,6 +10,8 @@
 
 #include "poPoint.h"
 #include "poColor.h"
+#include "poRect.h"
+#include "poEnums.h"
 
 class poImage;
 class poTextureConfig;
@@ -93,5 +95,11 @@ private:
 	uint                _width, _height;
 };
 
+
+// figures out tex coords to fit texture in rect
+std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
+// these do the same but make coordinates for each point in points array
+// returns texture coordinates thru coords
+void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 
 

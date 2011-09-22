@@ -50,9 +50,10 @@ public:
 	float           lastFrameElapsed() const;
 	float           lastFrameTime() const;
 	bool            isFullscreen() const;
-	poObject*       rootObject() const;
 	bool            wasClosed() const;
     poPoint         mousePosition() const;
+
+	poObject*       rootObject();
 
     // EVENT RECEIVING METHODS
     // These methods are called by the platform-specific windowing system. On the Mac and iOS
@@ -83,10 +84,7 @@ private:
     
     // THE SCENE GRAPH ROOT NODE
 	poObject        *root;
-    
-    // EVENT CENTER REF
-    poEventCenter *center;
-    
+	uint			root_id;
     
     // EVENT PROCESSING
 	// Incoming events are stored in the "received" event queue. This event queue is processed and then cleared

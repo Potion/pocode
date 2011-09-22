@@ -139,7 +139,8 @@ void poTextureAtlas::startDrawing() {
 void poTextureAtlas::drawUID(uint uid, poRect rect) {
 	if(hasUID(uid)) {
 		uint page = pageForUID(uid);
-		poOpenGLState::get()->setTextureState(po::TextureState(textures[page]->uid));
+		poTextureState texState(textures[page]->uid);
+		texState.save();
 		
 		poRect size = sizeForUID(uid);
 		poRect coords = coordsForUID(uid);
@@ -164,6 +165,8 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		
+		texState.restore();
 	}
 }
 
@@ -173,7 +176,7 @@ void poTextureAtlas::drawUID(uint uid, poPoint p) {
 
 void poTextureAtlas::stopDrawing() {
 	is_drawing = false;
-	texState.revert();
+	texState.restore();
 }
 
 bool poTextureAtlas::isDrawing() {

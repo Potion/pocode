@@ -32,7 +32,6 @@ poObject::poObject()
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
-,	in_window(false)
 {}
 
 poObject::poObject(const std::string &name)
@@ -56,7 +55,6 @@ poObject::poObject(const std::string &name)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
-,	in_window(false)
 {}
 
 poObject::~poObject() {
@@ -88,7 +86,6 @@ bool poObject::removeChild(poObject* obj) {
 	
 	if(found) {
 		(*iter)->_parent = NULL;
-		(*iter)->inWindow(false);
 		children.erase(iter);
 	}
 	
@@ -100,7 +97,6 @@ bool poObject::removeChild(int idx, bool and_delete) {
 		return false;
 
 	children[idx]->_parent = NULL;
-	children[idx]->inWindow(false);
 
 	if(and_delete)
 		delete children[idx];
@@ -113,7 +109,6 @@ bool poObject::removeChild(int idx, bool and_delete) {
 void poObject::removeAllChildren(bool and_delete) {
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_parent = NULL;
-		obj->inWindow(false);
 		if(and_delete)
 			delete obj;
 	}
@@ -315,14 +310,6 @@ poRect poObject::calculateBounds() {
 
 poObject*		poObject::parent() const {return _parent;}
 uint			poObject::uid() const {return _uid;}
-
-bool			poObject::isInWindow() const {return in_window;}
-void			poObject::inWindow(bool b) {
-	in_window = b;
-	BOOST_FOREACH(poObject *obj, children) {
-		obj->inWindow(b);
-	}
-}
 
 float			poObject::appliedAlpha() const{return true_alpha;}
 poMatrixSet     poObject::matrixSet() const {return matrices;}

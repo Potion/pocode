@@ -35,7 +35,7 @@ bool poGeometryMask::pointInside(poPoint p) {
 	
 }
 
-void poGeometryMask::set() {
+void poGeometryMask::save() {
     if(shape) {
 		if(clears_stencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
@@ -51,14 +51,13 @@ void poGeometryMask::set() {
 		state.op_fail = GL_KEEP;
 		state.op_stencil_depth_fail = GL_KEEP;
 		state.op_stencil_depth_pass = GL_REPLACE;
-		poStencilState::set();
+		poStencilState::save();
 		
-        drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
+		po::drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
         
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		state.func = GL_EQUAL;
-		poStencilState::revert();
-		poStencilState::set();
+		poStencilState::restore();
         
         poOpenGLState::get()->matrix.popModelview();
 	}
@@ -86,7 +85,7 @@ void poImageMask::doSetUp( poObject* obj ) {
 	glEnable(GL_BLEND);
 	
 	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
-	drawRect(image->texture());
+	po::drawRect(image->texture());
 	
 	glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
 }

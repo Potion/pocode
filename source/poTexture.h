@@ -10,6 +10,8 @@
 
 #include "poPoint.h"
 #include "poColor.h"
+#include "poRect.h"
+#include "poEnums.h"
 
 class poImage;
 class poTextureConfig;

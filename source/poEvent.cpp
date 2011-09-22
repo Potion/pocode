@@ -210,7 +210,7 @@ void poEventCenter::notifyFiltered(poEvent event, const std::set<poObject*> &fil
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
 		
-		if(!(callback.event.source->isInWindow() && callback.event.source->visible))
+		if(!callback.event.source->visible)
 			continue;
 		
 		if(!filter.empty()) {
@@ -235,7 +235,7 @@ bool poEventCenter::routeBySource(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
-		if(!(callback.event.source->isInWindow() && callback.event.source->visible)) {
+		if(!callback.event.source->visible) {
 			continue;
 		}
 
@@ -255,7 +255,7 @@ bool poEventCenter::routeBySink(poObject *obj, poEvent event) {
 	std::vector<event_callback> &event_vec = events[event.type];
 	for(int i=0; i<event_vec.size(); i++) {
 		event_callback &callback = event_vec[i];
-		if(!(callback.event.source->isInWindow() && callback.event.source->visible)) {
+		if(!callback.event.source->visible) {
 			continue;
 		}
 

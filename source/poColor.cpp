@@ -22,6 +22,7 @@ const poColor poColor::blue = poColor(0,1,0);
 const poColor poColor::green = poColor(0,1,0);
 const poColor poColor::cyan = poColor(0,1,1);
 const poColor poColor::magenta = poColor(1,0,1);
+const poColor poColor::transparent = poColor(0,0,0,0);
 
 poHSVColor rgba2hsv(poColor rgba) {
 	float r = rgba.R * rgba.A;
@@ -154,6 +155,13 @@ std::string poColor::toString() const {
 	return (boost::format("rgba(%f,%f,%f,%f)")%int(R*255)%int(G*255)%int(B*255)%int(A*255)).str();
 }
 
+bool operator==(const poColor &c1, const poColor &c2) {
+	return compare(c1.R, c2.R) && compare(c1.G, c2.G) && compare(c1.B, c2.B) && compare(c1.A, c2.A);
+}
+
+bool operator!=(const poColor &c1, const poColor &c2) {
+	return !(c1 == c2);
+}
 
 poHSVColor::poHSVColor() 
 :   H(0.f)

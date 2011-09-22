@@ -214,7 +214,6 @@ public:
     //@{  
 	poObject*           parent() const;
 	uint                uid() const;
-	bool                isInWindow() const;
     //!alpha with parent alpha pre-multiplied
 	float               appliedAlpha() const; 	
     poMatrixSet         matrixSet() const;
@@ -239,7 +238,6 @@ private:
 	void                pushObjectMatrix();
 	void                popObjectMatrix();
 	void                localizeEvent(poEvent*, poEvent*, poPoint);
-	void                inWindow(bool b);
 	//@}
     
     /*! "children" is a vector of poObjects. It is the basis for the poObject scene graph/tree structure.
@@ -259,7 +257,6 @@ private:
 
 	poMatrixSet         matrices;
 	int                 draw_order;
-	bool                in_window;
     //@}
 };
 
@@ -277,7 +274,6 @@ T* poObject::addChild(T* obj, int idx) {
 	}
 	
 	obj->_parent = this;
-	obj->inWindow(in_window);
 	children.insert(children.begin()+idx, obj);
 
 	return obj;

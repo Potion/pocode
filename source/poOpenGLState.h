@@ -36,34 +36,55 @@ namespace po {
 	
 	struct TextureState {
 		TextureState();
-		TextureState(GLuint uid);
 		
 		GLuint bound_id;
 	};
 	
-	struct ShaderState {
-		ShaderState();
+	// http://www.opengl.org/sdk/docs/man/xhtml/glBlendFunc.xml
+	// http://www.opengl.org/sdk/docs/man/xhtml/glBlendEquation.xml
+	struct BlendState {
+		BlendState();
 		
-		GLuint bound_id;
+		bool enabled;
+		// blend func
+		GLenum source_factor, dest_factor;
+		// blend equation
+		GLenum equation;
+		// blend color
+		poColor color;
 	};
+	
 }
 
 class poOpenGLState {
 public:
 	po::StencilState	stencil;
 	po::TextureState	texture;
-	po::ShaderState		shader;
+	po::BlendState		blend;
 	
 	poColor				color;
 	poMatrixStack		matrix;
 	
 	static poOpenGLState *get();
-	void setStencilState(po::StencilState);
-	void setTextureState(po::TextureState);
-	void setShaderState(po::ShaderState);
+	
+	void setStencil(po::StencilState);
+	void saveStencil();
+	void restoreStencil();
+
+	void setTexture(po::TextureState);
+	void saveTexture();
+	void restoreTexture();
+	
+	void setBlend(po::BlendState);
+	void saveBlend();
+	void restoreBlend();
 	
 private:
 	poOpenGLState();
+	
+	std::stack<po::StencilState> stencilStack;
+	std::stack<po::TextureState> textureStack;
+	std::stack<po::BlendState> blendStack;
 };
 
 

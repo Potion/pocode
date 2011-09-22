@@ -10,51 +10,61 @@
 #include "poObject.h"
 
 void poOpenGLStateChange::doSetUp(poObject *obj) {
-	set();
+	save();
 }
 
 void poOpenGLStateChange::doSetDown(poObject *obj) {
-	revert();
+	restore();
 }
 
-void poStencilState::set() {
-	saved = poOpenGLState::get()->stencil;
-	poOpenGLState::get()->setStencilState(state);
+void poStencilState::save() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->saveStencil();
+	ogl->setStencil(state);
 }
 
-void poStencilState::revert() {
-	poOpenGLState::get()->setStencilState(saved);
+void poStencilState::restore() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->restoreStencil();
 }
 
 poTextureState::poTextureState() {
 	state.bound_id = 0;
-	set();
 }
 
 poTextureState::poTextureState(GLuint uid) {
 	state.bound_id = uid;
-	set();
 }
 
-poTextureState::~poTextureState() {
-	revert();
+void poTextureState::save() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->saveTexture();
+	ogl->setTexture(state);
 }
 
-void poTextureState::set() {
-	saved = poOpenGLState::get()->texture;
-	poOpenGLState::get()->setTextureState(state);
+void poTextureState::restore() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->restoreTexture();
 }
 
-void poTextureState::revert() {
-	poOpenGLState::get()->setTextureState(saved);
+poBlendState::poBlendState() {}
+
+poBlendState::poBlendState(GLenum sfactor, GLenum dfactor) {
+	state.enabled = true;
+	state.source_factor = sfactor;
+	state.dest_factor = dfactor;
 }
 
-void poShaderState::set() {
-	saved = poOpenGLState::get()->shader;
-	poOpenGLState::get()->setShaderState(state);
+void poBlendState::save() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->saveBlend();
+	ogl->setBlend(state);
 }
 
-void poShaderState::revert() {
-	poOpenGLState::get()->setShaderState(saved);
+void poBlendState::restore() {
+	poOpenGLState* ogl = poOpenGLState::get();
+	ogl->restoreBlend();
 }
+
+
 

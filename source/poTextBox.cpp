@@ -138,28 +138,28 @@ void poTextBox::draw() {
 		for(int i=0; i<numLines(); i++) {
 			
 			if(drawBounds & PO_TEXT_BOX_STROKE_GLYPH) {
-				setColor(poColor::lt_grey, .5f);
+				po::setColor(poColor::lt_grey, .5f);
 				BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
-					drawStroke(glyph.bbox);
+					po::drawStroke(glyph.bbox);
 				}
 			}
 			
 			if(drawBounds & PO_TEXT_BOX_STROKE_LINE) {
-				setColor(poColor::white, .6f);
-				drawStroke(boundsForLine(i));
+				po::setColor(poColor::white, .6f);
+				po::drawStroke(boundsForLine(i));
 			}
 		}
 		
 		if(drawBounds & PO_TEXT_BOX_STROKE_TEXT_BOUNDS) {
-			setColor(poColor::grey, .7f);
-			drawStroke(textBounds());
+			po::setColor(poColor::grey, .7f);
+			po::drawStroke(textBounds());
 		}
 		
-        setColor(poColor::dk_grey, .8f);
-        drawStroke(bounds);
+        po::setColor(poColor::dk_grey, .8f);
+        po::drawStroke(bounds);
 		
-		setColor(poColor::red);
-		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+		po::setColor(poColor::red);
+		po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
 	poBitmapFont *regFont = getBitmapFont(this->font());
@@ -175,7 +175,7 @@ void poTextBox::draw() {
         {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
-                setColor( poColor(textColor, appliedAlpha()) );
+                po::setColor( poColor(textColor, appliedAlpha()) );
                 bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
             }
         }
@@ -190,13 +190,13 @@ void poTextBox::draw() {
         {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
-                setColor(poColor(textColor, appliedAlpha()));
+                po::setColor(poColor(textColor, appliedAlpha()));
                 
                 poDictionary dict = _layout.dictionaryForIndex(count);
                 count++;
                 
                 if(dict.has("color"))
-                    setColor(poColor(dict.getColor("color"), appliedAlpha()));
+                    po::setColor(poColor(dict.getColor("color"), appliedAlpha()));
                 
                 if(dict.has("font")) {
                     poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));

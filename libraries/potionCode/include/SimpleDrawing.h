@@ -7,24 +7,26 @@
 #include "poObject.h"
 #include "poFont.h"
 
-void setColor(poColor color);
-void setColor(poColor color, float new_alpha);
+namespace po {
 
-void drawStroke(poRect rect);
-void drawStroke(float x, float y, float w, float h);
-void drawLine(poPoint a, poPoint b);
-void drawRect(poRect rect);
-void drawRect(float x, float y, float w, float h);
-void drawRect(poRect rect, poTexture* texture, bool flip=false);
-void drawRect(float x, float y, float w, float h, poTexture* texture, bool flip=false);
-void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip=false);
-void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit);
-void drawRect(poTexture* tex, bool flip=false);
-void drawPoints(GLenum type, const std::vector<poPoint> &points);
-void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
+	void setColor(poColor color);
+	void setColor(poColor color, float new_alpha);
 
-// figures out tex coords to fit texture in rect
-std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
-// these do the same but make coordinates for each point in points array
-// returns texture coordinates thru coords
-void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+	void drawStroke(poRect rect);
+	void drawStroke(float x, float y, float w, float h);
+	void drawLine(poPoint a, poPoint b);
+	void drawRect(poRect rect);
+	void drawRect(float x, float y, float w, float h);
+	void drawRect(poRect rect, poTexture* texture, bool flip=false);
+	void drawRect(float x, float y, float w, float h, poTexture* texture, bool flip=false);
+	void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip=false);
+	void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit);
+	void drawRect(poTexture* tex, bool flip=false);
+	void drawPoints(GLenum type, const std::vector<poPoint> &points);
+	void drawPoints(GLenum type, GLuint tex_id, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords);
+	void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
+	
+	void enableBlending();
+	void disableBlending();
+	
+}

@@ -14,19 +14,16 @@ class poOpenGLStateChange : public poObjectModifier {
 public:
 	virtual void doSetUp(poObject *obj);
 	virtual void doSetDown(poObject *obj);
-	virtual void set() = 0;
-	virtual void revert() = 0;
+	virtual void save() = 0;
+	virtual void restore() = 0;
 };
 
 class poStencilState : public poOpenGLStateChange {
 public:
 	po::StencilState state;
 	
-	virtual void set();
-	virtual void revert();
-	
-private:
-	po::StencilState saved;
+	virtual void save();
+	virtual void restore();
 };
 
 class poTextureState : public poOpenGLStateChange {
@@ -35,22 +32,22 @@ public:
 	
 	poTextureState();
 	poTextureState(GLuint uid);
-	~poTextureState();
 	
-	virtual void set();
-	virtual void revert();
-	
-private:
-	po::TextureState saved;
+	virtual void save();
+	virtual void restore();
 };
 
-class poShaderState : public poOpenGLStateChange {
+class poBlendState : public poOpenGLStateChange {
 public:
-	po::ShaderState state;
+	po::BlendState state;
 	
-	virtual void set();
-	virtual void revert();
+	poBlendState();
+	poBlendState(GLenum sfactor, GLenum dfactor);
 	
-private:
-	po::ShaderState saved;
+	virtual void save();
+	virtual void restore();
 };
+
+
+
+

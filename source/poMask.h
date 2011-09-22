@@ -34,7 +34,7 @@ public:
 	bool            pointInside(poPoint p);
 	
 protected:
-	virtual void    set();
+	virtual void    save();
 	
 private:
 	poShape2D *shape;

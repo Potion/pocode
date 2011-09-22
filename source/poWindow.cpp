@@ -2,10 +2,11 @@
 #include "poWindow.h"
 
 #include "Helpers.h"
+#include "SimpleDrawing.h"
 #include "poApplication.h"
 
 void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
-	if(!(obj->isInWindow() && obj->visible && obj->alpha > 0.01))
+	if(!(obj->visible && obj->alpha > 0.01))
 		return; 
 	
 	for(int i=obj->numChildren()-1; i>=0; i--) {
@@ -20,6 +21,7 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 :	title_(title)
 ,	handle(NULL)
 ,	root(NULL)
+,	root_id(root_id)
 ,	_bounds(b)
 ,   key_receiver(NULL)
 ,	fullscreen_(false)
@@ -29,10 +31,6 @@ poWindow::poWindow(const char *title, uint root_id, poRect b)
 ,	last_mark(0.0)
 ,	framerate_(0.f)
 {
-	makeCurrent();
-	root = createObjectForID(root_id);
-    
-    center = poEventCenter::get();
 }
 
 poWindow::~poWindow() {
@@ -105,7 +103,12 @@ bool poWindow::isFullscreen() const {
 	return fullscreen_;
 }
 
-poObject *poWindow::rootObject() const {
+poObject *poWindow::rootObject() {
+	if(!root) {
+		makeCurrent();
+		po::enableBlending();
+		root = createObjectForID(root_id);
+	}
 	return root;
 }
 
@@ -135,13 +138,11 @@ void poWindow::update() {
 	
 	draw_order_counter = 0;
 	
-	if(root)
-		root->_updateTree();
+	rootObject()->_updateTree();
 }
 
 void poWindow::draw() {
-	if(root)
-		root->_drawTree();
+	rootObject()->_drawTree();
 }
 
 bool sortByDrawOrder(poObject *a, poObject *b) {
@@ -163,7 +164,7 @@ void sortedFilteredVectorFromSet(std::set<poObject*> &objs, std::vector<poObject
 }
 
 void poWindow::processEvents() {
-   if(!root) {
+   if(!handle) {
 		received.clear();
 		return;
 	}
@@ -189,7 +190,7 @@ void poWindow::processEvents() {
         else if( event.type == PO_WINDOW_RESIZED_EVENT) {
                 // everyone who cares gets resize
                 // maybe this should be broadcast
-                center->notify(event);
+                poEventCenter::get()->notify(event);
         }
         
         else {
@@ -211,7 +212,7 @@ void poWindow::processInteractionEvent(poEvent event) {
     
     //Get the Objects Beneath
     std::set<poObject*> objsBeneath;
-    objUnderPoint(root, event.position, objsBeneath);
+    objUnderPoint(rootObject(), event.position, objsBeneath);
     
     //Find objects that the point entered and left
     std::set<poObject*> did_enter;
@@ -224,7 +225,7 @@ void poWindow::processInteractionEvent(poEvent event) {
     
     
     // Notify general subscribers
-    center->notify(event);
+    poEventCenter::get()->notify(event);
     
     //Dispatch Appropriate touch or mouse events
     switch (event.type) {
@@ -242,12 +243,12 @@ void poWindow::processInteractionEvent(poEvent event) {
                 filter.insert(pt->dragTarget);
                 
                 // Filtered object gets inside event
-                center->notifyFiltered(event, filter, false);
+                poEventCenter::get()->notifyFiltered(event, filter, false);
             }
             
             // Everything else gets mouse up outside
             event.type = isTouchEvent(event.type) ? PO_TOUCH_BEGAN_OUTSIDE_EVENT : PO_MOUSE_DOWN_OUTSIDE_EVENT;
-            center->notifyFiltered(event, filter, true);
+            poEventCenter::get()->notifyFiltered(event, filter, true);
             break;
             
         case PO_MOUSE_MOVE_EVENT:
@@ -255,17 +256,17 @@ void poWindow::processInteractionEvent(poEvent event) {
             // Notify ENTER/LEAVE Subscribers
             if(!objsBeneath.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_OVER_EVENT : PO_MOUSE_OVER_EVENT;
-                center->notifyFiltered(event, filter, false);
+                poEventCenter::get()->notifyFiltered(event, filter, false);
             }
             
             if(!did_enter.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_ENTER_EVENT : PO_MOUSE_ENTER_EVENT;
-                center->notifyFiltered(event, did_enter, false);
+                poEventCenter::get()->notifyFiltered(event, did_enter, false);
             }
             
             if(!did_leave.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_LEAVE_EVENT : PO_MOUSE_LEAVE_EVENT;
-                center->notifyFiltered(event, did_leave, false);
+                poEventCenter::get()->notifyFiltered(event, did_leave, false);
             }
             break;
             
@@ -280,12 +281,12 @@ void poWindow::processInteractionEvent(poEvent event) {
                 
                 sortedFilteredVectorFromSet(objsBeneath, listeningObjs, event.type);
                 filter.insert(listeningObjs.back());
-                center->notifyFiltered(event, filter, false);
+                poEventCenter::get()->notifyFiltered(event, filter, false);
             }
             
             //Everyone else gets outside event
             event.type = isTouchEvent(event.type) ? PO_TOUCH_ENDED_OUTSIDE_EVENT : PO_MOUSE_UP_OUTSIDE_EVENT;
-            center->notifyFiltered(event, filter, true);
+            poEventCenter::get()->notifyFiltered(event, filter, true);
             break;
     }
 }
@@ -314,11 +315,11 @@ void poWindow::setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject
 void poWindow::processKeyEvent(poEvent event) {
     switch (event.type) {
         case PO_KEY_DOWN_EVENT:
-            center->notify(event);
+            poEventCenter::get()->notify(event);
             break;
             
         case PO_KEY_UP_EVENT:
-            center->notify(event);
+            poEventCenter::get()->notify(event);
             break;
             
         default:
@@ -385,9 +386,6 @@ void poWindow::keyDown(int key, int code, int mod) {
 }
 
 void poWindow::keyUp(int key, int code, int mod) {
-	if(!root)
-		return;
-	
 	poEvent event;
 	event.keyCode = code;
 	event.keyChar = key;
@@ -526,8 +524,6 @@ void *poWindow::getWindowHandle() {
 
 void poWindow::setWindowHandle(void *handle) {
 	this->handle = handle;
-	if(root)
-		root->inWindow(handle != NULL);
 }
 
 int poWindow::nextDrawOrder() {
