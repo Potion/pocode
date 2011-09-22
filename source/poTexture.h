@@ -70,13 +70,6 @@ public:
 	void                load();
 	void                unload();
 	bool                isLoaded() const;
-    
-    // TEXTURE BINDING
-    // Once a texture is loaded on the graphics card, it is enabled and disabled
-    // using the bind and unbind methods. These methods are called automatically
-    // by poShape2D if a texture is attached.
-	void                bind();
-	void                unbind();
 
     // TEXTURE CONFIGURATION
 	poTextureConfig     config;
@@ -100,5 +93,11 @@ private:
 	uint                _width, _height;
 };
 
+
+// figures out tex coords to fit texture in rect
+std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
+// these do the same but make coordinates for each point in points array
+// returns texture coordinates thru coords
+void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 
 

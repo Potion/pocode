@@ -3,6 +3,8 @@
 #include "poCamera.h"
 #include "Helpers.h"
 
+#include "poOpenGLStateChange.h"
+
 
 poObject *createObjectForID(uint uid) {
 	return new basicShapesApp();
@@ -18,16 +20,15 @@ void cleanupApplication() {
 
 basicShapesApp::basicShapesApp() {
 	addModifier(new poCamera2D());
-	addModifier(basicProgram1());
-    
-    // make custom shape, orange
+	
+	// make custom shape, orange
     customShape = new poShape2D();
     customShape->addPoint( -30, -40 );
     customShape->addPoint( 60, -50 );
     customShape->addPoint( 50, 30 );
     customShape->addPoint( -50, 40 );
     customShape->position.set( 150, 75, 0 );
-    customShape->fillColor = poColor::orange;
+    customShape->fillColor = poColor(poColor::orange, 0.2);
     addChild( customShape );
     
     // make rectangular shape, yellow

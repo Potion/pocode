@@ -29,5 +29,5 @@ MIKKO				= $(LIBRARIES)/libMikko
 BZ2					= $(LIBRARIES)/bz2
 PUGIXML				= $(LIBRARIES)/pugixml
 SQLITE				= /usr/lib/libsqlite3.0.dylib
-LIBRARIES_CMD		= -lPotionCode $(SQLITE)
+LIBRARIES_CMD		= -lPotionCode_d $(SQLITE)
 FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit

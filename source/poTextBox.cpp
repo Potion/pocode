@@ -138,27 +138,27 @@ void poTextBox::draw() {
 		for(int i=0; i<numLines(); i++) {
 			
 			if(drawBounds & PO_TEXT_BOX_STROKE_GLYPH) {
-				applyColor(poColor::lt_grey, .5f);
+				setColor(poColor::lt_grey, .5f);
 				BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) {
 					drawStroke(glyph.bbox);
 				}
 			}
 			
 			if(drawBounds & PO_TEXT_BOX_STROKE_LINE) {
-				applyColor(poColor::white, .6f);
+				setColor(poColor::white, .6f);
 				drawStroke(boundsForLine(i));
 			}
 		}
 		
 		if(drawBounds & PO_TEXT_BOX_STROKE_TEXT_BOUNDS) {
-			applyColor(poColor::grey, .7f);
+			setColor(poColor::grey, .7f);
 			drawStroke(textBounds());
 		}
 		
-        applyColor(poColor::dk_grey, .8f);
+        setColor(poColor::dk_grey, .8f);
         drawStroke(bounds);
 		
-		applyColor(poColor::red);
+		setColor(poColor::red);
 		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
     }
 
@@ -175,7 +175,7 @@ void poTextBox::draw() {
         {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
-                applyColor( poColor(textColor, appliedAlpha()) );
+                setColor( poColor(textColor, appliedAlpha()) );
                 bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
             }
         }
@@ -190,13 +190,13 @@ void poTextBox::draw() {
         {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
-                applyColor(poColor(textColor, appliedAlpha()));
+                setColor(poColor(textColor, appliedAlpha()));
                 
                 poDictionary dict = _layout.dictionaryForIndex(count);
                 count++;
                 
                 if(dict.has("color"))
-                    applyColor(poColor(dict.getColor("color"), appliedAlpha()));
+                    setColor(poColor(dict.getColor("color"), appliedAlpha()));
                 
                 if(dict.has("font")) {
                     poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));

@@ -7,34 +7,65 @@
 //
 
 #pragma once
+#include "poColor.h"
+#include "poMatrixStack.h"
 
-class poTexture;
-class poShaderProgram;
+static int maxTextureUnits() {
+	static int max = 0;
+	if(!max) 
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &max);
+	return max;
+}
+
+namespace po {
+	// http://www.opengl.org/sdk/docs/man/xhtml/glStencilOp.xml
+	// http://www.opengl.org/sdk/docs/man/xhtml/glStencilFunc.xml
+	struct StencilState {
+		StencilState();
+		
+		bool enabled;
+		// stencil operation
+		GLenum op_fail;
+		GLenum op_stencil_depth_fail;
+		GLenum op_stencil_depth_pass;
+		// stencil func
+		GLenum func;
+		GLint func_ref;
+		GLuint func_mask;
+	};
+	
+	struct TextureState {
+		TextureState();
+		TextureState(GLuint uid);
+		
+		GLuint bound_id;
+	};
+	
+	struct ShaderState {
+		ShaderState();
+		
+		GLuint bound_id;
+	};
+}
 
 class poOpenGLState {
 public:
+	po::StencilState	stencil;
+	po::TextureState	texture;
+	po::ShaderState		shader;
+	
+	poColor				color;
+	poMatrixStack		matrix;
+	
 	static poOpenGLState *get();
-	
-	bool isEnabled(GLenum attrib) const;
-	void enable(GLenum attrib);
-	void disable(GLenum attrib);
-	
-	poTexture *boundTexture() const;
-	void bindTexture(poTexture *tex);
-	void unbindTexture();
-	
-	poShaderProgram *boundShader() const;
-	void bindShader(poShaderProgram *prog);
-	void unbindShader();
+	void setStencilState(po::StencilState);
+	void setTextureState(po::TextureState);
+	void setShaderState(po::ShaderState);
 	
 private:
 	poOpenGLState();
-
-	typedef boost::unordered_map<GLenum,bool> enumBoolMap_t;
-	
-	enumBoolMap_t enabled;
-	
-	std::stack<poTexture*> textures;
-	std::stack<poShaderProgram*> shaders;
 };
+
+
+
 

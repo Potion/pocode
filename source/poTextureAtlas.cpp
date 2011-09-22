@@ -4,10 +4,7 @@
 #include "Loaders.h"
 #include "BinPacker.h"
 #include "Helpers.h"
-
-#include "poShader.h"
-#include "poMatrixStack.h"
-#include "poOpenGLState.h"
+#include "poBasicRenderer.h"
 
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
@@ -136,14 +133,13 @@ void poTextureAtlas::clearPages() {
 
 void poTextureAtlas::startDrawing() {
 	is_drawing = true;
-	poOpenGLState::get()->bindTexture(textures[0]);
-	poOpenGLState::get()->bindShader(basicProgram2());
+	texState = poTextureState(textures[0]->uid);
 }
 
 void poTextureAtlas::drawUID(uint uid, poRect rect) {
 	if(hasUID(uid)) {
 		uint page = pageForUID(uid);
-		poOpenGLState::get()->bindTexture(textures[page]);
+		poOpenGLState::get()->setTextureState(po::TextureState(textures[page]->uid));
 		
 		poRect size = sizeForUID(uid);
 		poRect coords = coordsForUID(uid);
@@ -164,8 +160,7 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 			coords.origin.x+coords.size.x, coords.origin.y+coords.size.y
 		};
 
-		basicProgram2()->uniform1("tex", (int)textures[page]->uid);
-		basicProgram2()->uniformMat4("transformation", glm::value_ptr(poMatrixStack::get()->transformation()));
+		poBasicRenderer::get()->setFromState();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -177,9 +172,8 @@ void poTextureAtlas::drawUID(uint uid, poPoint p) {
 }
 
 void poTextureAtlas::stopDrawing() {
-	poOpenGLState::get()->unbindTexture();
-	poOpenGLState::get()->unbindShader();
 	is_drawing = false;
+	texState.revert();
 }
 
 bool poTextureAtlas::isDrawing() {

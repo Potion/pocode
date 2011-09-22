@@ -70,13 +70,6 @@ public:
 	void                load();
 	void                unload();
 	bool                isLoaded() const;
-    
-    // TEXTURE BINDING
-    // Once a texture is loaded on the graphics card, it is enabled and disabled
-    // using the bind and unbind methods. These methods are called automatically
-    // by poShape2D if a texture is attached.
-	void                bind();
-	void                unbind();
 
     // TEXTURE CONFIGURATION
 	poTextureConfig     config;
