@@ -99,7 +99,7 @@ void BinPacker::resetPackMap() {
 
 uint BinPacker::addRect(poRect r) {
 	uint tmp = handles++;
-	rectangles.push_back(insert_rect(r.width(), r.height(), tmp));
+	rectangles.push_back(insert_rect(r.width, r.height, tmp));
 	return tmp;
 }
 

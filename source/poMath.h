@@ -53,8 +53,8 @@ inline float poRand(float low, float high) {
 }
 
 inline poPoint randomPointInRect(poRect r) {
-	return poPoint(poRand(r.origin.x,r.origin.x+r.size.x),
-				   poRand(r.origin.y,r.origin.y+r.size.y));
+	return poPoint(poRand(r.x,r.x+r.width),
+				   poRand(r.y,r.y+r.height));
 }
 
 inline poColor randomColor(float alpha=1.f) {

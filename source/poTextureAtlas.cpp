@@ -70,15 +70,15 @@ void poTextureAtlas::layoutAtlas() {
 		ImageLookup item;
 		item.page = pg;
 		
-		poPoint origin(pack_loc.origin.x / (float)width,
-					   pack_loc.origin.y / (float)height);
-		poPoint size(pack_loc.size.x / (float)width,
-					 pack_loc.size.y / (float)height);
+		poPoint origin(pack_loc.x / (float)width,
+					   pack_loc.y / (float)height);
+		poPoint size(pack_loc.width / (float)width,
+					 pack_loc.height / (float)height);
 		
 		item.coords = poRect(origin, size);
-		item.coords.origin.y = 1.f - item.coords.origin.y - item.coords.size.y;
+		item.coords.y = 1.f - item.coords.y - item.coords.height;
 		
-		item.size = pack_loc.size;
+		item.size = pack_loc.getSize();
 		
 		coords[i] = item;
 		pages[pg]->composite(images[i], pack_loc);
@@ -145,20 +145,20 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 		poRect size = sizeForUID(uid);
 		poRect coords = coordsForUID(uid);
 		
-		rect.origin += originAdjust();
+		rect.setPosition(rect.getPosition() + originAdjust());
 		
 		GLfloat quad[4*3] = { 
-			rect.origin.x, rect.origin.y, 0, 
-			rect.origin.x, rect.origin.y+(size.size.y*rect.size.y), 0, 
-			rect.origin.x+(size.size.x*rect.size.x), rect.origin.y, 0, 
-			rect.origin.x+(size.size.x*rect.size.x), rect.origin.y+(size.size.y*rect.size.y), 0 
+			rect.x, rect.y, 0, 
+			rect.x, rect.y+(size.height*rect.height), 0, 
+			rect.x+(size.width*rect.width), rect.y, 0, 
+			rect.x+(size.width*rect.width), rect.y+(size.height*rect.height), 0 
 		};
 		
 		GLfloat tcoords[4*2] = {
-			coords.origin.x, coords.origin.y,
-			coords.origin.x, coords.origin.y+coords.size.y,
-			coords.origin.x+coords.size.x, coords.origin.y,
-			coords.origin.x+coords.size.x, coords.origin.y+coords.size.y
+			coords.x, coords.y,
+			coords.x, coords.y+coords.height,
+			coords.x+coords.width, coords.y,
+			coords.x+coords.width, coords.y+coords.height
 		};
 
 		poBasicRenderer::get()->setFromState();

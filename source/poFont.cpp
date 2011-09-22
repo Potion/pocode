@@ -140,12 +140,12 @@ poRect poFont::glyphBounds() const {
 }
 
 poRect poFont::glyphFrame() const {
-	return poRect(glyphBearing(), glyphBounds().size);
+	return poRect(glyphBearing(), glyphBounds().getSize());
 }
 
 float poFont::glyphDescender() const {
 	poRect r = glyphFrame();
-	return r.height() + r.origin.y;
+	return r.height + r.y;
 }
 
 poPoint poFont::glyphBearing() const {

@@ -34,8 +34,9 @@ glm::mat4 poMatrixStack::transformation() {return projection.top() * modelview.t
 // set it to opengl
 void poMatrixStack::load() {
 	poRect vp = viewport.top();
-	glScissor(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
-	glViewport(vp.origin.x, vp.origin.y, vp.size.x, vp.size.y);
+
+	glScissor(vp.x, vp.y, vp.width, vp.height);
+	glViewport(vp.x, vp.y, vp.width, vp.height);
 }
 
 // modify the top modelview

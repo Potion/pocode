@@ -276,24 +276,24 @@ poObject& poObject::alignment(poAlignment align) {
 		case PO_ALIGN_TOP_LEFT:
 			offset.set(0,0,0); break;
 		case PO_ALIGN_TOP_CENTER:
-			offset.set(-frame.width()/2.f,0,0); break;
+			offset.set(-frame.width/2.f,0,0); break;
 		case PO_ALIGN_TOP_RIGHT:
-			offset.set(-frame.width(),0,0); break;
+			offset.set(-frame.width,0,0); break;
 		case PO_ALIGN_CENTER_LEFT:
-			offset.set(0,-frame.height()/2.f,0); break;
+			offset.set(0,-frame.height/2.f,0); break;
 		case PO_ALIGN_CENTER_CENTER:
-			offset.set(-frame.width()/2.f,-frame.height()/2.f,0); break;
+			offset.set(-frame.width/2.f,-frame.height/2.f,0); break;
 		case PO_ALIGN_CENTER_RIGHT:
-			offset.set(-frame.width(),-frame.height()/2.f,0); break;
+			offset.set(-frame.width,-frame.height/2.f,0); break;
 		case PO_ALIGN_BOTTOM_LEFT:
-			offset.set(0,-frame.height(),0); break;
+			offset.set(0,-frame.height,0); break;
 		case PO_ALIGN_BOTTOM_CENTER:
-			offset.set(-frame.width()/2.f,-frame.height(),0); break;
+			offset.set(-frame.width/2.f,-frame.height,0); break;
 		case PO_ALIGN_BOTTOM_RIGHT:
-			offset.set(-frame.width(),-frame.height(),0); break;
+			offset.set(-frame.width,-frame.height,0); break;
 	}
 	
-	offset = offset-frame.origin;
+	offset = offset-frame.getPosition();
 	
 	return *this;
 }
@@ -302,8 +302,8 @@ poRect poObject::calculateBounds() {
 	poRect rect = bounds;
 	BOOST_FOREACH(poObject* obj, children) {
 		poRect obj_b = obj->calculateBounds();
-		rect.include(objectToLocal(obj, obj_b.bottomRight()));
-		rect.include(objectToLocal(obj, obj_b.topLeft()));
+		rect.include(objectToLocal(obj, obj_b.getBottomRight()));
+		rect.include(objectToLocal(obj, obj_b.getTopLeft()));
 	}
 	return rect;
 }
@@ -461,6 +461,7 @@ void poObject::pushObjectMatrix() {
 
 	stack->translate(round(offset));
 	
+
 	matrices.capture();
 }
 

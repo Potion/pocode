@@ -48,7 +48,7 @@ void poWindow::fullscreen(bool b) {
 }
 
 int poWindow::x() const {
-	return _bounds.origin.x;
+	return _bounds.x;
 }
 
 std::string poWindow::title() const {
@@ -56,15 +56,15 @@ std::string poWindow::title() const {
 }
 
 int poWindow::y() const {
-	return _bounds.origin.y;
+	return _bounds.y;
 }
 
 int poWindow::width() const {
-	return _bounds.size.x;
+	return _bounds.width;
 }
 
 poPoint poWindow::dimensions() const {
-	return _bounds.size;
+	return _bounds.getSize();
 }
 
 poRect poWindow::frame() const {
@@ -72,15 +72,15 @@ poRect poWindow::frame() const {
 }
 
 poRect poWindow::bounds() const {
-	return poRect(poPoint(0,0), _bounds.size);
+	return poRect(poPoint(0,0), _bounds.getSize());
 }
 
 poPoint poWindow::centerPoint() const {
-	return poPoint(_bounds.width()/2.f, _bounds.height()/2.f);
+	return poPoint(_bounds.width/2.f, _bounds.height/2.f);
 }
 
 int poWindow::height() const {
-	return _bounds.size.y;
+	return _bounds.height;
 }
 
 float poWindow::framerate() const {
@@ -397,7 +397,7 @@ void poWindow::keyUp(int key, int code, int mod) {
 
 
 void poWindow::resized(int w, int h) {
-	resized(_bounds.origin.x, _bounds.origin.y, w, h);
+	resized(_bounds.x, _bounds.y, w, h);
 }
 
 
