@@ -18,11 +18,10 @@
 #include <stack>
 
 #include "poRect.h"
-#include "poShader.h"
 
 class poMatrixStack : boost::noncopyable {
 public:
-	static poMatrixStack *get();
+	poMatrixStack();
 
 	void pushModelview();
 	// will push this new one on top
@@ -55,8 +54,6 @@ public:
 	void scale(poPoint s);
 	
 private:
-	explicit poMatrixStack();
-	
 	std::stack<glm::mat4>	projection;
 	std::stack<glm::mat4>	modelview;
 	std::stack<poRect>		viewport;

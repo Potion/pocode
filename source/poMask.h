@@ -1,21 +1,9 @@
 #pragma once
 
-#include "poObjectModifier.h"
-
 #include "poImage.h"
 #include "poShape2D.h"
+#include "poOpenGLStateChange.h"
 
-#include "poObjectModifier.h"
-
-
-// CLASS NOTES
-//
-// poMask derives from poObjectModifier and is the parent class of poGeometryMask
-// and poImageMask.
-
-class poMask : public poObjectModifier {
-	virtual bool    pointInside(poPoint p) {return false;}
-};
 
 
 // CLASS NOTES
@@ -36,7 +24,7 @@ class poMask : public poObjectModifier {
 // The maskShape should NOT be added to the scene graph.
 //
 
-class poGeometryMask : public poMask
+class poGeometryMask : public poStencilState
 {
 public:
 	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
@@ -46,8 +34,7 @@ public:
 	bool            pointInside(poPoint p);
 	
 protected:
-	virtual void    doSetUp( poObject* obj );
-	virtual void    doSetDown( poObject* obj );
+	virtual void    set();
 	
 private:
 	poShape2D *shape;

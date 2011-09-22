@@ -20,7 +20,6 @@
 		E80625A21396FEFC00615CCB /* poApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71513913E3A00E6848E /* poApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E80625A31396FEFC00615CCB /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E80625A41396FEFC00615CCB /* poWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8C7E71613913E3A00E6848E /* poWindow.cpp */; };
-		E80625A51396FEFC00615CCB /* glInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E841ED7A1369AB640029C2F4 /* glInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E80625A61396FEFC00615CCB /* poEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = E830965913315F2D00080C86 /* poEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E80625A71396FEFC00615CCB /* poMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BE132E9F78002BE3D9 /* poMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E80625A81396FEFC00615CCB /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
@@ -63,8 +62,8 @@
 		E83092EE13D09C9100836802 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		E841619213DF08CA00C5993F /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E841619113DF08CA00C5993F /* poResourceStore.cpp */; };
 		E841619513DF08F900C5993F /* poResourceStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E841619413DF08F900C5993F /* poResourceStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E84CEC0914295526008B3E3E /* poShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC0714295525008B3E3E /* poShader.cpp */; };
-		E84CEC0A14295526008B3E3E /* poShader.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CEC0814295525008B3E3E /* poShader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E84CEC0914295526008B3E3E /* poBasicRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC0714295525008B3E3E /* poBasicRenderer.cpp */; };
+		E84CEC0A14295526008B3E3E /* poBasicRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CEC0814295525008B3E3E /* poBasicRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E84CEC0E1429556B008B3E3E /* poOpenGLState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */; };
 		E84CEC0F1429556B008B3E3E /* poOpenGLState.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CEC0C1429556B008B3E3E /* poOpenGLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E84CEC5F142A2F48008B3E3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC5E142A2F48008B3E3E /* Foundation.framework */; };
@@ -84,7 +83,7 @@
 		E84CEC7F142A3533008B3E3E /* poTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */; };
 		E84CEC80142A3533008B3E3E /* poCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F01E8E11386279D008F0EE1 /* poCamera.cpp */; };
 		E84CEC81142A3533008B3E3E /* poMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FE4AE913968EE300E99864 /* poMask.cpp */; };
-		E84CEC82142A3533008B3E3E /* poShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC0714295525008B3E3E /* poShader.cpp */; };
+		E84CEC82142A3533008B3E3E /* poBasicRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC0714295525008B3E3E /* poBasicRenderer.cpp */; };
 		E84CEC83142A3533008B3E3E /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
 		E84CEC84142A3533008B3E3E /* poPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */; };
 		E84CEC85142A3533008B3E3E /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
@@ -102,6 +101,13 @@
 		E84CEC91142A3533008B3E3E /* SimpleDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E830965A13315F2D00080C86 /* SimpleDrawing.cpp */; };
 		E84CEC92142A3533008B3E3E /* TextLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E7559513C60B2A00A91EB8 /* TextLayout.cpp */; };
 		E84CEC93142A3533008B3E3E /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
+		E84CECBA142ADBD9008B3E3E /* poOpenGLStateChange.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E84CECBB142ADBD9008B3E3E /* poOpenGLStateChange.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E84CECBD142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */; };
+		E84CECBE142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */; };
+		E84CECC5142B0819008B3E3E /* poOpenGLState.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CEC0C1429556B008B3E3E /* poOpenGLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E84CECC6142B0820008B3E3E /* poMatrixStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939113F987FC00D924F0 /* poMatrixStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E84CECC7142B082B008B3E3E /* poBasicRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = E84CEC0814295525008B3E3E /* poBasicRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E86F939413F987FC00D924F0 /* poMatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939013F987FC00D924F0 /* poMatrixStack.cpp */; };
 		E86F939613F987FC00D924F0 /* poMatrixStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939113F987FC00D924F0 /* poMatrixStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
@@ -142,13 +148,14 @@
 		E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poDictionary.cpp; path = ../source/poDictionary.cpp; sourceTree = "<group>"; };
 		E841619113DF08CA00C5993F /* poResourceStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResourceStore.cpp; path = ../source/poResourceStore.cpp; sourceTree = "<group>"; };
 		E841619413DF08F900C5993F /* poResourceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResourceStore.h; path = ../source/poResourceStore.h; sourceTree = "<group>"; };
-		E841ED7A1369AB640029C2F4 /* glInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glInfo.h; path = ../source/glInfo.h; sourceTree = "<group>"; };
-		E84CEC0714295525008B3E3E /* poShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShader.cpp; path = ../source/poShader.cpp; sourceTree = "<group>"; };
-		E84CEC0814295525008B3E3E /* poShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShader.h; path = ../source/poShader.h; sourceTree = "<group>"; };
+		E84CEC0714295525008B3E3E /* poBasicRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBasicRenderer.cpp; path = ../source/poBasicRenderer.cpp; sourceTree = "<group>"; };
+		E84CEC0814295525008B3E3E /* poBasicRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBasicRenderer.h; path = ../source/poBasicRenderer.h; sourceTree = "<group>"; };
 		E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLState.cpp; path = ../source/poOpenGLState.cpp; sourceTree = "<group>"; };
 		E84CEC0C1429556B008B3E3E /* poOpenGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLState.h; path = ../source/poOpenGLState.h; sourceTree = "<group>"; };
 		E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionCode_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84CEC5E142A2F48008B3E3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLStateChange.h; path = ../source/poOpenGLStateChange.h; sourceTree = "<group>"; };
+		E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLStateChange.cpp; path = ../source/poOpenGLStateChange.cpp; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
 		E85EE94B13731F9C0066679A /* poTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextBox.h; path = ../source/poTextBox.h; sourceTree = "<group>"; };
 		E86F939013F987FC00D924F0 /* poMatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixStack.cpp; path = ../source/poMatrixStack.cpp; sourceTree = "<group>"; };
@@ -252,8 +259,6 @@
 				E8B02F391363512F0068FB5D /* poMath.cpp */,
 				E83095F1132FD0D600080C86 /* poMatrixSet.h */,
 				E83095F0132FD0D600080C86 /* poMatrixSet.cpp */,
-				E86F939113F987FC00D924F0 /* poMatrixStack.h */,
-				E86F939013F987FC00D924F0 /* poMatrixStack.cpp */,
 			);
 			name = math;
 			sourceTree = "<group>";
@@ -274,6 +279,21 @@
 				E84CEC5E142A2F48008B3E3E /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E84CECBF142ADCEF008B3E3E /* opengl */ = {
+			isa = PBXGroup;
+			children = (
+				E84CEC0C1429556B008B3E3E /* poOpenGLState.h */,
+				E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */,
+				E86F939113F987FC00D924F0 /* poMatrixStack.h */,
+				E86F939013F987FC00D924F0 /* poMatrixStack.cpp */,
+				E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */,
+				E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */,
+				E84CEC0814295525008B3E3E /* poBasicRenderer.h */,
+				E84CEC0714295525008B3E3E /* poBasicRenderer.cpp */,
+			);
+			name = opengl;
 			sourceTree = "<group>";
 		};
 		E8A0B995138B0FBA0024BC8C /* platform */ = {
@@ -318,6 +338,7 @@
 				E8E7558F13C609C600A91EB8 /* graphics */,
 				7F9E4BBD140AE78B00548BDB /* data */,
 				7F9E4BBE140AE86100548BDB /* math */,
+				E84CECBF142ADCEF008B3E3E /* opengl */,
 				E8E7559413C60AF900A91EB8 /* helpers */,
 			);
 			name = potionLib;
@@ -395,8 +416,6 @@
 				7F01E8E11386279D008F0EE1 /* poCamera.cpp */,
 				E8E9EAFC13F048AB00FB2D57 /* poMask.h */,
 				E8FE4AE913968EE300E99864 /* poMask.cpp */,
-				E84CEC0814295525008B3E3E /* poShader.h */,
-				E84CEC0714295525008B3E3E /* poShader.cpp */,
 			);
 			name = modifiers;
 			sourceTree = "<group>";
@@ -404,9 +423,6 @@
 		E8E7559413C60AF900A91EB8 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
-				E84CEC0C1429556B008B3E3E /* poOpenGLState.h */,
-				E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */,
-				E841ED7A1369AB640029C2F4 /* glInfo.h */,
 				E88E746313C753DB0051F026 /* AttributedString.h */,
 				E8E51B3E13A13E5D008C67FF /* BinPacker.h */,
 				E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */,
@@ -437,7 +453,6 @@
 				E80625A01396FEFC00615CCB /* Helpers.h in Headers */,
 				E80625A21396FEFC00615CCB /* poApplication.h in Headers */,
 				E80625A31396FEFC00615CCB /* poWindow.h in Headers */,
-				E80625A51396FEFC00615CCB /* glInfo.h in Headers */,
 				E80625A61396FEFC00615CCB /* poEnums.h in Headers */,
 				E80625A71396FEFC00615CCB /* poMath.h in Headers */,
 				E80625A91396FEFC00615CCB /* poPoint.h in Headers */,
@@ -473,8 +488,9 @@
 				E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */,
 				E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */,
 				E46C67D41427DD400064EA8E /* poTextureAtlas.h in Headers */,
-				E84CEC0A14295526008B3E3E /* poShader.h in Headers */,
+				E84CEC0A14295526008B3E3E /* poBasicRenderer.h in Headers */,
 				E84CEC0F1429556B008B3E3E /* poOpenGLState.h in Headers */,
+				E84CECBA142ADBD9008B3E3E /* poOpenGLStateChange.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +498,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E84CECBB142ADBD9008B3E3E /* poOpenGLStateChange.h in Headers */,
+				E84CECC5142B0819008B3E3E /* poOpenGLState.h in Headers */,
+				E84CECC6142B0820008B3E3E /* poMatrixStack.h in Headers */,
+				E84CECC7142B082B008B3E3E /* poBasicRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,8 +606,9 @@
 				E86F939413F987FC00D924F0 /* poMatrixStack.cpp in Sources */,
 				E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */,
 				E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */,
-				E84CEC0914295526008B3E3E /* poShader.cpp in Sources */,
+				E84CEC0914295526008B3E3E /* poBasicRenderer.cpp in Sources */,
 				E84CEC0E1429556B008B3E3E /* poOpenGLState.cpp in Sources */,
+				E84CECBD142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,7 +632,7 @@
 				E84CEC7F142A3533008B3E3E /* poTextureAtlas.cpp in Sources */,
 				E84CEC80142A3533008B3E3E /* poCamera.cpp in Sources */,
 				E84CEC81142A3533008B3E3E /* poMask.cpp in Sources */,
-				E84CEC82142A3533008B3E3E /* poShader.cpp in Sources */,
+				E84CEC82142A3533008B3E3E /* poBasicRenderer.cpp in Sources */,
 				E84CEC83142A3533008B3E3E /* poColor.cpp in Sources */,
 				E84CEC84142A3533008B3E3E /* poPoint.cpp in Sources */,
 				E84CEC85142A3533008B3E3E /* poRect.cpp in Sources */,
@@ -629,6 +650,7 @@
 				E84CEC91142A3533008B3E3E /* SimpleDrawing.cpp in Sources */,
 				E84CEC92142A3533008B3E3E /* TextLayout.cpp in Sources */,
 				E84CEC93142A3533008B3E3E /* poVBO.cpp in Sources */,
+				E84CECBE142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +667,8 @@
 		E80B019013D4E03200A1A008 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Debug;
 		};
@@ -717,7 +741,6 @@
 					"POTION_IOS=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
 					/PotionCode/libraries/Boost/boost_1_45_0,
@@ -755,6 +778,8 @@
 		E8B2D088132E9CA7002BE3D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 			};
 			name = Release;
 		};

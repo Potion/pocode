@@ -4,9 +4,10 @@
 #include "nanosvg.h"
 #include "poApplication.h"
 
-#include "poShader.h"
 #include "poOpenGLState.h"
+#include "poBasicRenderer.h"
 #include "poResourceStore.h"
+#include "poOpenGLStateChange.h"
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
@@ -26,55 +27,38 @@ poShape2D::poShape2D()
 void poShape2D::draw() {
 	// do shape fill
 	if ( fillEnabled ) {
-		poShaderProgram *shader = poOpenGLState::get()->boundShader();
-		
-		poColor color(fillColor, appliedAlpha());
-		shader->uniform4v("color", &color.R, 1);
-		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
-		
-		// load shape point vertex array
+		// load shape vertex array
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
 		glEnableVertexAttribArray(0);
 
-		// setup textures and texture coordinates
+		// save the texture state if need be
+		poTextureState texState(texture ? texture->uid : 0);
+		
+		// setup texture and texture coordinates
 		if(texture != NULL) {
-			shader->uniform1("tex", (int)0);
-
 			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(tex_coords[0].x));
 			glEnableVertexAttribArray(1);
-
-			poOpenGLState::get()->bindTexture(texture);
 		}
 
 		// set the color
-		applyColor(poColor(fillColor,appliedAlpha()));
+		setColor(fillColor, appliedAlpha());
+
+		// configure the renderer
+		poBasicRenderer::get()->setFromState();
+		
 		// actually draw the filled shape
 		glDrawArrays(fillDrawStyle, 0, (int)points.size());
-		
-		// disable textures
-		if(texture != NULL) {
-			poOpenGLState::get()->unbindTexture();
-		}
 	}
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		poColor color(strokeColor, appliedAlpha());
+		setColor(strokeColor, appliedAlpha());
+
+		poTextureState state();
+		poBasicRenderer::get()->setFromState();
 		
-		poShaderProgram *shader = basicProgram1();
-		poOpenGLState::get()->bindShader(shader);
-		
-		shader->uniform4v("color", &color.R, 1);
-		shader->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
-		
-		// use standard OpenGL stroke or custom generated stroke
-		if ( !useSimpleStroke )
-		{
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(stroke[0]));
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
-		}
-		else
-		{
+		if(useSimpleStroke) {
+			// use crappy OpenGL stroke
 			glLineWidth( stroke_width );
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &(points[0].x));
             if ( closed )
@@ -82,13 +66,17 @@ void poShape2D::draw() {
             else
                 glDrawArrays(GL_LINE_STRIP, 0, (int)points.size());
 		}
-		
-		poOpenGLState::get()->unbindShader();
-	}
-	
+		else {
+			// otherwise draw the nice one we went to all the trouble to make for you
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(poPoint), &(stroke[0]));
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, (int)stroke.size());  
+		}
+	}	
 	
 	if(drawBounds) {
-		//drawBoundingBox();
+		setColor(poColor::red);
+		drawStroke(bounds);
+		drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
 	}
 }
 
@@ -172,16 +160,12 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
-	removeAllShaderModifiers(this);
-
 	if(tex) {
 		poRect rect = calculateBounds();
 		
 		tex_coords.clear();
 		tex_coords.resize(points.size());
 		textureFit(rect, tex, fit, align, tex_coords, points);
-		
-		addModifier(basicProgram2());
 	}
 	
 	texture = tex;

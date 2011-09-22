@@ -4,20 +4,19 @@
 #include "poTexture.h"
 #include "poBitmapFont.h"
 #include "poOpenGLState.h"
-#include "poMatrixStack.h"
+#include "poBasicRenderer.h"
+#include "poOpenGLStateChange.h"
 
 #include <cfloat>
 #include <utf8.h>
 #include <boost/assign/list_of.hpp>
 
-static poColor theColor(1.f, 1.f, 1.f, 1.f);
-
-void applyColor(poColor color) {
-	theColor = color;
+void setColor(poColor color) {
+	poOpenGLState::get()->color = color;
 }
 
-void applyColor(poColor c, float a) {
-	theColor = poColor(c,a);
+void setColor(poColor color, float new_alpha) {
+	setColor(poColor(color, new_alpha));
 }
 
 poColor currentColor() {
@@ -40,14 +39,12 @@ void drawQuad(GLenum type, float x, float y, float w, float h) {
 	if(type == GL_LINE_STRIP || type == GL_LINE_LOOP)
 		std::swap(quad[7], quad[10]);
 
-	poOpenGLState::get()->bindShader(basicProgram1());
-	basicProgram1()->uniform4v("color", &theColor.R, 1);
-	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
-	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-	glDrawArrays(type, 0, 4);
+
+	poTextureState state(0);
+	poBasicRenderer::get()->setFromState();
 	
-	poOpenGLState::get()->unbindShader();
+	glDrawArrays(type, 0, 4);
 }
 
 void drawStroke(poRect rect) {
@@ -67,14 +64,11 @@ void drawLine(poPoint a, poPoint b) {
 		b.x, b.y, b.z
 	};
 	
-	poOpenGLState::get()->bindShader(basicProgram1());
-	basicProgram1()->uniform4v("color", &theColor.R, 1);
-	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
-	
+	poTextureState state();
+	poBasicRenderer::get()->setFromState();
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
 	glDrawArrays(GL_LINES, 0, 2);
-	
-	poOpenGLState::get()->unbindShader();
 }
 
 void drawRect(poRect rect) {
@@ -116,27 +110,12 @@ void drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
 		coords.x+coords.width, coords.y+coords.height
 	};
 	
-	if(flip) {
-//		int row_sz = 2*sizeof(GLfloat);
-//		
-//		GLfloat tmp[2];
-//		memcpy(tmp, tcoords+row_sz, row_sz);
-//		memcpy(tcoords+row_sz, tcoords+row_sz*2, row_sz);
-//		memcpy(tcoords+row_sz*2, tcoords+row_sz*3, row_sz);
-//		memcpy(tcoords+row_sz*3, tmp, row_sz);
-	}
-	
-	poOpenGLState::get()->bindTexture(texture);
-	poOpenGLState::get()->bindShader(basicProgram2());
-	basicProgram1()->uniform4v("color", &theColor.R, 1);
-	basicProgram2()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
-	basicProgram2()->uniform1("tex", (int)texture->uid);
+	poTextureState texState(texture->uid);
+	poBasicRenderer::get()->setFromState();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	
-	poOpenGLState::get()->unbindTexture();
 }
 
 void drawRect(poTexture* tex, bool flip) {
@@ -144,12 +123,11 @@ void drawRect(poTexture* tex, bool flip) {
 }
 
 void drawPoints(GLenum type, const std::vector<poPoint> &points) {
-	poOpenGLState::get()->bindShader(basicProgram1());
-	basicProgram1()->uniform4v("color", &theColor.R, 1);
-	basicProgram1()->uniformMat4("mvp", glm::value_ptr(poMatrixStack::get()->transformation()));
+	poTextureState texState();
+	poBasicRenderer::get()->setFromState();
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glDrawArrays(type, 0, points.size());
-	poOpenGLState::get()->unbindShader();
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {

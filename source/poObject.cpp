@@ -454,7 +454,7 @@ void poObject::pushObjectMatrix() {
 	poPoint trans = round(position);
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
-	poMatrixStack *stack = poMatrixStack::get();
+	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	stack->pushModelview();
 	
 	// now move depending on the matrix order
@@ -474,15 +474,12 @@ void poObject::pushObjectMatrix() {
 
 	stack->translate(round(offset));
 	
-	matrices.modelview = stack->getModelview();
-	matrices.projection = stack->getProjection();
 
-	poRect vp = stack->getViewport();
-	matrices.viewport = glm::vec4(vp.x, vp.y, vp.width, vp.height);
+	matrices.capture();
 }
 
 void poObject::popObjectMatrix() {
-	poMatrixStack::get()->popModelview();
+	poOpenGLState::get()->matrix.popModelview();
 }
 
 void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {

@@ -338,22 +338,3 @@ std::vector<T*> poObject::getModifiers() {
 	}
 	return mods;
 }
-
-static std::vector<poShaderProgram*> removeAllShaderModifiers(poObject *obj) {
-	std::vector<poShaderProgram*> programs = obj->getModifiers<poShaderProgram>();
-	BOOST_FOREACH(poShaderProgram *program, programs) {
-		obj->removeModifier(program, false);
-	}
-	return programs;
-}
-
-
-//template <typename T>
-//T poObject::getProperty(const std::string &prop, T def=T()) const {
-//	
-//}
-//
-//template <typename T>
-//void poObject::setProperty(const std::string &prop, T value) {
-//	
-//}

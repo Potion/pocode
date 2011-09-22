@@ -11,6 +11,7 @@
 #include "poShape2D.h"
 #include "poWindow.h"
 #include "poApplication.h"
+#include "poOpenGLState.h"
 
 #ifdef __APPLE__
 #include <mach/mach_time.h>
@@ -167,7 +168,7 @@ void applyObjTransform(poObject *obj) {
 	poPoint rot_axis = obj->rotationAxis;
 	poPoint scale = obj->scale;
 	
-	poMatrixStack *stack = poMatrixStack::get();
+	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	
 	switch(obj->matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
@@ -186,29 +187,29 @@ void applyObjTransform(poObject *obj) {
 	stack->translate(off);
 }
 
-void startMasking(poShape2D *mask) {
-	poMatrixStack::get()->pushModelview();
-	applyObjTransform(mask);
-	
-	glEnable(GL_STENCIL_TEST);
-	
-//	glClear(GL_STENCIL_BUFFER_BIT);
-	
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-	glStencilFunc(GL_ALWAYS, 1, 1);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	drawPoints(GL_TRIANGLE_FAN, mask->getPoints());
-	
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	glStencilFunc(GL_EQUAL, 1, 1);
-	
-	poMatrixStack::get()->pushModelview();
-}
-
-void stopMasking() {
-	glDisable(GL_STENCIL_TEST);
-}
-
+//void startMasking(poShape2D *mask) {
+//	poMatrixStack *stack = &poOpenGLState::get()->matrix;
+//	applyObjTransform(mask);
+//	
+//	glEnable(GL_STENCIL_TEST);
+//	
+////	glClear(GL_STENCIL_BUFFER_BIT);
+//	
+//	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+//	glStencilFunc(GL_ALWAYS, 1, 1);
+//	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+//	drawPoints(GL_TRIANGLE_FAN, mask->getPoints());
+//	
+//	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+//	glStencilFunc(GL_EQUAL, 1, 1);
+//	
+//	stack->pushModelview();
+//}
+//
+//void stopMasking() {
+//	glDisable(GL_STENCIL_TEST);
+//}
+//
 void log(const char *format, ...) {
 	static char buffer[SHRT_MAX];
 

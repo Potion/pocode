@@ -276,14 +276,6 @@ poImage const *poTexture::image() const {
 	return _image;
 }
 
-void poTexture::bind() {
-	poOpenGLState::get()->bindTexture(this);
-}
-
-void poTexture::unbind() {
-	poOpenGLState::get()->unbindTexture();
-}
-
 //void loadNotFound() {
 //	static poImage *img = NULL;
 //	if(!img) {

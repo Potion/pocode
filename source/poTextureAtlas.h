@@ -3,6 +3,7 @@
 #include "poRect.h"
 #include "poPoint.h"
 #include "poTexture.h"
+#include "poOpenGLStateChange.h"
 
 class poTextureAtlas 
 {
@@ -73,6 +74,7 @@ private:
 	// the textures of the atlas
 	std::vector<poTexture*>     textures;
 	std::map<uint,uint>         uids;
+	poTextureState				texState;
     
 	// this is the configuration we want for the atlas
 	poTextureConfig             config;

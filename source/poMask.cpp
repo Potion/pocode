@@ -35,31 +35,33 @@ bool poGeometryMask::pointInside(poPoint p) {
 	
 }
 
-void poGeometryMask::doSetUp( poObject* obj ) {
+void poGeometryMask::set() {
     if(shape) {
 		if(clears_stencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
         
-		poMatrixStack::get()->pushModelview();
+		poOpenGLState::get()->matrix.pushModelview();
         applyObjTransform(shape);
-  
-		poOpenGLState::get()->enable(GL_STENCIL_TEST);
     
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-        glStencilFunc(GL_ALWAYS, 1, 1);
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+		
+		state.func = GL_ALWAYS;
+		state.func_ref = 1;
+		state.func_mask = 1;
+		state.op_fail = GL_KEEP;
+		state.op_stencil_depth_fail = GL_KEEP;
+		state.op_stencil_depth_pass = GL_REPLACE;
+		poStencilState::set();
+		
         drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
         
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-        glStencilFunc(GL_EQUAL, 1, 1);
+		state.func = GL_EQUAL;
+		poStencilState::revert();
+		poStencilState::set();
         
-        poMatrixStack::get()->popModelview();
+        poOpenGLState::get()->matrix.popModelview();
 	}
-}
-
-void poGeometryMask::doSetDown( poObject* obj ) {
-	if(shape)
-		poOpenGLState::get()->disable(GL_STENCIL_TEST);
 }
 
 
@@ -82,8 +84,6 @@ void poImageMask::doSetUp( poObject* obj ) {
 	my_obj = obj;
 	
 	glEnable(GL_BLEND);
-	
-//	glClear(GL_STENCIL_BUFFER_BIT);
 	
 	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
 	drawRect(image->texture());
