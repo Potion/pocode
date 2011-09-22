@@ -24,12 +24,13 @@ void poFBO::resize(uint w, uint h) {
 	}
 	
 	// create the texture
-	tex = new poTexture(GL_RGBA,w,h,w*4,NULL);
+    poTextureConfig config(GL_RGBA);
+	tex = new poTexture(w,h, config);
 	
 	// create the framebuffer
 	glGenFramebuffers(1, &uid);
 	glBindFramebuffer(GL_FRAMEBUFFER, uid);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex->uid(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex->uid, 0);
 	// make sure its ok
 	GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if(GL_FRAMEBUFFER_COMPLETE != err) {
@@ -62,6 +63,6 @@ bool poFBO::isValid() const {
 	return uid != 0;
 }
 
-poTexture *poFBO::texture() const {
+poTexture* poFBO::texture() const {
 	return tex;
 }

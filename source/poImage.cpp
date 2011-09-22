@@ -383,7 +383,7 @@ FIBITMAP *loadDIB(const std::string &url) {
 		FreeImage_Unload(blue);
 	}
 	
-//	FreeImage_FlipVertical(dib);
+    FreeImage_FlipVertical(dib);
 	return dib;
 }
 

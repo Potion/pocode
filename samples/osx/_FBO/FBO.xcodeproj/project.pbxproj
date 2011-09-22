@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AAB3DEC3142A77CE001C4639 /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB3DEC2142A77CE001C4639 /* poFBO.cpp */; };
 		E8FD14F213D2202A00C80007 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8FD14F113D2202A00C80007 /* Debug.xcconfig */; };
 		E8FD14F413D2202A00C80007 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8FD14F313D2202A00C80007 /* Release.xcconfig */; };
 		E8FD14F713D2202A00C80007 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8FD14F613D2202A00C80007 /* AppDelegate.mm */; };
@@ -16,10 +17,11 @@
 		E8FD150013D2202A00C80007 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8FD14FF13D2202A00C80007 /* main.xib */; };
 		E8FD150313D2202A00C80007 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8FD150213D2202A00C80007 /* poOpenGLView.mm */; };
 		E8FD150713D2202A00C80007 /* FBOApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FD150613D2202A00C80007 /* FBOApp.cpp */; };
-		E8FD150F13D2206D00C80007 /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FD150D13D2206D00C80007 /* poFBO.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AAB3DEC2142A77CE001C4639 /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poFBO.cpp; sourceTree = "<group>"; };
+		AAB3DEC4142A77DF001C4639 /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poFBO.h; sourceTree = "<group>"; };
 		E8FD14EC13D2202A00C80007 /* FBO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FD14F113D2202A00C80007 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8FD14F313D2202A00C80007 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -34,8 +36,6 @@
 		E8FD150213D2202A00C80007 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		E8FD150513D2202A00C80007 /* FBOApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBOApp.h; sourceTree = "<group>"; };
 		E8FD150613D2202A00C80007 /* FBOApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FBOApp.cpp; sourceTree = "<group>"; };
-		E8FD150D13D2206D00C80007 /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poFBO.cpp; sourceTree = "<group>"; };
-		E8FD150E13D2206D00C80007 /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poFBO.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 			children = (
 				E8FD150513D2202A00C80007 /* FBOApp.h */,
 				E8FD150613D2202A00C80007 /* FBOApp.cpp */,
-				E8FD150E13D2206D00C80007 /* poFBO.h */,
-				E8FD150D13D2206D00C80007 /* poFBO.cpp */,
+				AAB3DEC4142A77DF001C4639 /* poFBO.h */,
+				AAB3DEC2142A77CE001C4639 /* poFBO.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 				E8FD14FB13D2202A00C80007 /* main.m in Sources */,
 				E8FD150313D2202A00C80007 /* poOpenGLView.mm in Sources */,
 				E8FD150713D2202A00C80007 /* FBOApp.cpp in Sources */,
-				E8FD150F13D2206D00C80007 /* poFBO.cpp in Sources */,
+				AAB3DEC3142A77CE001C4639 /* poFBO.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,12 +196,16 @@
 		E8FD150B13D2202A00C80007 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IBC_PLUGIN_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		E8FD150C13D2202A00C80007 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IBC_PLUGIN_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -224,6 +228,7 @@
 				E8FD150C13D2202A00C80007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
