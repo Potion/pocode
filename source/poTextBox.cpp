@@ -12,7 +12,6 @@ using namespace std;
 #include "SimpleDrawing.h"
 #include "poShapeBasics2D.h"
 #include "poResourceStore.h"
-#include "poShader.h"
 #include "poOpenGLState.h"
 
 #include <float.h>
@@ -178,7 +177,7 @@ void poTextBox::draw() {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
                 po::setColor( poColor(textColor, appliedAlpha()) );
-                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.origin ); 
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
         bitmapFont->setDownFont();

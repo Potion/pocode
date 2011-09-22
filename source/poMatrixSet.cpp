@@ -20,7 +20,7 @@ poPoint poMatrixSet::globalToLocal(poPoint pt) const {
 	using namespace glm;
 	
 	vec3 win(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.origin.x, viewport.origin.y, viewport.size.x, viewport.size.y);
+	vec4 viewp(viewport.x, viewport.y, viewport.width, viewport.height);
 	vec3 response = unProject(win, modelview, projection, viewp);
 	return poPoint(response.x, response.y, response.z);
 }
@@ -29,7 +29,7 @@ poPoint poMatrixSet::localToGlobal(poPoint pt) const {
 	using namespace glm;
 	
 	vec3 obj(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.origin.x, viewport.origin.y, viewport.size.x, viewport.size.y);
+	vec4 viewp(viewport.x, viewport.y, viewport.width, viewport.height);
 	vec3 response = project(obj, modelview, projection, viewp);
 	return poPoint(response.x, response.y, response.z);
 }
