@@ -51,18 +51,17 @@ void poRectShape::reshape( float w, float h, float rad )
 
 void poRectShape::construct( float w, float h, float rad )
 {
-    width = w;
-    height = h;
+    setSize(w,h);
 	radius = rad;
 	
 	if(rad > 0.f) {
-		addPoints(roundedRect(width,height,rad));
+		addPoints(roundedRect(w,h,rad));
 	}
     else {
 		addPoint( poPoint(0,0) );
-		addPoint( poPoint(width,0) );
-		addPoint( poPoint(width,height) );
-		addPoint( poPoint(0,height) );
+		addPoint( poPoint(w,0) );
+		addPoint( poPoint(w,h) );
+		addPoint( poPoint(0,h) );
 	}
 }
 

@@ -214,6 +214,7 @@
 				2B620B7214036DA90051C40D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

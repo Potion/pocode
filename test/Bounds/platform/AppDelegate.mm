@@ -232,7 +232,7 @@ void applicationMoveWindow(poWindow* win, poPoint p) {
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
 	NSWindow *window = (NSWindow*)win->getWindowHandle();
-	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width(), r.height());
+	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width, r.height);
 	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
 	[window setFrame:new_frame display:YES];
 }

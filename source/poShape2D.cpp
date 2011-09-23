@@ -19,7 +19,6 @@ poShape2D::poShape2D()
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
 ,	texture(NULL)
-,	drawBounds(false)
 ,	fill_color_tween(&fillColor)
 ,	alphaTestTexture(false)
 {}
@@ -52,26 +51,25 @@ void poShape2D::draw() {
 			po::drawPoints(GL_TRIANGLE_STRIP, stroke);
 		}
 	}	
-	
-	if(drawBounds) {
-		po::setColor(poColor::red);
-		po::drawStroke(getBounds());
-		po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
-	}
 }
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
 	if(points.empty()) {
-        position.set(p);
-        setSize(0,0);
+        points.push_back(p);
+        setSize(p.x,p.y);
     }
 	else {
-        poRect bounds = getBounds();
-		bounds.include(p);
-        setSize(bounds.width, bounds.height);
+        points.push_back(p);
+
+        poRect tmp;
+        BOOST_FOREACH(poPoint &p, points) {
+            tmp.include(p);
+        }
+        
+        offset = poPoint(std::max(0.0f,tmp.x), std::max(0.0f,tmp.y));
+        setSize(tmp.width, tmp.height);
 	}
-	points.push_back(p);
 	return *this;
 }
 

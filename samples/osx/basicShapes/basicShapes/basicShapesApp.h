@@ -16,4 +16,6 @@ public:
     poRectShape*    rectShape;
     poRectShape*    rectShapeWithImage;
     poOvalShape*    ovalShape;
+    
+    void eventHandler(poEvent *event);
 };

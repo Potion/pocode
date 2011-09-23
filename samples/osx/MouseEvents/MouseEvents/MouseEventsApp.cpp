@@ -26,8 +26,7 @@ MouseEventsApp::MouseEventsApp() {
     addChild(rectangle);
 
 	
-	return;
-    
+    rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
 	// linked to an object with a bounding box
     rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
     rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);

@@ -17,6 +17,7 @@ BoundsApp::BoundsApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	pop = new poObject();
+    pop->drawBounds = 1;
 	addChild(pop);
 	
 	kid1 = new poRectShape( 100.f, 100.f );
@@ -26,7 +27,7 @@ BoundsApp::BoundsApp() {
 	
 	kid2 = new poRectShape( 100.f, 100.f );
 	kid2->position = poPoint( 400.f, 150.f );
-	pop->addChild(kid2);
+	pop->addChild(kid2); 
 	
 	kid1->addEvent(PO_MOUSE_DRAG_EVENT, this);
 	kid2->addEvent(PO_MOUSE_DRAG_EVENT, this);
@@ -38,7 +39,9 @@ BoundsApp::~BoundsApp() {
 }
 
 void BoundsApp::draw() {
-	
+    po::setColor(poColor::green);
+    po::drawRect(pop->getFrame());
+    std::cout << pop->getFrame() << std::endl;
 }
 
 void BoundsApp::eventHandler(poEvent *event) {
@@ -50,8 +53,7 @@ void BoundsApp::eventHandler(poEvent *event) {
 	
 	else if( event->type == PO_KEY_DOWN_EVENT ){
 
-		pop->bounds = pop->calculateBounds();
-		std::cout<<"the bounds for pop are "<<pop->bounds<<"\n";
+		std::cout<<"the bounds for pop are "<<pop->getBounds()<<"\n";
 	
 	}
 }

@@ -37,6 +37,7 @@ poObject::poObject()
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
+,	drawBounds(false)
 {}
 
 poObject::poObject(const std::string &name)
@@ -63,13 +64,17 @@ poObject::poObject(const std::string &name)
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
+,	drawBounds(false)
 {}
 
 poObject::~poObject() {
 	removeAllChildren(true);
 }
 
-void poObject::draw() {}
+void poObject::draw() {
+    if(drawBounds) _drawBounds();
+}
+
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
 void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {
@@ -114,6 +119,10 @@ void poObject::setSize(float width, float height) {
     setHeight(height);
 }
 
+void poObject::setSize(poPoint size) {
+    setSize(size.x, size.y);
+}
+
 poRect poObject::getFrame() {
     poRect rect = getBounds();
     
@@ -133,6 +142,13 @@ poRect poObject::getBounds() {
 		rect.include(objectToLocal(obj, obj_b.getTopLeft()));
 	}
 	return rect;
+}
+       
+       
+void poObject::_drawBounds() {    
+    po::setColor(poColor::red);
+    po::drawStroke(getBounds());
+    po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
 }
 
 

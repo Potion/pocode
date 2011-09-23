@@ -49,7 +49,7 @@ public:
 protected:
     void construct( float _width, float _height, float rad );
     
-    float width, height, radius;
+    float radius;
 };
 
 

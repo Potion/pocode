@@ -135,7 +135,7 @@ public:
     // DEBUGGING
     // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
 	// You can use the PO_TEXT_BOX_STROKE_XXXXX settings in the enum defined at the top of this file.
-    int                 drawBounds;
+    void                _drawBounds();
 	
     // DRAWING
     // The draw() method is called automatically if a text box is added to the scene graph.

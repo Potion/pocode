@@ -59,6 +59,8 @@ public:
     //@{
     //!"draw" is only necessary if the class does its own OpenGL drawing, instead of using potionCode shapes.
     virtual void        draw();
+    //!Draw the bounds if drawBounds is set.
+    virtual void        _drawBounds();
     //!"update" is called once per frame. It should be used for implementing animation.
 	virtual void        update();
     //!"eventHandler" is called when the object receives an event. Events are registered using "addEvent".<br>
@@ -78,13 +80,14 @@ public:
     /*! Width/height should never be set directly!*/
 	/** @name SETTERS/GETTERS */
     //@{
-    float               getWidth();
-    void                setWidth(float width);
+    float       getWidth();
+    void        setWidth(float width);
     
-    float               getHeight();
-    void                setHeight(float height);
+    float       getHeight();
+    void        setHeight(float height);
     
-    void                setSize(float width, float height);
+    void        setSize(float width, float height);
+    void        setSize(poPoint size);
     
     poRect              getBounds();
     poRect              getFrame();
@@ -209,6 +212,7 @@ public:
 	bool                visible;
 	bool                bFixedWidth;
     bool                bFixedHeight;
+    int                 drawBounds;
 	poMatrixOrder       matrixOrder;
     //@}
     
@@ -239,7 +243,6 @@ public:
     
     
 protected:
-    float width, height;
     
     /** @name PROTECTED PROPERTIES*/
     //@{
@@ -248,6 +251,8 @@ protected:
     //@}     
 
 private:
+    
+    float width, height;
     /*! These matrix operators not only push and pop the matrix, but also maintain
      the alpha stack and data required by the event handling system.*/
     /** @name COORDINATE SYSTEM OPERATIONS*/
