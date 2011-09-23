@@ -1,0 +1,49 @@
+//
+// Prefix header for all source files of the 'potionCode' target in the 'potionCode' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif
+
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
+
+#if defined(__cplusplus)
+
+#include <string>
+#include <vector>
+#include <set>
+#include <list>
+#include <stack>
+#include <map>
+#include <iostream>
+#include <algorithm>
+
+#include <boost/any.hpp>
+#include <boost/bind.hpp>
+#include <boost/variant.hpp>
+#include <boost/foreach.hpp>
+#include <boost/function.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
+
+#define BOOST_FILESYSTEM_VERSION 3
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
+typedef unsigned int uint;
+typedef unsigned char ubyte;
+typedef unsigned short ushort;
+
+#endif

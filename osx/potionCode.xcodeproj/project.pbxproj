@@ -694,6 +694,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = main.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "POTION_IOS=1";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
 					/PotionCode/libraries/Boost/boost_1_45_0,
