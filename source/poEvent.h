@@ -49,7 +49,6 @@ class poEvent
 {
 public:
 	poEvent();
-	poEvent(const poEvent &e);
 	poEvent(int type, poObject* from, std::string _message, const poDictionary& dict=poDictionary());
 	poEvent &operator=(const poEvent &e);
 	

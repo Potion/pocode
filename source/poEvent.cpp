@@ -72,22 +72,6 @@ poEvent::poEvent()
 ,   touchID(-1)
 {}
 
-poEvent::poEvent(const poEvent &e)
-:	type(e.type)
-,	source(e.source)
-,	keyCode(e.keyCode)
-,	keyChar(e.keyChar)
-,	position(e.position)
-,	local_position(e.local_position)
-,	uid(e.uid)
-,	timestamp(e.timestamp)
-,	previous_position(e.previous_position)
-,	modifiers(e.modifiers)
-,   message(e.message)
-,	dict(e.dict)
-,   touchID(-1)
-{}
-
 poEvent::poEvent(int type, poObject* from, std::string _message, const poDictionary& dict)
 :	type(type)
 ,	source(from)
