@@ -457,6 +457,7 @@ void poWindow::touchEnd(int x, int y, int ID, int tapCount )
 
 void poWindow::touchCancelled(int x, int y, int ID, int tapCount )
 {
+    untrackTouch(ID);
     poEvent event;
 	event.position.set(x, y, 0.f);
 	event.touchID = ID;
@@ -469,27 +470,31 @@ void poWindow::touchCancelled(int x, int y, int ID, int tapCount )
 
 void poWindow::trackTouch(interactionPoint *t) 
 {
-    int totalTouches = trackedTouches.size();
-    
-    //See if there are any empty slots
-    for(int i=0; i<trackedTouches.size(); i++) {
-        if(trackedTouches[i] == NULL) {
-            t->id = i;
-            trackedTouches[i] = t;
-            return;
+    if(!trackedTouches.empty()) {
+        int totalTouches = trackedTouches.size();
+        
+        //See if there are any empty slots
+        for(int i=0; i<totalTouches; i++) {
+            if(trackedTouches[i] == NULL) {
+                t->id = i;
+                trackedTouches[i] = t;
+                return;
+            }
         }
+        
+        //If the touch wasn't found, add it
+        trackedTouches.push_back(t);
     }
-    
-    //If the touch wasn't found, add it
-    trackedTouches.push_back(t);
 }
 
 
 interactionPoint *poWindow::getTouch(int uid) 
 {
-    for(int i=0;i<trackedTouches.size(); i++) {
-        if(trackedTouches[i]->uid == uid) {
-            return trackedTouches[i];
+    if(!trackedTouches.empty()) {
+        for(int i=0;i<trackedTouches.size(); i++) {
+            if(trackedTouches[i]->uid == uid) {
+                return trackedTouches[i];
+            }
         }
     }
 }
@@ -497,24 +502,26 @@ interactionPoint *poWindow::getTouch(int uid)
 
 void poWindow::untrackTouch(int uid) 
 {
-    int totalTouches = trackedTouches.size();
-    
-    //Find touch
-    for(int i=0; i<totalTouches - 1; i++) {
-        if(trackedTouches[i]->uid == uid) {
-            // If it is found (and not the last item in the vector) delete it and set to null
-            // (Saving spot for another touch)
-            delete trackedTouches[i];
-            trackedTouches[i] = NULL;
-            return;
+    if(!trackedTouches.empty()) {
+        int totalTouches = trackedTouches.size();
+        
+        //Find touch
+        for(int i=0; i<totalTouches - 1; i++) {
+            if(trackedTouches[i]->uid == uid) {
+                // If it is found (and not the last item in the vector) delete it and set to null
+                // (Saving spot for another touch)
+                delete trackedTouches[i];
+                trackedTouches[i] = NULL;
+                return;
+            }
         }
-    }
-    
-    //If touch isn't found, it SHOULD be the last one...
-    //double check then pop it off the vector
-    if(trackedTouches.back()->uid == uid) {
-        delete trackedTouches.back();
-        trackedTouches.pop_back();
+        
+        //If touch isn't found, it SHOULD be the last one...
+        //double check then pop it off the vector
+        if(trackedTouches.back()->uid == uid) {
+            delete trackedTouches.back();
+            trackedTouches.pop_back();
+        }
     }
 }
 
