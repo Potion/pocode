@@ -32,8 +32,9 @@ poTextureState::poTextureState() {
 	state.bound_id = 0;
 }
 
-poTextureState::poTextureState(GLuint uid) {
+poTextureState::poTextureState(GLuint uid, bool is_mask) {
 	state.bound_id = uid;
+	state.is_mask = is_mask;
 }
 
 void poTextureState::save() {

@@ -31,7 +31,7 @@ public:
 	po::TextureState state;
 	
 	poTextureState();
-	poTextureState(GLuint uid);
+	poTextureState(GLuint uid, bool is_mask=false);
 	
 	virtual void save();
 	virtual void restore();

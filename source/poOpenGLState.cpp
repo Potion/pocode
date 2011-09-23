@@ -64,6 +64,8 @@ void poOpenGLState::setTexture(po::TextureState state) {
 		glBindTexture(GL_TEXTURE_2D, state.bound_id);
 		texture.bound_id = state.bound_id;
 	}
+	// this doesn't matter, no need to guard
+	texture.is_mask = state.is_mask;
 }
 void poOpenGLState::saveTexture() {textureStack.push(texture);}
 void poOpenGLState::restoreTexture() {
@@ -124,6 +126,7 @@ po::StencilState::StencilState() {
 
 po::TextureState::TextureState() {
 	bound_id = 0;
+	is_mask = false;
 }
 
 po::BlendState::BlendState() {

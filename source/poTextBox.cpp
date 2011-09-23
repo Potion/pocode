@@ -141,12 +141,13 @@ void poTextBox::draw() {
     // draw regular (NON-RICH) text
     if( ! _layout.richText() )
     {
+		po::setColor( poColor(textColor, appliedAlpha()) );
+
         bitmapFont->setUpFont();
         for(int i=0; i<numLines(); i++) 
         {
             BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
             {
-                po::setColor( poColor(textColor, appliedAlpha()) );
                 bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
@@ -156,35 +157,35 @@ void poTextBox::draw() {
     // draw RICH text
     if ( _layout.richText() )
     {
-        bitmapFont->setUpFont();
-        for(int i=0; i<numLines(); i++) 
-        {
-            BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
-            {
-                po::setColor(poColor(textColor, appliedAlpha()));
-                
-                poDictionary dict = _layout.dictionaryForIndex(count);
-                count++;
-                
-                if(dict.has("color"))
-                    po::setColor(poColor(dict.getColor("color"), appliedAlpha()));
-                
-                if(dict.has("font")) {
-                    poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));
-                    if(newFont != bitmapFont) {
-                        bitmapFont = newFont;
-                        bitmapFont->setUpFont();
-                    }
-                }
-                else if(bitmapFont != regFont) {
-                    bitmapFont = regFont;
-                    bitmapFont->setUpFont();
-                }
-                
-                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
-            }
-        }
-        bitmapFont->setDownFont();
+		bitmapFont->setUpFont();
+		for(int i=0; i<numLines(); i++) 
+		{
+			BOOST_FOREACH(layout_glyph const &glyph, _layout.getLine(i).glyphs) 
+			{
+				po::setColor(poColor(textColor, appliedAlpha()));
+
+				poDictionary dict = _layout.dictionaryForIndex(count);
+				count++;
+				
+				if(dict.has("color"))
+					po::setColor(poColor(dict.getColor("color"), appliedAlpha()));
+				
+				if(dict.has("font")) {
+					poBitmapFont *newFont = getBitmapFont(dict.getPtr<poFont>("font"));
+					if(newFont != bitmapFont) {
+						bitmapFont = newFont;
+						bitmapFont->setUpFont();
+					}
+				}
+				else if(bitmapFont != regFont) {
+					bitmapFont = regFont;
+					bitmapFont->setUpFont();
+				}
+				
+				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+			}
+		}
+		bitmapFont->setDownFont();
     }
 }
 

@@ -93,12 +93,16 @@ void po::drawRect(float x, float y, float w, float h) {
 	drawQuad(GL_TRIANGLE_STRIP, x,y,w,h); 
 }
 
-void po::drawRect(poRect rect, poTexture* texture, bool flip) {
-	drawRect(rect, poRect(0,0,1,1), texture, flip);
+void po::drawRect(poTexture* tex) {
+	drawRect(0, 0, tex->width(), tex->height(), tex);
 }
 
-void po::drawRect(float x, float y, float w, float h, poTexture* texture, bool flip) {
-	drawRect(poRect(x,y,w,h), texture, flip);
+void po::drawRect(poRect rect, poTexture* texture) {
+	drawRect(rect, poRect(0,0,1,1), texture);
+}
+
+void po::drawRect(float x, float y, float w, float h, poTexture* texture) {
+	drawRect(poRect(x,y,w,h), texture);
 }
 
 void po::drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
@@ -107,21 +111,21 @@ void po::drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
 	drawRect(rect, coords_rect, tex);
 }
 
-void po::drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
-    rect.setPosition(floor(rect.getPosition()) + poPoint(.5f, .5f));
+void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
+//	rect.setPosition(floor(rect.getPosition()) + poPoint(.5f, .5f));
 	
 	GLfloat quad[4*3] = { 
 		rect.x,  rect.y, 0, 
-		rect.x,  rect.y+rect.height, 0, 
 		rect.x+rect.width, rect.y, 0, 
-		rect.x+rect.width, rect.y+rect.height, 0 
+		rect.x+rect.width, rect.y+rect.height, 0,
+		rect.x,  rect.y+rect.height, 0,
 	};
 	
 	GLfloat tcoords[4*2] = {
 		coords.x, coords.y,
-		coords.x, coords.y+coords.height,
 		coords.x+coords.width, coords.y,
-		coords.x+coords.width, coords.y+coords.height
+		coords.x+coords.width, coords.y+coords.height,
+		coords.x, coords.y+coords.height,
 	};
 	
 	poTextureState texState(texture->uid);
@@ -130,17 +134,13 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture, bool flip) {
 	poBasicRenderer::get()->setFromState();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), tcoords);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 	
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 	
 	texState.restore();
-}
-
-void po::drawRect(poTexture* tex, bool flip) {
-	drawRect(0, 0, tex->width(), tex->height(), tex, flip);
 }
 
 void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
