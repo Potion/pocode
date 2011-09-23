@@ -20,10 +20,11 @@ TestObj::TestObj() {
     
     poRectShape *testRect = addChild(new poRectShape(50,50));
     testRect->fillColor.set255(255,0,0);
-    testRect->addEvent(PO_TOUCH_MOVED_EVERYWHERE_EVENT, this);
+    testRect->addEvent(PO_TOUCH_BEGAN_EVERYWHERE_EVENT, this);
 }
 
 
 void TestObj::eventHandler(poEvent *event) {
-    std::cout << "Touch event!" << std::endl;
+    //std::cout << event->uid << std::endl;   
+    std::cout << event->touchID << std::endl;
 }

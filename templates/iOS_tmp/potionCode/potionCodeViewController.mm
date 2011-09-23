@@ -144,6 +144,7 @@ poObject *root = NULL;
     [(EAGLView *)self.view setFramebuffer];
 	
 	poWindow *win = applicationCurrentWindow();
+    win->update();
 	win->draw();
 	
     [(EAGLView *)self.view presentFramebuffer];

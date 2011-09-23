@@ -76,6 +76,7 @@
 - (poWindow*)appWindow {
 	if(appWindow == NULL) {
 		appWindow = new poWindow("window window", 0, poRect(0, 0, 1024, 768));
+        appWindow->setWindowHandle(self.window);
 	}
 	return appWindow;
 }

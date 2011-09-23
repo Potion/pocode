@@ -38,6 +38,9 @@
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking,
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
+        
+        //Enable multitouch
+        self.multipleTouchEnabled = YES;
     }
     return self;
 }
@@ -143,15 +146,16 @@
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 } 
 
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
+        
         CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchMove(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 }
 
@@ -159,7 +163,7 @@
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 }
 
