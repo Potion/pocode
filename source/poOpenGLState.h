@@ -38,6 +38,7 @@ namespace po {
 		TextureState();
 		
 		GLuint bound_id;
+		bool is_mask;
 	};
 	
 	// http://www.opengl.org/sdk/docs/man/xhtml/glBlendFunc.xml

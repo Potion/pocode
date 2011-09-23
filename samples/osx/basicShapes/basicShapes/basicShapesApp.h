@@ -10,8 +10,6 @@ public:
 	basicShapesApp();
 	virtual ~basicShapesApp();
 
-	void draw();
-	
     poShape2D*      customShape;
     poRectShape*    rectShape;
     poRectShape*    rectShapeWithImage;

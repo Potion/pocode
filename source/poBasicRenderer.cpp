@@ -1,5 +1,6 @@
 #include "poBasicRenderer.h"
 #include "poOpenGLState.h"
+#include "Helpers.h"
 
 const char* default_vert = 
 	"uniform mat4 mvp;\n"
@@ -16,6 +17,7 @@ const char* default_vert =
 
 const char* default_frag = 
 	"const int TEXTURE = 1;\n"
+	"const int TEXTURE_IS_MASK = 2;\n"
 
 	"uniform sampler2D tex;\n"
 	"uniform vec4 color;\n"
@@ -25,7 +27,11 @@ const char* default_frag =
 
 	"void main() {\n"
 	"	if(bool(flags & TEXTURE)) {\n"
-	"		gl_FragColor = texture2D(tex,texCoord) * color;\n"
+	"		vec4 texColor = texture2D(tex,texCoord);\n"
+	"		if(bool(flags & TEXTURE_IS_MASK))\n"
+	"			gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;\n"
+	"		else\n"
+	"			gl_FragColor = texture2D(tex,texCoord) * color;\n"
 	"	}\n"
 	"	else {\n"
 	"		gl_FragColor = color;\n"
@@ -146,17 +152,10 @@ void poBasicRenderer::setColor(const poColor &color) {
 }
 
 void poBasicRenderer::setTexture(GLuint uid) {
-	glUniform1i(tex_uniform, uid);
+	glUniform1i(tex_uniform, 0);
 }
 
-void poBasicRenderer::disableTexture() {
-}
-
-void poBasicRenderer::setFlags() {
-	flags = 0;
-	if(poOpenGLState::get()->texture.bound_id)
-		flags = 1;
-	
+void poBasicRenderer::setFlags(int flags) {
 	glUniform1i(flags_uniform, flags);
 }
 
@@ -166,7 +165,18 @@ void poBasicRenderer::setFromState() {
 	setMVP(ogl->matrix.transformation());
 	setColor(ogl->color);
 	setTexture(ogl->texture.bound_id);
-	setFlags();
+	setFlags(determineFlagsFromState());
 }
 
+int poBasicRenderer::determineFlagsFromState() {
+	poOpenGLState *ogl = poOpenGLState::get();
+	
+	flags = 0;
+	if(ogl->texture.bound_id)
+		flags = 1;
+	if(ogl->texture.is_mask)
+		flags |= 2;
+	
+	return flags;
+}
 

@@ -10,15 +10,16 @@ public:
 	void setMVP(const glm::mat4 &mvp);
 	void setColor(const poColor &color);
 	void setTexture(GLuint tex);
-	void disableTexture();
+	void setFlags(int flags);
 	
 	void setFromState();
 	
 private:
 	poBasicRenderer();
-	void setFlags();
+	int determineFlagsFromState();
 	
 	GLuint uid, flags;
-	GLint mvp_uniform, color_uniform, tex_uniform, flags_uniform;
+	GLint mvp_uniform, color_uniform, tex_uniform;
+	GLint flags_uniform, time_uniform;
 };
 

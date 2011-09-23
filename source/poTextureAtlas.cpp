@@ -133,13 +133,13 @@ void poTextureAtlas::clearPages() {
 
 void poTextureAtlas::startDrawing() {
 	is_drawing = true;
-	texState = poTextureState(textures[0]->uid);
 }
 
 void poTextureAtlas::drawUID(uint uid, poRect rect) {
 	if(hasUID(uid)) {
 		uint page = pageForUID(uid);
-		poTextureState texState(textures[page]->uid);
+		
+		poTextureState texState(textures[page]->uid, textures[page]->config.format == GL_ALPHA);
 		texState.save();
 		
 		poRect size = sizeForUID(uid);
@@ -149,25 +149,25 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 		
 		GLfloat quad[4*3] = { 
 			rect.x, rect.y, 0, 
-			rect.x, rect.y+(size.height*rect.height), 0, 
 			rect.x+(size.width*rect.width), rect.y, 0, 
-			rect.x+(size.width*rect.width), rect.y+(size.height*rect.height), 0 
+			rect.x+(size.width*rect.width), rect.y+(size.height*rect.height), 0,
+			rect.x, rect.y+(size.height*rect.height), 0, 
 		};
 		
 		GLfloat tcoords[4*2] = {
 			coords.x, coords.y,
-			coords.x, coords.y+coords.height,
 			coords.x+coords.width, coords.y,
-			coords.x+coords.width, coords.y+coords.height
+			coords.x+coords.width, coords.y+coords.height,
+			coords.x, coords.y+coords.height,
 		};
 
 		poBasicRenderer::get()->setFromState();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), tcoords);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 		
 		texState.restore();
 	}
@@ -179,7 +179,6 @@ void poTextureAtlas::drawUID(uint uid, poPoint p) {
 
 void poTextureAtlas::stopDrawing() {
 	is_drawing = false;
-	texState.restore();
 }
 
 bool poTextureAtlas::isDrawing() {
