@@ -685,7 +685,6 @@
 		};
 		E84CEC66142A2F48008B3E3E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
@@ -732,7 +731,6 @@
 		};
 		E84CEC67142A2F48008B3E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
