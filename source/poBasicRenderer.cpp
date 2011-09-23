@@ -5,7 +5,9 @@
 const char* default_vert = 
 	"uniform mat4 mvp;\n"
 
-	"attribute vec4 position;\n"
+    "precision mediump float;"
+
+    "attribute vec4 position;\n"
 	"attribute vec2 textureCoordinates;\n"
 
 	"varying vec2 texCoord;\n"
@@ -18,6 +20,8 @@ const char* default_vert =
 const char* default_frag = 
 	"const int TEXTURE = 1;\n"
 	"const int TEXTURE_IS_MASK = 2;\n"
+
+    "precision mediump float;"
 
 	"uniform sampler2D tex;\n"
 	"uniform vec4 color;\n"
