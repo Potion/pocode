@@ -7,8 +7,9 @@
 //
 
 #import "EAGLView.h"
-
 #import <QuartzCore/QuartzCore.h>
+
+#include "poWindow.h"
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;
@@ -17,7 +18,7 @@
 
 @implementation EAGLView
 
-@synthesize context;
+@synthesize appWindow, context;
 
 // You must implement this method
 + (Class)layerClass
@@ -26,9 +27,9 @@
 }
 
 //The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:.
-- (id)initWithCoder:(NSCoder*)coder
+- (id) initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithCoder:coder];
+    self = [super initWithCoder:aDecoder];
 	if (self) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
         
@@ -38,7 +39,6 @@
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
     }
-    
     return self;
 }
 
@@ -135,6 +135,39 @@
 {
     // The framebuffer will be re-created at the beginning of the next setFramebuffer method call.
     [self deleteFramebuffer];
+}
+
+
+/*Touch events*/
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:self];
+        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+    }
+} 
+
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:self];
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+    }
+}
+
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:self];
+        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:self];
+        //self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+    }
 }
 
 @end

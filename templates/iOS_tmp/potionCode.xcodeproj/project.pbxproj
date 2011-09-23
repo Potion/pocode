@@ -16,7 +16,7 @@
 		E84CEC35142A2B98008B3E3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC34142A2B98008B3E3E /* main.m */; };
 		E84CEC39142A2B98008B3E3E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC38142A2B98008B3E3E /* AppDelegate.mm */; };
 		E84CEC3C142A2B98008B3E3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E84CEC3A142A2B98008B3E3E /* MainWindow.xib */; };
-		E84CEC43142A2B98008B3E3E /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC42142A2B98008B3E3E /* EAGLView.m */; };
+		E84CEC43142A2B98008B3E3E /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC42142A2B98008B3E3E /* EAGLView.mm */; };
 		E84CEC46142A2B98008B3E3E /* potionCodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84CEC45142A2B98008B3E3E /* potionCodeViewController.mm */; };
 		E84CEC49142A2B98008B3E3E /* potionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E84CEC47142A2B98008B3E3E /* potionCodeViewController.xib */; };
 		E84CECAA142A7A35008B3E3E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CECA9142A7A35008B3E3E /* CoreText.framework */; };
@@ -39,7 +39,7 @@
 		E84CEC38142A2B98008B3E3E /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		E84CEC3B142A2B98008B3E3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		E84CEC41142A2B98008B3E3E /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
-		E84CEC42142A2B98008B3E3E /* EAGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		E84CEC42142A2B98008B3E3E /* EAGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		E84CEC44142A2B98008B3E3E /* potionCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = potionCodeViewController.h; sourceTree = "<group>"; };
 		E84CEC45142A2B98008B3E3E /* potionCodeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = potionCodeViewController.mm; sourceTree = "<group>"; };
 		E84CEC48142A2B98008B3E3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/potionCodeViewController.xib; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 				E84CEC47142A2B98008B3E3E /* potionCodeViewController.xib */,
 				E84CEC3A142A2B98008B3E3E /* MainWindow.xib */,
 				E84CEC41142A2B98008B3E3E /* EAGLView.h */,
-				E84CEC42142A2B98008B3E3E /* EAGLView.m */,
+				E84CEC42142A2B98008B3E3E /* EAGLView.mm */,
 				E84CECB3142A8E73008B3E3E /* TestObj.h */,
 				E84CECB1142A8E5B008B3E3E /* TestObj.cpp */,
 				E84CEC2F142A2B98008B3E3E /* Supporting Files */,
@@ -192,7 +192,7 @@
 			files = (
 				E84CEC35142A2B98008B3E3E /* main.m in Sources */,
 				E84CEC39142A2B98008B3E3E /* AppDelegate.mm in Sources */,
-				E84CEC43142A2B98008B3E3E /* EAGLView.m in Sources */,
+				E84CEC43142A2B98008B3E3E /* EAGLView.mm in Sources */,
 				E84CEC46142A2B98008B3E3E /* potionCodeViewController.mm in Sources */,
 				E84CECB2142A8E5B008B3E3E /* TestObj.cpp in Sources */,
 			);

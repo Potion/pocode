@@ -13,6 +13,8 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
+class poWindow;
+
 @class EAGLContext;
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -27,7 +29,8 @@
     GLuint defaultFramebuffer, colorRenderbuffer;
 }
 
-@property (nonatomic, retain) EAGLContext *context;
+@property (nonatomic,assign) poWindow *appWindow;
+@property (nonatomic,retain) EAGLContext *context;
 
 - (void)setFramebuffer;
 - (BOOL)presentFramebuffer;
