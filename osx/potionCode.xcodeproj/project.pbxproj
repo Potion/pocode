@@ -130,6 +130,8 @@
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
+		AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.ios.xcconfig; sourceTree = "<group>"; };
+		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
 		E43F4B231426A6DB00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite3.h; path = ../source/poSqlite3.h; sourceTree = "<group>"; };
 		E802C72013D5E3F100CBEB1C /* poApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poApplication.cpp; path = ../source/poApplication.cpp; sourceTree = "<group>"; };
@@ -152,7 +154,7 @@
 		E84CEC0814295525008B3E3E /* poBasicRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBasicRenderer.h; path = ../source/poBasicRenderer.h; sourceTree = "<group>"; };
 		E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLState.cpp; path = ../source/poOpenGLState.cpp; sourceTree = "<group>"; };
 		E84CEC0C1429556B008B3E3E /* poOpenGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLState.h; path = ../source/poOpenGLState.h; sourceTree = "<group>"; };
-		E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionCode_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPotionCode_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84CEC5E142A2F48008B3E3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLStateChange.h; path = ../source/poOpenGLStateChange.h; sourceTree = "<group>"; };
 		E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLStateChange.cpp; path = ../source/poOpenGLStateChange.cpp; sourceTree = "<group>"; };
@@ -301,6 +303,8 @@
 			children = (
 				E8A0B99B138B0FE10024BC8C /* Debug.osx.xcconfig */,
 				E8A0B9A1138B0FE10024BC8C /* Release.osx.xcconfig */,
+				AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */,
+				AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */,
 				E83092ED13D09C9100836802 /* main.pch */,
 			);
 			name = platform;
@@ -320,7 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				E80625911396FEDA00615CCB /* libPotionCode.a */,
-				E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */,
+				E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -539,7 +543,7 @@
 			);
 			name = potionCode_iOS;
 			productName = potionCode_iOS;
-			productReference = E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */;
+			productReference = E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -681,6 +685,7 @@
 		};
 		E84CEC66142A2F48008B3E3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
@@ -726,6 +731,7 @@
 		};
 		E84CEC67142A2F48008B3E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
