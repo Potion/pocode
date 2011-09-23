@@ -52,10 +52,14 @@ basicShapesApp::basicShapesApp() {
     ovalShape->position.set( 450, 225, 0 );
     ovalShape->fillColor = poColor::green;
     addChild( ovalShape );
+    
+    ovalShape->addEvent(PO_MOUSE_OVER_EVENT, this);
 }
 
 basicShapesApp::~basicShapesApp() {
 }
 
 
-
+void basicShapesApp::eventHandler(poEvent *event) {
+    std::cout << "Event!" << std::endl;
+}

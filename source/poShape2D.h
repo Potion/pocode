@@ -99,7 +99,6 @@ public:
 	bool                    strokeEnabled;
 	bool                    useSimpleStroke;
 	bool                    closed;
-	bool                    drawBounds;
 	bool                    alphaTestTexture;
     
     // SHAPE SPECIFIC TWEEN

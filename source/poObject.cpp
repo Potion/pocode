@@ -9,6 +9,8 @@
 #include "poOpenGLState.h"
 #include "poMatrixStack.h"
 
+#include "SimpleDrawing.h"
+
 static uint PO_OBJECT_UID = 0;
 
 poObject::poObject() 
@@ -21,7 +23,8 @@ poObject::poObject()
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	bounds(0.f, 0.f, 0.f, 0.f)
+,	width(0.0f)
+,   height(0.0f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
@@ -32,6 +35,9 @@ poObject::poObject()
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
+,   bFixedWidth(false)
+,   bFixedHeight(false)
+,	drawBounds(false)
 {}
 
 poObject::poObject(const std::string &name)
@@ -44,7 +50,8 @@ poObject::poObject(const std::string &name)
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	bounds(0.f, 0.f, 0.f, 0.f)
+,	width(0.0f)
+,   height(0.0f)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
@@ -55,13 +62,19 @@ poObject::poObject(const std::string &name)
 ,	alpha_tween(&alpha)
 ,	rotation_tween(&rotation)
 ,	true_alpha(1.f)
+,   bFixedWidth(false)
+,   bFixedHeight(false)
+,	drawBounds(false)
 {}
 
 poObject::~poObject() {
 	removeAllChildren(true);
 }
 
-void poObject::draw() {}
+void poObject::draw() {
+    if(drawBounds) _drawBounds();
+}
+
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
 void poObject::messageHandler(const std::string &msg, const poDictionary& dict) {
@@ -69,6 +82,75 @@ void poObject::messageHandler(const std::string &msg, const poDictionary& dict) 
 		_parent->messageHandler(msg,dict);
 	}
 }
+
+float poObject::getWidth() {
+    if(!bFixedWidth) {
+        poRect b = getBounds();
+        width = b.width; 
+    }
+    
+    return width;
+}
+
+
+void poObject::setWidth(float width) {
+    this->width = width;
+    bFixedWidth = true;
+}
+
+
+float poObject::getHeight() {
+    if(!bFixedHeight) {
+        poRect b = getBounds();
+        height = b.height; 
+    }
+    
+    return height;
+}
+
+void poObject::setHeight(float height) {
+    this->height = height;
+    bFixedHeight = true;
+}
+
+
+void poObject::setSize(float width, float height) {
+    setWidth(width);
+    setHeight(height);
+}
+
+void poObject::setSize(poPoint size) {
+    setSize(size.x, size.y);
+}
+
+poRect poObject::getFrame() {
+    poRect rect = getBounds();
+    
+    poRect frame;
+    frame.setPosition(parent()->objectToLocal(this, rect.getBottomRight()));
+    frame.include(parent()->objectToLocal(this, rect.getTopLeft()));
+    
+	return frame;
+}
+
+poRect poObject::getBounds() {
+    
+    poRect rect(offset.x, offset.y, width, height);
+	BOOST_FOREACH(poObject* obj, children) {
+		poRect obj_b = obj->getBounds();
+		rect.include(objectToLocal(obj, obj_b.getBottomRight()));
+		rect.include(objectToLocal(obj, obj_b.getTopLeft()));
+	}
+	return rect;
+}
+       
+       
+void poObject::_drawBounds() {    
+    po::setColor(poColor::red);
+    po::drawStroke(getBounds());
+    po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+}
+
 
 int poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
@@ -244,7 +326,7 @@ bool poObject::pointInside(poPoint point, bool localize) {
         point.y = getWindowHeight() - point.y;
         point = globalToLocal(point);
     }
-    return bounds.contains(point);
+    return getBounds().contains(point);
 }
 
 bool poObject::pointInside(float x, float y, float z, bool localize) {
@@ -269,7 +351,7 @@ poObject& poObject::alignment(poAlignment align) {
 	_alignment = align; 
 	
 	// first calculate bounds
-	poRect frame = calculateBounds();
+	poRect frame = getBounds();
 	
 	// then set offset based upon bounds and alignment
 	switch(align) {
@@ -296,16 +378,6 @@ poObject& poObject::alignment(poAlignment align) {
 	offset = offset-frame.getPosition();
 	
 	return *this;
-}
-
-poRect poObject::calculateBounds() {
-	poRect rect = bounds;
-	BOOST_FOREACH(poObject* obj, children) {
-		poRect obj_b = obj->calculateBounds();
-		rect.include(objectToLocal(obj, obj_b.getBottomRight()));
-		rect.include(objectToLocal(obj, obj_b.getTopLeft()));
-	}
-	return rect;
 }
 
 poObject*		poObject::parent() const {return _parent;}
@@ -391,14 +463,16 @@ void poObject::read(poXMLNode node) {
 	_uid = (uint)node.getChild("uid").innerInt();
 	name = node.getChild("name").innerString();
 	position.set(node.getChild("position").innerString());
+	width   = node.getChild("width").innerFloat();
+	height  = node.getChild("height").innerFloat();
 	scale.set(node.getChild("scale").innerString());
 	alpha = node.getChild("alpha").innerFloat();
 	rotation = node.getChild("rotation").innerFloat();
 	rotationAxis.set(node.getChild("rotationAxis").innerString());
 	offset.set(node.getChild("offset").innerString());
-	bounds.set(node.getChild("bounds").innerString());
 	visible = node.getChild("visible").innerInt();
-	boundsAreFixed = node.getChild("boundsAreFixed").innerInt();
+	bFixedWidth = node.getChild("bFixedWidth").innerInt();
+	bFixedHeight = node.getChild("bFixedHeight").innerInt();
 	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").innerInt());
 	_alignment = poAlignment(node.getChild("alignment").innerInt());
 	alignment(_alignment);
@@ -410,14 +484,16 @@ void poObject::write(poXMLNode &node) {
 	node.addChild("uid").setInnerInt(uid());
 	node.addChild("name").setInnerString(name);
 	node.addChild("position").setInnerString(position.toString());
+	node.addChild("width").setInnerFloat(width);
+    node.addChild("height").setInnerFloat(height);
 	node.addChild("scale").setInnerString(scale.toString());
 	node.addChild("alpha").setInnerFloat(alpha);
 	node.addChild("rotation").setInnerFloat(rotation);
 	node.addChild("rotationAxis").setInnerString(rotationAxis.toString());
 	node.addChild("offset").setInnerString(offset.toString());
-	node.addChild("bounds").setInnerString(bounds.toString());
 	node.addChild("visible").setInnerInt(visible);
-	node.addChild("boundsAreFixed").setInnerInt(boundsAreFixed);
+	node.addChild("bFixedWidth").setInnerInt(bFixedWidth);
+	node.addChild("bFixedHeight").setInnerInt(bFixedHeight);
 	node.addChild("matrixOrder").setInnerInt(matrixOrder);
 	node.addChild("alignment").setInnerInt(_alignment);
 }
