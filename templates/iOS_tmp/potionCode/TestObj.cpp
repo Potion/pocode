@@ -14,5 +14,6 @@ poObject *createObjectForID(uint id) {
 }
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::red));
+	
+	addModifier(new poCamera2D(poColor::green));
 }

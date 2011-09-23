@@ -152,7 +152,7 @@
 		E84CEC0814295525008B3E3E /* poBasicRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBasicRenderer.h; path = ../source/poBasicRenderer.h; sourceTree = "<group>"; };
 		E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLState.cpp; path = ../source/poOpenGLState.cpp; sourceTree = "<group>"; };
 		E84CEC0C1429556B008B3E3E /* poOpenGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLState.h; path = ../source/poOpenGLState.h; sourceTree = "<group>"; };
-		E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpotionCode_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPotionCode_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84CEC5E142A2F48008B3E3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E84CECB9142ADBD9008B3E3E /* poOpenGLStateChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLStateChange.h; path = ../source/poOpenGLStateChange.h; sourceTree = "<group>"; };
 		E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLStateChange.cpp; path = ../source/poOpenGLStateChange.cpp; sourceTree = "<group>"; };
@@ -320,7 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				E80625911396FEDA00615CCB /* libPotionCode.a */,
-				E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */,
+				E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -539,7 +539,7 @@
 			);
 			name = potionCode_iOS;
 			productName = potionCode_iOS;
-			productReference = E84CEC5C142A2F48008B3E3E /* libpotionCode_iOS.a */;
+			productReference = E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -689,6 +689,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = main.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "POTION_IOS=1";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
 					/PotionCode/libraries/Boost/boost_1_45_0,
