@@ -37,6 +37,7 @@ public:
 	poPoint&        normalize();
 	float           length() const;
 	float           lengthSquared() const;
+    float           dist(poPoint pt);
 	float           dot(poPoint rhs) const;
 	poPoint         cross(poPoint rhs) const;
 	poPoint         normal2D() const;

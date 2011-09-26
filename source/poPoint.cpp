@@ -96,6 +96,10 @@ float poPoint::lengthSquared() const {
 	return x*x + y*y + z*z;
 }
 
+float poPoint::dist(poPoint pt) {
+    return poDist(x,y, pt.x, pt.y);
+}
+
 float poPoint::dot(poPoint rhs) const {
     return x*rhs.x + y*rhs.y + z*rhs.z;
 }
