@@ -250,9 +250,6 @@ protected:
     float               true_alpha; 	//combination of all your parent's alphas with your own
     //@}     
 
-private:
-    
-    float width, height;
     /*! These matrix operators not only push and pop the matrix, but also maintain
      the alpha stack and data required by the event handling system.*/
     /** @name COORDINATE SYSTEM OPERATIONS*/
@@ -261,6 +258,10 @@ private:
 	void                popObjectMatrix();
 	void                localizeEvent(poEvent*, poEvent*, poPoint);
 	//@}
+private:
+    
+    float width, height;
+    
     
     /*! "children" is a vector of poObjects. It is the basis for the poObject scene graph/tree structure.
      Every poObject that has been added as child has a parent. Be careful not to access the parent
