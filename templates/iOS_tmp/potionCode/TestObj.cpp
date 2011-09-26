@@ -8,6 +8,7 @@
 
 #include "TestObj.h"
 #include "poCamera.h"
+#include "poShapeBasics2D.h"
 
 poObject *createObjectForID(uint id) {
 	return new TestObj();
@@ -16,4 +17,14 @@ poObject *createObjectForID(uint id) {
 TestObj::TestObj() {
 	
 	addModifier(new poCamera2D(poColor::green));
+    
+    poRectShape *testRect = addChild(new poRectShape(50,50));
+    testRect->fillColor.set255(255,0,0);
+    testRect->addEvent(PO_TOUCH_BEGAN_EVERYWHERE_EVENT, this);
+}
+
+
+void TestObj::eventHandler(poEvent *event) {
+    //std::cout << event->uid << std::endl;   
+    std::cout << event->touchID << std::endl;
 }

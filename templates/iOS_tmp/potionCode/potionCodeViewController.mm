@@ -10,6 +10,7 @@
 
 #import "potionCodeViewController.h"
 #import "EAGLView.h"
+#import "AppDelegate.h"
 
 #include "poObject.h"
 #include "Helpers.h"
@@ -32,10 +33,6 @@ poObject *root = NULL;
 {
     EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
-    if (!aContext) {
-        aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    }
-    
     if (!aContext)
         NSLog(@"Failed to create ES context");
     else if (![EAGLContext setCurrentContext:aContext])
@@ -46,6 +43,7 @@ poObject *root = NULL;
 	
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
+    ((EAGLView *)self.view).appWindow = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) appWindow];
     
 	
 	
@@ -54,6 +52,8 @@ poObject *root = NULL;
     self.displayLink = nil;
 	
 	std::cout << currentPath() << "\n";
+    
+    //[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeLeft];
 }
 
 - (void)dealloc
@@ -146,6 +146,7 @@ poObject *root = NULL;
     [(EAGLView *)self.view setFramebuffer];
 	
 	poWindow *win = applicationCurrentWindow();
+    win->update();
 	win->draw();
 	
     [(EAGLView *)self.view presentFramebuffer];

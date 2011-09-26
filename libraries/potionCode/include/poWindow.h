@@ -16,6 +16,8 @@ typedef struct {
     int uid;
     std::set<poObject *> prevObjsBeneath;
     poObject *dragTarget;
+    
+    bool bIsDead;
 } interactionPoint;
 
 class poWindow {
@@ -69,10 +71,10 @@ public:
 	void            resized(int w, int h);
 	void            resized(int x, int y, int w, int h);
 	
-	void            touchBegin(int x, int y, int id, int tapCount );
-	void            touchMove(int x, int y, int id, int tapCount );
-	void            touchEnd(int x, int y, int id, int tapCount );
-    void            touchCancelled(int x, int y, int id, int tapCount );
+	void            touchBegin(int x, int y, int uid, int tapCount );
+	void            touchMove(int x, int y, int uid, int tapCount );
+	void            touchEnd(int x, int y, int uid, int tapCount );
+    void            touchCancelled(int x, int y, int uid, int tapCount );
     
     
     // DRAW ORDER COUNTER

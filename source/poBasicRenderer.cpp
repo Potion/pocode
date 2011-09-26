@@ -2,9 +2,6 @@
 #include "poOpenGLState.h"
 #include "Helpers.h"
 
-#include <fstream>
-#include <sstream>
-
 static boost::thread_specific_ptr<poBasicRenderer> instance;
 
 poBasicRenderer *poBasicRenderer::get() {

@@ -12,4 +12,6 @@
 class TestObj : public poObject {
 public:
 	TestObj();
+    
+    void eventHandler(poEvent *event);
 };

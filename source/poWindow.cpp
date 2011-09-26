@@ -176,6 +176,8 @@ void poWindow::processEvents() {
 	while(!received.empty()) {
         //Get Event
 		poEvent event = received.front();
+        
+        
 		received.pop_front();
         
         //Check type, take appropriate action
@@ -410,56 +412,71 @@ void poWindow::resized(int x, int y, int w, int h) {
 }
 
 
-void poWindow::touchBegin(int x, int y, int id, int tapCount )
+void poWindow::touchBegin(int x, int y, int uid, int tapCount )
 {
-    //Track touch
+    //Create an interactionPoint for this touch, with a unique id
     interactionPoint *t = new interactionPoint();
-    t->uid = id;
+    t->uid = uid;
+    t->bIsDead = false;
+    
+    //Begin tracking touch + give it a simple ID (0-100)
     trackTouch(t);
     
     //Fire Event
 	poEvent event;
 	event.position.set(x, y, 0.f);
-	event.touchID = t->uid;
-    event.uid   = id;
+	event.touchID = t->id;
+    event.uid   = t->uid;
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_BEGAN_EVERYWHERE_EVENT;
 	received.push_back(event);
+    
 }
 
 
-void poWindow::touchMove(int x, int y, int ID, int tapCount )
+void poWindow::touchMove(int x, int y, int uid, int tapCount )
 {
+    //Get the corresponding tracked object
+    interactionPoint *t = getTouch(uid);
+    
+    //Send event
 	poEvent event;
 	event.position.set(x, y, 0.f);
-	event.touchID = ID;
-    event.tapCount = tapCount;
+	event.touchID   = t->id;
+    event.uid       = t->uid;
+    event.tapCount  = tapCount;
 	
 	event.type = PO_TOUCH_MOVED_EVERYWHERE_EVENT;
 	received.push_back(event);
 }
 
 
-void poWindow::touchEnd(int x, int y, int ID, int tapCount )
+void poWindow::touchEnd(int x, int y, int uid, int tapCount )
 {
-    untrackTouch(ID);
-    
+    //Get the corresponding tracked object
+    interactionPoint *t = getTouch(uid);
+   
+    //Send event
 	poEvent event;
 	event.position.set(x, y, 0.f);
-	event.touchID = ID;
+	event.touchID   = t->id;
+    event.uid       = t->uid;
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_ENDED_EVERYWHERE_EVENT;
-	received.push_back(event);
+	//received.push_back(event);
+    
+    untrackTouch(uid);
 }
 
 
-void poWindow::touchCancelled(int x, int y, int ID, int tapCount )
+void poWindow::touchCancelled(int x, int y, int id, int tapCount )
 {
+    untrackTouch(id);
     poEvent event;
 	event.position.set(x, y, 0.f);
-	event.touchID = ID;
+	event.touchID = id;
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_CANCELLED_EVENT;
@@ -470,17 +487,24 @@ void poWindow::touchCancelled(int x, int y, int ID, int tapCount )
 void poWindow::trackTouch(interactionPoint *t) 
 {
     int totalTouches = trackedTouches.size();
-    
+        
     //See if there are any empty slots
-    for(int i=0; i<trackedTouches.size(); i++) {
-        if(trackedTouches[i] == NULL) {
+    for(int i=0; i<totalTouches; i++) {
+        if(trackedTouches[i]->bIsDead) {
+            //Delete old touch
+            delete trackedTouches[i];
+            
+            //Set id
             t->id = i;
+        
+            //Track in this spot
             trackedTouches[i] = t;
             return;
         }
     }
     
     //If the touch wasn't found, add it
+    t->id = trackedTouches.size();
     trackedTouches.push_back(t);
 }
 
@@ -497,25 +521,8 @@ interactionPoint *poWindow::getTouch(int uid)
 
 void poWindow::untrackTouch(int uid) 
 {
-    int totalTouches = trackedTouches.size();
-    
-    //Find touch
-    for(int i=0; i<totalTouches - 1; i++) {
-        if(trackedTouches[i]->uid == uid) {
-            // If it is found (and not the last item in the vector) delete it and set to null
-            // (Saving spot for another touch)
-            delete trackedTouches[i];
-            trackedTouches[i] = NULL;
-            return;
-        }
-    }
-    
-    //If touch isn't found, it SHOULD be the last one...
-    //double check then pop it off the vector
-    if(trackedTouches.back()->uid == uid) {
-        delete trackedTouches.back();
-        trackedTouches.pop_back();
-    }
+    interactionPoint *t = getTouch(uid);
+    t->bIsDead = true;
 }
 
 void *poWindow::getWindowHandle() {
