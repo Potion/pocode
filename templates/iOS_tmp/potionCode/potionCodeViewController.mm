@@ -47,6 +47,8 @@ poObject *root = NULL;
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
     
+	
+	
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;

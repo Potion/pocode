@@ -123,6 +123,10 @@
 		E8E755C913C62F8B00A91EB8 /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		E8E755CA13C62F8B00A91EB8 /* poXML.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E755C713C62F8B00A91EB8 /* poXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8E9EAFD13F048AB00FB2D57 /* poMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E9EAFC13F048AB00FB2D57 /* poMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E8F48BB9142D61850020D9CE /* poShader.h in Headers */ = {isa = PBXBuildFile; fileRef = E8F48BB8142D61850020D9CE /* poShader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E8F48BBA142D61850020D9CE /* poShader.h in Headers */ = {isa = PBXBuildFile; fileRef = E8F48BB8142D61850020D9CE /* poShader.h */; };
+		E8F48BBD142D61950020D9CE /* poShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F48BBC142D61950020D9CE /* poShader.cpp */; };
+		E8F48BBE142D61950020D9CE /* poShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F48BBC142D61950020D9CE /* poShader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,6 +208,8 @@
 		E8E755C613C62F8B00A91EB8 /* poXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML.cpp; path = ../source/poXML.cpp; sourceTree = "<group>"; };
 		E8E755C713C62F8B00A91EB8 /* poXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poXML.h; path = ../source/poXML.h; sourceTree = "<group>"; };
 		E8E9EAFC13F048AB00FB2D57 /* poMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMask.h; path = ../source/poMask.h; sourceTree = "<group>"; };
+		E8F48BB8142D61850020D9CE /* poShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShader.h; path = ../source/poShader.h; sourceTree = "<group>"; };
+		E8F48BBC142D61950020D9CE /* poShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShader.cpp; path = ../source/poShader.cpp; sourceTree = "<group>"; };
 		E8FB2406133A996C00111A69 /* poFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = poFont.cpp; path = ../source/poFont.cpp; sourceTree = "<group>"; };
 		E8FB2407133A996C00111A69 /* poFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFont.h; path = ../source/poFont.h; sourceTree = "<group>"; };
 		E8FE4AE913968EE300E99864 /* poMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMask.cpp; path = ../source/poMask.cpp; sourceTree = "<group>"; };
@@ -292,6 +298,8 @@
 				E84CECBC142ADC4B008B3E3E /* poOpenGLStateChange.cpp */,
 				E84CEC0814295525008B3E3E /* poBasicRenderer.h */,
 				E84CEC0714295525008B3E3E /* poBasicRenderer.cpp */,
+				E8F48BB8142D61850020D9CE /* poShader.h */,
+				E8F48BBC142D61950020D9CE /* poShader.cpp */,
 			);
 			name = opengl;
 			sourceTree = "<group>";
@@ -491,6 +499,7 @@
 				E84CEC0A14295526008B3E3E /* poBasicRenderer.h in Headers */,
 				E84CEC0F1429556B008B3E3E /* poOpenGLState.h in Headers */,
 				E84CECBA142ADBD9008B3E3E /* poOpenGLStateChange.h in Headers */,
+				E8F48BB9142D61850020D9CE /* poShader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +511,7 @@
 				E84CECC5142B0819008B3E3E /* poOpenGLState.h in Headers */,
 				E84CECC6142B0820008B3E3E /* poMatrixStack.h in Headers */,
 				E84CECC7142B082B008B3E3E /* poBasicRenderer.h in Headers */,
+				E8F48BBA142D61850020D9CE /* poShader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +619,7 @@
 				E84CEC0914295526008B3E3E /* poBasicRenderer.cpp in Sources */,
 				E84CEC0E1429556B008B3E3E /* poOpenGLState.cpp in Sources */,
 				E84CECBD142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */,
+				E8F48BBD142D61950020D9CE /* poShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +662,7 @@
 				E84CEC92142A3533008B3E3E /* TextLayout.cpp in Sources */,
 				E84CEC93142A3533008B3E3E /* poVBO.cpp in Sources */,
 				E84CECBE142ADC4B008B3E3E /* poOpenGLStateChange.cpp in Sources */,
+				E8F48BBE142D61950020D9CE /* poShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

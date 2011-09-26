@@ -3,6 +3,7 @@
 #include "poCamera.h"
 #include "Helpers.h"
 
+#include "poBasicRenderer.h"
 #include "poResourceStore.h"
 #include "poOpenGLStateChange.h"
 
@@ -13,7 +14,7 @@ poObject *createObjectForID(uint uid) {
 
 void setupApplication() {
 	lookUpAndSetPath("resources");
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow 1", 100, 100, 600, 300);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow", 100, 100, 600, 300);
 }
 
 void cleanupApplication() {
@@ -21,7 +22,7 @@ void cleanupApplication() {
 
 basicShapesApp::basicShapesApp() {
 	addModifier(new poCamera2D(poColor(.2,.2,.2)));
-
+	
 	// make custom shape, orange
     customShape = new poShape2D();
     customShape->addPoint( -30, -40 );
@@ -31,7 +32,8 @@ basicShapesApp::basicShapesApp() {
     customShape->position.set( 150, 75, 0 );
     customShape->fillColor = poColor(poColor::orange);
     addChild( customShape );
-    
+
+	
     // make rectangular shape, yellow
     rectShape = new poRectShape( 150,100 );
     rectShape->position = poPoint( 450, 75, 0 );
@@ -46,7 +48,6 @@ basicShapesApp::basicShapesApp() {
     rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShapeWithImage );
 	
-    
     // make oval shape, green
     ovalShape = new poOvalShape( 100,100, 50 );
     ovalShape->position.set( 450, 225, 0 );
@@ -61,5 +62,12 @@ basicShapesApp::~basicShapesApp() {
 
 
 void basicShapesApp::eventHandler(poEvent *event) {
-    std::cout << "Event!" << std::endl;
+	if(event->type == PO_KEY_DOWN_EVENT) {
+		
+		if(event->keyCode == ' ') {
+			std::cout << "reloading renderer\n";
+			poBasicRenderer::get()->rebuild();
+		}
+		
+	}
 }

@@ -44,9 +44,6 @@ public:
 	
 	// projection * modelview
 	glm::mat4 transformation();
-
-	// set it to opengl
-	void load();
 	
 	// modify the top modelview
 	void translate(poPoint t);

@@ -1,71 +1,36 @@
+//
+//  poShader.h
+//  potionCode
+//
+//  Created by Joshua Fisher on 9/23/11.
+//  Copyright 2011 Potion Design. All rights reserved.
+//
+
 #pragma once
 
-#include "poPoint.h"
-#include "poObjectModifier.h"
-
-class poShaderProgram : public poObjectModifier 
-{
+class poShader {
 public:
-	poShaderProgram(const std::string &vert, const std::string &frag);
-	~poShaderProgram();
+	poShader();
+	~poShader();
 
-	void setAttribLocation(const std::string &name, GLuint loc);
-	
+	void load(const std::string &name);
 	bool compile();
 	bool link();
 	
-	bool isValid() const;
-	std::string compileLog() const;
-	std::string linkLog() const;
-	GLuint uid() const;
-
-	void uniform1(const std::string &name, int i);
-	void uniform1(const std::string &name, float f);
-	void uniform1v(const std::string &name, const int *i, int count);
-	void uniform1v(const std::string &name, const float *f, int count);
-
-	void uniform2(const std::string &name, int i1, int i2);
-	void uniform2(const std::string &name, float f1, float f2);
-	void uniform2v(const std::string &name, const int *i, int count);
-	void uniform2v(const std::string &name, const float *f, int count);
+	GLuint getUid();
 	
-	void uniform3(const std::string &name, int i1, int i2, int i3);
-	void uniform3(const std::string &name, float f1, float f2, float f3);
-	void uniform3(const std::string &name, poPoint point);
-	void uniform3v(const std::string &name, int *i, int count);
-	void uniform3v(const std::string &name, const float *f, int count);
-	void uniform3v(const std::string &name, const std::vector<poPoint> &points);
-
-	void uniform4(const std::string &name, int i1, int i2, int i3, int i4);
-	void uniform4(const std::string &name, float f1, float f2, float f3, float f4);
-	void uniform4v(const std::string &name, int *i, int count);
-	void uniform4v(const std::string &name, const float *f, int count);
+	std::vector<std::string> allAttributes();
+	GLint attribLocation(const char *name);
 	
-	void uniformMat4(const std::string &name, const float *f);
+	std::vector<std::string> allUniforms();
+	GLint uniformLocation(const char *name);
 	
-protected:
-	virtual void doSetUp(poObject *obj);
-	virtual void doSetDown(poObject *obj);
-
 private:
-	class poShader {
-	public:
-		poShader(GLenum type);
-		~poShader();
-		bool compile();
-		
-		std::string source;
-		std::string log;
-		uint32_t uid;
-		GLenum type;
-	};
+	GLuint uid;
+	GLuint vertexID, fragmentID;
+	std::stringstream vertexSource, fragmentSource;
 	
-	GLuint _uid;
-	bool _valid;
-	std::string link_log;
-	poShader vertShader, fragShader;
+	std::map<std::string,GLint> uniformLocations;
+	std::map<std::string,GLint> attributeLocations;
 };
-
-poShaderProgram *basicProgram1();
-poShaderProgram *basicProgram2();
 
