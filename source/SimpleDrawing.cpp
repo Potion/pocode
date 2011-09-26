@@ -6,6 +6,9 @@
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
 #include "poOpenGLStateChange.h"
+#include "poApplication.h"
+
+#include "LineExtruder.h"
 
 #include <cfloat>
 #include <utf8.h>
@@ -42,7 +45,6 @@ namespace {
 		
 		state.restore();
 	}
-
 }
 
 void po::setColor(poColor color) {
@@ -52,6 +54,38 @@ void po::setColor(poColor color) {
 void po::setColor(poColor color, float alpha) {
 	poOpenGLState::get()->color = poColor(color, alpha);
 }
+
+void po::fill(poColor color) {
+    po::fillColor = color;
+    po::bFill = true;
+}
+
+void po::fill(poColor color, float alpha) {
+    po::fillColor = poColor(color,alpha);
+    po::bFill = true;
+}
+
+void po::noFill() {
+    po::bFill = false;
+}
+
+void po::stroke(poColor color) {
+    po::strokeColor = color;
+    po::bStroke = true;
+}
+
+void po::stroke(poColor color, float alpha) {
+    po::strokeColor = poColor(color,alpha);
+    po::bFill = true;
+}
+
+
+void po::noStroke() {
+    po::bStroke = false;
+}
+
+
+
 
 void po::drawStroke(poRect rect) {
 	drawStroke(rect.x, rect.y, rect.width, rect.height);
@@ -141,6 +175,36 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 	
 	texState.restore();
+}
+
+
+void po::drawCircle(float x, float y, float radius) {
+    po::drawEllipse(x, y, radius, radius);
+    
+}
+
+void po::drawEllipse(float x, float y, float width, float height) {
+    std::vector<poPoint>    points;
+    
+    float angleIncrement = M_2PI / (float) po::circleResolution;
+    float theta = 0.0f;
+    for( int i=0; i<po::circleResolution; i++ ) {
+        points.push_back(poPoint(x + (width/2 * cos(theta)), y + (height/2 * sin(theta)), 0));
+        theta += angleIncrement;
+    }
+    
+    // do shape fill
+	if (po::bFill) {
+        po::setColor(po::fillColor);
+		po::drawPoints(GL_TRIANGLE_FAN, points);
+	}
+	
+	// do shape stroke
+	if(po::bStroke) {
+		po::setColor(po::strokeColor);
+        //po::drawPoints(GL_TRIANGLE_STRIP, points);
+	}	
+
 }
 
 void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {

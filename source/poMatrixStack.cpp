@@ -36,6 +36,18 @@ poRect poMatrixStack::getViewport()		{return viewport.top();}
 
 glm::mat4 poMatrixStack::transformation() {return projection.top() * modelview.top();}
 
+<<<<<<< HEAD
+=======
+// set it to opengl
+void poMatrixStack::load() {
+	poRect vp = viewport.top();
+
+	glScissor(vp.x, vp.y, vp.width, vp.height);
+	glViewport(vp.x, vp.y, vp.width, vp.height);
+    glLoadMatrixf(value_ptr(projection.top() * modelview.top()));
+}
+
+>>>>>>> c15b84ae664d0f725d177ed1894358dfa7484043
 // modify the top modelview
 void poMatrixStack::translate(poPoint t) {
 	modelview.top() *= glm::translate(mat4(), vec3(t.x,t.y,t.z));

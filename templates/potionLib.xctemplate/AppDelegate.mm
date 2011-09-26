@@ -49,10 +49,10 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 -(void)windowWillClose:(NSNotification*)notice {
 	NSWindow *window = notice.object;
-
+    
 	NSView *view = window.contentView;
 	window.contentView = nil;
-
+    
 	[view release];
 }
 
@@ -86,7 +86,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	// create the context
 	NSOpenGLContext *context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
-										 shareContext:shared_context];
+                                                          shareContext:shared_context];
 	[context makeCurrentContext];
 	// lock it so we can make our app window
 	CGLContextObj cglcontext = (CGLContextObj)context.CGLContextObj;
@@ -104,7 +104,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 													styleMask:style_mask
 													  backing:NSBackingStoreBuffered
 														defer:YES];
-
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:window];
 	
 	[window setFrameOrigin:frame.origin];
@@ -112,7 +112,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	// configure the window a little
 	[window setAcceptsMouseMovedEvents:YES];
 	[window setReleasedWhenClosed:YES];
-
+    
 	// in case its full screen
 	if(type == WINDOW_TYPE_FULLSCREEN) {
 		[window setLevel:NSMainMenuWindowLevel+1];
@@ -121,7 +121,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 		
 		powin->fullscreen(true);
 	}
-
+    
 	NSRect glrect = frame;
 	glrect.origin = NSMakePoint(0.f, 0.f);
 	
@@ -134,7 +134,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	[window setContentView:opengl];
 	[opengl release];
-
+    
 	[window makeKeyAndOrderFront:self];
 	
 	return powin;
@@ -154,7 +154,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	[window setStyleMask:NSBorderlessWindowMask];
 	[window setFrame:[screen frame] display:YES animate:NO];
-
+    
 	[window setLevel:NSMainMenuWindowLevel+1];
 	[window setOpaque:YES];
 	[window setHidesOnDeactivate:YES];
@@ -176,7 +176,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 -(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
 	window->fullscreen(b);
-
+    
 	NSWindow *win = (NSWindow*)window->getWindowHandle();
 	
 	SEL function = @selector(fullscreenWindow:);
