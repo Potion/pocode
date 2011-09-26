@@ -58,11 +58,14 @@ public:
 // OVERLOADED OPERATOR
 // For example, where A and B are both poPoints, and S is a scalar
 poPoint operator+(poPoint A, poPoint B);	// A = B + C
+
 poPoint operator-(poPoint A, poPoint B);	// A = B - C
 poPoint operator-(poPoint A);				// A = -B
+
 poPoint operator*(poPoint A, float Scalar);	// A = B * S
 poPoint operator*(float S, poPoint A);      // A = S * B
 poPoint operator*(poPoint A, poPoint B);    // A = B * C (pair-wise multiply, same as dot product)
+
 poPoint operator/(poPoint A, float Scalar);	// A = B / S
 
 poPoint         normalize(poPoint pt);

@@ -75,16 +75,20 @@ void poPoint::operator*=(float scalar) {
 }
 
 void poPoint::operator/=(float scalar) {
-	x /= scalar;
-	y /= scalar;
-	z /= scalar;
+    if(scalar == 0) return;
+    
+	if(x != 0) x /= scalar;
+	if(y != 0) y /= scalar;
+	if(z != 0) z /= scalar;
 }
 
 poPoint &poPoint::normalize() {
 	float len = length();
-	x /= len;
-	y /= len;
-	z /= len;
+    if(len == 0) return *this;
+    
+	if(x != 0) x /= len;
+	if(y != 0) y /= len;
+	if(z != 0) z /= len;
 	return *this;
 }
 
