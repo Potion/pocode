@@ -36,7 +36,7 @@ MasksApp::MasksApp() {
 //	addEvent(PO_KEY_DOWN_EVENT, this);
 
 	setupSurprise();
-//	setupAperture();
+	setupAperture();
 //	setupInstructions();
 	
 	// and start the animation
@@ -72,7 +72,7 @@ void MasksApp::setupSurprise() {
 	// load an image
 	poRectShape *img = new poRectShape("PandaBaby9911.jpeg");
 	addChild(img);
-	return;
+	
 	
 	// add an image-based mask to the thing
 	img->addModifier(new poImageMask("mask.jpg"));
@@ -123,16 +123,16 @@ void MasksApp::setupAperture() {
 		// store the triangle in the holder
 		holder->addChild(shape);
 	}
-	
+
 	// make the masking object from a poShape2D
 	poShape2D *circle = new poOvalShape(size*1.7f, size*1.7f, 50);
-	poGeometryMask *mask = new poGeometryMask(circle);
+	poGeometryMask *mask = new poGeometryMask(circle, true);
 	// apply the mask
-//	holder->addModifier(mask);
+	holder->addModifier(mask);
 
 	// i'm sticking the circle into the tree so it will get cleaned up when the app exits
 	circle->visible = false;
-	addChild(circle);
+	holder->addChild(circle);
 }
 
 void MasksApp::setupInstructions() {

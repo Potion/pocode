@@ -1,2 +1,4 @@
 <?xml version="1.0"?>
-<root />
+<root>
+	<entry type="5" key="panda position">point(200,290,0)</entry>
+</root>

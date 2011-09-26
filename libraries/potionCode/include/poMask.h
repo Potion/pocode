@@ -55,7 +55,7 @@ private:
 // The mask image should be a single channel grayscale image. The black areas in the mask
 // is where the masked image will be visible.
 
-class poImageMask :	public poObjectModifier
+class poImageMask :	public poBlendState
 {
 public:
 	poImageMask(poImage *img);

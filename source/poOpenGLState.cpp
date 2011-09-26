@@ -84,11 +84,24 @@ void poOpenGLState::setBlend(po::BlendState state) {
 		state.enabled ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 		blend.enabled = state.enabled;
 	}
+	
+	if(state.separate && 
+	   (state.source_factor != blend.source_factor || state.dest_factor != blend.dest_factor) &&
+	   (state.source_alpha_factor != blend.source_alpha_factor || state.dest_alpha_factor != blend.dest_alpha_factor))
+	{
+		glBlendFuncSeparate(state.source_factor, state.dest_factor, state.source_alpha_factor, state.dest_alpha_factor);
+		blend.source_factor = state.source_factor;
+		blend.dest_factor = state.dest_factor;
+		blend.source_alpha_factor = state.source_alpha_factor;
+		blend.dest_alpha_factor = state.dest_alpha_factor;
+	}
+	else 
 	if(state.source_factor != blend.source_factor || state.dest_factor != blend.dest_factor) {
 		glBlendFunc(state.source_factor, state.dest_factor);
 		blend.source_factor = state.source_factor;
 		blend.dest_factor = state.dest_factor;
 	}
+	
 	if(state.equation != blend.equation) {
 		glBlendEquation(state.equation);
 		blend.equation = state.equation;
@@ -132,7 +145,10 @@ po::TextureState::TextureState() {
 po::BlendState::BlendState() {
 	enabled = false;
 	
+	separate = false;
 	source_factor = GL_ONE;
+	dest_factor = GL_ZERO;
+	source_alpha_factor = GL_ONE;
 	dest_factor = GL_ZERO;
 	
 	equation = GL_FUNC_ADD;

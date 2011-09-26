@@ -8,7 +8,7 @@ varying vec2 texCoord;
 
 [[vertex]]
 attribute vec4 position;
-attribute lowp vec2 textureCoordinates;
+attribute vec2 textureCoordinates;
 
 void main() {
 	texCoord = textureCoordinates;

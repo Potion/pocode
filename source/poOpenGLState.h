@@ -48,7 +48,8 @@ namespace po {
 		
 		bool enabled;
 		// blend func
-		GLenum source_factor, dest_factor;
+		bool separate;
+		GLenum source_factor, dest_factor, source_alpha_factor, dest_alpha_factor;
 		// blend equation
 		GLenum equation;
 		// blend color

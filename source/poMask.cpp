@@ -45,6 +45,7 @@ void poGeometryMask::save() {
     
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		
+		state.enabled = true;
 		state.func = GL_ALWAYS;
 		state.func_ref = 1;
 		state.func_mask = 1;
@@ -56,9 +57,11 @@ void poGeometryMask::save() {
 		po::drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
         
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-		state.func = GL_EQUAL;
+
 		poStencilState::restore();
-        
+		state.func = GL_EQUAL;
+		poStencilState::save();
+		
         poOpenGLState::get()->matrix.popModelview();
 	}
 }
@@ -81,16 +84,26 @@ bool poImageMask::pointInside(poPoint p) {
 
 void poImageMask::doSetUp( poObject* obj ) {
 	my_obj = obj;
-	
-	glEnable(GL_BLEND);
-	
-	glBlendFuncSeparate(GL_ZERO, GL_ONE, GL_SRC_COLOR, GL_ZERO);
+
+	state.enabled = true;
+	state.separate = true;
+	state.source_factor = GL_ZERO;
+	state.dest_factor = GL_ONE;
+	state.source_alpha_factor = GL_SRC_COLOR;
+	state.dest_alpha_factor = GL_ZERO;
+	save();
+
 	po::drawRect(image->texture());
 	
-	glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
+	restore();
+	state.separate = false;
+	state.source_factor = GL_DST_ALPHA;
+	state.dest_factor = GL_ONE_MINUS_DST_ALPHA;
+	save();
 }
 
 void poImageMask::doSetDown( poObject* obj ) {
+	restore();
 }
 
 

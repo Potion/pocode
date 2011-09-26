@@ -17,14 +17,16 @@ poBasicRenderer::poBasicRenderer()
 
 void poBasicRenderer::setFromState() {
 	poOpenGLState *ogl = poOpenGLState::get();
-
+	
 	// but texturing isn't on by default
-	if(ogl->texture.bound_id > 0 && active->getUid() != texturedShader.getUid()) {
-		glUseProgram(texturedShader.getUid());
-		glUniform1i(texturedShader.uniformLocation("tex"), 0);
-		active = &texturedShader;
+	if(ogl->texture.bound_id > 0) {
+		if(active->getUid() != texturedShader.getUid()) {
+			glUseProgram(texturedShader.getUid());
+			glUniform1i(texturedShader.uniformLocation("tex"), 0);
+			active = &texturedShader;
+		}
 	}
-	else {
+	else if(active->getUid() != colorShader.getUid()) {
 		glUseProgram(colorShader.getUid());
 		active = &colorShader;
 	}
@@ -34,6 +36,8 @@ void poBasicRenderer::setFromState() {
 }
 
 void poBasicRenderer::rebuild() {
+	glUseProgram(0);
+	
 	colorShader.load("colored");
 	colorShader.compile();
 	glBindAttribLocation(colorShader.getUid(), 0, "position");

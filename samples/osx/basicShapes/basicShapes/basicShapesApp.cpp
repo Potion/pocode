@@ -55,6 +55,7 @@ basicShapesApp::basicShapesApp() {
     addChild( ovalShape );
     
     ovalShape->addEvent(PO_MOUSE_OVER_EVENT, this);
+	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
 basicShapesApp::~basicShapesApp() {
@@ -62,12 +63,4 @@ basicShapesApp::~basicShapesApp() {
 
 
 void basicShapesApp::eventHandler(poEvent *event) {
-	if(event->type == PO_KEY_DOWN_EVENT) {
-		
-		if(event->keyCode == ' ') {
-			std::cout << "reloading renderer\n";
-			poBasicRenderer::get()->rebuild();
-		}
-		
-	}
 }
