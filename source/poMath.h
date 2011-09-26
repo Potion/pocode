@@ -103,6 +103,14 @@ inline float poMapf(float min1, float max1, float v, float min2, float max2) {
 	return tmp * (max2-min2) + min2;
 }
 
+inline float poDist(float x1, float y1, float x2, float y2) {
+    return sqrtf(powf((x2-x1), 2) + powf((y2-y1), 2));
+}
+
+inline float poDist(poPoint p1, poPoint p2) {
+    return poDist(p1.x, p1.y, p2.x, p2.y);
+}
+
 struct poRay {
 	poPoint origin, dir;
 	poRay(poPoint o, poPoint d)
