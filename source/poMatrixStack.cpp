@@ -37,6 +37,7 @@ void poMatrixStack::load() {
 
 	glScissor(vp.x, vp.y, vp.width, vp.height);
 	glViewport(vp.x, vp.y, vp.width, vp.height);
+    glLoadMatrixf(value_ptr(projection.top() * modelview.top()));
 }
 
 // modify the top modelview
