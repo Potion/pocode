@@ -55,13 +55,7 @@ void po::setColor(poColor color, float alpha) {
 	poOpenGLState::get()->color = poColor(color, alpha);
 }
 
-void po::fill(poColor color) {
-    po::fillColor = color;
-    po::bFill = true;
-}
-
-void po::fill(poColor color, float alpha) {
-    po::fillColor = poColor(color,alpha);
+void po::fill() {
     po::bFill = true;
 }
 
@@ -69,23 +63,14 @@ void po::noFill() {
     po::bFill = false;
 }
 
-void po::stroke(poColor color) {
-    po::strokeColor = color;
+void po::stroke(bool bSimpleStroke) {
+    po::useSimpleStroke = bSimpleStroke;
     po::bStroke = true;
 }
-
-void po::stroke(poColor color, float alpha) {
-    po::strokeColor = poColor(color,alpha);
-    po::bFill = true;
-}
-
 
 void po::noStroke() {
     po::bStroke = false;
 }
-
-
-
 
 void po::drawStroke(poRect rect) {
 	drawStroke(rect.x, rect.y, rect.width, rect.height);
@@ -93,6 +78,60 @@ void po::drawStroke(poRect rect) {
 
 void po::drawStroke(float x, float y, float w, float h) {
 	drawQuad(GL_LINE_LOOP,x,y,w,h);
+}
+
+
+std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
+    std::vector<poPoint> stroke;
+    
+    useSimpleStroke = false;
+	stroke_width = strokeWidth;
+    
+    po::cap = cap;
+    po::join = join;
+	
+    po::bStroke = stroke_width > 0;
+	if(!bStroke){
+        return stroke;
+    }
+	
+    
+	if(po::bStroke) {
+		std::vector<poExtrudedLineSeg> segments;
+		
+		poPoint p1, p2, p3, p4, tmp;
+		
+		for(int i=0; i<points.size()-1; i++) {
+			p1 = points[i];
+			p2 = points[i+1];
+			segments.push_back(poExtrudedLineSeg(p1, p2, stroke_width, place));
+		}
+		
+		if(po::bClosed) {
+			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), stroke_width, place));
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+		}	
+		else {
+			// add the first cap
+			stroke.push_back(segments[0].p2);
+			stroke.push_back(segments[0].p1);
+		}
+		
+		// generate middle points
+		for(int i=0; i<segments.size()-1; i++) {
+			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, stroke_width);
+		}
+		
+		if(po::bClosed) {
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+		}
+		else {
+			stroke.push_back(segments.back().p4);
+			stroke.push_back(segments.back().p3);
+		}
+	}
+	
+	return stroke;
 }
 
 void po::drawLine(poPoint a, poPoint b) {
@@ -179,11 +218,11 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
 
 
 void po::drawCircle(float x, float y, float radius) {
-    po::drawEllipse(x, y, radius, radius);
+    po::drawOval(x, y, radius, radius);
     
 }
 
-void po::drawEllipse(float x, float y, float width, float height) {
+void po::drawOval(float x, float y, float width, float height) {
     std::vector<poPoint>    points;
     
     float angleIncrement = M_2PI / (float) po::circleResolution;
@@ -195,16 +234,20 @@ void po::drawEllipse(float x, float y, float width, float height) {
     
     // do shape fill
 	if (po::bFill) {
-        po::setColor(po::fillColor);
-		po::drawPoints(GL_TRIANGLE_FAN, points);
+        po::drawPoints(GL_TRIANGLE_FAN, points);
 	}
 	
 	// do shape stroke
 	if(po::bStroke) {
-		po::setColor(po::strokeColor);
-        //po::drawPoints(GL_TRIANGLE_STRIP, points);
-	}	
-
+        if(po::useSimpleStroke) {
+            // use crappy OpenGL stroke
+			glLineWidth( stroke_width );
+			GLenum primitiveType = po::bClosed ? GL_LINE_LOOP : GL_LINE_STRIP;
+			po::drawPoints(primitiveType, points);
+        } else {
+            po::drawPoints(GL_TRIANGLE_FAN, po::generateStroke(points, 1));
+        }
+	}
 }
 
 void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
