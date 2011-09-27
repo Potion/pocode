@@ -351,31 +351,31 @@ poObject& poObject::alignment(poAlignment align) {
 	_alignment = align; 
 	
 	// first calculate bounds
-	poRect frame = getBounds();
+	poRect bounds = getBounds();
 	
 	// then set offset based upon bounds and alignment
 	switch(align) {
 		case PO_ALIGN_TOP_LEFT:
 			offset.set(0,0,0); break;
 		case PO_ALIGN_TOP_CENTER:
-			offset.set(-frame.width/2.f,0,0); break;
+			offset.set(-bounds.width/2.f,0,0); break;
 		case PO_ALIGN_TOP_RIGHT:
-			offset.set(-frame.width,0,0); break;
+			offset.set(-bounds.width,0,0); break;
 		case PO_ALIGN_CENTER_LEFT:
-			offset.set(0,-frame.height/2.f,0); break;
+			offset.set(0,-bounds.height/2.f,0); break;
 		case PO_ALIGN_CENTER_CENTER:
-			offset.set(-frame.width/2.f,-frame.height/2.f,0); break;
+			offset.set(-bounds.width/2.f,-bounds.height/2.f,0); break;
 		case PO_ALIGN_CENTER_RIGHT:
-			offset.set(-frame.width,-frame.height/2.f,0); break;
+			offset.set(-bounds.width,-bounds.height/2.f,0); break;
 		case PO_ALIGN_BOTTOM_LEFT:
-			offset.set(0,-frame.height,0); break;
+			offset.set(0,-bounds.height,0); break;
 		case PO_ALIGN_BOTTOM_CENTER:
-			offset.set(-frame.width/2.f,-frame.height,0); break;
+			offset.set(-bounds.width/2.f,-bounds.height,0); break;
 		case PO_ALIGN_BOTTOM_RIGHT:
-			offset.set(-frame.width,-frame.height,0); break;
+			offset.set(-bounds.width,-bounds.height,0); break;
 	}
 	
-	offset = offset-frame.getPosition();
+	offset = offset-bounds.getPosition();
 	
 	return *this;
 }
