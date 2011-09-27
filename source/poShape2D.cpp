@@ -12,7 +12,7 @@
 poShape2D::poShape2D()
 :	fillEnabled(true)
 ,	strokeEnabled(false)
-,	stroke_width(0)
+,	stroke_width(1)
 ,	fillColor(1,1,1,1)
 ,	strokeColor(1,1,1,1)
 ,   useSimpleStroke(true)
@@ -42,6 +42,8 @@ void poShape2D::draw() {
 		po::setColor(strokeColor, appliedAlpha());
 
 		if(useSimpleStroke) {
+            
+            std::cout << stroke_width << std::endl;
 			// use crappy OpenGL stroke
 			glLineWidth( stroke_width );
 			GLenum primitiveType = closed ? GL_LINE_LOOP : GL_LINE_STRIP;
@@ -158,7 +160,9 @@ poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) 
 	return *this;
 }
 
-int poShape2D::strokeWidth() const {return stroke_width;}
+void poShape2D::setStrokeWidth(int width) {stroke_width = (width > 0) ? width : 0;}
+
+int poShape2D::getStrokeWidth() const {return stroke_width;}
 
 poStrokeCapProperty poShape2D::capStyle() const {return cap;}
 
