@@ -238,4 +238,4 @@ poTextBox &poTextBox::debuttonize() {
 bool poTextBox::isButtonized() const {return button != NULL;}
 poColor poTextBox::buttonFill() const {return button->fillColor;}
 poColor poTextBox::buttonStroke() const {return button->strokeColor;}
-float poTextBox::buttonStrokeWidth() const {return button->strokeWidth();}
+float poTextBox::buttonStrokeWidth() const {return button->getStrokeWidth();}
