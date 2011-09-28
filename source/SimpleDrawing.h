@@ -39,7 +39,7 @@ namespace po {
     void drawOval(float x, float y, float width, float height);
     
 	void drawPoints(GLenum type, const std::vector<poPoint> &points);
-	void drawPoints(GLenum type, GLuint tex_id, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords);
+	void drawPoints(GLenum type, poTexture *tex, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords);
     
 	void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
 	

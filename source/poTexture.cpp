@@ -261,6 +261,19 @@ void poTexture::load() {
 	}
 }
 
+uint poTexture::numChannels() const {
+	switch(config.format) {
+		case GL_RGB:
+			return 3;
+		case GL_RGBA:
+			return 4;
+		case GL_LUMINANCE_ALPHA:
+			return 2;
+		default:
+			return 1;
+	}
+}
+
 void poTexture::unload() {
 	if(isLoaded()) {
 		glDeleteTextures(1, &uid);

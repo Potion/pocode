@@ -139,7 +139,7 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 	if(hasUID(uid)) {
 		uint page = pageForUID(uid);
 		
-		poTextureState texState(textures[page]->uid, textures[page]->config.format == GL_ALPHA);
+		poTextureState texState(textures[page]);
 		texState.save();
 		
 		poRect size = sizeForUID(uid);

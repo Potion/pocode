@@ -57,6 +57,7 @@ public:
     // TEXTURE PROPERTIES
     uint                width() const;
 	uint                height() const;
+	uint				numChannels() const;
 	
     // PIXEL LOOKUP
     // These methods refer to the poImage used to generate the texture.

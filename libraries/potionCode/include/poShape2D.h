@@ -76,7 +76,9 @@ public:
                                            poStrokeJoinProperty join=PO_STROKE_JOIN_MITRE, poStrokeCapProperty cap=PO_STROKE_CAP_BUTT);
     poStrokeCapProperty     capStyle() const;
     poStrokeJoinProperty    joinStyle() const;
-	int                     strokeWidth() const;
+    
+	void                    setStrokeWidth(int width);
+	int                     getStrokeWidth() const;
 
     // POINT INSIDE
     // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).

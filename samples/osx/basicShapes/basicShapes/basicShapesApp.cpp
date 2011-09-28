@@ -33,7 +33,6 @@ basicShapesApp::basicShapesApp() {
     customShape->fillColor = poColor(poColor::orange);
     addChild( customShape );
 
-	
     // make rectangular shape, yellow
     rectShape = new poRectShape( 150,100 );
     rectShape->position = poPoint( 450, 75, 0 );

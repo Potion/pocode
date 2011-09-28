@@ -11,14 +11,17 @@ namespace po {
     void setColor(poColor color);
 	void setColor(poColor color, float new_alpha);
     
-    void fill(poColor color);
-    void fill(poColor color, float new_alpha);
+    void fill();
     void noFill();
     
-    void stroke(poColor color);
-    void stroke(poColor color, float new_alpha);
+    
+    // HIGH QUALITY SHAPE STROKE
+	std::vector<poPoint> generateStroke(std::vector<poPoint> &points, int strokeWidth, poStrokePlacementProperty place=PO_STROKE_PLACE_CENTER, 
+                                           poStrokeJoinProperty join=PO_STROKE_JOIN_MITRE, poStrokeCapProperty cap=PO_STROKE_CAP_BUTT);
+    
+    void stroke(bool bSimpleStroke = true);
     void noStroke();
-
+    
 	void drawStroke(poRect rect);
 	void drawStroke(float x, float y, float w, float h);
     
@@ -33,10 +36,10 @@ namespace po {
 	void drawRect(poRect rect, poTexture *tex, poTextureFitOption fit);
     
     void drawCircle(float x, float y, float radius);
-    void drawEllipse(float x, float y, float width, float height);
+    void drawOval(float x, float y, float width, float height);
     
 	void drawPoints(GLenum type, const std::vector<poPoint> &points);
-	void drawPoints(GLenum type, GLuint tex_id, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords);
+	void drawPoints(GLenum type, poTexture *tex, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords);
     
 	void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
 	
@@ -44,12 +47,16 @@ namespace po {
 	void disableBlending();
     
     //Settings
-    static int circleResolution = 150;
+    static int circleResolution = 50;
     
     static bool bFill = true;
-    static poColor fillColor;
+    
+    static bool bClosed = true; //Has the path been closed?
     
     static bool bStroke = false;
-    static poColor strokeColor;
-    static bool useSimpleStroke;
+    static bool useSimpleStroke = true;
+	static int  stroke_width;
+    
+    static poStrokeCapProperty  cap;
+	static poStrokeJoinProperty join;
 }

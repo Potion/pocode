@@ -36,6 +36,7 @@ TextBoxApp::TextBoxApp() {
 	
 	tb->buttonize(poColor::orange, poColor::white, 5);
 	
+	
 //	poBitmapFont *bfont = getBitmapFont(font);
 //	poTexture *tex = bfont->textureForPage(0);
 //

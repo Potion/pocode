@@ -8,6 +8,7 @@
 
 #include "poOpenGLStateChange.h"
 #include "poObject.h"
+#include "poTexture.h"
 
 void poOpenGLStateChange::doSetUp(poObject *obj) {
 	save();
@@ -32,9 +33,9 @@ poTextureState::poTextureState() {
 	state.bound_id = 0;
 }
 
-poTextureState::poTextureState(GLuint uid, bool is_mask) {
-	state.bound_id = uid;
-	state.is_mask = is_mask;
+poTextureState::poTextureState(poTexture *tex) {
+	state.bound_id = tex->uid;
+	state.is_mask = tex->config.format == GL_ALPHA;
 }
 
 void poTextureState::save() {

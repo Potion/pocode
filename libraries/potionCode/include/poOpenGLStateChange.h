@@ -10,6 +10,8 @@
 #include "poOpenGLState.h"
 #include "poObjectModifier.h"
 
+class poTexture;
+
 class poOpenGLStateChange : public poObjectModifier {
 public:
 	virtual void doSetUp(poObject *obj);
@@ -31,7 +33,7 @@ public:
 	po::TextureState state;
 	
 	poTextureState();
-	poTextureState(GLuint uid, bool is_mask=false);
+	poTextureState(poTexture *tex);
 	
 	virtual void save();
 	virtual void restore();

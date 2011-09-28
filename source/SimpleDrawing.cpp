@@ -201,7 +201,7 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
 		coords.x, coords.y+coords.height,
 	};
 	
-	poTextureState texState(texture->uid);
+	poTextureState texState(texture);
 	texState.save();
 	
 	poBasicRenderer::get()->setFromState();
@@ -260,8 +260,8 @@ void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(GLenum type, GLuint tex_id, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords) {
-	poTextureState texState(tex_id);
+void po::drawPoints(GLenum type, poTexture *tex, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords) {
+	poTextureState texState(tex);
 	texState.save();
 	
 	poBasicRenderer::get()->setFromState();

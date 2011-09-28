@@ -30,7 +30,7 @@ void poShape2D::draw() {
 		po::setColor(fillColor, appliedAlpha());
 
 		if(texture != NULL) {
-			po::drawPoints(fillDrawStyle, texture->uid, points, tex_coords);
+			po::drawPoints(fillDrawStyle, texture, points, tex_coords);
 		}
 		else {
 			po::drawPoints(fillDrawStyle, points);
