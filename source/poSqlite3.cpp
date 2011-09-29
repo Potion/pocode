@@ -19,12 +19,21 @@ poSqlite3::~poSqlite3() {
 }
 
 
-bool poSqlite3::openDatabase(std::string url) {
+bool poSqlite3::openDatabase(std::string url, bool bOverwrite) {
     int error = sqlite3_open(url.c_str(), &db);
     
     if(error) {
         if(bVerbose) std::cout << sqlite3_errmsg(db) << std::endl;
         return false; 
+    }
+    
+    //If We're overwriting this whole db, just drop all tables
+    if(bOverwrite) {
+        poSqlite3Result dropCommands = query("SELECT name FROM sqlite_master WHERE type = 'table';)");
+        
+        for(int i=0; i<dropCommands.getNumRows(); i++) {
+            query("DROP TABLE " + dropCommands.rows[i].getString("name"));
+        }
     }
     
     bLoaded = true;
@@ -53,8 +62,11 @@ void poSqlite3::close() {
     }
 }
 
+
+//This statement runs any SQLite3 Query and returns a SQLite3 result object
+//This object is how you get any kind of results
 poSqlite3Result poSqlite3::query(std::string query) {
-    poSqlite3Result results;
+    poSqlite3Result results(query, bVerbose);
     
     sqlite3_stmt *statement;
     
@@ -70,6 +82,7 @@ poSqlite3Result poSqlite3::query(std::string query) {
         bool bColumnsSet = false;
         
         //Loop through Rows until there are no more
+
         while(true) {
             result = sqlite3_step(statement);
             
@@ -124,24 +137,51 @@ poSqlite3Result poSqlite3::query(std::string query) {
 }
 
 
+std::string poSqlite3::escapeQuotes(std::string text){
+	
+	int position = text.find( "'" );
+	
+	while ( position != std::string::npos ) 
+	{
+		text.replace( position, 1, "''" );
+		position = text.find( "'", position + 2 );
+	} 
+	
+	return text;
+}
+
 
 
 
 
 #pragma mark - poSqlite3Result -
 
-poSqlite3Result::poSqlite3Result() {
-    
+poSqlite3Result::poSqlite3Result(std::string query, bool bVerbose) {
+    //Record the query for reuse, can be good to have
+    this->query     = query;
+    this->bVerbose  = bVerbose;
 }
 
 poSqlite3Result::~poSqlite3Result() {
     
 }
 
-poDictionary * poSqlite3Result::getRow(int rowNum) {
-    return &rows[rowNum];
+
+int poSqlite3Result::getNumRows() { return rows.size(); }
+
+
+//Get a poDictionary for a row
+poDictionary poSqlite3Result::getRow(int rowNum) {
+    if(rowNum < rows.size()) {
+        return rows[rowNum];
+    } else {
+        if(bVerbose) std::cout << "Row " << rowNum << " is out of range, only " << rows.size() << " rows in result";
+        return rows[rows.size()-1];
+    }
 }
 
+//Get column names prints out the column names to the console
+//Should probably print their type as well!
 std::string poSqlite3Result::getColumnNames() {
     std::string columnNames;
     
