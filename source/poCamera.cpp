@@ -33,8 +33,9 @@ void poCamera::doSetUp( poObject* obj ) {
 	
 	if(fixedSize())
 		stack->pushViewport(poRect(poPoint(),fixed_size));
-	else
+	else {
 		stack->pushViewport(poRect(poPoint(),getWindowDimensions()));
+	}
 
 	if(clears_background) {
         glClearColor(background_color.R, background_color.G, background_color.B, background_color.A);

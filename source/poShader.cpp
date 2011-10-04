@@ -14,6 +14,7 @@
 #include <boost/regex.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
+#include <boost/algorithm/string/trim.hpp>
 
 namespace po {
 	
@@ -80,13 +81,12 @@ namespace po {
 		// http://stackoverflow.com/questions/110157/how-to-retrieve-all-keys-or-values-from-a-stdmap/110228#110228
 		using namespace std;
 		using namespace boost::lambda;
-		using boost::lambda::_1;
 		
 		std::vector<std::string> keys;
 		transform(theMap.begin(), 
 				  theMap.end(), 
 				  back_inserter(keys), 
-				  bind(&map<string,int>::value_type::first, _1) 
+				  bind(&map<string,int>::value_type::first, boost::lambda::_1) 
 				  );
 		return keys;
 	}
@@ -114,47 +114,53 @@ void poShader::load(const std::string &name) {
 	fs::path current = currentPath();
 	lookUpAndSetPath("common");
 	
+	std::ifstream source((name + ".shader").c_str());
+	loadSource(source);
+	
+	setCurrentPath(current);
+}
+
+void poShader::loadSource(std::istream &src) {
 	using namespace std;
 	stringstream uniforms, varyings, vertex, fragment;
 	stringstream *target = &uniforms;
 	
-	ifstream source((name + ".shader").c_str());
-	
 	std::string line;
-	while(getline(source, line)) {
+	while(getline(src, line)) {
+		boost::algorithm::trim(line);
+		
 			 if(line == "[[uniforms]]")	target = &uniforms;
 		else if(line == "[[varyings]]")	target = &varyings;
 		else if(line == "[[vertex]]")	target = &vertex;
 		else if(line == "[[fragment]]")	target = &fragment;
 		else							*target << line << "\n";
 	}
-
+	
 	po::variableNames(vertex.str(), boost::regex("attribute .*?\\s+?(.*?);"), attributeLocations);
 	po::variableNames(uniforms.str(), boost::regex("uniform .*?\\s+?(.*?);"), uniformLocations);
 	
 	vertexSource << uniforms.str() << varyings.str() << vertex.str();
+#ifdef POTION_IOS
+	fragmentSource << "precision mediump float;\n" << uniforms.str() << varyings.str() << fragment.str();
+#else
 	fragmentSource << uniforms.str() << varyings.str() << fragment.str();
-	
-//	std::cout << "vertex:\n" << vertexSource.str();
-//	std::cout << "frag:\n" << fragmentSource.str();
-	
-	setCurrentPath(current);
+#endif
 }
-	
+
 bool poShader::compile() {
 	using namespace std;
 	
 	std::string log;
 	vertexID = po::compile(GL_VERTEX_SHADER, vertexSource.str(), log);
 	if(vertexID == 0) {
-		cout << "vertex:" << log;
+		cout << "vertex:\n" << log;
 		return false;
 	}
 	
 	log = "";
 	fragmentID = po::compile(GL_FRAGMENT_SHADER, fragmentSource.str(), log);
 	if(fragmentID == 0) {
-		cout << "fragment:" << log;
+		cout << "fragment:\n" << log;
 		glDeleteShader(vertexID);
 		return false;
 	}

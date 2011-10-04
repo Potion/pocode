@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E8437D28143BAF3200AA7D12 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E8437D27143BAF3200AA7D12 /* apple.jpg */; };
 		E84CEC25142A2B98008B3E3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC24142A2B98008B3E3E /* UIKit.framework */; };
 		E84CEC27142A2B98008B3E3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC26142A2B98008B3E3E /* Foundation.framework */; };
 		E84CEC29142A2B98008B3E3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC28142A2B98008B3E3E /* CoreGraphics.framework */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E8437D27143BAF3200AA7D12 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
 		E84CEC20142A2B98008B3E3E /* potionCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = potionCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84CEC24142A2B98008B3E3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E84CEC26142A2B98008B3E3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -67,9 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E8437D25143BAEE700AA7D12 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				E8437D27143BAF3200AA7D12 /* apple.jpg */,
+			);
+			name = textures;
+			sourceTree = "<group>";
+		};
 		E84CEC15142A2B98008B3E3E = {
 			isa = PBXGroup;
 			children = (
+				E8437D25143BAEE700AA7D12 /* textures */,
 				E84CEC2E142A2B98008B3E3E /* potionCode */,
 				E84CEC23142A2B98008B3E3E /* Frameworks */,
 				E84CEC21142A2B98008B3E3E /* Products */,
@@ -180,6 +191,7 @@
 				E84CEC33142A2B98008B3E3E /* InfoPlist.strings in Resources */,
 				E84CEC3C142A2B98008B3E3E /* MainWindow.xib in Resources */,
 				E84CEC49142A2B98008B3E3E /* potionCodeViewController.xib in Resources */,
+				E8437D28143BAF3200AA7D12 /* apple.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

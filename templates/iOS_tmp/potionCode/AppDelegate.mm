@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "EAGLView.h"
 #import "potionCodeViewController.h"
-#import "poWindow.h"
+
+#include "Helpers.h"
+#include "poWindow.h"
 
 @implementation AppDelegate
 
@@ -17,16 +19,17 @@
 @synthesize viewController = _viewController;
 @synthesize appWindow;
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	// initialize the time
+	getTime();
+	
+	// move the pwd to match our present location
+	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[NSBundle mainBundle] resourcePath]];
+
 	self.window.rootViewController = self.viewController;
 	
-	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(orientationChanged:) 
-												 name:UIDeviceOrientationDidChangeNotification 
-											   object:nil];
-
     return YES;
 }
 
@@ -61,16 +64,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	[self.viewController stopAnimation];
-}
-
-- (void)orientationChanged:(NSNotification*)notice {
-	poRect frame(0,0,1024,768);
-	
-	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-	if(UIInterfaceOrientationIsPortrait(orientation))
-		frame.setSize(768, 1024);
-	
-	self.appWindow->resized(frame.width, frame.height);
 }
 
 - (void)dealloc

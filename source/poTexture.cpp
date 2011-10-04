@@ -221,14 +221,19 @@ void poTexture::load() {
 		const ubyte *pix;
 		
 		if(_image != NULL && _image->isValid()) {
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-#ifndef POTION_IOS
+#if defined(__APPLE__)
+	#if not defined(POTION_IOS)
 			// sucks that this doesn't exist with opengl es
 			// we'll cross this bridge later if necessary
 			// possible solution is at
 			// http://stackoverflow.com/questions/205522/opengl-subtexturing/205569#205569
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelStorei(GL_UNPACK_ROW_BYTES_APPLE, _image->pitch());
-#endif			
+	#else
+			glPixelStorei(GL_UNPACK_ALIGNMENT, _image->bpp() / 8);
+	#endif
+#endif
+			
 			w = _image->width();
 			h = _image->height();
 			pix = _image->pixels();

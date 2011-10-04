@@ -68,38 +68,57 @@ fs::path currentPath() {
 	return fs::current_path();
 }
 
-bool pathToFolder(const std::string &folder_name, fs::path *path) {
-	fs::path response = currentPath();
-	while(!fs::exists(response / folder_name) && !fs::is_directory(response / folder_name) && response != "/") {
-		response = response.parent_path();
-	}
-	
-	if(response == "/") {
+#ifdef POTION_IOS
+
+	bool pathToFolder(const std::string &folder_name, fs::path *path) {
 		*path = "";
 		return false;
 	}
-	
-	*path = response;
-	return true;
-}
 
-bool lookUpAndSetPath(const std::string &folder_name) {
-	fs::path path;
-	if(pathToFolder(folder_name, &path)) {
-		setCurrentPath(path/folder_name);
+	bool lookUpAndSetPath(const std::string &folder_name) {
+		return false;
+	}
+
+	bool lookUpAndSetPathNextTo(const std::string &folder_name) {
+		return false;
+	}
+
+#else
+
+	bool pathToFolder(const std::string &folder_name, fs::path *path) {
+		fs::path response = currentPath();
+		while(!fs::exists(response / folder_name) && !fs::is_directory(response / folder_name) && response != "/") {
+			response = response.parent_path();
+		}
+		
+		if(response == "/") {
+			*path = "";
+			return false;
+		}
+		
+		*path = response;
 		return true;
 	}
-	return false;
-}
 
-bool lookUpAndSetPathNextTo(const std::string &folder_name) {
-	fs::path path;
-	if(pathToFolder(folder_name, &path)) {
-		setCurrentPath(path);
-		return true;
+	bool lookUpAndSetPath(const std::string &folder_name) {
+		fs::path path;
+		if(pathToFolder(folder_name, &path)) {
+			setCurrentPath(path/folder_name);
+			return true;
+		}
+		return false;
 	}
-	return false;
-}
+
+	bool lookUpAndSetPathNextTo(const std::string &folder_name) {
+		fs::path path;
+		if(pathToFolder(folder_name, &path)) {
+			setCurrentPath(path);
+			return true;
+		}
+		return false;
+	}
+
+#endif
 
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;

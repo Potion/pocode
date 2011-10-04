@@ -14,6 +14,7 @@ public:
 	~poShader();
 
 	void load(const std::string &name);
+	void loadSource(std::istream &src);
 	bool compile();
 	bool link();
 	

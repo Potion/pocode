@@ -21,7 +21,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	window_settings = [[NSMutableDictionary alloc] init];
-	
+
 	// initialize the time
 	getTime();
 	// move the pwd to match our present location

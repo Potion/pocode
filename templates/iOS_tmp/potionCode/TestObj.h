@@ -8,10 +8,14 @@
 
 #pragma once
 #include "poObject.h"
+#include "poShape2D.h"
 
 class TestObj : public poObject {
 public:
 	TestObj();
-    
+	
+	void update();
     void eventHandler(poEvent *event);
+	
+	poShape2D *shape;
 };

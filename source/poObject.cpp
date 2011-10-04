@@ -514,7 +514,6 @@ void poObject::pushObjectMatrix() {
 		true_alpha = alpha;
 	}
 	
-	poPoint trans = round(position);
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
@@ -523,7 +522,7 @@ void poObject::pushObjectMatrix() {
 	// now move depending on the matrix order
 	switch(matrixOrder) {
 		case PO_MATRIX_ORDER_TRS:
-			stack->translate(trans);
+			stack->translate(position);
 			stack->rotate(rotation, rotationAxis);
 			stack->scale(scale);
 			break;
@@ -531,13 +530,13 @@ void poObject::pushObjectMatrix() {
 		case PO_MATRIX_ORDER_RST:
 			stack->rotate(rotation, rotationAxis);
 			stack->scale(scale);
-			stack->translate(trans);
+			stack->translate(position);
 			break;
 	}
 
 	stack->translate(round(offset));
 	
-
+	matrices.dirty = true;
 	matrices.capture();
 }
 

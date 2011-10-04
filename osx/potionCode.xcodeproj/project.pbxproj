@@ -697,98 +697,15 @@
 		};
 		E84CEC66142A2F48008B3E3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/potionCode_iOS.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = main.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "POTION_IOS=1";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/utf8,
-					/PotionCode/libraries/libMikko,
-					/PotionCode/libraries/pugixml,
-					/PotionCode/libraries,
-					/usr/include,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0/stage/lib,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/libMikko,
-					/PotionCode/libraries/pugixml,
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lfreeimage_ios",
-					"-lfreetype_ios",
-					"-lMikko_ios",
-					"-lpugixml_ios",
-					"-lboost_ios",
-				);
-				PRODUCT_NAME = PotionCode_iOS;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = /PotionCode/source;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		E84CEC67142A2F48008B3E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/potionCode_iOS.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = main.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"POTION_IOS=1",
-					"$(inherited)",
-				);
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/utf8,
-					/PotionCode/libraries/libMikko,
-					/PotionCode/libraries/pugixml,
-					/PotionCode/libraries,
-					/usr/include,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0/stage/lib,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/libMikko,
-					/PotionCode/libraries/pugixml,
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lfreeimage_ios",
-					"-lfreetype_ios",
-					"-lMikko_ios",
-					"-lpugixml_ios",
-					"-lboost_ios",
-				);
-				PRODUCT_NAME = PotionCode_iOS_d;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = /PotionCode/source;
 			};
 			name = Debug;
 		};

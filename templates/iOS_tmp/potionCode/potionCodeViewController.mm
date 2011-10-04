@@ -45,14 +45,16 @@ poObject *root = NULL;
     [(EAGLView *)self.view setFramebuffer];
     ((EAGLView *)self.view).appWindow = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) appWindow];
     
-	
-	
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;
-	
-	std::cout << currentPath() << "\n";
-    
+
+	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(orientationChanged:) 
+												 name:UIDeviceOrientationDidChangeNotification 
+											   object:nil];
+
     //[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeLeft];
 }
 
@@ -97,6 +99,10 @@ poObject *root = NULL;
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
 	self.context = nil;	
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 - (NSInteger)animationFrameInterval
@@ -150,6 +156,17 @@ poObject *root = NULL;
 	win->draw();
 	
     [(EAGLView *)self.view presentFramebuffer];
+}
+
+- (void)orientationChanged:(NSNotification*)notice {
+	poRect frame(0,0,1024,768);
+	
+	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+	if(UIInterfaceOrientationIsPortrait(orientation))
+		frame.setSize(768, 1024);
+	
+	poWindow *win = applicationCurrentWindow();
+	win->resized(frame.width, frame.height);
 }
 
 @end
