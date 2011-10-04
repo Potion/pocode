@@ -19,17 +19,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	// Override point for customization after application launch.
 	self.window.rootViewController = self.viewController;
+	
+	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(orientationChanged:) 
+												 name:UIDeviceOrientationDidChangeNotification 
+											   object:nil];
+
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-	/*
-	 Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-	 Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-	 */
 	[self.viewController stopAnimation];
 }
 
@@ -58,12 +60,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-	/*
-	 Called when the application is about to terminate.
-	 Save data if appropriate.
-	 See also applicationDidEnterBackground:.
-	 */
 	[self.viewController stopAnimation];
+}
+
+- (void)orientationChanged:(NSNotification*)notice {
+	poRect frame(0,0,1024,768);
+	
+	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+	if(UIInterfaceOrientationIsPortrait(orientation))
+		frame.setSize(768, 1024);
+	
+	self.appWindow->resized(frame.width, frame.height);
 }
 
 - (void)dealloc
@@ -75,7 +82,13 @@
 
 - (poWindow*)appWindow {
 	if(appWindow == NULL) {
-		appWindow = new poWindow("window window", 0, poRect(0, 0, 1024, 768));
+		poRect frame(0, 0, 1024, 768);
+		
+		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+		if(UIInterfaceOrientationIsPortrait(orientation))
+			frame.setSize(768, 1024);
+		
+		appWindow = new poWindow("window window", 0, frame);
         appWindow->setWindowHandle(self.window);
 	}
 	return appWindow;

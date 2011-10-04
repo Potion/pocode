@@ -87,12 +87,13 @@ void poImageMask::doSetUp( poObject* obj ) {
 
 	state.enabled = true;
 	state.separate = true;
-	state.source_factor = GL_ZERO;
-	state.dest_factor = GL_ONE;
+	state.source_factor = GL_ONE;
+	state.dest_factor = GL_ZERO;
 	state.source_alpha_factor = GL_SRC_COLOR;
 	state.dest_alpha_factor = GL_ZERO;
 	save();
-
+	
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
 	po::drawRect(image->texture());
 	
 	restore();
@@ -100,6 +101,8 @@ void poImageMask::doSetUp( poObject* obj ) {
 	state.source_factor = GL_DST_ALPHA;
 	state.dest_factor = GL_ONE_MINUS_DST_ALPHA;
 	save();
+	
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
 void poImageMask::doSetDown( poObject* obj ) {

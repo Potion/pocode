@@ -22,10 +22,10 @@ void poBasicRenderer::setFromState() {
 	if(ogl->texture.bound_id > 0) {
 		if(active->getUid() != texturedShader.getUid()) {
 			glUseProgram(texturedShader.getUid());
-			glUniform1i(texturedShader.uniformLocation("tex"), 0);
-			glUniform1i(texturedShader.uniformLocation("isAlphaMask"), ogl->texture.is_mask);
 			active = &texturedShader;
 		}
+		glUniform1i(texturedShader.uniformLocation("tex"), 0);
+		glUniform1i(texturedShader.uniformLocation("isAlphaMask"), ogl->texture.is_mask);
 	}
 	else if(active->getUid() != colorShader.getUid()) {
 		glUseProgram(colorShader.getUid());
@@ -53,5 +53,4 @@ void poBasicRenderer::rebuild() {
 	active = &colorShader;
 	glUseProgram(active->getUid());
 }
-
 

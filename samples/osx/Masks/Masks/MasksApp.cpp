@@ -36,7 +36,7 @@ MasksApp::MasksApp() {
 //	addEvent(PO_KEY_DOWN_EVENT, this);
 
 	setupSurprise();
-	setupAperture();
+//	setupAperture();
 //	setupInstructions();
 	
 	// and start the animation
