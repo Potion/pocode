@@ -13,13 +13,10 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-class poWindow;
+static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_CHANGED_NOTIFICTATION";
 
 @class EAGLContext;
 
-// This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
-// The view content is basically an EAGL surface you render your OpenGL scene into.
-// Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
 @interface EAGLView : UIView {
     // The pixel dimensions of the CAEAGLLayer.
     GLint framebufferWidth;
@@ -29,11 +26,11 @@ class poWindow;
     GLuint defaultFramebuffer, colorRenderbuffer, depthStencilBuffer;
 }
 
-@property (nonatomic,assign) poWindow *appWindow;
 @property (nonatomic,retain) EAGLContext *context;
+@property (nonatomic,readonly) CGSize size;
 
 - (void)setFramebuffer;
-- (void)resetFramebuffer;
 - (BOOL)presentFramebuffer;
+- (void)deleteFramebuffer;
 
 @end

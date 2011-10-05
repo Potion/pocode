@@ -13,12 +13,12 @@
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;
-- (void)deleteFramebuffer;
 @end
 
 @implementation EAGLView
 
-@synthesize appWindow, context;
+@synthesize context;
+@synthesize size;
 
 // You must implement this method
 + (Class)layerClass
@@ -91,6 +91,9 @@
         
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+		
+		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);
+		[[NSNotificationCenter defaultCenter] postNotificationName:EAGLViewLayoutChangedNotification object:self];
     }
 }
 
@@ -128,11 +131,6 @@
     }
 }
 
--(void)resetFramebuffer {
-	[self deleteFramebuffer];
-	[self createFramebuffer];
-}
-
 - (BOOL)presentFramebuffer
 {
     BOOL success = FALSE;
@@ -148,44 +146,13 @@
     return success;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     // The framebuffer will be re-created at the beginning of the next setFramebuffer method call.
     [self deleteFramebuffer];
 }
 
-
-/*Touch events*/
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for(UITouch *touch in touches) {
-        CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
-    }
-} 
-
-
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    for(UITouch *touch in touches) {
-        
-        CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
-    }
-}
-
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for(UITouch *touch in touches) {
-        CGPoint touchPoint = [touch locationInView:self];
-        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    for(UITouch *touch in touches) {
-        CGPoint touchPoint = [touch locationInView:self];
-        //self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
-    }
+- (CGSize)size {
+	return CGSizeMake(framebufferWidth, framebufferHeight);
 }
 
 @end

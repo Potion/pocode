@@ -34,10 +34,9 @@ namespace po {
 			int log_size;
 			glGetShaderiv(uid, GL_INFO_LOG_LENGTH, &log_size);
 			
-			int wrote = 0;
 			char *log_contents = new char[log_size];
-			glGetShaderInfoLog(uid, 1024, &wrote, log_contents);
-			log = std::string(log_contents, wrote);
+			glGetShaderInfoLog(uid, 1024, &log_size, log_contents);
+			log = std::string(log_contents, log_size);
 			delete [] log_contents;
 			
 			glDeleteShader(uid);
@@ -57,12 +56,18 @@ namespace po {
 			int log_size;
 			glGetProgramiv(uid, GL_INFO_LOG_LENGTH, &log_size);
 			
-			int wrote = 0;
 			char *log_contents = new char[log_size];
-			glGetProgramInfoLog(uid, 1024, &wrote, log_contents);
-			log = std::string(log_contents);
+			glGetProgramInfoLog(uid, log_size, &log_size, log_contents);
+			log = std::string(log_contents, log_size);
 			delete [] log_contents;
+			
+			glDeleteProgram(uid);
+			uid = 0;
+			
+			return false;
 		}
+		
+		return true;
 	}
 
 	void variableNames(const std::string &str, const boost::regex &re, std::map<std::string,GLint> &vars) {

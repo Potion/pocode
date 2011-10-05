@@ -53,9 +53,16 @@ const char * textured_shader =
 static boost::thread_specific_ptr<poBasicRenderer> instance;
 
 poBasicRenderer *poBasicRenderer::get() {
+#ifdef POTION_IOS
+	static poBasicRenderer *instance = NULL;
+	if(!instance)
+		instance = new poBasicRenderer();
+	return instance;
+#else
 	if(!instance.get())
 		instance.reset(new poBasicRenderer());
 	return instance.get();
+#endif
 }
 
 poBasicRenderer::poBasicRenderer()
@@ -82,9 +89,6 @@ void poBasicRenderer::setFromState() {
 	
 	glUniformMatrix4fv(active->uniformLocation("mvp"), 1, GL_FALSE, glm::value_ptr(ogl->matrix.transformation()));
 	glUniform4fv(active->uniformLocation("color"), 1, &ogl->color.R);
-	
-	poRect viewport = ogl->matrix.getViewport();
-	glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 }
 
 void poBasicRenderer::rebuild() {

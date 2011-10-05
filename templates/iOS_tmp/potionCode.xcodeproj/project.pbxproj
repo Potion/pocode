@@ -116,8 +116,6 @@
 				E84CEC38142A2B98008B3E3E /* AppDelegate.mm */,
 				E84CEC44142A2B98008B3E3E /* potionCodeViewController.h */,
 				E84CEC45142A2B98008B3E3E /* potionCodeViewController.mm */,
-				E84CEC47142A2B98008B3E3E /* potionCodeViewController.xib */,
-				E84CEC3A142A2B98008B3E3E /* MainWindow.xib */,
 				E84CEC41142A2B98008B3E3E /* EAGLView.h */,
 				E84CEC42142A2B98008B3E3E /* EAGLView.mm */,
 				E84CECB3142A8E73008B3E3E /* TestObj.h */,
@@ -130,6 +128,8 @@
 		E84CEC2F142A2B98008B3E3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E84CEC47142A2B98008B3E3E /* potionCodeViewController.xib */,
+				E84CEC3A142A2B98008B3E3E /* MainWindow.xib */,
 				E84CEC30142A2B98008B3E3E /* potionCode-Info.plist */,
 				E84CEC31142A2B98008B3E3E /* InfoPlist.strings */,
 				E84CEC34142A2B98008B3E3E /* main.m */,
@@ -304,10 +304,12 @@
 					/PotionCode/libraries,
 				);
 				INFOPLIST_FILE = "potionCode/potionCode-Info.plist";
+				LD_NO_PIE = YES;
 				OTHER_LDFLAGS = /PotionCode/libraries/potionCode/libPotionCode_ios_d.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -328,10 +330,12 @@
 					/PotionCode/libraries,
 				);
 				INFOPLIST_FILE = "potionCode/potionCode-Info.plist";
+				LD_NO_PIE = YES;
 				OTHER_LDFLAGS = /PotionCode/libraries/potionCode/libPotionCode_ios_d.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

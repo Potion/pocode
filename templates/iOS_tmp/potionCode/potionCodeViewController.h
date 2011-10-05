@@ -12,6 +12,10 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
+#include "Helpers.h"
+#include "poWindow.h"
+#import "EAGLView.h"
+
 @interface potionCodeViewController : UIViewController {
     EAGLContext *context;
     
@@ -20,6 +24,9 @@
     CADisplayLink *displayLink;
 }
 
+@property (nonatomic, assign) IBOutlet EAGLView *eagl;
+
+@property (nonatomic, readonly) poWindow *appWindow;
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic) NSInteger animationFrameInterval;
 

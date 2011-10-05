@@ -16,7 +16,11 @@ void poMatrixStack::pushModelview()		{modelview.push(modelview.top());}
 void poMatrixStack::pushModelview(const mat4 &mat) {modelview.push(mat);}
 void poMatrixStack::pushProjection()	{projection.push(projection.top());}
 void poMatrixStack::pushProjection(const mat4 &mat) {projection.push(mat);}
-void poMatrixStack::pushViewport(poRect r) {viewport.push(r);}
+void poMatrixStack::pushViewport(poRect r) {
+	viewport.push(r);
+	glScissor(r.x, r.y, r.width, r.height);
+	glViewport(r.x, r.y, r.width, r.height);
+}
 
 // restore the previous one
 void poMatrixStack::popModelview()		{modelview.pop();}

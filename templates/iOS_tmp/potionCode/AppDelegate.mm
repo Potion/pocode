@@ -10,14 +10,10 @@
 #import "EAGLView.h"
 #import "potionCodeViewController.h"
 
-#include "Helpers.h"
-#include "poWindow.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
-@synthesize appWindow;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -28,6 +24,7 @@
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[NSBundle mainBundle] resourcePath]];
 
+	self.viewController.appWindow->setWindowHandle(self.window);
 	self.window.rootViewController = self.viewController;
 	
     return YES;
@@ -73,20 +70,6 @@
     [super dealloc];
 }
 
-- (poWindow*)appWindow {
-	if(appWindow == NULL) {
-		poRect frame(0, 0, 1024, 768);
-		
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		if(UIInterfaceOrientationIsPortrait(orientation))
-			frame.setSize(768, 1024);
-		
-		appWindow = new poWindow("window window", 0, frame);
-        appWindow->setWindowHandle(self.window);
-	}
-	return appWindow;
-}
-
 @end
 
 
@@ -98,7 +81,7 @@ void applicationQuit() {
 
 poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
 	AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app.appWindow;
+	return app.viewController.appWindow;
 }
 
 int applicationNumberWindows() {
@@ -106,11 +89,13 @@ int applicationNumberWindows() {
 }
 
 poWindow* applicationGetWindow(int index) {
+	AppDelegate *app = [UIApplication sharedApplication].delegate;
+	return app.viewController.appWindow;
 }
 
 poWindow* applicationCurrentWindow() {
 	AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app.appWindow;
+	return app.viewController.appWindow;
 }
 
 void applicationMakeWindowCurrent(poWindow* win) {
@@ -124,3 +109,5 @@ void applicationMoveWindow(poWindow* win, poPoint p) {
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
 }
+
+

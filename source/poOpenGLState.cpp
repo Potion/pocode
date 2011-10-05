@@ -8,7 +8,7 @@
 
 #include "poOpenGLState.h"
 
-static boost::thread_specific_ptr<poOpenGLState> instance;
+boost::thread_specific_ptr<poOpenGLState> poOpenGLState::instance;
 
 // the holder
 poOpenGLState::poOpenGLState() 
@@ -18,9 +18,19 @@ poOpenGLState::poOpenGLState()
 }
 
 poOpenGLState *poOpenGLState::get() {
-	if(!instance.get())
-		instance.reset(new poOpenGLState());
-	return instance.get();
+#ifdef POTION_IOS
+	static poOpenGLState *instance = NULL;
+	if(!instance)
+		instance = new poOpenGLState();
+	return instance;
+#else
+	poOpenGLState *state = instance.get();
+	if(!state) {
+		state = new poOpenGLState();
+		instance.reset(state);
+	}
+	return state;
+#endif
 }
 
 void poOpenGLState::setStencil(po::StencilState state) {

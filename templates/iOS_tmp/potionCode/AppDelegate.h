@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-class poWindow;
-
 @class potionCodeViewController;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet potionCodeViewController *viewController;
-@property (nonatomic, readonly) poWindow *appWindow;
 
 @end

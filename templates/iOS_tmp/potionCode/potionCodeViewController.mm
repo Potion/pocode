@@ -9,8 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "potionCodeViewController.h"
-#import "EAGLView.h"
-#import "AppDelegate.h"
 
 #include "poObject.h"
 #include "Helpers.h"
@@ -28,35 +26,8 @@ poObject *root = NULL;
 @synthesize animating;
 @synthesize context;
 @synthesize displayLink;
-
-- (void)awakeFromNib
-{
-    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
-    if (!aContext)
-        NSLog(@"Failed to create ES context");
-    else if (![EAGLContext setCurrentContext:aContext])
-        NSLog(@"Failed to set ES context current");
-    
-	self.context = aContext;
-	[aContext release];
-	
-    [(EAGLView *)self.view setContext:context];
-    [(EAGLView *)self.view setFramebuffer];
-    ((EAGLView *)self.view).appWindow = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) appWindow];
-    
-    animating = FALSE;
-    animationFrameInterval = 1;
-    self.displayLink = nil;
-
-	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(orientationChanged:) 
-												 name:UIDeviceOrientationDidChangeNotification 
-											   object:nil];
-
-    //[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeLeft];
-}
+@synthesize appWindow;
+@synthesize eagl;
 
 - (void)dealloc
 {
@@ -75,6 +46,26 @@ poObject *root = NULL;
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc. that aren't in use.
+}
+
+- (void)viewDidLoad {
+    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    
+    if (!aContext)
+        NSLog(@"Failed to create ES context");
+    else if (![EAGLContext setCurrentContext:aContext])
+        NSLog(@"Failed to set ES context current");
+    
+	self.context = aContext;
+	[aContext release];
+	
+    [eagl setContext:context];
+    [eagl setFramebuffer];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eaglViewLayoutChanged:) name:EAGLViewLayoutChangedNotification object:eagl];
+    
+    animating = FALSE;
+    animationFrameInterval = 1;
+    self.displayLink = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -99,10 +90,6 @@ poObject *root = NULL;
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
 	self.context = nil;	
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return YES;
 }
 
 - (NSInteger)animationFrameInterval
@@ -149,24 +136,61 @@ poObject *root = NULL;
 
 - (void)drawFrame
 {
-    [(EAGLView *)self.view setFramebuffer];
+    [eagl setFramebuffer];
 	
-	poWindow *win = applicationCurrentWindow();
-    win->update();
-	win->draw();
+    self.appWindow->update();
+	self.appWindow->draw();
 	
-    [(EAGLView *)self.view presentFramebuffer];
+    [eagl presentFramebuffer];
 }
 
-- (void)orientationChanged:(NSNotification*)notice {
-	poRect frame(0,0,1024,768);
-	
-	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-	if(UIInterfaceOrientationIsPortrait(orientation))
-		frame.setSize(768, 1024);
-	
-	poWindow *win = applicationCurrentWindow();
-	win->resized(frame.width, frame.height);
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
+}
+
+-(void)eaglViewLayoutChanged:(NSNotification*)notice {
+	CGSize size = eagl.size;
+	self.appWindow->resized(size.width, size.height);
+}
+
+- (poWindow*)appWindow {
+	if(appWindow == NULL) {
+		CGSize size = eagl.size;
+		poRect frame(0, 0, size.width, size.height);
+		appWindow = new poWindow("window", 0, frame);
+	}
+	return appWindow;
+}
+
+/*Touch events*/
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:eagl];
+        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+    }
+} 
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        
+        CGPoint touchPoint = [touch locationInView:eagl];
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+    }
+}
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:eagl];
+        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint touchPoint = [touch locationInView:eagl];
+        //self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+    }
 }
 
 @end
