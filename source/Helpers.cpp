@@ -48,6 +48,7 @@ unsigned int getNumCpus() {
 
 poPoint deviceResolution() {
 #ifdef POTION_IOS
+    return poPoint(72.f, 72.f);
 #else
 	NSWindow *window = (NSWindow*)applicationCurrentWindow()->getWindowHandle();
 	NSScreen *screen = [window screen];
@@ -68,57 +69,38 @@ fs::path currentPath() {
 	return fs::current_path();
 }
 
-#ifdef POTION_IOS
+bool pathToFolder(const std::string &folder_name, fs::path *path) {
+    fs::path response = currentPath();
+    while(!fs::exists(response / folder_name) && !fs::is_directory(response / folder_name) && response != "/") {
+        response = response.parent_path();
+    }
+    
+    if(response == "/") {
+        *path = "";
+        return false;
+    }
+    
+    *path = response;
+    return true;
+}
 
-	bool pathToFolder(const std::string &folder_name, fs::path *path) {
-		*path = "";
-		return false;
-	}
+bool lookUpAndSetPath(const std::string &folder_name) {
+    fs::path path;
+    if(pathToFolder(folder_name, &path)) {
+        setCurrentPath(path/folder_name);
+        return true;
+    }
+    return false;
+}
 
-	bool lookUpAndSetPath(const std::string &folder_name) {
-		return false;
-	}
-
-	bool lookUpAndSetPathNextTo(const std::string &folder_name) {
-		return false;
-	}
-
-#else
-
-	bool pathToFolder(const std::string &folder_name, fs::path *path) {
-		fs::path response = currentPath();
-		while(!fs::exists(response / folder_name) && !fs::is_directory(response / folder_name) && response != "/") {
-			response = response.parent_path();
-		}
-		
-		if(response == "/") {
-			*path = "";
-			return false;
-		}
-		
-		*path = response;
-		return true;
-	}
-
-	bool lookUpAndSetPath(const std::string &folder_name) {
-		fs::path path;
-		if(pathToFolder(folder_name, &path)) {
-			setCurrentPath(path/folder_name);
-			return true;
-		}
-		return false;
-	}
-
-	bool lookUpAndSetPathNextTo(const std::string &folder_name) {
-		fs::path path;
-		if(pathToFolder(folder_name, &path)) {
-			setCurrentPath(path);
-			return true;
-		}
-		return false;
-	}
-
-#endif
+bool lookUpAndSetPathNextTo(const std::string &folder_name) {
+    fs::path path;
+    if(pathToFolder(folder_name, &path)) {
+        setCurrentPath(path);
+        return true;
+    }
+    return false;
+}
 
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;
