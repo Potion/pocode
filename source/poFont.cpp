@@ -36,6 +36,9 @@ bool urlForFontFamilyName(const std::string &family, const std::string &style, s
 	CFRelease(attributes);
 	
 	CFURLRef url = (CFURLRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontURLAttribute);
+	CFStringRef styleName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontStyleNameAttribute);
+	CFStringRef displayName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontDisplayNameAttribute);
+	
 	CFRelease(descriptor);
 	
 	if(!url)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E81AA0BB143E2D5500663E24 /* Maharam-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E81AA0BA143E2D5500663E24 /* Maharam-Regular.otf */; };
 		E8437D28143BAF3200AA7D12 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E8437D27143BAF3200AA7D12 /* apple.jpg */; };
 		E84CEC25142A2B98008B3E3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC24142A2B98008B3E3E /* UIKit.framework */; };
 		E84CEC27142A2B98008B3E3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CEC26142A2B98008B3E3E /* Foundation.framework */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E81AA0BA143E2D5500663E24 /* Maharam-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maharam-Regular.otf"; sourceTree = SOURCE_ROOT; };
 		E8437D27143BAF3200AA7D12 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
 		E84CEC20142A2B98008B3E3E /* potionCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = potionCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84CEC24142A2B98008B3E3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -120,6 +122,7 @@
 				E84CEC42142A2B98008B3E3E /* EAGLView.mm */,
 				E84CECB3142A8E73008B3E3E /* TestObj.h */,
 				E84CECB1142A8E5B008B3E3E /* TestObj.cpp */,
+				E81AA0BA143E2D5500663E24 /* Maharam-Regular.otf */,
 				E84CEC2F142A2B98008B3E3E /* Supporting Files */,
 			);
 			path = potionCode;
@@ -192,6 +195,7 @@
 				E84CEC3C142A2B98008B3E3E /* MainWindow.xib in Resources */,
 				E84CEC49142A2B98008B3E3E /* potionCodeViewController.xib in Resources */,
 				E8437D28143BAF3200AA7D12 /* apple.jpg in Resources */,
+				E81AA0BB143E2D5500663E24 /* Maharam-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +313,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -335,7 +338,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
