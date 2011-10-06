@@ -465,7 +465,7 @@ void poWindow::touchEnd(int x, int y, int uid, int tapCount )
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_ENDED_EVERYWHERE_EVENT;
-	//received.push_back(event);
+    received.push_back(event);
     
     untrackTouch(uid);
 }
