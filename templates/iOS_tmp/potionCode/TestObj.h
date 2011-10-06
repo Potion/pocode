@@ -9,6 +9,7 @@
 #pragma once
 #include "poObject.h"
 #include "poShape2D.h"
+#include "poTextBox.h"
 
 class TestObj : public poObject {
 public:
@@ -18,4 +19,5 @@ public:
     void eventHandler(poEvent *event);
 	
 	poShape2D *shape;
+	poTextBox *text;
 };
