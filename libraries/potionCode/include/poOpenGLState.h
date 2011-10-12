@@ -93,6 +93,8 @@ private:
 	std::stack<po::StencilState> stencilStack;
 	std::stack<po::TextureState> textureStack;
 	std::stack<po::BlendState> blendStack;
+	
+	static boost::thread_specific_ptr<poOpenGLState> instance;
 };
 
 
