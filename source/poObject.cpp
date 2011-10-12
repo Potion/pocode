@@ -68,6 +68,7 @@ poObject::poObject(const std::string &name)
 {}
 
 poObject::~poObject() {
+    poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
 }
 
