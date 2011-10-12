@@ -119,6 +119,10 @@ private:
 };
 
 
+
+
+
+
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
 						 float *value, float begin_value, float end_value,
 						 double time, double begin, double end,
@@ -150,7 +154,6 @@ static bool tweenUpdater(poTweenBase::poTweenFunction func,
 	*value = poColor(hsv1);
 	return d1 && d2 && d3;
 }
-
 
 
 template <typename T>
@@ -204,8 +207,5 @@ private:
     
 	boost::shared_ptr<value_type> shared;
 };
-
-
-
 
 
