@@ -157,13 +157,11 @@ void poEventCenter::removeEvent(int uid) {
 
 void poEventCenter::removeAllEvents(poObject* obj) {
 	BOOST_FOREACH(std::vector<event_callback> &event_vec, events) {
-		std::vector<event_callback>::iterator iter = event_vec.begin();
-		while(iter != event_vec.end()) {
-			if(iter->event.source == obj || iter->receiver == obj)
-				event_vec.erase(iter++);
-			else
-				iter++;
-		}
+        for(int i=event_vec.size()-1; i>=0; i--) {
+            if(event_vec[i].event.source == obj || event_vec[i].receiver == obj) {
+                event_vec.erase(event_vec.begin()+i);
+            }
+        }
 	}
 }
 
