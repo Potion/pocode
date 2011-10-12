@@ -44,7 +44,18 @@ class poImage
 	friend class poImageLoader;
 	
 public:
+	poImage();
+	poImage(const std::string &url);
+	poImage(const std::string &url, ImageBitDepth bpp);
+	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
+	poImage(const poImage &img);
 	~poImage();
+    
+    void                load(const std::string &url);
+	void                load(const std::string &url, ImageBitDepth bpp);
+	void                load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix);
+    
+    
 	// you own this one
 	poImage *copy();
 
@@ -85,16 +96,6 @@ public:
 	std::string         url() const;
 	
 private:
-	poImage();
-	poImage(const std::string &url);
-	poImage(const std::string &url, ImageBitDepth bpp);
-	poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *pixels);
-	poImage(const poImage &img);
-
-	void                load(const std::string &url);
-	void                load(const std::string &url, ImageBitDepth bpp);
-	void                load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix);
-	
 	FIBITMAP            *bitmap;
 	poTexture           *tex;
 	std::string         _url;
