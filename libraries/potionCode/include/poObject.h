@@ -75,7 +75,6 @@ public:
     //@{
 	int                 addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
 	void                removeEvent(int event_id);
-    void                stopEventPropogation(int eventType);
     //@}
 
     /*! Width/height should never be set directly!*/
@@ -262,6 +261,7 @@ protected:
 private:
     
     float width, height;
+    
     
     /*! "children" is a vector of poObjects. It is the basis for the poObject scene graph/tree structure.
      Every poObject that has been added as child has a parent. Be careful not to access the parent

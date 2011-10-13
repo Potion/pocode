@@ -119,13 +119,6 @@ private:
 };
 
 
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 01c45fc7b41b6aa62ea660e36b01ab89a0c45902
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
 						 float *value, float begin_value, float end_value,
 						 double time, double begin, double end,
@@ -210,8 +203,3 @@ private:
     
 	boost::shared_ptr<value_type> shared;
 };
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 01c45fc7b41b6aa62ea660e36b01ab89a0c45902

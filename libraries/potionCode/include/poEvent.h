@@ -138,10 +138,6 @@ public:
 	// return if the event was sent
 	bool    routeBySource(poObject *obj, poEvent event);
 	bool    routeBySink(poObject *obj, poEvent event);
-    
-    
-    //Stop all remaining events of a certain type
-    void    stopPropogation(int eventType, std::vector <poObject *> objects);
 	
     // EVENTS PER OBJECT
 	// does an object care about a given event
