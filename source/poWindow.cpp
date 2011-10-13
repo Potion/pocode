@@ -259,7 +259,7 @@ void poWindow::processInteractionEvent(poEvent event) {
             // Notify ENTER/LEAVE Subscribers
             if(!objsBeneath.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_OVER_EVENT : PO_MOUSE_OVER_EVENT;
-                poEventCenter::get()->notifyFiltered(event, filter, false);
+                poEventCenter::get()->notifyFiltered(event, objsBeneath, false);
             }
             
             //Notify Enter Objs
