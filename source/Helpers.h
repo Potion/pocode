@@ -81,6 +81,9 @@ inline std::string poToString (const T& t) {
     return ss.str();
 };
 
+//Convert to string to title case
+std::string poToTitleCase(std::string s);
+
 
 //Convert to string to int
 int poToInt(std::string s);

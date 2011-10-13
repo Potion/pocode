@@ -360,6 +360,16 @@ std::string base64_decode(std::string const& encoded_string) {
 	return ret;
 }
 
+std::string poToTitleCase(std::string s) {
+    for(int i=0; i<s.length(); i++) {
+        if(i==0 || s[i-1] == ' ') {
+            s[i] = toupper(s[i]);
+        }
+    }
+    
+    return s;
+
+}
 
 int poToInt(std::string s) {
     return atoi(s.c_str());
