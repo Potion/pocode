@@ -33,3 +33,7 @@ profile
 *.aps
 *.suo
 *.htm
+
+
+# other
+*/potionCode/*.a

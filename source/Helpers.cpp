@@ -74,19 +74,6 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 			return poPoint(72,72)
 		}
 
-		bool pathToFolder(const std::string &folder_name, fs::path *path) {
-			*path = "";
-			return false;
-		}
-
-		bool lookUpAndSetPath(const std::string &folder_name) {
-			return false;
-		}
-
-		bool lookUpAndSetPathNextTo(const std::string &folder_name) {
-			return false;
-		}
-
 	#endif
 
 	double getTime() {
@@ -114,14 +101,13 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 		[[NSFileManager defaultManager] changeCurrentDirectoryPath:nsstr];
 	}
 
-bool lookUpAndSetPathNextTo(const std::string &folder_name) {
-    fs::path path;
-    if(pathToFolder(folder_name, &path)) {
-        setCurrentPath(path);
-        return true;
-    }
-    return false;
-}
+#else
+
+	void setCurrentPath(const fs::path &path) {
+		printf("setCurrentPath unimplemented\n");
+	}
+
+#endif
 
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;
