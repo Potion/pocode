@@ -114,7 +114,14 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 		[[NSFileManager defaultManager] changeCurrentDirectoryPath:nsstr];
 	}
 
-#endif
+bool lookUpAndSetPathNextTo(const std::string &folder_name) {
+    fs::path path;
+    if(pathToFolder(folder_name, &path)) {
+        setCurrentPath(path);
+        return true;
+    }
+    return false;
+}
 
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;
@@ -374,6 +381,16 @@ std::string base64_decode(std::string const& encoded_string) {
 	return ret;
 }
 
+std::string poToTitleCase(std::string s) {
+    for(int i=0; i<s.length(); i++) {
+        if(i==0 || s[i-1] == ' ') {
+            s[i] = toupper(s[i]);
+        }
+    }
+    
+    return s;
+
+}
 
 int poToInt(std::string s) {
     return atoi(s.c_str());

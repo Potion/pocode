@@ -68,6 +68,7 @@ poObject::poObject(const std::string &name)
 {}
 
 poObject::~poObject() {
+    poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
 }
 
@@ -132,12 +133,13 @@ poRect poObject::getFrame() {
 }
 
 poRect poObject::getBounds() {
-    
     poRect rect(offset.x, offset.y, width, height);
 	BOOST_FOREACH(poObject* obj, children) {
-		poRect obj_b = obj->getBounds();
-		rect.include(objectToLocal(obj, obj_b.getBottomRight()));
-		rect.include(objectToLocal(obj, obj_b.getTopLeft()));
+        if (obj->visible) {
+            poRect obj_b = obj->getBounds();
+            rect.include(objectToLocal(obj, obj_b.getBottomRight()));
+            rect.include(objectToLocal(obj, obj_b.getTopLeft()));
+        }
 	}
 	return rect;
 }

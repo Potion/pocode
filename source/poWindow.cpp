@@ -176,8 +176,7 @@ void poWindow::processEvents() {
 	while(!received.empty()) {
         //Get Event
 		poEvent event = received.front();
-        
-        
+
 		received.pop_front();
         
         //Check type, take appropriate action
@@ -226,8 +225,10 @@ void poWindow::processInteractionEvent(poEvent event) {
     std::vector<poObject*> listeningObjs;
     
     
-    // Notify general subscribers
+    // Event coming through should be an Everywhere event (from functions below)
+    //so notify subscribers
     poEventCenter::get()->notify(event);
+    
     
     //Dispatch Appropriate touch or mouse events
     switch (event.type) {
@@ -248,7 +249,7 @@ void poWindow::processInteractionEvent(poEvent event) {
                 poEventCenter::get()->notifyFiltered(event, filter, false);
             }
             
-            // Everything else gets mouse up outside
+            // Everything else gets outside event
             event.type = isTouchEvent(event.type) ? PO_TOUCH_BEGAN_OUTSIDE_EVENT : PO_MOUSE_DOWN_OUTSIDE_EVENT;
             poEventCenter::get()->notifyFiltered(event, filter, true);
             break;
@@ -258,14 +259,16 @@ void poWindow::processInteractionEvent(poEvent event) {
             // Notify ENTER/LEAVE Subscribers
             if(!objsBeneath.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_OVER_EVENT : PO_MOUSE_OVER_EVENT;
-                poEventCenter::get()->notifyFiltered(event, filter, false);
+                poEventCenter::get()->notifyFiltered(event, objsBeneath, false);
             }
             
+            //Notify Enter Objs
             if(!did_enter.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_ENTER_EVENT : PO_MOUSE_ENTER_EVENT;
                 poEventCenter::get()->notifyFiltered(event, did_enter, false);
             }
             
+            //Notify Leave objs
             if(!did_leave.empty()) {
                 event.type = isTouchEvent(event.type) ? PO_TOUCH_LEAVE_EVENT : PO_MOUSE_LEAVE_EVENT;
                 poEventCenter::get()->notifyFiltered(event, did_leave, false);
@@ -465,7 +468,7 @@ void poWindow::touchEnd(int x, int y, int uid, int tapCount )
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_ENDED_EVERYWHERE_EVENT;
-	//received.push_back(event);
+    received.push_back(event);
     
     untrackTouch(uid);
 }
