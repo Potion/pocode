@@ -76,6 +76,14 @@ poTexture::poTexture()
 :	uid(0)
 {}
 
+poTexture::poTexture(const std::string &url) 
+:	uid(0)
+{
+	poImage *img = new poImage(url);
+	load(img);
+	delete img;
+}
+
 poTexture::poTexture(poImage *img)
 :	uid(0)
 {

@@ -49,6 +49,7 @@ public:
 	// this will make an imageless texture
 	// useful for when you just need to allocate space on the graphics card
 	poTexture();
+	poTexture(const std::string &url);
 	poTexture(poImage *img);
 	poTexture(poImage *img, const poTextureConfig &config);
 	~poTexture();
