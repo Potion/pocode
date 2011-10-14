@@ -1,8 +1,7 @@
 #pragma once
 
-#include "poImage.h"
+//#include "poImage.h"
 #include "poShape2D.h"
-#include "poOpenGLStateChange.h"
 
 
 
@@ -24,24 +23,26 @@
 // The maskShape should NOT be added to the scene graph.
 //
 
-class poGeometryMask : public poStencilState
+class poGeometryMask : public poObjectModifier
 {
 public:
 	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
 	virtual ~poGeometryMask();
 	
 	void            setShape(poShape2D *shape);	
+	// this isn't implemented yet
 	bool            pointInside(poPoint p);
 	
 protected:
-	virtual void    save();
+	void			doSetUp(poObject*);
+	void			doSetDown(poObject*);
 	
 private:
 	poShape2D *shape;
 	bool clears_stencil;
 };
 
-
+/*
 // CLASS NOTES
 //
 // poImageMask implements a mask based upon a poImage object. A geometry mask is used as follows:
@@ -71,4 +72,4 @@ private:
 	poObject*       my_obj;
 	poImage*        image;
 };
-
+*/

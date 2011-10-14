@@ -50,13 +50,17 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 	return false;
 }
 
+unsigned int getNumCpus() {
+	return boost::thread::hardware_concurrency();
+}
+
 #ifdef __APPLE__
 	#include <mach/mach_time.h>
 	#include <sys/param.h>
 	#include <sys/sysctl.h>
 	#include <Foundation/Foundation.h>
 
-	#if defined(TARGET_OS_MAC)
+	#if defined(POTION_MAC)
 		#include <Cocoa/Cocoa.h>
 
 		poPoint deviceResolution() {
@@ -71,7 +75,7 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 		#include <UIKit/UIKit.h>
 
 		poPoint deviceResolution() {
-			return poPoint(72,72)
+			return poPoint(72,72);
 		}
 
 	#endif
@@ -86,14 +90,6 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 		
 		uint64_t duration = mach_absolute_time() - start;
 		return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
-	}
-
-	unsigned int getNumCpus() {
-		int count;
-		size_t size = sizeof(count);
-		if(sysctlbyname("hw.ncpu", &count, &size, NULL, 0))
-			return 1;
-		return (unsigned int)count;
 	}
 
 	void setCurrentPath(const fs::path &path) {

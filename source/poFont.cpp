@@ -15,7 +15,7 @@
 #elif defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
 
-	#if defined(TARGET_OS_MAC)
+	#if defined(POTION_MAC)
 		#include <ApplicationServices/ApplicationServices.h>
 
 		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {

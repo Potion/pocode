@@ -9,7 +9,9 @@
 
 // in seconds
 double getTime();
+
 unsigned int getNumCpus();
+
 poPoint deviceResolution();
 
 // path related

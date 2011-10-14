@@ -6,7 +6,7 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "poMask.h"
+#include "poGeometryMask.h"
 #include "Helpers.h"
 #include "SimpleDrawing.h"
 #include "poOpenGLState.h"
@@ -31,19 +31,23 @@ void poGeometryMask::setShape(poShape2D *s) {
 }
 
 bool poGeometryMask::pointInside(poPoint p) {
-	
+	if(shape)
+		return shape->pointInside(p);
 }
 
-void poGeometryMask::save() {
+void poGeometryMask::doSetUp(poObject *obj) {
     if(shape) {
 		if(clears_stencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
-        
-		poOpenGLState::get()->matrix.pushModelview();
+
+        poOpenGLState *ogl = poOpenGLState::get();
+		ogl->matrix.pushModelview();
         applyObjTransform(shape);
-    
-        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		
+        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		ogl->pushStencilState();
+
+		po::StencilState state;
 		state.enabled = true;
 		state.func = GL_ALWAYS;
 		state.func_ref = 1;
@@ -51,21 +55,30 @@ void poGeometryMask::save() {
 		state.op_fail = GL_KEEP;
 		state.op_stencil_depth_fail = GL_KEEP;
 		state.op_stencil_depth_pass = GL_REPLACE;
-		poStencilState::save();
+		ogl->setStencil(state);
 		
 		po::drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
         
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
-		poStencilState::restore();
-		state.func = GL_EQUAL;
-		poStencilState::save();
+		ogl->popStencilState();
 		
-        poOpenGLState::get()->matrix.popModelview();
+		state = po::StencilState();
+		state.func = GL_EQUAL;
+		ogl->pushStencilState();
+		ogl->setStencil(state);
+		
+        ogl->matrix.popModelview();
 	}
 }
 
+void poGeometryMask::doSetDown(poObject *obj) {
+	if(shape != NULL) {
+		poOpenGLState *ogl = poOpenGLState::get();
+		ogl->popStencilState();
+	}
+}
 
+/*
 // ============ poImageMask =============== //
 
 poImageMask::poImageMask(poImage *img)
@@ -107,7 +120,7 @@ void poImageMask::doSetUp( poObject* obj ) {
 void poImageMask::doSetDown( poObject* obj ) {
 	restore();
 }
-
+*/
 
 
 

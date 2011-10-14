@@ -125,12 +125,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &conf
 		
 	// set up the right texture
 	glBindTexture(GL_TEXTURE_2D, uid);
-	
-//	we can go back to doing this if necessary, but i think this will be ok
-//	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-//	glPixelStorei(GL_PACK_ROW_BYTES_APPLE, _image->pitch());
 	glPixelStorei(GL_PACK_ALIGNMENT, channels);
-	glPixelStorei(GL_PACK_ROW_LENGTH, width);
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);

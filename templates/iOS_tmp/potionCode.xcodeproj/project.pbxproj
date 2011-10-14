@@ -164,6 +164,7 @@
 		E84CEC17142A2B98008B3E3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
 			buildConfigurationList = E84CEC1A142A2B98008B3E3E /* Build configuration list for PBXProject "potionCode" */;
@@ -294,6 +295,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "potionCode/potionCode-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/PotionCode/libraries/pugixml,
 					/PotionCode/libraries/Boost/boost_1_45_0,
@@ -319,6 +321,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "potionCode/potionCode-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/PotionCode/libraries/pugixml,
 					/PotionCode/libraries/Boost/boost_1_45_0,

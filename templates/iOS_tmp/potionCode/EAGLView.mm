@@ -67,6 +67,7 @@
 
 - (void)createFramebuffer
 {
+	
     if (context && !defaultFramebuffer) {
         [EAGLContext setCurrentContext:context];
         

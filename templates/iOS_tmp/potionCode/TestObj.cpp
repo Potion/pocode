@@ -11,9 +11,8 @@
 #include "poShapeBasics2D.h"
 #include "poApplication.h"
 #include "Helpers.h"
-#include "poMask.h"
-#include "poResourceStore.h"
-
+#include "poResourceLoader.h"
+#include "poGeometryMask.h"
 
 poObject *createObjectForID(uint id) {
 	return new TestObj();
@@ -32,7 +31,8 @@ TestObj::TestObj() {
 	shape->addModifier(new poGeometryMask(mask));
 
 	text = addChild(new poTextBox(200));
-	text->font(getFont("Maharam-Regular.otf",20));
+	text->font(getFont("Maharam-Regular.otf",""));
+	text->textSize(20);
 	text->textColor = poColor::red;
 	text->text("hello world!!");
 	text->layout();
