@@ -50,7 +50,6 @@ public:
 	virtual             ~poObject();
     //@}
     
-    
     /*! Most poObject subclasses should implement all four of these methods.
      The only method you should call explictly is messageHandler. The other three are called automatically
      if the object is added to the scene graph. 

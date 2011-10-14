@@ -10,7 +10,7 @@
 
 #include "poObject.h"
 #include "poTexture.h"
-#include "TextLayout.h"
+#include "TextBoxLayout.h"
 
 #include "poFont.h"
 #include "poBitmapFont.h"
@@ -23,9 +23,9 @@ static const std::string PO_TEXT_BOLD_ITALIC = "bi";
 enum {
 	PO_TEXT_BOX_STROKE_BOUNDS = 1,
 	PO_TEXT_BOX_STROKE_TEXT_BOUNDS = 1<<1,
-	PO_TEXT_BOX_STROKE_LINE = 1<<2,
-	PO_TEXT_BOX_STROKE_GLYPH = 1<<3,
-	PO_TEXT_BOX_STROKE_ALL = PO_TEXT_BOX_STROKE_TEXT_BOUNDS | PO_TEXT_BOX_STROKE_LINE | PO_TEXT_BOX_STROKE_GLYPH
+	PO_TEXT_BOX_STROKE_LINES = 1<<2,
+	PO_TEXT_BOX_STROKE_GLYPHS = 1<<3,
+	PO_TEXT_BOX_STROKE_ALL = PO_TEXT_BOX_STROKE_BOUNDS | PO_TEXT_BOX_STROKE_TEXT_BOUNDS | PO_TEXT_BOX_STROKE_LINES | PO_TEXT_BOX_STROKE_GLYPHS
 };
 
 // CLASS NOTES
@@ -45,7 +45,7 @@ enum {
 //
 // The text that is passed into the text() method may be formatted using basic HTML tags as follows:
 //
-//      TB-text( "This is in <b>bold</b>. This is in <i>italic</i>." );
+//      TB-text( "This is in <b>bold</b>. <font face='Helvetica' style='Regular' size='10>This</font> is in <i>italic</i>." );
 //
 // You will also need to specify the bold and italic fonts explicitly using the font method.
 // The richText setting must be on to see the effects on the text.
@@ -63,18 +63,21 @@ public:
     // LAYOUT
     // You MUST call layout after making any changes to poTextBox. Otherwise, you will not see
     // the changes in the text box.
-    poTextBox*          layout();
+    void				layout();
 
     // TEXTBOX PROPERTIES
 	std::string         text() const;
-	poTextBox*          text(const std::string &str);
+	void				text(const std::string &str);
+	
+	uint				textSize() const;
+	void				textSize(uint ptSize);
 	
     // The font methods tell the textBox which fonts to use. If a single font is provided as follows:
     //        TB->font( getFont("Courier", 20) );
     // This font will be used for all text, and acts as the PO_TEXT_REGULAR font.
     // Bold and italic fonts may set as follows:
-    //        TB->font( getFont("Courier Bold", 20), PO_TEXT_BOLD );
-    //        TB->font( getFont("Courier Italic", 20), PO_TEXT_ITALIC );
+    //        TB->font( getFont("Courier Bold"), PO_TEXT_BOLD );
+    //        TB->font( getFont("Courier Italic"), PO_TEXT_ITALIC );
 	// These fonts will be used where the <b> and <i> HTML tags appear in the text.
 	void                font(poFont *font, const std::string &name=PO_TEXT_REGULAR);
 	poFont*             font(const std::string &name=PO_TEXT_REGULAR);
@@ -83,7 +86,7 @@ public:
     // Commonly used settings are PO_ALIGN_TOP_LEFT, PO_ALIGN_TOP_CENTER and PO_ALIGN_CENTER_CENTER.
 	poAlignment         textAlignment() const;
 	void                textAlignment(poAlignment al);
-
+	
     // This is the textColor for all of the text. To set the text color by word or by letter,
     // use the color property in rich text mode.
 	poColor             textColor;
@@ -132,33 +135,27 @@ public:
     poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
     void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds );
 	
+	bool				cacheToTexture() const;
+	void				cacheToTexture(bool b);
+	
     // DEBUGGING
     // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
 	// You can use the PO_TEXT_BOX_STROKE_XXXXX settings in the enum defined at the top of this file.
-    void                _drawBounds();
+    virtual void	_drawBounds();
 	
     // DRAWING
     // The draw() method is called automatically if a text box is added to the scene graph.
     // You should not need to call the draw() method yourself.
 	void                draw();
 
-	
-	// BUTTON-IZING
-    // These methods add a poRectShape to a poTextBox, enabling it to act as a button.
-	poTextBox&          buttonize(poColor fill, poColor stroke, float strokeWidth, float rad=0.f);
-	poTextBox&          debuttonize();
-	bool                isButtonized() const;
-	poColor             buttonFill() const;
-	poColor             buttonStroke() const;
-	float               buttonStrokeWidth() const;
-
 private:
 	void                defaultFonts();
 	
 	bool                fit_height_to_bounds;
+	bool				cache_to_texture;
 	poAlignment         text_align;
-	TextBoxLayout       _layout;
-	poShape2D*          button;
+	po::TextBoxLayout   _layout;
+	poTexture			*cached;
 };
 
 

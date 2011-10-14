@@ -1,12 +1,4 @@
 #include "poBitmapFont.h"
-#include "poResourceStore.h"
-
-poBitmapFont *getBitmapFont(poFont *font, int siz) {
-	return poBitmapFontCache::instance()->get(font,siz);
-}
-
-
-
 
 poBitmapFont::poBitmapFont(poFont *f, int pointSize)
 :	poTextureAtlas(poTextureConfig(GL_ALPHA).setMagFilter(GL_LINEAR).setMinFilter(GL_LINEAR),512,512)
@@ -23,124 +15,30 @@ poBitmapFont::poBitmapFont(poFont *f, int pointSize)
 		
 		poImage *img = _font->glyphImage();
 		addImage(img, i);
-		layoutAtlas();
-		
 		delete img;
 	}
+	
+	layoutAtlas();
 }
 
-poBitmapFont::~poBitmapFont() {}
-
-void poBitmapFont::cacheGlyph(uint glyph) {
-	if(!hasUID(glyph)) {
-		// if we're in the middle of drawing we have to do this to avoid a flash in the texture
-		bool drawing = isDrawing();
-		if(drawing)
-			stopDrawing();
-		
-		_font->pointSize(size);
-		_font->glyph(glyph);
-
-		poImage *img = _font->glyphImage();
-		addImage(img, glyph);
-		layoutAtlas();
-		
-		delete img;
-		
-		if(drawing)
-			startDrawing();
-	}
-}
-
-void    poBitmapFont::drawSingleGlyph( uint glyph, poPoint position )
-{
-    startDrawing();
-    cacheGlyph(glyph);
-    drawUID( glyph, position );
-    stopDrawing();
-}
-
-void    poBitmapFont::drawGlyph( uint glyph, poPoint position )
-{
-    cacheGlyph( glyph );
-    drawUID( glyph, position );
-}
-
-void    poBitmapFont::setUpFont()
-{
-    startDrawing();
-}
-
-void    poBitmapFont::setDownFont()
-{
-    stopDrawing();
-}
-
-poFont const *poBitmapFont::font()
-{
+poFont const *poBitmapFont::font() {
     return _font;
 }
 
-poPoint poBitmapFont::originAdjust()
-{
-    return -poPoint(GLYPH_PADDING, GLYPH_PADDING);
+uint poBitmapFont::pointSize() const {
+	return size;
 }
 
+void poBitmapFont::cacheUID(uint codepoint) {
+	if(!hasUID(codepoint)) {
+		_font->pointSize(size);
+		_font->glyph(codepoint);
 
+		poImage *img = _font->glyphImage();
+		addImage(img, codepoint);
+		delete img;
 
-
-
-poBitmapFontCache::poBitmapFontCache() {}
-
-poBitmapFontCache::~poBitmapFontCache() {
-	removeAll();
-}
-
-poBitmapFontCache *poBitmapFontCache::instance() {
-	static boost::shared_ptr<poBitmapFontCache> inst(new poBitmapFontCache());
-	return inst.get();
-}
-
-size_t poBitmapFontCache::makeHash(poFont *font, int size) {
-	size_t hash = 0;
-	boost::hash_combine(hash, font);
-	boost::hash_combine(hash, size);
-	return hash;
-}
-
-poBitmapFont *poBitmapFontCache::get(poFont *font, int size) {
-	if(size > 0)
-		font->pointSize(size);
-	
-	size_t hash = makeHash(font, font->pointSize());
-    
-	if(fonts.find(hash) != fonts.end()) {
-		return fonts[hash];
-	}
-	
-	fonts[hash] = new poBitmapFont(font);
-	return fonts[hash];
-}
-
-void poBitmapFontCache::remove(poFont *font) {
-	size_t hash = makeHash(font, font->pointSize());
-	
-	if(fonts.find(hash) != fonts.end()) {
-		delete fonts[hash];
-		fonts.erase(hash);
-	}
-}
-
-void poBitmapFontCache::remove(poFont *font, int size) {
-	font->pointSize(size);
-	remove(font);
-}
-
-void poBitmapFontCache::removeAll() {
-	FontMap::iterator i = fonts.begin();
-	while(i != fonts.end()) {
-		delete i->second;
-		i++;
+		layoutAtlas();
 	}
 }
 

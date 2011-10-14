@@ -8,7 +8,6 @@
 
 #include "poImage.h"
 #include "poTexture.h"
-#include "poResourceStore.h"
 #include <FreeImage.h>
 
 static void loadFreeImageIfNeeded() {
@@ -21,58 +20,45 @@ static void loadFreeImageIfNeeded() {
 
 poImage::poImage() 
 :	bitmap(NULL)
-,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
 }
 
 poImage::poImage(const std::string &url)
 :	bitmap(NULL)
-,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
 	load(url);
 }
 
-poImage::poImage(const std::string &url, ImageBitDepth bpp)
+poImage::poImage(const std::string &url, uint c)
 :	bitmap(NULL)
-,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
-	load(url, bpp);
+	load(url, c);
 }
 
-poImage::poImage(uint w, uint h, ImageBitDepth bpp, const ubyte *p) 
+poImage::poImage(uint w, uint h, uint c, const ubyte *p) 
 :	bitmap(NULL)
-,	tex(NULL)
 {
 	loadFreeImageIfNeeded();
-	load(w, h, bpp, p);
-}
-
-poImage::poImage(const poImage &img)
-:	bitmap(NULL)
-,	tex(NULL)
-{
-	if(img.isValid())
-		bitmap = FreeImage_Clone(img.bitmap);
+	load(w, h, c, p);
 }
 
 poImage::~poImage() {
 	FreeImage_Unload(bitmap);
-	
-	if(tex) {
-		tex->_image = NULL;
-	}
+	bitmap = NULL;
+	_url = "";
 }
 
 poImage *poImage::copy() {
-	if(!isValid())
-		return getImage();
-	
-	poImage *response = new poImage();
-	response->bitmap = FreeImage_Clone(bitmap);
-	return response;
+	if(bitmap) {
+		poImage *image = new poImage();
+		image->bitmap = FreeImage_Clone(bitmap);
+		image->_url = _url;
+		return image;
+	}
+	return NULL;
 }
 
 bool poImage::isValid() const {
@@ -87,12 +73,12 @@ uint poImage::height() const {
 	return FreeImage_GetHeight(bitmap);
 }
 
-poPoint poImage::dimensions() const {
-	return poPoint(width(), height());
+uint poImage::channels() const {
+	return FreeImage_GetBPP(bitmap) / 8;
 }
 
-ImageBitDepth poImage::bpp() const {
-	return (ImageBitDepth)FreeImage_GetBPP(bitmap);
+poPoint poImage::dimensions() const {
+	return poPoint(width(), height());
 }
 
 uint poImage::pitch() const {
@@ -117,17 +103,17 @@ poColor poImage::getPixel(poPoint p) const {
 	BYTE* bits = FreeImage_GetScanLine(bitmap, y);
 	poColor ret;
 	
-	switch(bpp()) {
-		case IMAGE_8:
+	switch(channels()) {
+		case 1:
 			ret.set255(bits[x], bits[x], bits[x], 255);
 			break;
-		case IMAGE_16:
+		case 2:
 			ret.set255(bits[x*2], bits[x*2], bits[x*2], bits[x*2+1]);
 			break;
-		case IMAGE_24:
+		case 3:
 			ret.set255(bits[x*3+0], bits[x*3+1], bits[x*3+2], 255);
 			break;
-		case IMAGE_32:
+		case 4:
 			ret.set255(bits[x*4+0], bits[x*4+1], bits[x*4+2], bits[x*4+3]);
 			break;
 		default:
@@ -145,27 +131,25 @@ void poImage::setPixel(poPoint p, poColor c) {
 	uint y = p.y;
 	
 	BYTE *bits = FreeImage_GetScanLine(bitmap, y);
-	switch(bpp()) {
-		case IMAGE_8:
+	switch(channels()) {
+		case 1:
 			bits[x] = (((0.21*c.R) + (0.71*c.G) + (0.07*c.B)) * c.A) * 255;
 			break;
-		case IMAGE_16:
+		case 2:
 			bits[x*2] = ((0.21*c.R) + (0.71*c.G) + (0.07*c.B)) * 255;
 			bits[x*2+1] = c.A * 255;
 			break;
-		case IMAGE_24:
+		case 3:
 			bits[x*3] = c.R * c.A * 255;
 			bits[x*3+1] = c.G * c.A * 255;
 			bits[x*3+2] = c.B * c.A * 255;
 			break;
-		case IMAGE_32:
+		case 4:
 			bits[x*4] = c.R * 255;
 			bits[x*4+1] = c.G * 255;
 			bits[x*4+2] = c.B * 255;
 			bits[x*4+3] = c.A * 255;
 			break;
-		default:
-			;
 	}
 }
 
@@ -176,32 +160,31 @@ void poImage::setPixel(poPoint p, poColor c, int stamp_width) {
 		}
 }
 
-void poImage::changeBpp(ImageBitDepth bpp) {
-	if(bitmap && FreeImage_GetBPP(bitmap) != bpp) {
+void poImage::changeChannelCount(uint c) {
+	if(bitmap && FreeImage_GetBPP(bitmap) != c*8) {
 		FIBITMAP *dst = NULL;
-		switch(bpp) {
-			case IMAGE_8:	
+		switch(c) {
+			case 1:	
 				dst = FreeImage_ConvertTo8Bits(bitmap); 
 				break;
-			case IMAGE_16:	
+			case 2:	
 				dst = FreeImage_ConvertTo16Bits565(bitmap); 
 				break;
-			case IMAGE_24:	
+			case 3:	
 				dst = FreeImage_ConvertTo24Bits(bitmap); 
 				break;
-			case IMAGE_32:	
+			case 4:	
 				dst = FreeImage_ConvertTo32Bits(bitmap); 
 				break;
-			default:
-				;
 		}
 		FreeImage_Unload(bitmap);
 		bitmap = dst;
 	}
 }
 
-void poImage::composite(poImage *img, poRect into) {
-	FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, 256);
+void poImage::composite(poImage *img, poPoint into, float blend) {
+//	FreeImage_Paste(bitmap, img->bitmap, into.x, height()-img->height()-into.y, blend*256);
+	FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, blend*256);
 }
 
 poColor operator*(const poColor& c, float f) {
@@ -231,7 +214,7 @@ poColor operator+(const poColor &a, const poColor &b) {
 	return response;
 }
 
-void poImage::blur(int kernel_size, float sig) {
+void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 	float e = 2.718281828f;
 	int hk = kernel_size / 2;
 	
@@ -241,7 +224,7 @@ void poImage::blur(int kernel_size, float sig) {
 		kernel[i] = powf(e, -contrib);
 	}
 	
-	poImage img(*this);
+	poImage *tmp = this->copy();
 	
 	for(int y=0; y<height(); y++)
 		for(int x=0; x<width(); x++) {
@@ -249,18 +232,19 @@ void poImage::blur(int kernel_size, float sig) {
 			float k_tot = 0;
 			
 			for(int i=-hk; i<hk; i++) {
-				if(x+i < 0 || x+i >= width())
+				int stp = i * stepMultiplier;
+				if(x+stp < 0 || x+stp >= width())
 					continue;
 				
 				float k = kernel[i+hk];
 				k_tot += k;
 				
-				poColor c = getPixel(poPoint(x+i,y));
+				poColor c = getPixel(poPoint(x+stp,y));
 				
 				sum = sum + (c*k);
 			}
 			
-			img.setPixel(poPoint(x,y), sum/k_tot);
+			tmp->setPixel(poPoint(x,y), sum/k_tot);
 		}
 	
 	for(int y=0; y<height(); y++)
@@ -269,13 +253,14 @@ void poImage::blur(int kernel_size, float sig) {
 			float k_tot = 0;
 			
 			for(int i=-hk; i<hk; i++) {
-				if(y+i < 0 || y+i >= height())
+				int stp = i * stepMultiplier;
+				if(y+stp < 0 || y+stp >= height())
 					continue;
 				
 				float k = kernel[i+hk];
 				k_tot += k;
 				
-				poColor c = img.getPixel(poPoint(x,y+i));
+				poColor c = tmp->getPixel(poPoint(x,y+stp));
 				
 				sum = sum + (c*k);
 			}
@@ -284,6 +269,7 @@ void poImage::blur(int kernel_size, float sig) {
 		}
 	
 	delete [] kernel;
+	delete tmp;
 }
 
 void poImage::flip(poOrientation dir) {
@@ -291,6 +277,11 @@ void poImage::flip(poOrientation dir) {
 		FreeImage_FlipVertical(bitmap);
 	else
 		FreeImage_FlipHorizontal(bitmap);
+}
+
+void poImage::fill(poColor c) {
+	unsigned char color[4] = {c.R*255, c.G*255, c.B*255, c.A*255};
+	FreeImage_FillBackground(bitmap, color);
 }
 
 void poImage::resizeMaxDimension(float max_dim) {
@@ -327,18 +318,6 @@ void poImage::resize(float w, float h) {
 	FIBITMAP *img = FreeImage_Rescale(bitmap, w, h, FILTER_CATMULLROM);
 	FreeImage_Unload(bitmap);
 	bitmap = img;
-}
-
-poTexture *poImage::texture() {
-	if(!tex)
-		tex = new poTexture(this);
-	return tex;
-}
-
-poTexture *poImage::texture(poTextureConfig config) {
-	if(!tex)
-		tex = new poTexture(this,config);
-	return tex;
 }
 
 std::string poImage::url() const {
@@ -383,7 +362,6 @@ FIBITMAP *loadDIB(const std::string &url) {
 		FreeImage_Unload(blue);
 	}
 	
-    FreeImage_FlipVertical(dib);
 	return dib;
 }
 
@@ -392,61 +370,65 @@ void poImage::load(const std::string &url) {
 	_url = url;
 }
 
-void poImage::load(const std::string &url, ImageBitDepth bpp) {
+void poImage::load(const std::string &url, uint c) {
 	bitmap = loadDIB(url);
-	changeBpp(bpp);
+	changeChannelCount(c);
 }
 
-void poImage::load(uint w, uint h, ImageBitDepth bpp, const ubyte *pix) {
+void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
 	if(pix != NULL)
-		bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*(bpp/8), bpp, 0,0,0);
+		bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
 	else {
-		bitmap = FreeImage_Allocate(w, h, bpp);
+		bitmap = FreeImage_Allocate(w, h, c*8);
 		char black[] = {0,0,0,0};
 		FreeImage_FillBackground(bitmap, black);
 	}
-	
 }
 
-void writeImageToCHeader(const std::string &str, poImage *img) {
-	std::string filename = str + "Image.cpp";
-	FILE *f = fopen(filename.c_str(), "w+");
-	fprintf(f,
-			"\n#include \"%sImage.h\"\n\n"
-			"static const uint width = %d;\n"
-			"static const uint height = %d;\n"
-			"static const uint format = %d;\n"
-			"static const ubyte bytes[] = {\n",
-			str.c_str(), img->width(), img->height(), (int)img->bpp());
-	for(int h=0; h<img->height(); h++) {
-		fprintf(f,"\t");
-		for(int w=0; w<img->width(); w++) {
-			poColor color = img->getPixel(poPoint(w,h));
-			fprintf(f,"0x%X,0x%X,0x%X,", uint(color.R*255), uint(color.G*255), uint(color.B*255));
-		}
-		if(h == img->height()-1)
-			fseek(f, -1, SEEK_CUR);
-		fprintf(f,"\n");
-	}
-	fprintf(f,
-			"};\n"
-			"poImage *get%sImage() {\n"
-			"	static poImage *img = NULL;\n"
-			"	if(!img) {\n"
-			"		img = new poImage(width,height,(ImageBitDepth)format,&bytes[0]);\n"
-			"	}\n"
-			"	return img->copy();\n"
-			"}\n\n",
-			str.c_str());
-	fclose(f);
-	
-	filename = str + "Image.h";
-	f = fopen(filename.c_str(), "w");
-	fprintf(f,
-			"\n#pragma once\n\n"
-			"#include \"poImage.h\"\n\n"
-			"poImage *get%sImage();\n",
-			str.c_str());
-	fclose(f);
+std::ostream &operator<<(std::ostream &out, poImage *img) {
+	out << boost::format("img{url:'%s', dims:'%s', channels:'%d', pitch:'%d', bytes:'%d'}")
+							% img->url() % img->dimensions() % img->channels() % img->pitch() % img->storageSize();
+	return out;
 }
 
+//void writeImageToCHeader(const std::string &str, poImage *img) {
+//	std::string filename = str + "Image.cpp";
+//	FILE *f = fopen(filename.c_str(), "w+");
+//	fprintf(f,
+//			"\n#include \"%sImage.h\"\n\n"
+//			"static const uint width = %d;\n"
+//			"static const uint height = %d;\n"
+//			"static const uint format = %d;\n"
+//			"static const ubyte bytes[] = {\n",
+//			str.c_str(), img->width(), img->height(), (int)img->bpp());
+//	for(int h=0; h<img->height(); h++) {
+//		fprintf(f,"\t");
+//		for(int w=0; w<img->width(); w++) {
+//			poColor color = img->getPixel(poPoint(w,h));
+//			fprintf(f,"0x%X,0x%X,0x%X,", uint(color.R*255), uint(color.G*255), uint(color.B*255));
+//		}
+//		if(h == img->height()-1)
+//			fseek(f, -1, SEEK_CUR);
+//		fprintf(f,"\n");
+//	}
+//	fprintf(f,
+//			"};\n"
+//			"poImage *get%sImage() {\n"
+//			"	static poImage *img = NULL;\n"
+//			"	if(!img) {\n"
+//			"		img = new poImage(width,height,(ImageBitDepth)format,&bytes[0]);\n"
+//			"	}\n"
+//			"	return img->copy();\n"
+//			"}\n\n",
+//			str.c_str());
+//	fclose(f);
+//	
+//	filename = str + "Image.h";
+//	f = fopen(filename.c_str(), "w");
+//	fprintf(f,
+//			"\n#pragma once\n\n"
+//			"#include \"poImage.h\"\n\n"
+//			"poImage *get%sImage();\n",
+//			str.c_str());
+//	fclose(f);
+//}

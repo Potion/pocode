@@ -145,11 +145,11 @@ void poShader::loadSource(std::istream &src) {
 	po::variableNames(uniforms.str(), boost::regex("uniform .*?\\s+?(.*?);"), uniformLocations);
 	
 	vertexSource << uniforms.str() << varyings.str() << vertex.str();
-#ifdef POTION_IOS
-	fragmentSource << "precision mediump float;\n" << uniforms.str() << varyings.str() << fragment.str();
-#else
-	fragmentSource << uniforms.str() << varyings.str() << fragment.str();
-#endif
+	#if defined(OPENGL_ES)
+		fragmentSource << "precision mediump float;\n" << uniforms.str() << varyings.str() << fragment.str();
+	#else
+		fragmentSource << uniforms.str() << varyings.str() << fragment.str();
+	#endif
 }
 
 bool poShader::compile() {

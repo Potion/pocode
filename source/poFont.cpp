@@ -9,62 +9,63 @@
 #include "poFont.h"
 #include "poShape2D.h"
 #include "Helpers.h"
-#include "Loaders.h"
-#include "poBitmapFont.h"
 
 #ifdef _WIN32
 
-#elif defined __APPLE__
+#elif defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
-#ifdef POTION_IOS
-	#include <CoreText/CoreText.h>
-#else
-	#include <ApplicationServices/ApplicationServices.h>
-#endif
 
-bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
-	CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-	
-	CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
-	CFStringRef sty_str = CFStringCreateWithBytes(NULL, (const UInt8*)style.c_str(), style.size(), kCFStringEncodingUTF8, false);
-	CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, fam_str);
-	CFDictionaryAddValue(attributes, kCTFontStyleNameAttribute, sty_str);
-	CFRelease(fam_str);
-	CFRelease(sty_str);
-	
-	CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
-	CFRelease(attributes);
-	
-	CFURLRef url = (CFURLRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontURLAttribute);
-	CFStringRef styleName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontStyleNameAttribute);
-	CFStringRef displayName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontDisplayNameAttribute);
-	
-	CFRelease(descriptor);
-	
-	if(!url)
-		return false;
-	
-	char path[1024];
-	CFURLGetFileSystemRepresentation(url, true, (UInt8*)path, 1024);
-	CFRelease(url);
-	
-	response = path;
-	return true;
-}
+	#if defined(TARGET_OS_MAC)
+		#include <ApplicationServices/ApplicationServices.h>
+
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+			CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+			
+			CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
+			CFStringRef sty_str = CFStringCreateWithBytes(NULL, (const UInt8*)style.c_str(), style.size(), kCFStringEncodingUTF8, false);
+			CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, fam_str);
+			CFDictionaryAddValue(attributes, kCTFontStyleNameAttribute, sty_str);
+			CFRelease(fam_str);
+			CFRelease(sty_str);
+			
+			CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
+			CFRelease(attributes);
+			
+			CFURLRef url = (CFURLRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontURLAttribute);
+			CFStringRef styleName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontStyleNameAttribute);
+			CFStringRef displayName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontDisplayNameAttribute);
+			
+			CFRelease(descriptor);
+			
+			if(!url)
+				return false;
+			
+			UInt8 path[1024];
+			CFURLGetFileSystemRepresentation(url, true, path, 1024);
+			CFRelease(url);
+			
+			response = (char*)path;
+			return true;
+		}
+
+	#else
+
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+			return false;
+		}
+
+	#endif
 
 #endif
 
 FT_Library poFont::lib = NULL;
-void deleteFT_Face(FT_Face face) {
-	FT_Done_Face(face);
-}
 
 poFont::poFont() 
 :	face()
 ,	size(0)
 {}
 
-poFont::poFont(const std::string &family_or_url, int sz, const std::string &style)
+poFont::poFont(const std::string &family_or_url, const std::string &style)
 :	face()
 ,	size(0)
 {
@@ -85,18 +86,23 @@ poFont::poFont(const std::string &family_or_url, int sz, const std::string &styl
 		if(style == f->style_name) {
 			FT_Done_Face(tmp);
 			tmp = f;
+			break;
 		}
 		else {
 			FT_Done_Face(f);
 		}
 	}
 	
-	face = boost::shared_ptr<FT_FaceRec_>(tmp,deleteFT_Face);
-	pointSize(sz);
+	_url = url;
+	face = tmp;
+
+	pointSize(12);
 	glyph(0);
 }
 
-poFont::~poFont() {}
+poFont::~poFont() {
+	FT_Done_Face(face);
+}
 
 void poFont::init() {
 	if(!lib)
@@ -115,7 +121,7 @@ void poFont::pointSize(int sz) {
 	if(sz != size) {
 		size = sz;
 		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(face.get(), size*64, 0, rez.x, 0);
+		FT_Set_Char_Size(face, size*64, 0, rez.x, 0);
 	}
 }
 
@@ -163,17 +169,18 @@ poPoint poFont::glyphAdvance() const {
 
 poImage *poFont::glyphImage() const {
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-
-	int padding = GLYPH_PADDING * 2;
-	
 	const FT_Bitmap bitmap = face->glyph->bitmap;
-	ubyte *buffer = new ubyte[(bitmap.rows+padding) * (bitmap.width+padding)]();
+	
+	uint w = bitmap.width+1;
+	uint h = bitmap.rows+1;
+
+	ubyte *buffer = new ubyte[w*h]();
 	
 	for(int i=0; i<bitmap.rows; i++)
-		memcpy(buffer+(i+padding/2)*(bitmap.width+padding)+padding/2, bitmap.buffer+i*bitmap.pitch, bitmap.width);
+		// inset the copy 1 x 1 so the top and left sides doesn't look aliased 
+		memcpy(buffer+(i*w)+1, bitmap.buffer+(bitmap.rows-i-1)*bitmap.pitch, bitmap.width);
 	
-	poImageLoader loader;
-	poImage *img = loader.load(poImageSpec("", bitmap.width+padding, bitmap.rows+padding, IMAGE_8, buffer));
+	poImage *img = new poImage(w, h, 1, buffer);
 	
 	delete [] buffer;
 	return img;
@@ -187,8 +194,8 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	}
 	
 	FT_Vector kern;
-	FT_Get_Kerning(face.get(), 
-				   FT_Get_Char_Index(face.get(), glyph1), FT_Get_Char_Index(face.get(), glyph2),
+	FT_Get_Kerning(face, 
+				   FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
 				   0, &kern);
 	return poPoint(kern.x, kern.y);
 }
@@ -198,8 +205,8 @@ std::string poFont::toString() const {
 }
 
 void poFont::loadGlyph(int g) {
-	uint idx = FT_Get_Char_Index(face.get(), g);
-	FT_Load_Glyph(face.get(), idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
+	uint idx = FT_Get_Char_Index(face, g);
+	FT_Load_Glyph(face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
 }
 
 bool fontExists(const std::string &family) {

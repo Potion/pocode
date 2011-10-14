@@ -10,6 +10,8 @@
 #include "poColor.h"
 #include "poMatrixStack.h"
 
+class poTexture;
+
 static int maxTextureUnits() {
 	static int max = 0;
 	if(!max) 
@@ -36,6 +38,7 @@ namespace po {
 	
 	struct TextureState {
 		TextureState();
+		TextureState(poTexture *tex);
 		
 		GLuint bound_id;
 		bool is_mask;
@@ -56,44 +59,70 @@ namespace po {
 		poColor color;
 	};
 	
+	struct VertexState {
+		VertexState();
+		VertexState &enableAttrib(GLuint);
+		VertexState &disableAttrib(GLuint);
+		bool isAttribEnabled(GLuint);
+		
+	private:
+		int enabledAttribs;
+	};
+	
+	struct ShaderState {
+		ShaderState();
+		
+		GLuint bound_id;
+	};
 }
 
 class poOpenGLState {
 public:
-	po::StencilState	stencil;
-	po::TextureState	texture;
-	po::BlendState		blend;
+	po::StencilState stencil;
+	po::TextureState texture;
+	po::BlendState blend;
+	po::VertexState vertex;
+	po::ShaderState shader;
 	
 	poColor				color;
 	poMatrixStack		matrix;
 	
 	static poOpenGLState *get();
+	void compactMemory();
 	
 	void setStencil(po::StencilState);
-	void saveStencil();
-	void restoreStencil();
-
 	void setTexture(po::TextureState);
-	void saveTexture();
-	void restoreTexture();
-	
 	void setBlend(po::BlendState);
-	void saveBlend();
-	void restoreBlend();
+	void setVertex(po::VertexState);
+	void setShader(po::ShaderState);
 	
 	GLint maxVertexAttribs();
-	void enableVertexAttribArray(GLuint);
-	void disableVertexAttribArray(GLuint);
+	
+	void pushStencilState();
+	void popStencilState();
+	
+	void pushTextureState();
+	void popTextureState();
+
+	void pushBlendState();
+	void popBlendState();
+	
+	void pushVertexState();
+	void popVertexState();
+	
+	void pushShaderState();
+	void popShaderState();
 	
 private:
 	poOpenGLState();
 	
 	int max_vert_attribs;
-	
 	std::stack<po::StencilState> stencilStack;
 	std::stack<po::TextureState> textureStack;
 	std::stack<po::BlendState> blendStack;
-	
+	std::stack<po::VertexState> vertexStack;
+	std::stack<po::ShaderState> shaderStack;
+
 	static boost::thread_specific_ptr<poOpenGLState> instance;
 };
 

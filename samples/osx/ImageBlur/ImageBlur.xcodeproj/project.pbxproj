@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C0C3E7E613E1F03000C65F80 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E7E513E1F03000C65F80 /* Debug.xcconfig */; };
-		C0C3E7E813E1F03000C65F80 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E7E713E1F03000C65F80 /* Release.xcconfig */; };
 		C0C3E7EB13E1F03000C65F80 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E7EA13E1F03000C65F80 /* AppDelegate.mm */; };
 		C0C3E7ED13E1F03000C65F80 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E7EC13E1F03000C65F80 /* en.strings */; };
 		C0C3E7EF13E1F03000C65F80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E7EE13E1F03000C65F80 /* main.m */; };
@@ -123,6 +121,9 @@
 /* Begin PBXProject section */
 		C0C3E7D713E1F03000C65F80 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C0C3E7DA13E1F03000C65F80 /* Build configuration list for PBXProject "ImageBlur" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -145,8 +146,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0C3E7E613E1F03000C65F80 /* Debug.xcconfig in Resources */,
-				C0C3E7E813E1F03000C65F80 /* Release.xcconfig in Resources */,
 				C0C3E7ED13E1F03000C65F80 /* en.strings in Resources */,
 				C0C3E7F113E1F03000C65F80 /* main.pch in Resources */,
 				C0C3E7F413E1F03000C65F80 /* main.xib in Resources */,
@@ -174,6 +173,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C0C3E7E513E1F03000C65F80 /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Debug;
 		};
@@ -181,6 +181,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C0C3E7E713E1F03000C65F80 /* Release.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Release;
 		};
@@ -215,6 +216,7 @@
 				C0C3E80013E1F03000C65F80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

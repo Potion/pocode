@@ -6,10 +6,9 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
+#include "poResourceLoader.h"
 #include "poShapeBasics2D.h"
-#include "poResourceStore.h"
 #include "Helpers.h"
-
 
 #pragma mark poRectShape
 
@@ -22,15 +21,18 @@ poRectShape::poRectShape(float width, float height, float rad) {
 }
 
 poRectShape::poRectShape(poTexture* tex, poTextureFitOption fit, poAlignment align) {
-	construct(tex->width(), tex->height(), 0);
+	construct(tex->width, tex->height, 0);
 	placeTexture(tex, fit, align);
 }
 
 poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
 	poImage *img = getImage(str);
 	if(img->isValid()) {
-		construct(img->width(), img->height(), 0);
-		placeTexture(img->texture(), fit, align);
+		poTexture *tex = new poTexture();
+		tex->load(img);
+
+		construct(tex->width, tex->height, 0);
+		placeTexture(tex, fit, align);
 	}
 }
 

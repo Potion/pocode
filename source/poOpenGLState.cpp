@@ -7,6 +7,7 @@
 //
 
 #include "poOpenGLState.h"
+#include "poTexture.h"
 
 boost::thread_specific_ptr<poOpenGLState> poOpenGLState::instance;
 
@@ -18,19 +19,19 @@ poOpenGLState::poOpenGLState()
 }
 
 poOpenGLState *poOpenGLState::get() {
-#ifdef POTION_IOS
-	static poOpenGLState *instance = NULL;
-	if(!instance)
-		instance = new poOpenGLState();
-	return instance;
-#else
-	poOpenGLState *state = instance.get();
-	if(!state) {
-		state = new poOpenGLState();
-		instance.reset(state);
-	}
-	return state;
-#endif
+	#if defined(POTION_IOS)
+		static poOpenGLState *instance = NULL;
+		if(!instance)
+			instance = new poOpenGLState();
+		return instance;
+	#else
+		poOpenGLState *state = instance.get();
+		if(!state) {
+			state = new poOpenGLState();
+			instance.reset(state);
+		}
+		return state;
+	#endif
 }
 
 void poOpenGLState::setStencil(po::StencilState state) {
@@ -57,22 +58,7 @@ void poOpenGLState::setStencil(po::StencilState state) {
 		stencil.func_mask = state.func_mask;
 	}
 }
-void poOpenGLState::saveStencil() {stencilStack.push(stencil);}
-void poOpenGLState::restoreStencil() {
-	if(!stencilStack.empty()) {
-		setStencil(stencilStack.top());
-		stencilStack.pop();
-	}
-	else {
-		setStencil(po::StencilState());
-	}
-}
 
-
-po::TextureState::TextureState() {
-	bound_id = 0;
-	is_mask = false;
-}
 void poOpenGLState::setTexture(po::TextureState state) {
 	if(state.bound_id != texture.bound_id) {
 		glBindTexture(GL_TEXTURE_2D, state.bound_id);
@@ -80,17 +66,6 @@ void poOpenGLState::setTexture(po::TextureState state) {
 	}
 	texture.is_mask = state.is_mask;
 }
-void poOpenGLState::saveTexture() {textureStack.push(texture);}
-void poOpenGLState::restoreTexture() {
-	if(!textureStack.empty()) {
-		setTexture(textureStack.top());
-		textureStack.pop();
-	}
-	else {
-		setTexture(po::TextureState());
-	}
-}
-
 
 void poOpenGLState::setBlend(po::BlendState state) {
 	if(state.enabled != blend.enabled) {
@@ -124,19 +99,73 @@ void poOpenGLState::setBlend(po::BlendState state) {
 		blend.color = state.color;
 	}
 }
-void poOpenGLState::saveBlend() {blendStack.push(blend);}
-void poOpenGLState::restoreBlend() {
-	if(!blendStack.empty()) {
-		setBlend(blendStack.top());
-		blendStack.pop();
+
+void poOpenGLState::setVertex(po::VertexState vert) {
+	for(int i=0; i<maxVertexAttribs(); i++) {
+		bool shouldEnable = vert.isAttribEnabled(i);
+		bool isEnabled = vertex.isAttribEnabled(i);
+		if(shouldEnable && !isEnabled) {
+			vertex.enableAttrib(i);
+			glEnableVertexAttribArray(i);
+		}
+		else 
+		if(!shouldEnable && isEnabled) {
+			vertex.disableAttrib(i);
+			glDisableVertexAttribArray(i);
+		}
 	}
-	else {
-		setBlend(po::BlendState());
+}
+
+void poOpenGLState::setShader(po::ShaderState sh) {
+	if(shader.bound_id != sh.bound_id) {
+		shader.bound_id = sh.bound_id;
+		glUseProgram(shader.bound_id);
 	}
 }
 
 GLint poOpenGLState::maxVertexAttribs() {
 	return max_vert_attribs;
+}
+
+void poOpenGLState::pushStencilState() {
+	stencilStack.push(stencil);
+}
+void poOpenGLState::popStencilState() {
+	setStencil(stencilStack.top());
+	stencilStack.pop();
+}
+
+void poOpenGLState::pushTextureState() {
+	textureStack.push(texture);
+}
+void poOpenGLState::popTextureState() {
+	setTexture(textureStack.top());
+	textureStack.pop();
+}
+
+void poOpenGLState::pushBlendState() {
+	blendStack.push(blend);
+}
+void poOpenGLState::popBlendState() {
+	setBlend(blendStack.top());
+	blendStack.pop();
+}
+
+void poOpenGLState::pushVertexState() {
+	vertexStack.push(vertex);
+}
+void poOpenGLState::popVertexState() {
+	setVertex(vertexStack.top());
+	vertexStack.pop();
+}
+
+void poOpenGLState::pushShaderState() {
+	shaderStack.push(shader);
+}
+
+void poOpenGLState::popShaderState() {
+	setShader(shaderStack.top());
+	shaderStack.pop();
 }
 
 // the states
@@ -164,4 +193,32 @@ po::BlendState::BlendState() {
 	color = poColor::transparent;
 }
 
+po::TextureState::TextureState() {
+	bound_id = 0;
+	is_mask = false;
+}
+
+po::TextureState::TextureState(poTexture *tex) {
+	bound_id = tex->uid;
+	is_mask = tex->config.format == GL_ALPHA;
+}
+
+po::VertexState::VertexState() 
+:	enabledAttribs(0)
+{}
+po::VertexState & po::VertexState::enableAttrib(GLuint i) {
+	enabledAttribs |= (1 << i);
+	return *this;
+}
+po::VertexState & po::VertexState::disableAttrib(GLuint i) {
+	enabledAttribs &= ~(1 << i);
+	return *this;
+}
+bool po::VertexState::isAttribEnabled(GLuint i) {
+	return (enabledAttribs & (1 << i)) > 0;
+}
+
+po::ShaderState::ShaderState()
+:	bound_id(0)
+{}
 

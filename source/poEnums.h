@@ -169,16 +169,6 @@ enum {
 
 #pragma mark - Image Enums
 
-// IMAGE DEPTH for poImage
-enum ImageBitDepth {
-	IMAGE_8 = 8,
-	IMAGE_16 = 16,
-	IMAGE_24 = 24,
-	IMAGE_32 = 32,
-	
-	NUM_IMAGE_DEPTHS
-};
-
 // PO TEXTURE FITTING OPTIONS
 enum poTextureFitOption {
 	PO_TEX_FIT_NONE=0,

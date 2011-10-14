@@ -10,7 +10,6 @@
 #include "Helpers.h"
 #include "SimpleDrawing.h"
 #include "poOpenGLState.h"
-#include "poResourceStore.h"
 
 // ============ poGeometryMask =============== //
 

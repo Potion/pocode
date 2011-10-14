@@ -3,21 +3,21 @@
 #include "poRect.h"
 #include "poPoint.h"
 #include "poTexture.h"
-#include "poOpenGLStateChange.h"
+#include "poResource.h"
+#include "BinPacker.h"
 
-class poTextureAtlas 
+class poTextureAtlas : public poResource
 {
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
 	poTextureAtlas(poTextureConfig config, uint w, uint h);
 	virtual ~poTextureAtlas();
 	
-	// move the list of images to pack
-	void            clearImages();
-	
     // pass in the id you want to have associated with the image
 	void            addImage(poImage *img, uint requested_id);
-    
+	// remove all images that are current in there
+	void            clearImages();
+
 	// will redo all the bin packing with the current set of images
 	void            layoutAtlas();
 	
@@ -28,30 +28,24 @@ public:
 	uint            pageForUID(uint uid);
 	poRect          coordsForUID(uint uid);
 	poRect          sizeForUID(uint uid);
-	poTexture*      textureForPage(uint pg);
-	
-	// start drawing sets up the texture state
-	void            startDrawing();
+	poTexture*		textureForPage(uint pg);
+	poTexture*      textureForUID(uint uid);
     
 	// draws will shift the texture as needed,
 	// tho user can look at the pages for what it wants to draw and
 	// organize it so there are minimal texture switches
 	// size should be between 0..1, will scale
 	void            drawUID(uint uid, poRect r);
-    
 	// this one will draw the subtex at its native size
 	void            drawUID(uint uid, poPoint p);
-    
-	// reset the texture state to what it was
-	void            stopDrawing();
-
-    bool            isDrawing();
-
-protected:
-	virtual poPoint originAdjust() {return poPoint();}
+	
+	
+	// dump the pack to screen for debugging
+	void			_debugDraw();
 	
 private:
-	void            clearPages();
+	void			clearPages();
+	void            clearTextures();
 	
 	struct ImageLookup {
 		uint page;
@@ -74,10 +68,9 @@ private:
 	// the textures of the atlas
 	std::vector<poTexture*>     textures;
 	std::map<uint,uint>         uids;
-	poTextureState				texState;
     
 	// this is the configuration we want for the atlas
 	poTextureConfig             config;
 	
-	bool						is_drawing;
+	BinPacker					packer;
 };

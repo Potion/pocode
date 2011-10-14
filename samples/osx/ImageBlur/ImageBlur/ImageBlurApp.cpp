@@ -3,8 +3,9 @@
 #include "Helpers.h"
 #include "poCamera.h"
 #include "poApplication.h"
+#include "SimpleDrawing.h"
 #include "poShapeBasics2D.h"
-#include "poResourceStore.h"
+#include "poResourceLoader.h"
 
 poObject *createObjectForID(uint uid) {
 	return new ImageBlurApp();
@@ -20,23 +21,27 @@ void cleanupApplication() {
 
 ImageBlurApp::ImageBlurApp() {
 	addModifier(new poCamera2D(poColor::grey));
-
 	
 	poImage *img = getImage("villain.png");
-
+	poImage *chk = getImage("kittens.jpeg");
+	
 	poImage *blur = img->copy();
-	blur->blur(3,2);
+	blur->blur(15,2);
+	
+	blur->composite(chk, poPoint(50,50), 0.5f);
 
 	poObject *obj;
-	
-	obj= addChild(new poRectShape(img->texture()));
+	obj= addChild(new poRectShape(new poTexture(img)));
 	obj->alignment(PO_ALIGN_CENTER_RIGHT);
 	obj->position = getWindowCenter();
 
-	obj = addChild(new poRectShape(blur->texture()));
+	obj = addChild(new poRectShape(new poTexture(blur)));
 	obj->alignment(PO_ALIGN_CENTER_LEFT);
 	obj->position = getWindowCenter();
 	
+	delete img;
+	delete chk;
+	delete blur;
 }
 
 ImageBlurApp::~ImageBlurApp() {

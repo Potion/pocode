@@ -5,10 +5,10 @@
 #include "poBitmapFont.h"
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
-#include "poOpenGLStateChange.h"
 #include "poApplication.h"
 
 #include "LineExtruder.h"
+#include "poResourceLoader.h"
 
 #include <cfloat>
 #include <utf8.h>
@@ -32,18 +32,13 @@ namespace {
 		if(type == GL_LINE_STRIP || type == GL_LINE_LOOP)
 			std::swap(quad[7], quad[10]);
 
-		poTextureState state;
-		state.save();
+		poOpenGLState *ogl = poOpenGLState::get();
+		ogl->setTexture(po::TextureState());
+		ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
 
 		poBasicRenderer::get()->setFromState();
-
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
-
-		glEnableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
 		glDrawArrays(type, 0, 4);
-		
-		state.restore();
 	}
 }
 
@@ -142,20 +137,14 @@ void po::drawLine(poPoint a, poPoint b) {
 		a.x, a.y, a.z, 
 		b.x, b.y, b.z
 	};
-	
-	poTextureState state;
-	state.save();
+
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->setTexture(po::TextureState());
+	ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
 	
 	poBasicRenderer::get()->setFromState();
-
-
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
-
-	glEnableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 	glDrawArrays(GL_LINES, 0, 2);
-	
-	state.restore();
 }
 
 void po::drawRect(poRect rect) {
@@ -167,7 +156,7 @@ void po::drawRect(float x, float y, float w, float h) {
 }
 
 void po::drawRect(poTexture* tex) {
-	drawRect(0, 0, tex->width(), tex->height(), tex);
+	drawRect(poRect(0,0,tex->width,tex->height), poRect(0,0,1,1), tex);
 }
 
 void po::drawRect(poRect rect, poTexture* texture) {
@@ -175,7 +164,7 @@ void po::drawRect(poRect rect, poTexture* texture) {
 }
 
 void po::drawRect(float x, float y, float w, float h, poTexture* texture) {
-	drawRect(poRect(x,y,w,h), texture);
+	drawRect(poRect(x,y,w,h), poRect(0,0,1,1), texture);
 }
 
 void po::drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
@@ -185,8 +174,6 @@ void po::drawRect(poRect rect, poTexture *tex, poTextureFitOption fit) {
 }
 
 void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
-//	rect.setPosition(floor(rect.getPosition()) + poPoint(.5f, .5f));
-	
 	GLfloat quad[4*3] = { 
 		rect.x,  rect.y, 0, 
 		rect.x+rect.width, rect.y, 0, 
@@ -195,25 +182,20 @@ void po::drawRect(poRect rect, poRect coords, poTexture *texture) {
 	};
 	
 	GLfloat tcoords[4*2] = {
-		coords.x, coords.y,
-		coords.x+coords.width, coords.y,
-		coords.x+coords.width, coords.y+coords.height,
 		coords.x, coords.y+coords.height,
+		coords.x+coords.width, coords.y+coords.height,
+		coords.x+coords.width, coords.y,
+		coords.x, coords.y,
 	};
 	
-	poTextureState texState(texture);
-	texState.save();
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->setTexture(po::TextureState(texture));
+	ogl->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
 	
 	poBasicRenderer::get()->setFromState();
-
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
-	
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	
-	texState.restore();
 }
 
 
@@ -251,39 +233,32 @@ void po::drawOval(float x, float y, float width, float height) {
 }
 
 void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
-	poBasicRenderer::get()->setFromState();
+	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
 
+	poBasicRenderer::get()->setFromState();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
-	
-	glEnableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(GLenum type, poTexture *tex, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords) {
-	poTextureState texState(tex);
-	texState.save();
+void po::drawPoints(GLenum type, poTexture *texture, const std::vector<poPoint> &points, const std::vector<poPoint> &tex_coords) {
+	poOpenGLState *ogl = poOpenGLState::get();
+	
+	ogl->setTexture(po::TextureState(texture));
+	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
 	
 	poBasicRenderer::get()->setFromState();
-	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &tex_coords[0]);
-	
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
-	
-	texState.restore();
 }
 
 void drawPoints(GLenum type, const std::vector<poPoint> &points, poTexture *texture) {
-	poTextureState texState();
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->setTexture(po::TextureState());
+	ogl->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
+
 	poBasicRenderer::get()->setFromState();
-	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
-	
-	glEnableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 	glDrawArrays(type, 0, points.size());
 }
 
@@ -291,27 +266,24 @@ void po::drawString(const std::string &str, poFont *font, poPoint pos, int ptSiz
 	if(ptSize > 0)
 		font->pointSize(ptSize);
 	
-	poBitmapFont *bitmapFont = getBitmapFont(font);
+	poBitmapFont *bitmapFont = getBitmapFont(font, ptSize);
 
 	font->glyph(' ');
 	float spacer = font->glyphAdvance().x * tracking;
-
-	bitmapFont->setUpFont();
 	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
 		uint codepoint = utf8::next(ch, str.end());
+
 		font->glyph(codepoint);
-		
 		poPoint adv = font->glyphAdvance();
 		poPoint org = round(pos+font->glyphBearing());
+		org.y += font->ascender();
 		
-		bitmapFont->drawGlyph( codepoint, pos+font->glyphBearing() );
+		bitmapFont->drawUID( codepoint, org );
 		
 		pos.x += adv.x * tracking;
 	}
-	
-	bitmapFont->setDownFont();
 }
 
 void po::enableBlending() {

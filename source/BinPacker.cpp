@@ -189,37 +189,39 @@ void BinPacker::pack() {
 	}
 }
 
+#include "poOpenGLState.h"
+#include "SimpleDrawing.h"
+
 void BinPacker::render(BinPacker::pack_rect *r) {
-//	if(NULL != r->children) {
-//		render(r->children[0]);
-//		render(r->children[1]);
-//	}
-//	else {
-//		bool is_filled = r->handle != 0;
-//		if(is_filled)
-//			glColor4f(1.f,.5f,.5f,1);
-//		else
-//			glColor4f(.5f,.5f,.5f,1);
-//		glRecti(r->x+1,r->y+1,r->x+r->width-2,r->y+r->height-2);
-//	}
+	if(NULL != r->children) {
+		render(r->children[0]);
+		render(r->children[1]);
+	}
+	else {
+		if(r->handle != 0)
+			po::setColor(poColor(1,.5,.5,1));
+		else
+			po::setColor(poColor(.5,.5,.5,1));
+
+		po::drawRect(r->x+1, r->y+1, (int)r->width-2, (int)r->height-2);
+	}
 }
 
-#include "poMatrixStack.h"
 void BinPacker::render() {
-//	poMatrixStack::get()->pushModelview();
-//	
-//	BOOST_FOREACH(pack_page *page, pages) {
-//		glColor4f(1.f,1.f,1.f,1);
-//		glRecti(0,0,width,height);
-//
-//		BOOST_FOREACH(pack_rect *rect, page->rows) {
-//			render(rect);
-//		}
-//
-//		poMatrixStack::get()->translate(poPoint(width, 0, 0));
-//	}
-//	
-//	poMatrixStack::get()->popModelview();
+	poOpenGLState::get()->matrix.pushModelview();
+	
+	BOOST_FOREACH(pack_page *page, pages) {
+		po::setColor(poColor::white);
+		po::drawRect(0,0,width,height);
+
+		BOOST_FOREACH(pack_rect *rect, page->rows) {
+			render(rect);
+		}
+
+		poOpenGLState::get()->matrix.translate(poPoint(width, 0, 0));
+	}
+	
+	poOpenGLState::get()->matrix.popModelview();
 }
 
 

@@ -3,10 +3,8 @@
 #include "poCamera.h"
 #include "Helpers.h"
 
-#include "poBasicRenderer.h"
-#include "poResourceStore.h"
-#include "poOpenGLStateChange.h"
-
+#include "poResourceLoader.h"
+#include "SimpleDrawing.h"
 
 poObject *createObjectForID(uint uid) {
 	return new basicShapesApp();
@@ -45,6 +43,7 @@ basicShapesApp::basicShapesApp() {
     rectShapeWithImage->position.set( 150, 225, 0 );
     rectShapeWithImage->scale.set( 0.5, 0.5, 1 );
     rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
+	rectShapeWithImage->rotation_tween.set(360).setTweenFunction(linearFunc).setDuration(1.0).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
     addChild( rectShapeWithImage );
 	
     // make oval shape, green
@@ -62,4 +61,22 @@ basicShapesApp::~basicShapesApp() {
 
 
 void basicShapesApp::eventHandler(poEvent *event) {
+	if(event->type == PO_KEY_DOWN_EVENT) {
+		for(int i=0; i<100; i++) {
+		
+		fs::directory_iterator iter("testimages");
+		while(iter != fs::directory_iterator()) {
+			if(fs::is_regular_file(iter->status())) {
+				getImage(iter->path().string(), 100);
+			}
+			iter++;
+		}
+		deleteImageGroup(100);
+			
+		}
+	}
 }
+
+
+
+

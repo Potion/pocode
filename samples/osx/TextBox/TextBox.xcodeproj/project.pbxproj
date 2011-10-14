@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B9FB09713B1985800C6A86D /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FB09613B1985800C6A86D /* Debug.xcconfig */; };
-		2B9FB09913B1985800C6A86D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FB09813B1985800C6A86D /* Release.xcconfig */; };
 		2B9FB09C13B1985800C6A86D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FB09B13B1985800C6A86D /* AppDelegate.mm */; };
 		2B9FB09E13B1985800C6A86D /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FB09D13B1985800C6A86D /* en.strings */; };
 		2B9FB0A013B1985800C6A86D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FB09F13B1985800C6A86D /* main.m */; };
@@ -124,6 +122,7 @@
 		2B9FB08813B1985800C6A86D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = Potion;
 			};
 			buildConfigurationList = 2B9FB08B13B1985800C6A86D /* Build configuration list for PBXProject "TextBox" */;
@@ -148,8 +147,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B9FB09713B1985800C6A86D /* Debug.xcconfig in Resources */,
-				2B9FB09913B1985800C6A86D /* Release.xcconfig in Resources */,
 				2B9FB09E13B1985800C6A86D /* en.strings in Resources */,
 				2B9FB0A213B1985800C6A86D /* main.pch in Resources */,
 				2B9FB0A513B1985800C6A86D /* main.xib in Resources */,
@@ -177,6 +174,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B9FB09613B1985800C6A86D /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADERS = "$(LIBRARIES)/potionCode/include";
 				LIBRARIES = /PotionCode/libraries;
 				POTIONLIB = "$(LIBRARIES)/potionCode";
@@ -187,6 +185,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B9FB09813B1985800C6A86D /* Release.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADERS = "$(LIBRARIES)/potionCode/include";
 				LIBRARIES = /PotionCode/libraries;
 				POTIONLIB = "$(LIBRARIES)/potionCode";

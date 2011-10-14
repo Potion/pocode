@@ -53,7 +53,7 @@ const char * textured_shader =
 static boost::thread_specific_ptr<poBasicRenderer> instance;
 
 poBasicRenderer *poBasicRenderer::get() {
-#ifdef POTION_IOS
+#if defined(POTION_IOS)
 	static poBasicRenderer *instance = NULL;
 	if(!instance)
 		instance = new poBasicRenderer();

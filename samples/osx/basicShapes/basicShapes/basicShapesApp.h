@@ -9,7 +9,7 @@ class basicShapesApp : public poObject {
 public:
 	basicShapesApp();
 	virtual ~basicShapesApp();
-
+	
     poShape2D*      customShape;
     poRectShape*    rectShape;
     poRectShape*    rectShapeWithImage;

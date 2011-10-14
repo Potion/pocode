@@ -71,9 +71,7 @@ poObject::~poObject() {
 	removeAllChildren(true);
 }
 
-void poObject::draw() {
-    if(drawBounds) _drawBounds();
-}
+void poObject::draw() {}
 
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
@@ -398,7 +396,9 @@ void poObject::_drawTree() {
     }
 	
 	draw();
-	
+	if(drawBounds) 
+		_drawBounds();
+
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}

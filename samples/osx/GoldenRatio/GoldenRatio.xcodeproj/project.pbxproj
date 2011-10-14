@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B5F7E071397D52000C6FBB3 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B5F7E061397D52000C6FBB3 /* Debug.xcconfig */; };
-		2B5F7E091397D52000C6FBB3 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B5F7E081397D52000C6FBB3 /* Release.xcconfig */; };
 		2B5F7E0C1397D52000C6FBB3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B5F7E0B1397D52000C6FBB3 /* AppDelegate.mm */; };
 		2B5F7E0E1397D52000C6FBB3 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B5F7E0D1397D52000C6FBB3 /* en.strings */; };
 		2B5F7E101397D52000C6FBB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5F7E0F1397D52000C6FBB3 /* main.m */; };
@@ -124,6 +122,7 @@
 		2B5F7DF81397D52000C6FBB3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = Potion;
 			};
 			buildConfigurationList = 2B5F7DFB1397D52000C6FBB3 /* Build configuration list for PBXProject "GoldenRatio" */;
@@ -148,8 +147,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5F7E071397D52000C6FBB3 /* Debug.xcconfig in Resources */,
-				2B5F7E091397D52000C6FBB3 /* Release.xcconfig in Resources */,
 				2B5F7E0E1397D52000C6FBB3 /* en.strings in Resources */,
 				2B5F7E121397D52000C6FBB3 /* main.pch in Resources */,
 				2B5F7E151397D52000C6FBB3 /* main.xib in Resources */,
@@ -177,6 +174,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B5F7E061397D52000C6FBB3 /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Debug;
 		};
@@ -184,6 +182,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B5F7E081397D52000C6FBB3 /* Release.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Release;
 		};

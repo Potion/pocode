@@ -20,26 +20,21 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								void *displayLinkContext)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
 
-	[lock lock];
 	if([self canDraw]) {
 		NSOpenGLContext *context = [self openGLContext];
 		CGLContextObj cglcontext = (CGLContextObj)[context CGLContextObj];
-
 		CGLLockContext(cglcontext);
-		[context makeCurrentContext];
 		
+		[context makeCurrentContext];
 		self.appWindow->makeCurrent();
 		self.appWindow->update();
 		self.appWindow->draw();
+		[context flushBuffer];
 
 		CGLUnlockContext(cglcontext);
-
-		[context flushBuffer];
 	}
-	[lock unlock];
 
 	[pool release];
 	return kCVReturnSuccess;

@@ -118,6 +118,37 @@ private:
 	poTweenFinishedCallback callback;
 };
 
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 float *value, float begin_value, float end_value,
+						 double time, double begin, double end,
+						 double duration, double e1, double e2) 
+{
+	return func(value, begin_value, end_value, time, begin, end, duration, e1, e2);
+}
+
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 poPoint *value, poPoint begin_value, poPoint end_value,
+						 double time, double begin, double end,
+						 double duration, double e1, double e2) 
+{
+    bool A = func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2);
+    bool B = func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2);
+    bool C = func(&value->z, begin_value.z, end_value.z, time, begin, end, duration, e1, e2);
+    return A && B && C;
+}
+
+static bool tweenUpdater(poTweenBase::poTweenFunction func, 
+						 poColor *value, poColor begin_value, poColor end_value,
+						 double time, double begin, double end,
+						 double duration, double e1, double e2) 
+{
+	poHSVColor hsv1, hsv2(begin_value), hsv3(end_value);
+	bool d1 = func(&hsv1.H, hsv2.H, hsv3.H, time, begin, end, duration, e1, e2);
+	bool d2 = func(&hsv1.S, hsv2.S, hsv3.S, time, begin, end, duration, e1, e2);
+	bool d3 = func(&hsv1.V, hsv2.V, hsv3.V, time, begin, end, duration, e1, e2);
+	*value = poColor(hsv1);
+	return d1 && d2 && d3;
+}
 
 template <typename T>
 class poTween : public poTweenBase
@@ -173,36 +204,5 @@ private:
 
 
 
-static bool tweenUpdater(poTweenBase::poTweenFunction func, 
-						 float *value, float begin_value, float end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
-{
-	return func(value, begin_value, end_value, time, begin, end, duration, e1, e2);
-}
-
-static bool tweenUpdater(poTweenBase::poTweenFunction func, 
-						 poPoint *value, poPoint begin_value, poPoint end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
-{
-    bool A = func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2);
-    bool B = func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2);
-    bool C = func(&value->z, begin_value.z, end_value.z, time, begin, end, duration, e1, e2);
-    return A && B && C;
-}
-
-static bool tweenUpdater(poTweenBase::poTweenFunction func, 
-						 poColor *value, poColor begin_value, poColor end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
-{
-	poHSVColor hsv1, hsv2(begin_value), hsv3(end_value);
-	bool d1 = func(&hsv1.H, hsv2.H, hsv3.H, time, begin, end, duration, e1, e2);
-	bool d2 = func(&hsv1.S, hsv2.S, hsv3.S, time, begin, end, duration, e1, e2);
-	bool d3 = func(&hsv1.V, hsv2.V, hsv3.V, time, begin, end, duration, e1, e2);
-	*value = poColor(hsv1);
-	return d1 && d2 && d3;
-}
 
 

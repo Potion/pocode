@@ -101,7 +101,6 @@ public:
 	bool                    strokeEnabled;
 	bool                    useSimpleStroke;
 	bool                    closed;
-	bool                    alphaTestTexture;
     
     // SHAPE SPECIFIC TWEEN
     // In addition to the five tweens in poObject, poShape2D has a special tween for the fillColor.

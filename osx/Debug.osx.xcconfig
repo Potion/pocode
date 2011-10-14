@@ -37,4 +37,4 @@ BZ2					= $(LIBRARIES)/bz2
 PUGIXML				= $(LIBRARIES)/pugixml
 SQLITE				= /usr/lib/libsqlite3.0.dylib
 LIBRARIES_CMD		= -lboost -lfreeimage -ltinyxpath -lfreetype -lMikko -lbz2 -lpugixml_d $(SQLITE)
-FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
+FRAMEWORKS_CMD		= -framework Foundation -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo

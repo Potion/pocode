@@ -10,6 +10,7 @@
 #include "poRect.h"
 #include "poImage.h"
 #include "poTexture.h"
+#include "poResource.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -34,11 +35,12 @@ typedef std::map<std::string, poFont*> poFontMap;
 //
 // 
 
-class poFont
+class poFont : public poResource
 {
-	friend class        poFontLoader;
-	
 public:
+	poFont();
+	poFont(const std::string &family_or_url, const std::string &style);
+	
 	virtual             ~poFont();
 	
     // FONT LOADING
@@ -81,25 +83,16 @@ public:
 	std::string         toString() const;
 
 private:
-	poFont();
-	poFont(const std::string &family_or_url, int pointSize, const std::string &style);
-
 	void                init();
 	void                loadGlyph(int g);
 	
-	boost::shared_ptr<FT_FaceRec_> face;
-
 	std::string         _url;
 	int size,           _glyph;
     
+	FT_Face				face;
     static FT_Library   lib;
 };
 
-// glyphs each have some padding built into the image
-// it has to be subtracted from the glyph origin before drawing
-const static int GLYPH_PADDING = 5;
-
 bool fontExists(const std::string &family_or_url);
-
 std::ostream &operator<<(std::ostream &o, const poFont &f);
 
