@@ -39,7 +39,7 @@ class poFont : public poResource
 {
 public:
 	poFont();
-	poFont(const std::string &family_or_url, const std::string &style);
+	poFont(const std::string &family_or_url, const std::string &style="");
 	
 	virtual             ~poFont();
 	
