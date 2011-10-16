@@ -142,6 +142,7 @@ void poWindow::update() {
 }
 
 void poWindow::draw() {
+    poEventCenter::get()->clearDrawOrderForObjectsWithEvents();
 	rootObject()->_drawTree();
 }
 
@@ -173,6 +174,9 @@ void poWindow::processEvents() {
 	if(received.empty())
 		return;
 	
+    // sort all event callbacks by draw order
+    poEventCenter::get()->sortCallbacksByDrawOrder();
+    
 	while(!received.empty()) {
         //Get Event
 		poEvent event = received.front();
@@ -181,17 +185,21 @@ void poWindow::processEvents() {
         
         //Check type, take appropriate action
         if(isTouchEvent(event.type) || isMouseEvent(event.type)) {
-           processInteractionEvent(event);
+            poEventCenter::get()->processMouseEvents(event);
+            //processInteractionEvent(event);
         }
         
         else if(isKeyEvent(event.type)) {
-            processKeyEvent(event);
+            poEventCenter::get()->processKeyEvents(event);
+            //processKeyEvent(event);
         }
         
         else if( event.type == PO_WINDOW_RESIZED_EVENT) {
                 // everyone who cares gets resize
                 // maybe this should be broadcast
-                poEventCenter::get()->notify(event);
+            
+                poEventCenter::get()->notifyAllListeners(event);
+                //poEventCenter::get()->notify(event);
         }
         
         else {

@@ -236,10 +236,12 @@ public:
 	float               appliedAlpha() const; 	
     poMatrixSet         matrixSet() const;
 	int                 drawOrder() const;
+    void                clearDrawOrder() { draw_order = -1; };
 	
     static const int    INVALID_INDEX = -1;
     //@}
     
+    poEventMemory       eventMemory;
     
 protected:
     

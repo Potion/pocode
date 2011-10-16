@@ -387,6 +387,7 @@ float			poObject::appliedAlpha() const{return true_alpha;}
 poMatrixSet     poObject::matrixSet() const {return matrices;}
 int				poObject::drawOrder() const {return draw_order;}
 
+
 void poObject::_drawTree() {
 	if(!visible)
 		return;
