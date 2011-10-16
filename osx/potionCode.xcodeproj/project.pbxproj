@@ -95,7 +95,7 @@
 		E851C27D1448DDCE0018FB34 /* poGeometryMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E851C27B1448DDCE0018FB34 /* poGeometryMask.cpp */; };
 		E851C27E1448DDCE0018FB34 /* poGeometryMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E851C27B1448DDCE0018FB34 /* poGeometryMask.cpp */; };
 		E851C27F1448DDCE0018FB34 /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E851C27C1448DDCE0018FB34 /* poGeometryMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E851C2801448DDCE0018FB34 /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E851C27C1448DDCE0018FB34 /* poGeometryMask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E851C2801448DDCE0018FB34 /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E851C27C1448DDCE0018FB34 /* poGeometryMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E86F939413F987FC00D924F0 /* poMatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939013F987FC00D924F0 /* poMatrixStack.cpp */; };
 		E86F939613F987FC00D924F0 /* poMatrixStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939113F987FC00D924F0 /* poMatrixStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
