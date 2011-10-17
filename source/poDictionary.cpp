@@ -17,6 +17,17 @@ std::vector<std::string> poDictionary::keys() const {
 	return response;
 }
 
+poDictionary& poDictionary::appendDictionaryElements(const poDictionary &dict){
+    std::vector<std::string> keys = dict.keys();
+    std::vector<std::string>::const_iterator i;
+    for(i=keys.begin(); i!=keys.end(); ++i) {
+        poProperty thisProperty = dict.getProperty(*i);
+        this->setProperty(*i, thisProperty);
+    }
+    
+    return *this;
+}
+
 bool poDictionary::read(const fs::path &url) {
 	if(!fs::exists(url) || !fs::is_regular_file(url))
 		return false;
