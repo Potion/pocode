@@ -9,11 +9,12 @@
 #include "ImageLoader.h"
 #include "Helpers.h"
 
-ImageLoader::Worker::Worker(ImageLoader *l, const std::string &u, poObject *n) 
+ImageLoader::Worker::Worker(ImageLoader *l, const std::string &u, poObject *n, const poDictionary &dictionary) 
 :	loader(l)
 ,	url(u)
 ,	toNotify(n)
 ,	image(NULL)
+,   dict(dictionary)
 {}
 	
 void ImageLoader::Worker::operator()() {
@@ -44,8 +45,8 @@ ImageLoader::~ImageLoader() {
 	threads.join_all();
 }
 
-void ImageLoader::loadImage(const fs::path &url, poObject *notice) {
-	ImageLoader::Worker worker(this, url.c_str(), notice);
+void ImageLoader::loadImage(const fs::path &url, poObject *notice, const poDictionary &dict) {
+	ImageLoader::Worker worker(this, url.c_str(), notice, dict);
 	service.post(worker);
 }
 
@@ -55,14 +56,16 @@ void ImageLoader::update() {
 		if(iter->image) 
 			iter->toNotify->messageHandler(ImageLoadSuccessMessage, 
 										   poDictionary()
-											   .setPtr("image", iter->image)
-											   .setFloat("elapsed", iter->elapsed));
+                                                .setPtr("image", iter->image)
+                                                .setFloat("elapsed", iter->elapsed)
+                                                .appendDictionaryElements(iter->dict));
 		else
 			iter->toNotify->messageHandler(ImageLoadFailureMessage,
 										   poDictionary()
-											   .setString("url", iter->url)
-											   .setString("error", iter->error)
-											   .setFloat("elapsed", iter->elapsed));
+                                                .setString("url", iter->url)
+                                                .setString("error", iter->error)
+                                                .setFloat("elapsed", iter->elapsed)
+                                                .appendDictionaryElements(iter->dict));
 		iter = completed.erase(iter);
 	}
 }
