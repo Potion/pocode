@@ -31,7 +31,6 @@ PlaceTextureApp::~PlaceTextureApp() {
 }
 
 void PlaceTextureApp::eventHandler(poEvent *event) {
-
 	static bool toggle = false;
 	static poTexture *tex = NULL;
 

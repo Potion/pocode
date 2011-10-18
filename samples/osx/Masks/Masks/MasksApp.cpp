@@ -1,13 +1,13 @@
 #include "MasksApp.h"
 
-#include "poMask.h"
 #include "Helpers.h"
 #include "poCamera.h"
 #include "poTextBox.h"
 #include "poDictionary.h"
 #include "poApplication.h"
+#include "poGeometryMask.h"
 #include "poShapeBasics2D.h"
-#include "poResourceStore.h"
+#include "poResourceLoader.h"
 
 
 poObject *createObjectForID(uint uid) {
@@ -35,9 +35,9 @@ MasksApp::MasksApp() {
 	// register to receive key events
 //	addEvent(PO_KEY_DOWN_EVENT, this);
 
-	setupSurprise();
-//	setupAperture();
-//	setupInstructions();
+//	setupSurprise();
+	setupAperture();
+	setupInstructions();
 	
 	// and start the animation
 //	start();
@@ -69,27 +69,27 @@ void MasksApp::eventHandler(poEvent *event) {
 }
 
 void MasksApp::setupSurprise() {
-	// load an image
-	poRectShape *img = new poRectShape("PandaBaby9911.jpeg");
-	addChild(img);
-	
-	
-	// add an image-based mask to the thing
-	img->addModifier(new poImageMask("mask.jpg"));
-	
-	// reposition the surprise by clicking and dragging
-	img->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-	img->addEvent(PO_MOUSE_DRAG_EVENT, this);
-	
-	// check the settings dictionary for where to put the thing
-	poDictionary *common = poCommon::get();
-	std::string key = "panda position";
-	
-	poPoint location(0,0);
-	// if the settings has it
-	if(common->has(key))
-		// move the panda to the right spot
-		img->position = common->getPoint(key);
+//	// load an image
+//	poRectShape *img = new poRectShape("PandaBaby9911.jpeg");
+//	addChild(img);
+//	
+//	
+//	// add an image-based mask to the thing
+//	img->addModifier(new poImageMask("mask.jpg"));
+//	
+//	// reposition the surprise by clicking and dragging
+//	img->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
+//	img->addEvent(PO_MOUSE_DRAG_EVENT, this);
+//	
+//	// check the settings dictionary for where to put the thing
+//	poDictionary *common = poCommon::get();
+//	std::string key = "panda position";
+//	
+//	poPoint location(0,0);
+//	// if the settings has it
+//	if(common->has(key))
+//		// move the panda to the right spot
+//		img->position = common->getPoint(key);
 }
 
 void MasksApp::setupAperture() {
@@ -130,16 +130,15 @@ void MasksApp::setupAperture() {
 	// apply the mask
 	holder->addModifier(mask);
 
-	// i'm sticking the circle into the tree so it will get cleaned up when the app exits
-	circle->visible = false;
-	holder->addChild(circle);
+//	holder->addChild(circle);
 }
 
 void MasksApp::setupInstructions() {
 	poTextBox *text = new poTextBox(200,200);
 	addChild(text);
 	
-	text->font(getFont("Lucida Grande", 20));
+	text->font(getFont("Lucida Grande"));
+	text->textSize(20);
 	text->text("'⌘-o' to open\n'⌘-c' to close\n");
 	text->layout();
 }

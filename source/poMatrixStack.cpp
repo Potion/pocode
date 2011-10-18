@@ -8,8 +8,6 @@ poMatrixStack::poMatrixStack() {
 	projection.push(ortho<float>(-1, 1, -1, 1, -1, 1));
 	modelview.push(mat4());
 	viewport.push(getWindowBounds());
-	
-	glEnable(GL_SCISSOR_TEST);
 }
 
 void poMatrixStack::pushModelview()		{modelview.push(modelview.top());}
