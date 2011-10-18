@@ -39,8 +39,8 @@ public:
         lastDragID = -1;
     }
     
-    int     lastInsideTouchID;
-    int     lastDragID;
+    int     lastInsideTouchID;      // for emter / leave
+    int     lastDragID;             // for dragging
 };
 
 class poEventCenter {
