@@ -16,10 +16,11 @@ poOpenGLState::poOpenGLState()
 :	color(poColor::white)
 {
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &max_vert_attribs);
-#ifndef OPENGL_ES
-	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &max_color_attachments);
-	glGetIntegerv(GL_MAX_SAMPLES_EXT, &max_fbo_samples);
-#endif
+
+    #ifndef OPENGL_ES
+        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &max_color_attachments);
+        glGetIntegerv(GL_MAX_SAMPLES_EXT, &max_fbo_samples);
+    #endif
 }
 
 poOpenGLState *poOpenGLState::get() {
@@ -132,10 +133,11 @@ GLint poOpenGLState::maxVertexAttribs() {
 }
 
 GLint poOpenGLState::maxFBOSamples() {
-	
+	return max_fbo_samples;
 }
 
 GLint poOpenGLState::maxColorAttachments() {
+	return max_color_attachments;
 }
 
 void poOpenGLState::pushStencilState() {

@@ -9,11 +9,23 @@
 #include "poFBO.h"
 #include "poOpenGLState.h"
 
-poFBOConfig::poFBOConfig() {}
+poFBOConfig::poFBOConfig()
+:	numMultisamples(0)
+{}
 
-poFBOConfig &poFBOConfig::setColorConfig(const poTextureConfig &config) {
-	colorConfig = config;
+poFBOConfig &poFBOConfig::setNumMultisamples(uint nm) {
+	numMultisamples = nm;
 	return *this;
+}
+
+poFBO::poFBO(uint w, uint h) 
+:	width(w)
+,	height(h)
+,	cam(new poCamera2D())
+,	multisampling(false)
+{
+	cam->fixedSize(true, poPoint(w,h));
+	setup();
 }
 
 poFBO::poFBO(uint w, uint h, const poFBOConfig &c)
@@ -21,8 +33,8 @@ poFBO::poFBO(uint w, uint h, const poFBOConfig &c)
 ,	height(h)
 ,	config(c)
 ,	cam(new poCamera2D())
+,	multisampling(false)
 {
-	uids[0] = 0;
 	cam->fixedSize(true, poPoint(w,h));
 	setup();
 }
@@ -33,7 +45,7 @@ poFBO::~poFBO() {
 }
 
 bool poFBO::isValid() const {
-	return uids[0] > 0;
+	return !framebuffers.empty() && framebuffers[0] > 0;
 }
 
 void poFBO::setCamera(poCamera *camera) {
@@ -61,41 +73,83 @@ poTexture *poFBO::depthTexture() const {
 }
 
 void poFBO::doSetUp(poObject* obj) {
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 	cam->setUp(obj);
-	glBindFramebuffer(GL_FRAMEBUFFER, uids[0]);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA);
 }
 
 void poFBO::doSetDown(poObject* obj) {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	cam->setDown(obj);
+	
+	if(multisampling) {
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
+		glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+	}
+	
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void poFBO::setup() {
-	glGenFramebuffers(1, uids);
-	glBindFramebuffer(GL_FRAMEBUFFER, uids[0]);
-	
-	colorTex = new poTexture(width, height, NULL, config.colorConfig);
-	glBindTexture(GL_TEXTURE_2D, colorTex->uid);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex->uid, 0);
-	
-	GLenum ok = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-	if(ok != GL_FRAMEBUFFER_COMPLETE) {
-		printf("framebuffer setup failed: %d\n", ok);
-		cleanup();
-		return;
+	int maxSamples =  poOpenGLState::get()->maxFBOSamples();
+	if(config.numMultisamples && maxSamples) {
+		if(config.numMultisamples > maxSamples)
+			config.numMultisamples = maxSamples;
+		
+		multisampling = true;
+
+		renderbuffers.resize(1);
+		glGenRenderbuffers(1, &renderbuffers[0]);
+		
+		// this is the multisample render buffer
+		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[0]);
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
+
+		// we need 2 different framebuffers
+		framebuffers.resize(2);
+		glGenFramebuffers(2, &framebuffers[0]);
+		// the first is the multisample buffer
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
+
+		// make the texture
+		colorTex = new poTexture(width,height,NULL,poTextureConfig(GL_RGBA));
+		// and attach it to the second framebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex->uid, 0);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	else {
+		if(config.numMultisamples)
+			printf("unable to do framebuffer multisampling\n");
+		
+		// make the texture, which is also the color render buffer
+		colorTex = new poTexture(width, height, NULL, poTextureConfig(GL_RGBA));
+
+		// we only need the one framebuffer
+		framebuffers.resize(1);
+		glGenFramebuffers(1, &framebuffers[0]);
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex->uid, 0);
+		
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
 }
 
 void poFBO::cleanup() {
-	delete colorTex; colorTex = NULL;
+	if(colorTex) {
+		delete colorTex; 
+		colorTex = NULL;
+	}
 
-	glDeleteFramebuffers(1, &uids[0]);
-	uids[0] = 0;
+	// make sure none of this is bound right now
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
+	glDeleteFramebuffers(framebuffers.size(), &framebuffers[0]);
+	glDeleteRenderbuffers(renderbuffers.size(), &renderbuffers[0]);
+	framebuffers[0] = 0;
 }
 
 

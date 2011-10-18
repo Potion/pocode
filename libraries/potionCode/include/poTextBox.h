@@ -9,11 +9,13 @@
 #pragma once
 
 #include "poObject.h"
-#include "poTexture.h"
 #include "TextBoxLayout.h"
 
 #include "poFont.h"
 #include "poBitmapFont.h"
+
+// for caching
+class poFBO;
 
 static const std::string PO_TEXT_REGULAR = "";
 static const std::string PO_TEXT_ITALIC = "i";
@@ -45,7 +47,7 @@ enum {
 //
 // The text that is passed into the text() method may be formatted using basic HTML tags as follows:
 //
-//      TB-text( "This is in <b>bold</b>. <font face='Helvetica' style='Regular' size='10>This</font> is in <i>italic</i>." );
+//      TB-text( "This is in <b size='10'>bold</b>.This is in <i>italic</i>." );
 //
 // You will also need to specify the bold and italic fonts explicitly using the font method.
 // The richText setting must be on to see the effects on the text.
@@ -155,7 +157,7 @@ private:
 	bool				cache_to_texture;
 	poAlignment         text_align;
 	po::TextBoxLayout   _layout;
-	poTexture			*cached;
+	poFBO				*cached;
 };
 
 
