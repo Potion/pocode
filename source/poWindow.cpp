@@ -184,14 +184,16 @@ void poWindow::processEvents() {
 		received.pop_front();
         
         //Check type, take appropriate action
-        if(isTouchEvent(event.type) || isMouseEvent(event.type)) {
+        if(isMouseEvent(event.type)) {
             poEventCenter::get()->processMouseEvents(event);
-            //processInteractionEvent(event);
+        }
+        
+        if(isTouchEvent(event.type)) {
+            poEventCenter::get()->processTouchEvents(event);
         }
         
         else if(isKeyEvent(event.type)) {
             poEventCenter::get()->processKeyEvents(event);
-            //processKeyEvent(event);
         }
         
         else if( event.type == PO_WINDOW_RESIZED_EVENT) {
@@ -442,7 +444,6 @@ void poWindow::touchBegin(int x, int y, int uid, int tapCount )
 	
 	event.type = PO_TOUCH_BEGAN_EVERYWHERE_EVENT;
 	received.push_back(event);
-    
 }
 
 
