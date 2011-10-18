@@ -14,14 +14,15 @@
 
 struct poFBOConfig {
 	poFBOConfig();
-	poFBOConfig &setColorConfig(const poTextureConfig &config);
+	poFBOConfig &setNumMultisamples(uint numMultisamples);
 	
-	poTextureConfig colorConfig;
+	uint numMultisamples;
 };
 
 class poFBO : public poObjectModifier
 {
 public:
+	poFBO(uint w, uint h);
 	poFBO(uint w, uint h, const poFBOConfig &config);
 	virtual ~poFBO();
 	
@@ -45,10 +46,13 @@ protected:
 	void cleanup();
 	
 private:
-	GLuint uids[1];
+	std::vector<GLuint> framebuffers;
+	std::vector<GLuint> renderbuffers;
 	
 	poCamera *cam;
 	poTexture *colorTex;
+	
+	bool multisampling;
 };
 
 

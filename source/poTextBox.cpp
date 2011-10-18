@@ -8,10 +8,11 @@
 
 using namespace std;
 
+#include "poFBO.h"
 #include "poTextBox.h"
 #include "SimpleDrawing.h"
-#include "poShapeBasics2D.h"
 #include "poOpenGLState.h"
+#include "poShapeBasics2D.h"
 #include "poResourceLoader.h"
 
 #include <float.h>
@@ -197,37 +198,29 @@ void poTextBox::layout() {
 }
 
 void poTextBox::draw() {
-	// store the cached text box until we can get it into a texture
-    poImage *cache_img = NULL;
-	
+	if(cached) {
+		po::setColor(poColor::white);
+		po::drawRect(cached->colorTexture());
+		return;
+	}
+
 	// if we're caching but haven't made the image yet
-	if(cache_to_texture) {
-		if(!cached) {
-			// make sure its big enough
-			poRect bounds = getBounds();
-			bounds.include(textBounds());
-			cache_img = new poImage(bounds.width, bounds.height, 1, NULL);
-		}
-		else {
-			// doesn't handle color in rich text at all
-			po::setColor(poColor(textColor,appliedAlpha()));
-			// draw the cached texture
-			po::drawRect(cached);
-			// and stop processing RIGHT NOW
-			return;
-		}
+	if(cache_to_texture && !cached) {
+		// make sure its big enough
+		poRect bounds = getBounds();
+		bounds.include(textBounds());
+		
+		cached = new poFBO(bounds.width, bounds.height, poFBOConfig().setNumMultisamples(4));
+		cached->setUp(this);
 	}
 	
 	poBitmapFont *regFont = getBitmapFont(font(), _layout.textSize);
 	poBitmapFont *bitmapFont = regFont;
 	
-    if ( _layout.isRichText )
-    {
+    if ( _layout.isRichText ) {
 		int count = 0;
-		for(int i=0; i<numLines(); i++) 
-		{
-			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.getLine(i).glyphs) 
-			{
+		for(int i=0; i<numLines(); i++) {
+			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.getLine(i).glyphs) {
 				po::setColor(poColor(textColor, appliedAlpha()));
 				
 				poDictionary dict = _layout.textPropsAtIndex(count);
@@ -253,43 +246,21 @@ void poTextBox::draw() {
 				
 				// very well, now draw it
 				bitmapFont->drawUID( glyph.glyph, glyph.bbox.getPosition() ); 
-				
-				// if we're in the process of caching this
-				if(cache_img) {
-					// get the image for this glyph
-					poImage *glyph_img = bitmapFont->font()->glyphImage();
-					// and composite it in
-					cache_img->composite(glyph_img, glyph.bbox.getPosition(), 1.f);
-					delete glyph_img;
-				}
 			}
 		}
     }
     else {
 		po::setColor( poColor(textColor, appliedAlpha()) );
 		
-        for(int i=0; i<numLines(); i++) 
-        {
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) 
-            {
+        for(int i=0; i<numLines(); i++) {
+            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
                 bitmapFont->drawUID( glyph.glyph, glyph.bbox.getPosition() ); 
-				
-				// i guess we're caching right now
-				if(cache_img) {
-					font()->pointSize(_layout.textSize);
-					font()->glyph(glyph.glyph);
-					poImage *img = font()->glyphImage();
-
-					cache_img->composite(img, glyph.bbox.getPosition(), 1.f);
-					delete img;
-				}
             }
         }
     }
 	
-	if(cache_img) {
-		cached = new poTexture(cache_img, poTextureConfig(GL_ALPHA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
-		delete cache_img; cache_img = NULL;
+	if(cache_to_texture) {
+		cached->setDown(this);
 	}
 }
 
