@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8F885E1144DC08600EF43D7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8F885E0144DC08600EF43D7 /* AppDelegate.mm */; };
+		E8F885E3144DC08600EF43D7 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8F885E2144DC08600EF43D7 /* en.strings */; };
+		E8F885E5144DC08600EF43D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F885E4144DC08600EF43D7 /* main.m */; };
+		E8F885E7144DC08700EF43D7 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8F885E6144DC08700EF43D7 /* main.pch */; };
+		E8F885EA144DC08700EF43D7 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8F885E9144DC08700EF43D7 /* main.xib */; };
+		E8F885ED144DC08700EF43D7 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8F885EC144DC08700EF43D7 /* poOpenGLView.mm */; };
+		E8F885F1144DC08700EF43D7 /* PlaceTextureApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F885F0144DC08700EF43D7 /* PlaceTextureApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8F885D8144DC08600EF43D7 /* PlaceTexture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceTexture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F885DD144DC08600EF43D7 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8F885DE144DC08600EF43D7 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8F885DF144DC08600EF43D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8F885E0144DC08600EF43D7 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8F885E2144DC08600EF43D7 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8F885E4144DC08600EF43D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8F885E6144DC08700EF43D7 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8F885E8144DC08700EF43D7 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8F885E9144DC08700EF43D7 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8F885EB144DC08700EF43D7 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8F885EC144DC08700EF43D7 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8F885EF144DC08700EF43D7 /* PlaceTextureApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceTextureApp.h; sourceTree = "<group>"; };
+		E8F885F0144DC08700EF43D7 /* PlaceTextureApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlaceTextureApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8F885D5144DC08600EF43D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8F885CD144DC08600EF43D7 = {
+			isa = PBXGroup;
+			children = (
+				E8F885DB144DC08600EF43D7 /* PlaceTexture */,
+				E8F885D9144DC08600EF43D7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8F885D9144DC08600EF43D7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8F885D8144DC08600EF43D7 /* PlaceTexture.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8F885DB144DC08600EF43D7 /* PlaceTexture */ = {
+			isa = PBXGroup;
+			children = (
+				E8F885DC144DC08600EF43D7 /* platform */,
+				E8F885EE144DC08700EF43D7 /* application */,
+			);
+			path = PlaceTexture;
+			sourceTree = "<group>";
+		};
+		E8F885DC144DC08600EF43D7 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8F885DD144DC08600EF43D7 /* Debug.xcconfig */,
+				E8F885DE144DC08600EF43D7 /* Release.xcconfig */,
+				E8F885DF144DC08600EF43D7 /* AppDelegate.h */,
+				E8F885E0144DC08600EF43D7 /* AppDelegate.mm */,
+				E8F885E2144DC08600EF43D7 /* en.strings */,
+				E8F885E4144DC08600EF43D7 /* main.m */,
+				E8F885E6144DC08700EF43D7 /* main.pch */,
+				E8F885E8144DC08700EF43D7 /* main.plist */,
+				E8F885E9144DC08700EF43D7 /* main.xib */,
+				E8F885EB144DC08700EF43D7 /* poOpenGLView.h */,
+				E8F885EC144DC08700EF43D7 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8F885EE144DC08700EF43D7 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8F885EF144DC08700EF43D7 /* PlaceTextureApp.h */,
+				E8F885F0144DC08700EF43D7 /* PlaceTextureApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8F885D7144DC08600EF43D7 /* PlaceTexture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8F885F4144DC08700EF43D7 /* Build configuration list for PBXNativeTarget "PlaceTexture" */;
+			buildPhases = (
+				E8F885D4144DC08600EF43D7 /* Sources */,
+				E8F885D5144DC08600EF43D7 /* Frameworks */,
+				E8F885D6144DC08600EF43D7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlaceTexture;
+			productName = PlaceTexture;
+			productReference = E8F885D8144DC08600EF43D7 /* PlaceTexture.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8F885CF144DC08600EF43D7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8F885D2144DC08600EF43D7 /* Build configuration list for PBXProject "PlaceTexture" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8F885CD144DC08600EF43D7;
+			productRefGroup = E8F885D9144DC08600EF43D7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8F885D7144DC08600EF43D7 /* PlaceTexture */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8F885D6144DC08600EF43D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F885E3144DC08600EF43D7 /* en.strings in Resources */,
+				E8F885E7144DC08700EF43D7 /* main.pch in Resources */,
+				E8F885EA144DC08700EF43D7 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8F885D4144DC08600EF43D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F885E1144DC08600EF43D7 /* AppDelegate.mm in Sources */,
+				E8F885E5144DC08600EF43D7 /* main.m in Sources */,
+				E8F885ED144DC08700EF43D7 /* poOpenGLView.mm in Sources */,
+				E8F885F1144DC08700EF43D7 /* PlaceTextureApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8F885F2144DC08700EF43D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8F885DD144DC08600EF43D7 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8F885F3144DC08700EF43D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8F885DE144DC08600EF43D7 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8F885F5144DC08700EF43D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8F885F6144DC08700EF43D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8F885D2144DC08600EF43D7 /* Build configuration list for PBXProject "PlaceTexture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F885F2144DC08700EF43D7 /* Debug */,
+				E8F885F3144DC08700EF43D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8F885F4144DC08700EF43D7 /* Build configuration list for PBXNativeTarget "PlaceTexture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F885F5144DC08700EF43D7 /* Debug */,
+				E8F885F6144DC08700EF43D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8F885CF144DC08600EF43D7 /* Project object */;
+}

@@ -52,6 +52,7 @@ public:
 	poTexture(const std::string &url);
 	poTexture(poImage *img);
 	poTexture(poImage *img, const poTextureConfig &config);
+	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	~poTexture();
     
     // TEXTURE LOADING

@@ -233,7 +233,9 @@ void po::drawOval(float x, float y, float width, float height) {
 }
 
 void po::drawPoints(GLenum type, const std::vector<poPoint> &points) {
-	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->setTexture(po::TextureState());
+	ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
 
 	poBasicRenderer::get()->setFromState();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);

@@ -30,6 +30,7 @@ public:
 	// will push this new one on top
 	void pushProjection(const glm::mat4 &mat);
 	// will push this new one on top
+	void pushViewport();
 	void pushViewport(poRect r);
 
 	// restore the previous one
