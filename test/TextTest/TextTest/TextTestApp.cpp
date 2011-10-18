@@ -4,7 +4,7 @@
 #include "poTextBox.h"
 #include "poApplication.h"
 #include "SimpleDrawing.h"
-#include "poResourceStore.h"
+#include "poResourceLoader.h"
 
 poObject *createObjectForID(uint uid) {
 	return new TextTestApp();
@@ -23,12 +23,12 @@ poFont *reg, *italic, *bold, *bold_italic, *con_bold, *huge;
 TextTestApp::TextTestApp() {
 	addModifier(new poCamera2D());
 	
-	reg = getFont("Helvetica Neue", 30, "Regular");
-	italic = getFont("Helvetica Neue", 30, "Italic");
-	bold = getFont("Helvetica Neue", 30, "Bold");
-	bold_italic = getFont("Helvetica Neue", 30, "Bold Italic");
-	con_bold = getFont("Helvetica Neue", 30, "Condensed Bold");
-	huge = getFont("Helvetica Neue", 70, "a");
+	reg = getFont("Helvetica Neue", "Regular");
+	italic = getFont("Helvetica Neue", "Italic");
+	bold = getFont("Helvetica Neue", "Bold");
+	bold_italic = getFont("Helvetica Neue", "Bold Italic");
+	con_bold = getFont("Helvetica Neue", "Condensed Bold");
+	huge = getFont("Helvetica Neue", "a");
 		
 	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
 						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
@@ -51,6 +51,7 @@ TextTestApp::TextTestApp() {
 	tb->font(huge, "a");
 	tb->leading(.85f);
 	tb->text(text);
+	tb->textSize(30);
 	tb->layout();
 	
 //	tb->drawBounds = PO_TEXT_BOX_STROKE_LINE;
