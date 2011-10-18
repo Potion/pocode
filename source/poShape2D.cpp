@@ -35,15 +35,12 @@ void poShape2D::draw() {
 			po::drawPoints(fillDrawStyle, points);
 		}
 	}
-	return;
 	
 	// do shape stroke
 	if(strokeEnabled) {
 		po::setColor(strokeColor, appliedAlpha());
 
 		if(useSimpleStroke) {
-            
-            std::cout << stroke_width << std::endl;
 			// use crappy OpenGL stroke
 			glLineWidth( stroke_width );
 			GLenum primitiveType = closed ? GL_LINE_LOOP : GL_LINE_STRIP;

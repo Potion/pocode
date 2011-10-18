@@ -97,6 +97,8 @@ public:
 	void setShader(po::ShaderState);
 	
 	GLint maxVertexAttribs();
+	GLint maxFBOSamples();
+	GLint maxColorAttachments();
 	
 	void pushStencilState();
 	void popStencilState();
@@ -116,7 +118,8 @@ public:
 private:
 	poOpenGLState();
 	
-	int max_vert_attribs;
+	int max_vert_attribs, max_fbo_samples, max_color_attachments;
+	
 	std::stack<po::StencilState> stencilStack;
 	std::stack<po::TextureState> textureStack;
 	std::stack<po::BlendState> blendStack;

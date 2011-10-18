@@ -96,6 +96,12 @@ poTexture::poTexture(poImage *img, const poTextureConfig &config)
 	load(img, config);
 }
 
+poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config) 
+:	uid(0)
+{
+	load(width, height, pixels, config);
+}
+
 poTexture::~poTexture() {
 	unload();
 }
@@ -209,7 +215,7 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.x / (float)rect.width;
 	float yoff = rect.y / (float)rect.height;
-	
+		
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / rect.width - xoff;
 		float t = points[i].y / rect.height - yoff;
@@ -231,12 +237,13 @@ void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }
@@ -258,12 +265,13 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }
@@ -284,12 +292,13 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }
