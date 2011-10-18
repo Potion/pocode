@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
-		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; };
-		7FBB4E3C144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; };
+		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FBB4E3C144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
 		E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F4B231426A6DB00D647A7 /* poSqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75F13D76F9100CBEB1C /* poBitmapFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -523,6 +525,8 @@
 			files = (
 				E851C2801448DDCE0018FB34 /* poGeometryMask.h in Headers */,
 				7FBB4E3C144B02BD0006A2A9 /* poEventCenter.h in Headers */,
+				AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */,
+				AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +864,7 @@
 				E8D8F311144C8DEA0077F6DA /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
