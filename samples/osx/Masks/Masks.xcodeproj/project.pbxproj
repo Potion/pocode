@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E87A9FB713B24E180048947D /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E87A9FB613B24E180048947D /* Debug.xcconfig */; };
-		E87A9FB913B24E180048947D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E87A9FB813B24E180048947D /* Release.xcconfig */; };
 		E87A9FBC13B24E180048947D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E87A9FBB13B24E180048947D /* AppDelegate.mm */; };
 		E87A9FBE13B24E180048947D /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E87A9FBD13B24E180048947D /* en.strings */; };
 		E87A9FC013B24E180048947D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E87A9FBF13B24E180048947D /* main.m */; };
@@ -124,6 +122,7 @@
 		E87A9FA813B24E180048947D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
 			buildConfigurationList = E87A9FAB13B24E180048947D /* Build configuration list for PBXProject "Masks" */;
@@ -148,8 +147,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E87A9FB713B24E180048947D /* Debug.xcconfig in Resources */,
-				E87A9FB913B24E180048947D /* Release.xcconfig in Resources */,
 				E87A9FBE13B24E180048947D /* en.strings in Resources */,
 				E87A9FC213B24E180048947D /* main.pch in Resources */,
 				E87A9FC513B24E180048947D /* main.xib in Resources */,
@@ -177,6 +174,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E87A9FB613B24E180048947D /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Debug;
 		};
@@ -184,6 +182,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E87A9FB813B24E180048947D /* Release.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Release;
 		};
