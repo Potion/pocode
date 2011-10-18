@@ -63,10 +63,6 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 			range.dict.setPtr("font", data->layout->font(node.name()));
 		}
 		
-		if(!strcmp("font", node.name())) {
-			range.dict.setString("font",node.first_attribute())
-		}
-		
 		if(!strcmp("u", node.name())) {
 			range.dict.setBool("u",true);
 		}
