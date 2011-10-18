@@ -39,8 +39,8 @@ public:
         lastDragID = -1;
     }
     
-    int     lastInsideTouchID;
-    int     lastDragID;
+    int     lastInsideTouchID;      // for emter / leave
+    int     lastDragID;             // for dragging
 };
 
 class poEventCenter {
@@ -92,6 +92,7 @@ public:
     
     poEventCallback*    findTopObjectUnderPoint( int eventType, poPoint P );
     void                processMouseEvents( poEvent Event );
+    void                processTouchEvents( poEvent Event );
     void                processKeyEvents( poEvent Event );
     
     void                sortCallbacksByDrawOrder();
