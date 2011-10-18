@@ -15,10 +15,6 @@
 void localizeEvent(poEvent &global_event, poEvent &tolocal) {
     tolocal.position       = global_event.position;
     
-    
-//	tolocal.local_position = localized_pt;
-    
-    
 	tolocal.keyChar            = global_event.keyChar;
 	tolocal.keyCode            = global_event.keyCode;
 	tolocal.modifiers          = global_event.modifiers;
@@ -26,12 +22,7 @@ void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	tolocal.timestamp          = global_event.timestamp;
 	tolocal.previous_position  = global_event.previous_position;
 	tolocal.touchID            = global_event.touchID;
-    
-    
-//	tolocal.source = stored.source;
-//	tolocal.dict = stored.dict;
-//    tolocal.message = stored.message;
-//	
+	
 	if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
 		// flip the coords so the local position can match the orientation of the global one
 		poPoint pt = tolocal.source->globalToLocal(poPoint(tolocal.position.x, getWindowHeight()-tolocal.position.y));
