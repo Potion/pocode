@@ -19,7 +19,10 @@ Threaded_Image_LoadingApp::Threaded_Image_LoadingApp() {
 	addModifier(new poCamera2D());
 	
 	for(int i=0; i<5; i++) {
-		loader.loadImage("Fang.jpg", this);
+		loader.loadImage("Fang.jpg", this,
+                            poDictionary()
+                                .setString("Test", "Testing " + poToString(i))
+                        );
 	}
 }
 
@@ -37,5 +40,6 @@ void Threaded_Image_LoadingApp::eventHandler(poEvent *event) {
 void Threaded_Image_LoadingApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 	poImage *img = dict.getPtr<poImage>("image");
 	std::cout << msg << ": " << img->url() << "(" << dict.getFloat("elapsed") << ")" << std::endl;
+    std::cout << dict.getString("Test") << std::endl;
 	delete img;
 }
