@@ -165,7 +165,8 @@ void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextu
 		
 	glGenTextures(1, &shared->uid);
 	glBindTexture(GL_TEXTURE_2D, shared->uid);
-	glPixelStorei(GL_PACK_ALIGNMENT, shared->channels);
+//	glPixelStorei(GL_PACK_ALIGNMENT, shared->channels);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, shared->config.minFilter);
