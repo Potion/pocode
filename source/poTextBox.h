@@ -81,8 +81,8 @@ public:
     //        TB->font( getFont("Courier Bold"), PO_TEXT_BOLD );
     //        TB->font( getFont("Courier Italic"), PO_TEXT_ITALIC );
 	// These fonts will be used where the <b> and <i> HTML tags appear in the text.
-	void                font(poFont *font, const std::string &name=PO_TEXT_REGULAR);
-	poFont*             font(const std::string &name=PO_TEXT_REGULAR);
+	void                font(poFont font, const std::string &name=PO_TEXT_REGULAR);
+	poFont				font(const std::string &name=PO_TEXT_REGULAR);
     
     // textAlignment may be set using one of the poAlignment enums found in "poEnums.h".
     // Commonly used settings are PO_ALIGN_TOP_LEFT, PO_ALIGN_TOP_CENTER and PO_ALIGN_CENTER_CENTER.

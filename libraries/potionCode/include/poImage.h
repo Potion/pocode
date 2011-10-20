@@ -35,37 +35,36 @@ struct FIBITMAP;
 // native size of the image.
 //
 
-class poImage : public poResource
+class poImage
 {
-friend std::ostream &operator<<(std::ostream &out, poImage *img);
+friend std::ostream &operator<<(std::ostream &out, const poImage &img);
 
 public:
 	poImage();
 	poImage(const std::string &url);
 	poImage(const std::string &url, uint numChannels);
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
-	virtual ~poImage();
 
-	poImage				*copy();
+	poImage				copy();
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;
-	uint                width() const;
-	uint                height() const;
-	uint				channels() const;
-	poPoint             dimensions() const;
-	uint                pitch() const;
-	uint                storageSize() const;
-	ubyte const         *pixels() const;
+	uint                getWidth() const;
+	uint                getHeight() const;
+	uint				getChannels() const;
+	poPoint             getDimensions() const;
+	uint                getPitch() const;
+	uint                getStorageSize() const;
 	
     // GET and SET PIXELS
+	ubyte const*		getPixels() const;
 	poColor             getPixel(poPoint p) const;
 	void                setPixel(poPoint p, poColor c);
 	void                setPixel(poPoint p, poColor c, int stamp_width);
 	
     // IMAGE OPERATIONS
-	void                changeChannelCount(uint numChannels);
-	void                composite(poImage *img, poPoint into, float blend);
+	void                setNumChannels(uint numChannels);
+	void                composite(poImage img, poPoint into, float blend);
 	void                blur(int kernel_size, float sigma, int stepMultiplier=1);
 	void                flip(poOrientation dir);
 	void				fill(poColor c);
@@ -79,16 +78,21 @@ public:
 	void                resize(float w, float h);
 	
 	// IMAGE URL, COULD BE ""
-	std::string         url() const;
+	std::string         getUrl() const;
 	
 private:
-
 	void                load(const std::string &url);
 	void                load(const std::string &url, uint c);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
-	FIBITMAP            *bitmap;
-	std::string         _url;
+	struct ImageImpl {
+		ImageImpl();
+		~ImageImpl();
+		
+		FIBITMAP            *bitmap;
+		std::string         url;
+	};
+	boost::shared_ptr<ImageImpl> shared;
 };
 
 

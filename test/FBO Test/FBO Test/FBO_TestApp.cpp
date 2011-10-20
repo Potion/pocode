@@ -29,7 +29,7 @@ FBO_TestApp::FBO_TestApp() {
 	poRectShape *shp = obj->addChild(new poRectShape(400,400));
 	shp->position.set(50,50,0);
 	shp->generateStroke(10, PO_STROKE_PLACE_CENTER, PO_STROKE_JOIN_ROUND);
-	shp->placeTexture(new poTexture(getImage("pitbull.jpeg"), poTextureConfig().setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR)));
+	shp->placeTexture(poTexture(getImage("pitbull.jpeg"), poTextureConfig().setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR)));
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }

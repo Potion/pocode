@@ -2,7 +2,7 @@
 #include "poWindow.h"
 
 #include "Helpers.h"
-#include "SimpleDrawing.h"
+#include "poOpenGLState.h"
 #include "poApplication.h"
 
 void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
@@ -106,7 +106,7 @@ bool poWindow::isFullscreen() const {
 poObject *poWindow::rootObject() {
 	if(!root) {
 		makeCurrent();
-		po::enableBlending();
+		poOpenGLState::get()->setBlend(po::BlendState::defaultBlending());
 		root = createObjectForID(root_id);
 	}
 	return root;

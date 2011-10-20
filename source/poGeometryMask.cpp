@@ -59,7 +59,7 @@ void poGeometryMask::doSetUp(poObject *obj) {
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		ogl->matrix.pushModelview();
         applyObjTransform(shape);
-		po::drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
+		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
 		ogl->matrix.popModelview();
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 

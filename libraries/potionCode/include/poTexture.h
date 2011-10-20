@@ -43,42 +43,50 @@ public:
 // poTexture's are also used in frame buffer objects (FBO's) and in video display.
 //
 
-class poTexture : public poResource
+class poTexture
 {
 public:
 	// this will make an imageless texture
 	// useful for when you just need to allocate space on the graphics card
 	poTexture();
 	poTexture(const std::string &url);
-	poTexture(poImage *img);
-	poTexture(poImage *img, const poTextureConfig &config);
+	poTexture(poImage img);
+	poTexture(poImage img, const poTextureConfig &config);
 	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
-	~poTexture();
     
-    // TEXTURE LOADING
-    // Textures must be loaded onto the graphics card before they are used.
-    // Textures may be removed from the graphcis card using the unload() method.
-	void                load(poImage *img);
-	void                load(poImage *img, const poTextureConfig &config);
+	void				replace(poImage image);
+	void				replace(const ubyte *pixels);
+	
+	bool                isValid() const;
+	poTextureConfig		getConfig() const;
+	uint				getUid() const;
+	uint				getWidth() const;
+	uint				getHeight() const;
+	uint				getChannels() const;
+	poPoint				getDimensions() const;
+	poRect				getBounds() const;
+	
+private:
+	void                load(poImage img);
+	void                load(poImage img, const poTextureConfig &config);
 	void				load(uint width, uint height, int channels, const ubyte *pixels);
-	// figures out the channel count from the requested format
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	void                unload();
-	bool                isLoaded() const;
 
-    // TEXTURE CONFIGURATION
-	// treat these as read-only
-    GLuint              uid;
-	float               s, t;
-	poTextureConfig     config;
-	uint				width, height, channels;
+	struct TextureImpl {
+		TextureImpl();
+		~TextureImpl();
+		poTextureConfig     config;
+		uint				uid, width, height, channels;
+	};
+	boost::shared_ptr<TextureImpl> shared;
 };
 
 
 // figures out tex coords to fit texture in rect
-std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
+std::vector<poPoint> textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align);
 // these do the same but make coordinates for each point in points array
 // returns texture coordinates thru coords
-void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 uint channelsForFormat(GLenum format);
 

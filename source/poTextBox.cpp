@@ -172,11 +172,11 @@ int poTextBox::tabWidth() const {
 	return _layout.tabWidth;
 }
 
-void poTextBox::font(poFont *f, const std::string &name) {
+void poTextBox::font(poFont f, const std::string &name) {
 	_layout.font(f,name);
 }
 
-poFont *poTextBox::font(const std::string &name) {
+poFont poTextBox::font(const std::string &name) {
 	return _layout.font(name);
 }
 
@@ -214,8 +214,8 @@ void poTextBox::draw() {
 		cached->setUp(this);
 	}
 	
-	poBitmapFont *regFont = getBitmapFont(font(), _layout.textSize);
-	poBitmapFont *bitmapFont = regFont;
+	poBitmapFont regFont = getBitmapFont(font(), _layout.textSize);
+	poBitmapFont bitmapFont = regFont;
 	
     if ( _layout.isRichText ) {
 		int count = 0;
@@ -232,9 +232,9 @@ void poTextBox::draw() {
 				
 				// a new font, perhaps?
 				if(dict.has("font")) {
-					poFont *theFont = dict.getPtr<poFont>("font");
+					poFont theFont = dict.getFont("font");
 					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : _layout.textSize;
-					poBitmapFont *newFont = getBitmapFont(theFont, fontSize);
+					poBitmapFont newFont = getBitmapFont(theFont, fontSize);
 					
 					if(newFont != bitmapFont) {
 						bitmapFont = newFont;
@@ -245,7 +245,7 @@ void poTextBox::draw() {
 				}
 				
 				// very well, now draw it
-				bitmapFont->drawUID( glyph.glyph, glyph.bbox.getPosition() ); 
+				bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
 			}
 		}
     }
@@ -254,7 +254,7 @@ void poTextBox::draw() {
 		
         for(int i=0; i<numLines(); i++) {
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
-                bitmapFont->drawUID( glyph.glyph, glyph.bbox.getPosition() ); 
+                bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
     }

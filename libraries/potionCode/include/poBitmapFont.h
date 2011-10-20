@@ -18,17 +18,25 @@
 //		bitmapFont->cacheUID('a');
 // 
 
-class poBitmapFont : public poTextureAtlas {
+class poBitmapFont : public poFont {
+	friend bool operator==(const poBitmapFont& f1, const poBitmapFont& f2);
+	friend bool operator!=(const poBitmapFont& f1, const poBitmapFont& f2);
+
 public:
-	poBitmapFont(poFont *font, int pointSize=0);
+	poBitmapFont();
+	poBitmapFont(poFont font, int pointSize);
+	poBitmapFont(const std::string &fam, int pointSize, const std::string &style="");
+
+	void	drawGlyph(int glyph, const poPoint &at);
 	
-	poFont const* font();
-
-	uint pointSize() const;
-	void cacheUID(uint codepoint);
-
 private:
-	int size;
-	poFont *_font;
+	void	setPointSize(int size) {}
+	void	cacheGlyph(int glyph);
+	
+	struct BitmapFontImpl {
+		BitmapFontImpl();
+		~BitmapFontImpl();
+		poTextureAtlas atlas;
+	};
+	boost::shared_ptr<BitmapFontImpl> shared;
 };
-
