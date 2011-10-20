@@ -110,7 +110,7 @@ poSqlite3Result poSqlite3::query(std::string query) {
                             dict.set(colName, (float)sqlite3_column_double(statement, col));
                             break;
                         case SQLITE_TEXT:
-                            dict.set(colName, (char*)sqlite3_column_text(statement, col));
+                            dict.set(colName, std::string((char*)sqlite3_column_text(statement, col)));
                             break;
                     }
                 }
