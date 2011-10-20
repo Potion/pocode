@@ -463,7 +463,7 @@ void    poEventCenter::processTouchEvents( poEvent Event )
     // also handles last part of PO_MOUSE_DRAG_EVENT
     if ( Event.type == PO_TOUCH_ENDED_EVERYWHERE_EVENT )
     {
-        // find single object to receive PO_MOUSE_UP_INSIDE_EVENT
+        // find single object to receive PO_TOUCH_ENDED_INSIDE_EVENT
         sentEvent.type = PO_TOUCH_ENDED_INSIDE_EVENT;
         
         poEventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_ENDED_INSIDE_EVENT, Event.position );
@@ -559,27 +559,18 @@ bool sortCallbacksByDrawOrderFunc(poEventCallback* a, poEventCallback* b) {
 
 void    poEventCenter::sortCallbacksByDrawOrder()
 {
-    /*      type == PO_MOUSE_UP_INSIDE_EVENT		||
-			type == PO_MOUSE_UP_OUTSIDE_EVENT		||
-			type == PO_MOUSE_UP_EVERYWHERE_EVENT	||
-			type == PO_MOUSE_DOWN_INSIDE_EVENT		||
-			type == PO_MOUSE_DOWN_OUTSIDE_EVENT		||
-			type == PO_MOUSE_DOWN_EVERYWHERE_EVENT	||
-			type == PO_MOUSE_MOVE_EVENT				||
-			type ==	PO_MOUSE_DRAG_EVENT				||
-			type == PO_MOUSE_DRAG_EVERYWHERE_EVENT	||
-			type == PO_MOUSE_ENTER_EVENT			||
-			type == PO_MOUSE_OVER_EVENT				||
-			type == PO_MOUSE_LEAVE_EVENT);*/
-    
     // sort only event callback vectors where order matters
     std::sort( events[PO_MOUSE_UP_INSIDE_EVENT].begin(), events[PO_MOUSE_UP_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
-
     std::sort( events[PO_MOUSE_DOWN_INSIDE_EVENT].begin(), events[PO_MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
-
     std::sort( events[PO_MOUSE_DRAG_EVENT].begin(), events[PO_MOUSE_DRAG_EVENT].end(), sortCallbacksByDrawOrderFunc );
-    
     std::sort( events[PO_MOUSE_OVER_EVENT].begin(), events[PO_MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
+    
+    std::sort( events[PO_TOUCH_BEGAN_INSIDE_EVENT].begin(), events[PO_TOUCH_BEGAN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+    std::sort( events[PO_TOUCH_ENDED_INSIDE_EVENT].begin(), events[PO_TOUCH_ENDED_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+    
+    //Touch Over + Drag not implemented
+    //std::sort( events[PO_MOUSE_DRAG_EVENT].begin(), events[PO_MOUSE_DRAG_EVENT].end(), sortCallbacksByDrawOrderFunc );
+    //std::sort( events[PO_MOUSE_OVER_EVENT].begin(), events[PO_MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
 
 }
 
