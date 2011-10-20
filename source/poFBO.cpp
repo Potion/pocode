@@ -9,13 +9,6 @@
 #include "poFBO.h"
 #include "poOpenGLState.h"
 
-#ifdef OPENGL_ES
-	#ifdef POTION_IOS
-	#define GL_READ_FRAMEBUFFER GL_READ_FRAMEBUFFER_APPLE
-	#define GL_DRAW_FRAMEBUFFER GL_DRAW_FRAMEBUFFER_APPLE
-	#endif
-#endif
-
 poFBOConfig::poFBOConfig()
 :	numMultisamples(0)
 {}
@@ -86,17 +79,21 @@ void poFBO::doSetUp(poObject* obj) {
 
 void poFBO::doSetDown(poObject* obj) {
 	cam->setDown(obj);
-#ifndef OPENGL_ES
 	if(multisampling) {
-		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
+	#ifdef OPENGL_ES
 		#ifdef POTION_IOS
+			glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, framebuffers[0]);
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, framebuffers[1]);
 			glResolveMultisampleFramebufferAPPLE();
 		#else
-			glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+			#pragma warning non-ios opengl es fbo multisample implementation incomplete
 		#endif
+	#else
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
+		glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+	#endif
 	}
-#endif
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -114,11 +111,11 @@ void poFBO::setup() {
 		
 		// this is the multisample render buffer
 		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[0]);
-#ifdef POTION_IOS
-		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8_OES, width, height);
-#else
-		glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
-#endif
+		#ifdef POTION_IOS
+			glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8_OES, width, height);
+		#else
+			glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
+		#endif
 		// we need 2 different framebuffers
 		framebuffers.resize(2);
 		glGenFramebuffers(2, &framebuffers[0]);
@@ -132,7 +129,8 @@ void poFBO::setup() {
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
 		
-		GLenum ok = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

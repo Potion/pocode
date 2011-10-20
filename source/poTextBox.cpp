@@ -24,7 +24,6 @@ poTextBox::poTextBox()
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 }
@@ -36,7 +35,6 @@ poTextBox::poTextBox(int w)
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 	setWidth(w);
@@ -49,7 +47,6 @@ poTextBox::poTextBox(int w, int h)
 ,	fit_height_to_bounds(false)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 	setWidth(w);
@@ -62,10 +59,7 @@ void poTextBox::defaultFonts() {
 #endif
 }
 
-poTextBox::~poTextBox() {
-	if(cached)
-		delete cached;
-}
+poTextBox::~poTextBox() {}
 
 std::string poTextBox::text() const {return _layout.text;}
 void poTextBox::text(const std::string &str) {_layout.text = str;}
@@ -181,9 +175,8 @@ poFont poTextBox::font(const std::string &name) {
 }
 
 void poTextBox::layout() {
-	if(cached) {
-		delete cached;
-		cached = NULL;
+	if(cached.isValid()) {
+		cached = poTexture();
 	}
 	
 	_layout.layout();
@@ -198,20 +191,22 @@ void poTextBox::layout() {
 }
 
 void poTextBox::draw() {
-	if(cached) {
+	if(cached.isValid()) {
 		po::setColor(poColor::white);
-		po::drawRect(cached->colorTexture());
+		po::drawRect(cached);
 		return;
 	}
 
+	poFBO *fbo = NULL;
+	
 	// if we're caching but haven't made the image yet
-	if(cache_to_texture && !cached) {
+	if(cache_to_texture && !cached.isValid()) {
 		// make sure its big enough
 		poRect bounds = getBounds();
 		bounds.include(textBounds());
 		
-		cached = new poFBO(bounds.width, bounds.height, poFBOConfig().setNumMultisamples(4));
-		cached->setUp(this);
+		fbo = new poFBO(bounds.width, bounds.height, poFBOConfig().setNumMultisamples(4));
+		fbo->setUp(this);
 	}
 	
 	poBitmapFont regFont = getBitmapFont(font(), _layout.textSize);
@@ -260,7 +255,12 @@ void poTextBox::draw() {
     }
 	
 	if(cache_to_texture) {
-		cached->setDown(this);
+		fbo->setDown(this);
+		cached = fbo->colorTexture();
+		delete fbo;
+		
+		po::setColor(poColor::white);
+		po::drawRect(cached);
 	}
 }
 

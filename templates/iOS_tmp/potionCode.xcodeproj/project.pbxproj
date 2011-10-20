@@ -292,6 +292,7 @@
 		E84CEC4D142A2B98008B3E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Josh Fisher (LMXPHSL395)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "potionCode/potionCode-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -309,6 +310,7 @@
 				LD_NO_PIE = YES;
 				OTHER_LDFLAGS = /PotionCode/libraries/potionCode/libPotionCode_ios_d.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BDD6B66-2A4E-4661-A51A-EB6FEAD0A2C2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
 				WRAPPER_EXTENSION = app;
@@ -318,6 +320,7 @@
 		E84CEC4E142A2B98008B3E3E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Josh Fisher (LMXPHSL395)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "potionCode/potionCode-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -335,6 +338,7 @@
 				LD_NO_PIE = YES;
 				OTHER_LDFLAGS = /PotionCode/libraries/potionCode/libPotionCode_ios_d.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BDD6B66-2A4E-4661-A51A-EB6FEAD0A2C2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
 				WRAPPER_EXTENSION = app;

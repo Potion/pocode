@@ -20,45 +20,29 @@ poObject *createObjectForID(uint id) {
 
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::green));
-    
-    shape = addChild(new poRectShape("apple.jpg"));
-    shape->fillColor.set255(255,0,0);
-	shape->alignment(PO_ALIGN_CENTER_CENTER);
-    shape->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this);
+	addModifier(new poCamera2D());
 	
-	poShape2D *mask = new poOvalShape(100, 100, 100);
-	mask->offset = shape->getBounds().getSize()/2.f;
-	shape->addModifier(new poGeometryMask(mask));
-
-	text = addChild(new poTextBox(200));
-	text->font(getFont("Maharam-Regular.otf",""));
-	text->textSize(50);
-	text->textColor = poColor::red;
-	text->text("hello world!!");
-	text->cacheToTexture(false);
-	text->layout();
+	for(int i=0; i<100; i++) {
+		poTextBox *text = addChild(new poTextBox(200));
+		text->font(getFont("Maharam-Regular.otf",""));
+		text->textSize(50);
+		text->textColor = poColor::red;
+		text->text("hello world!!");
+		text->leading(.7f);
+		text->position = randomPointInRect(getWindowFrame());
+		text->layout();
+	}
+	
 }
 
 void TestObj::update() {
-	static float phase = 0.f;
-	
-	poPoint size = getWindowDimensions();
-	shape->position.x = size.x / 2.f + cosf(phase) * (size.x / 3.f);
-	shape->position.y = size.y / 2.f + sinf(phase) * (size.y / 3.f);
-	
-	phase += 0.01f;
+	for(int i=0; i<100; i++) {
+		poTextBox *text = getChildAs<poTextBox>(i);
+		text->rotation += 1.f;
+	}
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	switch(event->type) {
-		case PO_TOUCH_BEGAN_INSIDE_EVENT:
-			std::cout << event->touchID << std::endl;
-
-			text->cacheToTexture(!text->cacheToTexture());
-			text->layout();
-			break;
-	}
 }
 
 

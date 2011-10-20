@@ -8,6 +8,8 @@
 #include "poDictionary.h"
 
 class poEvent;
+class poObject;
+
 typedef std::vector<poEvent*> poEventVec;
 typedef std::vector<poEventVec> poEventTable;
 
