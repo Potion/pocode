@@ -15,7 +15,7 @@
 poCamera::poCamera()
 :	reset(true)
 ,	clears_background(true)
-,	background_color(poColor::black)
+,	background_color(poColor::transparent)
 ,	is_fixed_size(false)
 {}
 

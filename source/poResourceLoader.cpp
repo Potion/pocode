@@ -13,16 +13,15 @@ static boost::hash<std::string> string_hasher;
 // first=hash, second=group
 typedef std::pair<size_t, int> ResourceLocator;
 
-typedef boost::unordered_map<ResourceLocator, poResource*> ResourceMap;
-static ResourceMap imageResources;
-static ResourceMap fontResources;
-static ResourceMap bitmapFontResources;
+static std::map<ResourceLocator, poImage> imageResources;
+static std::map<ResourceLocator, poFont> fontResources;
+static std::map<ResourceLocator, poBitmapFont> bitmapFontResources;
 
-void deleteResourceGroup(ResourceMap &map, int group) {
-	ResourceMap::iterator iter = map.begin();
+template <typename T>
+void deleteResourceGroup(std::map<ResourceLocator,T> &map, int group) {
+	typename std::map<ResourceLocator,T>::iterator iter = map.begin();
 	while(iter != map.end()) {
 		if(iter->first.second == group) {
-			delete iter->second;
 			map.erase(iter++);
 		}
 		else
@@ -30,15 +29,15 @@ void deleteResourceGroup(ResourceMap &map, int group) {
 	}
 }
 
-poImage *getImage(const std::string &url, int group) {
+poImage getImage(const std::string &url, int group) {
 	ResourceLocator lookup = std::make_pair(string_hasher(url), group);
-	
-	ResourceMap::iterator iter = imageResources.find(lookup);
+	std::map<ResourceLocator, poImage>::iterator iter = imageResources.find(lookup);
+
 	if(iter != imageResources.end()) {
-		return (poImage*)iter->second;
+		return iter->second;
 	}
-	
-	poImage *img = new poImage(url);
+
+	poImage img(url);
 	imageResources[lookup] = img;
 	return img;
 }
@@ -47,15 +46,15 @@ void deleteImageGroup(int group) {
 	deleteResourceGroup(imageResources, group);
 }
 
-poFont *getFont(const std::string &url, const std::string &style, int group) {
+poFont getFont(const std::string &url, const std::string &style, int group) {
 	ResourceLocator lookup = std::make_pair(string_hasher(url+style), group);
+	std::map<ResourceLocator, poFont>::iterator iter = fontResources.find(lookup);
 	
-	ResourceMap::iterator iter = fontResources.find(lookup);
 	if(iter != fontResources.end()) {
-		return (poFont*)iter->second;
+		return iter->second;
 	}
 	
-	poFont *font = new poFont(url, style);
+	poFont font(url, style);
 	fontResources[lookup] = font;
 	return font;
 }
@@ -64,18 +63,18 @@ void deleteFontGroup(int group) {
 	deleteResourceGroup(fontResources, group);
 }
 
-poBitmapFont *getBitmapFont(poFont *font, uint size, int group) {
+poBitmapFont getBitmapFont(poFont font, uint size, int group) {
 	size_t hash = 0;
-	boost::hash_combine(hash, (size_t)font);
+	boost::hash_combine(hash, font.getFamilyName() + font.getStyleName());
 	boost::hash_combine(hash, size);
 	ResourceLocator lookup = std::make_pair(hash, group);
+	std::map<ResourceLocator, poBitmapFont>::iterator iter = bitmapFontResources.find(lookup);
 	
-	ResourceMap::iterator iter = bitmapFontResources.find(lookup);
-	if(iter != fontResources.end()) {
-		return (poBitmapFont*)iter->second;
+	if(iter != bitmapFontResources.end()) {
+		return iter->second;
 	}
 	
-	poBitmapFont *bitmapFont = new poBitmapFont(font, size);
+	poBitmapFont bitmapFont(font, size);
 	bitmapFontResources[lookup] = bitmapFont;
 	return bitmapFont;
 }
@@ -83,6 +82,4 @@ poBitmapFont *getBitmapFont(poFont *font, uint size, int group) {
 void deleteBitmapFontGroup(int group) {
 	deleteResourceGroup(bitmapFontResources, group);
 }
-
-
 

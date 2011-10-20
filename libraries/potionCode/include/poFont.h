@@ -35,48 +35,52 @@ typedef std::map<std::string, poFont*> poFontMap;
 //
 // 
 
-class poFont : public poResource
+class poFont
 {
+	friend std::ostream &operator<<(std::ostream &o, const poFont &f);
+	friend bool operator==(const poFont &f1, const poFont &f2);
+	friend bool operator!=(const poFont &f1, const poFont &f2);
+
 public:
+	static bool fontExists(const std::string &family_or_url);
+	
 	poFont();
 	poFont(const std::string &family_or_url, const std::string &style="");
-	
-	virtual             ~poFont();
 	
     // FONT LOADING
 	bool                isValid() const;
 	
     // FONT PROPERTIES
-	std::string         familyName() const;
-	std::string         styleName() const;
-	std::string         url() const;
+	std::string         getFamilyName() const;
+	std::string         getStyleName() const;
+	std::string         getUrl() const;
 	bool                hasKerning() const;
 	
-	int                 pointSize() const;
-	void                pointSize(int size);
+	int                 getPointSize() const;
+	void                setPointSize(int size);
 
-	float               lineHeight() const;
-	float               ascender() const;
-	float               descender() const;
+	float               getLineHeight() const;
+	float               getAscender() const;
+	float               getDescender() const;
     
     // UNDERLINE
 	// maximum bbox for this font face at this size
-	float               underlinePosition() const;
-	float               underlineThickness() const;
+	float               getUnderlinePosition() const;
+	float               getUnderlineThickness() const;
 
     // CURRENT GLYPH
     // Get and set the current glyph.
-	int                 glyph() const;
-	void                glyph(int g);
+	int                 getGlyph() const;
+	void                setGlyph(int g);
     
 	// These functions (starting with 'glyph') return info about the current codepoint.
-	poRect              glyphBounds() const;
-	poRect              glyphFrame() const;
-	float               glyphDescender() const;
-	poPoint             glyphBearing() const;
-	poPoint             glyphAdvance() const;
-	poImage             *glyphImage() const;
-	poShape2D           *glyphOutline() const;
+	poRect              getGlyphBounds() const;
+	poRect              getGlyphFrame() const;
+	float               getGlyphDescender() const;
+	poPoint             getGlyphBearing() const;
+	poPoint             getGlyphAdvance() const;
+	poImage             getGlyphImage() const;
+//	poShape2D           *getGlyphOutline() const;
 
 	poPoint             kernGlyphs(int glyph1, int glyph2) const;
 
@@ -86,13 +90,16 @@ private:
 	void                init();
 	void                loadGlyph(int g);
 	
-	std::string         _url;
-	int size,           _glyph;
-    
-	FT_Face				face;
+	struct FontImpl {
+		FontImpl();
+		~FontImpl();
+		
+		std::string		url;
+		int				size;
+		int				glyph;
+		FT_Face			face;
+	};
+	boost::shared_ptr<FontImpl> shared;
     static FT_Library   lib;
 };
-
-bool fontExists(const std::string &family_or_url);
-std::ostream &operator<<(std::ostream &o, const poFont &f);
 

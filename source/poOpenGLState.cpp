@@ -16,8 +16,17 @@ poOpenGLState::poOpenGLState()
 :	color(poColor::white)
 {
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &max_vert_attribs);
+#ifdef OPENGL_ES
+	max_color_attachments = 1;
+	#ifdef POTION_IOS
+		glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_fbo_samples);
+	#else
+		max_fbo_samples = 4;
+	#endif
+#else
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &max_color_attachments);
 	glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
+#endif
 }
 
 poOpenGLState *poOpenGLState::get() {
@@ -203,14 +212,22 @@ po::BlendState::BlendState() {
 	color = poColor::transparent;
 }
 
+po::BlendState po::BlendState::defaultBlending() {
+	BlendState state;
+	state.enabled =true;
+	state.source_factor = GL_SRC_ALPHA;
+	state.dest_factor = GL_ONE_MINUS_SRC_ALPHA;
+	return state;
+}
+
 po::TextureState::TextureState() {
 	bound_id = 0;
 	is_mask = false;
 }
 
-po::TextureState::TextureState(poTexture *tex) {
-	bound_id = tex->uid;
-	is_mask = tex->config.format == GL_ALPHA;
+po::TextureState::TextureState(poTexture tex) {
+	bound_id = tex.getUid();
+	is_mask = tex.getConfig().format == GL_ALPHA;
 }
 
 po::VertexState::VertexState() 

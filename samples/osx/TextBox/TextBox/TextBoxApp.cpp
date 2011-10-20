@@ -29,9 +29,13 @@ TextBoxApp::TextBoxApp() {
 	tb->textColor = poColor::red;
 	tb->position.set(20,20,0);
 	tb->drawBounds = PO_TEXT_BOX_STROKE_TEXT_BOUNDS;
-	tb->cacheToTexture(false);
 	tb->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->layout();
+
+	
+	poObject *obj = addChild(new poRectShape(tb->textBounds().width, tb->textBounds().height));
+	obj->position = tb->position;
+	moveChildBackward(obj);
 	
 //	poObject *obj = addChild(new poRectShape(getBitmapFont(getFont("Helvetica", "Regular"), 50)->textureForPage(0)));
 	addEvent(PO_KEY_DOWN_EVENT, this);

@@ -249,24 +249,24 @@ int poObject::getChildIndex(poObject* obj) {
 
 void poObject::moveChildToFront(poObject* child) {
 	removeChild(child);
-	addChild(child, 0);
+	addChild(child);
 }
 
 void poObject::moveChildToBack(poObject* child) {
 	removeChild(child);
-	addChild(child);
+	addChild(child, 0);
 }
 
 void poObject::moveChildForward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
-	addChild(child, std::max(idx-1, 0));
+	addChild(child, std::max(idx, numChildren()));
 }
 
 void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
-	addChild(child, idx+1);
+	addChild(child, std::min(idx-1, 0));
 }
 
 bool poObject::removeModifier(int idx, bool and_delete) {
@@ -462,21 +462,21 @@ void poObject::stopAllTweens(bool recurse) {
 }
 
 void poObject::read(poXMLNode node) {
-	_uid = (uint)node.getChild("uid").innerInt();
-	name = node.getChild("name").innerString();
-	position.set(node.getChild("position").innerString());
-	width   = node.getChild("width").innerFloat();
-	height  = node.getChild("height").innerFloat();
-	scale.set(node.getChild("scale").innerString());
-	alpha = node.getChild("alpha").innerFloat();
-	rotation = node.getChild("rotation").innerFloat();
-	rotationAxis.set(node.getChild("rotationAxis").innerString());
-	offset.set(node.getChild("offset").innerString());
-	visible = node.getChild("visible").innerInt();
-	bFixedWidth = node.getChild("bFixedWidth").innerInt();
-	bFixedHeight = node.getChild("bFixedHeight").innerInt();
-	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").innerInt());
-	_alignment = poAlignment(node.getChild("alignment").innerInt());
+	_uid = (uint)node.getChild("uid").getInnerInt();
+	name = node.getChild("name").getInnerString();
+	position.set(node.getChild("position").getInnerString());
+	width   = node.getChild("width").getInnerFloat();
+	height  = node.getChild("height").getInnerFloat();
+	scale.set(node.getChild("scale").getInnerString());
+	alpha = node.getChild("alpha").getInnerFloat();
+	rotation = node.getChild("rotation").getInnerFloat();
+	rotationAxis.set(node.getChild("rotationAxis").getInnerString());
+	offset.set(node.getChild("offset").getInnerString());
+	visible = node.getChild("visible").getInnerInt();
+	bFixedWidth = node.getChild("bFixedWidth").getInnerInt();
+	bFixedHeight = node.getChild("bFixedHeight").getInnerInt();
+	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").getInnerInt());
+	_alignment = poAlignment(node.getChild("alignment").getInnerInt());
 	alignment(_alignment);
 }
 

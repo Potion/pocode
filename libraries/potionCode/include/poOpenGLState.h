@@ -38,7 +38,7 @@ namespace po {
 	
 	struct TextureState {
 		TextureState();
-		TextureState(poTexture *tex);
+		TextureState(poTexture tex);
 		
 		GLuint bound_id;
 		bool is_mask;
@@ -48,6 +48,8 @@ namespace po {
 	// http://www.opengl.org/sdk/docs/man/xhtml/glBlendEquation.xml
 	struct BlendState {
 		BlendState();
+
+		static BlendState defaultBlending();
 		
 		bool enabled;
 		// blend func
@@ -99,7 +101,7 @@ public:
 	GLint maxVertexAttribs();
 	GLint maxFBOSamples();
 	GLint maxColorAttachments();
-	
+
 	void pushStencilState();
 	void popStencilState();
 	
