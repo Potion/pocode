@@ -124,7 +124,7 @@ void poFBO::setup() {
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
 
 		// make the texture
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA));
+		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
 		// and attach it to the second framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
@@ -140,7 +140,7 @@ void poFBO::setup() {
 			printf("unable to do framebuffer multisampling\n");
 		
 		// make the texture, which is also the color render buffer
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA));
+		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
 
 		// we only need the one framebuffer
 		framebuffers.resize(1);

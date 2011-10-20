@@ -541,7 +541,7 @@ void poObject::pushObjectMatrix() {
 			break;
 	}
 
-	stack->translate(round(offset));
+	stack->translate(offset);
 	
 	matrices.dirty = true;
 	matrices.capture();
