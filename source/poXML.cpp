@@ -42,7 +42,7 @@ poXPathResult::poXPathResult(boost::shared_ptr<pugi::xml_document> doc, xpath_no
 #pragma mark - poXMLNode -
 poXMLNode::poXMLNode() : node() {}
 
-poXMLNode::operator bool() const {return (bool)node;}
+bool poXMLNode::isValid() const {return (bool)node;}
 
 std::string poXMLNode::name() const {return node.name();}
 void poXMLNode::setName(const std::string &str) {node.set_name(str.c_str());}
@@ -116,12 +116,21 @@ void poXMLNode::removeChild(const std::string &name) {node.remove_child(name.c_s
 void poXMLNode::removeAttribute(const std::string &name) {node.remove_attribute(name.c_str());}
 
 poXMLNode poXMLNode::getChild(uint idx) {
+	if(idx > numChildren())
+		return poXMLNode();
+	
 	std::vector<poXMLNode> kids = getChildren();
 	return kids[idx];
 }
 
 
-poXMLNode poXMLNode::getChild(const std::string &name) {return poXMLNode(doc,node.child(name.c_str()));}
+poXMLNode poXMLNode::getChild(const std::string &name) {
+	pugi::xml_node n = node.child(name.c_str());
+	if(!n)
+		return poXMLNode();
+	
+	return poXMLNode(doc,n);
+}
 
 std::vector<poXMLNode> poXMLNode::getChildren() {
 	std::vector<poXMLNode> response;

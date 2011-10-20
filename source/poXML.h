@@ -59,8 +59,8 @@ class poXMLNode {
 	
 public:
 	poXMLNode();
-	
-	operator        bool() const;	
+
+	bool			isValid() const;
 
     // XML NODE NAME
 	std::string     name() const;
