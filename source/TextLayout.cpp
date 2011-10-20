@@ -21,7 +21,7 @@
 #pragma mark - Layout Helper -
 
 struct image_data {
-	poImage *image;
+	poImage image;
 	poAlignment align;
 };
 
@@ -36,11 +36,11 @@ struct parse_data {
 
 image_data parseImageNode(const pugi::xml_node &node) {
 	image_data img;
-	img.image = NULL;
+	img.image = poImage();
 	img.align = PO_ALIGN_TOP_LEFT;
 	
 	img.image = getImage(node.attribute("src").value());
-	if(img.image) {
+	if(img.image.isValid()) {
 		
 	}
 	else {
@@ -59,12 +59,12 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(node.type() == node_element) {
 		range.range.start = utf8strlen(data->string.str());
 
-		if(data->layout->hasFont(node.name())) {
-			range.dict.setPtr("font", data->layout->font(node.name()));
-		}
+		// if(data->layout->hasFont(node.name())) {
+		// 	range.dict.setPtr("font", data->layout->font(node.name()));
+		// }
 		
 		if(!strcmp("u", node.name())) {
-			range.dict.setBool("u",true);
+			range.dict.set("u",true);
 		}
 		
 		if(!strcmp("img", node.name())) {
@@ -74,15 +74,15 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 		xml_attribute attrib = node.first_attribute();
 		while(attrib) {
 			if(!strcmp(attrib.name(),"tracking"))
-				range.dict.setFloat("tracking", attrib.as_float());
+				range.dict.set("tracking", attrib.as_float());
 			else
 			if(!strcmp(attrib.name(),"leading"))
-				range.dict.setFloat("leading", attrib.as_float());
+				range.dict.set("leading", attrib.as_float());
 			else 
 			if(!strcmp(attrib.name(),"color")) {
 				poColor c;
 				if(c.set(attrib.value())) {
-					range.dict.setColor("color", c);
+					range.dict.set("color", c);
 				}
 			}
 			
@@ -168,11 +168,11 @@ void po::TextLayout::rotateLine(uint line, poPoint origin, float rot) {
 	}
 }
 
-void po::TextLayout::font(poFont *f, const std::string &weight) {
+void po::TextLayout::font(poFont f, const std::string &weight) {
 	fonts[weight] = f;
 }
 
-poFont *po::TextLayout::font(const std::string &weight) {
+poFont po::TextLayout::font(const std::string &weight) {
 	return fonts[weight];
 }
 

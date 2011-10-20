@@ -72,109 +72,138 @@ poTextureConfig::poTextureConfig(GLenum format)
 	#endif
 {}
 
-poTexture::poTexture()
-:	uid(0)
+poTexture::TextureImpl::TextureImpl()
+:	uid(0), width(0), height(0), channels(0), config()
 {}
 
-poTexture::poTexture(const std::string &url) 
-:	uid(0)
-{
-	poImage *img = new poImage(url);
-	load(img);
-	delete img;
+poTexture::TextureImpl::~TextureImpl() {
+	if(uid > 0) {
+		glDeleteTextures(1, &uid);
+		uid = 0;
+	}
 }
 
-poTexture::poTexture(poImage *img)
-:	uid(0)
-{
+poTexture::poTexture() {}
+
+poTexture::poTexture(const std::string &url) {
+	load(poImage(url));
+}
+
+poTexture::poTexture(poImage img) {
 	load(img);
 }
 
-poTexture::poTexture(poImage *img, const poTextureConfig &config)
-:	uid(0)
-{
+poTexture::poTexture(poImage img, const poTextureConfig &config) {
 	load(img, config);
 }
 
-poTexture::~poTexture() {
-	unload();
+poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config) {
+	load(width, height, pixels, config);
 }
 
-void poTexture::load(poImage *img) {
-	load(img, poTextureConfig(formatForChannels(img->channels())));
+void poTexture::replace(poImage image) {
+	replace(image.getPixels());
 }
 
-void poTexture::load(poImage *img, const poTextureConfig &config) {
-	load(img->width(), img->height(), img->pixels(), config);
+void poTexture::replace(const ubyte *pixels) {
+	glBindTexture(GL_TEXTURE_2D, shared->uid);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, shared->width, shared->height, shared->config.format, GL_UNSIGNED_BYTE, pixels);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+bool poTexture::isValid() const {
+	return shared && shared->uid > 0;
+}
+
+poTextureConfig poTexture::getConfig() const {
+	return shared->config;
+}
+
+uint poTexture::getUid() const {
+	return shared->uid;
+}
+
+uint poTexture::getWidth() const {
+	return shared->width;
+}
+
+uint poTexture::getHeight() const {
+	return shared->height;
+}
+
+uint poTexture::getChannels() const {
+	return shared->channels;
+}
+
+poPoint poTexture::getDimensions() const {
+	return poPoint(shared->width, shared->height, 0);
+}
+
+poRect poTexture::getBounds() const {
+	return poRect(0,0,shared->width,shared->height);
+}
+
+void poTexture::load(poImage img) {
+	load(img, poTextureConfig(formatForChannels(img.getChannels())));
+}
+
+void poTexture::load(poImage img, const poTextureConfig &config) {
+	load(img.getWidth(), img.getHeight(), img.getPixels(), config);
 }
 
 void poTexture::load(uint width, uint height, int channels, const ubyte *pixels) {
 	load(width, height, pixels, poTextureConfig(formatForChannels(channels)));
 }
 
-void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &conf) {
-	// extract channel-count from the configuration
-	uint c = channelsForFormat(conf.format);
-	// if there's a texture already in there make sure this new one will fit
-	if(isLoaded())
-		if(w*h*c != width*height*channels)
-			// ok, we're going to have to remake this guy
-			unload();
-	
-	// save the image properties
-	width = w;
-	height = h;
-	channels = c;
-	config = conf;
+void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config) {
+	shared.reset(new TextureImpl());
+
+	shared->width = width;
+	shared->height = height;
+	shared->channels = channelsForFormat(config.format);
+	shared->config = config;
 		
-	// need to recreate the texture object on the card
-	if(!isLoaded())
-		glGenTextures(1, &uid);
-		
-	// set up the right texture
-	glBindTexture(GL_TEXTURE_2D, uid);
-	glPixelStorei(GL_PACK_ALIGNMENT, channels);
+	glGenTextures(1, &shared->uid);
+	glBindTexture(GL_TEXTURE_2D, shared->uid);
+	glPixelStorei(GL_PACK_ALIGNMENT, shared->channels);
 	
 	// set the filters we want
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, shared->config.minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, shared->config.magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, shared->config.wrapS);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, shared->config.wrapT);
 	
 #ifndef OPENGL_ES
 	float trans[] = {0.f, 0.f, 0.f, 0.f};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 #endif
 	
-	// i'm assuming youre replacing the whole texture anyway
-	glTexImage2D(GL_TEXTURE_2D, 0, config.internalFormat, w, h, 0, config.format, config.type, p);
+	// i'm assuming you're replacing the whole texture anyway
+	glTexImage2D(GL_TEXTURE_2D, 
+				 0, 
+				 shared->config.internalFormat, 
+				 shared->width, 
+				 shared->height, 
+				 0, 
+				 shared->config.format, 
+				 shared->config.type, 
+				 pixels);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void poTexture::unload() {
-	if(isLoaded()) {
-		glDeleteTextures(1, &uid);
-		uid = 0;
-	}
-}
+void textureFitExact(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitNone(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitHorizontal(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFitVertical(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 
-bool poTexture::isLoaded() const {
-	return uid > 0;
-}
-
-void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-
-std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align) {
+std::vector<poPoint> textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align) {
 	std::vector<poPoint> coords(4);
 	std::vector<poPoint> points = rect.getCorners();
 	textureFit(rect, tex, fit, align, coords, points);
 	return coords;
 }
 
-void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	switch(fit) {
 		case PO_TEX_FIT_NONE:
 			textureFitNone(rect, tex, align, coords, points);
@@ -194,7 +223,7 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 			
 		case PO_TEX_FIT_INSIDE: 
 		{
-			float new_h = rect.width * (tex->height / (float)tex->width);
+			float new_h = rect.width * (tex.getHeight() / (float)tex.getHeight());
 			if(new_h > rect.height)
 				textureFitVertical(rect, tex, align, coords, points);
 			else
@@ -206,10 +235,10 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 	}
 }
 
-void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void textureFitExact(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.x / (float)rect.width;
 	float yoff = rect.y / (float)rect.height;
-	
+		
 	for(int i=0; i<points.size(); i++) {
 		float s = points[i].x / rect.width - xoff;
 		float t = points[i].y / rect.height - yoff;
@@ -218,36 +247,37 @@ void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector
 }
 
 
-void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void textureFitNone(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.x / (float)rect.width;
 	float yoff = rect.y / (float)rect.height;
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
 	for(int i=0; i<points.size(); i++) {
-		float s = points[i].x / tex->width - xoff;
-		float t = points[i].y / tex->height - yoff;
+		float s = points[i].x / tex.getWidth() - xoff;
+		float t = points[i].y / tex.getHeight() - yoff;
 		
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }
 
 
-void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void textureFitHorizontal(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.x / (float)rect.width;
 	float yoff = rect.y / (float)rect.height;
 	
 	float new_w = rect.width;
-	float new_h = new_w / (tex->width / (float)tex->height);
+	float new_h = new_w / (tex.getWidth() / (float)tex.getHeight());
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
@@ -258,22 +288,23 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }
 
-void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+void textureFitVertical(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	float xoff = rect.x / (float)rect.width;
 	float yoff = rect.y / (float)rect.height;
 	
 	float new_h = rect.height;
-	float new_w = new_h / (tex->height / (float)tex->width);
+	float new_w = new_h / (tex.getHeight() / (float)tex.getWidth());
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
@@ -284,12 +315,13 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 		max.x = std::max(s, max.x);
 		max.y = std::max(t, max.y);
 		
-		coords[i].set(s,1.f-t,0.f);
+		coords[i].set(s,t,0.f);
 	}
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(int i=0; i<coords.size(); i++) {
+		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
 }

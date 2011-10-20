@@ -8,17 +8,15 @@ poMatrixStack::poMatrixStack() {
 	projection.push(ortho<float>(-1, 1, -1, 1, -1, 1));
 	modelview.push(mat4());
 	viewport.push(getWindowBounds());
-	
-	glEnable(GL_SCISSOR_TEST);
 }
 
 void poMatrixStack::pushModelview()		{modelview.push(modelview.top());}
 void poMatrixStack::pushModelview(const mat4 &mat) {modelview.push(mat);}
 void poMatrixStack::pushProjection()	{projection.push(projection.top());}
 void poMatrixStack::pushProjection(const mat4 &mat) {projection.push(mat);}
+void poMatrixStack::pushViewport() {viewport.push(viewport.top());}
 void poMatrixStack::pushViewport(poRect r) {
 	viewport.push(r);
-	glScissor(r.x, r.y, r.width, r.height);
 	glViewport(r.x, r.y, r.width, r.height);
 }
 
@@ -29,7 +27,6 @@ void poMatrixStack::popViewport() {
 	viewport.pop(); 
 
 	poRect vp = viewport.top();
-	glScissor(vp.x, vp.y, vp.width, vp.height);
 	glViewport(vp.x, vp.y, vp.width, vp.height);
 }
 

@@ -1,44 +1,57 @@
 #include "poBitmapFont.h"
 
-poBitmapFont::poBitmapFont(poFont *f, int pointSize)
-:	poTextureAtlas(poTextureConfig(GL_ALPHA).setMagFilter(GL_LINEAR).setMinFilter(GL_LINEAR),512,512)
-,	_font(f)
-,	size(pointSize)
+poBitmapFont::BitmapFontImpl::BitmapFontImpl()
+:	atlas(GL_ALPHA, 512, 512)
+{}
+poBitmapFont::BitmapFontImpl::~BitmapFontImpl() {
+}
+
+poBitmapFont::poBitmapFont()
+{}
+
+poBitmapFont::poBitmapFont(poFont font, int sz)
+:	poFont(font)
+,	shared(new BitmapFontImpl)
 {
-	if(size == 0)
-		size = _font->pointSize();
-
-	_font->pointSize(size);
-	
+	poFont::setPointSize(sz);
 	for(int i=32; i<128; i++) {
-		_font->glyph(i);
-		
-		poImage *img = _font->glyphImage();
-		addImage(img, i);
-		delete img;
+		setGlyph(i);
+		shared->atlas.addImage(getGlyphImage(),i);
 	}
-	
-	layoutAtlas();
+	shared->atlas.layoutAtlas();
 }
 
-poFont const *poBitmapFont::font() {
-    return _font;
+poBitmapFont::poBitmapFont(const std::string &fam, int sz, const std::string &style)
+:	poFont(fam, style)
+,	shared(new BitmapFontImpl)
+{
+	poFont::setPointSize(sz);
+	for(int i=32; i<128; i++) {
+		setGlyph(i);
+		shared->atlas.addImage(getGlyphImage(),i);
+	}
+	shared->atlas.layoutAtlas();
 }
 
-uint poBitmapFont::pointSize() const {
-	return size;
+void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
+	if(!shared->atlas.hasUID(glyph))
+		cacheGlyph(glyph);
+	shared->atlas.drawUID(glyph, at);
 }
 
-void poBitmapFont::cacheUID(uint codepoint) {
-	if(!hasUID(codepoint)) {
-		_font->pointSize(size);
-		_font->glyph(codepoint);
-
-		poImage *img = _font->glyphImage();
-		addImage(img, codepoint);
-		delete img;
-
-		layoutAtlas();
+void poBitmapFont::cacheGlyph(int glyph) {
+	if(!shared->atlas.hasUID(glyph)) {
+		setPointSize(getPointSize());
+		setGlyph(glyph);
+		shared->atlas.addImage(getGlyphImage(), glyph);
+		shared->atlas.layoutAtlas();
 	}
 }
 
+bool operator==(const poBitmapFont& f1, const poBitmapFont& f2) {
+	return f1.shared == f2.shared;
+}
+
+bool operator!=(const poBitmapFont& f1, const poBitmapFont& f2) {
+	return f1.shared == f2.shared;
+}

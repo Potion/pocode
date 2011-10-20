@@ -40,14 +40,14 @@ public:
     // poShape2D maintains a list of points that define the contour the shape.
     // Points can be added one by one, or can be added as vector of points.
     // The "curveTo" method generates a curve formed by adding many points.
-	poShape2D               &addPoint(poPoint p);
-    poShape2D               &addPoint( float x, float y );
-	poShape2D               &addPoints(const std::vector<poPoint> &points);
-	poShape2D               &curveTo(poPoint pt, poPoint control, int resolution=10);
-	poShape2D               &curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
+	poShape2D&				addPoint(poPoint p);
+    poShape2D&				addPoint( float x, float y );
+	poShape2D&				addPoints(const std::vector<poPoint> &points);
+	poShape2D&				curveTo(poPoint pt, poPoint control, int resolution=10);
+	poShape2D&				curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
 	
-	poShape2D               &setPoints(const std::vector<poPoint> &points);
-	poShape2D               &clearPoints();
+	poShape2D&				setPoints(const std::vector<poPoint> &points);
+	poShape2D&				clearPoints();
 
 	size_t                  numPoints() const;
 	poPoint                 getPoint(int idx);
@@ -61,9 +61,9 @@ public:
     // to fill the shape. Use the poTextureFitOption's to determine how a texture is placed
     // into the shape. These poTextureFitOption's are listed in poEnums.h. Once a texture is placed,
     // you can use transform the placement, rotation and scale of the texture.
-	poShape2D&              placeTexture(poTexture *tex);
-	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit);
-	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
+	poShape2D&              placeTexture(poTexture tex);
+	poShape2D&              placeTexture(poTexture tex, poTextureFitOption fit);
+	poShape2D&              placeTexture(poTexture tex, poTextureFitOption fit, poAlignment align);
 	poShape2D&              transformTexture(poPoint pt, poPoint scale, float rotate);
     
     // HIGH QUALITY SHAPE STROKE
@@ -116,7 +116,7 @@ private:
 	std::vector<poPoint>    tex_coords;
 	std::vector<poPoint>    stroke;
 
-	poTexture*				texture;
+	poTexture				texture;
 
 	poStrokeCapProperty     cap;
 	poStrokeJoinProperty    join;

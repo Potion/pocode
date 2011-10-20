@@ -5,7 +5,7 @@
 #pragma once
 
 #include "poTween.h"
-#include "poEvent.h"
+#include "poEventCenter.h"
 #include "poDictionary.h"
 #include "poMatrixSet.h"
 #include "poMatrixStack.h"
@@ -74,6 +74,7 @@ public:
     //@{
 	int                 addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
 	void                removeEvent(int event_id);
+    void                removeAllEvents();
     //@}
 
     /*! Width/height should never be set directly!*/
@@ -236,10 +237,12 @@ public:
 	float               appliedAlpha() const; 	
     poMatrixSet         matrixSet() const;
 	int                 drawOrder() const;
+    void                clearDrawOrder() { draw_order = -1; };
 	
     static const int    INVALID_INDEX = -1;
     //@}
     
+    poEventMemory       eventMemory;
     
 protected:
     

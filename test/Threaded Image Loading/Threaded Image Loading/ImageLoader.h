@@ -25,7 +25,7 @@ public:
 	/*	ImageLoadSuccessMessage: {'image':poImage*, 'elapsed':double}
 	 *	ImageLoadFailureMessage: {'url':string, 'error':string, 'elapsed':double}
 	 */
-	void loadImage(const fs::path &url, poObject *notice);
+	void loadImage(const fs::path &url, poObject *notice, const poDictionary &dict=poDictionary());
 	void update();
 	
 private:
@@ -37,12 +37,14 @@ private:
 		ImageLoader *loader;
 		std::string url;
 		poObject *toNotify;
+        
+        poDictionary dict;
 
 		poImage *image;
 		std::string error;
 		double elapsed;
 		
-		Worker(ImageLoader *l, const std::string &u, poObject *n);
+		Worker(ImageLoader *l, const std::string &u, poObject *n, const poDictionary &dict);
 		void operator()();
 	};
 

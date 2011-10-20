@@ -6,92 +6,94 @@
 
 #include "poColor.h"
 #include "poPoint.h"
-#include <pugixml.hpp>
+#include "poFont.h"
+#include "poImage.h"
+#include "poXML.h"
 
-class poObject;
+class poDictionary;
 
-typedef boost::variant<bool, int, float, std::string, poColor, poPoint, void*> poProperty;
+typedef boost::variant<int,double,std::string,poPoint,poColor,poFont,poImage,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
 
-// CLASS NOTES
-//
-// poDictionary implements a light-weight dictionary object. The dictionary can hold any number of uniquely
-// named objects. The objects may be bools, ints, floats, strings, pointers, poPoints or poColors.
-//
-// A poDictionary is constructed and used as follows:
-//
-//      poDictionary D;
-//
-//      D.setInt( "age", 30 );
-//      D.setString( "name", "bob" );
-//      D.setColor( "hairColor", poColor::red );
-// 
-//      int age = D.getInt( "age" );
-//      std::string name = D.getInt( "name" );
-//      poColor hairColor = D.getColor( "hairColor" );
-//
-// poDictionary is used within poEvent system and by the messageHandler method of poObject.
-// poDictionary allows for quick and simple way to pass around small bits of arbitrary data.
-//
-// poDictionary's may written and read to an XML file very easily using the read()
-// and write() methods.
-//
-// Also, see the poCommon class below for application wide setting using a poDictionary.
-//
-
-class poDictionary {
-public:
-	bool			has(const std::string &name) const {return items.find(name) != items.end();}
-
-	std::vector<std::string> keys() const;
-	
-	bool			getBool(const std::string &name) const {return boost::get<bool>(items.at(name));}
-	poDictionary&	setBool(const std::string &name, bool b) {items[name] = b; return *this;}
-	
-	int             getInt(const std::string &name) const {return boost::get<int>(items.at(name));}
-	poDictionary&	setInt(const std::string &name, int i) {items[name] = i; return *this; }
-	
-	float           getFloat(const std::string &name) const {return boost::get<float>(items.at(name));}
-	poDictionary&	setFloat(const std::string &name, float f) {items[name] = f; return *this; }
-	
-	std::string     getString(const std::string &name) const {return boost::get<std::string>(items.at(name));}
-	poDictionary&	setString(const std::string &name, const std::string &s) {items[name] = s; return *this; }
-	
-	poColor         getColor(const std::string &name) const {return boost::get<poColor>(items.at(name));}
-	poDictionary&	setColor(const std::string &name, poColor c) {items[name] = c; return *this; }
-	
-	poPoint         getPoint(const std::string &name) const {return boost::get<poPoint>(items.at(name));}
-	poDictionary&	setPoint(const std::string &name, poPoint p) {items[name] = p; return *this; }
-	
-//	poDictionary	getDictionary(const std::string &name) const {return boost::get<poDictionary>(items.at(name));}
-//	poDictionary&	setDictionary(const std::string &name, const poDictionary &dict) {items[name] = dict; return *this;}
-	
-	template <typename T>
-	T*				getPtr(const std::string &name) const {return static_cast<T*>(boost::get<void*>(items.at(name)));}
-	poDictionary&	setPtr(const std::string &name, void* obj) {items[name] = obj; return *this;}
-	
-	poProperty		getProperty(const std::string &name) {return items[name];}
-	void			setProperty(const std::string &name, const poProperty &prop) {items[name] = prop;}
-	
-	bool			read(const fs::path &url);
-	void			write(const fs::path &url) const;
-	
-	void			set(const std::string &str);
-	std::string		toString() const;
-
-protected:
-	void			set(pugi::xml_node root);
-	void			unset(pugi::xml_node root) const;
-	boost::unordered_map<std::string, poProperty> items;
+enum poDictionaryType {
+	PO_INT_T=0,
+	PO_DOUBLE_T,
+	PO_STRING_T,
+	PO_POINT_T,
+	PO_COLOR_T,
+	PO_FONT_T,
+	PO_IMAGE_T,
+	PO_VOID_PTR_T,
+	PO_DICTIONARY_T
 };
 
-
-class poCommon : public poDictionary
-{
+class poDictionaryItem {
+	friend std::ostream& operator<<(std::ostream &out, const poDictionaryItem& item);
+	
 public:
-	static poDictionary *get();
+	poDictionaryItem();
+	poDictionaryItem(const poDictionaryItem_t &item);
+	
+	bool				getBool() const;
+	int					getInt() const;
+	double				getDouble() const;
+	std::string			getString() const;
+	poPoint				getPoint() const;
+	poColor				getColor() const;
+	poFont				getFont() const;
+	poImage				getImage() const;
+	void*				getPtr() const;
+	poDictionary		getDictionary() const;
+	poDictionaryType	getType() const;
+	
+	void				setBool(const poDictionaryItem_t &i);
+	std::string			toString();
 	
 private:
-	explicit poCommon() {}
-	~poCommon() {}
+	poDictionaryItem_t item;
 };
 
+typedef std::map<std::string, poDictionaryItem> poDictionaryItemMap;
+
+class poDictionary {
+	friend std::ostream& operator<<(std::ostream &out, const poDictionary &dict);
+	
+public:
+	poDictionary();
+	poDictionary		copy();
+	
+	bool				getBool(const std::string &s) const;
+	int					getInt(const std::string &s) const;
+	double				getDouble(const std::string &s) const;
+	std::string			getString(const std::string &s) const;
+	poPoint				getPoint(const std::string &s) const;
+	poColor				getColor(const std::string &s) const;
+	poFont				getFont(const std::string &s) const;
+	poImage				getImage(const std::string &s) const;
+	void*				getPtr(const std::string &s) const;
+	poDictionary		getDictionary(const std::string &s) const;
+	poDictionaryType	getType(const std::string &s) const;
+	
+	poDictionaryItem	get(const std::string &s) const;
+	poDictionary&		set(const std::string &s, const poDictionaryItem_t &di);
+	poDictionary&		append(const poDictionary &d);
+	
+	bool				has(const std::string &s) const;
+	size_t				count() const;
+	std::vector<std::string> keys() const;
+	
+	void				write(poXMLNode node);
+	void				write(poXMLDocument &doc);
+	void				write(const std::string &url);
+	void				read(const std::string &url);
+	
+	poDictionaryItemMap::iterator begin();
+	poDictionaryItemMap::iterator end();
+	poDictionaryItemMap::const_iterator begin() const;
+	poDictionaryItemMap::const_iterator end() const;
+	
+private:
+	struct DictionaryImpl {
+		poDictionaryItemMap items;
+	};
+	boost::shared_ptr<DictionaryImpl> shared;
+};

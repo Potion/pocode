@@ -81,15 +81,22 @@
         [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer *)self.layer];
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &framebufferWidth);
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &framebufferHeight);
-		
-		glGenRenderbuffers(1, &depthStencilBuffer);
-		glBindRenderbuffer(GL_RENDERBUFFER, depthStencilBuffer);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
-		
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthStencilBuffer);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilBuffer);
-        
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+
+		glGenFramebuffers(1, multisampleBuffers);
+		glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
+		glGenRenderbuffers(2, multisampleBuffers+1);
+		glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[1]);
+		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_RGBA8_OES, framebufferWidth, framebufferHeight);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, multisampleBuffers[1]);
+		glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[2]);
+		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
+
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 		
@@ -113,10 +120,8 @@
             colorRenderbuffer = 0;
         }
 		
-		if(depthStencilBuffer) {
-			glDeleteRenderbuffers(1, &depthStencilBuffer);
-			depthStencilBuffer = 0;
-		}
+		glDeleteFramebuffers(1, multisampleBuffers);
+		glDeleteRenderbuffers(2, multisampleBuffers+1);
     }
 }
 
@@ -128,7 +133,7 @@
         if (!defaultFramebuffer)
             [self createFramebuffer];
         
-        glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
     }
 }
 
@@ -139,8 +144,14 @@
     if (context) {
         [EAGLContext setCurrentContext:context];
         
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleBuffers[0]);
+		glResolveMultisampleFramebufferAPPLE();
+		
+		const GLenum discards[]  = {GL_COLOR_ATTACHMENT0,GL_DEPTH_ATTACHMENT,GL_STENCIL_ATTACHMENT};
+		glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE,3,discards);
+		
         glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
-        
         success = [context presentRenderbuffer:GL_RENDERBUFFER];
     }
     

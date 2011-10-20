@@ -25,23 +25,24 @@ class poXMLDocument;
 class poXMLDocument {
 public:
 	poXMLDocument();
-	poXMLDocument(const fs::path &p);
+	poXMLDocument(const std::string &url);
+	
+	bool			isValid() const;
     
     // GET ROOT NODE FROM XML DOCUMENT
-	poXMLNode       rootNode();
+	poXMLNode       getRootNode() const;
+	void			setRootNode(poXMLNode node);
 	
-    operator        bool() const;
-    
     // READ and WRITE XML FILE
-	bool            read(const fs::path &p);
+	bool            read(const std::string &url);
 	bool            readStr(const std::string &str);
-	bool            write(const fs::path &p);
+	bool            write(const std::string &url);
 	
     // PRINT
 	void            print();
 	
 private:
-	boost::shared_ptr< pugi::xml_document > doc;
+	pugi::xml_document document;
 };
 
 
@@ -54,22 +55,22 @@ private:
 //
 
 class poXMLNode {
-	friend class poXPathResult;
 	friend class poXMLDocument;
 	
 public:
 	poXMLNode();
-	
-	operator        bool() const;	
+	poXMLNode(pugi::xml_node node);
 
+	bool			isValid() const;
+	
     // XML NODE NAME
-	std::string     name() const;
+	std::string     getName() const;
 	void            setName(const std::string &str);
 
     // GET XML VALUE
-	int             innerInt() const;
-	float           innerFloat() const;
-	std::string     innerString() const;
+	int             getInnerInt() const;
+	float           getInnerFloat() const;
+	std::string     getInnerString() const;
 
     // SET XML VALUE
 	void            setInnerInt(int i);
@@ -77,14 +78,14 @@ public:
 	void            setInnerString(const std::string &str);
 	
     // XML ATTRIBUTES
-	uint            numAttributes() const;
+	uint            getNumAttributes() const;
 	bool            hasAttribute(const std::string &name) const;
-	std::vector<std::string> attributeNames() const;
+	std::vector<std::string> getAttributeNames() const;
 
     // GET ATTRIBUTE VALUE
-	int             intAttribute(const std::string &name) const;
-	float           floatAttribute(const std::string &name) const;
-	std::string     stringAttribute(const std::string &name) const;
+	int             getIntAttribute(const std::string &name) const;
+	float           getFloatAttribute(const std::string &name) const;
+	std::string     getStringAttribute(const std::string &name) const;
 
     // SET ATTRIBUTE VALUE
 	void            setAttribute(const std::string &name, int value);
@@ -109,9 +110,10 @@ public:
 	std::vector<poXMLNode> getChildren(const std::string &name);
 
     // GET CHILDREN IN ORDER
-	poXMLNode       firstChild();
-	poXMLNode       nextSibling();
-	poXMLNode       nextSibling(const std::string &name);
+	poXMLNode       getFirstChild();
+	poXMLNode		getLastChild();
+	poXMLNode       getNextSibling();
+	poXMLNode       getNextSibling(const std::string &name);
 	
 	// should be a valid xpath instruction
 	// http://www.w3schools.com/xpath/default.asp for an xpath tutorial
@@ -121,10 +123,7 @@ public:
 	pugi::xml_node handle();
 	
 private:
-	poXMLNode(boost::shared_ptr<pugi::xml_document> doc, pugi::xml_node node);
-
 	pugi::xml_node  node;
-	boost::shared_ptr<pugi::xml_document> doc;
 };
 
 
@@ -152,8 +151,6 @@ public:
 	float           getFloat(uint idx=0);
     
 private:
-	poXPathResult(boost::shared_ptr<pugi::xml_document> doc, pugi::xpath_node_set nodes);
-    
-	boost::shared_ptr<pugi::xml_document> doc;
+	poXPathResult(pugi::xpath_node_set nodes);
 	pugi::xpath_node_set nodes;
 };

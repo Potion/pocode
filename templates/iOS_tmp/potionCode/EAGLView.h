@@ -23,7 +23,8 @@ static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_C
     GLint framebufferHeight;
     
     // The OpenGL ES names for the framebuffer and renderbuffer used to render to this view.
-    GLuint defaultFramebuffer, colorRenderbuffer, depthStencilBuffer;
+    GLuint defaultFramebuffer, colorRenderbuffer;
+	GLuint multisampleBuffers[3];
 }
 
 @property (nonatomic,retain) EAGLContext *context;

@@ -17,7 +17,7 @@ poShape2D::poShape2D()
 ,   useSimpleStroke(true)
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
-,	texture(NULL)
+,	texture()
 ,	fill_color_tween(&fillColor)
 //,	alphaTestTexture(false)
 {}
@@ -28,29 +28,25 @@ void poShape2D::draw() {
 		// set the color
 		po::setColor(fillColor, appliedAlpha());
 
-		if(texture != NULL) {
-			po::drawPoints(fillDrawStyle, texture, points, tex_coords);
+		if(texture.isValid()) {
+			po::drawPoints(points, fillDrawStyle, texture, tex_coords);
 		}
 		else {
-			po::drawPoints(fillDrawStyle, points);
+			po::drawPoints(points, fillDrawStyle);
 		}
 	}
-	return;
 	
 	// do shape stroke
 	if(strokeEnabled) {
 		po::setColor(strokeColor, appliedAlpha());
 
 		if(useSimpleStroke) {
-            
-            std::cout << stroke_width << std::endl;
 			// use crappy OpenGL stroke
 			glLineWidth( stroke_width );
-			GLenum primitiveType = closed ? GL_LINE_LOOP : GL_LINE_STRIP;
-			po::drawPoints(primitiveType, points);
+			po::drawPoints(points, closed ? GL_LINE_LOOP : GL_LINE_STRIP);
 		}
 		else {
-			po::drawPoints(GL_TRIANGLE_STRIP, stroke);
+			po::drawPoints(stroke, GL_TRIANGLE_STRIP);
 		}
 	}	
 }
@@ -135,16 +131,16 @@ bool poShape2D::setPoint(int idx, poPoint p )
 	return true;
 }
 
-poShape2D& poShape2D::placeTexture(poTexture *tex) {
+poShape2D& poShape2D::placeTexture(poTexture tex) {
 	return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
+poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit) {
 	return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
-	if(tex) {
+poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit, poAlignment align) {
+	if(tex.isValid()) {
 		poRect rect = getBounds();
 		
 		tex_coords.clear();
@@ -261,20 +257,20 @@ void poShape2D::updateAllTweens() {
 }
 
 void poShape2D::read(poXMLNode node) {
-	fillDrawStyle = node.getChild("fillDrawStyle").innerInt();
-	fillColor.set(node.getChild("fillColor").innerString());
-	strokeColor.set(node.getChild("strokeColor").innerString());
-	fillEnabled = node.getChild("fillEnabled").innerInt();
-	strokeEnabled = node.getChild("strokeEnabled").innerInt();
-	useSimpleStroke = node.getChild("useSimpleStroke").innerInt();
-	closed = node.getChild("closed").innerInt();
-	drawBounds = node.getChild("drawBounds").innerInt();
+	fillDrawStyle = node.getChild("fillDrawStyle").getInnerInt();
+	fillColor.set(node.getChild("fillColor").getInnerString());
+	strokeColor.set(node.getChild("strokeColor").getInnerString());
+	fillEnabled = node.getChild("fillEnabled").getInnerInt();
+	strokeEnabled = node.getChild("strokeEnabled").getInnerInt();
+	useSimpleStroke = node.getChild("useSimpleStroke").getInnerInt();
+	closed = node.getChild("closed").getInnerInt();
+	drawBounds = node.getChild("drawBounds").getInnerInt();
 //	alphaTestTexture = node.getChild("alphaTestTexture").innerInt();
-	cap = poStrokeCapProperty(node.getChild("cap").innerInt());
-	join = poStrokeJoinProperty(node.getChild("join").innerInt());
-	stroke_width = node.getChild("stroke_width").innerInt();
+	cap = poStrokeCapProperty(node.getChild("cap").getInnerInt());
+	join = poStrokeJoinProperty(node.getChild("join").getInnerInt());
+	stroke_width = node.getChild("stroke_width").getInnerInt();
 
-	std::string pstr = node.getChild("points").innerString();
+	std::string pstr = node.getChild("points").getInnerString();
 	std::string str = base64_decode(pstr);
 	
 	points.resize(str.size() / sizeof(poPoint));

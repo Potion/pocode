@@ -2,7 +2,7 @@
 #include "poWindow.h"
 
 #include "Helpers.h"
-#include "SimpleDrawing.h"
+#include "poOpenGLState.h"
 #include "poApplication.h"
 
 void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
@@ -106,7 +106,7 @@ bool poWindow::isFullscreen() const {
 poObject *poWindow::rootObject() {
 	if(!root) {
 		makeCurrent();
-		po::enableBlending();
+		poOpenGLState::get()->setBlend(po::BlendState::defaultBlending());
 		root = createObjectForID(root_id);
 	}
 	return root;
@@ -142,6 +142,7 @@ void poWindow::update() {
 }
 
 void poWindow::draw() {
+    poEventCenter::get()->clearDrawOrderForObjectsWithEvents();
 	rootObject()->_drawTree();
 }
 
@@ -173,6 +174,9 @@ void poWindow::processEvents() {
 	if(received.empty())
 		return;
 	
+    // sort all event callbacks by draw order
+    poEventCenter::get()->sortCallbacksByDrawOrder();
+    
 	while(!received.empty()) {
         //Get Event
 		poEvent event = received.front();
@@ -180,18 +184,24 @@ void poWindow::processEvents() {
 		received.pop_front();
         
         //Check type, take appropriate action
-        if(isTouchEvent(event.type) || isMouseEvent(event.type)) {
-           processInteractionEvent(event);
+        if(isMouseEvent(event.type)) {
+            poEventCenter::get()->processMouseEvents(event);
+        }
+        
+        if(isTouchEvent(event.type)) {
+            poEventCenter::get()->processTouchEvents(event);
         }
         
         else if(isKeyEvent(event.type)) {
-            processKeyEvent(event);
+            poEventCenter::get()->processKeyEvents(event);
         }
         
         else if( event.type == PO_WINDOW_RESIZED_EVENT) {
                 // everyone who cares gets resize
                 // maybe this should be broadcast
-                poEventCenter::get()->notify(event);
+            
+                poEventCenter::get()->notifyAllListeners(event);
+                //poEventCenter::get()->notify(event);
         }
         
         else {
@@ -434,7 +444,6 @@ void poWindow::touchBegin(int x, int y, int uid, int tapCount )
 	
 	event.type = PO_TOUCH_BEGAN_EVERYWHERE_EVENT;
 	received.push_back(event);
-    
 }
 
 

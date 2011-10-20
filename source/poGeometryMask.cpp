@@ -19,8 +19,10 @@ poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil)
 {}
 
 poGeometryMask::~poGeometryMask() {
-	if(shape)
+	if(shape) {
 		delete shape;
+		shape = NULL;
+	}
 }
 
 void poGeometryMask::setShape(poShape2D *s) {
@@ -41,10 +43,7 @@ void poGeometryMask::doSetUp(poObject *obj) {
 			glClear(GL_STENCIL_BUFFER_BIT);
 
         poOpenGLState *ogl = poOpenGLState::get();
-		ogl->matrix.pushModelview();
-        applyObjTransform(shape);
 		
-        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		ogl->pushStencilState();
 
 		po::StencilState state;
@@ -57,17 +56,15 @@ void poGeometryMask::doSetUp(poObject *obj) {
 		state.op_stencil_depth_pass = GL_REPLACE;
 		ogl->setStencil(state);
 		
-		po::drawPoints(GL_TRIANGLE_FAN, shape->getPoints());
-        
+        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		ogl->matrix.pushModelview();
+        applyObjTransform(shape);
+		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
+		ogl->matrix.popModelview();
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-		ogl->popStencilState();
-		
-		state = po::StencilState();
+
 		state.func = GL_EQUAL;
-		ogl->pushStencilState();
 		ogl->setStencil(state);
-		
-        ogl->matrix.popModelview();
 	}
 }
 

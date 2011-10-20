@@ -21,35 +21,44 @@ MouseEventsApp::MouseEventsApp() {
     float height = getWindowHeight();
 	
     rectangle = new poRectShape(width-100,height-100);
+    rectangle->name = "rectangle";
     rectangle->fillColor = poColor::lt_grey;
 	rectangle->position = poPoint(50,50, 0.f);
     addChild(rectangle);
 
 	
-    rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
 	// linked to an object with a bounding box
-    rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
-    rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);
-    rectangle->addEvent(PO_MOUSE_OVER_EVENT, this);
-	
+    /*rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
+    rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);*/
+    /*rectangle->addEvent(PO_MOUSE_OVER_EVENT, this);*/
+	 
     rectangle->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-	rectangle->addEvent(PO_MOUSE_DOWN_OUTSIDE_EVENT, this);
+	/*rectangle->addEvent(PO_MOUSE_DOWN_OUTSIDE_EVENT, this);
 
     rectangle->addEvent(PO_MOUSE_UP_INSIDE_EVENT, this);
 	rectangle->addEvent(PO_MOUSE_UP_OUTSIDE_EVENT, this);
 
-    rectangle->addEvent(PO_MOUSE_DRAG_EVENT, this);
+    rectangle->addEvent(PO_MOUSE_DRAG_EVENT, this); */
+    
+    poRectShape* coverRect = new poRectShape( 200,200 );
+    coverRect->name = "coverRect";
+    coverRect->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
+    addChild( coverRect );
 
-    addEvent(PO_MOUSE_UP_EVERYWHERE_EVENT, this);
-	addEvent(PO_MOUSE_DOWN_EVERYWHERE_EVENT, this);
-	addEvent(PO_MOUSE_DRAG_EVERYWHERE_EVENT, this);
+   /* addEvent(PO_MOUSE_UP_EVERYWHERE_EVENT, this);
+	addEvent(PO_MOUSE_DOWN_EVERYWHERE_EVENT, this); 
+	addEvent(PO_MOUSE_DRAG_EVERYWHERE_EVENT, this);*/
+     
+    addEvent(PO_KEY_DOWN_EVENT, this);
+    addEvent(PO_KEY_UP_EVENT, this); 
 }
 
 MouseEventsApp::~MouseEventsApp() {}
 
 void MouseEventsApp::eventHandler(poEvent *event){
     switch(event->type){
-        case PO_MOUSE_ENTER_EVENT:  
+            
+        case PO_MOUSE_ENTER_EVENT:   
 			cout<<"PO_MOUSE_ENTER_EVENT \n";
             break;
         case PO_MOUSE_LEAVE_EVENT:  
@@ -57,35 +66,49 @@ void MouseEventsApp::eventHandler(poEvent *event){
             break;
 		case PO_MOUSE_OVER_EVENT:	
 			cout<<"PO_MOUSE_OVER_EVENT \n";
-			break;
-
+			break; 
+ 
         case PO_MOUSE_DOWN_INSIDE_EVENT:
-			cout<<"PO_MOUSE_DOWN_INSIDE_EVENT \n";
+			cout<<"PO_MOUSE_DOWN_INSIDE_EVENT " + event->source->name + "\n"; 
             break;
 		case PO_MOUSE_DOWN_OUTSIDE_EVENT:	
 			cout<<"PO_MOUSE_DOWN_OUTSIDE_EVENT \n";
 			break;
         case PO_MOUSE_DOWN_EVERYWHERE_EVENT:  
-			cout<<"PO_MOUSE_DOWN_EVERYWHERE_EVENT \n";
-            break;
-			
+			cout<<"PO_MOUSE_DOWN_EVERYWHERE_EVENT \n";    
+            break;  
+			  
         case PO_MOUSE_UP_INSIDE_EVENT:  
 			cout<<"PO_MOUSE_UP_INSIDE_EVENT \n";
             break;
         case PO_MOUSE_UP_OUTSIDE_EVENT:  
-			cout<<"PO_MOUSE_UP_OUTSIDE_EVENT \n";
+			cout<<"PO_MOUSE_UP_OUTSIDE_EVENT \n"; 
             break;
-        case PO_MOUSE_UP_EVERYWHERE_EVENT:  
-			cout<<"PO_MOUSE_UP_EVERYWHERE_EVENT \n";
-            break;
+        case PO_MOUSE_UP_EVERYWHERE_EVENT:   
+			cout<<"PO_MOUSE_UP_EVERYWHERE_EVENT \n"; 
+            break; 
 
         case PO_MOUSE_DRAG_EVENT:  
-			cout<<"PO_MOUSE_DRAG_EVENT \n";
+			cout<<"PO_MOUSE_DRAG_EVENT \n";  
             break;
 		case PO_MOUSE_DRAG_EVERYWHERE_EVENT:	
 			cout<<"PO_MOUSE_DRAG_EVERYWHERE_EVENT \n";
 			break;
-			
+            
+        case PO_KEY_DOWN_EVENT:
+        {
+            if ( time(0)%2 == 0 )
+                this->moveChildToFront(rectangle);
+            else
+                this->moveChildToBack(rectangle);
+            cout<<"PO_KEY_DOWN_EVENT \n";
+			break;
+        }
+            
+        case PO_KEY_UP_EVENT:
+			cout<<"PO_KEY_UP_EVENT \n";
+			break;
+			 
         default:
             break;
     }

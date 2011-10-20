@@ -6,44 +6,47 @@
 #include "poBasicRenderer.h"
 #include "poOpenGLState.h"
 
-poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
-:	width(w)
-,	height(h)
-,	config(f)
-,	packer(w,h,2)
-{}
-
-poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
+poTextureAtlas::TextureAtlasImpl::TextureAtlasImpl(poTextureConfig c, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	config(c)
 ,	packer(w,h,2)
-{}
+{
+	
+}
 
-poTextureAtlas::~poTextureAtlas() {
-	clearImages();
+poTextureAtlas::TextureAtlasImpl::~TextureAtlasImpl() {
+	clearTextures();
 	clearPages();
+	clearImages();
 }
 
-void poTextureAtlas::addImage(poImage *img, uint request) {
-	requested_ids.push_back(request);
-
-	poImage *copy = img->copy();
-	copy->changeChannelCount(channelsForFormat(config.format));
-	images.push_back(copy);
+void poTextureAtlas::TextureAtlasImpl::clearTextures() {
+	textures.clear();
+	coords.clear();
+	uids.clear();
 }
 
-void poTextureAtlas::layoutAtlas() {
+void poTextureAtlas::TextureAtlasImpl::clearPages() {
+	pages.clear();
+}
+
+void poTextureAtlas::TextureAtlasImpl::clearImages() {
+	images.clear();
+	requested_ids.clear();
+}
+
+void poTextureAtlas::TextureAtlasImpl::layoutAtlas() {
 	clearTextures();
 	packer.reset();
 	
 	for(int i=0; i<images.size(); i++) {
-		uids[requested_ids[i]] = packer.addRect(poRect(0,0,images[i]->width(),images[i]->height()));
+		uids[requested_ids[i]] = packer.addRect(poRect(0,0,images[i].getWidth(),images[i].getHeight()));
 	}
 	packer.pack();
 	
 	for(int i=0; i<packer.numPages(); i++)
-		pages.push_back(new poImage(width,height,channelsForFormat(config.format),NULL));
+		pages.push_back(poImage(width,height,channelsForFormat(config.format),NULL));
 	
 	coords.resize(images.size());
 	
@@ -58,7 +61,7 @@ void poTextureAtlas::layoutAtlas() {
 		
 		poPoint size(pack_loc.width / (float)width,
 					 pack_loc.height / (float)height);
-
+		
 		poPoint origin(pack_loc.x / (float)width,
 					   pack_loc.y / (float)height);
 		
@@ -68,72 +71,74 @@ void poTextureAtlas::layoutAtlas() {
 		item.size = pack_loc.getSize();
 		
 		coords[i] = item;
-		pages[pg]->composite(images[i], pack_loc.getPosition(), 1.f);
+		pages[pg].composite(images[i], pack_loc.getPosition(), 1.f);
 	}
 	
 	textures.resize(pages.size());
 	
 	for(int i=0; i<pages.size(); i++) {
-		poImage *img = pages[i];
-		textures[i] = new poTexture(img,config);
+		poImage img = pages[i];
+		textures[i] = poTexture(img,config);
 	}
 	
 	clearPages();
 }
 
-bool poTextureAtlas::hasUID(uint uid) {
-	return uids.find(uid) != uids.end();
-}
 
-int poTextureAtlas::numPages() {
-	return textures.size();
-}
+poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
+:	shared(new TextureAtlasImpl(poTextureConfig(f),w,h))
+{}
 
-poPoint poTextureAtlas::dimensions() const {
-	return poPoint(width, height);
-}
+poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
+:	shared(new TextureAtlasImpl(c,w,h))
+{}
 
-uint poTextureAtlas::pageForUID(uint uid) {
-	return coords[uids[uid]].page;
-}
+void poTextureAtlas::addImage(poImage img, uint request) {
+	shared->requested_ids.push_back(request);
 
-poRect poTextureAtlas::coordsForUID(uint uid) {
-	return coords[uids[uid]].coords;
-}
-
-poRect poTextureAtlas::sizeForUID(uint uid) {
-	return poRect(poPoint(0,0), coords[uids[uid]].size);
-}
-
-poTexture *poTextureAtlas::textureForPage(uint page) {
-	return textures[page];
-}
-
-poTexture *poTextureAtlas::textureForUID(uint uid) {
-	return textures[pageForUID(uid)];
-}
-
-void poTextureAtlas::clearTextures() {
-	for(int i=0; i<textures.size(); i++) {
-		delete textures[i];
-	}
-	textures.clear();
-	coords.clear();
-	uids.clear();
-}
-
-void poTextureAtlas::clearPages() {
-	for(int i=0; i<pages.size(); i++)
-		delete pages[i];
-	pages.clear();
+	poImage copy = img.copy();
+	copy.setNumChannels(channelsForFormat(shared->config.format));
+	shared->images.push_back(copy);
 }
 
 void poTextureAtlas::clearImages() {
-	BOOST_FOREACH(poImage *img, images) {
-		delete img;
-	}
-	images.clear();
-	requested_ids.clear();
+	shared->clearImages();
+}
+
+void poTextureAtlas::layoutAtlas() {
+	shared->layoutAtlas();
+}
+
+bool poTextureAtlas::hasUID(uint uid) {
+	return shared->uids.find(uid) != shared->uids.end();
+}
+
+int poTextureAtlas::numPages() {
+	return shared->textures.size();
+}
+
+poPoint poTextureAtlas::dimensions() const {
+	return poPoint(shared->width, shared->height);
+}
+
+uint poTextureAtlas::pageForUID(uint uid) {
+	return shared->coords[shared->uids[uid]].page;
+}
+
+poRect poTextureAtlas::coordsForUID(uint uid) {
+	return shared->coords[shared->uids[uid]].coords;
+}
+
+poRect poTextureAtlas::sizeForUID(uint uid) {
+	return poRect(poPoint(0,0), shared->coords[shared->uids[uid]].size);
+}
+
+poTexture poTextureAtlas::textureForPage(uint page) {
+	return shared->textures[page];
+}
+
+poTexture poTextureAtlas::textureForUID(uint uid) {
+	return shared->textures[pageForUID(uid)];
 }
 
 void poTextureAtlas::drawUID(uint uid, poRect rect) {
@@ -146,7 +151,7 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 						 rect.width * size.width,
 						 rect.height * size.height);
 		poRect coords = coordsForUID(uid);
-		po::drawRect(placement, coords, textureForPage(page));
+		po::drawRect(textureForPage(page), placement, coords);
 	}
 }
 
@@ -155,7 +160,7 @@ void poTextureAtlas::drawUID(uint uid, poPoint p) {
 }
 
 void poTextureAtlas::_debugDraw() {
-	packer.render();
+	shared->packer.render();
 }
 
 

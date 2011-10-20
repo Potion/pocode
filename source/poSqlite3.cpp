@@ -104,13 +104,13 @@ poSqlite3Result poSqlite3::query(std::string query) {
                     
                     switch(colType) {
                         case SQLITE_INTEGER:
-                            dict.setInt(colName, sqlite3_column_int(statement, col));
+                            dict.set(colName, sqlite3_column_int(statement, col));
                             break;
                         case SQLITE_FLOAT:
-                            dict.setFloat(colName, (float)sqlite3_column_double(statement, col));
+                            dict.set(colName, (float)sqlite3_column_double(statement, col));
                             break;
                         case SQLITE_TEXT:
-                            dict.setString(colName, (char*)sqlite3_column_text(statement, col));
+                            dict.set(colName, std::string((char*)sqlite3_column_text(statement, col)));
                             break;
                     }
                 }

@@ -15,7 +15,7 @@
 poCamera::poCamera()
 :	reset(true)
 ,	clears_background(true)
-,	background_color(poColor::black)
+,	background_color(poColor::transparent)
 ,	is_fixed_size(false)
 {}
 
@@ -92,6 +92,10 @@ poCamera2D::poCamera2D(poColor clear)
 :	poCamera(clear)
 {}
 
+poCamera *poCamera2D::copy() {
+	return new poCamera2D(*this);
+}
+
 void poCamera2D::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	poRect viewp = stack->getViewport();
@@ -126,6 +130,10 @@ poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, fl
 ,	far(f)
 {}
 
+poCamera *poOrthoCamera::copy() {
+	return new poOrthoCamera(*this);
+}
+
 void poOrthoCamera::set(poRect r, float n, float f) {
 	set(r.x, r.y, r.x + r.width, r.y + r.height, n, f);
 }
@@ -154,6 +162,10 @@ poPerspectiveCamera::poPerspectiveCamera(float fov, float near, float far)
 ,	near(near)
 ,	far(far)
 {}
+
+poCamera *poPerspectiveCamera::copy() {
+	return new poPerspectiveCamera(*this);
+}
 
 poPoint poPerspectiveCamera::lookAtPosition() const {return look_at_pos;}
 poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {look_at_pos = p; return this;}

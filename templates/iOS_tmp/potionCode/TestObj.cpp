@@ -18,6 +18,7 @@ poObject *createObjectForID(uint id) {
 	return new TestObj();
 }
 
+
 TestObj::TestObj() {
 	addModifier(new poCamera2D(poColor::green));
     
@@ -32,11 +33,11 @@ TestObj::TestObj() {
 
 	text = addChild(new poTextBox(200));
 	text->font(getFont("Maharam-Regular.otf",""));
-	text->textSize(20);
+	text->textSize(50);
 	text->textColor = poColor::red;
 	text->text("hello world!!");
+	text->cacheToTexture(false);
 	text->layout();
-	
 }
 
 void TestObj::update() {
@@ -53,6 +54,9 @@ void TestObj::eventHandler(poEvent *event) {
 	switch(event->type) {
 		case PO_TOUCH_BEGAN_INSIDE_EVENT:
 			std::cout << event->touchID << std::endl;
+
+			text->cacheToTexture(!text->cacheToTexture());
+			text->layout();
 			break;
 	}
 }
