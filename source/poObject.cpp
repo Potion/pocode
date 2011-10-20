@@ -162,6 +162,10 @@ void poObject::removeEvent(int event_id) {
 	poEventCenter::get()->removeEvent(event_id);
 }
 
+void poObject::removeAllEvents() {
+	poEventCenter::get()->removeAllEvents(this);
+}
+
 bool poObject::removeChild(poObject* obj) {
 	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
 	bool found = iter != children.end();

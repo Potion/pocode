@@ -168,6 +168,9 @@ void poXMLNode::removeAttribute(const std::string &name) {
 }
 
 poXMLNode poXMLNode::getChild(uint idx) {
+	if(idx > numChildren())
+		return poXMLNode();
+	
 	std::vector<poXMLNode> kids = getChildren();
 	return kids[idx];
 }
@@ -225,7 +228,8 @@ pugi::xml_node poXMLNode::handle() {
 #pragma mark - poXMLDocument -
 
 poXMLDocument::poXMLDocument() {
-	document.append_child("root");
+	document.reset(new pugi::xml_document);
+	document->append_child("root");
 }
 
 poXMLDocument::poXMLDocument(const std::string &url) {
@@ -233,20 +237,20 @@ poXMLDocument::poXMLDocument(const std::string &url) {
 }
 
 bool poXMLDocument::isValid() const {
-	return document;
+	return document->empty();
 }
 
 poXMLNode poXMLDocument::getRootNode() const {
-	return poXMLNode(document.first_child());
+	return poXMLNode(document->first_child());
 }
 
 void poXMLDocument::setRootNode(poXMLNode node) {
-	document.reset();
-	node.node = document.append_copy(node.handle());
+	document.reset(new pugi::xml_document);
+	node.node = document->append_copy(node.handle());
 }
 
 bool poXMLDocument::read(const std::string &url) {
-	xml_parse_result result = document.load_file(url.c_str(), parse_default, encoding_utf8);
+	xml_parse_result result = document->load_file(url.c_str(), parse_default, encoding_utf8);
 	if(!result) {
 		log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
 		document.reset();
@@ -256,7 +260,7 @@ bool poXMLDocument::read(const std::string &url) {
 }
 
 bool poXMLDocument::readStr(const std::string &str) {
-	xml_parse_result result = document.load(str.c_str());
+	xml_parse_result result = document->load(str.c_str());
 	if(!result) {
 		log("poXML: parse error", result.description());
 		document.reset();
@@ -266,11 +270,11 @@ bool poXMLDocument::readStr(const std::string &str) {
 }
 
 bool poXMLDocument::write(const std::string &url) {
-	document.save_file(url.c_str());
+	document->save_file(url.c_str());
 }
 
 void poXMLDocument::print() {
-	document.print(std::cout);
+	document->print(std::cout);
 }
 
 

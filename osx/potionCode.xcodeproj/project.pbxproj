@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4176C517144F727B004BAFD5 /* poDictionary_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4176C516144F727B004BAFD5 /* poDictionary_test.cpp */; };
+		41AA9BB0144DCAB30052C5B0 /* poPoint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */; };
+		41AA9BB3144DCC090052C5B0 /* TestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB2144DCC090052C5B0 /* TestMain.cpp */; };
+		41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */; };
+		41B20504144F281A002F715F /* poImage_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20502144F281A002F715F /* poImage_test.cpp */; };
+		41B20508144F28E8002F715F /* poXML_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20506144F28E8002F715F /* poXML_test.cpp */; };
+		41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B28C00144CE5F7009CA807 /* poRect_test.cpp */; };
+		41E84D89144E1C21008E7BF7 /* poMatrixSet_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */; };
+		41E84D8D144E2A00008E7BF7 /* poTexture_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */; };
+		41E84D90144E381B008E7BF7 /* poColor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D8E144E381B008E7BF7 /* poColor_test.cpp */; };
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -147,6 +157,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4176C516144F727B004BAFD5 /* poDictionary_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poDictionary_test.cpp; path = regression/poDictionary_test.cpp; sourceTree = SOURCE_ROOT; };
+		41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPoint_test.cpp; path = regression/poPoint_test.cpp; sourceTree = SOURCE_ROOT; };
+		41AA9BB2144DCC090052C5B0 /* TestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestMain.cpp; path = regression/TestMain.cpp; sourceTree = SOURCE_ROOT; };
+		41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath_test.cpp; path = regression/poMath_test.cpp; sourceTree = SOURCE_ROOT; };
+		41B20502144F281A002F715F /* poImage_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage_test.cpp; path = regression/poImage_test.cpp; sourceTree = SOURCE_ROOT; };
+		41B20506144F28E8002F715F /* poXML_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML_test.cpp; path = regression/poXML_test.cpp; sourceTree = SOURCE_ROOT; };
+		41B28C00144CE5F7009CA807 /* poRect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poRect_test.cpp; path = regression/poRect_test.cpp; sourceTree = SOURCE_ROOT; };
+		41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet_test.cpp; path = regression/poMatrixSet_test.cpp; sourceTree = SOURCE_ROOT; };
+		41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture_test.cpp; path = regression/poTexture_test.cpp; sourceTree = SOURCE_ROOT; };
+		41E84D8E144E381B008E7BF7 /* poColor_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor_test.cpp; path = regression/poColor_test.cpp; sourceTree = SOURCE_ROOT; };
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poEventCenter.cpp; path = ../source/poEventCenter.cpp; sourceTree = "<group>"; };
@@ -380,7 +400,16 @@
 		E8D8F30B144C8DEA0077F6DA /* regression */ = {
 			isa = PBXGroup;
 			children = (
-				E8D8F337144C8E830077F6DA /* poPoint_test.cpp */,
+				41AA9BB2144DCC090052C5B0 /* TestMain.cpp */,
+				41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */,
+				41B28C00144CE5F7009CA807 /* poRect_test.cpp */,
+				41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */,
+				41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */,
+				41B20502144F281A002F715F /* poImage_test.cpp */,
+				41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */,
+				41E84D8E144E381B008E7BF7 /* poColor_test.cpp */,
+				41B20506144F28E8002F715F /* poXML_test.cpp */,
+				4176C516144F727B004BAFD5 /* poDictionary_test.cpp */,
 			);
 			name = regression;
 			path = potionCode_reg;
@@ -713,7 +742,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8D8F339144C91B00077F6DA /* poPoint_test.cpp in Sources */,
+				41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */,
+				41AA9BB0144DCAB30052C5B0 /* poPoint_test.cpp in Sources */,
+				41AA9BB3144DCC090052C5B0 /* TestMain.cpp in Sources */,
+				41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */,
+				41E84D89144E1C21008E7BF7 /* poMatrixSet_test.cpp in Sources */,
+				41E84D8D144E2A00008E7BF7 /* poTexture_test.cpp in Sources */,
+				41E84D90144E381B008E7BF7 /* poColor_test.cpp in Sources */,
+				41B20504144F281A002F715F /* poImage_test.cpp in Sources */,
+				41B20508144F28E8002F715F /* poXML_test.cpp in Sources */,
+				4176C517144F727B004BAFD5 /* poDictionary_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +771,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -765,6 +804,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "";
 			};
 			name = Release;
 		};
@@ -777,6 +817,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = main.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -786,13 +828,22 @@
 					/PotionCode/libraries/Boost/boost_1_45_0,
 					/PotionCode/libraries/FreeType,
 					/PotionCode/libraries/FreeImage,
-					/PotionCode/library/pugixml,
+					/PotionCode/libraries/pugixml,
 					/PotionCode/libraries/glm,
 					/PotionCode/libraries/utf8,
+					/PotionCode/libraries,
 				);
 				LIBRARY_SEARCH_PATHS = /PotionCode/libraries/potionCode;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = "-lPotionCode_d";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = (
+					"-lPotionCode_d",
+					"-framework",
+					Cocoa,
+					"-framework",
+					OpenGL,
+					"-framework",
+					ApplicationServices,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
@@ -809,11 +860,13 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = main.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -823,14 +876,23 @@
 					/PotionCode/libraries/Boost/boost_1_45_0,
 					/PotionCode/libraries/FreeType,
 					/PotionCode/libraries/FreeImage,
-					/PotionCode/library/pugixml,
+					/PotionCode/libraries/pugixml,
 					/PotionCode/libraries/glm,
 					/PotionCode/libraries/utf8,
+					/PotionCode/libraries,
 				);
 				LIBRARY_SEARCH_PATHS = /PotionCode/libraries/potionCode;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lPotionCode_d";
+				OTHER_LDFLAGS = (
+					"-lPotionCode_d",
+					"-framework",
+					Cocoa,
+					"-framework",
+					OpenGL,
+					"-framework",
+					ApplicationServices,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
