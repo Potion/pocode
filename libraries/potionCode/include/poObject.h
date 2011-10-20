@@ -74,6 +74,7 @@ public:
     //@{
 	int                 addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
 	void                removeEvent(int event_id);
+    void                removeAllEvents();
     //@}
 
     /*! Width/height should never be set directly!*/
