@@ -86,7 +86,7 @@ void poFBO::doSetUp(poObject* obj) {
 
 void poFBO::doSetDown(poObject* obj) {
 	cam->setDown(obj);
-	
+#ifndef OPENGL_ES
 	if(multisampling) {
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
@@ -96,6 +96,7 @@ void poFBO::doSetDown(poObject* obj) {
 			glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		#endif
 	}
+#endif
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -118,7 +119,6 @@ void poFBO::setup() {
 #else
 		glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
 #endif
-
 		// we need 2 different framebuffers
 		framebuffers.resize(2);
 		glGenFramebuffers(2, &framebuffers[0]);

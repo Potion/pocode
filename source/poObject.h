@@ -5,7 +5,7 @@
 #pragma once
 
 #include "poTween.h"
-#include "poEvent.h"
+#include "poEventCenter.h"
 #include "poDictionary.h"
 #include "poMatrixSet.h"
 #include "poMatrixStack.h"
@@ -236,10 +236,12 @@ public:
 	float               appliedAlpha() const; 	
     poMatrixSet         matrixSet() const;
 	int                 drawOrder() const;
+    void                clearDrawOrder() { draw_order = -1; };
 	
     static const int    INVALID_INDEX = -1;
     //@}
     
+    poEventMemory       eventMemory;
     
 protected:
     
