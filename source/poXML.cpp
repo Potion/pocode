@@ -233,6 +233,7 @@ poXMLDocument::poXMLDocument() {
 }
 
 poXMLDocument::poXMLDocument(const std::string &url) {
+	document.reset(new pugi::xml_document);
 	read(url);
 }
 
