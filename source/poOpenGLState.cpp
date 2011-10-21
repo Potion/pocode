@@ -84,27 +84,16 @@ void poOpenGLState::setBlend(po::BlendState state) {
 		blend.enabled = state.enabled;
 	}
 	
-	if(state.separate && 
-	   (state.source_factor != blend.source_factor || state.dest_factor != blend.dest_factor) &&
-	   (state.source_alpha_factor != blend.source_alpha_factor || state.dest_alpha_factor != blend.dest_alpha_factor))
-	{
+	if(!blend.isBlendFuncSame(blend)) {
 		glBlendFuncSeparate(state.source_factor, state.dest_factor, state.source_alpha_factor, state.dest_alpha_factor);
-		blend.source_factor = state.source_factor;
-		blend.dest_factor = state.dest_factor;
-		blend.source_alpha_factor = state.source_alpha_factor;
-		blend.dest_alpha_factor = state.dest_alpha_factor;
-	}
-	else 
-	if(state.source_factor != blend.source_factor || state.dest_factor != blend.dest_factor) {
-		glBlendFunc(state.source_factor, state.dest_factor);
-		blend.source_factor = state.source_factor;
-		blend.dest_factor = state.dest_factor;
+		blend.copyBlendFuncFrom(state);
 	}
 	
-	if(state.equation != blend.equation) {
-		glBlendEquation(state.equation);
-		blend.equation = state.equation;
+	if(!blend.isBlendEquationSame(state)) {
+		glBlendEquationSeparate(state.equation, state.alpha_equation);
+		blend.copyBlendEquationFrom(state);
 	}
+
 	if(state.color != blend.color) {
 		glBlendColor(state.color.R, state.color.G, state.color.B, state.color.A);
 		blend.color = state.color;
@@ -201,13 +190,8 @@ po::StencilState::StencilState() {
 po::BlendState::BlendState() {
 	enabled = false;
 	
-	separate = false;
-	source_factor = GL_ONE;
-	dest_factor = GL_ZERO;
-	source_alpha_factor = GL_ONE;
-	dest_factor = GL_ZERO;
-	
-	equation = GL_FUNC_ADD;
+	blendEquation(GL_FUNC_ADD);
+	blendFunc(GL_ONE, GL_ZERO);
 	
 	color = poColor::transparent;
 }
@@ -215,10 +199,47 @@ po::BlendState::BlendState() {
 po::BlendState po::BlendState::defaultBlending() {
 	BlendState state;
 	state.enabled =true;
-	state.source_factor = GL_SRC_ALPHA;
-	state.dest_factor = GL_ONE_MINUS_SRC_ALPHA;
+	state.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	return state;
 }
+
+void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor) {
+	source_factor = source_alpha_factor = sourceFactor;
+	dest_factor = dest_alpha_factor = destFactor;
+}
+void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor) {
+	source_factor = sourceFactor;
+	dest_factor = destFactor;
+	source_alpha_factor = sourceAlphaFactor;
+	dest_alpha_factor = destAlphaFactor;
+}
+void po::BlendState::blendEquation(GLenum mode) {
+	equation = alpha_equation = mode;
+}
+void po::BlendState::blendEquation(GLenum rgbMode, GLenum aMode) {
+	equation = rgbMode;
+	alpha_equation = aMode;
+}
+bool po::BlendState::isBlendFuncSame(po::BlendState bs) {
+	return (source_factor == bs.source_factor &&
+			dest_factor == bs.dest_factor &&
+			source_alpha_factor == bs.source_alpha_factor &&
+			dest_alpha_factor == bs.dest_alpha_factor);
+}
+bool po::BlendState::isBlendEquationSame(po::BlendState bs) {
+	return (equation == bs.equation && alpha_equation == bs.alpha_equation);
+}
+void po::BlendState::copyBlendFuncFrom(po::BlendState bs) {
+	source_factor = bs.source_factor;
+	dest_factor = bs.dest_factor;
+	source_alpha_factor = bs.source_alpha_factor;
+	dest_alpha_factor = bs.dest_alpha_factor;
+}
+void po::BlendState::copyBlendEquationFrom(po::BlendState bs) {
+	equation = bs.equation;
+	alpha_equation = bs.alpha_equation;
+}
+
 
 po::TextureState::TextureState() {
 	bound_id = 0;

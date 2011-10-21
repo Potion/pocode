@@ -137,7 +137,11 @@ void poFBO::setup() {
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
 
 		// make the texture
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
+		#ifdef OPENGL_ES
+			colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
+		#else
+			colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
+		#endif
 		// and attach it to the second framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);

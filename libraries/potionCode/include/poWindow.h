@@ -93,16 +93,16 @@ private:
     // once per frame by the processEvents method. Queuing the events allows for thread-safe operation.
 	void                    processEvents();
     
-    void processInteractionEvent(poEvent event);
-    void processMouseEvent(poEvent event, std::set<poObject*> &objsBeneath);
-    void processTouchEvent(poEvent event, std::set<poObject*> &objsBeneath);
-    void processKeyEvent(poEvent event);
-    
-    //Share Vars for event processing
-    void setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject*> &prevObjsBeneath, std::set<poObject*> &enter, std::set<poObject*> &leave);
+//    void processInteractionEvent(poEvent event);
+//    void processMouseEvent(poEvent event, std::set<poObject*> &objsBeneath);
+//    void processTouchEvent(poEvent event, std::set<poObject*> &objsBeneath);
+//    void processKeyEvent(poEvent event);
+//    
+//    //Share Vars for event processing
+//    void setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject*> &prevObjsBeneath, std::set<poObject*> &enter, std::set<poObject*> &leave);
     
     std::deque<poEvent>     received;    
-    poObject                *key_receiver;
+//    poObject                *key_receiver;
 	
     // WINDOW PROPERTIES (PRIVATE)
 	bool            closed_;
@@ -119,14 +119,14 @@ private:
 	// GLOBAL MOUSE POSITION
 	poPoint         mouse_pos;
     
-    //MOUSE INTERACTION POINT
-    interactionPoint mouse;
-    
-    // TOUCH EVENTS
-    std::vector<interactionPoint *> trackedTouches;
-    void trackTouch(interactionPoint *t);
-    interactionPoint * getTouch(int uid);
-    void untrackTouch(int uid);
+//    //MOUSE INTERACTION POINT
+//    interactionPoint mouse;
+//    
+//    // TOUCH EVENTS
+//    std::vector<interactionPoint *> trackedTouches;
+//    void trackTouch(interactionPoint *t);
+//    interactionPoint * getTouch(int uid);
+//    void untrackTouch(int uid);
 	
     // DRAW ORDER COUNTER
     int draw_order_counter;

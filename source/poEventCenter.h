@@ -39,7 +39,7 @@ public:
         lastDragID = -1;
     }
     
-    int     lastInsideTouchID;      // for emter / leave
+    int     lastInsideTouchID;      // for enter / leave
     int     lastDragID;             // for dragging
 };
 

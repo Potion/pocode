@@ -58,10 +58,13 @@ public:
     // When you call addEvent(), the object that the event is added to is the source.
 	// Source is the poObject that generated the event.
 	poObject*       source;
-	
+
+	// When the event happened.
+	double          timestamp;
+
     // The event message and dictionary are set by the user per event, via the addEvent method.
     std::string     message;
-	poDictionary    dict;
+	poDictionary    dictionary;
     
 	// The event type.
 	int             type;
@@ -71,7 +74,7 @@ public:
 	
 	// position is the global (screen) position of the mouse or touch event.
     // local_position is the mouse or touch position relative to the object.
-	poPoint         position, local_position;
+	poPoint         position, globalPosition, previousPosition;
 
 	// The keyCode is the raw key identifier.
 	int             keyCode;
@@ -87,10 +90,6 @@ public:
     //Touches have a tap count in iOS, useful for double/triple tap events
     int             tapCount;
 
-	// These properties are used for event tracking.
-	uint32_t        uid;
-	double          timestamp;
-	poPoint         previous_position;
 };
 
 

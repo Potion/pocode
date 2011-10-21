@@ -51,12 +51,22 @@ namespace po {
 
 		static BlendState defaultBlending();
 		
+		void blendFunc(GLenum sourceFactor, GLenum destFactor);
+		void blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor);
+		void blendEquation(GLenum mode);
+		void blendEquation(GLenum rgbMode, GLenum aMode);
+		
+		bool isBlendFuncSame(BlendState bs);
+		bool isBlendEquationSame(BlendState bs);
+		
+		void copyBlendFuncFrom(BlendState bs);
+		void copyBlendEquationFrom(BlendState bs);
+		
 		bool enabled;
 		// blend func
-		bool separate;
 		GLenum source_factor, dest_factor, source_alpha_factor, dest_alpha_factor;
 		// blend equation
-		GLenum equation;
+		GLenum equation, alpha_equation;
 		// blend color
 		poColor color;
 	};
