@@ -599,7 +599,7 @@ void poObject::clone(poObject *obj) {
 		obj->modifiers.push_back(modifiers[i]->copy());
 	}
 	
-	// should also fetch and copy the events, sending and receiving
+	poEventCenter::get()->copyEventsFromObject(this, obj);
 }
 
 

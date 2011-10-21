@@ -49,6 +49,7 @@ void poEventCenter::resizeIfNecessary(int incoming) {
 poEventCenter::poEventCenter() 
 :	events(PO_LAST_EVENT)
 ,	bcheck_event(PO_LAST_EVENT)
+,	callback_uid(0)
 {
 }
 
@@ -60,8 +61,6 @@ int poEventCenter::registerForEvent(int eventType, poObject *source, poObject *s
 	if(eventType >= events.size())
 		return 0;
     
-	static int callback_uid = 0;
-	
 	poEventCallback* callback = new poEventCallback();
 	callback->uid = ++callback_uid;
 	callback->receiver = sink;
@@ -204,6 +203,31 @@ void poEventCenter::addEventType(int eventType, bool isChecked) {
 	bcheck_event[eventType] = isChecked;
 }
 
+
+void poEventCenter::copyEventsFromObject(poObject *from, poObject *to) {
+	for(int i=0; i<events.size(); i++) {
+		std::vector<poEventCallback*> additions;
+		
+		for(int j=0; j<events[i].size(); j++) {
+			if(events[i][j]->receiver == from) {
+				poEventCallback *cb = new poEventCallback;
+				cb->uid = ++callback_uid;
+				cb->receiver = to;
+				cb->event = events[i][j]->event;
+				additions.push_back(cb);
+			}
+			else if(events[i][j]->event.source == from) {
+				poEventCallback *cb = new poEventCallback;
+				cb->uid = ++callback_uid;
+				cb->event = events[i][j]->event;
+				cb->event.source = to;
+				additions.push_back(cb);
+			}
+		}
+		
+		events[i].insert(events[i].end(), additions.begin(), additions.end());
+	}
+}
 
 // ======================= EVENT REWRITE CODE ======================= 
 

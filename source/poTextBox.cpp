@@ -60,6 +60,7 @@ poObject* poTextBox::copy() {
 }
 
 void poTextBox::clone(poTextBox *tb) {
+	tb->textColor = textColor;
 	tb->fit_height_to_bounds = fit_height_to_bounds;
 	tb->cache_to_texture = cache_to_texture;
 	tb->text_align = text_align;
@@ -209,6 +210,18 @@ void poTextBox::layout() {
 		
 		poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
 		fbo->setUp(this);
+		
+		// http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
+		po::BlendState blend;
+		blend.separate = true;
+		blend.source_factor = GL_SRC_COLOR;
+		blend.dest_factor = GL_ONE_MINUS_SRC_COLOR;
+		blend.source_alpha_factor = GL_ONE;
+		blend.dest_alpha_factor = GL_ONE;
+		
+		poOpenGLState *ogl = poOpenGLState::get();
+		ogl->pushBlendState();
+		ogl->setBlend(blend);
 
 		poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
 
@@ -219,7 +232,10 @@ void poTextBox::layout() {
             }
         }
 		
+		ogl->popBlendState();
+		
 		fbo->setDown(this);
+		cached = fbo->colorTexture();
 		delete fbo;
 	}
 }
