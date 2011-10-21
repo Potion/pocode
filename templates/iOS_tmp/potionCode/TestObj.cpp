@@ -20,7 +20,7 @@ poObject *createObjectForID(uint id) {
 }
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::white));
+	addModifier(new poCamera2D(poColor::black));
 	
 	holder = addChild(new poObject());
 	holder = holder->addChild(new poObject());
@@ -37,13 +37,14 @@ TestObj::TestObj() {
 	}
 	
 	for(int i=0; i<100; i++) {
-		poTextBox *text = holder->addChild(new poTextBox(100));
+		poTextBox *text = holder->addChild(new poTextBox(150));
 		text->font(getFont("Maharam-Regular.otf",""));
-		text->textSize(poRand(12,20));
-		text->textColor = poColor::blue;
+		text->textSize(poRand(25,50));
+		text->textColor = poColor::white;
 		text->text(std::string("hello:") + boost::lexical_cast<std::string>(text->textSize()));
 		text->textAlignment(PO_ALIGN_CENTER);
 		text->leading(.7f);
+		text->scale.set(.5,.5,1.f);
 		text->position = randomPointInRect(getWindowFrame());
 		text->layout();
 	}

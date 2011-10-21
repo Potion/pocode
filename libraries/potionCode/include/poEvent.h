@@ -7,7 +7,9 @@
 #include "poEnums.h"
 #include "poDictionary.h"
 
+class poObject;
 class poEvent;
+
 typedef std::vector<poEvent*> poEventVec;
 typedef std::vector<poEventVec> poEventTable;
 

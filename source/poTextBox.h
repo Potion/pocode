@@ -62,6 +62,8 @@ public:
 	poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
+	virtual poObject* copy();
+	
     // LAYOUT
     // You MUST call layout after making any changes to poTextBox. Otherwise, you will not see
     // the changes in the text box.
@@ -150,6 +152,9 @@ public:
     // You should not need to call the draw() method yourself.
 	void                draw();
 
+protected:
+	void				clone(poTextBox *tb);
+	
 private:
 	void                defaultFonts();
 	

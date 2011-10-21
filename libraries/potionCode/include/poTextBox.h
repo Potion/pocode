@@ -157,7 +157,7 @@ private:
 	bool				cache_to_texture;
 	poAlignment         text_align;
 	po::TextBoxLayout   _layout;
-	poFBO				*cached;
+	poTexture			cached;
 };
 
 

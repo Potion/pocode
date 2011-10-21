@@ -6,7 +6,7 @@
 //  Copyright 2010 Apple Inc. All rights reserved.
 //
 
-#define MULTISAMPLE
+//#define MULTISAMPLE
 
 #import "EAGLView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -102,6 +102,13 @@
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+#else
+		glGenRenderbuffers(1, &depthStencil);
+		glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
+		glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
 #endif
 		
 //		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);

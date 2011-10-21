@@ -21,19 +21,19 @@ TextCachingApp::TextCachingApp() {
 	
 	std::stringstream ss;
 	for(int i=0; i<10; i++) 
-		ss << "I will <b color='#110011'>not</b>, ever again. ";
+		ss << "I will not, ever again. ";
 
 	poTextBox *tb = addChild(new poTextBox(500,500));
 	tb->font(getFont("Helvetica","Bold"), PO_TEXT_BOLD);
 	tb->font(getFont("Helvetica"));
 	tb->textColor = poColor::red;
 	tb->position.set(50,50,0);
-	tb->cacheToTexture(true);
-	tb->richText(true);
+	tb->cacheToTexture(false);
 	tb->text(ss.str());
 	tb->textSize(20);
 	tb->layout();
-	
+
+	tb = tb->clone();
 }
 
 TextCachingApp::~TextCachingApp() {}

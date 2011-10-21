@@ -44,6 +44,16 @@ poFBO::~poFBO() {
 		cleanup();
 }
 
+poObjectModifier *poFBO::copy() {
+	poFBO *fbo = new poFBO(width, height, config);
+	return;
+}
+
+void poFBO::clone(poFBO* obj) {
+	obj->setCamera(cam);
+	poObjectModifier::clone(obj);
+}
+
 bool poFBO::isValid() const {
 	return !framebuffers.empty() && framebuffers[0] > 0;
 }

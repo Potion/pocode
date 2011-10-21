@@ -29,6 +29,8 @@ public:
 	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
 	virtual ~poGeometryMask();
 	
+	virtual poObjectModifier *copy();
+	
 	void            setShape(poShape2D *shape);	
 	// this isn't implemented yet
 	bool            pointInside(poPoint p);

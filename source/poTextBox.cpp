@@ -53,6 +53,21 @@ poTextBox::poTextBox(int w, int h)
     setHeight(h);
 }
 
+poObject* poTextBox::copy() {
+	poTextBox *tb = new poTextBox();
+	clone(tb);
+	return tb;
+}
+
+void poTextBox::clone(poTextBox *tb) {
+	tb->fit_height_to_bounds = fit_height_to_bounds;
+	tb->cache_to_texture = cache_to_texture;
+	tb->text_align = text_align;
+	tb->_layout = _layout;
+	tb->cached = cached;
+	poObject::clone(tb);
+}
+
 void poTextBox::defaultFonts() {
 #ifndef POTION_IOS
 	font(getFont("Lucida Grande", "Regular"));
@@ -188,25 +203,32 @@ void poTextBox::layout() {
 	_layout.alignment = text_align;
 	_layout.realignText();
 	
+	if(cache_to_texture) {
+		poRect bounds = getBounds();
+		bounds.include(textBounds());
+		
+		poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
+		fbo->setUp(this);
+
+		poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
+
+		po::setColor(poColor::white);
+		for(int i=0; i<numLines(); i++) {
+            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
+                bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+            }
+        }
+		
+		fbo->setDown(this);
+		delete fbo;
+	}
 }
 
 void poTextBox::draw() {
 	if(cached.isValid()) {
-		po::setColor(poColor::white);
+		po::setColor(textColor, appliedAlpha());
 		po::drawRect(cached);
 		return;
-	}
-
-	poFBO *fbo = NULL;
-	
-	// if we're caching but haven't made the image yet
-	if(cache_to_texture && !cached.isValid()) {
-		// make sure its big enough
-		poRect bounds = getBounds();
-		bounds.include(textBounds());
-		
-		fbo = new poFBO(bounds.width, bounds.height, poFBOConfig().setNumMultisamples(4));
-		fbo->setUp(this);
 	}
 	
 	poBitmapFont regFont = getBitmapFont(font(), _layout.textSize);
@@ -253,15 +275,6 @@ void poTextBox::draw() {
             }
         }
     }
-	
-	if(cache_to_texture) {
-		fbo->setDown(this);
-		cached = fbo->colorTexture();
-		delete fbo;
-		
-		po::setColor(poColor::white);
-		po::drawRect(cached);
-	}
 }
 
 
