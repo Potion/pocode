@@ -11,12 +11,8 @@
 		41AA9BB0144DCAB30052C5B0 /* poPoint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */; };
 		41AA9BB3144DCC090052C5B0 /* TestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB2144DCC090052C5B0 /* TestMain.cpp */; };
 		41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */; };
-		41B20504144F281A002F715F /* poImage_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20502144F281A002F715F /* poImage_test.cpp */; };
 		41B20508144F28E8002F715F /* poXML_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20506144F28E8002F715F /* poXML_test.cpp */; };
 		41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B28C00144CE5F7009CA807 /* poRect_test.cpp */; };
-		41E84D89144E1C21008E7BF7 /* poMatrixSet_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */; };
-		41E84D8D144E2A00008E7BF7 /* poTexture_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */; };
-		41E84D90144E381B008E7BF7 /* poColor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E84D8E144E381B008E7BF7 /* poColor_test.cpp */; };
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -123,7 +119,6 @@
 		E8CAA4CE1444E35A00A7D3D5 /* poResourceLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CAA4CD1444E35A00A7D3D5 /* poResourceLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8CE963E13B004EB00DFB769 /* LineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* LineExtruder.cpp */; };
 		E8CE963F13B004EB00DFB769 /* LineExtruder.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CE963C13B004E900DFB769 /* LineExtruder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E8D8F339144C91B00077F6DA /* poPoint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F337144C8E830077F6DA /* poPoint_test.cpp */; };
 		E8D8F33B144C986E0077F6DA /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D8F33A144C986E0077F6DA /* poFBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8D8F33C144C986E0077F6DA /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D8F33A144C986E0077F6DA /* poFBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8D8F33E144C9F700077F6DA /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F33D144C9F700077F6DA /* poFBO.cpp */; };
@@ -161,12 +156,8 @@
 		41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPoint_test.cpp; path = regression/poPoint_test.cpp; sourceTree = SOURCE_ROOT; };
 		41AA9BB2144DCC090052C5B0 /* TestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestMain.cpp; path = regression/TestMain.cpp; sourceTree = SOURCE_ROOT; };
 		41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath_test.cpp; path = regression/poMath_test.cpp; sourceTree = SOURCE_ROOT; };
-		41B20502144F281A002F715F /* poImage_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage_test.cpp; path = regression/poImage_test.cpp; sourceTree = SOURCE_ROOT; };
 		41B20506144F28E8002F715F /* poXML_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML_test.cpp; path = regression/poXML_test.cpp; sourceTree = SOURCE_ROOT; };
 		41B28C00144CE5F7009CA807 /* poRect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poRect_test.cpp; path = regression/poRect_test.cpp; sourceTree = SOURCE_ROOT; };
-		41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet_test.cpp; path = regression/poMatrixSet_test.cpp; sourceTree = SOURCE_ROOT; };
-		41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture_test.cpp; path = regression/poTexture_test.cpp; sourceTree = SOURCE_ROOT; };
-		41E84D8E144E381B008E7BF7 /* poColor_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poColor_test.cpp; path = regression/poColor_test.cpp; sourceTree = SOURCE_ROOT; };
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poEventCenter.cpp; path = ../source/poEventCenter.cpp; sourceTree = "<group>"; };
@@ -240,7 +231,6 @@
 		E8CE963C13B004E900DFB769 /* LineExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineExtruder.h; path = ../source/LineExtruder.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
 		E8D8F309144C8DEA0077F6DA /* potionCode_reg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = potionCode_reg; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8D8F337144C8E830077F6DA /* poPoint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPoint_test.cpp; path = regression/poPoint_test.cpp; sourceTree = SOURCE_ROOT; };
 		E8D8F33A144C986E0077F6DA /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFBO.h; path = ../source/poFBO.h; sourceTree = "<group>"; };
 		E8D8F33D144C9F700077F6DA /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFBO.cpp; path = ../source/poFBO.cpp; sourceTree = "<group>"; };
 		E8E51B3D13A13E5C008C67FF /* BinPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinPacker.cpp; path = ../source/BinPacker.cpp; sourceTree = "<group>"; };
@@ -404,10 +394,6 @@
 				41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */,
 				41B28C00144CE5F7009CA807 /* poRect_test.cpp */,
 				41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */,
-				41E84D87144E1C21008E7BF7 /* poMatrixSet_test.cpp */,
-				41B20502144F281A002F715F /* poImage_test.cpp */,
-				41E84D8B144E2A00008E7BF7 /* poTexture_test.cpp */,
-				41E84D8E144E381B008E7BF7 /* poColor_test.cpp */,
 				41B20506144F28E8002F715F /* poXML_test.cpp */,
 				4176C516144F727B004BAFD5 /* poDictionary_test.cpp */,
 			);
@@ -746,10 +732,6 @@
 				41AA9BB0144DCAB30052C5B0 /* poPoint_test.cpp in Sources */,
 				41AA9BB3144DCC090052C5B0 /* TestMain.cpp in Sources */,
 				41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */,
-				41E84D89144E1C21008E7BF7 /* poMatrixSet_test.cpp in Sources */,
-				41E84D8D144E2A00008E7BF7 /* poTexture_test.cpp in Sources */,
-				41E84D90144E381B008E7BF7 /* poColor_test.cpp in Sources */,
-				41B20504144F281A002F715F /* poImage_test.cpp in Sources */,
 				41B20508144F28E8002F715F /* poXML_test.cpp in Sources */,
 				4176C517144F727B004BAFD5 /* poDictionary_test.cpp in Sources */,
 			);
