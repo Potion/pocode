@@ -22,6 +22,32 @@ poShape2D::poShape2D()
 //,	alphaTestTexture(false)
 {}
 
+poObject* poShape2D::copy() {
+	poShape2D *shp = new poShape2D();
+	clone(shp);
+	return shp;
+}
+
+void poShape2D::clone(poShape2D *shp) {
+	shp->fillDrawStyle = fillDrawStyle;
+	shp->fillColor = fillColor;
+	shp->strokeColor = strokeColor;
+	shp->fillEnabled = fillEnabled;
+	shp->strokeEnabled = strokeEnabled;
+	shp->stroke_width = stroke_width;
+	shp->useSimpleStroke = useSimpleStroke;
+	shp->closed = closed;
+	shp->fill_color_tween = fill_color_tween;
+	shp->points = points;
+	shp->tex_coords = tex_coords;
+	shp->stroke = stroke;
+	shp->texture = texture;
+	shp->cap = cap;
+	shp->join = join;
+	shp->stroke_width = stroke_width;
+	poObject::clone(shp);
+}
+
 void poShape2D::draw() {
 	// do shape fill
 	if ( fillEnabled ) {

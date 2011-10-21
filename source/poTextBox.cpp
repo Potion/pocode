@@ -24,7 +24,6 @@ poTextBox::poTextBox()
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 }
@@ -36,7 +35,6 @@ poTextBox::poTextBox(int w)
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 	setWidth(w);
@@ -49,11 +47,26 @@ poTextBox::poTextBox(int w, int h)
 ,	fit_height_to_bounds(false)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-,	cached(NULL)
 {
 	defaultFonts();
 	setWidth(w);
     setHeight(h);
+}
+
+poObject* poTextBox::copy() {
+	poTextBox *tb = new poTextBox();
+	clone(tb);
+	return tb;
+}
+
+void poTextBox::clone(poTextBox *tb) {
+	tb->textColor = textColor;
+	tb->fit_height_to_bounds = fit_height_to_bounds;
+	tb->cache_to_texture = cache_to_texture;
+	tb->text_align = text_align;
+	tb->_layout = _layout;
+	tb->cached = cached;
+	poObject::clone(tb);
 }
 
 void poTextBox::defaultFonts() {
@@ -62,10 +75,7 @@ void poTextBox::defaultFonts() {
 #endif
 }
 
-poTextBox::~poTextBox() {
-	if(cached)
-		delete cached;
-}
+poTextBox::~poTextBox() {}
 
 std::string poTextBox::text() const {return _layout.text;}
 void poTextBox::text(const std::string &str) {_layout.text = str;}
@@ -181,9 +191,8 @@ poFont poTextBox::font(const std::string &name) {
 }
 
 void poTextBox::layout() {
-	if(cached) {
-		delete cached;
-		cached = NULL;
+	if(cached.isValid()) {
+		cached = poTexture();
 	}
 	
 	_layout.layout();
@@ -195,23 +204,48 @@ void poTextBox::layout() {
 	_layout.alignment = text_align;
 	_layout.realignText();
 	
-}
-
-void poTextBox::draw() {
-	if(cached) {
-		po::setColor(poColor::white);
-		po::drawRect(cached->colorTexture());
-		return;
-	}
-
-	// if we're caching but haven't made the image yet
-	if(cache_to_texture && !cached) {
-		// make sure its big enough
+	if(cache_to_texture) {
 		poRect bounds = getBounds();
 		bounds.include(textBounds());
 		
-		cached = new poFBO(bounds.width, bounds.height, poFBOConfig().setNumMultisamples(4));
-		cached->setUp(this);
+		poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
+		fbo->setUp(this);
+		
+		// http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
+		po::BlendState blend;
+		blend.enabled = true;
+		blend.separate = true;
+		blend.source_factor = GL_SRC_COLOR;
+		blend.dest_factor = GL_ZERO;
+		blend.source_alpha_factor = GL_ONE;
+		blend.dest_alpha_factor = GL_ONE;
+		
+		poOpenGLState *ogl = poOpenGLState::get();
+		ogl->pushBlendState();
+		ogl->setBlend(blend);
+
+		poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
+
+		po::setColor(poColor::white);
+		for(int i=0; i<numLines(); i++) {
+            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
+                bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+            }
+        }
+		
+		ogl->popBlendState();
+		
+		fbo->setDown(this);
+		cached = fbo->colorTexture();
+		delete fbo;
+	}
+}
+
+void poTextBox::draw() {
+	if(cached.isValid()) {
+		po::setColor(textColor, appliedAlpha());
+		po::drawRect(cached);
+		return;
 	}
 	
 	poBitmapFont regFont = getBitmapFont(font(), _layout.textSize);
@@ -258,10 +292,6 @@ void poTextBox::draw() {
             }
         }
     }
-	
-	if(cache_to_texture) {
-		cached->setDown(this);
-	}
 }
 
 

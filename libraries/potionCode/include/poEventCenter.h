@@ -83,6 +83,8 @@ public:
     // NEW EVENT TYPE REGISTRATION
 	// append this event type to the list ... should be an int >= PO_LAST_EVENT 
 	void    addEventType(int eventType, bool isChecked);
+
+	void	copyEventsFromObject(poObject *from, poObject *to);
     
     
     // EVENT REWRITE CODE
@@ -102,6 +104,7 @@ private:
 	poEventCenter();
 	void resizeIfNecessary(int incoming);
 	
+	int callback_uid;
 	std::vector< bool > bcheck_event;
 	std::vector< std::vector<poEventCallback*> > events;
 };

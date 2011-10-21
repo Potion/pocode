@@ -15,50 +15,34 @@
 #include "poGeometryMask.h"
 
 poObject *createObjectForID(uint id) {
+	setCurrentPath("resource");
 	return new TestObj();
 }
 
-
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::green));
-    
-    shape = addChild(new poRectShape("apple.jpg"));
-    shape->fillColor.set255(255,0,0);
-	shape->alignment(PO_ALIGN_CENTER_CENTER);
-    shape->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this);
+	addModifier(new poCamera2D(poColor::black));
 	
-	poShape2D *mask = new poOvalShape(100, 100, 100);
-	mask->offset = shape->getBounds().getSize()/2.f;
-	shape->addModifier(new poGeometryMask(mask));
-
-	text = addChild(new poTextBox(200));
+	poTextBox *text = addChild(new poTextBox(150));
 	text->font(getFont("Maharam-Regular.otf",""));
-	text->textSize(50);
-	text->textColor = poColor::red;
-	text->text("hello world!!");
+	text->textSize(15);
+	text->leading(.5f);
+	text->textColor = poColor::white;
+	text->text("quick brown fox jumps over the lazy dog");
+	text->textColor = poColor::white;
+	text->position.set(100,100,0);
+//	text->drawBounds = PO_TEXT_BOX_STROKE_TEXT_BOUNDS;
+	text->layout();
+	
+	text = addChild((poTextBox*)text->copy());
+	text->position.y += text->textBounds().height+10;
 	text->cacheToTexture(false);
 	text->layout();
 }
 
 void TestObj::update() {
-	static float phase = 0.f;
-	
-	poPoint size = getWindowDimensions();
-	shape->position.x = size.x / 2.f + cosf(phase) * (size.x / 3.f);
-	shape->position.y = size.y / 2.f + sinf(phase) * (size.y / 3.f);
-	
-	phase += 0.01f;
 }
 
 void TestObj::eventHandler(poEvent *event) {
-	switch(event->type) {
-		case PO_TOUCH_BEGAN_INSIDE_EVENT:
-			std::cout << event->touchID << std::endl;
-
-			text->cacheToTexture(!text->cacheToTexture());
-			text->layout();
-			break;
-	}
 }
 
 

@@ -26,6 +26,8 @@ public:
 	poFBO(uint w, uint h, const poFBOConfig &config);
 	virtual ~poFBO();
 	
+	virtual poObjectModifier *copy();
+	
 	bool isValid() const;
 	void setCamera(poCamera *cam);
 	void reset(uint w, uint h, const poFBOConfig &config);
@@ -39,6 +41,8 @@ public:
 	poFBOConfig config;
 	
 protected:
+	void clone(poFBO *fbo);
+	
 	virtual void doSetUp(poObject*);
 	virtual void doSetDown(poObject*);
 
@@ -54,5 +58,7 @@ private:
 	
 	bool multisampling;
 };
+
+
 
 

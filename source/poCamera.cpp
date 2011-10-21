@@ -26,6 +26,20 @@ poCamera::poCamera(poColor color)
 ,	is_fixed_size(false)
 {}
 
+poObjectModifier *poCamera::copy() {
+	poCamera *cam = new poCamera();
+	clone(cam);
+	return cam;
+}
+
+void poCamera::clone(poCamera *cam) {
+	cam->fixed_size = fixed_size;
+	cam->reset = reset;
+	cam->clears_background = clears_background;
+	cam->background_color = background_color;
+	cam->is_fixed_size = is_fixed_size;
+}
+
 void poCamera::doSetUp( poObject* obj ) {
 	saveAndUpdateGLSettings();
 
@@ -92,8 +106,14 @@ poCamera2D::poCamera2D(poColor clear)
 :	poCamera(clear)
 {}
 
-poCamera *poCamera2D::copy() {
-	return new poCamera2D(*this);
+poObjectModifier *poCamera2D::copy() {
+	poCamera2D *cam = new poCamera2D();
+	clone(cam);
+	return cam;
+}
+
+void poCamera2D::clone(poCamera2D *cam) {
+	poCamera::clone(cam);
 }
 
 void poCamera2D::setProjection() {
@@ -130,8 +150,20 @@ poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, fl
 ,	far(f)
 {}
 
-poCamera *poOrthoCamera::copy() {
-	return new poOrthoCamera(*this);
+poObjectModifier *poOrthoCamera::copy() {
+	poOrthoCamera *cam = new poOrthoCamera();
+	clone(cam);
+	return cam;
+}
+
+void poOrthoCamera::clone(poOrthoCamera *cam) {
+	cam->x1 = x1;
+	cam->y1 = y1;
+	cam->x2 = x2;
+	cam->y2 = y2;
+	cam->near = near;
+	cam->far = far;
+	poCamera::clone(cam);
 }
 
 void poOrthoCamera::set(poRect r, float n, float f) {
@@ -163,8 +195,16 @@ poPerspectiveCamera::poPerspectiveCamera(float fov, float near, float far)
 ,	far(far)
 {}
 
-poCamera *poPerspectiveCamera::copy() {
-	return new poPerspectiveCamera(*this);
+poObjectModifier *poPerspectiveCamera::copy() {
+	poPerspectiveCamera *cam = new poPerspectiveCamera(fov, near, far);
+	clone(cam);
+	return cam;
+}
+
+void poPerspectiveCamera::clone(poPerspectiveCamera *cam) {
+	cam->look_at_pos = look_at_pos;
+	cam->camera_pos = camera_pos;
+	poCamera::clone(cam);
 }
 
 poPoint poPerspectiveCamera::lookAtPosition() const {return look_at_pos;}

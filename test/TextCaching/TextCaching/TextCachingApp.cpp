@@ -3,6 +3,7 @@
 #include "poTextBox.h"
 #include "poApplication.h"
 #include "TextCachingApp.h"
+#include "poShapeBasics2D.h"
 #include "poResourceLoader.h"
 
 poObject *createObjectForID(uint uid) {
@@ -17,23 +18,32 @@ void cleanupApplication() {
 }
 
 TextCachingApp::TextCachingApp() {
-	addModifier(new poCamera2D());
+	addModifier(new poCamera2D(poColor::white));
 	
 	std::stringstream ss;
 	for(int i=0; i<10; i++) 
-		ss << "I will <b color='#110011'>not</b>, ever again. ";
-
-	poTextBox *tb = addChild(new poTextBox(500,500));
-	tb->font(getFont("Helvetica","Bold"), PO_TEXT_BOLD);
-	tb->font(getFont("Helvetica"));
-	tb->textColor = poColor::red;
-	tb->position.set(50,50,0);
-	tb->cacheToTexture(true);
-	tb->richText(true);
+		ss << "I will not, ever again. ";
+	
+	poShape2D *shp = addChild(new poRectShape(200,200));
+	shp->fillColor = poColor::orange;
+	shp->rotation_tween.set(360).setRepeat(PO_TWEEN_REPEAT_REGULAR).setDuration(10).setTweenFunction(linearFunc).start();
+	shp->alignment(PO_ALIGN_CENTER_CENTER);
+	shp->generateStroke(10);
+	shp->strokeColor = poColor::red;
+	shp->position = getWindowCenter();
+	
+	poTextBox *tb = addChild(new poTextBox(500,300));
+	tb->font(getFont("Helvetica","Regular"));
+	tb->position.set(50,200,0);
+	tb->textColor = poColor::green;
 	tb->text(ss.str());
 	tb->textSize(20);
 	tb->layout();
 	
+	tb = addChild((poTextBox*)tb->copy());
+	tb->cacheToTexture(false);
+	tb->layout();
+	tb->position.y += tb->textBounds().height + 10;
 }
 
 TextCachingApp::~TextCachingApp() {}

@@ -6,6 +6,8 @@
 //  Copyright 2010 Apple Inc. All rights reserved.
 //
 
+//#define MULTISAMPLE
+
 #import "EAGLView.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -86,6 +88,7 @@
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
+#ifdef MULTISAMPLE
 		glGenFramebuffers(1, multisampleBuffers);
 		glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
 		glGenRenderbuffers(2, multisampleBuffers+1);
@@ -99,8 +102,16 @@
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+#else
+		glGenRenderbuffers(1, &depthStencil);
+		glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
+		glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+#endif
 		
-		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);
+//		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);
 		[[NSNotificationCenter defaultCenter] postNotificationName:EAGLViewLayoutChangedNotification object:self];
     }
 }
@@ -120,8 +131,10 @@
             colorRenderbuffer = 0;
         }
 		
+#ifdef MULTISAMPLE
 		glDeleteFramebuffers(1, multisampleBuffers);
 		glDeleteRenderbuffers(2, multisampleBuffers+1);
+#endif
     }
 }
 
@@ -132,8 +145,11 @@
         
         if (!defaultFramebuffer)
             [self createFramebuffer];
-        
+#ifdef MULTISAMPLE
         glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
+#else
+		glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
+#endif
     }
 }
 
@@ -144,6 +160,7 @@
     if (context) {
         [EAGLContext setCurrentContext:context];
         
+#ifdef MULTISAMPLE
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer);
 		glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleBuffers[0]);
 		glResolveMultisampleFramebufferAPPLE();
@@ -152,7 +169,8 @@
 		glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE,3,discards);
 		
         glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
-        success = [context presentRenderbuffer:GL_RENDERBUFFER];
+#endif
+		success = [context presentRenderbuffer:GL_RENDERBUFFER];
     }
     
     return success;

@@ -30,6 +30,7 @@ class poShape2D : public poObject
 {
 public:
 	poShape2D();
+	virtual poObject*		copy();
 
     // DRAWING
     // The draw() method is called automatically if a shape is added to the scene graph.
@@ -109,6 +110,7 @@ public:
 
 protected:
 	virtual void            updateAllTweens();
+	void					clone(poShape2D *shp);
     
 private:
     // SHAPE PROPERTIES (PRIVATE)

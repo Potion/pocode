@@ -72,6 +72,12 @@ poObject::~poObject() {
 	removeAllChildren(true);
 }
 
+poObject *poObject::copy() {
+	poObject *obj = new poObject();
+	clone(obj);
+	return obj;
+}
+
 void poObject::draw() {}
 
 void poObject::update() {}
@@ -541,7 +547,7 @@ void poObject::pushObjectMatrix() {
 			break;
 	}
 
-	stack->translate(round(offset));
+	stack->translate(offset);
 	
 	matrices.dirty = true;
 	matrices.capture();
@@ -563,3 +569,37 @@ void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoin
 	local_event->touchID = global_event->touchID;
 	// don't touch the message or the dictionary
 }
+
+void poObject::clone(poObject *obj) {
+	obj->alpha = alpha;
+	obj->scale = scale;
+	obj->position = position;
+	obj->rotation = rotation;
+	obj->rotationAxis = rotationAxis;
+	obj->offset = offset;
+	obj->visible = visible;
+	obj->bFixedWidth = bFixedWidth;
+	obj->bFixedHeight = bFixedHeight;
+	obj->drawBounds = drawBounds;
+	obj->matrixOrder = matrixOrder;
+	obj->position_tween = position_tween;
+	obj->scale_tween = scale_tween;
+	obj->offset_tween = offset_tween;
+	obj->alpha_tween = alpha_tween;
+	obj->rotation_tween = rotation_tween;
+	obj->width = width;
+	obj->height = height;
+	obj->_alignment = _alignment;
+	
+	for(int i=0; i<numChildren(); i++) {
+		obj->children.push_back(children[i]->copy());
+	}
+	
+	for(int i=0; i<numModifiers(); i++) {
+		obj->modifiers.push_back(modifiers[i]->copy());
+	}
+	
+	poEventCenter::get()->copyEventsFromObject(this, obj);
+}
+
+

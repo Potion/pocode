@@ -8,13 +8,7 @@
 
 #include "poFBO.h"
 #include "poOpenGLState.h"
-
-#ifdef OPENGL_ES
-	#ifdef POTION_IOS
-	#define GL_READ_FRAMEBUFFER GL_READ_FRAMEBUFFER_APPLE
-	#define GL_DRAW_FRAMEBUFFER GL_DRAW_FRAMEBUFFER_APPLE
-	#endif
-#endif
+#include "poBasicRenderer.h"
 
 poFBOConfig::poFBOConfig()
 :	numMultisamples(0)
@@ -51,13 +45,24 @@ poFBO::~poFBO() {
 		cleanup();
 }
 
+poObjectModifier *poFBO::copy() {
+	poFBO *fbo = new poFBO(width, height, config);
+	clone(fbo);
+	return fbo;
+}
+
+void poFBO::clone(poFBO* obj) {
+	obj->setCamera(cam);
+	poObjectModifier::clone(obj);
+}
+
 bool poFBO::isValid() const {
 	return !framebuffers.empty() && framebuffers[0] > 0;
 }
 
 void poFBO::setCamera(poCamera *camera) {
 	delete cam;
-	cam = camera->copy();
+	cam = (poCamera*)camera->copy();
 }
 
 void poFBO::reset(uint w, uint h, const poFBOConfig &c) {
@@ -86,17 +91,22 @@ void poFBO::doSetUp(poObject* obj) {
 
 void poFBO::doSetDown(poObject* obj) {
 	cam->setDown(obj);
-#ifndef OPENGL_ES
+	
 	if(multisampling) {
-		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
+	#ifdef OPENGL_ES
 		#ifdef POTION_IOS
+			glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, framebuffers[0]);
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, framebuffers[1]);
 			glResolveMultisampleFramebufferAPPLE();
 		#else
-			glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+			#pragma warning non-ios opengl es fbo multisample implementation incomplete
 		#endif
+	#else
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffers[1]);
+		glBlitFramebuffer(0,0,width,height, 0,0,width,height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+	#endif
 	}
-#endif
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -114,11 +124,11 @@ void poFBO::setup() {
 		
 		// this is the multisample render buffer
 		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[0]);
-#ifdef POTION_IOS
-		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8_OES, width, height);
-#else
-		glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
-#endif
+		#ifdef POTION_IOS
+			glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8_OES, width, height);
+		#else
+			glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
+		#endif
 		// we need 2 different framebuffers
 		framebuffers.resize(2);
 		glGenFramebuffers(2, &framebuffers[0]);
@@ -127,12 +137,13 @@ void poFBO::setup() {
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
 
 		// make the texture
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA));
+		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
 		// and attach it to the second framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
 		
-		GLenum ok = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -142,7 +153,7 @@ void poFBO::setup() {
 			printf("unable to do framebuffer multisampling\n");
 		
 		// make the texture, which is also the color render buffer
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA));
+		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA)/*.setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR)*/);
 
 		// we only need the one framebuffer
 		framebuffers.resize(1);

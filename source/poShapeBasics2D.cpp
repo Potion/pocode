@@ -38,6 +38,17 @@ poRectShape::poRectShape(float width, float height, poTexture tex, poTextureFitO
 	placeTexture(tex, fit, align);
 }
 
+poObject *poRectShape::copy() {
+	poRectShape *shp = new poRectShape();
+	clone(shp);
+	return shp;
+}
+
+void poRectShape::clone(poRectShape *shp) {
+	shp->radius = radius;
+	poShape2D::clone(shp);
+}
+
 void poRectShape::reshape( float w, float h, float rad )
 {
 	clearPoints();
@@ -110,6 +121,18 @@ void poOvalShape::construct( float _width, float _height, int nPoints )
     }
 }
 
+poObject* poOvalShape::copy() {
+	poOvalShape *shp = new poOvalShape();
+	clone(shp);
+	return shp;
+}
+
+void poOvalShape::clone(poOvalShape *shp) {
+	shp->width = width;
+	shp->height = height;
+	poShape2D::clone(shp);
+}
+
 // ============== poOvalShape ================================
 
 poLineShape::poLineShape()
@@ -153,6 +176,21 @@ poStarShape::poStarShape( float _outerRadius, int nPoints, float depth )
 poStarShape::poStarShape( float _width, float _height, int nPoints, float depth )
 {
     construct( _width, _height, nPoints, depth );
+}
+
+poObject* poStarShape::copy() {
+	poStarShape *shp = new poStarShape();
+	clone(shp);
+	return shp;
+}
+
+void poStarShape::clone(poStarShape* shp) {
+	shp->width = width;
+	shp->height = height;
+	shp->depth = depth;
+	shp->outerRadius = outerRadius;
+	shp->innerRadius = innerRadius;
+	poShape2D::clone(shp);
 }
 
 void poStarShape::construct(float _outerRadius, int nPoints, float depth)

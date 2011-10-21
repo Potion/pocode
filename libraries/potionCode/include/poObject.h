@@ -49,7 +49,9 @@ public:
                         poObject(const std::string &name);
 	virtual             ~poObject();
     //@}
-    
+	
+	virtual poObject*	copy();
+	
     /*! Most poObject subclasses should implement all four of these methods.
      The only method you should call explictly is messageHandler. The other three are called automatically
      if the object is added to the scene graph. 
@@ -260,6 +262,9 @@ protected:
 	void                popObjectMatrix();
 	void                localizeEvent(poEvent*, poEvent*, poPoint);
 	//@}
+	
+	void				clone(poObject* obj);
+	
 private:
     
     float width, height;

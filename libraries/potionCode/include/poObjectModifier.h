@@ -31,6 +31,8 @@ class poObjectModifier
 {
 public:
     poObjectModifier() : _enabled(true) {}
+
+	virtual poObjectModifier* copy() {return new poObjectModifier();}
     
     // ENABLE & DISABLE
 	bool            enabled() const {return _enabled;}
@@ -52,9 +54,13 @@ public:
 	
 protected:
     // VIRTUAL METHODS
-    // These are the methods that should be implemented by subclasses.
-	virtual void    doSetUp(poObject*) = 0;
-	virtual void    doSetDown(poObject*) = 0;
+    // THESE METHODS ARE THE ONES THAT WILL GET CALLED SO SUBCLASS THEM
+	virtual void    doSetUp(poObject*) {}
+	virtual void    doSetDown(poObject*) {}
+	
+	void			clone(poObjectModifier *obj) {
+		obj->_enabled = _enabled;
+	}
 	
 private:
 	bool            _enabled;
