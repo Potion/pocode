@@ -30,89 +30,59 @@ struct poEventCallback {
     poEvent event;
 };
 
-struct poEventMemory
-{
+// used internally to store relevant info between events
+// e.g. dragging, etc
+struct poEventMemory {
 public:
     poEventMemory()
-    {
-        lastInsideTouchID = -1;
-        lastDragID = -1;
-    }
+	:	lastInsideTouchID(-1)
+	,	lastDragID(-1)
+	{}
     
-    int     lastInsideTouchID;      // for enter / leave
-    int     lastDragID;             // for dragging
+    // for enter / leave
+    int     lastInsideTouchID;
+	// for dragging
+    int     lastDragID;
 };
 
 class poEventCenter {
 public:
 
 	static poEventCenter *get();
-    
+	
     // EVENT REGISTRATION
 	// get window events to your event handler
-	int     registerForEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary());
+	void     addEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary());
 	// get window events for an object delivered to another object
-	int     registerForEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary());
-	
-    // EVENT REMOVAL
-	// remove a specific event by id
-	void    removeEvent(int event_id);
+	void     addEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary());
 	// get rid of everything that this obj is associated with
 	void    removeAllEvents(poObject* obj);
-	
-    // EVENT NOTIFICATION and ROUTING
-	// tell anyone who cares that this happened
-	void    notify(poEvent event);
-    
-	// same but filters the receivers
-	// true	=omit those on the filter list
-	// false=omit those off the filter list
-	void    notifyFiltered(poEvent event, const std::set<poObject*> &filter, bool exclude);
-    
-	// check if this obj wants to get this event, then send it
-	// return if the event was sent
-	bool    routeBySource(poObject *obj, poEvent event);
-	bool    routeBySink(poObject *obj, poEvent event);
-	
-    // EVENTS PER OBJECT
+	// will remove everything, either bouncing or generating
+	void	removeAllEventsOfType(poObject* obj, int eventType);
 	// does an object care about a given event
 	bool    objectHasEvent(poObject *obj, int eventType);
+
+	// handle events and remove them from the list
+	void	processEvents(std::deque<poEvent> &events);
+	
+	// figure out where to route a given event
+    void    processMouseEvents( poEvent &Event );
+    void	processTouchEvents( poEvent &Event );
+    void	processKeyEvents( poEvent &Event );
+
+	// will register all events to an object that are already registered 'from' object
+	void	copyEventsFromObject(poObject *from, poObject *to);
 	// get the stored event for this this object/action
 	std::vector<poEvent*> eventsForObject(poObject *obj, int eventType);
-	
-    // NEW EVENT TYPE REGISTRATION
-	// append this event type to the list ... should be an int >= PO_LAST_EVENT 
-	void    addEventType(int eventType, bool isChecked);
 
-	void	copyEventsFromObject(poObject *from, poObject *to);
-    
-    
-    // EVENT REWRITE CODE
-    
-    void                notifyAllListeners( poEvent global_event );
-    void                notifyOneListener( poEventCallback* callback, poEvent global_event );
-    
-    poEventCallback*    findTopObjectUnderPoint( int eventType, poPoint P );
-    void                processMouseEvents( poEvent Event );
-    void                processTouchEvents( poEvent Event );
-    void                processKeyEvents( poEvent Event );
-    
-    void                sortCallbacksByDrawOrder();
-    void                clearDrawOrderForObjectsWithEvents();
-	
 private:
 	poEventCenter();
-	void resizeIfNecessary(int incoming);
-	
-	int callback_uid;
-	std::vector< bool > bcheck_event;
+    
+	// figure out which poObject is closest to the user under a point
+    poEventCallback* findTopObjectUnderPoint( int eventType, poPoint P );
+	void	sortCallbacksByDrawOrder();
+    void    notifyAllListeners( poEvent global_event );
+	void	notifyOneListener( poEventCallback *callback, poEvent global_event);
+
 	std::vector< std::vector<poEventCallback*> > events;
 };
-
-static int registerEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary()) {
-	return poEventCenter::get()->registerForEvent(eventType, source, message, dict);
-}
-
-static int registerEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary()) {
-	return poEventCenter::get()->registerForEvent(eventType, source, sink, message, dict);
-}

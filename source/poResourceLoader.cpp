@@ -65,7 +65,9 @@ void deleteFontGroup(int group) {
 
 poBitmapFont getBitmapFont(poFont font, uint size, int group) {
 	size_t hash = 0;
-	boost::hash_combine(hash, font.getFamilyName() + font.getStyleName());
+	
+	std::string combined = std::string(font.getFamilyName()) + font.getStyleName();
+	boost::hash_combine(hash, combined);
 	boost::hash_combine(hash, size);
 	ResourceLocator lookup = std::make_pair(hash, group);
 	std::map<ResourceLocator, poBitmapFont>::iterator iter = bitmapFontResources.find(lookup);

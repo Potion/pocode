@@ -85,6 +85,8 @@ poTexture poFBO::depthTexture() const {
 }
 
 void poFBO::doSetUp(poObject* obj) {
+	poOpenGLState::get()->pushTextureState();
+	
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 	cam->setUp(obj);
 }
@@ -109,6 +111,7 @@ void poFBO::doSetDown(poObject* obj) {
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	poOpenGLState::get()->popTextureState();
 }
 
 void poFBO::setup() {
@@ -157,7 +160,8 @@ void poFBO::setup() {
 			printf("unable to do framebuffer multisampling\n");
 		
 		// make the texture, which is also the color render buffer
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA)/*.setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR)*/);
+		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
+		glBindTexture(GL_TEXTURE_2D, colorTex.getUid());
 
 		// we only need the one framebuffer
 		framebuffers.resize(1);
@@ -165,6 +169,9 @@ void poFBO::setup() {
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
 		
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

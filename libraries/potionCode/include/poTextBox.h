@@ -156,8 +156,6 @@ protected:
 	void				clone(poTextBox *tb);
 	
 private:
-	void                defaultFonts();
-	
 	bool                fit_height_to_bounds;
 	bool				cache_to_texture;
 	poAlignment         text_align;

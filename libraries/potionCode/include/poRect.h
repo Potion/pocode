@@ -58,6 +58,7 @@ public:
 	// scale around a point
 	poRect&         scale(float scalar, const poPoint &pt);
 	poRect&         inset(poPoint p);
+	poRect&			expand(poPoint p);
 	
     // RECT QUERYING
 	bool            contains(float x, float y) const;

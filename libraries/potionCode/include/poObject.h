@@ -74,9 +74,9 @@ public:
     /*! All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.*/
 	/** @name EVENTS */
     //@{
-	int                 addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
-	void                removeEvent(int event_id);
-    void                removeAllEvents();
+	void		addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
+    void		removeAllEvents();
+	void		removeAllEventsOfType(int eventType);
     //@}
 
     /*! Width/height should never be set directly!*/
@@ -91,8 +91,8 @@ public:
     void        setSize(float width, float height);
     void        setSize(poPoint size);
     
-    poRect              getBounds();
-    poRect              getFrame();
+    poRect		getBounds();
+    poRect		getFrame();
     //@}
     
     
@@ -196,7 +196,6 @@ public:
     //@{
 	void                _drawTree();
 	void                _updateTree();
-	void                _broadcastEvent(poEvent* event);
     //@}
 
     
@@ -239,7 +238,6 @@ public:
 	float               appliedAlpha() const; 	
     poMatrixSet         matrixSet() const;
 	int                 drawOrder() const;
-    void                clearDrawOrder() { draw_order = -1; };
 	
     static const int    INVALID_INDEX = -1;
     //@}
@@ -260,7 +258,6 @@ protected:
     //@{
 	void                pushObjectMatrix();
 	void                popObjectMatrix();
-	void                localizeEvent(poEvent*, poEvent*, poPoint);
 	//@}
 	
 	void				clone(poObject* obj);
