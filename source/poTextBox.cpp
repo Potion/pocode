@@ -24,9 +24,7 @@ poTextBox::poTextBox()
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
-{
-	defaultFonts();
-}
+{}
 
 poTextBox::poTextBox(int w) 
 :	poObject()
@@ -36,7 +34,6 @@ poTextBox::poTextBox(int w)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
 {
-	defaultFonts();
 	setWidth(w);
 }
 
@@ -48,7 +45,6 @@ poTextBox::poTextBox(int w, int h)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cache_to_texture(true)
 {
-	defaultFonts();
 	setWidth(w);
     setHeight(h);
 }
@@ -67,12 +63,6 @@ void poTextBox::clone(poTextBox *tb) {
 	tb->_layout = _layout;
 	tb->cached = cached;
 	poObject::clone(tb);
-}
-
-void poTextBox::defaultFonts() {
-#ifndef POTION_IOS
-	font(getFont("Lucida Grande", "Regular"));
-#endif
 }
 
 poTextBox::~poTextBox() {}
@@ -213,7 +203,8 @@ void poTextBox::layout() {
 		
 		// http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
 		po::BlendState blend;
-		blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
+		blend.enabled = true;
+		blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ZERO);
 		
 		poOpenGLState *ogl = poOpenGLState::get();
 		ogl->pushBlendState();
@@ -238,8 +229,16 @@ void poTextBox::layout() {
 
 void poTextBox::draw() {
 	if(cached.isValid()) {
+		po::BlendState blend = po::BlendState::preMultipliedBlending();
+		
+		poOpenGLState* ogl = poOpenGLState::get();
+		ogl->pushBlendState();
+		ogl->setBlend(blend);
+		
 		po::setColor(textColor, appliedAlpha());
 		po::drawRect(cached);
+		
+		ogl->popBlendState();
 		return;
 	}
 	

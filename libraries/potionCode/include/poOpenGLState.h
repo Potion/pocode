@@ -49,7 +49,7 @@ namespace po {
 	struct BlendState {
 		BlendState();
 
-		static BlendState defaultBlending();
+		static BlendState preMultipliedBlending();
 		
 		void blendFunc(GLenum sourceFactor, GLenum destFactor);
 		void blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor);
@@ -102,11 +102,11 @@ public:
 	static poOpenGLState *get();
 	void compactMemory();
 	
-	void setStencil(po::StencilState);
-	void setTexture(po::TextureState);
-	void setBlend(po::BlendState);
-	void setVertex(po::VertexState);
-	void setShader(po::ShaderState);
+	void setStencil(po::StencilState, bool force_accept=false);
+	void setTexture(po::TextureState, bool force_accept=false);
+	void setBlend(po::BlendState, bool force_accept=false);
+	void setVertex(po::VertexState, bool force_accept=false);
+	void setShader(po::ShaderState, bool force_accept=false);
 	
 	GLint maxVertexAttribs();
 	GLint maxFBOSamples();

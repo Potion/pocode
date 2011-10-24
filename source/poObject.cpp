@@ -158,18 +158,18 @@ void poObject::_drawBounds() {
 }
 
 
-int poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
+void poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
 		sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, message, dict);
-}
-
-void poObject::removeEvent(int event_id) {
-	poEventCenter::get()->removeEvent(event_id);
+	poEventCenter::get()->addEvent(eventType, this, sink, message, dict);
 }
 
 void poObject::removeAllEvents() {
 	poEventCenter::get()->removeAllEvents(this);
+}
+
+void poObject::removeAllEventsOfType(int eventType) {
+	poEventCenter::get()->removeAllEventsOfType(this, eventType);
 }
 
 bool poObject::removeChild(poObject* obj) {
@@ -402,6 +402,9 @@ void poObject::_drawTree() {
 	if(!visible)
 		return;
 	
+	// reset the drawing order for this object
+	draw_order = applicationCurrentWindow()->nextDrawOrder();
+	
 	pushObjectMatrix();
 
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
@@ -434,28 +437,6 @@ void poObject::_updateTree() {
 	
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_updateTree();
-	}
-}
-
-void poObject::_broadcastEvent(poEvent* event) {
-	if(!visible)
-		return;
-	// make sure its even a valid event
-	if(event->type < 0 || event->type >= PO_LAST_EVENT)
-		return;
-
-	// send it to all our children
-	BOOST_REVERSE_FOREACH(poObject* obj, children) {
-		obj->_broadcastEvent(event);
-	}
-
-	// localize the point only once
-	poPoint local_point = globalToLocal(event->position);
-	
-	// handle every event like this we have
-	BOOST_FOREACH(poEvent *e, poEventCenter::get()->eventsForObject(this,event->type)) {
-		localizeEvent(e, event, local_point);
-		eventHandler(e);
 	}
 }
 
@@ -527,8 +508,6 @@ void poObject::pushObjectMatrix() {
 		true_alpha = alpha;
 	}
 	
-	draw_order = applicationCurrentWindow()->nextDrawOrder();
-	
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	stack->pushModelview();
 	
@@ -555,19 +534,6 @@ void poObject::pushObjectMatrix() {
 
 void poObject::popObjectMatrix() {
 	poOpenGLState::get()->matrix.popModelview();
-}
-
-void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {
-	local_event->position = global_event->position;
-	local_event->local_position = localized_pt;
-	local_event->keyChar = global_event->keyChar;
-	local_event->keyCode = global_event->keyCode;
-	local_event->modifiers = global_event->modifiers;
-	local_event->uid = global_event->uid;
-	local_event->timestamp = global_event->timestamp;
-	local_event->previous_position = global_event->previous_position;
-	local_event->touchID = global_event->touchID;
-	// don't touch the message or the dictionary
 }
 
 void poObject::clone(poObject *obj) {
