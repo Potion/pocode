@@ -21,6 +21,7 @@ class poPoint
 public:
     // CONSTRUCTORS
 	poPoint();
+	poPoint(const float *f);
 	poPoint(float x, float y, float z=0.f);
 	
     // SET POINT

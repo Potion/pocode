@@ -251,14 +251,6 @@ protected:
 	virtual void        updateAllTweens();//new tween types should be updated here
     float               true_alpha; 	//combination of all your parent's alphas with your own
     //@}     
-
-    /*! These matrix operators not only push and pop the matrix, but also maintain
-     the alpha stack and data required by the event handling system.*/
-    /** @name COORDINATE SYSTEM OPERATIONS*/
-    //@{
-	void                pushObjectMatrix();
-	void                popObjectMatrix();
-	//@}
 	
 	void				clone(poObject* obj);
 	

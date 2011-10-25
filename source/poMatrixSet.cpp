@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 poMatrixSet::poMatrixSet() 
-:	dirty(true) 
+:	dirty(true)
 {}
 
 void poMatrixSet::capture() {
@@ -32,4 +32,9 @@ poPoint poMatrixSet::localToGlobal(poPoint pt) const {
 	vec4 viewp(viewport.x, viewport.y, viewport.width, viewport.height);
 	vec3 response = project(obj, modelview, projection, viewp);
 	return poPoint(response.x, response.y, response.z);
+}
+
+poPoint poMatrixSet::localToGlobal2(poPoint pt) const {
+	using namespace glm;
+	return value_ptr(inverse(modelview) * vec4(pt.x, pt.y, pt.z,1.f));
 }

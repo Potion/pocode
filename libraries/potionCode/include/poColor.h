@@ -64,6 +64,8 @@ public:
     static const poColor cyan;
     static const poColor magenta;
 	static const poColor transparent;
+
+	static poColor random();
 };
 
 bool operator==(const poColor &c1, const poColor &c2);

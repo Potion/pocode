@@ -2,6 +2,7 @@
  *  Copyright 2011 Potion Design. All rights reserved.
  */
 
+#include "Helpers.h"
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
@@ -139,7 +140,7 @@ poRect poObject::getFrame() {
 }
 
 poRect poObject::getBounds() {
-    poRect rect(offset.x, offset.y, width, height);
+    poRect rect(0, 0, width, height);
 	BOOST_FOREACH(poObject* obj, children) {
         if (obj->visible) {
             poRect obj_b = obj->getBounds();
@@ -147,17 +148,10 @@ poRect poObject::getBounds() {
             rect.include(objectToLocal(obj, obj_b.getTopLeft()));
         }
 	}
+	rect.setPosition(rect.getPosition() + offset);
 	return rect;
 }
        
-       
-void poObject::_drawBounds() {    
-    po::setColor(poColor::red);
-    po::drawStroke(getBounds());
-    po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
-}
-
-
 void poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
 		sink = this;
@@ -405,32 +399,67 @@ void poObject::_drawTree() {
 	// reset the drawing order for this object
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
-	pushObjectMatrix();
+	if(_parent)	true_alpha = _parent->true_alpha * alpha;
+	else		true_alpha = alpha;
 
+	poMatrixStack *stack = &poOpenGLState::get()->matrix;
+	stack->pushModelview();
+	
+	switch(matrixOrder) {
+		case PO_MATRIX_ORDER_TRS:
+			stack->translate(position);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			break;
+			
+		case PO_MATRIX_ORDER_RST:
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			stack->translate(position);
+			break;
+	}
+	
+	// center our object around its offset
+	stack->translate(offset);
+	
+	// grab the matrices we need for everything
+	matrices.dirty = true;
+	matrices.capture();
+
+	// set up the modifiers ... cameras, etc
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
 	
 	draw();
+
+	// go back to centered around the origin
+	stack->translate(-offset);
+	
 	if(drawBounds) 
 		_drawBounds();
-
+	
+	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}
-    
+	
+	// then recenter around offset
+	// some modifiers might need the objects complete transform
+	stack->translate(offset);
+
+	// let modifiers clean up
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setDown( this );
     }
 	
-	popObjectMatrix();
+	// and restore parent's matrix
+	stack->popModelview();
 }
 
 void poObject::_updateTree() {
 	if(!visible)
 		return;
-	
-	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	updateAllTweens();
 	update();
@@ -438,6 +467,12 @@ void poObject::_updateTree() {
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_updateTree();
 	}
+}
+
+void poObject::_drawBounds() {    
+    po::setColor(poColor::red);
+    po::drawStroke(getBounds());
+    po::drawRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
 }
 
 void poObject::stopAllTweens(bool recurse) {
@@ -498,42 +533,6 @@ void poObject::updateAllTweens() {
 	offset_tween.update();
 	alpha_tween.update();
 	rotation_tween.update();
-}
-
-void poObject::pushObjectMatrix() {
-	if(_parent) {
-		true_alpha = _parent->true_alpha * alpha;
-	}
-	else {
-		true_alpha = alpha;
-	}
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	stack->pushModelview();
-	
-	// now move depending on the matrix order
-	switch(matrixOrder) {
-		case PO_MATRIX_ORDER_TRS:
-			stack->translate(position);
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			break;
-			
-		case PO_MATRIX_ORDER_RST:
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			stack->translate(position);
-			break;
-	}
-
-	stack->translate(offset);
-	
-	matrices.dirty = true;
-	matrices.capture();
-}
-
-void poObject::popObjectMatrix() {
-	poOpenGLState::get()->matrix.popModelview();
 }
 
 void poObject::clone(poObject *obj) {
