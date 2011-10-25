@@ -23,8 +23,8 @@ void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	
 	if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
 		// flip the coords so the local position can match the orientation of the global one
-		poPoint pt = tolocal.source->globalToLocal(poPoint(tolocal.position.x, getWindowHeight()-tolocal.position.y));
-		tolocal.position = pt;
+		poPoint pt = tolocal.source->globalToLocal(poPoint(tolocal.globalPosition.x, getWindowHeight()-tolocal.globalPosition.y));
+		tolocal.localPosition = pt;
 	}
 }
 
@@ -211,7 +211,7 @@ void poEventCenter::processMouseEvents( poEvent &Event )
         // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
         sentEvent = Event;
         sentEvent.type = PO_MOUSE_DOWN_INSIDE_EVENT;
-        poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.position );
+        poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.localPosition );
         if ( callback )
             notifyOneListener( callback, sentEvent );
     }
@@ -254,7 +254,7 @@ void poEventCenter::processMouseEvents( poEvent &Event )
                 continue; 
 			
             // if point is inside
-            if ( obj->pointInside( Event.position, true ) )
+            if ( obj->pointInside( Event.localPosition, true ) )
             {
                 // if lastInsideTouchID is -1 (nothing inside before), then notify ENTER
                 if ( obj->eventMemory->lastInsideTouchID == -1 )
@@ -391,6 +391,14 @@ std::vector<poEvent*> poEventCenter::eventsForObject(poObject *obj, int eventTyp
 			response.push_back(&(event_vec[i]->event));
 	}
 	return response;
+}
+
+void poEventCenter::negateDrawOrderForObjectWithEvents() {
+    for(int i=0; i<events.size(); i++) {
+        for(int j=0; j<events[i].size(); j++) {
+            events[i][j]->receiver->draw_order = -1;
+        }
+    }
 }
 
 

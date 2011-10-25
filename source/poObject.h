@@ -243,6 +243,7 @@ public:
     //@}
     
     poEventMemory       *eventMemory;
+	int                 draw_order;
     
 protected:
     
@@ -275,7 +276,6 @@ private:
 	poAlignment         _alignment;
 
 	poMatrixSet         matrices;
-	int                 draw_order;
     //@}
 };
 

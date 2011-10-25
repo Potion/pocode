@@ -145,7 +145,7 @@ public:
 	
 	// position is local to the receiver of the event.
     // globalPosition is the mouse or touch position relative to the screen.
-	poPoint         position, globalPosition, previousPosition;
+	poPoint         localPosition, globalPosition, previousPosition;
 
 	// The keyCode is the raw key identifier, OS-defined.
 	int             keyCode;
@@ -156,6 +156,7 @@ public:
 	// The touchID stores the identifier of a touch event. All touch events connected
     // to a single touch movement should have the same touchID.
 	int             touchID;
+    int             uniqueID;
     // Touches have a tap count in iOS, useful for double/triple tap events
     int             tapCount;
 };

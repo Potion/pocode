@@ -75,6 +75,9 @@ public:
 	// get the stored event for this this object/action
 	std::vector<poEvent*> eventsForObject(poObject *obj, int eventType);
 
+    // hack to make visible children with invisible parents get left out of event processing
+    void negateDrawOrderForObjectWithEvents();
+    
 private:
 	poEventCenter();
     
@@ -86,3 +89,6 @@ private:
 
 	std::vector< std::vector<poEventCallback*> > events;
 };
+
+
+

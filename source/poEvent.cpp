@@ -46,6 +46,7 @@ poEvent::poEvent()
 ,	timestamp(0.0)
 ,	modifiers(0)
 ,   touchID(-1)
+,   uniqueID(-1)
 {}
 
 poEvent::poEvent(int t, poObject* f, std::string m, const poDictionary& d)
@@ -58,5 +59,6 @@ poEvent::poEvent(int t, poObject* f, std::string m, const poDictionary& d)
 ,   message(m)
 ,	dictionary(d)
 ,   touchID(-1)
+,   uniqueID(-1)
 {}
 
