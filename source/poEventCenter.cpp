@@ -424,6 +424,8 @@ bool sortCallbacksByDrawOrderFunc(poEventCallback* a, poEventCallback* b) {
 void poEventCenter::sortCallbacksByDrawOrder() {
     // sort only event callback vectors where order matters
     std::sort( events[PO_MOUSE_DOWN_INSIDE_EVENT].begin(), events[PO_MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+	std::sort( events[PO_TOUCH_BEGAN_INSIDE_EVENT].begin(), events[PO_TOUCH_BEGAN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+	std::sort( events[PO_TOUCH_ENDED_INSIDE_EVENT].begin(), events[PO_TOUCH_ENDED_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
 }
 
 std::vector<poEvent*> poEventCenter::eventsForObject(poObject *obj, int eventType) {
