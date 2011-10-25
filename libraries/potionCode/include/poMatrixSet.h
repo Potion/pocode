@@ -11,6 +11,8 @@ struct poMatrixSet
 	poPoint		globalToLocal(poPoint pt) const;
 	poPoint		localToGlobal(poPoint pt) const;
 	
+	poPoint		localToGlobal2(poPoint pt) const;
+	
 	glm::mat4	modelview, projection;
 	poRect		viewport;
 	

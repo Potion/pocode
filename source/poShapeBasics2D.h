@@ -43,10 +43,13 @@ public:
 	poRectShape( const std::string &str, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT);
 	// make a shape of a certain size and put the texture in place inside it
 	poRectShape( float width, float height, poTexture tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
-    
+	
+	virtual poObject* copy();
+	
     void reshape( float width, float height, float rad=0.f );
     
 protected:
+	void clone(poRectShape* shp);
     void construct( float _width, float _height, float rad );
     
     float radius;
@@ -75,10 +78,12 @@ class poOvalShape : public poShape2D
 public:
     poOvalShape();
     poOvalShape( float _width, float _height, int numPoints );
+	virtual poObject *copy();
     
     void    reshape( float _width, float _height, int numPoints );
     
 protected:
+	void	clone(poOvalShape *shp);
     void    construct( float _width, float _height, int numPoints );
     
     float   width, height;
@@ -122,11 +127,15 @@ public:
     poStarShape();
     poStarShape( float _outerRadius, int numPoints, float depth );
     poStarShape( float _width, float _height, int numPoints, float depth );
+	
+	virtual poObject *copy();
     
     void reshape( float _outerRadius, int numPoints, float depth );
     void reshape( float _width, float _height, int numPoints, float depth );
     
 protected:
+	void clone(poStarShape* shp);
+	
     void construct( float _outerRadius, int numPoints, float depth );
     void construct( float _width, float _height, int numPoints, float depth );
     

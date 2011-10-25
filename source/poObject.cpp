@@ -2,6 +2,7 @@
  *  Copyright 2011 Potion Design. All rights reserved.
  */
 
+#include "Helpers.h"
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
@@ -38,6 +39,7 @@ poObject::poObject()
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::poObject(const std::string &name)
@@ -65,11 +67,20 @@ poObject::poObject(const std::string &name)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::~poObject() {
     poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
+	if(eventMemory)
+		delete eventMemory;
+}
+
+poObject *poObject::copy() {
+	poObject *obj = new poObject();
+	clone(obj);
+	return obj;
 }
 
 void poObject::draw() {}
@@ -133,7 +144,7 @@ poRect poObject::getFrame() {
 }
 
 poRect poObject::getBounds() {
-    poRect rect(offset.x, offset.y, width, height);
+    poRect rect(0, 0, width, height);
 	BOOST_FOREACH(poObject* obj, children) {
         if (obj->visible) {
             poRect obj_b = obj->getBounds();
@@ -141,29 +152,22 @@ poRect poObject::getBounds() {
             rect.include(objectToLocal(obj, obj_b.getTopLeft()));
         }
 	}
+	rect.setPosition(rect.getPosition() + offset);
 	return rect;
 }
        
-       
-void poObject::_drawBounds() {    
-    po::setColor(poColor::red);
-    po::drawStroke(getBounds());
-    po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
-}
-
-
-int poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
+void poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
 		sink = this;
-	return poEventCenter::get()->registerForEvent(eventType, this, sink, message, dict);
-}
-
-void poObject::removeEvent(int event_id) {
-	poEventCenter::get()->removeEvent(event_id);
+	poEventCenter::get()->addEvent(eventType, this, sink, message, dict);
 }
 
 void poObject::removeAllEvents() {
 	poEventCenter::get()->removeAllEvents(this);
+}
+
+void poObject::removeAllEventsOfType(int eventType) {
+	poEventCenter::get()->removeAllEventsOfType(this, eventType);
 }
 
 bool poObject::removeChild(poObject* obj) {
@@ -396,32 +400,70 @@ void poObject::_drawTree() {
 	if(!visible)
 		return;
 	
-	pushObjectMatrix();
+	// reset the drawing order for this object
+	draw_order = applicationCurrentWindow()->nextDrawOrder();
+	
+	if(_parent)	true_alpha = _parent->true_alpha * alpha;
+	else		true_alpha = alpha;
 
+	poMatrixStack *stack = &poOpenGLState::get()->matrix;
+	stack->pushModelview();
+	
+	switch(matrixOrder) {
+		case PO_MATRIX_ORDER_TRS:
+			stack->translate(position);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			break;
+			
+		case PO_MATRIX_ORDER_RST:
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			stack->translate(position);
+			break;
+	}
+	
+	// center our object around its offset
+	stack->translate(offset);
+	
+	// grab the matrices we need for everything
+	matrices.dirty = true;
+	matrices.capture();
+
+	// set up the modifiers ... cameras, etc
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
 	
 	draw();
+
+	// go back to centered around the origin
+	stack->translate(-offset);
+	
 	if(drawBounds) 
 		_drawBounds();
-
+	
+	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}
-    
+	
+	// then recenter around offset
+	// some modifiers might need the objects complete transform
+	stack->translate(offset);
+
+	// let modifiers clean up
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setDown( this );
     }
 	
-	popObjectMatrix();
+	// and restore parent's matrix
+	stack->popModelview();
 }
 
 void poObject::_updateTree() {
 	if(!visible)
 		return;
-	
-	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	updateAllTweens();
 	update();
@@ -431,26 +473,10 @@ void poObject::_updateTree() {
 	}
 }
 
-void poObject::_broadcastEvent(poEvent* event) {
-	if(!visible)
-		return;
-	// make sure its even a valid event
-	if(event->type < 0 || event->type >= PO_LAST_EVENT)
-		return;
-
-	// send it to all our children
-	BOOST_REVERSE_FOREACH(poObject* obj, children) {
-		obj->_broadcastEvent(event);
-	}
-
-	// localize the point only once
-	poPoint local_point = globalToLocal(event->position);
-	
-	// handle every event like this we have
-	BOOST_FOREACH(poEvent *e, poEventCenter::get()->eventsForObject(this,event->type)) {
-		localizeEvent(e, event, local_point);
-		eventHandler(e);
-	}
+void poObject::_drawBounds() {    
+    po::setColor(poColor::red);
+    po::drawStroke(getBounds());
+    po::drawRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
 }
 
 void poObject::stopAllTweens(bool recurse) {
@@ -513,53 +539,36 @@ void poObject::updateAllTweens() {
 	rotation_tween.update();
 }
 
-void poObject::pushObjectMatrix() {
-	if(_parent) {
-		true_alpha = _parent->true_alpha * alpha;
+void poObject::clone(poObject *obj) {
+	obj->alpha = alpha;
+	obj->scale = scale;
+	obj->position = position;
+	obj->rotation = rotation;
+	obj->rotationAxis = rotationAxis;
+	obj->offset = offset;
+	obj->visible = visible;
+	obj->bFixedWidth = bFixedWidth;
+	obj->bFixedHeight = bFixedHeight;
+	obj->drawBounds = drawBounds;
+	obj->matrixOrder = matrixOrder;
+	obj->position_tween = position_tween;
+	obj->scale_tween = scale_tween;
+	obj->offset_tween = offset_tween;
+	obj->alpha_tween = alpha_tween;
+	obj->rotation_tween = rotation_tween;
+	obj->width = width;
+	obj->height = height;
+	obj->_alignment = _alignment;
+	
+	for(int i=0; i<numChildren(); i++) {
+		obj->children.push_back(children[i]->copy());
 	}
-	else {
-		true_alpha = alpha;
+	
+	for(int i=0; i<numModifiers(); i++) {
+		obj->modifiers.push_back(modifiers[i]->copy());
 	}
 	
-	draw_order = applicationCurrentWindow()->nextDrawOrder();
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	stack->pushModelview();
-	
-	// now move depending on the matrix order
-	switch(matrixOrder) {
-		case PO_MATRIX_ORDER_TRS:
-			stack->translate(position);
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			break;
-			
-		case PO_MATRIX_ORDER_RST:
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			stack->translate(position);
-			break;
-	}
-
-	stack->translate(offset);
-	
-	matrices.dirty = true;
-	matrices.capture();
+	poEventCenter::get()->copyEventsFromObject(this, obj);
 }
 
-void poObject::popObjectMatrix() {
-	poOpenGLState::get()->matrix.popModelview();
-}
 
-void poObject::localizeEvent(poEvent *local_event, poEvent *global_event, poPoint localized_pt) {
-	local_event->position = global_event->position;
-	local_event->local_position = localized_pt;
-	local_event->keyChar = global_event->keyChar;
-	local_event->keyCode = global_event->keyCode;
-	local_event->modifiers = global_event->modifiers;
-	local_event->uid = global_event->uid;
-	local_event->timestamp = global_event->timestamp;
-	local_event->previous_position = global_event->previous_position;
-	local_event->touchID = global_event->touchID;
-	// don't touch the message or the dictionary
-}

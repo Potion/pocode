@@ -25,6 +25,11 @@ poGeometryMask::~poGeometryMask() {
 	}
 }
 
+poObjectModifier *poGeometryMask::copy() {
+	poGeometryMask *obj = new poGeometryMask((poShape2D*)shape->copy(), clears_stencil);
+	return obj;
+}
+
 void poGeometryMask::setShape(poShape2D *s) {
 	if(shape)
 		delete shape;

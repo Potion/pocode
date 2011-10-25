@@ -62,6 +62,8 @@ public:
 	poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
+	virtual poObject* copy();
+	
     // LAYOUT
     // You MUST call layout after making any changes to poTextBox. Otherwise, you will not see
     // the changes in the text box.
@@ -150,14 +152,15 @@ public:
     // You should not need to call the draw() method yourself.
 	void                draw();
 
-private:
-	void                defaultFonts();
+protected:
+	void				clone(poTextBox *tb);
 	
+private:
 	bool                fit_height_to_bounds;
 	bool				cache_to_texture;
 	poAlignment         text_align;
 	po::TextBoxLayout   _layout;
-	poFBO				*cached;
+	poTexture			cached;
 };
 
 

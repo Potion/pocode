@@ -15,54 +15,55 @@
 #include "poGeometryMask.h"
 
 poObject *createObjectForID(uint id) {
-	setCurrentPath("resource");
 	return new TestObj();
 }
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::white));
+	addModifier(new poCamera2D());
+
+	poShape2D *shp = addChild(new poRectShape(50,50));
+	shp->position.set(200,100,0);
+	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
 	
-	holder = addChild(new poObject());
-	holder = holder->addChild(new poObject());
-	holder = holder->addChild(new poObject());
-	holder = holder->addChild(new poObject());
-	
-	for(int i=0; i<100; i++) {
-		poShape2D *shp = holder->addChild(new poRectShape(100,100));
-		shp->alpha = poMapf(0, 100, i, .2, .7);
-		shp->position = randomPointInRect(getWindowFrame());
-		shp->placeTexture(poTexture(getImage("apple.jpg")), PO_TEX_FIT_INSIDE);
-		shp->fillColor = poColor::orange;
-		shp->generateStroke(3);
-	}
-	
-	for(int i=0; i<100; i++) {
-		poTextBox *text = holder->addChild(new poTextBox(100));
-		text->font(getFont("Maharam-Regular.otf",""));
-		text->textSize(poRand(12,20));
-		text->textColor = poColor::blue;
-		text->text(std::string("hello:") + boost::lexical_cast<std::string>(text->textSize()));
-		text->textAlignment(PO_ALIGN_CENTER);
-		text->leading(.7f);
-		text->position = randomPointInRect(getWindowFrame());
-		text->layout();
-	}
-	
-	poShape2D *mask = new poOvalShape(500,500,20);
-	mask->position = getWindowCenter();
-	addModifier(new poGeometryMask(mask));
+	shp = addChild(new poRectShape(50,50));
+	shp->position.set(600,100,0);
+	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
 }
 
 void TestObj::update() {
-	holder->alpha = poMapf(-1,1, sin(getTime()), .5,1);
-	
-	for(int i=0; i<200; i++) {
-		poObject *obj = holder->getChild(i);
-		obj->rotation += (i<100 ? -1.f : 1.f);
-	}
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	if(event->type == PO_TOUCH_BEGAN_INSIDE_EVENT) {
+		printf("shape %d, touch %d, began inside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::green;
+	}
+	
+	else 
+	if(event->type == PO_TOUCH_BEGAN_OUTSIDE_EVENT) {
+		printf("shape %d, touch %d, began outside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::red;
+	}
+	
+	else 
+	if(event->type == PO_TOUCH_ENDED_INSIDE_EVENT) {
+		printf("shape %d, touch %d, ended inside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::white;
+	}
+
+	else 
+	if(event->type == PO_TOUCH_ENDED_OUTSIDE_EVENT) {
+		printf("shape %d, touch %d, ended outside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::orange;
+	}
 }
+
+
 
 

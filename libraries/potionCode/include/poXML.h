@@ -42,7 +42,7 @@ public:
 	void            print();
 	
 private:
-	pugi::xml_document document;
+	boost::shared_ptr<pugi::xml_document> document;
 };
 
 

@@ -24,6 +24,10 @@ const poColor poColor::cyan = poColor(0,1,1);
 const poColor poColor::magenta = poColor(1,0,1);
 const poColor poColor::transparent = poColor(0,0,0,0);
 
+poColor poColor::random() {
+	return poColor(poRand(), poRand(), poRand(), 1.f);
+}
+
 poHSVColor rgba2hsv(poColor rgba) {
 	float r = rgba.R * rgba.A;
 	float g = rgba.G * rgba.A;

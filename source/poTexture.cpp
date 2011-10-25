@@ -106,9 +106,11 @@ void poTexture::replace(poImage image) {
 }
 
 void poTexture::replace(const ubyte *pixels) {
-	glBindTexture(GL_TEXTURE_2D, shared->uid);
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->pushTextureState();
+	ogl->setTexture(po::TextureState(*this));
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, shared->width, shared->height, shared->config.format, GL_UNSIGNED_BYTE, pixels);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	ogl->popTextureState();
 }
 
 bool poTexture::isValid() const {
@@ -162,7 +164,10 @@ void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextu
 	shared->height = height;
 	shared->channels = channelsForFormat(config.format);
 	shared->config = config;
-		
+
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->pushTextureState();
+	
 	glGenTextures(1, &shared->uid);
 	glBindTexture(GL_TEXTURE_2D, shared->uid);
 //	glPixelStorei(GL_PACK_ALIGNMENT, shared->channels);
@@ -189,7 +194,7 @@ void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextu
 				 shared->config.format, 
 				 shared->config.type, 
 				 pixels);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	
 }
 
 void textureFitExact(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);

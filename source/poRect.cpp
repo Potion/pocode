@@ -140,6 +140,12 @@ poRect &poRect::inset(poPoint p) {
 	return *this;
 }
 
+poRect &poRect::expand(poPoint p) {
+	setPosition(getPosition() - p);
+	setSize(getSize() + (p*2));
+	return *this;
+}
+
 bool poRect::contains(float x, float y) const {
 	return	x >= this->x && 
 			x <= (this->x+width) && 

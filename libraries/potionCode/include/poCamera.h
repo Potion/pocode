@@ -29,7 +29,7 @@ class poCamera : public poObjectModifier
 public:
 	poCamera();
 	poCamera(poColor clear);
-	virtual poCamera *copy() = 0;
+	virtual poObjectModifier *copy();
 	
     // BACKGROUND CLEARING and BACKGROUND COLOR
 	bool                clearsBackground() const;
@@ -49,6 +49,8 @@ public:
 	poCamera*           fixedSize(bool b, poPoint p=poPoint());
 	
 protected:
+	void				clone(poCamera *cam);
+	
     // SETUP and SETDOWN
     // The camera projection matrix is setup (pushed) by doSetUp 
     // and setdown (popped) by doSetDown.
@@ -79,9 +81,10 @@ class poCamera2D : public poCamera
 public:
 	poCamera2D();
     poCamera2D(poColor clear);
-	virtual poCamera *copy();
+	virtual poObjectModifier *copy();
 
 protected:
+	void				clone(poCamera2D *cam);
 	virtual void        setProjection();
 };
 
@@ -101,13 +104,14 @@ public:
 	poOrthoCamera();
     poOrthoCamera(float w, float h, float n, float f);
 	poOrthoCamera(float x1, float y1, float x2, float y2, float n, float f);
-	virtual poCamera *copy();
+	virtual poObjectModifier *copy();
 
 	void                set(poRect r, float n=-1, float f=1);
 	void                set(float x1, float y1, float x2, float y2, float n, float f);
 	poRect              get() const;
 	
 protected:
+	void				clone(poOrthoCamera *cam);
 	virtual void        setProjection();
 
 private:
@@ -135,7 +139,7 @@ class poPerspectiveCamera : public poCamera
 {
 public:
 	poPerspectiveCamera(float fov, float near, float far);
-	virtual poCamera *copy();
+	virtual poObjectModifier* copy();
 
     // CAMERA POSITION and LOOKAT POSITION
     poPoint                 cameraPosition() const;
@@ -145,6 +149,8 @@ public:
 	poPerspectiveCamera*    lookAtPosition(poPoint p);
 	
 protected:
+	void					clone(poPerspectiveCamera *cam);
+	
 	virtual void            doSetUp(poObject* obj);
 	virtual void            setProjection();
 	virtual void            setModelview();

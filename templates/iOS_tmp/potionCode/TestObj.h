@@ -17,6 +17,4 @@ public:
 	void update();
     void eventHandler(poEvent *event);
 	
-	poObject *holder;
-	
 };
