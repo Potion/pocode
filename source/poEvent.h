@@ -23,8 +23,11 @@ enum {
 	
 	PO_TOUCH_BEGAN_EVENT,
 	PO_TOUCH_BEGAN_INSIDE_EVENT,
+	PO_TOUCH_BEGAN_OUTSIDE_EVENT,
 	PO_TOUCH_MOVED_EVENT,
 	PO_TOUCH_ENDED_EVENT,
+	PO_TOUCH_ENDED_INSIDE_EVENT,
+	PO_TOUCH_ENDED_OUTSIDE_EVENT,
 	PO_TOUCH_CANCELLED_EVENT,
 	
 	PO_LAST_EVENT
@@ -141,7 +144,7 @@ public:
 	unsigned int    modifiers;
 	
 	// position is local to the receiver of the event.
-    // globalPosition is the mouse or touch position relative to the object.
+    // globalPosition is the mouse or touch position relative to the screen.
 	poPoint         position, globalPosition, previousPosition;
 
 	// The keyCode is the raw key identifier, OS-defined.

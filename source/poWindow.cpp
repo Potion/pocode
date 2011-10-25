@@ -153,7 +153,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DOWN_EVENT;
@@ -164,7 +164,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 
 	event.type = PO_MOUSE_UP_EVENT;
@@ -175,7 +175,7 @@ void poWindow::mouseMove(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_MOVE_EVENT;
@@ -186,7 +186,7 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DRAG_EVENT;
@@ -243,7 +243,7 @@ void poWindow::touchBegin(int x, int y, int uid, int tapCount )
     
     //Fire Event
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.touchID = uid;
     event.tapCount = tapCount;
 	
@@ -259,7 +259,7 @@ void poWindow::touchMove(int x, int y, int uid, int tapCount )
     
     //Send event
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.touchID   = uid;
     event.tapCount  = tapCount;
 	
@@ -275,7 +275,7 @@ void poWindow::touchEnd(int x, int y, int uid, int tapCount )
 //   
     //Send event
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.touchID   = uid;
     event.tapCount = tapCount;
 	
@@ -290,7 +290,7 @@ void poWindow::touchCancelled(int x, int y, int uid, int tapCount )
 {
 //    untrackTouch(id);
     poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.touchID = uid;
     event.tapCount = tapCount;
 	

@@ -30,8 +30,11 @@ bool isKeyEvent(int type) {
 bool isTouchEvent(int type) {
 	return (type == PO_TOUCH_BEGAN_EVENT		||
             type == PO_TOUCH_BEGAN_INSIDE_EVENT ||
+            type == PO_TOUCH_BEGAN_OUTSIDE_EVENT||
             type == PO_TOUCH_MOVED_EVENT		||
 			type == PO_TOUCH_ENDED_EVENT		||
+			type == PO_TOUCH_ENDED_INSIDE_EVENT	||
+			type == PO_TOUCH_ENDED_OUTSIDE_EVENT||
             type == PO_TOUCH_CANCELLED_EVENT);
 }
 

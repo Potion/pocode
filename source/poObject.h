@@ -242,7 +242,7 @@ public:
     static const int    INVALID_INDEX = -1;
     //@}
     
-    poEventMemory       eventMemory;
+    poEventMemory       *eventMemory;
     
 protected:
     

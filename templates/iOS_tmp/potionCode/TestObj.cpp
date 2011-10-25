@@ -15,34 +15,55 @@
 #include "poGeometryMask.h"
 
 poObject *createObjectForID(uint id) {
-	setCurrentPath("resource");
 	return new TestObj();
 }
 
 TestObj::TestObj() {
-	addModifier(new poCamera2D(poColor::black));
+	addModifier(new poCamera2D());
+
+	poShape2D *shp = addChild(new poRectShape(50,50));
+	shp->position.set(200,100,0);
+	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",0));
+	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
 	
-	poTextBox *text = addChild(new poTextBox(150));
-	text->font(getFont("Maharam-Regular.otf",""));
-	text->textSize(15);
-	text->leading(.5f);
-	text->textColor = poColor::white;
-	text->text("quick brown fox jumps over the lazy dog");
-	text->textColor = poColor::white;
-	text->position.set(100,100,0);
-//	text->drawBounds = PO_TEXT_BOX_STROKE_TEXT_BOUNDS;
-	text->layout();
-	
-	text = addChild((poTextBox*)text->copy());
-	text->position.y += text->textBounds().height+10;
-	text->cacheToTexture(false);
-	text->layout();
+	shp = addChild(new poRectShape(50,50));
+	shp->position.set(600,100,0);
+	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",1));
+	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
 }
 
 void TestObj::update() {
 }
 
 void TestObj::eventHandler(poEvent *event) {
+	if(event->type == PO_TOUCH_BEGAN_INSIDE_EVENT) {
+		printf("shape %d, touch %d, began inside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::green;
+	}
+	
+	else 
+	if(event->type == PO_TOUCH_BEGAN_OUTSIDE_EVENT) {
+		printf("shape %d, touch %d, began outside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::red;
+	}
+	
+	else 
+	if(event->type == PO_TOUCH_ENDED_INSIDE_EVENT) {
+		printf("shape %d, touch %d, ended inside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::white;
+	}
+
+	else 
+	if(event->type == PO_TOUCH_ENDED_OUTSIDE_EVENT) {
+		printf("shape %d, touch %d, ended outside\n", event->dictionary.getInt("id"), event->touchID);
+		((poShape2D*)event->source)->fillColor = poColor::orange;
+	}
 }
+
+
 
 

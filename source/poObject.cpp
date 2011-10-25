@@ -39,6 +39,7 @@ poObject::poObject()
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::poObject(const std::string &name)
@@ -66,11 +67,14 @@ poObject::poObject(const std::string &name)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::~poObject() {
     poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
+	if(eventMemory)
+		delete eventMemory;
 }
 
 poObject *poObject::copy() {
