@@ -396,7 +396,7 @@ std::vector<poEvent*> poEventCenter::eventsForObject(poObject *obj, int eventTyp
 void poEventCenter::negateDrawOrderForObjectWithEvents() {
     for(int i=0; i<events.size(); i++) {
         for(int j=0; j<events[i].size(); j++) {
-            events[i][j]->receiver->draw_order = -1;
+            events[i][j]->event.source->draw_order = -1;
         }
     }
 }
