@@ -204,7 +204,7 @@ void poTextBox::layout() {
 		// http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
 		po::BlendState blend;
 		blend.enabled = true;
-		blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ZERO);
+		blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
 		
 		poOpenGLState *ogl = poOpenGLState::get();
 		ogl->pushBlendState();
