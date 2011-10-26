@@ -21,6 +21,34 @@ const char * colored_shader =
 "		gl_FragColor = color;				\n"
 "	}										\n";
 
+const char * geom_3D_shader = 
+"	[[uniforms]]							\n"
+"	uniform mat4 modelView;                 \n"
+"   uniform mat4 projection;                \n"
+"	uniform vec4 color;						\n"
+"   uniform vec3 lightPos;                  \n"
+
+"	[[varyings]]							\n"
+"   varying vec3 normalVar;                 \n"
+"   varying vec3 lightDir;                  \n"
+
+"	[[vertex]]								\n"
+"	attribute vec4 position;				\n"
+"   attribute vec3 normal;                  \n"
+
+"	void main() {							\n"
+"       normalVar = (modelView * vec4(normal,0.0)).xyz; \n"
+"       vec4 pos = modelView * position;    \n"
+"       lightDir = lightPos - pos.xyz;  \n"
+"		gl_Position = projection * pos;     \n"
+"	}										\n"
+
+"	[[fragment]]							\n"
+"	void main() {							\n"
+"       float NdotL = max(dot(normalVar,normalize(lightDir)),0.0); \n"
+"		gl_FragColor = color * NdotL;       \n"
+"	}										\n";
+
 const char * textured_shader = 
 "	[[uniforms]]							\n"
 "	uniform mat4 mvp;						\n"
@@ -91,6 +119,20 @@ void poBasicRenderer::setFromState() {
 	glUniform4fv(active->uniformLocation("color"), 1, &ogl->color.R);
 }
 
+void poBasicRenderer::setFor3D() {
+	poOpenGLState *ogl = poOpenGLState::get();
+    
+    glUseProgram(geom3DShader.getUid());
+    active = &geom3DShader;
+    
+    glUniform4fv(active->uniformLocation("color"), 1, &ogl->color.R);
+    glUniformMatrix4fv(active->uniformLocation("modelView"), 1, GL_FALSE, glm::value_ptr(ogl->matrix.getModelview()));
+    glUniformMatrix4fv(active->uniformLocation("projection"), 1, GL_FALSE, glm::value_ptr(ogl->matrix.getProjection()));
+    
+    glm::vec4 lightPos(0,1000,0,0);
+    glUniform3fv(active->uniformLocation("lightPos"), 1, glm::value_ptr(ogl->matrix.getCameraMatrix() * lightPos));
+}
+
 void poBasicRenderer::rebuild() {
 	glUseProgram(0);
 	
@@ -110,6 +152,15 @@ void poBasicRenderer::rebuild() {
 	glBindAttribLocation(texturedShader.getUid(), 1, "textureCoordinates");
 	if(!texturedShader.link())
 		throw std::runtime_error("texture shader didn't link");
+    
+    std::istringstream geom(geom_3D_shader);
+    geom3DShader.loadSource(geom);
+    if(!geom3DShader.compile())
+        throw std::runtime_error("3D geometry shader didn't compile");
+    glBindAttribLocation(geom3DShader.getUid(), 0, "position");
+    glBindAttribLocation(geom3DShader.getUid(), 1, "normal");
+    if(!geom3DShader.link())
+        throw std::runtime_error("3D geometry shader didn't link");
 	
 	active = &colorShader;
 	glUseProgram(active->getUid());
