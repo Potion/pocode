@@ -36,6 +36,10 @@ poObject *root = NULL;
         [EAGLContext setCurrentContext:nil];
     
     [context release];
+<<<<<<< HEAD
+=======
+	[touchTracker release];
+>>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 	
     [super dealloc];
 }
@@ -66,6 +70,8 @@ poObject *root = NULL;
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;
+	
+	touchTracker = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -166,29 +172,53 @@ poObject *root = NULL;
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
+		int touchId = 0;
+		if([touchTracker containsObject:touch]) {
+			touchId = [touchTracker indexOfObject:touch];
+		}
+		else {
+			touchId = touchTracker.count;
+			[touchTracker addObject:touch];
+		}
+		
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+        self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
     }
 } 
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
+<<<<<<< HEAD
+=======
+        int touchId = [touchTracker indexOfObject:touch];
+		
+>>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
     }
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
+		int touchId = [touchTracker indexOfObject:touch];
+		[touchTracker removeObject:touch];
+		
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+        self.appWindow->touchEnd(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
+		int touchId = [touchTracker indexOfObject:touch];
+		[touchTracker removeObject:touch];
+
         CGPoint touchPoint = [touch locationInView:eagl];
+<<<<<<< HEAD
         self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
+=======
+        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
+>>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
     }
 	
 }

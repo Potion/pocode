@@ -175,7 +175,7 @@ poEventCallback* poEventCenter::findTopObjectUnderPoint( int eventType, poPoint 
 void poEventCenter::processEvents(std::deque<poEvent> &events) {
     // sort all event callbacks by draw order
     sortCallbacksByDrawOrder();
-	
+
 	while(!events.empty()) {
         //Get Event
 		poEvent &event = events.front();
@@ -240,15 +240,10 @@ void poEventCenter::processMouseEvents( poEvent &Event )
         // notify all objects listening for PO_MOUSE_MOVE_EVENT
         poEvent sentEvent = Event;
         notifyAllListeners( sentEvent );
-	}
-	
-	if( Event.type == PO_MOUSE_ENTER_EVENT || 
-	    Event.type == PO_MOUSE_LEAVE_EVENT ) 
-	{
+		
         // for all objects listening for PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
         // need to combine ENTER and LEAVE into one stack
         // right now just listens to ENTER stack and sends LEAVE as well
-        poEvent sentEvent = Event;
 		
         for( int i=0; i<enterLeaveEvents.size(); i++ )
         {

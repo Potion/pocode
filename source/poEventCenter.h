@@ -89,3 +89,4 @@ private:
 	std::vector< std::vector<poEventCallback*> > events;
 	std::vector<poEventCallback*> enterLeaveEvents;
 };
+

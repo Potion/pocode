@@ -17,14 +17,18 @@ enum {
 	PO_MOUSE_DRAG_EVENT,
 	PO_MOUSE_ENTER_EVENT,
 	PO_MOUSE_LEAVE_EVENT,
+	PO_MOUSE_OVER_EVENT,
 	
 	PO_KEY_DOWN_EVENT,
 	PO_KEY_UP_EVENT,
 	
 	PO_TOUCH_BEGAN_EVENT,
 	PO_TOUCH_BEGAN_INSIDE_EVENT,
+	PO_TOUCH_BEGAN_OUTSIDE_EVENT,
 	PO_TOUCH_MOVED_EVENT,
 	PO_TOUCH_ENDED_EVENT,
+	PO_TOUCH_ENDED_INSIDE_EVENT,
+	PO_TOUCH_ENDED_OUTSIDE_EVENT,
 	PO_TOUCH_CANCELLED_EVENT,
 	
 	PO_LAST_EVENT
@@ -51,9 +55,9 @@ bool isRightMouseDown(poEvent*);
 bool isCenterMouseDown(poEvent*);
 
 // check event type
-bool isMouseEvent(poEvent*);
-bool isKeyEvent(poEvent*);
-bool isTouchEvent(poEvent*);
+bool isMouseEvent(int type);
+bool isKeyEvent(int type);
+bool isTouchEvent(int type);
 
 // PO_EVENT SPECIAL KEYS
 enum {
@@ -141,8 +145,8 @@ public:
 	unsigned int    modifiers;
 	
 	// position is local to the receiver of the event.
-    // globalPosition is the mouse or touch position relative to the object.
-	poPoint         position, globalPosition, previousPosition;
+    // globalPosition is the mouse or touch position relative to the screen.
+	poPoint         localPosition, globalPosition, previousPosition;
 
 	// The keyCode is the raw key identifier, OS-defined.
 	int             keyCode;
@@ -153,6 +157,7 @@ public:
 	// The touchID stores the identifier of a touch event. All touch events connected
     // to a single touch movement should have the same touchID.
 	int             touchID;
+    int             uniqueID;
     // Touches have a tap count in iOS, useful for double/triple tap events
     int             tapCount;
 };

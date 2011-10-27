@@ -65,16 +65,14 @@ public:
 	// handle events and remove them from the list
 	void	processEvents(std::deque<poEvent> &events);
 	
-	// figure out where to route a given event
-    void    processMouseEvents( poEvent &Event );
-    void	processTouchEvents( poEvent &Event );
-    void	processKeyEvents( poEvent &Event );
-
 	// will register all events to an object that are already registered 'from' object
 	void	copyEventsFromObject(poObject *from, poObject *to);
 	// get the stored event for this this object/action
 	std::vector<poEvent*> eventsForObject(poObject *obj, int eventType);
 
+    // hack to make visible children with invisible parents get left out of event processing
+    void negateDrawOrderForObjectWithEvents();
+    
 private:
 	poEventCenter();
     
@@ -84,5 +82,11 @@ private:
     void    notifyAllListeners( poEvent global_event );
 	void	notifyOneListener( poEventCallback *callback, poEvent global_event);
 
+    void    processMouseEvents( poEvent &Event );
+    void	processTouchEvents( poEvent &Event );
+    void	processKeyEvents( poEvent &Event );
+
 	std::vector< std::vector<poEventCallback*> > events;
+	std::vector<poEventCallback*> enterLeaveEvents;
 };
+

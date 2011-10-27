@@ -18,7 +18,6 @@ bool isMouseEvent(int type) {
 	return (type == PO_MOUSE_UP_EVENT			||
 			type == PO_MOUSE_DOWN_EVENT			||
 			type == PO_MOUSE_DOWN_INSIDE_EVENT	||
-			type == PO_MOUSE_UP_EVENT			||
 			type == PO_MOUSE_MOVE_EVENT			||
 			type ==	PO_MOUSE_DRAG_EVENT			||
 			type == PO_MOUSE_ENTER_EVENT		||

@@ -52,7 +52,7 @@ basicShapesApp::basicShapesApp() {
     ovalShape->fillColor = poColor::green;
     addChild( ovalShape );
     
-    ovalShape->addEvent(PO_MOUSE_OVER_EVENT, this);
+    //ovalShape->addEvent(PO_MOUSE_OVER_EVENT, this);
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 

@@ -22,6 +22,8 @@
     BOOL animating;
     NSInteger animationFrameInterval;
     CADisplayLink *displayLink;
+	
+	NSMutableArray *touchTracker;
 }
 
 @property (nonatomic, assign) IBOutlet EAGLView *eagl;
