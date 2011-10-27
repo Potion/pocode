@@ -9,6 +9,10 @@ poPoint::poPoint()
 :	x(0.f), y(0.f), z(0.f)
 {}
 
+poPoint::poPoint(const float *f)
+:	x(f[0]), y(f[1]), z(f[2])
+{}
+
 poPoint::poPoint(float x, float y, float z)
 :	x(x), y(y), z(z)
 {}

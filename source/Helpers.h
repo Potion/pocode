@@ -80,6 +80,8 @@ inline std::string poToString (const T& t) {
 };
 
 //Convert to string to title case
+std::string poToUpperCase(std::string s);
+std::string poToLowerCase(std::string s);
 std::string poToTitleCase(std::string s);
 
 

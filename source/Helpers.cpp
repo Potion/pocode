@@ -363,6 +363,23 @@ std::string base64_decode(std::string const& encoded_string) {
 	return ret;
 }
 
+
+std::string poToUpperCase(std::string s) {
+    for(int i=0; i<s.length(); i++) {
+        s[i] = toupper(s[i]);
+    }
+    
+    return s;
+}
+
+std::string poToLowerCase(std::string s) {
+    for(int i=0; i<s.length(); i++) {
+        s[i] = tolower(s[i]);
+    }
+    
+    return s;
+}
+
 std::string poToTitleCase(std::string s) {
     for(int i=0; i<s.length(); i++) {
         if(i==0 || s[i-1] == ' ') {
@@ -371,7 +388,6 @@ std::string poToTitleCase(std::string s) {
     }
     
     return s;
-
 }
 
 int poToInt(std::string s) {

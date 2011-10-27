@@ -14,25 +14,32 @@ bool isLeftMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_LEFT) > 0;}
 bool isRightMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_RIGHT) > 0;}
 bool isCenterMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_MIDDLE) > 0;}
 
-bool isMouseEvent(poEvent* e) {
-	return (e->type == PO_MOUSE_UP_EVENT			||
-			e->type == PO_MOUSE_DOWN_EVENT			||
-			e->type == PO_MOUSE_DOWN_INSIDE_EVENT	||
-			e->type == PO_MOUSE_MOVE_EVENT			||
-			e->type ==	PO_MOUSE_DRAG_EVENT);
+bool isMouseEvent(int type) {
+	return (type == PO_MOUSE_UP_EVENT			||
+			type == PO_MOUSE_DOWN_EVENT			||
+			type == PO_MOUSE_DOWN_INSIDE_EVENT	||
+			type == PO_MOUSE_UP_EVENT			||
+			type == PO_MOUSE_MOVE_EVENT			||
+			type ==	PO_MOUSE_DRAG_EVENT			||
+			type == PO_MOUSE_ENTER_EVENT		||
+			type == PO_MOUSE_LEAVE_EVENT		||
+			type == PO_MOUSE_OVER_EVENT);
 }
 
-bool isKeyEvent(poEvent* e) {
-	return (e->type == PO_KEY_UP_EVENT				||
-			e->type == PO_KEY_DOWN_EVENT);
+bool isKeyEvent(int type) {
+	return (type == PO_KEY_UP_EVENT				||
+			type == PO_KEY_DOWN_EVENT);
 }
 
-bool isTouchEvent(poEvent* e) {
-	return (e->type == PO_TOUCH_BEGAN_EVENT			||
-            e->type == PO_TOUCH_BEGAN_INSIDE_EVENT	||
-            e->type == PO_TOUCH_MOVED_EVENT			||
-			e->type == PO_TOUCH_ENDED_EVENT			||
-            e->type == PO_TOUCH_CANCELLED_EVENT);
+bool isTouchEvent(int type) {
+	return (type == PO_TOUCH_BEGAN_EVENT		||
+            type == PO_TOUCH_BEGAN_INSIDE_EVENT ||
+            type == PO_TOUCH_BEGAN_OUTSIDE_EVENT||
+            type == PO_TOUCH_MOVED_EVENT		||
+			type == PO_TOUCH_ENDED_EVENT		||
+			type == PO_TOUCH_ENDED_INSIDE_EVENT	||
+			type == PO_TOUCH_ENDED_OUTSIDE_EVENT||
+            type == PO_TOUCH_CANCELLED_EVENT);
 }
 
 poEvent::poEvent()
@@ -43,6 +50,7 @@ poEvent::poEvent()
 ,	timestamp(0.0)
 ,	modifiers(0)
 ,   touchID(-1)
+,   uniqueID(-1)
 {}
 
 poEvent::poEvent(int t, poObject* f, std::string m, const poDictionary& d)
@@ -55,5 +63,6 @@ poEvent::poEvent(int t, poObject* f, std::string m, const poDictionary& d)
 ,   message(m)
 ,	dictionary(d)
 ,   touchID(-1)
+,   uniqueID(-1)
 {}
 

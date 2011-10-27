@@ -2,6 +2,7 @@
  *  Copyright 2011 Potion Design. All rights reserved.
  */
 
+#include "Helpers.h"
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
@@ -28,16 +29,17 @@ poObject::poObject()
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position)
-,	scale_tween(&scale)
-,	offset_tween(&offset)
-,	alpha_tween(&alpha)
-,	rotation_tween(&rotation)
+,	draw_order(-1)
+,	positionTween(&position)
+,	scaleTween(&scale)
+,	offsetTween(&offset)
+,	alphaTween(&alpha)
+,	rotationTween(&rotation)
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::poObject(const std::string &name)
@@ -55,21 +57,24 @@ poObject::poObject(const std::string &name)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position)
-,	scale_tween(&scale)
-,	offset_tween(&offset)
-,	alpha_tween(&alpha)
-,	rotation_tween(&rotation)
+,	draw_order(-1)
+,	positionTween(&position)
+,	scaleTween(&scale)
+,	offsetTween(&offset)
+,	alphaTween(&alpha)
+,	rotationTween(&rotation)
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
 ,	drawBounds(false)
+,	eventMemory(NULL)
 {}
 
 poObject::~poObject() {
     poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
+	if(eventMemory)
+		delete eventMemory;
 }
 
 poObject *poObject::copy() {
@@ -139,7 +144,7 @@ poRect poObject::getFrame() {
 }
 
 poRect poObject::getBounds() {
-    poRect rect(offset.x, offset.y, width, height);
+    poRect rect(0, 0, width, height);
 	BOOST_FOREACH(poObject* obj, children) {
         if (obj->visible) {
             poRect obj_b = obj->getBounds();
@@ -147,17 +152,10 @@ poRect poObject::getBounds() {
             rect.include(objectToLocal(obj, obj_b.getTopLeft()));
         }
 	}
+	rect.setPosition(rect.getPosition() + offset);
 	return rect;
 }
        
-       
-void poObject::_drawBounds() {    
-    po::setColor(poColor::red);
-    po::drawStroke(getBounds());
-    po::drawRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
-}
-
-
 void poObject::addEvent(int eventType, poObject *sink, std::string message, const poDictionary& dict) {
 	if(!sink)
 		sink = this;
@@ -211,10 +209,33 @@ int poObject::numChildren() const {
 	return (int)children.size();
 }
 
+void poObject::addChild(poObject* obj) {
+	children.push_back(obj);
+}
+
+void poObject::addChild(poObject* obj, int idx) {
+	children.insert(children.begin()+idx+1, obj);
+}
+
+void poObject::addChildBefore(poObject* obj, poObject* before) {
+	children.insert(children.begin()+getChildIndex(before), obj);
+}
+
+void poObject::addChildAfter(poObject* obj, poObject* after) {
+	children.insert(children.begin()+getChildIndex(after)+1, obj);
+}
+
 poObject* poObject::getChild(int idx) {
 	if(idx < 0 || idx >= children.size())
 		return NULL;
 	return *(children.begin()+idx);
+}
+
+int poObject::getChildIndex(poObject* obj) {
+	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
+	if(iter != children.end())
+		return (int)std::distance(children.begin(), iter);
+	return INVALID_INDEX;
 }
 
 poObject* poObject::getChildWithUID(uint UID) {
@@ -250,13 +271,6 @@ std::vector<poObject*> poObject::getChildren(const std::string &name) {
 	return childrenP;
 }
 
-int poObject::getChildIndex(poObject* obj) {
-	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
-	if(iter != children.end())
-		return (int)std::distance(children.begin(), iter);
-	return INVALID_INDEX;
-}
-
 void poObject::moveChildToFront(poObject* child) {
 	removeChild(child);
 	addChild(child);
@@ -277,6 +291,18 @@ void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
 	addChild(child, std::min(idx-1, 0));
+}
+
+poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
+	modifiers.push_back(mod);
+}
+
+poObjectModifier* poObject::getModifier(int idx) {
+	return modifiers[idx];
+}
+
+std::vector<poObjectModifier*> const &poObject::getModifiers() {
+	return modifiers;
 }
 
 bool poObject::removeModifier(int idx, bool and_delete) {
@@ -405,32 +431,67 @@ void poObject::_drawTree() {
 	// reset the drawing order for this object
 	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
-	pushObjectMatrix();
+	if(_parent)	true_alpha = _parent->true_alpha * alpha;
+	else		true_alpha = alpha;
 
+	poMatrixStack *stack = &poOpenGLState::get()->matrix;
+	stack->pushModelview();
+	
+	switch(matrixOrder) {
+		case PO_MATRIX_ORDER_TRS:
+			stack->translate(position);
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			break;
+			
+		case PO_MATRIX_ORDER_RST:
+			stack->rotate(rotation, rotationAxis);
+			stack->scale(scale);
+			stack->translate(position);
+			break;
+	}
+	
+	// center our object around its offset
+	stack->translate(offset);
+	
+	// grab the matrices we need for everything
+	matrices.dirty = true;
+	matrices.capture();
+
+	// set up the modifiers ... cameras, etc
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
 	
 	draw();
+
+	// go back to centered around the origin
+	stack->translate(-offset);
+	
 	if(drawBounds) 
 		_drawBounds();
-
+	
+	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->_drawTree();
 	}
-    
+	
+	// then recenter around offset
+	// some modifiers might need the objects complete transform
+	stack->translate(offset);
+
+	// let modifiers clean up
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setDown( this );
     }
 	
-	popObjectMatrix();
+	// and restore parent's matrix
+	stack->popModelview();
 }
 
 void poObject::_updateTree() {
 	if(!visible)
 		return;
-	
-	draw_order = applicationCurrentWindow()->nextDrawOrder();
 	
 	updateAllTweens();
 	update();
@@ -440,12 +501,18 @@ void poObject::_updateTree() {
 	}
 }
 
+void poObject::_drawBounds() {    
+    po::setColor(poColor::red);
+    po::drawStroke(getBounds());
+    po::drawRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
+}
+
 void poObject::stopAllTweens(bool recurse) {
-	position_tween.stop();
-	scale_tween.stop();
-	offset_tween.stop();
-	alpha_tween.stop();
-	rotation_tween.stop();
+	positionTween.stop();
+	scaleTween.stop();
+	offsetTween.stop();
+	alphaTween.stop();
+	rotationTween.stop();
 	
 	if(recurse) {
 		BOOST_FOREACH(poObject* obj, children)
@@ -493,47 +560,11 @@ void poObject::write(poXMLNode &node) {
 }
 
 void poObject::updateAllTweens() {
-	position_tween.update();
-	scale_tween.update();
-	offset_tween.update();
-	alpha_tween.update();
-	rotation_tween.update();
-}
-
-void poObject::pushObjectMatrix() {
-	if(_parent) {
-		true_alpha = _parent->true_alpha * alpha;
-	}
-	else {
-		true_alpha = alpha;
-	}
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	stack->pushModelview();
-	
-	// now move depending on the matrix order
-	switch(matrixOrder) {
-		case PO_MATRIX_ORDER_TRS:
-			stack->translate(position);
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			break;
-			
-		case PO_MATRIX_ORDER_RST:
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			stack->translate(position);
-			break;
-	}
-
-	stack->translate(offset);
-	
-	matrices.dirty = true;
-	matrices.capture();
-}
-
-void poObject::popObjectMatrix() {
-	poOpenGLState::get()->matrix.popModelview();
+	positionTween.update();
+	scaleTween.update();
+	offsetTween.update();
+	alphaTween.update();
+	rotationTween.update();
 }
 
 void poObject::clone(poObject *obj) {
@@ -548,11 +579,11 @@ void poObject::clone(poObject *obj) {
 	obj->bFixedHeight = bFixedHeight;
 	obj->drawBounds = drawBounds;
 	obj->matrixOrder = matrixOrder;
-	obj->position_tween = position_tween;
-	obj->scale_tween = scale_tween;
-	obj->offset_tween = offset_tween;
-	obj->alpha_tween = alpha_tween;
-	obj->rotation_tween = rotation_tween;
+	obj->positionTween = positionTween;
+	obj->scaleTween = scaleTween;
+	obj->offsetTween = offsetTween;
+	obj->alphaTween = alphaTween;
+	obj->rotationTween = rotationTween;
 	obj->width = width;
 	obj->height = height;
 	obj->_alignment = _alignment;

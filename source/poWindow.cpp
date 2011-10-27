@@ -122,6 +122,7 @@ void poWindow::makeCurrent() {
 
 void poWindow::draw() {
 	draw_order_counter = 0;
+    poEventCenter::get()->negateDrawOrderForObjectWithEvents();
 	rootObject()->_drawTree();
 }
 
@@ -153,7 +154,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DOWN_EVENT;
@@ -164,7 +165,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 
 	event.type = PO_MOUSE_UP_EVENT;
@@ -175,7 +176,7 @@ void poWindow::mouseMove(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_MOVE_EVENT;
@@ -186,7 +187,7 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 	mouse_pos.set(x,y,1);
 	
 	poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
 	event.type = PO_MOUSE_DRAG_EVENT;
@@ -231,36 +232,36 @@ void poWindow::resized(int x, int y, int w, int h) {
 }
 
 
-void poWindow::touchBegin(int x, int y, int uid, int tapCount )
-{
-//    //Create an interactionPoint for this touch, with a unique id
-//    interactionPoint *t = new interactionPoint();
-//    t->uid = uid;
-//    t->bIsDead = false;
-//    
-//    //Begin tracking touch + give it a simple ID (0-100)
-//    trackTouch(t);
+void poWindow::touchBegin(int x, int y, int uid, int tapCount ) {
+    //Create an interactionPoint for this touch, with a unique id
+    interactionPoint *t = new interactionPoint();
+    t->uid = uid;
+    t->bIsDead = false;
+    
+    //Begin tracking touch + give it a simple ID (0-100)
+    trackTouch(t);
     
     //Fire Event
 	poEvent event;
-	event.position.set(x, y, 0.f);
-	event.touchID = uid;
-    event.tapCount = tapCount;
+	event.globalPosition.set(x, y, 0.f);
+	event.touchID   = t->id;
+    event.uniqueID  = uid;
+    event.tapCount  = tapCount;
 	
 	event.type = PO_TOUCH_BEGAN_EVENT;
 	received.push_back(event);
 }
 
 
-void poWindow::touchMove(int x, int y, int uid, int tapCount )
-{
+void poWindow::touchMove(int x, int y, int uid, int tapCount ) {
     //Get the corresponding tracked object
-//    interactionPoint *t = getTouch(uid);
+    interactionPoint *t = getTouch(uid);
     
     //Send event
 	poEvent event;
-	event.position.set(x, y, 0.f);
-	event.touchID   = uid;
+	event.globalPosition.set(x, y, 0.f);
+	event.touchID   = t->id;
+    event.uniqueID  = uid;
     event.tapCount  = tapCount;
 	
 	event.type = PO_TOUCH_MOVED_EVENT;
@@ -268,77 +269,76 @@ void poWindow::touchMove(int x, int y, int uid, int tapCount )
 }
 
 
-void poWindow::touchEnd(int x, int y, int uid, int tapCount )
-{
-//    //Get the corresponding tracked object
-//    interactionPoint *t = getTouch(uid);
-//   
+void poWindow::touchEnd(int x, int y, int uid, int tapCount ) {
+    //Get the corresponding tracked object
+    interactionPoint *t = getTouch(uid);
+   
     //Send event
 	poEvent event;
-	event.position.set(x, y, 0.f);
-	event.touchID   = uid;
+	event.globalPosition.set(x, y, 0.f);
+	event.touchID   = t->id;
+    event.uniqueID  = uid;
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_ENDED_EVENT;
     received.push_back(event);
-//    
-//    untrackTouch(uid);
+    
+    untrackTouch(uid);
 }
 
 
-void poWindow::touchCancelled(int x, int y, int uid, int tapCount )
-{
-//    untrackTouch(id);
+void poWindow::touchCancelled(int x, int y, int uid, int tapCount ) {
+    untrackTouch(uid);
+    
     poEvent event;
-	event.position.set(x, y, 0.f);
+	event.globalPosition.set(x, y, 0.f);
 	event.touchID = uid;
     event.tapCount = tapCount;
 	
 	event.type = PO_TOUCH_CANCELLED_EVENT;
 	received.push_back(event);
+    
+    untrackTouch(uid);
 }
 
-//
-//void poWindow::trackTouch(interactionPoint *t) 
-//{
-//    int totalTouches = trackedTouches.size();
-//        
-//    //See if there are any empty slots
-//    for(int i=0; i<totalTouches; i++) {
-//        if(trackedTouches[i]->bIsDead) {
-//            //Delete old touch
-//            delete trackedTouches[i];
-//            
-//            //Set id
-//            t->id = i;
-//        
-//            //Track in this spot
-//            trackedTouches[i] = t;
-//            return;
-//        }
-//    }
-//    
-//    //If the touch wasn't found, add it
-//    t->id = trackedTouches.size();
-//    trackedTouches.push_back(t);
-//}
-//
-//
-//interactionPoint *poWindow::getTouch(int uid) 
-//{
-//    for(int i=0;i<trackedTouches.size(); i++) {
-//        if(trackedTouches[i]->uid == uid) {
-//            return trackedTouches[i];
-//        }
-//    }
-//}
-//
-//
-//void poWindow::untrackTouch(int uid) 
-//{
-//    interactionPoint *t = getTouch(uid);
-//    t->bIsDead = true;
-//}
+
+void poWindow::trackTouch(interactionPoint *t) {
+    int totalTouches = trackedTouches.size();
+        
+    //See if there are any empty slots
+    for(int i=0; i<totalTouches; i++) {
+        if(trackedTouches[i]->bIsDead) {
+            //Delete old touch
+            delete trackedTouches[i];
+            
+            //Set id
+            t->id = i;
+        
+            //Track in this spot
+            trackedTouches[i] = t;
+            return;
+        }
+    }
+    
+    //If the touch wasn't found, add it
+    t->id = trackedTouches.size();
+    trackedTouches.push_back(t);
+}
+
+
+interactionPoint *poWindow::getTouch(int uid) {
+    for(int i=0;i<trackedTouches.size(); i++) {
+        if(trackedTouches[i]->uid == uid) {
+            return trackedTouches[i];
+        }
+    }
+}
+
+
+void poWindow::untrackTouch(int uid) {
+    interactionPoint *t = getTouch(uid);
+    t->bIsDead = true;
+}
 
 void *poWindow::getWindowHandle() {
 	return handle;

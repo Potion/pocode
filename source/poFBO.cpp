@@ -86,7 +86,6 @@ poTexture poFBO::depthTexture() const {
 
 void poFBO::doSetUp(poObject* obj) {
 	poOpenGLState::get()->pushTextureState();
-	
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 	cam->setUp(obj);
 }

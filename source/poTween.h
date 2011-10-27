@@ -15,16 +15,16 @@ class poObject;
 //
 // poTween is a templated tween class that allows for tweening of multiple variable types.
 //
-// There are five poTweens built into poObject. The first three (position_tween, scale_tween, 
-// and offset_tween) are used to tween between poPoint values. The last two (alpha_tween
-// and rotation_tween) are used to tween between float values.
+// There are five poTweens built into poObject. The first three (positionTween, scaleTween, 
+// and offsetTween) are used to tween between poPoint values. The last two (alphaTween
+// and rotationTween) are used to tween between float values.
 //
 // A poTween can be setup and started as follows:
 //
-//     position_tween.set( poPoint(100,200) );
-//     position_tween.setDuration( 2.0 );
-//     position_tween.setTweenFunction( PO_TWEEN_LINEAR_FUNC );
-//     position_tween.start();
+//     positionTween.set( poPoint(100,200) );
+//     positionTween.setDuration( 2.0 );
+//     positionTween.setTweenFunction( PO_TWEEN_LINEAR_FUNC );
+//     positionTween.start();
 //
 // set() sets the destination for the poTween. The origin is the current position of an object.
 // setDuration() sets the amount of time the tween willl take in seconds.
@@ -36,7 +36,7 @@ class poObject;
 // The isRunning() and isComplete() methods let you see if the tween is still active.
 // Also, a poTween can be setup to notify a poObject when it is complete as follows:
 //
-//      position_tween.setNotification( myPoObject, "tween_is_done" );
+//      positionTween.setNotification( myPoObject, "tween_is_done" );
 //
 // This will send the "tween_is_done" message to myPoObject via the messageHandler() method.
 //

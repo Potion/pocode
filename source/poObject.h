@@ -104,28 +104,16 @@ public:
 	/** @name SCENE GRAPH COMPOSITION*/
     //@{
     int                 numChildren() const;
-	template <typename T>
-	T*                  addChild(T* obj);
-	template <typename T>
-	T*                  addChild(T* obj, int idx); 
-    template <typename T, typename TT>
-	T*                  addChildBefore(T* obj, TT* before);
-    template <typename T, typename TT>
-	T*                  addChildAfter(T* obj, TT* after);
+	void				addChild(poObject* obj);
+	void				addChild(poObject* obj, int idx); 
+	void				addChildBefore(poObject* obj, poObject* before);
+	void				addChildAfter(poObject* obj, poObject* after);
 	int                 getChildIndex(poObject* child);
 	poObject*           getChild(int at_idx);
 	poObject*           getChildWithUID(uint uid);
 	poObject*           getChild(const std::string &with_name);
 	poObject*           getLastChild();
-	std::vector<poObject*>  getChildren(const std::string &with_name);
-	template <typename T> 
-    T*                  getChildAs(int idx);
-	template <typename T>
-	T*                  getChildAs(const std::string &name);
-	template <typename T>
-	T*                  getLastChildAs();
-	template <typename T>
-	std::vector<T*>     getChildrenAs(const std::string &name);
+	std::vector<poObject*> getChildren(const std::string &with_name);
 	bool                removeChild(poObject* obj);
 	bool                removeChild(int at_idx, bool and_delete=true);
 	void                removeAllChildren(bool and_delete=true);
@@ -147,12 +135,9 @@ public:
      */
     /** @name OBJECT MODIFIER OPERATIONS*/
     //@{
-    template <typename T>
-    T*                  addModifier(T* mod);
-	template <typename T>
-	T*                  getModifier(int idx);
-	template <typename T>
-	std::vector<T*>		getModifiers();
+    poObjectModifier*	addModifier(poObjectModifier* mod);
+	poObjectModifier*	getModifier(int idx);
+	std::vector<poObjectModifier*> const &getModifiers();
 	bool                removeModifier(int idx, bool and_delete=true);
 	bool                removeModifier(poObjectModifier* mod, bool and_delete=true);
     void                removeAllModifiers(bool and_delete=true);
@@ -222,11 +207,11 @@ public:
     By default, all tweens are disabled. See poTween.h for more about tweens.*/
  	/** @name OBJECT TWEENS (DIRECTLY ACCESSIBLE) */
     //@{   
-	poTween<poPoint>	position_tween;
-	poTween<poPoint>	scale_tween;
-	poTween<poPoint>	offset_tween;
-	poTween<float>		alpha_tween;
-	poTween<float>		rotation_tween;
+	poTween<poPoint>	positionTween;
+	poTween<poPoint>	scaleTween;
+	poTween<poPoint>	offsetTween;
+	poTween<float>		alphaTween;
+	poTween<float>		rotationTween;
     //@}
     
     
@@ -242,7 +227,8 @@ public:
     static const int    INVALID_INDEX = -1;
     //@}
     
-    poEventMemory       eventMemory;
+    poEventMemory       *eventMemory;
+	int                 draw_order;
     
 protected:
     
@@ -251,14 +237,6 @@ protected:
 	virtual void        updateAllTweens();//new tween types should be updated here
     float               true_alpha; 	//combination of all your parent's alphas with your own
     //@}     
-
-    /*! These matrix operators not only push and pop the matrix, but also maintain
-     the alpha stack and data required by the event handling system.*/
-    /** @name COORDINATE SYSTEM OPERATIONS*/
-    //@{
-	void                pushObjectMatrix();
-	void                popObjectMatrix();
-	//@}
 	
 	void				clone(poObject* obj);
 	
@@ -283,81 +261,5 @@ private:
 	poAlignment         _alignment;
 
 	poMatrixSet         matrices;
-	int                 draw_order;
     //@}
 };
-
-/*! THESE METHODS MUST BE PLACED HERE INSTEAD OF THE CPP FILES, BECAUSE THEY ARE TEMPLATED.*/
-
-template <typename T>
-T* poObject::addChild(T* obj) {
-	return addChild(obj, children.size());
-}
-
-template <typename T>
-T* poObject::addChild(T* obj, int idx) {
-	if(obj->_parent) {
-		obj->_parent->removeChild(obj);
-	}
-	
-	obj->_parent = this;
-	children.insert(children.begin()+idx, obj);
-
-	return obj;
-}
-
-template <typename T, typename TT>
-T* poObject::addChildBefore(T* obj, TT* before) {
-	int idx = getChildIndex(before);
-    idx = (idx <= 0) ? 0 : idx - 1;
-    return addChild(obj, idx);
-}
-
-template <typename T, typename TT>
-T* poObject::addChildAfter(T* obj, TT* after) {
-	int idx = getChildIndex(after);
-    return addChild(obj, idx);
-}
-
-template <typename T>
-T* poObject::getChildAs(int idx) {
-	return static_cast<T*>(getChild(idx));
-}
-template <typename T>
-T* poObject::getChildAs(const std::string &name) {
-	return static_cast<T*>(getChild(name));
-}
-template <typename T>
-T* poObject::getLastChildAs() {
-	return static_cast<T*>(getLastChild());
-}
-
-template <typename T>
-std::vector<T*> poObject::getChildrenAs(const std::string &name) {
-    std::vector<T*> childrenT;
-	BOOST_FOREACH(poObject *obj, getChildren(name))
-        childrenT.push_back(static_cast<T*>(obj));
-	return childrenT;
-}
-
-template <typename T>
-T* poObject::addModifier(T* mod)
-{
-    modifiers.push_back( mod );
-	return mod;
-}
-template <typename T>
-T* poObject::getModifier(int idx) {
-	return static_cast<T*>(modifiers[idx]);
-}
-
-template <typename T>
-std::vector<T*> poObject::getModifiers() {
-	std::vector<T*> mods;
-	BOOST_FOREACH(poObjectModifier *mod, modifiers) {
-		T* modT = dynamic_cast<T*>(mod);
-		if(modT)
-			mods.push_back(modT);
-	}
-	return mods;
-}

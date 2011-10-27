@@ -36,7 +36,7 @@ poObject *root = NULL;
         [EAGLContext setCurrentContext:nil];
     
     [context release];
-    
+	
     [super dealloc];
 }
 
@@ -173,7 +173,6 @@ poObject *root = NULL;
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
-        
         CGPoint touchPoint = [touch locationInView:eagl];
         self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
@@ -189,8 +188,9 @@ poObject *root = NULL;
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:eagl];
-        //self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
+	
 }
 
 @end

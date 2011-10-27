@@ -130,20 +130,22 @@ void poOpenGLState::setVertex(po::VertexState vert, bool force) {
 				glEnableVertexAttribArray(i);
 			else
 				glDisableVertexAttribArray(i);
+			vertex = vert;
 		}
-		vertex = vert;
 	}
-	for(int i=0; i<maxVertexAttribs(); i++) {
-		bool shouldEnable = vert.isAttribEnabled(i);
-		bool isEnabled = vertex.isAttribEnabled(i);
-		if(shouldEnable && !isEnabled) {
-			vertex.enableAttrib(i);
-			glEnableVertexAttribArray(i);
-		}
-		else 
-		if(!shouldEnable && isEnabled) {
-			vertex.disableAttrib(i);
-			glDisableVertexAttribArray(i);
+	else {
+		for(int i=0; i<maxVertexAttribs(); i++) {
+			bool shouldEnable = vert.isAttribEnabled(i);
+			bool isEnabled = vertex.isAttribEnabled(i);
+			if(shouldEnable && !isEnabled) {
+				vertex.enableAttrib(i);
+				glEnableVertexAttribArray(i);
+			}
+			else 
+			if(!shouldEnable && isEnabled) {
+				vertex.disableAttrib(i);
+				glDisableVertexAttribArray(i);
+			}
 		}
 	}
 }

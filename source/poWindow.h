@@ -123,10 +123,10 @@ private:
 //    interactionPoint mouse;
 //    
 //    // TOUCH EVENTS
-//    std::vector<interactionPoint *> trackedTouches;
-//    void trackTouch(interactionPoint *t);
-//    interactionPoint * getTouch(int uid);
-//    void untrackTouch(int uid);
+    std::vector<interactionPoint *> trackedTouches;
+    void trackTouch(interactionPoint *t);
+    interactionPoint * getTouch(int uid);
+    void untrackTouch(int uid);
 	
     // DRAW ORDER COUNTER
     int draw_order_counter;
