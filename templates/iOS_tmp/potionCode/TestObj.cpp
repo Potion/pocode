@@ -21,34 +21,30 @@ poObject *createObjectForID(uint id) {
 TestObj::TestObj() {
 	addModifier(new poCamera2D());
 
-<<<<<<< HEAD
-	
-	poObject *obj = addChild(new poObject());
+	poObject *obj = new poObject();
 	obj->visible = false;
+	addChild(obj);
 	
-	poShape2D *shp = obj->addChild(new poRectShape(50,50));
-=======
-	poShape2D *shp = addChild(new poRectShape(50,50));
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
+	poShape2D *shp = new poRectShape(50,50);
 	shp->position.set(200,100,0);
 	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",0));
 	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
 	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",0));
 	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",0));
+	obj->addChild(shp);
 	
-	shp = addChild(new poRectShape(50,50));
+	shp = new poRectShape(50,50);
 	shp->position.set(600,100,0);
 	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",1));
 	shp->addEvent(PO_TOUCH_BEGAN_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
 	shp->addEvent(PO_TOUCH_ENDED_INSIDE_EVENT, this, "", poDictionary().set("id",1));
 	shp->addEvent(PO_TOUCH_ENDED_OUTSIDE_EVENT, this, "", poDictionary().set("id",1));
-<<<<<<< HEAD
+	addChild(shp);
 	
-	shp = addChild(new poRectShape(500,500));
+	shp = new poRectShape(500,500);
 	shp->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this, "", poDictionary().set("id",2));
 	shp->fillColor = poColor(.5,.5,.5,.5);
-=======
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
+	addChild(shp);
 }
 
 void TestObj::update() {
@@ -56,43 +52,26 @@ void TestObj::update() {
 
 void TestObj::eventHandler(poEvent *event) {
 	if(event->type == PO_TOUCH_BEGAN_INSIDE_EVENT) {
-<<<<<<< HEAD
 		printf("shape %d, touch %d, began inside ** %d\n", event->dictionary.getInt("id"), event->touchID, event->source->drawOrder());
 		if(event->dictionary.getInt("id") != 2)	
 			((poShape2D*)event->source)->fillColor = poColor::green;
-=======
-		printf("shape %d, touch %d, began inside\n", event->dictionary.getInt("id"), event->touchID);
-		((poShape2D*)event->source)->fillColor = poColor::green;
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 	}
 	
 	else 
 	if(event->type == PO_TOUCH_BEGAN_OUTSIDE_EVENT) {
-<<<<<<< HEAD
 		printf("shape %d, touch %d, began outside ** %d\n", event->dictionary.getInt("id"), event->touchID, event->source->drawOrder());
-=======
-		printf("shape %d, touch %d, began outside\n", event->dictionary.getInt("id"), event->touchID);
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 		((poShape2D*)event->source)->fillColor = poColor::red;
 	}
 	
 	else 
 	if(event->type == PO_TOUCH_ENDED_INSIDE_EVENT) {
-<<<<<<< HEAD
 		printf("shape %d, touch %d, ended inside ** %d\n", event->dictionary.getInt("id"), event->touchID, event->source->drawOrder());
-=======
-		printf("shape %d, touch %d, ended inside\n", event->dictionary.getInt("id"), event->touchID);
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 		((poShape2D*)event->source)->fillColor = poColor::white;
 	}
 
 	else 
 	if(event->type == PO_TOUCH_ENDED_OUTSIDE_EVENT) {
-<<<<<<< HEAD
 		printf("shape %d, touch %d, ended outside ** %d\n", event->dictionary.getInt("id"), event->touchID, event->source->drawOrder());
-=======
-		printf("shape %d, touch %d, ended outside\n", event->dictionary.getInt("id"), event->touchID);
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 		((poShape2D*)event->source)->fillColor = poColor::orange;
 	}
 }

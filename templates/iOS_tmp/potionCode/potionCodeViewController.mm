@@ -36,10 +36,6 @@ poObject *root = NULL;
         [EAGLContext setCurrentContext:nil];
     
     [context release];
-<<<<<<< HEAD
-=======
-	[touchTracker release];
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
 	
     [super dealloc];
 }
@@ -188,13 +184,8 @@ poObject *root = NULL;
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
-<<<<<<< HEAD
-=======
-        int touchId = [touchTracker indexOfObject:touch];
-		
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchMove(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 }
 
@@ -214,11 +205,7 @@ poObject *root = NULL;
 		[touchTracker removeObject:touch];
 
         CGPoint touchPoint = [touch locationInView:eagl];
-<<<<<<< HEAD
         self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
-=======
-        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
->>>>>>> a88b709ee3d8a583ccdbe607650fb6d0d2f1955f
     }
 	
 }
