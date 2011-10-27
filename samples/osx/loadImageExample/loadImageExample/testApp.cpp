@@ -15,7 +15,7 @@
 #include "poCamera.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
-#include "poResourceStore.h"
+#include "poResourceLoader.h"
 
 poObject *createObjectForID(uint uid) {
 	return new testApp();
@@ -42,12 +42,21 @@ testApp::testApp() {
 	 *	add to stage
 	 */
 	
-    myImage = getImage("images/GH_0002d.jpg");
+    poImage img = getImage("images/GH_0002d.jpg");
+	poTexture tex(img);
 	
-	image = new poRectShape(myImage->texture());
+	poShape2D *image = new poRectShape(tex);
     image->alignment(PO_ALIGN_CENTER_CENTER);
     image->position.set(getWindowWidth()/2, getWindowHeight()/2, 0);
     addChild(image);
+
+	// it will show up as a red square if the image doesn't exist
+	
+	img = getImage("THIS_IMAGE_DOESNT_EXIST");
+	tex = poTexture(img);
+	
+	image = new poRectShape(tex);
+	addChild(image);
 }
 
 testApp::~testApp() {}
