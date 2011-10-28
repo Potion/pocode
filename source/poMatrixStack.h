@@ -32,7 +32,7 @@ public:
 	// will push this new one on top
 	void pushViewport();
 	void pushViewport(poRect r);
-
+    
 	// restore the previous one
 	void popModelview();
 	void popProjection();
@@ -43,6 +43,9 @@ public:
 	glm::mat4 getProjection();
 	poRect getViewport();
 	
+    void setCameraMatrix(const glm::mat4 &mat) {camera = mat;}
+    glm::mat4 getCameraMatrix() {return camera;}
+
 	// projection * modelview
 	glm::mat4 transformation();
 	
@@ -55,4 +58,7 @@ private:
 	std::stack<glm::mat4>	projection;
 	std::stack<glm::mat4>	modelview;
 	std::stack<poRect>		viewport;
+    glm::mat4               camera;
 };
+
+

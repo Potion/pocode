@@ -71,10 +71,12 @@ private:
 	void                load(poImage img, const poTextureConfig &config);
 	void				load(uint width, uint height, int channels, const ubyte *pixels);
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
+	void				loadDummyImage();
 	void                unload();
 
 	struct TextureImpl {
 		TextureImpl();
+		TextureImpl(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 		~TextureImpl();
 		poTextureConfig     config;
 		uint				uid, width, height, channels;

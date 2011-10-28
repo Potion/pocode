@@ -46,8 +46,8 @@ poTextureConfig::poTextureConfig()
 :	format(GL_RGB)
 ,	internalFormat(GL_RGB)
 ,	type(GL_UNSIGNED_BYTE)
-,	minFilter(GL_NEAREST)
-,	magFilter(GL_NEAREST)
+,	minFilter(GL_LINEAR)
+,	magFilter(GL_LINEAR)
 	#if defined(OPENGL_ES)
 ,	wrapS(GL_CLAMP_TO_EDGE)
 ,	wrapT(GL_CLAMP_TO_EDGE)
@@ -61,8 +61,8 @@ poTextureConfig::poTextureConfig(GLenum format)
 :	format(format)
 ,	internalFormat(format)
 ,	type(GL_UNSIGNED_BYTE)
-,	minFilter(GL_NEAREST)
-,	magFilter(GL_NEAREST)
+,	minFilter(GL_LINEAR)
+,	magFilter(GL_LINEAR)
 	#if defined(OPENGL_ES)
 ,	wrapS(GL_CLAMP_TO_EDGE)
 ,	wrapT(GL_CLAMP_TO_EDGE)
@@ -75,6 +75,42 @@ poTextureConfig::poTextureConfig(GLenum format)
 poTexture::TextureImpl::TextureImpl()
 :	uid(0), width(0), height(0), channels(0), config()
 {}
+
+poTexture::TextureImpl::TextureImpl(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
+	width = w;
+	height = h;
+	channels = channelsForFormat(c.format);
+	config = c;
+	
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->pushTextureState();
+	
+	glGenTextures(1, &uid);
+	glBindTexture(GL_TEXTURE_2D, uid);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	
+	// set the filters we want
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+	
+#ifndef OPENGL_ES
+	float trans[] = {0.f, 0.f, 0.f, 0.f};
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+#endif
+	
+	// i'm assuming you're replacing the whole texture anyway
+	glTexImage2D(GL_TEXTURE_2D, 
+				 0, 
+				 config.internalFormat, 
+				 width, 
+				 height, 
+				 0, 
+				 config.format, 
+				 config.type, 
+				 p);
+}
 
 poTexture::TextureImpl::~TextureImpl() {
 	if(uid > 0) {
@@ -146,10 +182,20 @@ poRect poTexture::getBounds() const {
 }
 
 void poTexture::load(poImage img) {
+	if(!img.isValid()) {
+		loadDummyImage();
+		return;
+	}
+	
 	load(img, poTextureConfig(formatForChannels(img.getChannels())));
 }
 
 void poTexture::load(poImage img, const poTextureConfig &config) {
+	if(!img.isValid()) {
+		loadDummyImage();
+		return;
+	}
+
 	load(img.getWidth(), img.getHeight(), img.getPixels(), config);
 }
 
@@ -158,43 +204,27 @@ void poTexture::load(uint width, uint height, int channels, const ubyte *pixels)
 }
 
 void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config) {
-	shared.reset(new TextureImpl());
+	shared.reset(new TextureImpl(width,height,pixels,config));
+}
 
-	shared->width = width;
-	shared->height = height;
-	shared->channels = channelsForFormat(config.format);
-	shared->config = config;
-
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
-	
-	glGenTextures(1, &shared->uid);
-	glBindTexture(GL_TEXTURE_2D, shared->uid);
-//	glPixelStorei(GL_PACK_ALIGNMENT, shared->channels);
-	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	
-	// set the filters we want
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, shared->config.minFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, shared->config.magFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, shared->config.wrapS);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, shared->config.wrapT);
-	
-#ifndef OPENGL_ES
-	float trans[] = {0.f, 0.f, 0.f, 0.f};
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-#endif
-	
-	// i'm assuming you're replacing the whole texture anyway
-	glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 shared->config.internalFormat, 
-				 shared->width, 
-				 shared->height, 
-				 0, 
-				 shared->config.format, 
-				 shared->config.type, 
-				 pixels);
-	
+void poTexture::loadDummyImage() {
+	static boost::shared_ptr<TextureImpl> dummy;
+	if(!dummy) {
+		dummy.reset(new TextureImpl);
+		
+		ubyte *pix = new ubyte[20*20*3]();
+		for(int y=0; y<20; y++) 
+			for(int x=0; x<20; x++) {
+				if((y == 0 || x == 0 || y == 19 || x == 19) ||
+				   (x == y || x == 19 - y))
+				{
+					pix[(y*20+x)*3] = 0xFF;
+				}
+			}
+		
+		dummy.reset(new TextureImpl(20,20,pix,poTextureConfig(GL_RGB)));
+	}
+	shared = dummy;
 }
 
 void textureFitExact(poRect rect, poTexture tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);

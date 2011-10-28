@@ -43,7 +43,7 @@ basicShapesApp::basicShapesApp() {
     rectShapeWithImage->position.set( 150, 225, 0 );
     rectShapeWithImage->scale.set( 0.5, 0.5, 1 );
     rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
-	rectShapeWithImage->rotation_tween.set(360).setTweenFunction(linearFunc).setDuration(1.0).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
+	rectShapeWithImage->rotationTween.set(360).setTweenFunction(linearFunc).setDuration(1.0).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
     addChild( rectShapeWithImage );
 	
     // make oval shape, green

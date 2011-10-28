@@ -68,14 +68,12 @@ public:
     // "messageHander" is a general utility method used for passing messages between any two poObjects.
 	virtual void        messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 
-    
     //  All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.
 	// EVENTS
     
 	void		addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
     void		removeAllEvents();
 	void		removeAllEventsOfType(int eventType);
-    
 
     //  Width/height should never be set directly!
 	// SETTERS/GETTERS
@@ -92,53 +90,47 @@ public:
 
     poRect		getBounds();
     poRect		getFrame();
-    
 
     // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
     // A potionCode app is itself a poObject and is also the root of the tree.
     // The most recently added objects appear on top of previously added objects.
     
 	// SCENE GRAPH COMPOSITION
-    
-    int                         numChildren() const;
-	template <typename T> T*    addChild(T* obj);
-	template <typename T> T*    addChild(T* obj, int idx); 
-    template <typename T, typename TT> T*   addChildBefore(T* obj, TT* before);
-    template <typename T, typename TT> T*   addChildAfter(T* obj, TT* after);
-	int                         getChildIndex(poObject* child);
-	poObject*                   getChild(int at_idx);
-	poObject*                   getChildWithUID(uint uid);
-	poObject*                   getChild(const std::string &with_name);
-	poObject*                   getLastChild();
-	std::vector<poObject*>      getChildren(const std::string &with_name);
-	template <typename T> T*    getChildAs(int idx);
-	template <typename T> T*    getChildAs(const std::string &name);
-	template <typename T> T*    getLastChildAs();
-	template <typename T> std::vector<T*>     getChildrenAs(const std::string &name);
-	bool                        removeChild(poObject* obj);
-	bool                        removeChild(int at_idx, bool and_delete=true);
-	void                        removeAllChildren(bool and_delete=true);
+    int                 numChildren() const;
+	void				addChild(poObject* obj);
+	void				addChild(poObject* obj, int idx); 
+	void				addChildBefore(poObject* obj, poObject* before);
+	void				addChildAfter(poObject* obj, poObject* after);
+	int                 getChildIndex(poObject* child);
+	poObject*           getChild(int at_idx);
+	poObject*           getChildWithUID(uint uid);
+	poObject*           getChild(const std::string &with_name);
+	poObject*           getLastChild();
+	std::vector<poObject*> getChildren(const std::string &with_name);
+	bool                removeChild(poObject* obj);
+	bool                removeChild(int at_idx, bool and_delete=true);
+	void                removeAllChildren(bool and_delete=true);
     
 	// SCENE GRAPH ORDERING
-	void                        moveChildToFront(poObject* child);
-	void                        moveChildToBack(poObject* child);
-	void                        moveChildForward(poObject* child);
-	void                        moveChildBackward(poObject* child);
+	void                moveChildToFront(poObject* child);
+	void                moveChildToBack(poObject* child);
+	void                moveChildForward(poObject* child);
+	void                moveChildBackward(poObject* child);
+    
+    
+	// poObject modifiers attach to a poObject and may modify it's properties.
+	// poObjectModifiers have two virtual methods, doSetUp and doSetDown
+	// that are called, respectively, before and afer a poObject is drawn.
 
-    
-    // poObject modifiers attach to a poObject and may modify it's properties.
-    // poObjectModifiers have two virtual methods, doSetUp and doSetDown
-    // that are called, respectively, before and afer a poObject is drawn.
-    
     // OBJECT MODIFIER OPERATIONS
-    template <typename T> T*                addModifier(T* mod);
-	template <typename T> T*                getModifier(int idx);
-	template <typename T> std::vector<T*>   getModifiers();
-	bool                                    removeModifier(int idx, bool and_delete=true);
-	bool                                    removeModifier(poObjectModifier* mod, bool and_delete=true);
-    void                                    removeAllModifiers(bool and_delete=true);
-	int                                     numModifiers() const;
-    
+    poObjectModifier*	addModifier(poObjectModifier* mod);
+	poObjectModifier*	getModifier(int idx);
+	std::vector<poObjectModifier*> const &getModifiers();
+	bool                removeModifier(int idx, bool and_delete=true);
+	bool                removeModifier(poObjectModifier* mod, bool and_delete=true);
+    void                removeAllModifiers(bool and_delete=true);
+	int                 numModifiers() const;
+
     // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).
     // globalToLocal and localToGlobal are useful in hitTesting and inter-object coordination.
     
@@ -188,13 +180,13 @@ public:
     // By default, all tweens are disabled. See poTween.h for more about tweens.
  	
     // OBJECT TWEENS (DIRECTLY ACCESSIBLE)
-	poTween<poPoint>	position_tween;
-	poTween<poPoint>	scale_tween;
-	poTween<poPoint>	offset_tween;
-	poTween<float>		alpha_tween;
-	poTween<float>		rotation_tween;
-        
-    // OBJECT PROPERTIES (PROTECTED)
+	poTween<poPoint>	positionTween;
+	poTween<poPoint>	scaleTween;
+	poTween<poPoint>	offsetTween;
+	poTween<float>		alphaTween;
+	poTween<float>		rotationTween;
+
+    
 	poObject*           parent() const;
 	uint                uid() const;
     //!alpha with parent alpha pre-multiplied
@@ -208,12 +200,10 @@ public:
 	int                 draw_order;
     
 protected:
-    
     // PROTECTED PROPERTIES
     // new tween types should be updated within updateAllTweens
 	virtual void        updateAllTweens();
     float               true_alpha; 
-         
 	void				clone(poObject* obj);
 	
 private:
@@ -235,81 +225,4 @@ private:
 	poAlignment         _alignment;
 
 	poMatrixSet         matrices;
-    
 };
-
-
-//  THESE METHODS MUST BE PLACED HERE INSTEAD OF THE CPP FILES, BECAUSE THEY ARE TEMPLATED.
-
-template <typename T>
-T* poObject::addChild(T* obj) {
-	return addChild(obj, children.size());
-}
-
-template <typename T>
-T* poObject::addChild(T* obj, int idx) {
-	if(obj->_parent) {
-		obj->_parent->removeChild(obj);
-	}
-	
-	obj->_parent = this;
-	children.insert(children.begin()+idx, obj);
-
-	return obj;
-}
-
-template <typename T, typename TT>
-T* poObject::addChildBefore(T* obj, TT* before) {
-	int idx = getChildIndex(before);
-    idx = (idx <= 0) ? 0 : idx - 1;
-    return addChild(obj, idx);
-}
-
-template <typename T, typename TT>
-T* poObject::addChildAfter(T* obj, TT* after) {
-	int idx = getChildIndex(after);
-    return addChild(obj, idx);
-}
-
-template <typename T>
-T* poObject::getChildAs(int idx) {
-	return static_cast<T*>(getChild(idx));
-}
-template <typename T>
-T* poObject::getChildAs(const std::string &name) {
-	return static_cast<T*>(getChild(name));
-}
-template <typename T>
-T* poObject::getLastChildAs() {
-	return static_cast<T*>(getLastChild());
-}
-
-template <typename T>
-std::vector<T*> poObject::getChildrenAs(const std::string &name) {
-    std::vector<T*> childrenT;
-	BOOST_FOREACH(poObject *obj, getChildren(name))
-        childrenT.push_back(static_cast<T*>(obj));
-	return childrenT;
-}
-
-template <typename T>
-T* poObject::addModifier(T* mod)
-{
-    modifiers.push_back( mod );
-	return mod;
-}
-template <typename T>
-T* poObject::getModifier(int idx) {
-	return static_cast<T*>(modifiers[idx]);
-}
-
-template <typename T>
-std::vector<T*> poObject::getModifiers() {
-	std::vector<T*> mods;
-	BOOST_FOREACH(poObjectModifier *mod, modifiers) {
-		T* modT = dynamic_cast<T*>(mod);
-		if(modT)
-			mods.push_back(modT);
-	}
-	return mods;
-}

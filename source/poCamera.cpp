@@ -58,6 +58,8 @@ void poCamera::doSetUp( poObject* obj ) {
 	
 	setProjection();
 	setModelview();
+    
+    stack->setCameraMatrix(stack->getModelview());
 }
 
 void poCamera::doSetDown( poObject* obj ) {

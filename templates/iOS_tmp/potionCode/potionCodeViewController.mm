@@ -36,7 +36,6 @@ poObject *root = NULL;
         [EAGLContext setCurrentContext:nil];
     
     [context release];
-	[touchTracker release];
 	
     [super dealloc];
 }
@@ -185,10 +184,8 @@ poObject *root = NULL;
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
-        int touchId = [touchTracker indexOfObject:touch];
-		
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchMove(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
+        self.appWindow->touchMove(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 }
 
@@ -208,7 +205,7 @@ poObject *root = NULL;
 		[touchTracker removeObject:touch];
 
         CGPoint touchPoint = [touch locationInView:eagl];
-        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, touchId, touch.tapCount);
+        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 	
 }

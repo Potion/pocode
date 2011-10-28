@@ -19,7 +19,10 @@ bool isMouseEvent(int type) {
 			type == PO_MOUSE_DOWN_EVENT			||
 			type == PO_MOUSE_DOWN_INSIDE_EVENT	||
 			type == PO_MOUSE_MOVE_EVENT			||
-			type ==	PO_MOUSE_DRAG_EVENT);
+			type ==	PO_MOUSE_DRAG_EVENT			||
+			type == PO_MOUSE_ENTER_EVENT		||
+			type == PO_MOUSE_LEAVE_EVENT		||
+			type == PO_MOUSE_OVER_EVENT);
 }
 
 bool isKeyEvent(int type) {

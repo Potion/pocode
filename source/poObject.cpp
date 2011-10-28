@@ -29,12 +29,12 @@ poObject::poObject()
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position)
-,	scale_tween(&scale)
-,	offset_tween(&offset)
-,	alpha_tween(&alpha)
-,	rotation_tween(&rotation)
+,	draw_order(-1)
+,	positionTween(&position)
+,	scaleTween(&scale)
+,	offsetTween(&offset)
+,	alphaTween(&alpha)
+,	rotationTween(&rotation)
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
@@ -57,12 +57,12 @@ poObject::poObject(const std::string &name)
 ,	_alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
-,	draw_order(0)
-,	position_tween(&position)
-,	scale_tween(&scale)
-,	offset_tween(&offset)
-,	alpha_tween(&alpha)
-,	rotation_tween(&rotation)
+,	draw_order(-1)
+,	positionTween(&position)
+,	scaleTween(&scale)
+,	offsetTween(&offset)
+,	alphaTween(&alpha)
+,	rotationTween(&rotation)
 ,	true_alpha(1.f)
 ,   bFixedWidth(false)
 ,   bFixedHeight(false)
@@ -213,10 +213,33 @@ int poObject::numChildren() const {
 	return (int)children.size();
 }
 
+void poObject::addChild(poObject* obj) {
+	children.push_back(obj);
+}
+
+void poObject::addChild(poObject* obj, int idx) {
+	children.insert(children.begin()+idx+1, obj);
+}
+
+void poObject::addChildBefore(poObject* obj, poObject* before) {
+	children.insert(children.begin()+getChildIndex(before), obj);
+}
+
+void poObject::addChildAfter(poObject* obj, poObject* after) {
+	children.insert(children.begin()+getChildIndex(after)+1, obj);
+}
+
 poObject* poObject::getChild(int idx) {
 	if(idx < 0 || idx >= children.size())
 		return NULL;
 	return *(children.begin()+idx);
+}
+
+int poObject::getChildIndex(poObject* obj) {
+	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
+	if(iter != children.end())
+		return (int)std::distance(children.begin(), iter);
+	return INVALID_INDEX;
 }
 
 poObject* poObject::getChildWithUID(uint UID) {
@@ -252,13 +275,6 @@ std::vector<poObject*> poObject::getChildren(const std::string &name) {
 	return childrenP;
 }
 
-int poObject::getChildIndex(poObject* obj) {
-	poObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
-	if(iter != children.end())
-		return (int)std::distance(children.begin(), iter);
-	return INVALID_INDEX;
-}
-
 void poObject::moveChildToFront(poObject* child) {
 	removeChild(child);
 	addChild(child);
@@ -279,6 +295,18 @@ void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
 	addChild(child, std::min(idx-1, 0));
+}
+
+poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
+	modifiers.push_back(mod);
+}
+
+poObjectModifier* poObject::getModifier(int idx) {
+	return modifiers[idx];
+}
+
+std::vector<poObjectModifier*> const &poObject::getModifiers() {
+	return modifiers;
 }
 
 bool poObject::removeModifier(int idx, bool and_delete) {
@@ -484,11 +512,11 @@ void poObject::_drawBounds() {
 }
 
 void poObject::stopAllTweens(bool recurse) {
-	position_tween.stop();
-	scale_tween.stop();
-	offset_tween.stop();
-	alpha_tween.stop();
-	rotation_tween.stop();
+	positionTween.stop();
+	scaleTween.stop();
+	offsetTween.stop();
+	alphaTween.stop();
+	rotationTween.stop();
 	
 	if(recurse) {
 		BOOST_FOREACH(poObject* obj, children)
@@ -536,11 +564,11 @@ void poObject::write(poXMLNode &node) {
 }
 
 void poObject::updateAllTweens() {
-	position_tween.update();
-	scale_tween.update();
-	offset_tween.update();
-	alpha_tween.update();
-	rotation_tween.update();
+	positionTween.update();
+	scaleTween.update();
+	offsetTween.update();
+	alphaTween.update();
+	rotationTween.update();
 }
 
 void poObject::clone(poObject *obj) {
@@ -555,11 +583,11 @@ void poObject::clone(poObject *obj) {
 	obj->bFixedHeight = bFixedHeight;
 	obj->drawBounds = drawBounds;
 	obj->matrixOrder = matrixOrder;
-	obj->position_tween = position_tween;
-	obj->scale_tween = scale_tween;
-	obj->offset_tween = offset_tween;
-	obj->alpha_tween = alpha_tween;
-	obj->rotation_tween = rotation_tween;
+	obj->positionTween = positionTween;
+	obj->scaleTween = scaleTween;
+	obj->offsetTween = offsetTween;
+	obj->alphaTween = alphaTween;
+	obj->rotationTween = rotationTween;
 	obj->width = width;
 	obj->height = height;
 	obj->_alignment = _alignment;

@@ -48,7 +48,8 @@ void poEventCenter::addEvent(int eventType, poObject *source, std::string messag
 void poEventCenter::addEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict) {
 	poEventCallback* callback = new poEventCallback();
 	// make sure the source has a slot for event info
-	source->eventMemory = new poEventMemory;
+	if(!source->eventMemory)
+		source->eventMemory = new poEventMemory;
 	callback->receiver = sink;
 	callback->event = poEvent(eventType, source, message, dict);
 	events[eventType].push_back(callback);
@@ -174,7 +175,7 @@ poEventCallback* poEventCenter::findTopObjectUnderPoint( int eventType, poPoint 
 void poEventCenter::processEvents(std::deque<poEvent> &events) {
     // sort all event callbacks by draw order
     sortCallbacksByDrawOrder();
-    
+
 	while(!events.empty()) {
         //Get Event
 		poEvent &event = events.front();
@@ -239,35 +240,36 @@ void poEventCenter::processMouseEvents( poEvent &Event )
         // notify all objects listening for PO_MOUSE_MOVE_EVENT
         poEvent sentEvent = Event;
         notifyAllListeners( sentEvent );
-        
+		
         // for all objects listening for PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
         // need to combine ENTER and LEAVE into one stack
         // right now just listens to ENTER stack and sends LEAVE as well
-        sentEvent = Event;
-        std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_ENTER_EVENT];
-        for( int i=0; i<event_vec.size(); i++ )
+		
+        for( int i=0; i<enterLeaveEvents.size(); i++ )
         {
-            poEventCallback* callback = event_vec[i];
+            poEventCallback* callback = enterLeaveEvents[i];
             poObject* obj = callback->event.source;
             // check that object is visible
             if( !obj->visible || obj->alpha < 0.01 || obj->drawOrder() == -1 )
                 continue; 
 			
             // if point is inside
-            if ( obj->pointInside( Event.localPosition, true ) )
+            if ( obj->pointInside( Event.localPosition ) )
             {
                 // if lastInsideTouchID is -1 (nothing inside before), then notify ENTER
-                if ( obj->eventMemory->lastInsideTouchID == -1 )
+                if ( objectHasEvent(obj, PO_MOUSE_ENTER_EVENT) && 
+					 obj->eventMemory->lastInsideTouchID == -1 )
                 {
                     sentEvent.type = PO_MOUSE_ENTER_EVENT;
                     notifyOneListener( callback, sentEvent );
                 }
                 obj->eventMemory->lastInsideTouchID = 1;
             }
-            else
+			else
             {
                 // if lastInsideTouchID is not -1 (nothing inside before), then notify LEAVE
-                if ( obj->eventMemory->lastInsideTouchID != -1 )
+                if ( objectHasEvent(obj, PO_MOUSE_LEAVE_EVENT) &&
+					 obj->eventMemory->lastInsideTouchID != -1 )
                 {
                     sentEvent.type = PO_MOUSE_LEAVE_EVENT;
                     notifyOneListener( callback, sentEvent );
@@ -300,7 +302,6 @@ void poEventCenter::processMouseEvents( poEvent &Event )
         }
     }
 }
-
 
 void    poEventCenter::processTouchEvents( poEvent &Event )
 {
@@ -366,6 +367,9 @@ void    poEventCenter::processTouchEvents( poEvent &Event )
 	}
 }
 
+void processEnterLeave(std::deque<poEventCallback*> &e) {
+	
+}
 
 void poEventCenter::processKeyEvents( poEvent &Event ) {
 	notifyAllListeners(Event);
@@ -378,6 +382,7 @@ bool sortCallbacksByDrawOrderFunc(poEventCallback* a, poEventCallback* b) {
 void poEventCenter::sortCallbacksByDrawOrder() {
     // sort only event callback vectors where order matters
     std::sort( events[PO_MOUSE_DOWN_INSIDE_EVENT].begin(), events[PO_MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+    std::sort( events[PO_MOUSE_OVER_EVENT].begin(), events[PO_MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
 	std::sort( events[PO_TOUCH_BEGAN_INSIDE_EVENT].begin(), events[PO_TOUCH_BEGAN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
 	std::sort( events[PO_TOUCH_ENDED_INSIDE_EVENT].begin(), events[PO_TOUCH_ENDED_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
 }
