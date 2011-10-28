@@ -44,6 +44,7 @@ public:
 	// OBJECT CREATION AND DESTRUCTION
     poObject();
     poObject(const std::string &name);
+    poObject(int width, int height, const std::string &name="");
 	virtual ~poObject();
 	
 	virtual poObject*	copy();

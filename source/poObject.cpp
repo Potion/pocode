@@ -70,6 +70,37 @@ poObject::poObject(const std::string &name)
 ,	eventMemory(NULL)
 {}
 
+
+poObject::poObject(int width, int height, const std::string &name)
+:	_parent(NULL)
+,	_uid(PO_OBJECT_UID++)
+,	name(name)
+,	alpha(1.f)
+,	scale(1.f, 1.f, 1.f)
+,	position(0.f, 0.f, 0.f)
+,	rotation(0.f)
+,	rotationAxis(0.f, 0.f, 1.f)
+,	offset(0.f, 0.f, 0.f)
+,	width(0.0f)
+,   height(0.0f)
+,	_alignment(PO_ALIGN_TOP_LEFT)
+,	visible(true)
+,	matrixOrder(PO_MATRIX_ORDER_TRS)
+,	draw_order(-1)
+,	positionTween(&position)
+,	scaleTween(&scale)
+,	offsetTween(&offset)
+,	alphaTween(&alpha)
+,	rotationTween(&rotation)
+,	true_alpha(1.f)
+,   bFixedWidth(false)
+,   bFixedHeight(false)
+,	drawBounds(false)
+,	eventMemory(NULL)
+{
+    setSize(width, height);
+}
+
 poObject::~poObject() {
     poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
