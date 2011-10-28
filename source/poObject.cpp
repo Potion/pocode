@@ -245,8 +245,11 @@ int poObject::numChildren() const {
 }
 
 void poObject::addChild(poObject* obj) {
-	if(obj->_parent != NULL)
+	if(obj->_parent != NULL) {
+        std::cout << "poCode::Child " << obj->name << "added in two place, removing from old..." << std::endl;
 		obj->_parent->removeChild(obj);
+    }
+    
 	obj->_parent = this;
 	children.push_back(obj);
 }
