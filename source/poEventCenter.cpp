@@ -56,6 +56,7 @@ void poEventCenter::addEvent(int eventType, poObject *source, poObject *sink, st
 }
 
 void poEventCenter::removeAllEvents(poObject* obj) {
+	// check the regular event queues
 	BOOST_FOREACH(std::vector<poEventCallback*> &event_vec, events) {
         for(int i=event_vec.size()-1; i>=0; i--) {
             if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
@@ -153,19 +154,15 @@ poEventCallback* poEventCenter::findTopObjectUnderPoint( int eventType, poPoint 
     std::vector<poEventCallback*> &event_vec = events[eventType];
 	
     // for all registed event listeners
-    for( int i=event_vec.size()-1; i>=0; i-- )
-    {
+    for( int i=event_vec.size()-1; i>=0; i-- ) {
         poObject* obj = event_vec[i]->event.source;
         
         // check that object is visible
-        if( !obj->visible || obj->alpha < 0.01 || obj->drawOrder() == -1 )
-            continue; 
-		
-        // if point is inside, return callback containing object
-        if ( obj->pointInside( P, true ) )
-        {
-            return event_vec[i];
-        }
+        if( objectIsAvailableForEvents(obj) ) {
+			// if point is inside, return callback containing object
+			if ( obj->pointInside( P, true ) )
+				return event_vec[i];
+		}
     }
     
     // if no object found, return NULL
@@ -202,12 +199,12 @@ void poEventCenter::processEvents(std::deque<poEvent> &events) {
 
 void poEventCenter::processMouseEvents( poEvent &Event )
 {
+	// notify all objects listening for PO_MOUSE_DOWN_EVENT
+	notifyAllListeners( Event );
+
     // handles PO_MOUSE_DOWN_EVENT and PO_MOUSE_DOWN_INSIDE_EVENT
     if ( Event.type == PO_MOUSE_DOWN_EVENT )
     {
-        // notify all objects listening for PO_MOUSE_DOWN_EVENT
-        notifyAllListeners( Event );
-		
         // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
         Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
         poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
@@ -217,12 +214,9 @@ void poEventCenter::processMouseEvents( poEvent &Event )
     
     // handles PO_MOUSE_UP_EVENT
     // also handles last part of PO_MOUSE_DRAG_EVENT
-    if ( Event.type == PO_MOUSE_UP_EVENT )
+    else if ( Event.type == PO_MOUSE_UP_EVENT )
     {
         // notify all objects listening for PO_MOUSE_UP_EVERYWHERE_EVENT
-        poEvent sentEvent = Event;
-        notifyAllListeners( sentEvent );
-        
         std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_EVENT];
         for( int i=0; i<event_vec.size(); i++ )
         {
@@ -233,58 +227,54 @@ void poEventCenter::processMouseEvents( poEvent &Event )
     }
     
     // handles PO_MOUSE_MOVE_EVENT, PO_MOUSE_OVER_EVENT, PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
-    if ( Event.type == PO_MOUSE_MOVE_EVENT )
+    else if ( Event.type == PO_MOUSE_MOVE_EVENT )
     {
-        // notify all objects listening for PO_MOUSE_MOVE_EVENT
-        poEvent sentEvent = Event;
-        notifyAllListeners( sentEvent );
+		// enter and leave have to be done together
+		std::vector<poEventCallback*> enterLeave = events[PO_MOUSE_ENTER_EVENT];
+		enterLeave.insert(enterLeave.end(), events[PO_MOUSE_LEAVE_EVENT].begin(), events[PO_MOUSE_LEAVE_EVENT].end());
 		
-        // for all objects listening for PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
-        // need to combine ENTER and LEAVE into one stack
-        // right now just listens to ENTER stack and sends LEAVE as well
+		for(int i=0; i<enterLeave.size(); i++) {
+			poEventCallback *callback = enterLeave[i];
+
+			if(objectIsAvailableForEvents(callback->event.source)) {
+				poObject *obj = callback->event.source;
+				bool isInside = obj->pointInside(Event.globalPosition, true);
+
+				if(isInside && obj->eventMemory->lastInsideTouchID < 0) {
+					if(callback->event.type == PO_MOUSE_ENTER_EVENT) {
+						notifyOneListener(callback, Event);
+					}
+					obj->eventMemory->lastInsideTouchID = 1;
+				}
+				else if(!isInside && obj->eventMemory->lastInsideTouchID >= 0) {
+					obj->eventMemory->lastInsideTouchID = -2;
+				}
+				
+				// this is an ugly hack to make leave events work in the case where
+				// an object has both enter and leave events
+				if(callback->event.type == PO_MOUSE_LEAVE_EVENT &&
+				   obj->eventMemory->lastInsideTouchID == -2)
+				{
+					notifyOneListener(callback, Event);
+					obj->eventMemory->lastInsideTouchID = -1;
+				}
+			}
+		}
 		
-        for( int i=0; i<enterLeaveEvents.size(); i++ )
-        {
-            poEventCallback* callback = enterLeaveEvents[i];
-            poObject* obj = callback->event.source;
-            // check that object is visible
-            if( !obj->visible || obj->alpha < 0.01 || obj->drawOrder() == -1 )
-                continue; 
-			
-            // if point is inside
-            if ( obj->pointInside( Event.localPosition ) )
-            {
-                // if lastInsideTouchID is -1 (nothing inside before), then notify ENTER
-                if ( objectHasEvent(obj, PO_MOUSE_ENTER_EVENT) && 
-					 obj->eventMemory->lastInsideTouchID == -1 )
-                {
-                    sentEvent.type = PO_MOUSE_ENTER_EVENT;
-                    notifyOneListener( callback, sentEvent );
-                }
-                obj->eventMemory->lastInsideTouchID = 1;
-            }
-			else
-            {
-                // if lastInsideTouchID is not -1 (nothing inside before), then notify LEAVE
-                if ( objectHasEvent(obj, PO_MOUSE_LEAVE_EVENT) &&
-					 obj->eventMemory->lastInsideTouchID != -1 )
-                {
-                    sentEvent.type = PO_MOUSE_LEAVE_EVENT;
-                    notifyOneListener( callback, sentEvent );
-                }
-                // not inside, set lastInsideTouchID to -1
-                obj->eventMemory->lastInsideTouchID = -1;
-            }
-        }
+		std::vector<poEventCallback*> over = events[PO_MOUSE_OVER_EVENT];
+		for(int i=0; i<over.size(); i++) {
+			poObject *obj = over[i]->event.source;
+			if(obj->eventMemory->lastInsideTouchID >= 0) {
+				notifyOneListener(over[i], Event);
+				// we only want to notify the top-most, and they're already sorted
+				break;
+			}
+		}
     }
     
     // handles PO_MOUSE_DRAG_EVERYWHERE_EVENT and PO_MOUSE_DRAG_EVENT
-    if ( Event.type == PO_MOUSE_DRAG_EVENT )
+    else if ( Event.type == PO_MOUSE_DRAG_EVENT )
     {
-        // notify all objects listening for PO_MOUSE_DRAG_EVERYWHERE_EVENT
-        poEvent sentEvent = Event;
-        notifyAllListeners( sentEvent );
-        
         // for all objects listening to PO_MOUSE_DRAG_EVENT with lastDragID set
         // for mouse control, this should just be a single object in the set
         std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_EVENT];
@@ -294,8 +284,8 @@ void poEventCenter::processMouseEvents( poEvent &Event )
             poObject* obj = callback->event.source;
             if ( obj->eventMemory->lastDragID != -1 )
             {  
-                sentEvent.type = PO_MOUSE_DRAG_EVENT;
-                notifyOneListener( callback, sentEvent );
+                Event.type = PO_MOUSE_DRAG_EVENT;
+                notifyOneListener( callback, Event );
             }
         }
     }
@@ -304,63 +294,56 @@ void poEventCenter::processMouseEvents( poEvent &Event )
 void    poEventCenter::processTouchEvents( poEvent &Event )
 {
 	 // First notify all objects listening for ..._EVERYWHERE_EVENTs
-	 poEvent sentEvent = Event;
-	 notifyAllListeners( sentEvent );
+	 notifyAllListeners( Event );
 	 
 	 // handles PO_TOUCH_BEGAN_INSIDE_EVENT and PO_TOUCH_BEGAN_OUTSIDE_EVENT
 	 if ( Event.type == PO_TOUCH_BEGAN_EVENT )
 	 {
-		 // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
-		 sentEvent = Event;
-		 sentEvent.type = PO_TOUCH_BEGAN_INSIDE_EVENT;
-		 
+		 Event.type = PO_TOUCH_BEGAN_INSIDE_EVENT;
 		 poEventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
 		 if ( callback )
-			 notifyOneListener( callback, sentEvent );
+			 notifyOneListener( callback, Event );
 		 
 		 // notify objects listening for PO_TOUCH_BEGAN_OUTSIDE_EVENT
-		 sentEvent = Event;
-		 sentEvent.type = PO_TOUCH_BEGAN_OUTSIDE_EVENT;
+		 Event.type = PO_TOUCH_BEGAN_OUTSIDE_EVENT;
 		 std::vector<poEventCallback*> &event_vec = events[PO_TOUCH_BEGAN_OUTSIDE_EVENT];
 		 for( int i=0; i<event_vec.size(); i++ )
 		 {
 			 poEventCallback* callback = event_vec[i];
 			 poObject* obj = callback->event.source;
 			 // check that object is visible
-			 if( !obj->visible || obj->alpha < 0.01 || obj->drawOrder() == -1 )
-				 continue;
-			 
-			 // if point is not inside, send event
-			 if ( ! obj->pointInside( Event.globalPosition, true ) )
-				 notifyOneListener( callback, sentEvent );
+			 if( objectIsAvailableForEvents(obj) ) {
+				 // if point is not inside, send event
+				 if ( ! obj->pointInside( Event.globalPosition, true ) )
+					 notifyOneListener( callback, Event );
+			 }
 		 }
 	 }
 	 
 	 // handles PO_TOUCH_ENDED_EVENT, PO_MOUSE_UP_INSIDE_EVENT and PO_TOUCH_ENDED_OUTSIDE_EVENT
 	 // also handles last part of PO_MOUSE_DRAG_EVENT
-	if ( Event.type == PO_TOUCH_ENDED_EVENT )
+	else if ( Event.type == PO_TOUCH_ENDED_EVENT )
 	{
 		// find single object to receive PO_MOUSE_UP_INSIDE_EVENT
-		sentEvent.type = PO_TOUCH_ENDED_INSIDE_EVENT;
+		Event.type = PO_TOUCH_ENDED_INSIDE_EVENT;
 		
 		poEventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
 		if ( callback )
-			notifyOneListener( callback, sentEvent );
+			notifyOneListener( callback, Event );
 		
 		// notify objects listening for PO_TOUCH_ENDED_OUTSIDE_EVENT
-		sentEvent = Event;
-		sentEvent.type = PO_TOUCH_ENDED_OUTSIDE_EVENT;
+		Event.type = PO_TOUCH_ENDED_OUTSIDE_EVENT;
 		std::vector<poEventCallback*> &event_vec = events[PO_TOUCH_ENDED_OUTSIDE_EVENT];
 		for( int i=0; i<event_vec.size(); i++ )
 		{
 			poEventCallback* callback = event_vec[i];
 			poObject* obj = callback->event.source;
 			// check that object is visible
-			if( !obj->visible || obj->alpha < 0.01 || obj->drawOrder() == -1 )
-				continue; 
-			// if point is not inside, send event
-			if ( ! obj->pointInside( Event.globalPosition, true ) )
-				notifyOneListener( callback, sentEvent );
+			if( objectIsAvailableForEvents(obj) ) {
+				// if point is not inside, send event
+				if ( ! obj->pointInside( Event.globalPosition, true ) )
+					notifyOneListener( callback, Event );
+			}
 		}
 	}
 }
@@ -404,6 +387,9 @@ void poEventCenter::negateDrawOrderForObjectWithEvents() {
     }
 }
 
+bool poEventCenter::objectIsAvailableForEvents(poObject *obj) {
+	return obj->visible && obj->alpha > 0.01 && obj->drawOrder() != -1;
+}
 
 
 

@@ -86,7 +86,8 @@ private:
     void	processTouchEvents( poEvent &Event );
     void	processKeyEvents( poEvent &Event );
 
+	bool	objectIsAvailableForEvents(poObject *obj);
+	
 	std::vector< std::vector<poEventCallback*> > events;
-	std::vector<poEventCallback*> enterLeaveEvents;
 };
 
