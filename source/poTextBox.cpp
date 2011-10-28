@@ -23,7 +23,7 @@ poTextBox::poTextBox()
 ,	_layout(poPoint())
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
-,	cache_to_texture(true)
+,	cacheToTexture(false)
 {}
 
 poTextBox::poTextBox(int w) 
@@ -32,7 +32,7 @@ poTextBox::poTextBox(int w)
 ,	_layout(poPoint(w,0))
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
-,	cache_to_texture(true)
+,	cacheToTexture(false)
 {
 	setWidth(w);
 }
@@ -43,7 +43,7 @@ poTextBox::poTextBox(int w, int h)
 ,	_layout(poPoint(w,h))
 ,	fit_height_to_bounds(false)
 ,	text_align(PO_ALIGN_TOP_LEFT)
-,	cache_to_texture(true)
+,	cacheToTexture(false)
 {
 	setWidth(w);
     setHeight(h);
@@ -58,7 +58,7 @@ poObject* poTextBox::copy() {
 void poTextBox::clone(poTextBox *tb) {
 	tb->textColor = textColor;
 	tb->fit_height_to_bounds = fit_height_to_bounds;
-	tb->cache_to_texture = cache_to_texture;
+	tb->cacheToTexture = cacheToTexture;
 	tb->text_align = text_align;
 	tb->_layout = _layout;
 	tb->cached = cached;
@@ -112,12 +112,26 @@ void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poR
 	_layout.lines[lineIndex].glyphs[letterIndex].bbox = newBounds;
 }
 
-bool poTextBox::cacheToTexture() const {
-	return cache_to_texture;
+bool poTextBox::getCacheToTexture() const {
+	return cacheToTexture;
 }
 
-void poTextBox::cacheToTexture(bool b) {
-	cache_to_texture = b;
+void poTextBox::setCacheToTexture(bool b) {
+    if(cacheToTexture != b) {
+        cacheToTexture = b;
+        
+        if(b) {
+            //Create cached
+            if(!layoutDone) {
+                layout();
+            } else {
+                generateCachedTexture();
+            }
+        } else {
+            //Erase cached
+            cached = poTexture();
+        }
+    }
 }
 
 float poTextBox::leading() const {
@@ -181,10 +195,6 @@ poFont poTextBox::font(const std::string &name) {
 }
 
 void poTextBox::layout() {
-	if(cached.isValid()) {
-		cached = poTexture();
-	}
-	
 	_layout.layout();
 	
 	if(fit_height_to_bounds)
@@ -194,38 +204,50 @@ void poTextBox::layout() {
 	_layout.alignment = text_align;
 	_layout.realignText();
 	
-	if(cache_to_texture) {
-		poRect bounds = getBounds();
-		bounds.include(textBounds());
-		
-		poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
-		fbo->setUp(this);
-		
-		// http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
-		po::BlendState blend;
-		blend.enabled = true;
-		blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
-		
-		poOpenGLState *ogl = poOpenGLState::get();
-		ogl->pushBlendState();
-		ogl->setBlend(blend);
-
-		poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
-
-		po::setColor(poColor::white);
-		for(int i=0; i<numLines(); i++) {
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
-                bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
-            }
-        }
-		
-		ogl->popBlendState();
-		
-		fbo->setDown(this);
-		cached = fbo->colorTexture();
-		delete fbo;
+	if(cacheToTexture) {
+        generateCachedTexture();
 	}
+    
+    layoutDone = true;
 }
+
+
+void poTextBox::generateCachedTexture() {
+    if(cached.isValid()) {
+        cached = poTexture();
+    }
+    
+    poRect bounds = getBounds();
+    bounds.include(textBounds());
+    
+    poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
+    fbo->setUp(this);
+    
+    // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
+    po::BlendState blend;
+    blend.enabled = true;
+    blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
+    
+    poOpenGLState *ogl = poOpenGLState::get();
+    ogl->pushBlendState();
+    ogl->setBlend(blend);
+    
+    poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
+    
+    po::setColor(poColor::white);
+    for(int i=0; i<numLines(); i++) {
+        BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
+            bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+        }
+    }
+    
+    ogl->popBlendState();
+    
+    fbo->setDown(this);
+    cached = fbo->colorTexture();
+    delete fbo;
+}
+
 
 void poTextBox::draw() {
 	if(cached.isValid()) {

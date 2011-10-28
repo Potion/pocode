@@ -139,8 +139,8 @@ public:
     poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
     void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds );
 	
-	bool				cacheToTexture() const;
-	void				cacheToTexture(bool b);
+	bool				getCacheToTexture() const;
+	void				setCacheToTexture(bool b);
 	
     // DEBUGGING
     // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
@@ -156,8 +156,11 @@ protected:
 	void				clone(poTextBox *tb);
 	
 private:
+    void                generateCachedTexture();
+    
 	bool                fit_height_to_bounds;
-	bool				cache_to_texture;
+	bool				cacheToTexture;
+    bool                layoutDone;
 	poAlignment         text_align;
 	po::TextBoxLayout   _layout;
 	poTexture			cached;

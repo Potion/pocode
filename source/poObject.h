@@ -44,6 +44,7 @@ public:
 	// OBJECT CREATION AND DESTRUCTION
     poObject();
     poObject(const std::string &name);
+    poObject(int width, int height, const std::string &name="");
 	virtual ~poObject();
 	
 	virtual poObject*	copy();
@@ -86,7 +87,8 @@ public:
     
     void        setSize(float width, float height);
     void        setSize(poPoint size);
-    
+    poPoint     getSize();
+
     poRect		getBounds();
     poRect		getFrame();
 
