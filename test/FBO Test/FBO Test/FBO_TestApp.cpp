@@ -26,7 +26,6 @@ FBO_TestApp::FBO_TestApp() {
 	fbo = new poFBO(500,500,poFBOConfig().setNumMultisamples(4));
 	
 	poRectShape *shp = new poRectShape(400,400);
-	shp->generateStroke(10, PO_STROKE_PLACE_CENTER, PO_STROKE_JOIN_ROUND);
 	shp->placeTexture(poTexture(getImage("pitbull.jpeg")));
 	shp->position.set(50,50,0);
 	shp->addModifier(fbo);
@@ -38,7 +37,6 @@ FBO_TestApp::FBO_TestApp() {
 	addChild(shp2);
 
 	poRectShape *shp3 = new poRectShape(400,400);
-	shp3->generateStroke(10, PO_STROKE_PLACE_CENTER, PO_STROKE_JOIN_ROUND);
 	shp3->placeTexture(poTexture(getImage("pitbull.jpeg")));
 	shp3->position.set(650,50,0);
 	addChild(shp3);
@@ -48,21 +46,33 @@ FBO_TestApp::FBO_TestApp() {
 
 void FBO_TestApp::draw() {
 	if(fancyDraw) {
-		std::vector<poPoint> grid(100);
-		std::vector<poPoint> coords(100);
-		std::vector<int> indices(100*4);
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<10; j++) {
-				grid[i*10+j].set(j/10.f*500.f, i/10.f*500.f, 0.f);
-				coords[i*10+j].set(j/10.f, i/10.f, 0.f);
+		std::vector<poPoint> grid;
+		std::vector<poPoint> coords;
+		std::vector<unsigned short> indices;
+		
+		int dim = 10;
+		
+		for(int i=0; i<=dim; i++) {
+			for(int j=0; j<=dim; j++) {
+				float pctj = j / float(dim);
+				float pcti = i / float(dim);
+				
+				grid.push_back(poPoint(pctj*500.f, pcti*500.f, 0.f) + poPoint(50,50));
+				coords.push_back(poPoint(pctj, 1.0-pcti, 0.f));
+				
+				indices.push_back(i*10 + j);
+				indices.push_back((i+1)*10 + j);
+				indices.push_back((i+1)*10 + j+1);
+				indices.push_back(i*10 + j+1);
 			}
 		}
 		
-		for(int i=0; i<100*4; i++) {
-			grid[i].x += poRand(0,6);
-			grid[i].y += poRand(0,6);
+		for(int i=0; i<grid.size(); i++) {
+			float r = poRand(0,6);
+			grid[i].x += r;
+			grid[i].y += r;
 		}
-		
+
 		po::drawPoints(grid, indices, fbo->colorTexture(), coords, GL_QUADS);
 	}
 }
