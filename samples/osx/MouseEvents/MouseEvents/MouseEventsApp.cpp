@@ -28,9 +28,11 @@ MouseEventsApp::MouseEventsApp() {
 	 
 	rectangle->addEvent(PO_MOUSE_DOWN_EVENT, this);
     rectangle->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-
     rectangle->addEvent(PO_MOUSE_UP_EVENT, this);
     rectangle->addEvent(PO_MOUSE_DRAG_EVENT, this);
+	rectangle->addEvent(PO_MOUSE_ENTER_EVENT, this);
+	rectangle->addEvent(PO_MOUSE_LEAVE_EVENT, this);
+	rectangle->addEvent(PO_MOUSE_OVER_EVENT, this);
 
     addEvent(PO_KEY_DOWN_EVENT, this);
     addEvent(PO_KEY_UP_EVENT, this); 

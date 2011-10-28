@@ -18,19 +18,17 @@ BoundsApp::BoundsApp() {
 	
 	pop = new poObject();
     pop->drawBounds = 1;
+	
 	addChild(pop);
 	
 	kid1 = new poRectShape( 100.f, 100.f );
 	kid1->position = poPoint( 100.f, 50.f );
 	pop->addChild(kid1);
 
-	
 	kid2 = new poRectShape( 100.f, 100.f );
 	kid2->position = poPoint( 400.f, 150.f );
+	kid2->rotation = 20.f;
 	pop->addChild(kid2); 
-	
-	kid1->addEvent(PO_MOUSE_DRAG_EVENT, this);
-	kid2->addEvent(PO_MOUSE_DRAG_EVENT, this);
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
@@ -45,19 +43,7 @@ void BoundsApp::draw() {
 }
 
 void BoundsApp::eventHandler(poEvent *event) {
-	
-	if( event->type == PO_MOUSE_DRAG_EVENT ){
-	
-		event->source->position = event->position;
-	}
-	
-	else if( event->type == PO_KEY_DOWN_EVENT ){
-
-		std::cout<<"the bounds for pop are "<<pop->getBounds()<<"\n";
-	
-	}
 }
 
 void BoundsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-	
 }
