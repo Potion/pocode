@@ -79,8 +79,8 @@ private:
 	// figure out which poObject is closest to the user under a point
     poEventCallback* findTopObjectUnderPoint( int eventType, poPoint P );
 	void	sortCallbacksByDrawOrder();
-    void    notifyAllListeners( poEvent global_event );
-	void	notifyOneListener( poEventCallback *callback, poEvent global_event);
+    void    notifyAllListeners( poEvent &global_event );
+	void	notifyOneListener( poEventCallback *callback, poEvent &global_event);
 
     void    processMouseEvents( poEvent &Event );
     void	processTouchEvents( poEvent &Event );

@@ -121,7 +121,7 @@ void poEventCenter::copyEventsFromObject(poObject *from, poObject *to) {
 // ======================= EVENT REWRITE CODE ======================= 
 
 
-void poEventCenter::notifyAllListeners( poEvent global_event )
+void poEventCenter::notifyAllListeners( poEvent &global_event )
 {
     // for all registed event listeners
 	std::vector<poEventCallback*> &event_vec = events[global_event.type];
@@ -129,7 +129,7 @@ void poEventCenter::notifyAllListeners( poEvent global_event )
         notifyOneListener( event_vec[i], global_event );
 }
 
-void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent global_event )
+void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent &global_event )
 {
     // get event stored in callback
     poEvent &stored_event = callback->event;
@@ -206,15 +206,13 @@ void poEventCenter::processMouseEvents( poEvent &Event )
     if ( Event.type == PO_MOUSE_DOWN_EVENT )
     {
         // notify all objects listening for PO_MOUSE_DOWN_EVENT
-        poEvent sentEvent = Event;
-        notifyAllListeners( sentEvent );
+        notifyAllListeners( Event );
 		
         // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
-        sentEvent = Event;
-        sentEvent.type = PO_MOUSE_DOWN_INSIDE_EVENT;
-        poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.localPosition );
+        Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
+        poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
         if ( callback )
-            notifyOneListener( callback, sentEvent );
+            notifyOneListener( callback, Event );
     }
     
     // handles PO_MOUSE_UP_EVENT

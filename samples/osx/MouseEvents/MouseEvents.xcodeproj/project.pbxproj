@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2BFF93C6139D56B70063995D /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93C5139D56B70063995D /* Debug.xcconfig */; };
-		2BFF93C8139D56B70063995D /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93C7139D56B70063995D /* Release.xcconfig */; };
 		2BFF93CB139D56B70063995D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93CA139D56B70063995D /* AppDelegate.mm */; };
 		2BFF93CD139D56B70063995D /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93CC139D56B70063995D /* en.strings */; };
 		2BFF93CF139D56B70063995D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93CE139D56B70063995D /* main.m */; };
@@ -19,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2BFF93C0139D56B70063995D /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BFF93C0139D56B70063995D /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = .app; path = MouseEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BFF93C5139D56B70063995D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		2BFF93C7139D56B70063995D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		2BFF93C9139D56B70063995D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +122,7 @@
 		2BFF93B7139D56B70063995D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = Potion;
 			};
 			buildConfigurationList = 2BFF93BA139D56B70063995D /* Build configuration list for PBXProject "MouseEvents" */;
@@ -148,8 +147,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BFF93C6139D56B70063995D /* Debug.xcconfig in Resources */,
-				2BFF93C8139D56B70063995D /* Release.xcconfig in Resources */,
 				2BFF93CD139D56B70063995D /* en.strings in Resources */,
 				2BFF93D1139D56B70063995D /* main.pch in Resources */,
 				2BFF93D4139D56B70063995D /* main.xib in Resources */,
@@ -177,6 +174,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2BFF93C5139D56B70063995D /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Debug;
 		};
@@ -184,6 +182,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2BFF93C7139D56B70063995D /* Release.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 			};
 			name = Release;
 		};

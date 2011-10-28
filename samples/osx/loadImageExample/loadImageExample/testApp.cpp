@@ -43,7 +43,7 @@ testApp::testApp() {
 	 */
 	
     poImage img = getImage("images/GH_0002d.jpg");
-	poTexture tex(img);
+	poTexture tex(img, poTextureConfig(GL_RGB).setInternalFormat(GL_RGB32F_ARB));
 	
 	poShape2D *image = new poRectShape(tex);
     image->alignment(PO_ALIGN_CENTER_CENTER);
