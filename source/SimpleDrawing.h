@@ -35,7 +35,9 @@ namespace po {
 	void drawRect(poTexture tex, poRect rect, poTextureFitOption fit);
     
 	void drawPoints(const std::vector<poPoint> &points, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, GLenum type, poTexture tex, const std::vector<poPoint> &tex_coords);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<int> &indices, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<int> &indices, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type);
     
 	void drawString(const std::string &str, poFont font, poPoint position, int ptSize=0, float tracking=1.f);
 
