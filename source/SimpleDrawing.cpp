@@ -191,7 +191,7 @@ void po::drawPoints(const std::vector<poPoint> &points, GLenum type) {
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, const std::vector<int> &indices, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState());
@@ -199,7 +199,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<int> &
 
 	poBasicRenderer::get()->setFromState();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
-	glDrawElements(type, 0, points.size(), &indices[0]);
+	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type) {
@@ -214,7 +214,7 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, const std::vector<int> &indices, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState(tex));
@@ -223,7 +223,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<int> &
 	poBasicRenderer::get()->setFromState();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &tex_coords[0]);
-	glDrawElements(type, 0, points.size(), &indices[0]);
+	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
 void po::drawString(const std::string &str, poFont font, poPoint pos, int ptSize, float tracking) {
