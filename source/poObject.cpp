@@ -245,18 +245,30 @@ int poObject::numChildren() const {
 }
 
 void poObject::addChild(poObject* obj) {
+	if(obj->_parent != NULL)
+		obj->_parent->removeChild(obj);
+	obj->_parent = this;
 	children.push_back(obj);
 }
 
 void poObject::addChild(poObject* obj, int idx) {
+	if(obj->_parent != NULL)
+		obj->_parent->removeChild(obj);
+	obj->_parent = this;
 	children.insert(children.begin()+idx+1, obj);
 }
 
 void poObject::addChildBefore(poObject* obj, poObject* before) {
+	if(obj->_parent != NULL)
+		obj->_parent->removeChild(obj);
+	obj->_parent = this;
 	children.insert(children.begin()+getChildIndex(before), obj);
 }
 
 void poObject::addChildAfter(poObject* obj, poObject* after) {
+	if(obj->_parent != NULL)
+		obj->_parent->removeChild(obj);
+	obj->_parent = this;
 	children.insert(children.begin()+getChildIndex(after)+1, obj);
 }
 
