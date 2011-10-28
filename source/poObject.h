@@ -88,7 +88,8 @@ public:
     
     void        setSize(float width, float height);
     void        setSize(poPoint size);
-    
+    poPoint     getSize();
+
     poRect		getBounds();
     poRect		getFrame();
     

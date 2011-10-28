@@ -133,6 +133,10 @@ void poObject::setSize(poPoint size) {
     setSize(size.x, size.y);
 }
 
+poPoint poObject::getSize() {
+    return poPoint(width, height, 0);;
+}
+
 poRect poObject::getFrame() {
     poRect rect = getBounds();
     
