@@ -55,7 +55,7 @@ void poShape2D::draw() {
 		po::setColor(fillColor, appliedAlpha());
 
 		if(texture.isValid()) {
-			po::drawPoints(points, fillDrawStyle, texture, tex_coords);
+			po::drawPoints(points, texture, tex_coords, fillDrawStyle);
 		}
 		else {
 			po::drawPoints(points, fillDrawStyle);
