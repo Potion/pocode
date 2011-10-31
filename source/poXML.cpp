@@ -145,7 +145,7 @@ void poXMLNode::addAttribute(const std::string &name, float value) {
 
 void poXMLNode::addAttribute(const std::string &name, const std::string &value) {node.append_attribute(name.c_str()) = value.c_str();}
 
-uint poXMLNode::numChildren() const {
+uint poXMLNode::getNumChildren() const {
 	int size = 0;
 	xml_node::iterator n = node.begin();
 	while(n != node.end()) {
@@ -168,7 +168,7 @@ void poXMLNode::removeAttribute(const std::string &name) {
 }
 
 poXMLNode poXMLNode::getChild(uint idx) {
-	if(idx > numChildren())
+	if(idx > getNumChildren())
 		return poXMLNode();
 	
 	std::vector<poXMLNode> kids = getChildren();
