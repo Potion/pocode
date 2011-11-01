@@ -99,7 +99,7 @@ public:
 	void            removeAttribute(const std::string &name);
     
     // ADD and REMOVE CHILDREN
-	uint            numChildren() const;
+	uint            getNumChildren() const;
 	poXMLNode       addChild(const std::string &name);
 	void            removeChild(const std::string &name);	
     

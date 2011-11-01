@@ -129,11 +129,11 @@ poColor& poColor::setHSV(float h, float s, float v, float a)
     A = a;
 }
 
-poColor &poColor::set(poColor *fromColor) {
-	R = fromColor->R;
-	G = fromColor->G;
-	B = fromColor->B;
-	A = fromColor->A;
+poColor &poColor::set(poColor &fromColor) {
+	R = fromColor.R;
+	G = fromColor.G;
+	B = fromColor.B;
+	A = fromColor.A;
 	return *this;
 }
 
