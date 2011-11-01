@@ -11,6 +11,7 @@ public:
 	 testApp();
 	virtual ~ testApp();
     
+    poMesh3D*       myMesh3D;
     poShape3D*     myShape3D;
 	
     virtual void update();

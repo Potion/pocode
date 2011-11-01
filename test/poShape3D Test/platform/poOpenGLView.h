@@ -11,7 +11,7 @@
 
 class poWindow;
 
-@interface poOpenGLView : NSView {
+@interface poOpenGLView : NSOpenGLView {
 @private
 	CVDisplayLinkRef display_link;
 	NSOpenGLContext *context;

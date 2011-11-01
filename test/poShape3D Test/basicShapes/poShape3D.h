@@ -62,6 +62,9 @@ public:
     
     virtual void        calculateNormals();
     
+    poTexture				texture;
+
+    
 protected:
     poTriangle3DVector  triangleList;
     poVertex3DVector    vertexList;
@@ -72,6 +75,7 @@ protected:
     
     static poVertex3D   errorVertex;
     static poTriangle3D errorTriangle;
+    
 };
 
 
