@@ -17,25 +17,40 @@ void setupApplication()
 }
 
 void cleanupApplication() 
-{
+{ 
 }
 
- testApp:: testApp() 
+
+testApp:: testApp() 
 {
     poPerspectiveCamera* cam = new poPerspectiveCamera( 60, 0.01, 400.0 );
-    cam->cameraPosition( poPoint(0,0,-150) );
+    cam->cameraPosition( poPoint(0,0,-250) );
     addModifier( cam );
-	
-//    poRectShape* R = new poRectShape( 10,10 );
-//    R->fillColor = poColor::blue;
-//    R->alignment( PO_ALIGN_CENTER_CENTER );
-//    addChild( R );
-    
-    myShape3D = new poSphere3D(30,60,40);
-    myShape3D->useVertexNormals = true;
-    
+
+    poRectShape* R = new poRectShape("apple.jpg"); // 50,50 );
+    R->fillColor = poColor::white;
+    R->alignment( PO_ALIGN_CENTER_CENTER );
+    //addChild( R );
+        
+    //myShape3D = new poSphere3D(20,40,40);
+    //myShape3D->useVertexNormals = true;
     //myShape3D = new poCube3D( 300,300,300 );
-    addChild( myShape3D );
+    //addChild( myShape3D );
+
+    myMesh3D = new poMesh3D( 10,10 );
+    myMesh3D->placeTexture( poTexture("apple.jpg") );
+    myMesh3D->useVertexTextureCoords = true;
+    addChild( myMesh3D );
+
+    
+    for( int i=0; i<myMesh3D->numRows; i++ )
+    {
+        for( int j=0; j<myMesh3D->numColumns; j++ )
+        { 
+            myMesh3D->getVertex( i,j ).position.y += sin_deg(i*36)*20.0;
+        }
+    }
+    
     
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
@@ -46,8 +61,8 @@ void cleanupApplication()
 
 void  testApp::update()
 {
-    myShape3D->rotationAxis.set( 1,0,0 );
-    myShape3D->rotation += 1.0;
+    //myShape3D->rotationAxis.set( 1,0,0 );
+    //myShape3D->rotation += 1.0;
 }
 
 void  testApp::eventHandler(poEvent *event) 

@@ -18,6 +18,8 @@ public:
     
     poVertex3D&     getVertex( int row, int col );
     int             getVertexIndex( int row, int col );
+
+    void            placeTexture( poTexture tex );
     
     int     numRows, numColumns;
 };
