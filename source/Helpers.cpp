@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <deque>
 #include <fstream>
+#include <sstream>
 #include <stdarg.h>
 #include <ctime>
 #include <utf8.h>
@@ -12,6 +13,12 @@
 #include "poWindow.h"
 #include "poApplication.h"
 #include "poOpenGLState.h"
+
+#include "boost/date_time/gregorian/gregorian.hpp"
+#include "boost/date_time/posix_time/posix_time.hpp"
+
+using namespace boost::gregorian;
+using namespace boost::posix_time;
 
 fs::path currentPath() {
 	return fs::current_path();
@@ -80,7 +87,7 @@ unsigned int getNumCpus() {
 
 	#endif
 
-	double getTime() {
+	double poGetElapsedTime() {
 		static uint64_t start = 0.0;
 		static mach_timebase_info_data_t info;
 		if(info.denom == 0) {
@@ -91,6 +98,31 @@ unsigned int getNumCpus() {
 		uint64_t duration = mach_absolute_time() - start;
 		return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
 	}
+
+    int poGetElapsedTimeMillis() {
+        return poGetElapsedTime() * 1000.0f;
+    }
+
+    poTime poGetCurrentTime() {
+        date today(day_clock::local_day());
+        
+        ptime now = second_clock::local_time();
+        
+        poTime t;
+        t.hours      = now.time_of_day().hours();
+        t.minutes    = now.time_of_day().minutes();
+        t.seconds    = now.time_of_day().seconds();
+        
+        //Am/PM
+        t.amPmHours   = t.hours;
+        
+        t.amPm = t.amPmHours < 12 ? "AM" : "PM";
+        
+        if(t.amPmHours > 12) t.amPmHours -= 12;
+        if(t.amPmHours == 0) t.amPmHours = 12;
+        
+        return t;
+    }
 
 	void setCurrentPath(const fs::path &path) {
 		NSString *nsstr = [NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding];
