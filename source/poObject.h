@@ -85,9 +85,9 @@ public:
     float       getHeight();
     void        setHeight(float height);
     
+    poPoint     getSize();
     void        setSize(float width, float height);
     void        setSize(poPoint size);
-    poPoint     getSize();
 
     poRect		getBounds();
     poRect		getFrame();
@@ -97,7 +97,7 @@ public:
     // The most recently added objects appear on top of previously added objects.
     
 	// SCENE GRAPH COMPOSITION
-    int                 numChildren() const;
+    int                 getNumChildren() const;
 	void				addChild(poObject* obj);
 	void				addChild(poObject* obj, int idx); 
 	void				addChildBefore(poObject* obj, poObject* before);
@@ -130,8 +130,8 @@ public:
 	bool                removeModifier(int idx, bool and_delete=true);
 	bool                removeModifier(poObjectModifier* mod, bool and_delete=true);
     void                removeAllModifiers(bool and_delete=true);
-	int                 numModifiers() const;
-
+	int                 getNumModifiers() const;
+	
     // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).
     // globalToLocal and localToGlobal are useful in hitTesting and inter-object coordination.
     
@@ -143,8 +143,8 @@ public:
 	poPoint             localToGlobal(poPoint point) const;
     
     // OBJECT ALIGNMENT & BOUNDS CALCULATION
-	poAlignment         alignment() const;
-	virtual poObject&   alignment(poAlignment align);
+	poAlignment         getAlignment() const;
+	virtual poObject&   setAlignment(poAlignment align);
 	
     // TWEEN MANAGEMENT
     virtual void        stopAllTweens(bool recurse=false);
@@ -156,8 +156,8 @@ public:
 	
     
 	// SCENE GRAPH TRAVERSAL (DO NOT CALL)
-	void                _drawTree();
-	void                _updateTree();
+	void                drawTree();
+	void                updateTree();
     
     // These properties may be set directly either inside or outside the class.
     // Changes to these properties require no additional computation.
@@ -188,23 +188,23 @@ public:
 	poTween<float>		rotationTween;
 
     
-	poObject*           parent() const;
-	uint                uid() const;
+	poObject*           getParent() const;
+	uint                getUid() const;
     //!alpha with parent alpha pre-multiplied
-	float               appliedAlpha() const; 	
-    poMatrixSet         matrixSet() const;
-	int                 drawOrder() const;
+	float               getAppliedAlpha() const;
+    poMatrixSet         getMatrixSet() const;
+	int                 getDrawOrder() const;
 	
     static const int    INVALID_INDEX = -1;
     
     poEventMemory       *eventMemory;
-	int                 draw_order;
+	int                 drawOrder;
     
 protected:
     // PROTECTED PROPERTIES
     // new tween types should be updated within updateAllTweens
 	virtual void        updateAllTweens();
-    float               true_alpha; 
+    float               trueAlpha;
 	void				clone(poObject* obj);
 	
 private:
@@ -219,11 +219,11 @@ private:
     // CHILDREN, PARENT AND MODIFIERS
 	
     poObjectVec         children;
-    poObject*           _parent;
+    poObject*           parent;
     poObjectModifierVec modifiers;
     
-	uint                _uid;
-	poAlignment         _alignment;
+	uint                uid;
+	poAlignment         alignment;
 
 	poMatrixSet         matrices;
 };

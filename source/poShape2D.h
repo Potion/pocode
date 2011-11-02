@@ -50,7 +50,7 @@ public:
 	poShape2D&				setPoints(const std::vector<poPoint> &points);
 	poShape2D&				clearPoints();
 
-	size_t                  numPoints() const;
+	size_t                  getNumPoints() const;
 	poPoint                 getPoint(int idx);
     bool                    setPoint(int idx, poPoint p );
 	const std::vector<poPoint> &getPoints();
@@ -105,7 +105,7 @@ public:
     
     // SHAPE SPECIFIC TWEEN
     // In addition to the five tweens in poObject, poShape2D has a special tween for the fillColor.
-	poTween<poColor>        fill_color_tween;
+	poTween<poColor>        fillColorTween;
 
 
 protected:
@@ -115,14 +115,14 @@ protected:
 private:
     // SHAPE PROPERTIES (PRIVATE)
 	std::vector<poPoint>    points;
-	std::vector<poPoint>    tex_coords;
+	std::vector<poPoint>    texCoords;
 	std::vector<poPoint>    stroke;
 
 	poTexture				texture;
 
 	poStrokeCapProperty     cap;
 	poStrokeJoinProperty    join;
-	int						stroke_width;
+	int						strokeWidth;
 };
 
 

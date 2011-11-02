@@ -9,7 +9,7 @@ void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath
 	if(!(obj->visible && obj->alpha > 0.01))
 		return; 
 	
-	for(int i=obj->numChildren()-1; i>=0; i--) {
+	for(int i=obj->getNumChildren()-1; i>=0; i--) {
 		objUnderPoint(obj->getChild(i), pnt, objsBeneath);
 	}
 
@@ -123,7 +123,7 @@ void poWindow::makeCurrent() {
 void poWindow::draw() {
 	draw_order_counter = 0;
     poEventCenter::get()->negateDrawOrderForObjectWithEvents();
-	rootObject()->_drawTree();
+	rootObject()->drawTree();
 }
 
 void poWindow::update() {
@@ -147,7 +147,7 @@ void poWindow::update() {
 	received.clear();
 
 	// update the objects
-	rootObject()->_updateTree();
+	rootObject()->updateTree();
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {

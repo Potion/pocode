@@ -65,11 +65,11 @@ BOOST_AUTO_TEST_CASE( poXMLTest ) {
 	BOOST_CHECK(invalidNode.isValid() == false);
 	
 	poXMLNode noChildNode = rootNode.addChild("noChild");
-	BOOST_CHECK(noChildNode.numChildren() == 0);
+	BOOST_CHECK(noChildNode.getNumChildren() == 0);
 	
 	poXMLNode withChildNode = rootNode.addChild("withChild");
 	poXMLNode childNode = withChildNode.addChild("a child");
-	BOOST_CHECK(withChildNode.numChildren() == 1);
+	BOOST_CHECK(withChildNode.getNumChildren() == 1);
 	BOOST_CHECK(childNode.getName() == "a child");
 	BOOST_CHECK(withChildNode.getChild(0).getName() == childNode.getName());
 	
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE( poXMLTest ) {
 	poXMLNode anotherChildNode = withChildAndContentNode.addChild("another child");
 	BOOST_CHECK(withChildAndContentNode.getInnerString() == "adding content first and then a child");
 	BOOST_CHECK(anotherChildNode.getName() == "another child");
-	BOOST_CHECK(withChildAndContentNode.numChildren() == 1);
+	BOOST_CHECK(withChildAndContentNode.getNumChildren() == 1);
 	BOOST_CHECK(withChildAndContentNode.getChild(0).getName() == anotherChildNode.getName());
 		
 	poXMLNode numbersNode = rootNode.addChild("numbers");

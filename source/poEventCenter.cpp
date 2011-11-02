@@ -357,7 +357,7 @@ void poEventCenter::processKeyEvents( poEvent &Event ) {
 }
 
 bool sortCallbacksByDrawOrderFunc(poEventCallback* a, poEventCallback* b) {
-	return a->event.source->drawOrder() < b->event.source->drawOrder();
+	return a->event.source->getDrawOrder() < b->event.source->getDrawOrder();
 }
 
 void poEventCenter::sortCallbacksByDrawOrder() {
@@ -382,13 +382,13 @@ std::vector<poEvent*> poEventCenter::eventsForObject(poObject *obj, int eventTyp
 void poEventCenter::negateDrawOrderForObjectWithEvents() {
     for(int i=0; i<events.size(); i++) {
         for(int j=0; j<events[i].size(); j++) {
-            events[i][j]->event.source->draw_order = -1;
+            events[i][j]->event.source->drawOrder = -1;
         }
     }
 }
 
 bool poEventCenter::objectIsAvailableForEvents(poObject *obj) {
-	return obj->visible && obj->alpha > 0.01 && obj->drawOrder() != -1;
+	return obj->visible && obj->alpha > 0.01 && obj->getDrawOrder() != -1;
 }
 
 

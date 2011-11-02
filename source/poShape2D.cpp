@@ -11,14 +11,14 @@
 poShape2D::poShape2D()
 :	fillEnabled(true)
 ,	strokeEnabled(false)
-,	stroke_width(1)
+,	strokeWidth(1)
 ,	fillColor(1,1,1,1)
 ,	strokeColor(1,1,1,1)
 ,   useSimpleStroke(true)
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
 ,	texture()
-,	fill_color_tween(&fillColor)
+,	fillColorTween(&fillColor)
 //,	alphaTestTexture(false)
 {}
 
@@ -34,17 +34,16 @@ void poShape2D::clone(poShape2D *shp) {
 	shp->strokeColor = strokeColor;
 	shp->fillEnabled = fillEnabled;
 	shp->strokeEnabled = strokeEnabled;
-	shp->stroke_width = stroke_width;
+	shp->strokeWidth = strokeWidth;
 	shp->useSimpleStroke = useSimpleStroke;
 	shp->closed = closed;
-	shp->fill_color_tween = fill_color_tween;
+	shp->fillColorTween = fillColorTween;
 	shp->points = points;
-	shp->tex_coords = tex_coords;
+	shp->texCoords = texCoords;
 	shp->stroke = stroke;
 	shp->texture = texture;
 	shp->cap = cap;
 	shp->join = join;
-	shp->stroke_width = stroke_width;
 	poObject::clone(shp);
 }
 
@@ -52,10 +51,10 @@ void poShape2D::draw() {
 	// do shape fill
 	if ( fillEnabled ) {
 		// set the color
-		po::setColor(fillColor, appliedAlpha());
+		po::setColor(fillColor, getAppliedAlpha());
 
 		if(texture.isValid()) {
-			po::drawPoints(points, texture, tex_coords, fillDrawStyle);
+			po::drawPoints(points, texture, texCoords, fillDrawStyle);
 		}
 		else {
 			po::drawPoints(points, fillDrawStyle);
@@ -64,11 +63,11 @@ void poShape2D::draw() {
 	
 	// do shape stroke
 	if(strokeEnabled) {
-		po::setColor(strokeColor, appliedAlpha());
+		po::setColor(strokeColor, getAppliedAlpha());
 
 		if(useSimpleStroke) {
 			// use crappy OpenGL stroke
-			glLineWidth( stroke_width );
+			glLineWidth( strokeWidth );
 			po::drawPoints(points, closed ? GL_LINE_LOOP : GL_LINE_STRIP);
 		}
 		else {
@@ -141,7 +140,7 @@ poShape2D& poShape2D::clearPoints() {
 	return *this;
 }
 
-size_t poShape2D::numPoints() const {
+size_t poShape2D::getNumPoints() const {
 	return points.size();
 }
 
@@ -149,9 +148,8 @@ poPoint poShape2D::getPoint(int idx) {
 	return points[idx];
 }
 
-bool poShape2D::setPoint(int idx, poPoint p )
-{
-	if ( idx < 0 || idx >= numPoints() )
+bool poShape2D::setPoint(int idx, poPoint p ) {
+	if ( idx < 0 || idx >= getNumPoints() )
 		return false;
 	points[idx] = p;
 	return true;
@@ -169,9 +167,9 @@ poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit, poAlig
 	if(tex.isValid()) {
 		poRect rect = getBounds();
 		
-		tex_coords.clear();
-		tex_coords.resize(points.size());
-		textureFit(rect, tex, fit, align, tex_coords, points);
+		texCoords.clear();
+		texCoords.resize(points.size());
+		textureFit(rect, tex, fit, align, texCoords, points);
 	}
 	
 	texture = tex;
@@ -182,9 +180,9 @@ poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) 
 	return *this;
 }
 
-void poShape2D::setStrokeWidth(int width) {stroke_width = (width > 0) ? width : 0;}
+void poShape2D::setStrokeWidth(int width) {strokeWidth = (width > 0) ? width : 0;}
 
-int poShape2D::getStrokeWidth() const {return stroke_width;}
+int poShape2D::getStrokeWidth() const {return strokeWidth;}
 
 poStrokeCapProperty poShape2D::capStyle() const {return cap;}
 
@@ -192,11 +190,11 @@ poStrokeJoinProperty poShape2D::joinStyle() const {return join;}
 
 poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
     useSimpleStroke = false;
-	stroke_width = strokeWidth;
+	this->strokeWidth = strokeWidth;
 	this->cap = cap;
 	this->join = join;
 	
-	strokeEnabled = stroke_width > 0;
+	strokeEnabled = strokeWidth > 0;
 	if(!strokeEnabled)
 		return *this;
 	
@@ -210,12 +208,12 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty 
 		for(int i=0; i<points.size()-1; i++) {
 			p1 = points[i];
 			p2 = points[i+1];
-			segments.push_back(poExtrudedLineSeg(p1, p2, stroke_width, place));
+			segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
 		}
 		
 		if(closed) {
-			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), stroke_width, place));
-			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+			segments.push_back(poExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
 		}	
 		else {
 			// add the first cap
@@ -225,11 +223,11 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty 
 		
 		// generate middle points
 		for(int i=0; i<segments.size()-1; i++) {
-			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, stroke_width);
+			makeStrokeForJoint(stroke, segments[i], segments[i+1], join, strokeWidth);
 		}
 		
 		if(closed) {
-			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, stroke_width);
+			makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
 		}
 		else {
 			stroke.push_back(segments.back().p4);
@@ -242,8 +240,7 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty 
 
 // localize will convert global to local first
 // otherwise, point is assumed to be local
-bool        poShape2D::pointInside(poPoint point, bool localize )
-{
+bool        poShape2D::pointInside(poPoint point, bool localize ) {
 	if(!visible)
 		return false;
 	
@@ -253,8 +250,7 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 	}
 	
 	// test point inside for given drawstyle
-	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 )
-	{
+	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
 		for( int i=1; i<points.size()-1; i++ )
 			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
 				return true;
@@ -262,8 +258,7 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 			if ( pointInTriangle( point, points[0], points[1], points.back() ))
 				return true;
 	}
-	else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 )
-	{
+	else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
 		for( int i=0; i<points.size()-2; i++ )
 			if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
 				return true;
@@ -274,12 +269,12 @@ bool        poShape2D::pointInside(poPoint point, bool localize )
 
 void poShape2D::stopAllTweens(bool recurse) {
 	poObject::stopAllTweens(recurse);
-	fill_color_tween.stop();
+	fillColorTween.stop();
 }
 
 void poShape2D::updateAllTweens() {
 	poObject::updateAllTweens();
-	fill_color_tween.update();
+	fillColorTween.update();
 }
 
 void poShape2D::read(poXMLNode node) {
@@ -294,7 +289,7 @@ void poShape2D::read(poXMLNode node) {
 //	alphaTestTexture = node.getChild("alphaTestTexture").innerInt();
 	cap = poStrokeCapProperty(node.getChild("cap").getInnerInt());
 	join = poStrokeJoinProperty(node.getChild("join").getInnerInt());
-	stroke_width = node.getChild("stroke_width").getInnerInt();
+	strokeWidth = node.getChild("stroke_width").getInnerInt();
 
 	std::string pstr = node.getChild("points").getInnerString();
 	std::string str = base64_decode(pstr);
@@ -312,7 +307,7 @@ void poShape2D::read(poXMLNode node) {
 //	}
 
 	poObject::read(node);
-	generateStroke(stroke_width);
+	generateStroke(strokeWidth);
 }
 
 void poShape2D::write(poXMLNode &node) {
@@ -327,7 +322,7 @@ void poShape2D::write(poXMLNode &node) {
 //	node.addChild("alphaTestTexture").setInnerInt(alphaTestTexture);
 	node.addChild("cap").setInnerInt(cap);
 	node.addChild("join").setInnerInt(join);
-	node.addChild("stroke_width").setInnerInt(stroke_width);
+	node.addChild("stroke_width").setInnerInt(strokeWidth);
 
 	int points_sz = sizeof(poPoint)*points.size();
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
