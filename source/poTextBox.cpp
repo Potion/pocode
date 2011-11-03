@@ -67,25 +67,25 @@ void poTextBox::clone(poTextBox *tb) {
 
 poTextBox::~poTextBox() {}
 
-std::string poTextBox::getText() const {return layout.text;}
-void poTextBox::setText(const std::string &str) {layout.text = str;}
+std::string poTextBox::getText() const { return layout.text; }
+void poTextBox::setText(const std::string &str) { layout.text = str; }
 
-uint poTextBox::getTextSize() const {return layout.textSize;}
-void poTextBox::setTextSize(uint ptSize) {layout.textSize = ptSize;}
+uint poTextBox::getTextSize() const { return layout.textSize; }
+void poTextBox::setTextSize(uint ptSize) { layout.textSize = ptSize; }
 
-poAlignment poTextBox::getTextAlignment() const {return textAlignment;}
+poAlignment poTextBox::getTextAlignment() const { return textAlignment; }
 void poTextBox::setTextAlignment(poAlignment align) {textAlignment = align;}
 
-poRect poTextBox::getTextBounds() const {return layout.textBounds();}
+poRect poTextBox::getTextBounds() const { return layout.textBounds(); }
 void poTextBox::reshape(int w, int h) {
 	setSize(w,h);
 	layout.size = poPoint(getWidth(), getHeight());
 }
 
-bool poTextBox::isRichText() const {return layout.isRichText;}
-void poTextBox::setRichText(bool b) {layout.isRichText = b;}
+bool poTextBox::isRichText() const { return layout.isRichText; }
+void poTextBox::setRichText(bool b) { layout.isRichText = b; }
 
-void poTextBox::reshape(poPoint p){
+void poTextBox::reshape(poPoint p) {
     reshape(p.x,p.y);
 }
 
@@ -97,18 +97,15 @@ poRect poTextBox::boundsForLine(uint num) const {
 	return layout.boundsForLine(num);
 }
 
-int     poTextBox::numLettersForLine( int lineIndex )
-{ 
+int     poTextBox::numLettersForLine( int lineIndex ) {
     return layout.numGlyphsForLine(lineIndex);
 }
 
-poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex )
-{
+poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex ) {
     return layout.boundsForGlyphOnLine( letterIndex, lineIndex );
 }
 
-void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds )
-{
+void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds ) {
 	layout.lines[lineIndex].glyphs[letterIndex].bbox = newBounds;
 }
 

@@ -8,10 +8,10 @@
 
 poTweenBase::poTweenBase()
 :	state(NOT_RUNNING)
-,	repeat_type(PO_TWEEN_REPEAT_NONE)
-,	repeat_count(0)
-,	repeat_counter(0)
-,	tween_func(goToFunc)
+,	repeatType(PO_TWEEN_REPEAT_NONE)
+,	repeatCount(0)
+,	repeatCounter(0)
+,	tweenFunc(goToFunc)
 ,	duration(0.f)
 ,	delay(0.f)
 ,	extra1(0.99f)
@@ -26,29 +26,29 @@ void poTweenBase::update() {
 	if(!isRunning())
 		return;
 	
-	if(tween_func) {
+	if(tweenFunc) {
 		double now = getTime();
-		double dt = now - last_time;
-		last_time = now;
+		double dt = now - lastTime;
+		lastTime = now;
 		
 		time += dt;
-		if(time < begin_time) {
+		if(time < beginTime) {
 			slewBeginValue();
 			return;
 		}
 		
 		// will return true when tween is finished
-		if(updateTweenWithTime(time, begin_time, end_time, duration, extra1, extra2)) {
+		if(updateTweenWithTime(time, beginTime, endTime, duration, extra1, extra2)) {
 			setValueToEnd();
 			
-			bool repeat_ok = repeat_count < 0 || repeat_counter < repeat_count;
-			repeat_counter++;
+			bool repeat_ok = repeatCount < 0 || repeatCounter < repeatCount;
+			repeatCounter++;
 			
-			if(repeat_type & PO_TWEEN_REPEAT_REGULAR && repeat_ok) {
+			if(repeatType & PO_TWEEN_REPEAT_REGULAR && repeat_ok) {
 				setValueToBegin();
 				startWithDelay(delay_on_repeat);
 			}
-			else if(repeat_type & PO_TWEEN_REPEAT_PINGPONG && repeat_ok) {
+			else if(repeatType & PO_TWEEN_REPEAT_PINGPONG && repeat_ok) {
 				setValueToEnd();
 				swapBeginAndEnd();
 				startWithDelay(delay_on_repeat);
@@ -67,8 +67,8 @@ void poTweenBase::update() {
 }
 
 poTweenBase& poTweenBase::setRepeat(poTweenRepeat type, int count) {
-	repeat_type = type;
-	repeat_count = count;
+	repeatType = type;
+	repeatCount = count;
 	return *this;
 }
 
@@ -85,7 +85,7 @@ poTweenBase& poTweenBase::setNotification(poObject *obj, const std::string &msg,
 }
 
 poTweenBase& poTweenBase::setTweenFunction(poTweenFunction func) {
-	tween_func = func;
+	tweenFunc = func;
 	return *this;
 }
 
@@ -108,17 +108,17 @@ poTweenBase& poTweenBase::setExtraValues(double e1, double e2) {
 
 poTweenBase& poTweenBase::start() {
 	if(state != RUNNING) {
-		repeat_counter = 0;
+		repeatCounter = 0;
 		startWithDelay(true);
 	}
 	return *this;
 }
 
-poTweenBase& poTweenBase::stop(bool jump_to_end) {
+poTweenBase& poTweenBase::stop(bool jumpToEnd) {
 	if(state == RUNNING) {
 		state = NOT_RUNNING;
 		
-		if(jump_to_end)
+		if(jumpToEnd)
 			setValueToEnd();
 
 		poTweenFinishedCallback().swap(callback);
@@ -135,33 +135,33 @@ bool poTweenBase::isComplete() const {
 }
 
 bool poTweenBase::isRepeating() const {
-	return repeat_type != PO_TWEEN_REPEAT_NONE;
+	return repeatType != PO_TWEEN_REPEAT_NONE;
 }
 
 int poTweenBase::getRepeatCount() const {
-	return repeat_counter;
+	return repeatCounter;
 }
 
 float poTweenBase::getProgress() const {
-	return (float)std::min(1.0, std::max(0.0, (time - begin_time - delay) / duration));
+	return (float)std::min(1.0, std::max(0.0, (time - beginTime - delay) / duration));
 }
 
 void poTweenBase::reset() {
 	state = NOT_RUNNING;
 }
 
-void poTweenBase::startWithDelay(bool do_delay) {
+void poTweenBase::startWithDelay(bool doDelay) {
 	state = RUNNING;
 	
-	last_time = getTime();
+	lastTime = getTime();
 	time = 0;
 	
-	if(do_delay) {
-		begin_time = delay;
-		end_time = begin_time + duration;
+	if(doDelay) {
+		beginTime = delay;
+		endTime = beginTime + duration;
 	}
 	else {
-		begin_time = 0;
-		end_time = duration;
+		beginTime = 0;
+		endTime = duration;
 	}
 }

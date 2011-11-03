@@ -119,7 +119,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 		[window setOpaque:YES];
 		[window setHidesOnDeactivate:YES];
 		
-		powin->fullscreen(true);
+		powin->setFullscreen(true);
 	}
     
 	NSRect glrect = frame;
@@ -175,7 +175,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 }
 
 -(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
-	window->fullscreen(b);
+	window->setFullscreen(b);
     
 	NSWindow *win = (NSWindow*)window->getWindowHandle();
 	

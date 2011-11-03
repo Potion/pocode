@@ -37,17 +37,17 @@ enum {
 // A simple poTextBox may be constructed as follows:
 // 
 //      poTextBox* TB = new poTextBox( 200,300 );
-//      TB->text( "hello world!" );
-//      TB->font( getFont("Courier", 20) );
-//      TB->textAlignment( PO_ALIGN_TOP_CENTER );
+//      TB->setText( "hello world!" );
+//      TB->setFont( getFont("Courier", 20) );
+//      TB->setTextAlignment( PO_ALIGN_TOP_CENTER );
 //      TB->textColor = poColor::black;
-//      TB->layout();
+//      TB->doLayout();
 //
-// You MUST call the layout() method in order to see any changes in your poTextBox take effect.
+// You MUST call the doLayout() method in order to see any changes in your poTextBox take effect.
 //
-// The text that is passed into the text() method may be formatted using basic HTML tags as follows:
+// The text that is passed into the setText() method may be formatted using basic HTML tags as follows:
 //
-//      TB-text( "This is in <b size='10'>bold</b>.This is in <i>italic</i>." );
+//      TB->setText( "This is in <b size='10'>bold</b>.This is in <i>italic</i>." );
 //
 // You will also need to specify the bold and italic fonts explicitly using the font method.
 // The richText setting must be on to see the effects on the text.
@@ -77,11 +77,11 @@ public:
 	void				setTextSize(uint ptSize);
 	
     // The font methods tell the textBox which fonts to use. If a single font is provided as follows:
-    //        TB->font( getFont("Courier", 20) );
+    //        TB->setFont( getFont("Courier", 20) );
     // This font will be used for all text, and acts as the PO_TEXT_REGULAR font.
     // Bold and italic fonts may set as follows:
-    //        TB->font( getFont("Courier Bold"), PO_TEXT_BOLD );
-    //        TB->font( getFont("Courier Italic"), PO_TEXT_ITALIC );
+    //        TB->setFont( getFont("Courier Bold"), PO_TEXT_BOLD );
+    //        TB->setFont( getFont("Courier Italic"), PO_TEXT_ITALIC );
 	// These fonts will be used where the <b> and <i> HTML tags appear in the text.
 	void                setFont(poFont font, const std::string &name=PO_TEXT_REGULAR);
 	poFont				setFont(const std::string &name=PO_TEXT_REGULAR);

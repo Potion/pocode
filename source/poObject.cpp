@@ -477,7 +477,7 @@ void poObject::drawTree() {
 		return;
 	
 	// reset the drawing order for this object
-	drawOrder = applicationCurrentWindow()->nextDrawOrder();
+	drawOrder = applicationCurrentWindow()->getNextDrawOrder();
 	
 	if(parent)	trueAlpha = parent->trueAlpha * alpha;
 	else		trueAlpha = alpha;

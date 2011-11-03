@@ -17,19 +17,19 @@ void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath
 		objsBeneath.insert(obj);
 }
 
-poWindow::poWindow(const char *title, uint root_id, poRect b)
-:	title_(title)
+poWindow::poWindow(const char *title, uint rootID, poRect b)
+:	title(title)
 ,	handle(NULL)
 ,	root(NULL)
-,	root_id(root_id)
-,	_bounds(b)
+,	rootID(rootID)
+,	bounds(b)
 //,   key_receiver(NULL)
-,	fullscreen_(false)
-,	closed_(false)
+,	fullscreen(false)
+,	closed(false)
 ,	framecounter(0)
-,	total_framecount(0)
-,	last_mark(0.0)
-,	framerate_(0.f)
+,	totalFramecount(0)
+,	lastMark(0.0)
+,	framerate(0.f)
 {
 }
 
@@ -42,78 +42,78 @@ void poWindow::moveTo(poPoint p) {
 	applicationMoveWindow(this, p);
 }
 
-void poWindow::fullscreen(bool b) {
-	fullscreen_ = b;
+void poWindow::setFullscreen(bool b) {
+	fullscreen = b;
 	applicationMakeWindowFullscreen(this, b);
 }
 
-int poWindow::x() const {
-	return _bounds.x;
+int poWindow::getX() const {
+	return bounds.x;
 }
 
-std::string poWindow::title() const {
-	return title_;
+std::string poWindow::getTitle() const {
+	return title;
 }
 
-int poWindow::y() const {
-	return _bounds.y;
+int poWindow::getY() const {
+	return bounds.y;
 }
 
-int poWindow::width() const {
-	return _bounds.width;
+int poWindow::getWidth() const {
+	return bounds.width;
 }
 
-poPoint poWindow::dimensions() const {
-	return _bounds.getSize();
+poPoint poWindow::getDimensions() const {
+	return bounds.getSize();
 }
 
-poRect poWindow::frame() const {
-	return _bounds;
+poRect poWindow::getFrame() const {
+	return bounds;
 }
 
-poRect poWindow::bounds() const {
-	return poRect(poPoint(0,0), _bounds.getSize());
+poRect poWindow::getBounds() const {
+	return poRect(poPoint(0,0), bounds.getSize());
 }
 
-poPoint poWindow::centerPoint() const {
-	return poPoint(_bounds.width/2.f, _bounds.height/2.f);
+poPoint poWindow::getCenterPoint() const {
+	return poPoint(bounds.width/2.f, bounds.height/2.f);
 }
 
-int poWindow::height() const {
-	return _bounds.height;
+int poWindow::getHeight() const {
+	return bounds.height;
 }
 
-float poWindow::framerate() const {
-	return framerate_;
+float poWindow::getFramerate() const {
+	return framerate;
 }
 
-int poWindow::framecount() const {
-	return total_framecount;
+int poWindow::getFramecount() const {
+	return totalFramecount;
 }
 
-float poWindow::lastFrameElapsed() const {
-	return last_elapsed;
+float poWindow::getLastFrameElapsed() const {
+	return lastElapsed;
 }
 
-float poWindow::lastFrameTime() const {
-	return last_frame;
+float poWindow::getLastFrameTime() const {
+	return lastFrame;
 }
 
 bool poWindow::isFullscreen() const {
-	return fullscreen_;
+	return fullscreen;
 }
 
-poObject *poWindow::rootObject() {
+poObject *poWindow::getRootObject() {
 	if(!root) {
 		makeCurrent();
 		poOpenGLState::get()->setBlend(po::BlendState::preMultipliedBlending());
-		root = createObjectForID(root_id);
+		root = createObjectForID(rootID);
 	}
 	return root;
 }
 
-poPoint poWindow::mousePosition() const {
-	return mouse_pos;
+poPoint poWindow::getMousePosition() const {
+	return mousePos;
 }
 
 void poWindow::makeCurrent() {
@@ -121,24 +121,24 @@ void poWindow::makeCurrent() {
 }
 
 void poWindow::draw() {
-	draw_order_counter = 0;
+	drawOrderCounter = 0;
     poEventCenter::get()->negateDrawOrderForObjectWithEvents();
-	rootObject()->drawTree();
+	getRootObject()->drawTree();
 }
 
 void poWindow::update() {
 	double now = getTime();
 	
-	total_framecount++;
+	totalFramecount++;
 	framecounter++;
-	if(now - last_mark >= 1.0) {
-		last_mark = now;
-		framerate_ = framecounter;
+	if(now - lastMark >= 1.0) {
+		lastMark = now;
+		framerate = framecounter;
 		framecounter = 0;
 	}
 	
-	last_elapsed = now - last_frame;
-	last_frame = now;
+	lastElapsed = now - lastFrame;
+	lastFrame = now;
 
 	// handle events
 	if(handle && !received.empty()) {
@@ -147,11 +147,11 @@ void poWindow::update() {
 	received.clear();
 
 	// update the objects
-	rootObject()->updateTree();
+	getRootObject()->updateTree();
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {
-	mouse_pos.set(x,y,1);
+	mousePos.set(x,y,1);
 	
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
@@ -162,7 +162,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 }
 
 void poWindow::mouseUp(int x, int y, int mod) {
-	mouse_pos.set(x,y,1);
+	mousePos.set(x,y,1);
 	
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
@@ -173,7 +173,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 }
 
 void poWindow::mouseMove(int x, int y, int mod) {
-	mouse_pos.set(x,y,1);
+	mousePos.set(x,y,1);
 	
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
@@ -184,7 +184,7 @@ void poWindow::mouseMove(int x, int y, int mod) {
 }
 
 void poWindow::mouseDrag(int x, int y, int mod) {
-	mouse_pos.set(x,y,1);
+	mousePos.set(x,y,1);
 	
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
@@ -219,12 +219,12 @@ void poWindow::keyUp(int key, int code, int mod) {
 
 
 void poWindow::resized(int w, int h) {
-	resized(_bounds.x, _bounds.y, w, h);
+	resized(bounds.x, bounds.y, w, h);
 }
 
 
 void poWindow::resized(int x, int y, int w, int h) {
-	_bounds.set(x,y,w,h);
+	bounds.set(x,y,w,h);
 //
 //	poEvent event;
 //	event.type = PO_WINDOW_RESIZED_EVENT;
@@ -348,6 +348,6 @@ void poWindow::setWindowHandle(void *handle) {
 	this->handle = handle;
 }
 
-int poWindow::nextDrawOrder() {
-	return draw_order_counter++;
+int poWindow::getNextDrawOrder() {
+	return drawOrderCounter++;
 }

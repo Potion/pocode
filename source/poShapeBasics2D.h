@@ -46,13 +46,13 @@ public:
 	
 	virtual poObject* copy();
 	
-    void reshape( float width, float height, float rad=0.f );
+    void	reshape( float width, float height, float rad=0.f );
     
 protected:
-	void clone(poRectShape* shp);
-    void construct( float _width, float _height, float rad );
+	void	clone(poRectShape* shp);
+    void	construct( float _width, float _height, float rad );
     
-    float radius;
+    float	radius;
 };
 
 
@@ -78,6 +78,7 @@ class poOvalShape : public poShape2D
 public:
     poOvalShape();
     poOvalShape( float _width, float _height, int numPoints );
+	
 	virtual poObject *copy();
     
     void    reshape( float _width, float _height, int numPoints );
@@ -130,15 +131,15 @@ public:
 	
 	virtual poObject *copy();
     
-    void reshape( float _outerRadius, int numPoints, float depth );
-    void reshape( float _width, float _height, int numPoints, float depth );
+    void	reshape( float _outerRadius, int numPoints, float depth );
+    void	reshape( float _width, float _height, int numPoints, float depth );
     
 protected:
-	void clone(poStarShape* shp);
+	void	clone(poStarShape* shp);
 	
-    void construct( float _outerRadius, int numPoints, float depth );
-    void construct( float _width, float _height, int numPoints, float depth );
+    void	construct( float _outerRadius, int numPoints, float depth );
+    void	construct( float _width, float _height, int numPoints, float depth );
     
-    float width, height, depth;
-    float outerRadius, innerRadius;
+    float	width, height, depth;
+    float	outerRadius, innerRadius;
 };

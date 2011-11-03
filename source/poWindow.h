@@ -22,12 +22,12 @@ typedef struct {
 
 class poWindow {
 public:
-	poWindow(const char *title, uint root_id, poRect bounds);
+	poWindow(const char *title, uint rootID, poRect bounds);
 	~poWindow();
 
     // WINDOW MANAGEMENT
 	void            moveTo(poPoint p);
-	void            fullscreen(bool b);
+	void            setFullscreen(bool b);
 	void            makeCurrent();
     
     void            *getWindowHandle();
@@ -38,24 +38,24 @@ public:
 	void            draw();
     
     // WINDOW PROPERTIES
-	std::string     title() const;
-	int             x() const;
-	int             y() const;
-	int             width() const;
-	int             height() const;
-	poPoint         dimensions() const;
-	poRect          frame() const;
-	poRect          bounds() const;
-	poPoint         centerPoint() const;
-	float           framerate() const;
-	int             framecount() const;
-	float           lastFrameElapsed() const;
-	float           lastFrameTime() const;
+	std::string     getTitle() const;
+	int             getX() const;
+	int             getY() const;
+	int             getWidth() const;
+	int             getHeight() const;
+	poPoint         getDimensions() const;
+	poRect          getFrame() const;
+	poRect          getBounds() const;
+	poPoint         getCenterPoint() const;
+	float           getFramerate() const;
+	int             getFramecount() const;
+	float           getLastFrameElapsed() const;
+	float           getLastFrameTime() const;
 	bool            isFullscreen() const;
 	bool            wasClosed() const;
-    poPoint         mousePosition() const;
+    poPoint         getMousePosition() const;
 
-	poObject*       rootObject();
+	poObject*       getRootObject();
 
     // EVENT RECEIVING METHODS
     // These methods are called by the platform-specific windowing system. On the Mac and iOS
@@ -78,15 +78,15 @@ public:
     
     
     // DRAW ORDER COUNTER
-    // The draw order of every poObject in the scene graph is set based upon the draw_order_counter.
+    // The draw order of every poObject in the scene graph is set based upon the drawOrderCounter.
     // The draw order is used by the event system to determine which objects are drawn on top of others.
-	int             nextDrawOrder();
+	int             getNextDrawOrder();
 
 private:
     
     // THE SCENE GRAPH ROOT NODE
 	poObject        *root;
-	uint			root_id;
+	uint			rootID;
     
     // EVENT PROCESSING
 	// Incoming events are stored in the "received" event queue. This event queue is processed and then cleared
@@ -105,19 +105,19 @@ private:
 //    poObject                *key_receiver;
 	
     // WINDOW PROPERTIES (PRIVATE)
-	bool            closed_;
-	poRect          _bounds;
-	bool            fullscreen_;
+	bool            closed;
+	poRect          bounds;
+	bool            fullscreen;
 	void            *handle;
-	std::string     title_;
+	std::string     title;
 	
     // FRAME COUNTING and FRAME RATE
-	double          last_mark, last_frame;
-	int             framecounter, total_framecount;
-	float           framerate_, last_elapsed;
+	double          lastMark, lastFrame;
+	int             framecounter, totalFramecount;
+	float           framerate, lastElapsed;
 	
 	// GLOBAL MOUSE POSITION
-	poPoint         mouse_pos;
+	poPoint         mousePos;
     
 //    //MOUSE INTERACTION POINT
 //    interactionPoint mouse;
@@ -129,7 +129,7 @@ private:
     void untrackTouch(int uid);
 	
     // DRAW ORDER COUNTER
-    int draw_order_counter;
+    int drawOrderCounter;
     
 };
 
