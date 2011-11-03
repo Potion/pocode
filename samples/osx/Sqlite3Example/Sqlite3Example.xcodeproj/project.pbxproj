@@ -219,6 +219,7 @@
 				E43F4AE0142401BD00D647A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

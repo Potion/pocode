@@ -34,7 +34,7 @@ void poGeometryMask::setShape(poShape2D *s) {
 	if(shape)
 		delete shape;
 	shape = s;
-	enabled(shape != NULL);
+	setEnabled(shape != NULL);
 }
 
 bool poGeometryMask::pointInside(poPoint p) {

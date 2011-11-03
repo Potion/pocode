@@ -22,26 +22,28 @@ void cleanupApplication() {
 ImageBlurApp::ImageBlurApp() {
 	addModifier(new poCamera2D(poColor::grey));
 	
-	poImage *img = getImage("villain.png");
-	poImage *chk = getImage("kittens.jpeg");
+	poImage img = getImage("villain.png");
+	poImage chk = getImage("kittens.jpeg");
 	
-	poImage *blur = img->copy();
-	blur->blur(15,2);
+	poImage blur = img.copy();
+	blur.blur(15,2);
 	
-	blur->composite(chk, poPoint(50,50), 0.5f);
+	blur.composite(chk, poPoint(50,50), 0.5f);
 
 	poObject *obj;
-	obj= addChild(new poRectShape(new poTexture(img)));
-	obj->alignment(PO_ALIGN_CENTER_RIGHT);
+	obj= new poRectShape(poTexture(img));
+	obj->setAlignment(PO_ALIGN_CENTER_RIGHT);
 	obj->position = getWindowCenter();
+	addChild(obj);
 
-	obj = addChild(new poRectShape(new poTexture(blur)));
-	obj->alignment(PO_ALIGN_CENTER_LEFT);
+	obj = new poRectShape(poTexture(blur));
+	obj->setAlignment(PO_ALIGN_CENTER_LEFT);
 	obj->position = getWindowCenter();
+	addChild(obj);
 	
-	delete img;
-	delete chk;
-	delete blur;
+//	delete img;
+//	delete chk;
+//	delete blur;
 }
 
 ImageBlurApp::~ImageBlurApp() {

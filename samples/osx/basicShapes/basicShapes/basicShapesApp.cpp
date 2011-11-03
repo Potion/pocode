@@ -35,14 +35,14 @@ basicShapesApp::basicShapesApp() {
     rectShape = new poRectShape( 150,100 );
     rectShape->position = poPoint( 450, 75, 0 );
     rectShape->fillColor = poColor::yellow;
-    rectShape->alignment( PO_ALIGN_CENTER_CENTER );
+    rectShape->setAlignment( PO_ALIGN_CENTER_CENTER );
     addChild( rectShape );
    
     // make rectangular shape with image + transparency
     rectShapeWithImage = new poRectShape( "apple.jpg" );
     rectShapeWithImage->position.set( 150, 225, 0 );
     rectShapeWithImage->scale.set( 0.5, 0.5, 1 );
-    rectShapeWithImage->alignment( PO_ALIGN_CENTER_CENTER );
+    rectShapeWithImage->setAlignment( PO_ALIGN_CENTER_CENTER );
 	rectShapeWithImage->rotationTween.set(360).setTweenFunction(linearFunc).setDuration(1.0).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
     addChild( rectShapeWithImage );
 	

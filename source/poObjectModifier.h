@@ -30,25 +30,25 @@ class poObject;
 class poObjectModifier
 {
 public:
-    poObjectModifier() : _enabled(true) {}
+    poObjectModifier() : enabled(true) {}
 
 	virtual poObjectModifier* copy() {return new poObjectModifier();}
     
     // ENABLE & DISABLE
-	bool            enabled() const {return _enabled;}
-	void            enabled(bool b) {_enabled = b;}
+	bool            isEnabled() const {return enabled;}
+	void            setEnabled(bool b) {enabled = b;}
 	
     // SETUP 
     // This is called just BEFORE the draw() method of the poObject it is attached to.
     void setUp( poObject* obj ) {
-		if(enabled())
+		if(isEnabled())
 			doSetUp(obj);
 	}
     
     // SETDOWN
     // This is called just AFTER the draw() method of the poObject it is attached to.
     void setDown( poObject* obj ) { 
-		if(enabled())
+		if(isEnabled())
 			doSetDown(obj);
 	}
 	
@@ -59,11 +59,11 @@ protected:
 	virtual void    doSetDown(poObject*) {}
 	
 	void			clone(poObjectModifier *obj) {
-		obj->_enabled = _enabled;
+		obj->enabled = enabled;
 	}
 	
 private:
-	bool            _enabled;
+	bool            enabled;
 };
 
 

@@ -67,7 +67,7 @@ public:
     // LAYOUT
     // You MUST call layout after making any changes to poTextBox. Otherwise, you will not see
     // the changes in the text box.
-    void				layout();
+    void				doLayout();
 
     // TEXTBOX PROPERTIES
 	std::string         getText() const;
@@ -125,7 +125,7 @@ public:
 	void                setTracking(float f);
     
     // TEXTBOX BOUNDS
-    // The "reshape" methods set the official bounds of the text box that are used by the layout() method.
+    // The "reshape" methods set the official bounds of the text box that are used by the doLayout() method.
     // The "textBounds" methods returns the actual bounds of the text after is has been layed out.
     // So, if the text does not fill the whole textbox, the bounds will differ.
     void                reshape(int w, int h);
@@ -158,11 +158,11 @@ protected:
 private:
     void                generateCachedTexture();
     
-	bool                fit_height_to_bounds;
+	bool                fitHeightToBounds;
 	bool				cacheToTexture;
     bool                layoutDone;
-	poAlignment         text_align;
-	po::TextBoxLayout   _layout;
+	poAlignment         textAlignment;
+	po::TextBoxLayout   layout;
 	poTexture			cached;
 };
 

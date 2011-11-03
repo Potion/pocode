@@ -45,14 +45,14 @@ TweenApp::TweenApp()
     addChild(mi);
 	
     // SLERP (mid-point easing is default)
-    pho->position_tween							//	position tween
+    pho->positionTween							//	position tween
         .set(poPoint(530,20))					//	destination value for tween
         .setRepeat(PO_TWEEN_REPEAT_PINGPONG)	//	NONE, REGULAR, PINGPONG
         .setExtraValues(.90, .05)				//	(e1, e2) step e1 each time, stop @ e2
         .start();								//	begin the tween
 	
 	// Linear tween
-	banh->rotation_tween						//	rotation tween
+	banh->rotationTween						//	rotation tween
 		.set(360)								//	rotation measured in degrees
 		.setRepeat(PO_TWEEN_REPEAT_REGULAR)		//	repeat is set to loop
 		.setTweenFunction(linearFunc)			//	linear (no ease)
@@ -82,7 +82,7 @@ void TweenApp::eventHandler(poEvent *event) {
 		zoomed = !zoomed;
 		
 		// non repeating
-		event->source->scale_tween				//	scale tween the object clicked on
+		event->source->scaleTween				//	scale tween the object clicked on
 		.set(val)								//	scaling is done with a vector
 		.setRepeat(PO_TWEEN_REPEAT_NONE)		//	no repeat
 		.setTweenFunction(linearFunc)			//	linear (no ease)
@@ -95,7 +95,7 @@ void TweenApp::messageHandler(const std::string &msg, const poDictionary& dict) 
 	if(msg == "done") {
 		printf("%s (%f)\n", msg.c_str(), simple_tween_val);
 		// reregister to get it again
-		poTweenBase *tween = dict.getPtr<poTweenBase>("tween");
+		poTweenBase *tween = (poTweenBase*)(dict.getPtr("tween"));
 		tween->setNotification(this, msg);
 	}
 }

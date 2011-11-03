@@ -31,16 +31,16 @@ SlideShowApp::SlideShowApp()
 		poShape2D *img = new poRectShape(500,200);
 		img->fillColor = hashPointerForColor(img);
 		img->position.set(getWindowWidth()/2.f, getWindowHeight()/2.f, 0);
-		img->alignment( PO_ALIGN_CENTER_CENTER );
+		img->setAlignment( PO_ALIGN_CENTER_CENTER );
 		img->visible = (i==0?true:false);
 		holder->addChild(img);
 	}
 	
 	readout = new poTextBox(25,25);
-	readout->text( "1" );
-	readout->layout();
+	readout->setText( "1" );
 	readout->textColor = poColor::black;
 	readout->position.set( getWindowWidth()/2.f, getWindowHeight()/2.f, 0 );
+//	readout->doLayout();
 	addChild(readout);
 	
 	addEvent(PO_KEY_DOWN_EVENT, this);
@@ -51,10 +51,10 @@ void SlideShowApp::eventHandler(poEvent *event) {
 	   event->keyCode == PO_RIGHT_ARROW) 
 	{
 		holder->getChild(current)->visible = false;
-		current = (current + 1) % holder->numChildren();
+		current = (current + 1) % holder->getNumChildren();
 		holder->getChild(current)->visible = true;
 		
-		readout->text( lexical_cast<string>(current+1) );
-		readout->layout();
+//		readout->setText( lexical_cast<string>(current+1) );
+//		readout->doLayout();
 	}
 }

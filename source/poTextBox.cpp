@@ -20,18 +20,18 @@ using namespace std;
 poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
-,	_layout(poPoint())
-,	fit_height_to_bounds(true)
-,	text_align(PO_ALIGN_TOP_LEFT)
+,	layout(poPoint())
+,	fitHeightToBounds(true)
+,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 {}
 
 poTextBox::poTextBox(int w) 
 :	poObject()
 ,	textColor(poColor::white)
-,	_layout(poPoint(w,0))
-,	fit_height_to_bounds(true)
-,	text_align(PO_ALIGN_TOP_LEFT)
+,	layout(poPoint(w,0))
+,	fitHeightToBounds(true)
+,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 {
 	setWidth(w);
@@ -40,9 +40,9 @@ poTextBox::poTextBox(int w)
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
 ,	textColor(poColor::white)
-,	_layout(poPoint(w,h))
-,	fit_height_to_bounds(false)
-,	text_align(PO_ALIGN_TOP_LEFT)
+,	layout(poPoint(w,h))
+,	fitHeightToBounds(false)
+,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 {
 	setWidth(w);
@@ -57,59 +57,59 @@ poObject* poTextBox::copy() {
 
 void poTextBox::clone(poTextBox *tb) {
 	tb->textColor = textColor;
-	tb->fit_height_to_bounds = fit_height_to_bounds;
+	tb->fitHeightToBounds = fitHeightToBounds;
 	tb->cacheToTexture = cacheToTexture;
-	tb->text_align = text_align;
-	tb->_layout = _layout;
+	tb->textAlignment = textAlignment;
+	tb->layout = layout;
 	tb->cached = cached;
 	poObject::clone(tb);
 }
 
 poTextBox::~poTextBox() {}
 
-std::string poTextBox::getText() const {return _layout.text;}
-void poTextBox::setText(const std::string &str) {_layout.text = str;}
+std::string poTextBox::getText() const {return layout.text;}
+void poTextBox::setText(const std::string &str) {layout.text = str;}
 
-uint poTextBox::getTextSize() const {return _layout.textSize;}
-void poTextBox::setTextSize(uint ptSize) {_layout.textSize = ptSize;}
+uint poTextBox::getTextSize() const {return layout.textSize;}
+void poTextBox::setTextSize(uint ptSize) {layout.textSize = ptSize;}
 
-poAlignment poTextBox::getTextAlignment() const {return text_align;}
-void poTextBox::setTextAlignment(poAlignment align) {text_align = align;}
+poAlignment poTextBox::getTextAlignment() const {return textAlignment;}
+void poTextBox::setTextAlignment(poAlignment align) {textAlignment = align;}
 
-poRect poTextBox::getTextBounds() const {return _layout.textBounds();}
+poRect poTextBox::getTextBounds() const {return layout.textBounds();}
 void poTextBox::reshape(int w, int h) {
 	setSize(w,h);
-	_layout.size = poPoint(getWidth(), getHeight());
+	layout.size = poPoint(getWidth(), getHeight());
 }
 
-bool poTextBox::isRichText() const {return _layout.isRichText;}
-void poTextBox::setRichText(bool b) {_layout.isRichText = b;}
+bool poTextBox::isRichText() const {return layout.isRichText;}
+void poTextBox::setRichText(bool b) {layout.isRichText = b;}
 
 void poTextBox::reshape(poPoint p){
     reshape(p.x,p.y);
 }
 
 uint poTextBox::getNumLines() const {
-	return _layout.numLines();
+	return layout.numLines();
 }
 
 poRect poTextBox::boundsForLine(uint num) const {
-	return _layout.boundsForLine(num);
+	return layout.boundsForLine(num);
 }
 
 int     poTextBox::numLettersForLine( int lineIndex )
 { 
-    return _layout.numGlyphsForLine(lineIndex);
+    return layout.numGlyphsForLine(lineIndex);
 }
 
 poRect  poTextBox::getBoundsForLetterOnLine( int letterIndex, int lineIndex )
 {
-    return _layout.boundsForGlyphOnLine( letterIndex, lineIndex );
+    return layout.boundsForGlyphOnLine( letterIndex, lineIndex );
 }
 
 void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds )
 {
-	_layout.lines[lineIndex].glyphs[letterIndex].bbox = newBounds;
+	layout.lines[lineIndex].glyphs[letterIndex].bbox = newBounds;
 }
 
 bool poTextBox::getCacheToTexture() const {
@@ -123,7 +123,7 @@ void poTextBox::setCacheToTexture(bool b) {
         if(b) {
             //Create cached
             if(!layoutDone) {
-                layout();
+                doLayout();
             } else {
                 generateCachedTexture();
             }
@@ -135,74 +135,74 @@ void poTextBox::setCacheToTexture(bool b) {
 }
 
 float poTextBox::getLeading() const {
-	return _layout.leading;}
+	return layout.leading;}
 
 void poTextBox::setLeading(float f) {
-	_layout.leading = f; }
+	layout.leading = f; }
 
 float poTextBox::getTracking() const {
-	return _layout.tracking;}
+	return layout.tracking;}
 
 void poTextBox::setTracking(float f) {
-	_layout.tracking = f; }
+	layout.tracking = f; }
 
 float poTextBox::getPaddingLeft() const {
-	return _layout.padding[po::TextBoxLayout::PADDING_LEFT];
+	return layout.padding[po::TextBoxLayout::PADDING_LEFT];
 }
 
 float poTextBox::getPaddingRight() const {
-	return _layout.padding[po::TextBoxLayout::PADDING_RIGHT];
+	return layout.padding[po::TextBoxLayout::PADDING_RIGHT];
 }
 
 float poTextBox::getPaddingTop() const {
-	return _layout.padding[po::TextBoxLayout::PADDING_TOP];
+	return layout.padding[po::TextBoxLayout::PADDING_TOP];
 }
 
 float poTextBox::getPaddingBottom() const {
-	return _layout.padding[po::TextBoxLayout::PADDING_BOTTOM];
+	return layout.padding[po::TextBoxLayout::PADDING_BOTTOM];
 }
 
 void poTextBox::setPadding(float f) {
-	_layout.padding[0] = _layout.padding[1] = _layout.padding[2] = _layout.padding[3] = f; 
+	layout.padding[0] = layout.padding[1] = layout.padding[2] = layout.padding[3] = f; 
 }
 
 void poTextBox::setPadding(float h, float v) {
-	_layout.padding[0] = _layout.padding[1] = h;
-	_layout.padding[2] = _layout.padding[3] = v;
+	layout.padding[0] = layout.padding[1] = h;
+	layout.padding[2] = layout.padding[3] = v;
 }
 
 void poTextBox::setPadding(float l, float r, float t, float b) {
-	_layout.padding[0] = l;
-	_layout.padding[1] = r;
-	_layout.padding[2] = t;
-	_layout.padding[3] = b;
+	layout.padding[0] = l;
+	layout.padding[1] = r;
+	layout.padding[2] = t;
+	layout.padding[3] = b;
 }
 
 void poTextBox::setTabWidth(int tw) {
-	_layout.tabWidth = tw;
+	layout.tabWidth = tw;
 }
 
 int poTextBox::getTabWidth() const {
-	return _layout.tabWidth;
+	return layout.tabWidth;
 }
 
 void poTextBox::setFont(poFont f, const std::string &name) {
-	_layout.font(f,name);
+	layout.font(f,name);
 }
 
 poFont poTextBox::setFont(const std::string &name) {
-	return _layout.font(name);
+	return layout.font(name);
 }
 
-void poTextBox::layout() {
-	_layout.layout();
+void poTextBox::doLayout() {
+	layout.layout();
 	
-	if(fit_height_to_bounds)
+	if(fitHeightToBounds)
 		setHeight(getTextBounds().height);
 
 	setAlignment(getAlignment());
-	_layout.alignment = text_align;
-	_layout.realignText();
+	layout.alignment = textAlignment;
+	layout.realignText();
 	
 	if(cacheToTexture) {
         generateCachedTexture();
@@ -232,11 +232,11 @@ void poTextBox::generateCachedTexture() {
     ogl->pushBlendState();
     ogl->setBlend(blend);
     
-    poBitmapFont bmp = getBitmapFont(setFont(), _layout.textSize);
+    poBitmapFont bmp = getBitmapFont(setFont(), layout.textSize);
     
     po::setColor(poColor::white);
     for(int i=0; i<getNumLines(); i++) {
-        BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
+        BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
             bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
         }
     }
@@ -264,16 +264,16 @@ void poTextBox::draw() {
 		return;
 	}
 	
-	poBitmapFont regFont = getBitmapFont(setFont(), _layout.textSize);
+	poBitmapFont regFont = getBitmapFont(setFont(), layout.textSize);
 	poBitmapFont bitmapFont = regFont;
 	
-    if ( _layout.isRichText ) {
+    if ( layout.isRichText ) {
 		int count = 0;
 		for(int i=0; i<getNumLines(); i++) {
-			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.getLine(i).glyphs) {
+			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
 				po::setColor(poColor(textColor, getAppliedAlpha()));
 				
-				poDictionary dict = _layout.textPropsAtIndex(count);
+				poDictionary dict = layout.textPropsAtIndex(count);
 				count++;
 				
 				// see if the user wants anything special
@@ -283,7 +283,7 @@ void poTextBox::draw() {
 				// a new font, perhaps?
 				if(dict.has("font")) {
 					poFont theFont = dict.getFont("font");
-					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : _layout.textSize;
+					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
 					poBitmapFont newFont = getBitmapFont(theFont, fontSize);
 					
 					if(newFont != bitmapFont) {
@@ -303,7 +303,7 @@ void poTextBox::draw() {
 		po::setColor( poColor(textColor, getAppliedAlpha()) );
 		
         for(int i=0; i<getNumLines(); i++) {
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
+            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
                 bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
@@ -315,7 +315,7 @@ void poTextBox::_drawBounds() {
     for(int i=0; i<getNumLines(); i++) {
         if(drawBounds & PO_TEXT_BOX_STROKE_GLYPHS) {
             po::setColor(poColor::lt_grey, .5f);
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.getLine(i).glyphs) {
+            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
                 po::drawStroke(glyph.bbox);
             }
         }
