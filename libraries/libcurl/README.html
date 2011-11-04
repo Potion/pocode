@@ -1,0 +1,29 @@
+IOS
+
+Instructions mostly from here wiht changes for iOS 5…
+http://forums.indiegamer.com/showthread.php?22833-Getting-LibCurl-to-work-on-iOs...
+
+
+FIRST MAKE SURE THE SIMULATOR IS CLOSED!
+
+//Create ARMV7 version
+export CC=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2
+export CFLAGS="-arch armv7 --sysroot=/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk"
+export CPP=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-cpp-4.2
+export AR=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=arm-apple-darwin10
+make clean
+make
+ar rv libcurl.armv7.a lib/*.o
+
+
+
+OS X
+(Don't set compiler options for some reason)
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=i386-apple-darwin10
+make clean
+make
+ar rv libcurl.i386.a lib/*.o
+
+Combine with lipo for simple lib
+lipo -create libcurl.armv7.a -output libcurl_ios.a
