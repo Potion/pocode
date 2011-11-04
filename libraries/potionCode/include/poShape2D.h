@@ -5,7 +5,7 @@
 #pragma once
 
 #include "poObject.h"
-#include "SimpleDrawing.h"
+#include "poSimpleDrawing.h"
 #include "poTexture.h"
 
 
@@ -26,8 +26,7 @@
 // + Have a pointInside method for testing if a point is inside the shape.
 
 
-class poShape2D : public poObject
-{
+class poShape2D : public poObject {
 public:
 	poShape2D();
 	virtual poObject*		copy();

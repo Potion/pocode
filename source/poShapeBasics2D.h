@@ -31,8 +31,7 @@
 // A poRectShape may also have rounded corners:
 //      poRectShape* S = new poRectShape( 100,200,10 );
 
-class poRectShape : public poShape2D
-{
+class poRectShape : public poShape2D {
 public:
 	poRectShape();
 	// rounded rect shape
@@ -73,8 +72,7 @@ protected:
 //      poOvalShape* S = new poOvalShape( 100,200,33 );
 
 
-class poOvalShape : public poShape2D
-{
+class poOvalShape : public poShape2D {
 public:
     poOvalShape();
     poOvalShape( float _width, float _height, int numPoints );
@@ -102,8 +100,7 @@ protected:
 // A simple poLineShape can be constructed as follows:
 //      poLineShape* S = new poLineShape( poPoint(0,0), poPoint(100,100) );
 
-class poLineShape : public poShape2D
-{
+class poLineShape : public poShape2D {
 public:
     poLineShape();
     poLineShape( poPoint A, poPoint B );
@@ -122,8 +119,7 @@ protected:
 // A simple poStarShape can be constructed as follows:
 //      poStarShape* S = new poStarShape( 100, 5, 150 );
 
-class poStarShape : public poShape2D
-{
+class poStarShape : public poShape2D {
 public:
     poStarShape();
     poStarShape( float _outerRadius, int numPoints, float depth );

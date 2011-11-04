@@ -37,8 +37,7 @@ class poWindow;
 
 
 
-class poObject : public boost::noncopyable
-{
+class poObject : public boost::noncopyable {
 	friend class poWindow;
 public:
 	// OBJECT CREATION AND DESTRUCTION
@@ -72,25 +71,25 @@ public:
     //  All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.
 	// EVENTS
     
-	void		addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
-    void		removeAllEvents();
-	void		removeAllEventsOfType(int eventType);
+	void				addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
+    void				removeAllEvents();
+	void				removeAllEventsOfType(int eventType);
 
     //  Width/height should never be set directly!
 	// SETTERS/GETTERS
     
-    float       getWidth();
-    void        setWidth(float width);
+    float				getWidth();
+    void				setWidth(float width);
     
-    float       getHeight();
-    void        setHeight(float height);
+    float				getHeight();
+    void				setHeight(float height);
     
-    poPoint     getSize();
-    void        setSize(float width, float height);
-    void        setSize(poPoint size);
+    poPoint				getSize();
+    void				setSize(float width, float height);
+    void				setSize(poPoint size);
 
-    poRect		getBounds();
-    poRect		getFrame();
+    poRect				getBounds();
+    poRect				getFrame();
 
     // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
     // A potionCode app is itself a poObject and is also the root of the tree.
@@ -189,7 +188,7 @@ public:
 
     
 	poObject*           getParent() const;
-	uint                getUid() const;
+	uint                getUID() const;
     //!alpha with parent alpha pre-multiplied
 	float               getAppliedAlpha() const;
     poMatrixSet         getMatrixSet() const;

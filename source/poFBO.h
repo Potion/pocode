@@ -19,8 +19,7 @@ struct poFBOConfig {
 	uint numMultisamples;
 };
 
-class poFBO : public poObjectModifier
-{
+class poFBO : public poObjectModifier {
 public:
 	poFBO(uint w, uint h);
 	poFBO(uint w, uint h, const poFBOConfig &config);
@@ -33,8 +32,8 @@ public:
 	void reset(uint w, uint h, const poFBOConfig &config);
 
 	// retrieve this texture to draw the FBO
-	poTexture colorTexture() const;
-	poTexture depthTexture() const;
+	poTexture getColorTexture() const;
+	poTexture getDepthTexture() const;
 	
 	// after the fbo is created
 	uint width, height;

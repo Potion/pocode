@@ -9,7 +9,7 @@
 #pragma once
 
 #include "poObject.h"
-#include "TextBoxLayout.h"
+#include "poTextBoxLayout.h"
 
 #include "poFont.h"
 #include "poBitmapFont.h"
@@ -53,9 +53,7 @@ enum {
 // The richText setting must be on to see the effects on the text.
 
 
-class poTextBox
-:	public poObject 
-{
+class poTextBox : public poObject {
 public:
 	poTextBox();
 	poTextBox(int w);
@@ -83,8 +81,8 @@ public:
     //        TB->setFont( getFont("Courier Bold"), PO_TEXT_BOLD );
     //        TB->setFont( getFont("Courier Italic"), PO_TEXT_ITALIC );
 	// These fonts will be used where the <b> and <i> HTML tags appear in the text.
+	poFont				getFont(const std::string &name=PO_TEXT_REGULAR);
 	void                setFont(poFont font, const std::string &name=PO_TEXT_REGULAR);
-	poFont				setFont(const std::string &name=PO_TEXT_REGULAR);
     
     // textAlignment may be set using one of the poAlignment enums found in "poEnums.h".
     // Commonly used settings are PO_ALIGN_TOP_LEFT, PO_ALIGN_TOP_CENTER and PO_ALIGN_CENTER_CENTER.

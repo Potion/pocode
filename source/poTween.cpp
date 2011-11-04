@@ -4,7 +4,7 @@
 
 #include "poTween.h"
 #include "poObject.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 poTweenBase::poTweenBase()
 :	state(NOT_RUNNING)

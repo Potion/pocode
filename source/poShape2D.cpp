@@ -1,6 +1,6 @@
 #include "poShape2D.h"
-#include "Helpers.h"
-#include "LineExtruder.h"
+#include "poHelpers.h"
+#include "poLineExtruder.h"
 #include "nanosvg.h"
 #include "poApplication.h"
 #include "poResourceLoader.h"
@@ -180,13 +180,21 @@ poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) 
 	return *this;
 }
 
-void poShape2D::setStrokeWidth(int width) {strokeWidth = (width > 0) ? width : 0;}
+void poShape2D::setStrokeWidth(int width) {
+	strokeWidth = (width > 0) ? width : 0;
+}
 
-int poShape2D::getStrokeWidth() const {return strokeWidth;}
+int poShape2D::getStrokeWidth() const {
+	return strokeWidth;
+}
 
-poStrokeCapProperty poShape2D::capStyle() const {return cap;}
+poStrokeCapProperty poShape2D::capStyle() const {
+	return cap;
+}
 
-poStrokeJoinProperty poShape2D::joinStyle() const {return join;}
+poStrokeJoinProperty poShape2D::joinStyle() const {
+	return join;
+}
 
 poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
     useSimpleStroke = false;

@@ -152,15 +152,12 @@ static bool tweenUpdater(poTweenBase::poTweenFunction func,
 
 
 template <typename T>
-class poTween : public poTweenBase
-{
+class poTween : public poTweenBase {
 public:
 	typedef T valueType;
     
 	// Construct a poTween with an initial value.
-	poTween(valueType val) 
-	:	shared(new valueType(val))
-	{
+	poTween(valueType val) : shared(new valueType(val)) {
 		value = shared.get();
     }
     

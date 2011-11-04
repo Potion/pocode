@@ -14,7 +14,6 @@ class poXMLNode;
 class poXPathResult;
 class poXMLDocument;
 
-
 // CLASS NOTES
 //
 // poXMLDocument is used for reading and writing XML files.
@@ -44,7 +43,6 @@ public:
 private:
 	boost::shared_ptr<pugi::xml_document> document;
 };
-
 
 // CLASS NOTES
 //
@@ -125,7 +123,6 @@ public:
 private:
 	pugi::xml_node  node;
 };
-
 
 // CLASS NOTES
 //

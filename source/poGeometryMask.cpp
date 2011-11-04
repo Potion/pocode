@@ -7,15 +7,15 @@
 //
 
 #include "poGeometryMask.h"
-#include "Helpers.h"
-#include "SimpleDrawing.h"
+#include "poHelpers.h"
+#include "poSimpleDrawing.h"
 #include "poOpenGLState.h"
 
 // ============ poGeometryMask =============== //
 
 poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil)
 :	shape(shape)
-,	clears_stencil(clearsStencil)
+,	clearsStencil(clearsStencil)
 {}
 
 poGeometryMask::~poGeometryMask() {
@@ -26,7 +26,7 @@ poGeometryMask::~poGeometryMask() {
 }
 
 poObjectModifier *poGeometryMask::copy() {
-	poGeometryMask *obj = new poGeometryMask((poShape2D*)shape->copy(), clears_stencil);
+	poGeometryMask *obj = new poGeometryMask((poShape2D*)shape->copy(), clearsStencil);
 	return obj;
 }
 
@@ -44,7 +44,7 @@ bool poGeometryMask::pointInside(poPoint p) {
 
 void poGeometryMask::doSetUp(poObject *obj) {
     if(shape) {
-		if(clears_stencil)
+		if(clearsStencil)
 			glClear(GL_STENCIL_BUFFER_BIT);
 
         poOpenGLState *ogl = poOpenGLState::get();
@@ -54,11 +54,11 @@ void poGeometryMask::doSetUp(poObject *obj) {
 		po::StencilState state;
 		state.enabled = true;
 		state.func = GL_ALWAYS;
-		state.func_ref = 1;
-		state.func_mask = 1;
-		state.op_fail = GL_KEEP;
-		state.op_stencil_depth_fail = GL_KEEP;
-		state.op_stencil_depth_pass = GL_REPLACE;
+		state.funcRef = 1;
+		state.funcMask = 1;
+		state.opFail = GL_KEEP;
+		state.opStencilDepthFail = GL_KEEP;
+		state.opStencilDepthPass = GL_REPLACE;
 		ogl->setStencil(state);
 		
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);

@@ -152,10 +152,11 @@ void poImage::setPixel(poPoint p, poColor c) {
 }
 
 void poImage::setPixel(poPoint p, poColor c, int stamp_width) {
-	for(int y=-stamp_width/2; y<stamp_width/2; y++)
+	for(int y=-stamp_width/2; y<stamp_width/2; y++) {
 		for(int x=-stamp_width/2; x<stamp_width/2; x++) {
 			setPixel(p + poPoint(x,y), c);
 		}
+	}
 }
 
 void poImage::setNumChannels(uint c) {
@@ -226,7 +227,7 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 	int width = getWidth();
 	int height = getHeight();
 	
-	for(int y=0; y<height; y++)
+	for(int y=0; y<height; y++) {
 		for(int x=0; x<width; x++) {
 			poColor sum;
 			float k_tot = 0;
@@ -246,8 +247,9 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 			
 			tmp.setPixel(poPoint(x,y), sum/k_tot);
 		}
+	}
 	
-	for(int y=0; y<height; y++)
+	for(int y=0; y<height; y++) {
 		for(int x=0; x<width; x++) {
 			poColor sum;
 			float k_tot = 0;
@@ -267,6 +269,7 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 			
 			setPixel(poPoint(x,y), sum/k_tot);
 		}
+	}
 	
 	delete [] kernel;
 }

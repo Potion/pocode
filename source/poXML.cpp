@@ -7,7 +7,7 @@
 //
 
 #include "poXML.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 using namespace pugi;
 
@@ -101,10 +101,7 @@ bool poXMLNode::hasAttribute(const std::string &name) const {
 std::vector<std::string> poXMLNode::getAttributeNames() const {
 	std::vector<std::string> response;
 
-	for(xml_attribute_iterator i=node.attributes_begin();
-		i != node.attributes_end();
-		++i)
-	{
+	for(xml_attribute_iterator i=node.attributes_begin(); i != node.attributes_end(); ++i) {
 		response.push_back(i->name());
 	}
 	
@@ -143,7 +140,9 @@ void poXMLNode::addAttribute(const std::string &name, float value) {
 	node.append_attribute(name.c_str()) = value;
 }
 
-void poXMLNode::addAttribute(const std::string &name, const std::string &value) {node.append_attribute(name.c_str()) = value.c_str();}
+void poXMLNode::addAttribute(const std::string &name, const std::string &value) {
+	node.append_attribute(name.c_str()) = value.c_str();
+}
 
 uint poXMLNode::getNumChildren() const {
 	int size = 0;

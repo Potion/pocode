@@ -12,9 +12,7 @@
 boost::thread_specific_ptr<poOpenGLState> poOpenGLState::instance;
 
 // the holder
-poOpenGLState::poOpenGLState() 
-:	color(poColor::white)
-{
+poOpenGLState::poOpenGLState() : color(poColor::white) {
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &max_vert_attribs);
 #ifdef OPENGL_ES
 	max_color_attachments = 1;
@@ -45,11 +43,11 @@ poOpenGLState *poOpenGLState::get() {
 	#endif
 }
 
-void poOpenGLState::setStencil(po::StencilState state, bool force) {
-	if(force) {
+void poOpenGLState::setStencil(po::StencilState state, bool forceAccept) {
+	if(forceAccept) {
 		state.enabled ? glEnable(GL_STENCIL_TEST) : glDisable(GL_STENCIL_TEST);
-		glStencilOp(state.op_fail, state.op_stencil_depth_fail, state.op_stencil_depth_pass);
-		glStencilFunc(state.func, state.func_ref, state.func_mask);
+		glStencilOp(state.opFail, state.opStencilDepthFail, state.opStencilDepthPass);
+		glStencilFunc(state.func, state.funcRef, state.funcMask);
 		stencil = state;
 	}
 	else {
@@ -57,46 +55,46 @@ void poOpenGLState::setStencil(po::StencilState state, bool force) {
 			state.enabled ? glEnable(GL_STENCIL_TEST) : glDisable(GL_STENCIL_TEST);
 			stencil.enabled = state.enabled;
 		}
-		if(state.op_fail != stencil.op_fail || 
-		   state.op_stencil_depth_fail != stencil.op_stencil_depth_fail ||
-		   state.op_stencil_depth_pass != stencil.op_stencil_depth_pass)
+		if(state.opFail != stencil.opFail || 
+		   state.opStencilDepthFail != stencil.opStencilDepthFail ||
+		   state.opStencilDepthPass != stencil.opStencilDepthPass)
 		{
-			glStencilOp(state.op_fail, state.op_stencil_depth_fail, state.op_stencil_depth_pass);
-			stencil.op_fail = state.op_fail;
-			stencil.op_stencil_depth_fail = state.op_stencil_depth_fail;
-			stencil.op_stencil_depth_pass = state.op_stencil_depth_pass;
+			glStencilOp(state.opFail, state.opStencilDepthFail, state.opStencilDepthPass);
+			stencil.opFail = state.opFail;
+			stencil.opStencilDepthFail = state.opStencilDepthFail;
+			stencil.opStencilDepthPass = state.opStencilDepthPass;
 		}
 		if(state.func != stencil.func ||
-		   state.func_ref != stencil.func_ref ||
-		   state.func_mask != stencil.func_mask)
+		   state.funcRef != stencil.funcRef ||
+		   state.funcMask != stencil.funcMask)
 		{
-			glStencilFunc(state.func, state.func_ref, state.func_mask);
+			glStencilFunc(state.func, state.funcRef, state.funcMask);
 			stencil.func = state.func;
-			stencil.func_ref = state.func_ref;
-			stencil.func_mask = state.func_mask;
+			stencil.funcRef = state.funcRef;
+			stencil.funcMask = state.funcMask;
 		}
 	}
 }
 
-void poOpenGLState::setTexture(po::TextureState state, bool force) {
-	if(force) {
-		glBindTexture(GL_TEXTURE_2D, state.bound_id);
+void poOpenGLState::setTexture(po::TextureState state, bool forceAccept) {
+	if(forceAccept) {
+		glBindTexture(GL_TEXTURE_2D, state.boundID);
 		texture = state;
 	}
 	else {
-		if(state.bound_id != texture.bound_id) {
-			glBindTexture(GL_TEXTURE_2D, state.bound_id);
-			texture.bound_id = state.bound_id;
+		if(state.boundID != texture.boundID) {
+			glBindTexture(GL_TEXTURE_2D, state.boundID);
+			texture.boundID = state.boundID;
 		}
-		texture.is_mask = state.is_mask;
+		texture.isMask = state.isMask;
 	}
 }
 
-void poOpenGLState::setBlend(po::BlendState state, bool force) {
-	if(force) {
+void poOpenGLState::setBlend(po::BlendState state, bool forceAccept) {
+	if(forceAccept) {
 		state.enabled ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-		glBlendFuncSeparate(state.source_factor, state.dest_factor, state.source_alpha_factor, state.dest_alpha_factor);
-		glBlendEquationSeparate(state.equation, state.alpha_equation);
+		glBlendFuncSeparate(state.sourceFactor, state.destFactor, state.sourceAlphaFactor, state.destAlphaFactor);
+		glBlendEquationSeparate(state.equation, state.alphaEquation);
 		glBlendColor(state.color.R, state.color.G, state.color.B, state.color.A);
 		blend = state;
 	}
@@ -107,12 +105,12 @@ void poOpenGLState::setBlend(po::BlendState state, bool force) {
 		}
 		
 		if(!blend.isBlendFuncSame(state)) {
-			glBlendFuncSeparate(state.source_factor, state.dest_factor, state.source_alpha_factor, state.dest_alpha_factor);
+			glBlendFuncSeparate(state.sourceFactor, state.destFactor, state.sourceAlphaFactor, state.destAlphaFactor);
 			blend.copyBlendFuncFrom(state);
 		}
 		
 		if(!blend.isBlendEquationSame(state)) {
-			glBlendEquationSeparate(state.equation, state.alpha_equation);
+			glBlendEquationSeparate(state.equation, state.alphaEquation);
 			blend.copyBlendEquationFrom(state);
 		}
 
@@ -123,8 +121,8 @@ void poOpenGLState::setBlend(po::BlendState state, bool force) {
 	}
 }
 
-void poOpenGLState::setVertex(po::VertexState vert, bool force) {
-	if(force) {
+void poOpenGLState::setVertex(po::VertexState vert, bool forceAccept) {
+	if(forceAccept) {
 		for(int i=0; i<maxVertexAttribs(); i++) {
 			if(vert.isAttribEnabled(i))
 				glEnableVertexAttribArray(i);
@@ -150,8 +148,8 @@ void poOpenGLState::setVertex(po::VertexState vert, bool force) {
 	}
 }
 
-void poOpenGLState::setShader(po::ShaderState sh, bool force) {
-	if(force) {
+void poOpenGLState::setShader(po::ShaderState sh, bool forceAccept) {
+	if(forceAccept) {
 		glUseProgram(sh.bound_id);
 		shader = sh;
 	}
@@ -176,6 +174,7 @@ GLint poOpenGLState::maxColorAttachments() {
 void poOpenGLState::pushStencilState() {
 	stencilStack.push(stencil);
 }
+
 void poOpenGLState::popStencilState() {
 	setStencil(stencilStack.top());
 	stencilStack.pop();
@@ -184,6 +183,7 @@ void poOpenGLState::popStencilState() {
 void poOpenGLState::pushTextureState() {
 	textureStack.push(texture);
 }
+
 void poOpenGLState::popTextureState() {
 	setTexture(textureStack.top());
 	textureStack.pop();
@@ -192,6 +192,7 @@ void poOpenGLState::popTextureState() {
 void poOpenGLState::pushBlendState() {
 	blendStack.push(blend);
 }
+
 void poOpenGLState::popBlendState() {
 	setBlend(blendStack.top());
 	blendStack.pop();
@@ -200,6 +201,7 @@ void poOpenGLState::popBlendState() {
 void poOpenGLState::pushVertexState() {
 	vertexStack.push(vertex);
 }
+
 void poOpenGLState::popVertexState() {
 	setVertex(vertexStack.top());
 	vertexStack.pop();
@@ -217,12 +219,12 @@ void poOpenGLState::popShaderState() {
 // the states
 po::StencilState::StencilState() {
 	enabled = false;
-	op_fail = GL_KEEP;
-	op_stencil_depth_fail = GL_KEEP;
-	op_stencil_depth_pass = GL_KEEP;
+	opFail = GL_KEEP;
+	opStencilDepthFail = GL_KEEP;
+	opStencilDepthPass = GL_KEEP;
 	func = GL_ALWAYS;
-	func_ref = 0;
-	func_mask = UINT_MAX;
+	funcRef = 0;
+	funcMask = UINT_MAX;
 }
 
 po::BlendState::BlendState() {
@@ -242,56 +244,64 @@ po::BlendState po::BlendState::preMultipliedBlending() {
 }
 
 void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor) {
-	source_factor = source_alpha_factor = sourceFactor;
-	dest_factor = dest_alpha_factor = destFactor;
+	sourceFactor = sourceAlphaFactor = sourceFactor;
+	destFactor = destAlphaFactor = destFactor;
 }
+
 void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor) {
-	source_factor = sourceFactor;
-	dest_factor = destFactor;
-	source_alpha_factor = sourceAlphaFactor;
-	dest_alpha_factor = destAlphaFactor;
+	sourceFactor = sourceFactor;
+	destFactor = destFactor;
+	sourceAlphaFactor = sourceAlphaFactor;
+	destAlphaFactor = destAlphaFactor;
 }
+
 void po::BlendState::blendEquation(GLenum mode) {
-	equation = alpha_equation = mode;
+	equation = alphaEquation = mode;
 }
+
 void po::BlendState::blendEquation(GLenum rgbMode, GLenum aMode) {
 	equation = rgbMode;
-	alpha_equation = aMode;
+	alphaEquation = aMode;
 }
+
 bool po::BlendState::isBlendFuncSame(po::BlendState bs) {
-	return (source_factor == bs.source_factor &&
-			dest_factor == bs.dest_factor &&
-			source_alpha_factor == bs.source_alpha_factor &&
-			dest_alpha_factor == bs.dest_alpha_factor);
+	return (sourceFactor == bs.sourceFactor &&
+			destFactor == bs.destFactor &&
+			sourceAlphaFactor == bs.sourceAlphaFactor &&
+			destAlphaFactor == bs.destAlphaFactor);
 }
+
 bool po::BlendState::isBlendEquationSame(po::BlendState bs) {
-	return (equation == bs.equation && alpha_equation == bs.alpha_equation);
+	return (equation == bs.equation && alphaEquation == bs.alphaEquation);
 }
+
 void po::BlendState::copyBlendFuncFrom(po::BlendState bs) {
-	source_factor = bs.source_factor;
-	dest_factor = bs.dest_factor;
-	source_alpha_factor = bs.source_alpha_factor;
-	dest_alpha_factor = bs.dest_alpha_factor;
+	sourceFactor = bs.sourceFactor;
+	destFactor = bs.destFactor;
+	sourceAlphaFactor = bs.sourceAlphaFactor;
+	destAlphaFactor = bs.destAlphaFactor;
 }
+
 void po::BlendState::copyBlendEquationFrom(po::BlendState bs) {
 	equation = bs.equation;
-	alpha_equation = bs.alpha_equation;
+	alphaEquation = bs.alphaEquation;
 }
 
 
 po::TextureState::TextureState() {
-	bound_id = 0;
-	is_mask = false;
+	boundID = 0;
+	isMask = false;
 }
 
 po::TextureState::TextureState(poTexture tex) {
-	bound_id = tex.getUid();
-	is_mask = tex.getConfig().format == GL_ALPHA;
+	boundID = tex.getUid();
+	isMask = tex.getConfig().format == GL_ALPHA;
 }
 
 po::VertexState::VertexState() 
 :	enabledAttribs(0)
 {}
+
 po::VertexState & po::VertexState::enableAttrib(GLuint i) {
 	enabledAttribs |= (1 << i);
 	return *this;

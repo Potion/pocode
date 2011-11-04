@@ -15,8 +15,7 @@
 // 
 // 
 
-class poRect 
-{
+class poRect {
 public:
 	
     // CONSTRUCTORS

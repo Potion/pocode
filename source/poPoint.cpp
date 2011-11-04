@@ -87,7 +87,7 @@ void poPoint::operator/=(float scalar) {
 }
 
 poPoint &poPoint::normalize() {
-	float len = length();
+	float len = getLength();
     if(len == 0) return *this;
     
 	if(x != 0) x /= len;
@@ -96,31 +96,31 @@ poPoint &poPoint::normalize() {
 	return *this;
 }
 
-float poPoint::length() const {
+float poPoint::getLength() const {
 	return sqrtf(x*x + y*y + z*z);
 }
 
-float poPoint::lengthSquared() const {
+float poPoint::getLengthSquared() const {
 	return x*x + y*y + z*z;
 }
 
-float poPoint::dist(poPoint pt) {
+float poPoint::getDist(poPoint pt) {
     return poDist(x,y, pt.x, pt.y);
 }
 
-float poPoint::dot(poPoint rhs) const {
+float poPoint::getDot(poPoint rhs) const {
     return x*rhs.x + y*rhs.y + z*rhs.z;
 }
 
-poPoint poPoint::cross(poPoint rhs) const {
+poPoint poPoint::getCross(poPoint rhs) const {
 	return poPoint(y*rhs.z-z*rhs.y, z*rhs.x-x*rhs.z, x*rhs.y-y*rhs.x);
 }
 
-poPoint poPoint::normal2D() const {
+poPoint poPoint::getNormal2D() const {
 	return poPoint(y, -x);
 }
 
-poPoint poPoint::rotate2D(float deg) const {
+poPoint poPoint::getRotate2D(float deg) const {
 	poPoint Xv(cos_deg(deg), sin_deg(deg));
 	poPoint Yv(-sin_deg(deg), cos_deg(deg));
 	return poPoint(Xv * x + Yv * y);
@@ -155,7 +155,7 @@ poPoint operator/(poPoint A, float Scalar) {
 }
 
 poPoint normalize(poPoint pt) {
-	float len = pt.length();
+	float len = pt.getLength();
 	return poPoint(pt.x/len, pt.y/len, pt.z/len);
 }
 

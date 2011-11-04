@@ -2,7 +2,7 @@
  *  Copyright 2011 Potion Design. All rights reserved.
  */
 
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poObject.h"
 #include "poWindow.h"
 #include "poApplication.h"
@@ -10,7 +10,7 @@
 #include "poOpenGLState.h"
 #include "poMatrixStack.h"
 
-#include "SimpleDrawing.h"
+#include "poSimpleDrawing.h"
 
 static uint PO_OBJECT_UID = 0;
 
@@ -294,7 +294,7 @@ poObject* poObject::getChildWithUID(uint UID) {
 		if(resp) return resp;
 	}
 	
-	if(UID == getUid())
+	if(UID == getUID())
 		return this;
 	
 	return NULL;
@@ -465,7 +465,7 @@ poObject& poObject::setAlignment(poAlignment align) {
 }
 
 poObject*		poObject::getParent() const {return parent;}
-uint			poObject::getUid() const {return uid;}
+uint			poObject::getUID() const {return uid;}
 
 float			poObject::getAppliedAlpha() const {return trueAlpha;}
 poMatrixSet     poObject::getMatrixSet() const {return matrices;}
@@ -551,8 +551,8 @@ void poObject::updateTree() {
 
 void poObject::_drawBounds() {
     po::setColor(poColor::red);
-    po::drawStroke(getBounds());
-    po::drawRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
+    po::drawStrokedRect(getBounds());
+    po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
 }
 
 void poObject::stopAllTweens(bool recurse) {
@@ -590,7 +590,7 @@ void poObject::read(poXMLNode node) {
 void poObject::write(poXMLNode &node) {
 	node.addAttribute("type", "poObject");
 
-	node.addChild("uid").setInnerInt(getUid());
+	node.addChild("uid").setInnerInt(getUID());
 	node.addChild("name").setInnerString(name);
 	node.addChild("position").setInnerString(position.toString());
 	node.addChild("width").setInnerFloat(width);

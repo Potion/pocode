@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE( poPoint_test ) {
 	poPoint p3(5.f,5.f,2.5f);
 	
 	p3.normalize();
-	float l = p3.length();
+	float l = p3.getLength();
 	BOOST_REQUIRE_CLOSE(l, 1.f, 0.000010f);
 	
 	float lsquared = p1.length() * p1.length();

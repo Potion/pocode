@@ -8,6 +8,7 @@ class poWindow;
 {
 	NSOpenGLContext *shared_context;
 	NSMutableDictionary *window_settings;
+
 	poWindow *currentWindow;
 }
 

@@ -4,8 +4,7 @@
 #include "poPoint.h"
 #include <glm/glm.hpp>
 
-struct poMatrixSet
-{
+struct poMatrixSet {
 				poMatrixSet();
 	void		capture();
 	poPoint		globalToLocal(poPoint pt) const;

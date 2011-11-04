@@ -8,7 +8,7 @@
 
 #include "poFont.h"
 #include "poShape2D.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 #ifdef _WIN32
 
@@ -80,8 +80,7 @@ bool poFont::fontExists(const std::string &family) {
 poFont::poFont() 
 {}
 
-poFont::poFont(const std::string &family_or_url, const std::string &style) 
-{
+poFont::poFont(const std::string &family_or_url, const std::string &style) {
 	init();
 	
 	std::string url = "";
@@ -123,12 +122,25 @@ bool poFont::isValid() const {
 	return shared && shared->face;
 }
 
-std::string poFont::getFamilyName() const {return shared->face->family_name;}
-std::string poFont::getStyleName() const {return shared->face->style_name;}
-std::string poFont::getUrl() const {return shared->url;}
-bool poFont::hasKerning() const {return (shared->face->face_flags & FT_FACE_FLAG_KERNING) != 0;}
+std::string poFont::getFamilyName() const {
+	return shared->face->family_name;
+}
 
-int poFont::getPointSize() const {return shared->size;}
+std::string poFont::getStyleName() const {
+	return shared->face->style_name;
+}
+std::string poFont::getUrl() const {
+	return shared->url;
+}
+
+bool poFont::hasKerning() const {
+	return (shared->face->face_flags & FT_FACE_FLAG_KERNING) != 0;
+}
+
+int poFont::getPointSize() const {
+	return shared->size;
+}
+
 void poFont::setPointSize(int sz) {
 	if(sz != shared->size) {
 		shared->size = sz;
@@ -137,14 +149,30 @@ void poFont::setPointSize(int sz) {
 	}
 }
 
-float poFont::getLineHeight() const {return shared->face->size->metrics.height >> 6;}
-float poFont::getAscender() const {return shared->face->size->metrics.ascender >> 6;}
-float poFont::getDescender() const {return shared->face->size->metrics.descender >> 6;}
+float poFont::getLineHeight() const {
+	return shared->face->size->metrics.height >> 6;
+}
 
-float poFont::getUnderlinePosition() const {return shared->face->underline_position >> 6;}
-float poFont::getUnderlineThickness() const {return shared->face->underline_thickness >> 6;}
+float poFont::getAscender() const {
+	return shared->face->size->metrics.ascender >> 6;
+}
 
-int poFont::getGlyph() const {return shared->glyph;}
+float poFont::getDescender() const {
+	return shared->face->size->metrics.descender >> 6;
+}
+
+float poFont::getUnderlinePosition() const {
+	return shared->face->underline_position >> 6;
+}
+
+float poFont::getUnderlineThickness() const {
+	return shared->face->underline_thickness >> 6;
+}
+
+int poFont::getGlyph() const {
+	return shared->glyph;
+}
+
 void poFont::setGlyph(int g) {
 	if(g != shared->glyph) {
 		shared->glyph = g;
@@ -188,10 +216,11 @@ poImage poFont::getGlyphImage() const {
 
 	ubyte *buffer = new ubyte[w*h]();
 	
-	for(int i=0; i<bitmap.rows; i++)
+	for(int i=0; i<bitmap.rows; i++) {
 		// inset the copy 1 x 1 so the top and left sides doesn't look aliased 
 		memcpy(buffer+(i*w)+1, bitmap.buffer+(bitmap.rows-i-1)*bitmap.pitch, bitmap.width);
-	
+	}
+		
 	poImage img(w, h, 1, buffer);
 	
 	delete [] buffer;

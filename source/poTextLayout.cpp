@@ -6,7 +6,7 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "TextLayout.h"
+#include "poTextLayout.h"
 
 #include <pugixml.hpp>
 
@@ -14,7 +14,7 @@
 #include <boost/tokenizer.hpp>
 
 #include "poMath.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poDictionary.h"
 #include "poResourceLoader.h"
 
@@ -117,19 +117,19 @@ void po::TextLayout::layout() {
 	doLayout();
 }
 
-poRect po::TextLayout::textBounds() const {
-	return text_bounds;
+poRect po::TextLayout::getTextBounds() const {
+	return textBounds;
 }
 
-poDictionary po::TextLayout::textPropsAtIndex(int idx) {
+poDictionary po::TextLayout::getTextPropsAtIndex(int idx) {
 	return parsedText.attributes(idx);
 }
 
-uint po::TextLayout::numLines() const {
+uint po::TextLayout::getNumLines() const {
 	return lines.size();
 }
 
-uint po::TextLayout::numGlyphsForLine(uint line) const {
+uint po::TextLayout::getNumGlyphsForLine(uint line) const {
 	return lines[line].glyphs.size();
 }
 
@@ -141,11 +141,11 @@ po::TextLayoutGlyph &po::TextLayout::getGlyphOnLine(uint glyph, uint line) {
 	return lines[line].glyphs[glyph];
 }
 
-poRect po::TextLayout::boundsForLine(uint line) const {
+poRect po::TextLayout::getBoundsForLine(uint line) const {
 	return lines[line].bbox;
 }
 
-poRect po::TextLayout::boundsForGlyphOnLine(uint glyphIdx, uint line) const {
+poRect po::TextLayout::getBoundsForGlyphOnLine(uint glyphIdx, uint line) const {
 	return lines[line].glyphs[glyphIdx].bbox;
 }
 
@@ -168,11 +168,11 @@ void po::TextLayout::rotateLine(uint line, poPoint origin, float rot) {
 	}
 }
 
-void po::TextLayout::font(poFont f, const std::string &weight) {
+void po::TextLayout::setFont(poFont f, const std::string &weight) {
 	fonts[weight] = f;
 }
 
-poFont po::TextLayout::font(const std::string &weight) {
+poFont po::TextLayout::getFont(const std::string &weight) {
 	return fonts[weight];
 }
 
@@ -182,9 +182,9 @@ bool po::TextLayout::hasFont(const std::string &weight) {
 
 void po::TextLayout::addLine(const TextLayoutLine &line) {
 	if(!lines.empty())
-		text_bounds.include(line.bbox);
+		textBounds.include(line.bbox);
 	else
-		text_bounds = line.bbox;
+		textBounds = line.bbox;
 	
 	lines.push_back(line);
 }
@@ -195,17 +195,17 @@ void po::TextLayout::replaceLine(int i, const TextLayoutLine &line) {
 
 void po::TextLayout::recalculateTextBounds() {
 	if(!lines.empty()) {
-		text_bounds = lines[0].bbox;
-		for(int i=1; i<numLines(); i++)
-			text_bounds.include(lines[i].bbox);
+		textBounds = lines[0].bbox;
+		for(int i=1; i<getNumLines(); i++)
+			textBounds.include(lines[i].bbox);
 	}
 }
 
 void po::TextLayout::prepareText() {
 	// clean up
 	lines.clear();
-	text_bounds.set(0,0,0,0);
-
+	textBounds.set(0,0,0,0);
+	
 	// take the user's word for it that this is rich text
 	if(isRichText) {
 		std::stringstream xml;

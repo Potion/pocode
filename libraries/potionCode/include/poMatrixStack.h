@@ -43,8 +43,8 @@ public:
 	glm::mat4 getProjection();
 	poRect getViewport();
 	
-    void setCameraMatrix(const glm::mat4 &mat) {camera = mat;}
-    glm::mat4 getCameraMatrix() {return camera;}
+    void setCameraMatrix(const glm::mat4 &mat) { camera = mat; }
+    glm::mat4 getCameraMatrix() { return camera; }
 
 	// projection * modelview
 	glm::mat4 transformation();

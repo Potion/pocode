@@ -4,10 +4,9 @@
 #include "poPoint.h"
 #include "poTexture.h"
 #include "poResource.h"
-#include "BinPacker.h"
+#include "poBinPacker.h"
 
-class poTextureAtlas : public poResource
-{
+class poTextureAtlas : public poResource {
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
 	poTextureAtlas(poTextureConfig config, uint w, uint h);
@@ -21,14 +20,14 @@ public:
 	void            layoutAtlas();
 	
 	bool            hasUID(uint uid);
-	int             numPages();
-	poPoint         dimensions() const;
+	int             getNumPages();
+	poPoint         getDimensions() const;
 	
-	uint            pageForUID(uint uid);
-	poRect          coordsForUID(uint uid);
-	poRect          sizeForUID(uint uid);
-	poTexture		textureForPage(uint pg);
-	poTexture		textureForUID(uint uid);
+	uint            getPageForUID(uint uid);
+	poRect          getCoordsForUID(uint uid);
+	poRect          getSizeForUID(uint uid);
+	poTexture		getTextureForPage(uint pg);
+	poTexture		getTextureForUID(uint uid);
     
 	// draws will shift the texture as needed,
 	// tho user can look at the pages for what it wants to draw and
@@ -40,7 +39,7 @@ public:
 	
 	
 	// dump the pack to screen for debugging
-	void			_debugDraw();
+	void			debugDraw();
 	
 private:
 	struct ImageLookup {
@@ -66,7 +65,7 @@ private:
 		std::vector<poImage> images;
 		
 		// users control the ids
-		std::vector<uint> requested_ids;
+		std::vector<uint> requestedIDs;
 		
 		// the pages of the atlas
 		std::vector<poImage> pages;

@@ -3,8 +3,9 @@
 poBitmapFont::BitmapFontImpl::BitmapFontImpl()
 :	atlas(GL_ALPHA, 512, 512)
 {}
-poBitmapFont::BitmapFontImpl::~BitmapFontImpl() {
-}
+
+poBitmapFont::BitmapFontImpl::~BitmapFontImpl() 
+{}
 
 poBitmapFont::poBitmapFont()
 {}

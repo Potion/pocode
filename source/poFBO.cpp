@@ -25,7 +25,7 @@ poFBO::poFBO(uint w, uint h)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
 {
-	cam->fixedSize(true, poPoint(w,h));
+	cam->setFixedSize(true, poPoint(w,h));
 	setup();
 }
 
@@ -36,7 +36,7 @@ poFBO::poFBO(uint w, uint h, const poFBOConfig &c)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
 {
-	cam->fixedSize(true, poPoint(w,h));
+	cam->setFixedSize(true, poPoint(w,h));
 	setup();
 }
 
@@ -76,11 +76,11 @@ void poFBO::reset(uint w, uint h, const poFBOConfig &c) {
 }
 
 // retrieve this texture to draw the FBO
-poTexture poFBO::colorTexture() const {
+poTexture poFBO::getColorTexture() const {
 	return colorTex;
 }
 
-poTexture poFBO::depthTexture() const {
+poTexture poFBO::getDepthTexture() const {
 	
 }
 

@@ -35,8 +35,7 @@ typedef std::map<std::string, poFont*> poFontMap;
 //
 // 
 
-class poFont
-{
+class poFont {
 	friend std::ostream &operator<<(std::ostream &o, const poFont &f);
 	friend bool operator==(const poFont &f1, const poFont &f2);
 	friend bool operator!=(const poFont &f1, const poFont &f2);

@@ -16,8 +16,7 @@
 // where A,B and C are all poPoints.
 //
 
-class poPoint
-{
+class poPoint {
 public:
     // CONSTRUCTORS
 	poPoint();
@@ -36,13 +35,13 @@ public:
 	
     // POINT (VECTOR) OPERATIONS
 	poPoint&        normalize();
-	float           length() const;
-	float           lengthSquared() const;
-    float           dist(poPoint pt);
-	float           dot(poPoint rhs) const;
-	poPoint         cross(poPoint rhs) const;
-	poPoint         normal2D() const;
-	poPoint         rotate2D(float angle) const;
+	float           getLength() const;
+	float           getLengthSquared() const;
+    float           getDist(poPoint pt);
+	float           getDot(poPoint rhs) const;
+	poPoint         getCross(poPoint rhs) const;
+	poPoint         getNormal2D() const;
+	poPoint         getRotate2D(float angle) const;
     
     // OVERLOADED OPERATORS
     // For example, where A and B are both poPoints, and S is a scalar

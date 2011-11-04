@@ -6,7 +6,7 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "LineExtruder.h"
+#include "poLineExtruder.h"
 #include "poMath.h"
 
 poExtrudedLineSeg::poExtrudedLineSeg()

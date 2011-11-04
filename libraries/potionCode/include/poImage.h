@@ -35,8 +35,7 @@ struct FIBITMAP;
 // native size of the image.
 //
 
-class poImage
-{
+class poImage {
 friend std::ostream &operator<<(std::ostream &out, const poImage &img);
 
 public:

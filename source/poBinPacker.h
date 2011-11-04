@@ -23,44 +23,44 @@ public:
 	void pack();
 	void render();
 
-	int numPages() const;
-	float wastedPixels() const;
+	int getNumPages() const;
+	float getWastedPixels() const;
 	poRect packPosition(uint handle, uint *page=NULL);
 
 private:
 	BinPacker(const BinPacker &lhs) {}
 	BinPacker &operator=(const BinPacker &lhs) {return *this;}
 
-	struct insert_rect {
-		insert_rect(uint w, uint h, uint handle);
-		bool operator<(const insert_rect &r);
+	struct insertRect {
+		insertRect(uint w, uint h, uint handle);
+		bool operator<(const insertRect &r);
 		uint w, h, handle;
 	};
-	std::list<insert_rect> rectangles;
+	std::list<insertRect> rectangles;
 
-	struct pack_rect {
-		pack_rect();
-		pack_rect(uint w, uint h);
-		~pack_rect();
+	struct packRect {
+		packRect();
+		packRect(uint w, uint h);
+		~packRect();
 		void setDims(uint x, uint y, uint w, uint h);
-		pack_rect *insert(uint w, uint h);
+		packRect *insert(uint w, uint h);
 		
-		pack_rect **children;
+		packRect **children;
 		uint x, y, width, height, handle;
 		int taken;
 	};
 
-	typedef boost::unordered_map<uint, pack_rect*> PackMap_t;
+	typedef boost::unordered_map<uint, packRect*> PackMap_t;
 
 	struct pack_page {
-		std::vector<pack_rect*> rows;
+		std::vector<packRect*> rows;
 		PackMap_t pack;
 	};
 	std::vector<pack_page*> pages;
 	
-	void render(pack_rect *rect);
+	void render(packRect *rect);
 	void resetPackMap();
 	
 	uint width, height, padding, handles;
-	float wasted_pixels;
+	float wastedPixels;
 };

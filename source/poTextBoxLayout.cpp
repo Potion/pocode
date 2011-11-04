@@ -6,7 +6,7 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "TextBoxLayout.h"
+#include "poTextBoxLayout.h"
 
 #include <utf8.h>
 #include "poMath.h"
@@ -38,7 +38,7 @@ void po::TextBoxLayout::doLayout() {
 	dummy_glyph.glyph = ' ';
 	dummy_glyph.bbox = poRect();
 	
-	line_layout_props props;
+	lineLayoutProps props;
 	
 	poFont fnt = poFont();
 	float spacer = 0;
@@ -49,14 +49,14 @@ void po::TextBoxLayout::doLayout() {
 	while(ch != str.end()) {
 		// if we broke to a new line last pass reset the line height, etc
 		if(props.broke) {
-			fnt = font();
+			fnt = getFont();
 			fnt.setPointSize(textSize);
 			fnt.setGlyph(' ');
 			
 			spacer = fnt.getGlyphAdvance().x;
 			
-			props.max_line_height = fnt.getLineHeight();
-			props.max_drop = fnt.getAscender();
+			props.maxLineHeight = fnt.getLineHeight();
+			props.maxDrop = fnt.getAscender();
 			props.leading = leading;
 			
 			props.broke = false;
@@ -72,9 +72,9 @@ void po::TextBoxLayout::doLayout() {
 		// if we're parsing the fanciness
 		if(isRichText) {
 			// get the dictionary for this position
-			poDictionary dict = parsedText.attributes(props.glyph_count);
+			poDictionary dict = parsedText.attributes(props.glyphCount);
 			// keep track of how many glyphs we have total
-			props.glyph_count++;
+			props.glyphCount++;
 			
 			// check if the font has changed
 			if(dict.has("font")) {
@@ -91,9 +91,9 @@ void po::TextBoxLayout::doLayout() {
 			}
 			else {
 				// there's nothing in the dictionary
-				if(fnt != font()) {
+				if(fnt != getFont()) {
 					// and the current font isn't the default one
-					fnt = font();
+					fnt = getFont();
 					fnt.setPointSize(textSize);
 					font_changed = true;
 				}
@@ -127,7 +127,7 @@ void po::TextBoxLayout::doLayout() {
 		if(::iswspace(codepoint)) {
 			switch(codepoint) {
 				case ' ':
-					props.last_space = spacer;
+					props.lastSpace = spacer;
 					break;
 					
 				case '\n':
@@ -138,13 +138,13 @@ void po::TextBoxLayout::doLayout() {
 				{
 					float s = spacer * tabWidth;
 					float w = props.line.bbox.width + props.word.width;
-					props.last_space = (floor(w/s) + 1) * s - w;
+					props.lastSpace = (floor(w/s) + 1) * s - w;
 					break;
 				}
 			}
 			
 			// make the line knows about the space
-			props.last_space *= tracking_tmp;
+			props.lastSpace *= tracking_tmp;
 			// put a dummy glyph in there for indexing the properties dictionary
 			// we have to keep glyphs and codepoints at 1:1
 			props.word.glyphs.push_back(dummy_glyph);
@@ -169,8 +169,8 @@ void po::TextBoxLayout::doLayout() {
 		props.word.glyphs.push_back(glyph);
 		
 		// see if we need to update our line height
-		props.max_drop = std::max(props.max_drop, -fnt.getGlyphBearing().y + line_padding_fudge);
-		props.max_line_height = std::max(props.max_line_height, props.max_drop + fnt.getGlyphDescender() + line_padding_fudge);
+		props.maxDrop = std::max(props.maxDrop, -fnt.getGlyphBearing().y + line_padding_fudge);
+		props.maxLineHeight = std::max(props.maxLineHeight, props.maxDrop + fnt.getGlyphDescender() + line_padding_fudge);
 		
 		// update the pen x position
 		props.word.width += (fnt.getGlyphAdvance().x + kern.x) * tracking_tmp;
@@ -186,7 +186,7 @@ void po::TextBoxLayout::doLayout() {
 	breakLine(props);
 }
 
-void po::TextBoxLayout::addWordToLine(line_layout_props &props) {
+void po::TextBoxLayout::addWordToLine(lineLayoutProps &props) {
 	if(!props.word.glyphs.empty()) {
 		props.line.wordCount++;
 		for(int i=0; i<props.word.glyphs.size(); i++) {
@@ -196,11 +196,11 @@ void po::TextBoxLayout::addWordToLine(line_layout_props &props) {
 		}
 	}
 	
-	props.line.bbox.width += props.word.width + props.last_space;
-	props.word = word_layout();
+	props.line.bbox.width += props.word.width + props.lastSpace;
+	props.word = wordLayout();
 }
 
-void po::TextBoxLayout::breakLine(line_layout_props &props) {
+void po::TextBoxLayout::breakLine(lineLayoutProps &props) {
 	if(!props.line.glyphs.empty()) {
 		// save the start pos
 		float start_y = props.line.bbox.y;
@@ -208,26 +208,26 @@ void po::TextBoxLayout::breakLine(line_layout_props &props) {
 		for(int i=0; i<props.line.glyphs.size(); i++) {
 			TextLayoutGlyph &glyph = props.line.glyphs[i];
 			// move the glyph down to the baseline + the start position
-			glyph.bbox.y += props.max_drop + start_y;
+			glyph.bbox.y += props.maxDrop + start_y;
 		}
 		
 		// words all end with a space, so take off the space for it
-		props.line.bbox.width -= props.last_space;
+		props.line.bbox.width -= props.lastSpace;
 		// and bump the line height
-		props.line.bbox.height = props.max_line_height;
+		props.line.bbox.height = props.maxLineHeight;
 		// save the line
 		addLine(props.line);
 		
 		// and set up hte next line
 		props.line = TextLayoutLine();
-		props.line.bbox.y = start_y + props.max_line_height * props.leading;
+		props.line.bbox.y = start_y + props.maxLineHeight * props.leading;
 	}
 	
 	props.broke = true;
 }
 
 void po::TextBoxLayout::realignText() {
-	poRect text_bounds = textBounds();
+	poRect text_bounds = getTextBounds();
 	
 	for(int i=0; i<lines.size(); i++) {
 		TextLayoutLine line = lines[i];

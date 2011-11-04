@@ -1,4 +1,4 @@
-#include "Helpers.h"
+#include "poHelpers.h"
 #include <cstdarg>
 #include <cstdio>
 #include <deque>
@@ -149,7 +149,7 @@ std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int 
 float curveLength(const std::vector<poPoint> &curve) {
 	float len = 0;
 	for(int i=0; i<curve.size()-1; i++) {
-		len += (curve[i+1] - curve[i]).length();
+		len += (curve[i+1] - curve[i]).getLength();
 	}
 	return len;
 }

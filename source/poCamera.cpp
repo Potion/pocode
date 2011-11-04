@@ -14,16 +14,16 @@
 // camera base class
 poCamera::poCamera()
 :	reset(true)
-,	clears_background(true)
-,	background_color(poColor::transparent)
-,	is_fixed_size(false)
+,	clearsBG(true)
+,	backgroundColor(poColor::transparent)
+,	isSizeFixed(false)
 {}
 
 poCamera::poCamera(poColor color) 
 :	reset(true)
-,	clears_background(true)
-,	background_color(color)
-,	is_fixed_size(false)
+,	clearsBG(true)
+,	backgroundColor(color)
+,	isSizeFixed(false)
 {}
 
 poObjectModifier *poCamera::copy() {
@@ -33,11 +33,11 @@ poObjectModifier *poCamera::copy() {
 }
 
 void poCamera::clone(poCamera *cam) {
-	cam->fixed_size = fixed_size;
+	cam->fixedSize = fixedSize;
 	cam->reset = reset;
-	cam->clears_background = clears_background;
-	cam->background_color = background_color;
-	cam->is_fixed_size = is_fixed_size;
+	cam->clearsBG = clearsBG;
+	cam->backgroundColor = backgroundColor;
+	cam->isSizeFixed = isSizeFixed;
 }
 
 void poCamera::doSetUp( poObject* obj ) {
@@ -45,14 +45,14 @@ void poCamera::doSetUp( poObject* obj ) {
 
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	
-	if(fixedSize())
-		stack->pushViewport(poRect(poPoint(),fixed_size));
+	if(isFixedSize())
+		stack->pushViewport(poRect(poPoint(),fixedSize));
 	else {
 		stack->pushViewport(poRect(poPoint(),getWindowDimensions()));
 	}
 
-	if(clears_background) {
-        glClearColor(background_color.R, background_color.G, background_color.B, background_color.A);
+	if(clearsBG) {
+        glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
 	
@@ -87,18 +87,46 @@ void poCamera::saveAndUpdateGLSettings() {
 void poCamera::restoreGLSettings() {
 }
 
-bool poCamera::clearsBackground() const {return clears_background;}
-poCamera* poCamera::clearsBackground(bool b) {clears_background = b; return this;}
+bool poCamera::clearsBackground() const {
+	return clearsBG;
+}
 
-poColor poCamera::backgroundColor() const {return background_color;}
-poCamera* poCamera::backgroundColor(poColor color) {background_color = color; return this;}
-poCamera* poCamera::backgroundColor(float r, float g, float b, float a) {background_color.set(r,g,b,a); return this;}
+poCamera* poCamera::setClearsBackground(bool b) {
+	clearsBG = b; return this;
+}
 
-bool poCamera::resetsModelview() const {return reset;}
-poCamera* poCamera::resetsModelview(bool b) {reset = b; return this;}
+poColor poCamera::getBackgroundColor() const {
+	return backgroundColor;
+}
 
-bool poCamera::fixedSize() const {return is_fixed_size;}
-poCamera* poCamera::fixedSize(bool b, poPoint p) {is_fixed_size=b; fixed_size=p; return this;}
+poCamera* poCamera::setBackgroundColor(poColor color) {
+	backgroundColor = color;
+	return this;
+}
+
+poCamera* poCamera::setBackgroundColor(float r, float g, float b, float a) {
+	backgroundColor.set(r,g,b,a);
+	return this;
+}
+
+bool poCamera::resetsModelview() const {
+	return reset;
+}
+
+poCamera* poCamera::setResetsModelview(bool b) {
+	reset = b;
+	return this;
+}
+
+bool poCamera::isFixedSize() const {
+	return isSizeFixed;
+}
+
+poCamera* poCamera::setFixedSize(bool b, poPoint p) {
+	isSizeFixed=b;
+	fixedSize=p;
+	return this;
+}
 
 
 // window camera
@@ -204,16 +232,27 @@ poObjectModifier *poPerspectiveCamera::copy() {
 }
 
 void poPerspectiveCamera::clone(poPerspectiveCamera *cam) {
-	cam->look_at_pos = look_at_pos;
-	cam->camera_pos = camera_pos;
+	cam->lookAtPos = lookAtPos;
+	cam->cameraPos = cameraPos;
 	poCamera::clone(cam);
 }
 
-poPoint poPerspectiveCamera::lookAtPosition() const {return look_at_pos;}
-poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {look_at_pos = p; return this;}
+poPoint poPerspectiveCamera::lookAtPosition() const { 
+	return lookAtPos;
+}
+
+poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {
+	lookAtPos = p;
+	return this;
+}
 	
-poPoint                 poPerspectiveCamera::cameraPosition() const  {return camera_pos;}
-poPerspectiveCamera*    poPerspectiveCamera::cameraPosition(poPoint p) {camera_pos = p; return this;}
+poPoint poPerspectiveCamera::cameraPosition() const  {
+	return cameraPos;
+}
+
+poPerspectiveCamera* poPerspectiveCamera::cameraPosition(poPoint p) {
+	cameraPos = p; return this;
+}
 
 void poPerspectiveCamera::doSetUp(poObject *obj) {
 	poCamera::doSetUp(obj);
@@ -230,8 +269,8 @@ void poPerspectiveCamera::setModelview() {
 	
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	
-	vec3 eye(camera_pos.x, camera_pos.y, camera_pos.z);
-	vec3 center(look_at_pos.x, look_at_pos.y, look_at_pos.z);
+	vec3 eye(cameraPos.x, cameraPos.y, cameraPos.z);
+	vec3 center(lookAtPos.x, lookAtPos.y, lookAtPos.z);
 	vec3 up(0,1,0);
 	stack->pushModelview(glm::lookAt(eye,center,up));
 	stack->scale(poPoint(-1,-1,1));

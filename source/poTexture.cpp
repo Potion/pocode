@@ -8,7 +8,7 @@
 
 #include "poTexture.h"
 #include "poImage.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poOpenGLState.h"
 
 GLenum formatForChannels(uint channels) {
@@ -213,7 +213,7 @@ void poTexture::loadDummyImage() {
 		dummy.reset(new TextureImpl);
 		
 		ubyte *pix = new ubyte[20*20*3]();
-		for(int y=0; y<20; y++) 
+		for(int y=0; y<20; y++) {
 			for(int x=0; x<20; x++) {
 				if((y == 0 || x == 0 || y == 19 || x == 19) ||
 				   (x == y || x == 19 - y))
@@ -221,6 +221,7 @@ void poTexture::loadDummyImage() {
 					pix[(y*20+x)*3] = 0xFF;
 				}
 			}
+		}
 		
 		dummy.reset(new TextureImpl(20,20,pix,poTextureConfig(GL_RGB)));
 	}

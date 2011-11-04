@@ -4,7 +4,7 @@
 
 #include "poColor.h"
 #include "poMath.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 #define min3(a,b,c) a < b ? (a < c ? a : c) : (b < c ? b : c)
 #define max3(a,b,c) a > b ? (a > c ? a : c) : (b > c ? b : c)
@@ -12,9 +12,9 @@
 
 const poColor poColor::white = poColor(1,1,1);
 const poColor poColor::black = poColor(0,0,0);
-const poColor poColor::lt_grey = poColor(.75, .75, .75);
+const poColor poColor::ltGrey = poColor(.75, .75, .75);
 const poColor poColor::grey = poColor(.5, .5, .5);
-const poColor poColor::dk_grey = poColor(.25, .25, .25);
+const poColor poColor::dkGrey = poColor(.25, .25, .25);
 const poColor poColor::red = poColor(1,0,0);
 const poColor poColor::yellow = poColor(1,1,0);
 const poColor poColor::orange = poColor(1.0, 0.5, 0.2);
@@ -100,11 +100,11 @@ poColor::poColor(const poHSVColor &hsv) {
     set(col.R, col.G, col.B, col.A);
 }
 
-poColor::poColor(poColor c, float mult_alpha)
+poColor::poColor(poColor c, float multAlpha)
 :	R(c.R)
 ,	G(c.G)
 ,	B(c.B)
-,	A(c.A*mult_alpha)
+,	A(c.A*multAlpha)
 {}
 
 poColor& poColor::set(float r, float g, float b, float a) {
@@ -123,8 +123,7 @@ poColor& poColor::set255(float r, float g, float b, float a) {
 	return *this;
 }
 
-poColor& poColor::setHSV(float h, float s, float v, float a)
-{
+poColor& poColor::setHSV(float h, float s, float v, float a) {
     *this = hsv2rgba( poHSVColor(h,s,v) );
     A = a;
 }

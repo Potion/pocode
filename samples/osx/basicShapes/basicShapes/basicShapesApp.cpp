@@ -4,7 +4,7 @@
 #include "Helpers.h"
 
 #include "poResourceLoader.h"
-#include "SimpleDrawing.h"
+#include "poSimpleDrawing.h"
 
 poObject *createObjectForID(uint uid) {
 	return new basicShapesApp();

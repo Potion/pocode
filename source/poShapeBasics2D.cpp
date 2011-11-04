@@ -8,7 +8,7 @@
 
 #include "poResourceLoader.h"
 #include "poShapeBasics2D.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 #pragma mark poRectShape
 

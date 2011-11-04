@@ -19,8 +19,7 @@ class poHSVColor;
 // the poColor constructor, or by calling the setHSV() method.
 //
 
-class poColor
-{
+class poColor {
 public:
 	float R, G, B, A;
 	
@@ -31,8 +30,8 @@ public:
 	poColor(float r, float g, float b, float a=1.f);
     // Constructs a new poColor based upon an poHSVColor.
     poColor(const poHSVColor &hsv);
-	// Constructs a new color with alpha mulitplied by mult_alpha.
-	poColor(poColor c, float mult_alpha);
+	// Constructs a new color with alpha mulitplied by multAlpha.
+	poColor(poColor c, float multAlpha);
 	
     // SET COLOR
     // Set with values between 0.0 and 1.0.
@@ -53,9 +52,9 @@ public:
     // See poColor.cpp for actual color values.
     static const poColor white;
 	static const poColor black;
-    static const poColor lt_grey;
+    static const poColor ltGrey;
 	static const poColor grey;
-    static const poColor dk_grey;
+    static const poColor dkGrey;
 	static const poColor red;
 	static const poColor yellow;
 	static const poColor orange;

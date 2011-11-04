@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "TextLayout.h"
+#include "poTextLayout.h"
 
 namespace po {
 	
@@ -35,33 +35,33 @@ namespace po {
 		virtual void doLayout();
 		
 	private:
-		struct word_layout {
-			word_layout() 
+		struct wordLayout {
+			wordLayout() 
 			:	width(0.f){}
 			float width;
 			std::vector<TextLayoutGlyph> glyphs;
 		};
 		
-		struct line_layout_props {
-			line_layout_props() 
-			:	max_line_height(0)
-			,	max_drop(0)
+		struct lineLayoutProps {
+			lineLayoutProps() 
+			:	maxLineHeight(0)
+			,	maxDrop(0)
 			,	broke(true)
-			,	glyph_count(0)
-			,	last_space(0)
+			,	glyphCount(0)
+			,	lastSpace(0)
 			,	leading(1){}
-			float max_line_height;
-			float max_drop;
+			float maxLineHeight;
+			float maxDrop;
 			bool broke;
-			int glyph_count;
-			float last_space;
+			int glyphCount;
+			float lastSpace;
 			float leading;
-			word_layout word;
+			wordLayout word;
 			TextLayoutLine line;
 		};
 		
-		void addWordToLine(line_layout_props &props);
-		void breakLine(line_layout_props &props);
+		void addWordToLine(lineLayoutProps &props);
+		void breakLine(lineLayoutProps &props);
 	};
 
 }

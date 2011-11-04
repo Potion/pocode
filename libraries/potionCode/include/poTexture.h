@@ -21,13 +21,13 @@ public:
 	poTextureConfig();
 	poTextureConfig(GLenum format);
 	
-	poTextureConfig &setFormat(GLenum f)			{format = f; return *this;};
-	poTextureConfig &setInternalFormat(GLenum f)	{internalFormat = f; return *this;}
-	poTextureConfig &setType(GLenum f)				{type = f; return *this;}
-	poTextureConfig &setMinFilter(GLenum f)			{minFilter = f; return *this;}
-	poTextureConfig &setMagFilter(GLenum f)			{magFilter = f; return *this;}
-	poTextureConfig &setWrapS(GLenum f)				{wrapS = f; return *this;}
-	poTextureConfig &setWrapT(GLenum f)				{wrapT = f; return *this;}
+	poTextureConfig &setFormat(GLenum f)			{ format = f; return *this; };
+	poTextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
+	poTextureConfig &setType(GLenum f)				{ type = f; return *this; }
+	poTextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
+	poTextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
+	poTextureConfig &setWrapS(GLenum f)				{ wrapS = f; return *this; }
+	poTextureConfig &setWrapT(GLenum f)				{ wrapT = f; return *this; }
 	
 	GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
 };
@@ -43,8 +43,7 @@ public:
 // poTexture's are also used in frame buffer objects (FBO's) and in video display.
 //
 
-class poTexture
-{
+class poTexture {
 public:
 	// this will make an imageless texture
 	// useful for when you just need to allocate space on the graphics card

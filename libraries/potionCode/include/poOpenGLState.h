@@ -27,21 +27,21 @@ namespace po {
 		
 		bool enabled;
 		// stencil operation
-		GLenum op_fail;
-		GLenum op_stencil_depth_fail;
-		GLenum op_stencil_depth_pass;
+		GLenum opFail;
+		GLenum opStencilDepthFail;
+		GLenum opStencilDepthPass;
 		// stencil func
 		GLenum func;
-		GLint func_ref;
-		GLuint func_mask;
+		GLint funcRef;
+		GLuint funcMask;
 	};
 	
 	struct TextureState {
 		TextureState();
 		TextureState(poTexture tex);
 		
-		GLuint bound_id;
-		bool is_mask;
+		GLuint boundID;
+		bool isMask;
 	};
 	
 	// http://www.opengl.org/sdk/docs/man/xhtml/glBlendFunc.xml
@@ -64,9 +64,9 @@ namespace po {
 		
 		bool enabled;
 		// blend func
-		GLenum source_factor, dest_factor, source_alpha_factor, dest_alpha_factor;
+		GLenum sourceFactor, destFactor, sourceAlphaFactor, destAlphaFactor;
 		// blend equation
-		GLenum equation, alpha_equation;
+		GLenum equation, alphaEquation;
 		// blend color
 		poColor color;
 	};
@@ -102,11 +102,11 @@ public:
 	static poOpenGLState *get();
 	void compactMemory();
 	
-	void setStencil(po::StencilState, bool force_accept=false);
-	void setTexture(po::TextureState, bool force_accept=false);
-	void setBlend(po::BlendState, bool force_accept=false);
-	void setVertex(po::VertexState, bool force_accept=false);
-	void setShader(po::ShaderState, bool force_accept=false);
+	void setStencil(po::StencilState, bool forceAccept=false);
+	void setTexture(po::TextureState, bool forceAccept=false);
+	void setBlend(po::BlendState, bool forceAccept=false);
+	void setVertex(po::VertexState, bool forceAccept=false);
+	void setShader(po::ShaderState, bool forceAccept=false);
 	
 	GLint maxVertexAttribs();
 	GLint maxFBOSamples();

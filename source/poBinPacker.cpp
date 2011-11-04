@@ -1,35 +1,40 @@
-#include "BinPacker.h"
 
-BinPacker::insert_rect::insert_rect(uint w, uint h, uint handle) : w(w), h(h), handle(handle) {}
-bool BinPacker::insert_rect::operator<(const insert_rect &r) {
+#include "poBinPacker.h"
+
+BinPacker::insertRect::insertRect(uint w, uint h, uint handle) : w(w), h(h), handle(handle) {}
+bool BinPacker::insertRect::operator<(const insertRect &r) {
 	if(w == r.w)
 		return w > r.w;
 	return h > r.h;
 }
 
-BinPacker::pack_rect::pack_rect() : x(0), y(0), width(0), height(0), handle(0), children(NULL), taken(false) {}
-BinPacker::pack_rect::pack_rect(uint w, uint h) : x(0), y(0), width(w), height(h), handle(0), children(NULL), taken(false) {}
-BinPacker::pack_rect::~pack_rect() {
+BinPacker::packRect::packRect() : x(0), y(0), width(0), height(0), handle(0), children(NULL), taken(false) {}
+
+BinPacker::packRect::packRect(uint w, uint h) : x(0), y(0), width(w), height(h), handle(0), children(NULL), taken(false) {}
+
+BinPacker::packRect::~packRect() {
 	if(NULL != children) {
 		delete children[0];
 		delete children[1];
 		delete [] children;
 	}
 }
-void BinPacker::pack_rect::setDims(uint x, uint y, uint w, uint h) {
+
+void BinPacker::packRect::setDims(uint x, uint y, uint w, uint h) {
 	this->x = x;
 	this->y = y;
 	this->width = w;
 	this->height = h;
 }
+
 // insert dimensions of the image, recursively
-BinPacker::pack_rect *BinPacker::pack_rect::insert(uint w, uint h) {
+BinPacker::packRect *BinPacker::packRect::insert(uint w, uint h) {
 	if(taken)
 		return NULL;
 	
 	// if we're a branch, pass image onto children
 	if(NULL != children) {
-		pack_rect *rect = children[0]->insert(w,h);
+		packRect *rect = children[0]->insert(w,h);
 		if(NULL != rect)
 			return rect;
 		return children[1]->insert(w,h);
@@ -48,9 +53,9 @@ BinPacker::pack_rect *BinPacker::pack_rect::insert(uint w, uint h) {
 	}
 
 	// otherwise, split or try to fit the image
-	children = new pack_rect*[2];
-	children[0] = new pack_rect();
-	children[1] = new pack_rect();
+	children = new packRect*[2];
+	children[0] = new packRect();
+	children[1] = new packRect();
 
 	uint dw = width - w;
 	uint dh = height - h;
@@ -85,7 +90,7 @@ void BinPacker::reset() {
 
 void BinPacker::resetPackMap() {
 	BOOST_FOREACH(pack_page *page, pages) {
-		BOOST_FOREACH(pack_rect* row, page->rows) {
+		BOOST_FOREACH(packRect* row, page->rows) {
 			delete row;
 		}
 		page->rows.clear();
@@ -94,17 +99,22 @@ void BinPacker::resetPackMap() {
 	}
 	pages.clear();
 
-	wasted_pixels = 0.f;
+	wastedPixels = 0.f;
 }
 
 uint BinPacker::addRect(poRect r) {
 	uint tmp = handles++;
-	rectangles.push_back(insert_rect(r.width, r.height, tmp));
+	rectangles.push_back(insertRect(r.width, r.height, tmp));
 	return tmp;
 }
 
-int BinPacker::numPages() const {return pages.size();}
-float BinPacker::wastedPixels() const {return wasted_pixels;}
+int BinPacker::getNumPages() const {
+	return pages.size();
+}
+
+float BinPacker::getWastedPixels() const {
+	return wastedPixels;
+}
 
 poRect BinPacker::packPosition(uint handle, uint *page) {
 	for(int i=0; i<pages.size(); i++) {
@@ -131,11 +141,11 @@ void BinPacker::pack() {
 	rectangles.sort();
 	
 //	// find the widest
-	std::list<insert_rect>::iterator i, e;
+	std::list<insertRect>::iterator i, e;
 //	for(i=rectangles.begin(),e=rectangles.end(); i!=e; i++)
 //		width = std::max(width, i->w);
 
-	std::list<insert_rect> unused(rectangles.begin(),rectangles.end());
+	std::list<insertRect> unused(rectangles.begin(),rectangles.end());
 
 	uint insert_height=0, count=0, used_area=0;
 
@@ -149,7 +159,7 @@ void BinPacker::pack() {
 		// we've run out of space on this page
 		if(insert_height + row_height >= height) {
 			// print stats
-			wasted_pixels += sqrtf(float(width*height-used_area));
+			wastedPixels += sqrtf(float(width*height-used_area));
 			// and make the new page
 			page = new pack_page();
 			pages.push_back(page);
@@ -157,15 +167,15 @@ void BinPacker::pack() {
 		}
 
 		// start a new row
-		pack_rect *row = new pack_rect();
+		packRect *row = new packRect();
 		row->setDims(0,insert_height,width,row_height);
 		page->rows.push_back(row);
 
 		// go through all remaining rectangles and see who fits in the row
 		i=unused.begin(), e=unused.end();
 		while(i != e) {
-			insert_rect rect = *i;
-			pack_rect *packed = row->insert(rect.w+padding, rect.h+padding);
+			insertRect rect = *i;
+			packRect *packed = row->insert(rect.w+padding, rect.h+padding);
 			// managed to insert into this row
 			if(NULL != packed) {
 				// store this guy in the packing manifest
@@ -190,9 +200,9 @@ void BinPacker::pack() {
 }
 
 #include "poOpenGLState.h"
-#include "SimpleDrawing.h"
+#include "poSimpleDrawing.h"
 
-void BinPacker::render(BinPacker::pack_rect *r) {
+void BinPacker::render(BinPacker::packRect *r) {
 	if(NULL != r->children) {
 		render(r->children[0]);
 		render(r->children[1]);
@@ -203,7 +213,7 @@ void BinPacker::render(BinPacker::pack_rect *r) {
 		else
 			po::setColor(poColor(.5,.5,.5,1));
 
-		po::drawRect(r->x+1, r->y+1, (int)r->width-2, (int)r->height-2);
+		po::drawFilledRect(r->x+1, r->y+1, (int)r->width-2, (int)r->height-2);
 	}
 }
 
@@ -212,9 +222,9 @@ void BinPacker::render() {
 	
 	BOOST_FOREACH(pack_page *page, pages) {
 		po::setColor(poColor::white);
-		po::drawRect(0,0,width,height);
+		po::drawFilledRect(0,0,width,height);
 
-		BOOST_FOREACH(pack_rect *rect, page->rows) {
+		BOOST_FOREACH(packRect *rect, page->rows) {
 			render(rect);
 		}
 

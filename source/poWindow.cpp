@@ -1,7 +1,7 @@
 #include "poObject.h"
 #include "poWindow.h"
 
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poOpenGLState.h"
 #include "poApplication.h"
 

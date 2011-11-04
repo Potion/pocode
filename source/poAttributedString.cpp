@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Potion Design. All rights reserved.
 //
 
-#include "AttributedString.h"
+#include "poAttributedString.h"
 
 namespace po {
 	
