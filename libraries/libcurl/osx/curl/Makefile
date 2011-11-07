@@ -71,24 +71,24 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 pkgincludedir = $(includedir)/curl
-ACLOCAL = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run aclocal-1.9
+ACLOCAL = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run tar
+AMTAR = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run tar
 AR = /usr/bin/ar
 AS = as
-AUTOCONF = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run autoconf
-AUTOHEADER = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run autoheader
-AUTOMAKE = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run automake-1.9
-AWK = awk
+AUTOCONF = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run autoconf
+AUTOHEADER = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run autoheader
+AUTOMAKE = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run automake-1.9
+AWK = gawk
 BUILD_LIBHOSTNAME_FALSE = 
 BUILD_LIBHOSTNAME_TRUE = #
 BUILD_UNITTESTS_FALSE = 
 BUILD_UNITTESTS_TRUE = #
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g0 -O2 -Wno-system-headers
-CONFIGURE_OPTIONS = " '--disable-shared' '--without-ssl' '--without-libssh2' '--without-ca-bundle' '--without-ldap' '--disable-ldap' '--host=i386-apple-darwin10' 'host_alias=i386-apple-darwin10'"
+CFLAGS = -arch i386 -g0 -O2 -Wno-system-headers
+CONFIGURE_OPTIONS = " '--disable-shared' '--without-ssl' '--without-libssh2' '--without-ca-bundle' '--without-ldap' '--disable-ldap' '--host=i386-apple-darwin10' 'host_alias=i386-apple-darwin10' 'CFLAGS=-arch i386'"
 CPP = gcc -E
 CPPFLAGS = 
 CROSSCOMPILING_FALSE = 
@@ -154,7 +154,7 @@ LTLIBOBJS =
 MAINT = #
 MAINTAINER_MODE_FALSE = 
 MAINTAINER_MODE_TRUE = #
-MAKEINFO = ${SHELL} "/Users/steve/Downloads/curl-7.22.0/missing" --run makeinfo
+MAKEINFO = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run makeinfo
 MANIFEST_TOOL = :
 MANOPT = -man
 MIMPURE_FALSE = 
@@ -175,9 +175,9 @@ PACKAGE_STRING = curl -
 PACKAGE_TARNAME = curl
 PACKAGE_URL = 
 PACKAGE_VERSION = -
-PATH = /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+PATH = /opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/PalmPDK/bin:/opt/PalmSDK/0.1/bin/
 PATH_SEPARATOR = :
-PERL = /usr/bin/perl
+PERL = /opt/local/bin/perl
 PKGADD_NAME = cURL - a client that groks URLs
 PKGADD_PKG = HAXXcurl
 PKGADD_VENDOR = curl.haxx.se
@@ -243,7 +243,7 @@ host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = /Users/steve/Downloads/curl-7.22.0/install-sh
+install_sh = /Users/vtron/Downloads/curl-7.22.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 libext = a
@@ -551,7 +551,7 @@ uninstall-am: uninstall-info-am uninstall-pkgincludeHEADERS
 
 
 checksrc:
-	@/usr/bin/perl $(top_srcdir)/lib/checksrc.pl -Wcurlbuild.h -D$(top_srcdir)/include/curl $(pkginclude_HEADERS) $(EXTRA_DIST)
+	@/opt/local/bin/perl $(top_srcdir)/lib/checksrc.pl -Wcurlbuild.h -D$(top_srcdir)/include/curl $(pkginclude_HEADERS) $(EXTRA_DIST)
 
 # for debug builds, we scan the sources on all regular make invokes
 #all-local: checksrc

@@ -24,7 +24,7 @@ Sqlite3ExampleApp::Sqlite3ExampleApp() {
     db = new poSqlite3(true);
     
     //Load database (creates DB if not found)
-    db->loadFile("test.sqlite");
+    db->openDatabase("test.sqlite");
     
     //Create table if necessary
     db->query("CREATE TABLE table1 (id INTEGER PRIMARY KEY, one varchar(10), two smallint);");
@@ -42,13 +42,13 @@ Sqlite3ExampleApp::Sqlite3ExampleApp() {
     
     //Loop through rows
     for(int i=0; i<results.rows.size(); i++) {
-        poDictionary *thisRow = results.getRow(i);
+        poDictionary thisRow = results.getRow(i);
         
         std::string rowString;
         
-        rowString += poToString(thisRow->getInt("id")) + " | ";
-        rowString += poToString(thisRow->getString("one")) + " | ";
-        rowString += poToString(thisRow->getInt("two"));
+        rowString += poToString(thisRow.getInt("id")) + " | ";
+        rowString += poToString(thisRow.getString("one")) + " | ";
+        rowString += poToString(thisRow.getInt("two"));
         
         std::cout << rowString << std::endl;
     }
