@@ -11,6 +11,8 @@
 		41AA9BB0144DCAB30052C5B0 /* poPoint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */; };
 		41AA9BB3144DCC090052C5B0 /* TestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB2144DCC090052C5B0 /* TestMain.cpp */; };
 		41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */; };
+		41AE814F1468449600B7A17D /* poLineExtruder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AE814E1468449600B7A17D /* poLineExtruder_test.cpp */; };
+		41AE8156146868DD00B7A17D /* poObject_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AE8155146868DD00B7A17D /* poObject_test.cpp */; };
 		41B20508144F28E8002F715F /* poXML_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20506144F28E8002F715F /* poXML_test.cpp */; };
 		41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B28C00144CE5F7009CA807 /* poRect_test.cpp */; };
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
@@ -156,6 +158,8 @@
 		41AA9BAF144DCAB30052C5B0 /* poPoint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPoint_test.cpp; path = regression/poPoint_test.cpp; sourceTree = SOURCE_ROOT; };
 		41AA9BB2144DCC090052C5B0 /* TestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestMain.cpp; path = regression/TestMain.cpp; sourceTree = SOURCE_ROOT; };
 		41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMath_test.cpp; path = regression/poMath_test.cpp; sourceTree = SOURCE_ROOT; };
+		41AE814E1468449600B7A17D /* poLineExtruder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poLineExtruder_test.cpp; path = regression/poLineExtruder_test.cpp; sourceTree = SOURCE_ROOT; };
+		41AE8155146868DD00B7A17D /* poObject_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poObject_test.cpp; path = regression/poObject_test.cpp; sourceTree = SOURCE_ROOT; };
 		41B20506144F28E8002F715F /* poXML_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poXML_test.cpp; path = regression/poXML_test.cpp; sourceTree = SOURCE_ROOT; };
 		41B28C00144CE5F7009CA807 /* poRect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poRect_test.cpp; path = regression/poRect_test.cpp; sourceTree = SOURCE_ROOT; };
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 				41AA9BB4144DDEF90052C5B0 /* poMath_test.cpp */,
 				41B20506144F28E8002F715F /* poXML_test.cpp */,
 				4176C516144F727B004BAFD5 /* poDictionary_test.cpp */,
+				41AE814E1468449600B7A17D /* poLineExtruder_test.cpp */,
+				41AE8155146868DD00B7A17D /* poObject_test.cpp */,
 			);
 			name = regression;
 			path = potionCode_reg;
@@ -734,6 +740,8 @@
 				41AA9BB6144DDEF90052C5B0 /* poMath_test.cpp in Sources */,
 				41B20508144F28E8002F715F /* poXML_test.cpp in Sources */,
 				4176C517144F727B004BAFD5 /* poDictionary_test.cpp in Sources */,
+				41AE814F1468449600B7A17D /* poLineExtruder_test.cpp in Sources */,
+				41AE8156146868DD00B7A17D /* poObject_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
