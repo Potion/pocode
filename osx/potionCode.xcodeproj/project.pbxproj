@@ -23,6 +23,9 @@
 		E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F4B231426A6DB00D647A7 /* poSqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75F13D76F9100CBEB1C /* poBitmapFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D41427DD400064EA8E /* poTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75A13D7683900CBEB1C /* poTextureAtlas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E494686F14679A7F009D3AFC /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
+		E494687014679A7F009D3AFC /* poFileLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E494686E14679A7F009D3AFC /* poFileLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E494687114679A93009D3AFC /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
 		E802C72113D5E3F100CBEB1C /* poApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C72013D5E3F100CBEB1C /* poApplication.cpp */; };
 		E802C75D13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */; };
 		E802C76113D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */; };
@@ -168,6 +171,8 @@
 		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
 		E43F4B231426A6DB00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite3.h; path = ../source/poSqlite3.h; sourceTree = "<group>"; };
+		E494686D14679A7F009D3AFC /* poFileLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFileLoader.cpp; path = ../source/poFileLoader.cpp; sourceTree = "<group>"; };
+		E494686E14679A7F009D3AFC /* poFileLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFileLoader.h; path = ../source/poFileLoader.h; sourceTree = "<group>"; };
 		E802C72013D5E3F100CBEB1C /* poApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poApplication.cpp; path = ../source/poApplication.cpp; sourceTree = "<group>"; };
 		E802C75A13D7683900CBEB1C /* poTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextureAtlas.h; path = ../source/poTextureAtlas.h; sourceTree = "<group>"; };
 		E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextureAtlas.cpp; path = ../source/poTextureAtlas.cpp; sourceTree = "<group>"; };
@@ -319,6 +324,15 @@
 			name = common;
 			sourceTree = "<group>";
 		};
+		E494686B14679A00009D3AFC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E494686D14679A7F009D3AFC /* poFileLoader.cpp */,
+				E494686E14679A7F009D3AFC /* poFileLoader.h */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
 		E84CECBF142ADCEF008B3E3E /* opengl */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +387,7 @@
 		E8B2D0B4132E9F4D002BE3D9 /* potionLib */ = {
 			isa = PBXGroup;
 			children = (
+				E494686B14679A00009D3AFC /* Network */,
 				E8E7559213C60A5D00A91EB8 /* poObjects */,
 				7F9E4BBF140AE8B300548BDB /* common */,
 				E8E7558D13C6099A00A91EB8 /* application */,
@@ -536,6 +551,7 @@
 				E851C27F1448DDCE0018FB34 /* poGeometryMask.h in Headers */,
 				7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */,
 				E8D8F33B144C986E0077F6DA /* poFBO.h in Headers */,
+				E494687014679A7F009D3AFC /* poFileLoader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +692,7 @@
 				7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,
 				E8D8F33E144C9F700077F6DA /* poFBO.cpp in Sources */,
 				E8EBF0F5144FD44C00884C4A /* AttributedString.cpp in Sources */,
+				E494686F14679A7F009D3AFC /* poFileLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +738,7 @@
 				7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,
 				E8D8F33F144C9F700077F6DA /* poFBO.cpp in Sources */,
 				E8EBF0F6144FD44C00884C4A /* AttributedString.cpp in Sources */,
+				E494687114679A93009D3AFC /* poFileLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
