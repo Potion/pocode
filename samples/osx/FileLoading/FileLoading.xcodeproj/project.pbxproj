@@ -16,7 +16,6 @@
 		E43F4AD4142401BD00D647A7 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43F4AD3142401BD00D647A7 /* main.xib */; };
 		E43F4AD7142401BD00D647A7 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E43F4AD6142401BD00D647A7 /* poOpenGLView.mm */; };
 		E43F4ADB142401BD00D647A7 /* FileLoadingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4ADA142401BD00D647A7 /* FileLoadingApp.cpp */; };
-		E43F4AE91424021D00D647A7 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F4AE81424021D00D647A7 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 		E43F4AD6142401BD00D647A7 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		E43F4AD9142401BD00D647A7 /* FileLoadingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileLoadingApp.h; sourceTree = "<group>"; };
 		E43F4ADA142401BD00D647A7 /* FileLoadingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileLoadingApp.cpp; sourceTree = "<group>"; };
-		E43F4AE81424021D00D647A7 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E43F4AE91424021D00D647A7 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +49,6 @@
 		E43F4AB5142401BC00D647A7 = {
 			isa = PBXGroup;
 			children = (
-				E43F4AE81424021D00D647A7 /* libsqlite3.0.dylib */,
 				E43F4AC3142401BC00D647A7 /* FileLoading */,
 				E43F4AC1142401BC00D647A7 /* Products */,
 			);
