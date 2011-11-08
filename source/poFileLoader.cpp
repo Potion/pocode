@@ -16,7 +16,6 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 }
 
 poFileLoader::poFileLoader() {
-    std::cout << "LOading" << std::endl;
 }
 
 poFileLoader::~poFileLoader() {}
@@ -44,6 +43,8 @@ void poFileLoader::getFile(std::string url, std::string filename) {
     curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
     curl_easy_perform(handle);
     curl_easy_cleanup(handle);
+    
+    fclose(file);
 }
 
 std::string poFileLoader::getFileAsString(std::string url) {
@@ -59,6 +60,8 @@ std::string poFileLoader::getFileAsString(std::string url) {
     curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
     curl_easy_perform(handle);
     curl_easy_cleanup(handle);
+    
+    fclose(file);
     
     return response;
 }

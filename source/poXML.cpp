@@ -18,7 +18,7 @@ poXPathResult::poXPathResult(xpath_node_set nodes)
 :	nodes(nodes) 
 {}
 
-uint poXPathResult::numMatches() {
+uint poXPathResult::getNumMatches() {
 	return nodes.size();
 }
 

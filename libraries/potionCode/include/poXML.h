@@ -137,7 +137,7 @@ class poXPathResult {
 	friend class poXMLNode;
     
 public:
-	uint            numMatches();
+	uint            getNumMatches();
 	
     // GET RESULT NODES
 	poXMLNode       getNode(uint idx=0);
