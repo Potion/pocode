@@ -190,19 +190,19 @@ void po::drawStrokedPolygon(const std::vector<poPoint> &points, const std::vecto
 }
 
 void po::drawFilledPolygon(const std::vector<poPoint> &points) {
-	drawPoints(points, GL_POLYGON);
+	drawPoints(points, GL_TRIANGLE_FAN);
 }
 
 void po::drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices) {
-	drawPoints(points, indices, GL_POLYGON);
+	drawPoints(points, indices, GL_TRIANGLE_FAN);
 }
 
 void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords) {
-	drawPoints(points, tex, texCoords, GL_POLYGON);
+	drawPoints(points, tex, texCoords, GL_TRIANGLE_FAN);
 }
 
 void po::drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords) {
-	drawPoints(points, indices, tex, texCoords, GL_POLYGON);
+	drawPoints(points, indices, tex, texCoords, GL_TRIANGLE_FAN);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, GLenum type) {
