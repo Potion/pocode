@@ -8,7 +8,19 @@
 #include <boost/lexical_cast.hpp>
 
 // in seconds
-double getTime();
+double poGetElapsedTime();
+int    poGetElapsedTimeMillis();
+
+typedef struct {
+    int hours;
+    int amPmHours;
+    std::string amPm;
+    
+    int minutes;
+    int seconds;
+} poTime;
+
+poTime poGetCurrentTime();
 
 unsigned int getNumCpus();
 

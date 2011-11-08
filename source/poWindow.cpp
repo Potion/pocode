@@ -127,7 +127,7 @@ void poWindow::draw() {
 }
 
 void poWindow::update() {
-	double now = getTime();
+	double now = poGetElapsedTime();
 	
 	totalFramecount++;
 	framecounter++;

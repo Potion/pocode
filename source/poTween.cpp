@@ -27,7 +27,7 @@ void poTweenBase::update() {
 		return;
 	
 	if(tweenFunc) {
-		double now = getTime();
+		double now = poGetElapsedTime();
 		double dt = now - lastTime;
 		lastTime = now;
 		
@@ -153,7 +153,7 @@ void poTweenBase::reset() {
 void poTweenBase::startWithDelay(bool doDelay) {
 	state = RUNNING;
 	
-	lastTime = getTime();
+	lastTime = poGetElapsedTime();
 	time = 0;
 	
 	if(doDelay) {
