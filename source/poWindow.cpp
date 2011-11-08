@@ -106,7 +106,7 @@ bool poWindow::isFullscreen() const {
 poObject *poWindow::getRootObject() {
 	if(!root) {
 		makeCurrent();
-		poOpenGLState::get()->setBlend(po::BlendState::preMultipliedBlending());
+		poOpenGLState::get()->setBlend(po::BlendState::preMultipliedBlending(),true);
 		root = createObjectForID(rootID);
 	}
 	return root;

@@ -244,8 +244,8 @@ po::BlendState po::BlendState::preMultipliedBlending() {
 }
 
 void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor) {
-	sourceFactor = sourceAlphaFactor = sourceFactor;
-	destFactor = destAlphaFactor = destFactor;
+	this->sourceFactor = sourceAlphaFactor = sourceFactor;
+	this->destFactor = destAlphaFactor = destFactor;
 }
 
 void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor) {

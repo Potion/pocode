@@ -3,7 +3,7 @@
 
 #include <map>
 #include "poWindow.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 poRect rectFromNSRect(NSRect r) {
 	return poRect(r.origin.x, r.origin.y, r.size.width, r.size.height);
@@ -23,7 +23,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	window_settings = [[NSMutableDictionary alloc] init];
 	
 	// initialize the time
-	getTime();
+	poGetElapsedTime();
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	// make sure we have a context to share

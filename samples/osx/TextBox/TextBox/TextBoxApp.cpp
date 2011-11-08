@@ -5,7 +5,7 @@
 #include "poApplication.h"
 #include "poResourceLoader.h"
 #include "poShapeBasics2D.h"
-#include "SimpleDrawing.h"
+#include "poSimpleDrawing.h"
 
 #define PADDING 20
 
@@ -31,14 +31,13 @@ TextBoxApp::TextBoxApp() {
 	tb->drawBounds = PO_TEXT_BOX_STROKE_TEXT_BOUNDS;
 	tb->setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->doLayout();
-	
-
-	
-	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
-	obj->position = tb->position;
-	addChild(obj);
-	moveChildBackward(obj);
 	addChild(tb);
+
+//	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
+//	obj->position = tb->position;
+//	addChild(obj);
+//	moveChildBackward(obj);
+//	addChild(tb);
 	
 //	poObject *obj = addChild(new poRectShape(getBitmapFont(getFont("Helvetica", "Regular"), 50)->textureForPage(0)));
 	addEvent(PO_KEY_DOWN_EVENT, this);
