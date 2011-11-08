@@ -249,10 +249,10 @@ void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor) {
 }
 
 void po::BlendState::blendFunc(GLenum sourceFactor, GLenum destFactor, GLenum sourceAlphaFactor, GLenum destAlphaFactor) {
-	sourceFactor = sourceFactor;
-	destFactor = destFactor;
-	sourceAlphaFactor = sourceAlphaFactor;
-	destAlphaFactor = destAlphaFactor;
+	this->sourceFactor = sourceFactor;
+	this->destFactor = destFactor;
+	this->sourceAlphaFactor = sourceAlphaFactor;
+	this->destAlphaFactor = destAlphaFactor;
 }
 
 void po::BlendState::blendEquation(GLenum mode) {

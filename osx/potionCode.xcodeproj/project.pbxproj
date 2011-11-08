@@ -698,7 +698,7 @@
 				7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,
 				E8D8F33E144C9F700077F6DA /* poFBO.cpp in Sources */,
 				E8EBF0F5144FD44C00884C4A /* poAttributedString.cpp in Sources */,
-				E8EBF0F5144FD44C00884C4A /* AttributedString.cpp in Sources */,
+				E8EBF0F5144FD44C00884C4A /* poAttributedString.cpp in Sources */,
 				E494686F14679A7F009D3AFC /* poFileLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -745,7 +745,7 @@
 				7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,
 				E8D8F33F144C9F700077F6DA /* poFBO.cpp in Sources */,
 				E8EBF0F6144FD44C00884C4A /* poAttributedString.cpp in Sources */,
-				E8EBF0F6144FD44C00884C4A /* AttributedString.cpp in Sources */,
+				E8EBF0F6144FD44C00884C4A /* poAttributedString.cpp in Sources */,
 				E494687114679A93009D3AFC /* poFileLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -781,6 +781,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_CFLAGS = "-Wshadow";
 				OTHER_LDFLAGS = "";
 			};
 			name = Debug;
@@ -814,6 +815,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_CFLAGS = "-Wshadow";
 				OTHER_LDFLAGS = "";
 			};
 			name = Release;
