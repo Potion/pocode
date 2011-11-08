@@ -61,6 +61,8 @@ std::string poFileLoader::getFileAsString(std::string url) {
     curl_easy_perform(handle);
     curl_easy_cleanup(handle);
     
+    fclose(file);
+    
     return response;
 }
 
