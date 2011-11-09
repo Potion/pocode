@@ -50,9 +50,10 @@ public:
 	// useful for when you just need to allocate space on the graphics card
 	poTexture();
 	poTexture(const std::string &url);
-	poTexture(poImage img);
-	poTexture(poImage img, const poTextureConfig &config);
+	poTexture(poImage *img);
+	poTexture(poImage *img, const poTextureConfig &config);
 	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
+	~poTexture();
     
 	void				replace(poImage image);
 	void				replace(const ubyte *pixels);
@@ -67,28 +68,24 @@ public:
 	poRect				getBounds() const;
 	
 private:
-	void                load(poImage img);
-	void                load(poImage img, const poTextureConfig &config);
+	void                load(poImage *img);
+	void                load(poImage *img, const poTextureConfig &config);
 	void				load(uint width, uint height, int channels, const ubyte *pixels);
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	void				loadDummyImage();
 	void                unload();
-
-	struct TextureImpl {
-		TextureImpl();
-		TextureImpl(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
-		~TextureImpl();
-		poTextureConfig     config;
-		uint				uid, width, height, channels;
-	};
-	boost::shared_ptr<TextureImpl> shared;
+	
+	poTextureConfig     config;
+	uint				uid, width, height, channels;
+	
+	static uint			dummyUid;
 };
 
 
 // figures out tex coords to fit texture in rect
-std::vector<poPoint> textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align);
+std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
 // these do the same but make coordinates for each point in points array
 // returns texture coordinates thru coords
-void textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 uint channelsForFormat(GLenum format);
 

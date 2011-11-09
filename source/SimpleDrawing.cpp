@@ -138,25 +138,25 @@ void po::drawRect(poRect rect) {
 	drawRect(rect.x, rect.y, rect.width, rect.height);
 }
 
-void po::drawRect(poTexture tex) {
-	drawRect(tex, poRect(0,0,tex.getWidth(),tex.getHeight()), poRect(0,0,1,1));
+void po::drawRect(poTexture *tex) {
+	drawRect(tex, poRect(0,0,tex->getWidth(),tex->getHeight()), poRect(0,0,1,1));
 }
 
-void po::drawRect(poTexture tex, float x, float y, float w, float h) {
+void po::drawRect(poTexture *tex, float x, float y, float w, float h) {
 	drawRect(tex, poRect(x,y,w,h), poRect(0,0,1,1));
 }
 
-void po::drawRect(poTexture tex, poRect rect) {
+void po::drawRect(poTexture *tex, poRect rect) {
 	drawRect(tex, rect, poRect(0,0,1,1));
 }
 
-void po::drawRect(poTexture tex, poRect rect, poTextureFitOption fit) {
+void po::drawRect(poTexture *tex, poRect rect, poTextureFitOption fit) {
 	std::vector<poPoint> coords = textureFit(rect, tex, fit, PO_ALIGN_TOP_LEFT);
 	poRect coords_rect(coords[0], coords[2]);
 	drawRect(tex, rect, coords_rect);
 }
 
-void po::drawRect(poTexture tex, poRect rect, poRect coords) {
+void po::drawRect(poTexture *tex, poRect rect, poRect coords) {
 	GLfloat quad[4*3] = { 
 		rect.x,  rect.y, 0, 
 		rect.x+rect.width, rect.y, 0, 
@@ -202,7 +202,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState(tex));
@@ -214,7 +214,7 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState(tex));
@@ -226,25 +226,25 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
-void po::drawString(const std::string &str, poFont font, poPoint pos, int ptSize, float tracking) {
+void po::drawString(const std::string &str, poFont* font, poPoint pos, int ptSize, float tracking) {
 	if(ptSize > 0)
-		font.setPointSize(ptSize);
+		font->setPointSize(ptSize);
 	
-	poBitmapFont bitmapFont = getBitmapFont(font, ptSize);
+	poBitmapFont* bitmapFont = getBitmapFont(font, ptSize);
 
-	font.setGlyph(' ');
-	float spacer = font.getGlyphAdvance().x * tracking;
+	font->setGlyph(' ');
+	float spacer = font->getGlyphAdvance().x * tracking;
 	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
 		uint codepoint = utf8::next(ch, str.end());
 
-		font.setGlyph(codepoint);
-		poPoint adv = font.getGlyphAdvance();
-		poPoint org = round(pos+font.getGlyphBearing());
-		org.y += font.getAscender();
+		font->setGlyph(codepoint);
+		poPoint adv = font->getGlyphAdvance();
+		poPoint org = round(pos+font->getGlyphBearing());
+		org.y += font->getAscender();
 		
-		bitmapFont.drawGlyph( codepoint, org );
+		bitmapFont->drawGlyph( codepoint, org );
 		
 		pos.x += adv.x * tracking;
 	}

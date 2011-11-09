@@ -284,9 +284,9 @@ po::TextureState::TextureState() {
 	is_mask = false;
 }
 
-po::TextureState::TextureState(poTexture tex) {
-	bound_id = tex.getUid();
-	is_mask = tex.getConfig().format == GL_ALPHA;
+po::TextureState::TextureState(poTexture *tex) {
+	bound_id = tex->getUid();
+	is_mask = tex->getConfig().format == GL_ALPHA;
 }
 
 po::VertexState::VertexState() 

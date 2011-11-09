@@ -40,7 +40,7 @@ void po::TextBoxLayout::doLayout() {
 	
 	line_layout_props props;
 	
-	poFont fnt = poFont();
+	poFont* fnt = font();
 	float spacer = 0;
 	
 	uint lastCodepoint = 0;
@@ -50,13 +50,13 @@ void po::TextBoxLayout::doLayout() {
 		// if we broke to a new line last pass reset the line height, etc
 		if(props.broke) {
 			fnt = font();
-			fnt.setPointSize(textSize);
-			fnt.setGlyph(' ');
+			fnt->setPointSize(textSize);
+			fnt->setGlyph(' ');
 			
-			spacer = fnt.getGlyphAdvance().x;
+			spacer = fnt->getGlyphAdvance().x;
 			
-			props.max_line_height = fnt.getLineHeight();
-			props.max_drop = fnt.getAscender();
+			props.max_line_height = fnt->getLineHeight();
+			props.max_drop = fnt->getAscender();
 			props.leading = leading;
 			
 			props.broke = false;
@@ -79,13 +79,13 @@ void po::TextBoxLayout::doLayout() {
 			// check if the font has changed
 			if(dict.has("font")) {
 				// there's one in hte dictionary
-				poFont tmp = dict.getFont("font");
+				poFont* tmp = (poFont*)dict.getPtr("font");
 				int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
 				
 				// and it isn't the same as last time
-				if(tmp != fnt && fnt.getPointSize() != tmpSize) {
+				if(tmp != fnt && fnt->getPointSize() != tmpSize) {
 					fnt = tmp;
-					fnt.setPointSize(tmpSize);
+					fnt->setPointSize(tmpSize);
 					font_changed = true;
 				}
 			}
@@ -94,15 +94,15 @@ void po::TextBoxLayout::doLayout() {
 				if(fnt != font()) {
 					// and the current font isn't the default one
 					fnt = font();
-					fnt.setPointSize(textSize);
+					fnt->setPointSize(textSize);
 					font_changed = true;
 				}
 			}
 			
 			// do what we need to do when the font switches
 			if(font_changed) {
-				fnt.setGlyph(' ');
-				spacer = fnt.getGlyphAdvance().x;
+				fnt->setGlyph(' ');
+				spacer = fnt->getGlyphAdvance().x;
 			}
 			
 			if(dict.has("tracking")) {
@@ -118,8 +118,8 @@ void po::TextBoxLayout::doLayout() {
 		uint codepoint = utf8::next(ch, str.end());
 		
 		poPoint kern;
-		if(lastCodepoint != 0 && fnt.hasKerning() && !font_changed) {
-			kern = fnt.kernGlyphs(lastCodepoint, codepoint);
+		if(lastCodepoint != 0 && fnt->hasKerning() && !font_changed) {
+			kern = fnt->kernGlyphs(lastCodepoint, codepoint);
 		}
 		
 		// handle whitespace specially
@@ -159,21 +159,21 @@ void po::TextBoxLayout::doLayout() {
 		}
 		
 		// change glyph
-		fnt.setGlyph(codepoint);
+		fnt->setGlyph(codepoint);
 		
 		// store all the info we need to render
 		TextLayoutGlyph glyph;
 		glyph.glyph = codepoint;
-		glyph.bbox = fnt.getGlyphBounds();
-        glyph.bbox.setPosition(glyph.bbox.getPosition() + poPoint(props.word.width, 0) + fnt.getGlyphBearing() + kern);
+		glyph.bbox = fnt->getGlyphBounds();
+        glyph.bbox.setPosition(glyph.bbox.getPosition() + poPoint(props.word.width, 0) + fnt->getGlyphBearing() + kern);
 		props.word.glyphs.push_back(glyph);
 		
 		// see if we need to update our line height
-		props.max_drop = std::max(props.max_drop, -fnt.getGlyphBearing().y + line_padding_fudge);
-		props.max_line_height = std::max(props.max_line_height, props.max_drop + fnt.getGlyphDescender() + line_padding_fudge);
+		props.max_drop = std::max(props.max_drop, -fnt->getGlyphBearing().y + line_padding_fudge);
+		props.max_line_height = std::max(props.max_line_height, props.max_drop + fnt->getGlyphDescender() + line_padding_fudge);
 		
 		// update the pen x position
-		props.word.width += (fnt.getGlyphAdvance().x + kern.x) * tracking_tmp;
+		props.word.width += (fnt->getGlyphAdvance().x + kern.x) * tracking_tmp;
 		
 		// check if we've gone over
 		if(props.line.bbox.width + props.word.width > (size.x-padding[PADDING_LEFT]-padding[PADDING_RIGHT]) && props.line.wordCount >= 1) {

@@ -11,9 +11,10 @@ class poTextureAtlas : public poResource
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
 	poTextureAtlas(poTextureConfig config, uint w, uint h);
+	~poTextureAtlas();
 	
     // pass in the id you want to have associated with the image
-	void            addImage(poImage img, uint requested_id);
+	void            addImage(poImage *img, uint requested_id);
 	// remove all images that are current in there
 	void            clearImages();
 
@@ -27,8 +28,8 @@ public:
 	uint            pageForUID(uint uid);
 	poRect          coordsForUID(uint uid);
 	poRect          sizeForUID(uint uid);
-	poTexture		textureForPage(uint pg);
-	poTexture		textureForUID(uint uid);
+	poTexture*		textureForPage(uint pg);
+	poTexture*		textureForUID(uint uid);
     
 	// draws will shift the texture as needed,
 	// tho user can look at the pages for what it wants to draw and
@@ -49,37 +50,27 @@ private:
 		poPoint size;
 	};
 	
-	struct TextureAtlasImpl {
-		TextureAtlasImpl(poTextureConfig c, uint w, uint h);
-		~TextureAtlasImpl();
-		
-		void clearImages();
-		void clearPages();
-		void clearTextures();
-		
-		void layoutAtlas();
-		
-		int width, height;
-		std::vector<ImageLookup> coords;
-		
-		// the items to be atlased
-		std::vector<poImage> images;
-		
-		// users control the ids
-		std::vector<uint> requested_ids;
-		
-		// the pages of the atlas
-		std::vector<poImage> pages;
-		
-		// the textures of the atlas
-		std::vector<poTexture> textures;
-		std::map<uint,uint> uids;
-		
-		// this is the configuration we want for the atlas
-		poTextureConfig config;
-		
-		BinPacker packer;
-	};
-	boost::shared_ptr<TextureAtlasImpl> shared;
+	void clearPages();
+	void clearTextures();
 	
+	int width, height;
+	std::vector<ImageLookup> coords;
+	
+	// the items to be atlased
+	std::vector<poImage*> images;
+	
+	// users control the ids
+	std::vector<uint> requested_ids;
+	
+	// the pages of the atlas
+	std::vector<poImage*> pages;
+	
+	// the textures of the atlas
+	std::vector<poTexture*> textures;
+	std::map<uint,uint> uids;
+	
+	// this is the configuration we want for the atlas
+	poTextureConfig config;
+	
+	BinPacker packer;
 };

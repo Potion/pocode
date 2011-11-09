@@ -26,7 +26,6 @@ void		applicationMoveWindow(poWindow*,poPoint);
 void		applicationReshapeWindow(poWindow*,poRect);
 void        applicationQuit();
 
-
 // These three functions should be defined in your application. They are not defined in poApplication.cpp.
 
 // This function should return a poObject, that is the root node of the scene graph.

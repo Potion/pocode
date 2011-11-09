@@ -19,6 +19,16 @@ poFBOConfig &poFBOConfig::setNumMultisamples(uint nm) {
 	return *this;
 }
 
+poFBOConfig &poFBOConfig::setNumColorBuffers(uint ncb) {
+	numColorBuffers = ncb;
+	return *this;
+}
+
+poFBOConfig &poFBOConfig::setColorBufferConfig(poTextureConfig c) {
+	textureConfig = c;
+	return *this;
+}
+
 poFBO::poFBO(uint w, uint h) 
 :	width(w)
 ,	height(h)
@@ -57,7 +67,7 @@ void poFBO::clone(poFBO* obj) {
 }
 
 bool poFBO::isValid() const {
-	return !framebuffers.empty() && framebuffers[0] > 0;
+	return !framebuffers.empty() && framebuffers[0] > 0 && !colorbuffers.empty();
 }
 
 void poFBO::setCamera(poCamera *camera) {
@@ -76,12 +86,12 @@ void poFBO::reset(uint w, uint h, const poFBOConfig &c) {
 }
 
 // retrieve this texture to draw the FBO
-poTexture poFBO::colorTexture() const {
-	return colorTex;
+poTexture* poFBO::colorTexture(uint idx) const {
+	return colorbuffers[idx];
 }
 
-poTexture poFBO::depthTexture() const {
-	
+poTexture* poFBO::depthTexture() const {
+	return NULL;
 }
 
 void poFBO::doSetUp(poObject* obj) {
@@ -115,6 +125,7 @@ void poFBO::doSetDown(poObject* obj) {
 
 void poFBO::setup() {
 	int maxSamples =  poOpenGLState::get()->maxFBOSamples();
+
 	if(config.numMultisamples && maxSamples) {
 		if(config.numMultisamples > maxSamples)
 			config.numMultisamples = maxSamples;
@@ -138,36 +149,36 @@ void poFBO::setup() {
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
 
-		// make the texture
-		#ifdef OPENGL_ES
-			colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8_OES).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
-		#else
-			colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setInternalFormat(GL_RGBA8).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
-		#endif
-		// and attach it to the second framebuffer
+		// attach it to the second framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
+
+		// make new textures
+		colorbuffers.clear();
+		for(int i=0; i<config.numColorBuffers; i++) {
+			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
+		}
 		
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
-		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	else {
 		if(config.numMultisamples)
 			printf("unable to do framebuffer multisampling\n");
 		
-		// make the texture, which is also the color render buffer
-		colorTex = poTexture(width,height,NULL,poTextureConfig(GL_RGBA).setMinFilter(GL_LINEAR).setMagFilter(GL_LINEAR));
-		glBindTexture(GL_TEXTURE_2D, colorTex.getUid());
-
 		// we only need the one framebuffer
 		framebuffers.resize(1);
 		glGenFramebuffers(1, &framebuffers[0]);
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTex.getUid(), 0);
 		
+		colorbuffers.clear();
+		for(int i=0; i<config.numColorBuffers; i++) {
+			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
+		}
+
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
@@ -177,6 +188,10 @@ void poFBO::setup() {
 }
 
 void poFBO::cleanup() {
+	BOOST_FOREACH(poTexture *tex, colorbuffers) 
+		delete tex;
+	colorbuffers.clear();
+	
 	// make sure none of this is bound right now
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDeleteFramebuffers(framebuffers.size(), &framebuffers[0]);

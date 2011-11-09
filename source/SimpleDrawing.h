@@ -28,18 +28,18 @@ namespace po {
 	void drawRect(float x, float y, float w, float h);
 	void drawRect(poRect rect);
 
-	void drawRect(poTexture tex);
-	void drawRect(poTexture tex, float x, float y, float w, float h);
-	void drawRect(poTexture tex, poRect rect);
-	void drawRect(poTexture tex, poRect rect, poRect coords);
-	void drawRect(poTexture tex, poRect rect, poTextureFitOption fit);
+	void drawRect(poTexture *tex);
+	void drawRect(poTexture *tex, float x, float y, float w, float h);
+	void drawRect(poTexture *tex, poRect rect);
+	void drawRect(poTexture *tex, poRect rect, poRect coords);
+	void drawRect(poTexture *tex, poRect rect, poTextureFitOption fit);
     
 	void drawPoints(const std::vector<poPoint> &points, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &tex_coords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type);
     
-	void drawString(const std::string &str, poFont font, poPoint position, int ptSize=0, float tracking=1.f);
+	void drawString(const std::string &str, poFont* font, poPoint position, int ptSize=0, float tracking=1.f);
 
 }
 

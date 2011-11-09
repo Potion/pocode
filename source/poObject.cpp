@@ -587,7 +587,7 @@ void poObject::read(poXMLNode node) {
 }
 
 void poObject::write(poXMLNode &node) {
-	node.addAttribute("type", "poObject");
+	node.setAttribute("type", "poObject");
 
 	node.addChild("uid").setInnerInt(uid());
 	node.addChild("name").setInnerString(name);

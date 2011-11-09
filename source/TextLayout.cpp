@@ -39,7 +39,7 @@ image_data parseImageNode(const pugi::xml_node &node) {
 	img.image = poImage();
 	img.align = PO_ALIGN_TOP_LEFT;
 	
-	img.image = getImage(node.attribute("src").value());
+//	img.image = getImage(node.attribute("src").value());
 	if(img.image.isValid()) {
 		
 	}
@@ -168,11 +168,11 @@ void po::TextLayout::rotateLine(uint line, poPoint origin, float rot) {
 	}
 }
 
-void po::TextLayout::font(poFont f, const std::string &weight) {
+void po::TextLayout::font(poFont* f, const std::string &weight) {
 	fonts[weight] = f;
 }
 
-poFont po::TextLayout::font(const std::string &weight) {
+poFont* po::TextLayout::font(const std::string &weight) {
 	return fonts[weight];
 }
 

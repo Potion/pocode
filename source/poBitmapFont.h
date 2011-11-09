@@ -19,12 +19,10 @@
 // 
 
 class poBitmapFont : public poFont {
-	friend bool operator==(const poBitmapFont& f1, const poBitmapFont& f2);
-	friend bool operator!=(const poBitmapFont& f1, const poBitmapFont& f2);
 
 public:
 	poBitmapFont();
-	poBitmapFont(poFont font, int pointSize);
+	poBitmapFont(poFont *font, int pointSize);
 	poBitmapFont(const std::string &fam, int pointSize, const std::string &style="");
 
 	void	drawGlyph(int glyph, const poPoint &at);
@@ -33,10 +31,5 @@ private:
 	void	setPointSize(int size) {}
 	void	cacheGlyph(int glyph);
 	
-	struct BitmapFontImpl {
-		BitmapFontImpl();
-		~BitmapFontImpl();
-		poTextureAtlas atlas;
-	};
-	boost::shared_ptr<BitmapFontImpl> shared;
+	poTextureAtlas* atlas;
 };

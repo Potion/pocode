@@ -20,20 +20,21 @@ poRectShape::poRectShape(float width, float height, float rad) {
 	construct(width,height,rad);
 }
 
-poRectShape::poRectShape(poTexture tex, poTextureFitOption fit, poAlignment align) {
-	construct(tex.getWidth(), tex.getHeight(), 0);
+poRectShape::poRectShape(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	construct(tex->getWidth(), tex->getHeight(), 0);
 	placeTexture(tex, fit, align);
 }
 
 poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
-	poImage img = getImage(str);
-	if(img.isValid()) {
-		construct(img.getWidth(), img.getHeight(), 0);
-		placeTexture(poTexture(img), fit, align);
+	poImage *img = new poImage(str);
+	if(img->isValid()) {
+		construct(img->getWidth(), img->getHeight(), 0);
+		placeTexture(new poTexture(img), fit, align);
 	}
+	delete img;
 }
 
-poRectShape::poRectShape(float width, float height, poTexture tex, poTextureFitOption fit, poAlignment align) {
+poRectShape::poRectShape(float width, float height, poTexture *tex, poTextureFitOption fit, poAlignment align) {
 	construct(width, height, 0);
 	placeTexture(tex, fit, align);
 }

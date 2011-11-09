@@ -24,6 +24,7 @@ poTextBox::poTextBox()
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
+,	cached(NULL)
 {}
 
 poTextBox::poTextBox(int w) 
@@ -33,6 +34,7 @@ poTextBox::poTextBox(int w)
 ,	fit_height_to_bounds(true)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
+,	cached(NULL)
 {
 	setWidth(w);
 }
@@ -44,6 +46,7 @@ poTextBox::poTextBox(int w, int h)
 ,	fit_height_to_bounds(false)
 ,	text_align(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
+,	cached(NULL)
 {
 	setWidth(w);
     setHeight(h);
@@ -65,7 +68,12 @@ void poTextBox::clone(poTextBox *tb) {
 	poObject::clone(tb);
 }
 
-poTextBox::~poTextBox() {}
+poTextBox::~poTextBox() {
+	if(cached) {
+		delete cached;
+		cached = NULL;
+	}
+}
 
 std::string poTextBox::text() const {return _layout.text;}
 void poTextBox::text(const std::string &str) {_layout.text = str;}
@@ -127,9 +135,9 @@ void poTextBox::setCacheToTexture(bool b) {
             } else {
                 generateCachedTexture();
             }
-        } else {
-            //Erase cached
-            cached = poTexture();
+        } else if(!b && cached) {
+			delete cached;
+			cached = NULL;
         }
     }
 }
@@ -186,11 +194,11 @@ int poTextBox::tabWidth() const {
 	return _layout.tabWidth;
 }
 
-void poTextBox::font(poFont f, const std::string &name) {
+void poTextBox::font(poFont* f, const std::string &name) {
 	_layout.font(f,name);
 }
 
-poFont poTextBox::font(const std::string &name) {
+poFont* poTextBox::font(const std::string &name) {
 	return _layout.font(name);
 }
 
@@ -213,8 +221,9 @@ void poTextBox::layout() {
 
 
 void poTextBox::generateCachedTexture() {
-    if(cached.isValid()) {
-        cached = poTexture();
+    if(cached && cached->isValid()) {
+		delete cached;
+		cached = NULL;
     }
     
     poRect bounds = getBounds();
@@ -232,12 +241,12 @@ void poTextBox::generateCachedTexture() {
     ogl->pushBlendState();
     ogl->setBlend(blend);
     
-    poBitmapFont bmp = getBitmapFont(font(), _layout.textSize);
+    poBitmapFont* bmp = getBitmapFont(font(), _layout.textSize);
     
     po::setColor(poColor::white);
     for(int i=0; i<numLines(); i++) {
         BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
-            bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+            bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
         }
     }
     
@@ -250,7 +259,7 @@ void poTextBox::generateCachedTexture() {
 
 
 void poTextBox::draw() {
-	if(cached.isValid()) {
+	if(cached->isValid()) {
 		po::BlendState blend = po::BlendState::preMultipliedBlending();
 		
 		poOpenGLState* ogl = poOpenGLState::get();
@@ -264,8 +273,8 @@ void poTextBox::draw() {
 		return;
 	}
 	
-	poBitmapFont regFont = getBitmapFont(font(), _layout.textSize);
-	poBitmapFont bitmapFont = regFont;
+	poBitmapFont *regFont = getBitmapFont(font(), _layout.textSize);
+	poBitmapFont *bitmapFont = regFont;
 	
     if ( _layout.isRichText ) {
 		int count = 0;
@@ -282,9 +291,9 @@ void poTextBox::draw() {
 				
 				// a new font, perhaps?
 				if(dict.has("font")) {
-					poFont theFont = dict.getFont("font");
+					poFont* theFont = (poFont*)dict.getPtr("font");
 					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : _layout.textSize;
-					poBitmapFont newFont = getBitmapFont(theFont, fontSize);
+					poBitmapFont* newFont = getBitmapFont(theFont, fontSize);
 					
 					if(newFont != bitmapFont) {
 						bitmapFont = newFont;
@@ -295,7 +304,7 @@ void poTextBox::draw() {
 				}
 				
 				// very well, now draw it
-				bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
 			}
 		}
     }
@@ -304,7 +313,7 @@ void poTextBox::draw() {
 		
         for(int i=0; i<numLines(); i++) {
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, _layout.lines[i].glyphs) {
-                bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
     }

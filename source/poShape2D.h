@@ -62,9 +62,9 @@ public:
     // to fill the shape. Use the poTextureFitOption's to determine how a texture is placed
     // into the shape. These poTextureFitOption's are listed in poEnums.h. Once a texture is placed,
     // you can use transform the placement, rotation and scale of the texture.
-	poShape2D&              placeTexture(poTexture tex);
-	poShape2D&              placeTexture(poTexture tex, poTextureFitOption fit);
-	poShape2D&              placeTexture(poTexture tex, poTextureFitOption fit, poAlignment align);
+	poShape2D&              placeTexture(poTexture *tex);
+	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit);
+	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
 	poShape2D&              transformTexture(poPoint pt, poPoint scale, float rotate);
     
     // HIGH QUALITY SHAPE STROKE
@@ -118,7 +118,7 @@ private:
 	std::vector<poPoint>    tex_coords;
 	std::vector<poPoint>    stroke;
 
-	poTexture				texture;
+	poTexture*				texture;
 
 	poStrokeCapProperty     cap;
 	poStrokeJoinProperty    join;

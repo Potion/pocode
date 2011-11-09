@@ -38,7 +38,7 @@ namespace po {
 	
 	struct TextureState {
 		TextureState();
-		TextureState(poTexture tex);
+		TextureState(poTexture *tex);
 		
 		GLuint bound_id;
 		bool is_mask;

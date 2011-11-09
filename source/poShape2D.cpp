@@ -17,7 +17,7 @@ poShape2D::poShape2D()
 ,   useSimpleStroke(true)
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
-,	texture()
+,	texture(NULL)
 ,	fill_color_tween(&fillColor)
 //,	alphaTestTexture(false)
 {}
@@ -54,7 +54,7 @@ void poShape2D::draw() {
 		// set the color
 		po::setColor(fillColor, appliedAlpha());
 
-		if(texture.isValid()) {
+		if(texture && texture->isValid()) {
 			po::drawPoints(points, texture, tex_coords, fillDrawStyle);
 		}
 		else {
@@ -157,16 +157,16 @@ bool poShape2D::setPoint(int idx, poPoint p )
 	return true;
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex) {
+poShape2D& poShape2D::placeTexture(poTexture *tex) {
 	return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit) {
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 	return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit, poAlignment align) {
-	if(tex.isValid()) {
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	if(tex && tex->isValid()) {
 		poRect rect = getBounds();
 		
 		tex_coords.clear();
@@ -331,7 +331,7 @@ void poShape2D::write(poXMLNode &node) {
 
 	int points_sz = sizeof(poPoint)*points.size();
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
-	node.addChild("points").handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
+	node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
 		
 //	if(texture && texture->image() && texture->image()->isValid()) {
 //		poXMLNode tex = node.addChild("texture");

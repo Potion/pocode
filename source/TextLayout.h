@@ -57,8 +57,8 @@ namespace po {
 		// style corresponds to the tag used to display it
 		// ''=regular, 'b'=bold, 'i'=italic, etc
 		// you can set any font equal to any tag then use that tag in your text box
-		void	font(poFont f, const std::string &style="");
-		poFont	font(const std::string &style="");
+		void	font(poFont* f, const std::string &style="");
+		poFont*	font(const std::string &style="");
 		bool	hasFont(const std::string &style="");
 
 	protected:
@@ -73,7 +73,7 @@ namespace po {
 		// 3. build attributed str
 		void	prepareText();
 		
-		std::map<std::string, poFont> fonts;
+		std::map<std::string, poFont*> fonts;
 		poRect text_bounds;
 	};
 	

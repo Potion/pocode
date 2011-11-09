@@ -10,18 +10,6 @@
 #include "poTexture.h"
 #include <FreeImage.h>
 
-poImage::ImageImpl::ImageImpl() 
-:	bitmap(NULL)
-,	url("")
-{}
-
-poImage::ImageImpl::~ImageImpl() {
-	if(bitmap) {
-		FreeImage_Unload(bitmap);
-		bitmap = NULL;
-	}
-}
-
 static void loadFreeImageIfNeeded() {
 	static bool free_image_loaded = false;
 	if(!free_image_loaded) {
@@ -30,49 +18,61 @@ static void loadFreeImageIfNeeded() {
 	}
 }
 
-poImage::poImage() {
+poImage::poImage()
+:	bitmap(NULL)
+{
 	loadFreeImageIfNeeded();
 }
 
-poImage::poImage(const std::string &url) {
+poImage::poImage(const std::string &url) 
+:	bitmap(NULL)
+{
 	loadFreeImageIfNeeded();
 	load(url);
 }
 
-poImage::poImage(const std::string &url, uint c) {
+poImage::poImage(const std::string &url, uint c) 
+:	bitmap(NULL)
+{
 	loadFreeImageIfNeeded();
 	load(url, c);
 }
 
-poImage::poImage(uint w, uint h, uint c, const ubyte *p) {
+poImage::poImage(uint w, uint h, uint c, const ubyte *p)
+:	bitmap(NULL)
+{
 	loadFreeImageIfNeeded();
 	load(w, h, c, p);
 }
 
-poImage poImage::copy() {
-	poImage image = poImage();
+poImage::~poImage() {
+	FreeImage_Unload(bitmap);
+	bitmap = NULL;
+}
+
+poImage *poImage::copy() {
+	poImage *image = new poImage();
 	if(isValid()) {
-		image.shared.reset(new ImageImpl());
-		image.shared->bitmap = FreeImage_Clone(shared->bitmap);
-		image.shared->url = shared->url;
+		image->bitmap = FreeImage_Clone(bitmap);
+		image->url = url;
 	}
 	return image;
 }
 
 bool poImage::isValid() const {
-	return shared && shared->bitmap != NULL;
+	return bitmap != NULL;
 }
 
 uint poImage::getWidth() const {
-	return FreeImage_GetWidth(shared->bitmap);
+	return FreeImage_GetWidth(bitmap);
 }
 
 uint poImage::getHeight() const {
-	return FreeImage_GetHeight(shared->bitmap);
+	return FreeImage_GetHeight(bitmap);
 }
 
 uint poImage::getChannels() const {
-	return FreeImage_GetBPP(shared->bitmap) / 8;
+	return FreeImage_GetBPP(bitmap) / 8;
 }
 
 poPoint poImage::getDimensions() const {
@@ -80,7 +80,7 @@ poPoint poImage::getDimensions() const {
 }
 
 uint poImage::getPitch() const {
-	return FreeImage_GetPitch(shared->bitmap);
+	return FreeImage_GetPitch(bitmap);
 }
 
 uint poImage::getStorageSize() const {
@@ -88,7 +88,7 @@ uint poImage::getStorageSize() const {
 }
 
 ubyte const*poImage::getPixels() const {
-	return FreeImage_GetBits(shared->bitmap);
+	return FreeImage_GetBits(bitmap);
 }
 
 poColor poImage::getPixel(poPoint p) const {
@@ -98,7 +98,7 @@ poColor poImage::getPixel(poPoint p) const {
 	uint x = p.x;
 	uint y = p.y;
 	
-	BYTE* bits = FreeImage_GetScanLine(shared->bitmap, y);
+	BYTE* bits = FreeImage_GetScanLine(bitmap, y);
 	poColor ret;
 	
 	switch(getChannels()) {
@@ -128,7 +128,7 @@ void poImage::setPixel(poPoint p, poColor c) {
 	uint x = p.x;
 	uint y = p.y;
 	
-	BYTE *bits = FreeImage_GetScanLine(shared->bitmap, y);
+	BYTE *bits = FreeImage_GetScanLine(bitmap, y);
 	switch(getChannels()) {
 		case 1:
 			bits[x] = (((0.21*c.R) + (0.71*c.G) + (0.07*c.B)) * c.A) * 255;
@@ -159,30 +159,29 @@ void poImage::setPixel(poPoint p, poColor c, int stamp_width) {
 }
 
 void poImage::setNumChannels(uint c) {
-	if(isValid() && FreeImage_GetBPP(shared->bitmap) != c*8) {
+	if(isValid() && FreeImage_GetBPP(bitmap) != c*8) {
 		FIBITMAP *dst = NULL;
 		switch(c) {
 			case 1:	
-				dst = FreeImage_ConvertTo8Bits(shared->bitmap); 
+				dst = FreeImage_ConvertTo8Bits(bitmap); 
 				break;
 			case 2:	
-				dst = FreeImage_ConvertTo16Bits565(shared->bitmap); 
+				dst = FreeImage_ConvertTo16Bits565(bitmap); 
 				break;
 			case 3:	
-				dst = FreeImage_ConvertTo24Bits(shared->bitmap); 
+				dst = FreeImage_ConvertTo24Bits(bitmap); 
 				break;
 			case 4:	
-				dst = FreeImage_ConvertTo32Bits(shared->bitmap); 
+				dst = FreeImage_ConvertTo32Bits(bitmap); 
 				break;
 		}
-		FreeImage_Unload(shared->bitmap);
-		shared->bitmap = dst;
+		FreeImage_Unload(bitmap);
+		bitmap = dst;
 	}
 }
 
-void poImage::composite(poImage img, poPoint into, float blend) {
-//	FreeImage_Paste(bitmap, img->bitmap, into.x, height()-img->height()-into.y, blend*256);
-	FreeImage_Paste(shared->bitmap, img.shared->bitmap, into.x, into.y, blend*256);
+void poImage::composite(poImage *img, poPoint into, float blend) {
+	FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, blend*256);
 }
 
 poColor operator*(const poColor& c, float f) {
@@ -222,7 +221,7 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 		kernel[i] = powf(e, -contrib);
 	}
 	
-	poImage tmp = copy();
+	poImage *tmp = copy();
 	int width = getWidth();
 	int height = getHeight();
 	
@@ -244,7 +243,7 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 				sum = sum + (c*k);
 			}
 			
-			tmp.setPixel(poPoint(x,y), sum/k_tot);
+			tmp->setPixel(poPoint(x,y), sum/k_tot);
 		}
 	
 	for(int y=0; y<height; y++)
@@ -260,7 +259,7 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 				float k = kernel[i+hk];
 				k_tot += k;
 				
-				poColor c = tmp.getPixel(poPoint(x,y+stp));
+				poColor c = tmp->getPixel(poPoint(x,y+stp));
 				
 				sum = sum + (c*k);
 			}
@@ -273,14 +272,14 @@ void poImage::blur(int kernel_size, float sig, int stepMultiplier) {
 
 void poImage::flip(poOrientation dir) {
 	if(dir == PO_VERTICAL)
-		FreeImage_FlipVertical(shared->bitmap);
+		FreeImage_FlipVertical(bitmap);
 	else
-		FreeImage_FlipHorizontal(shared->bitmap);
+		FreeImage_FlipHorizontal(bitmap);
 }
 
 void poImage::fill(poColor c) {
 	unsigned char color[4] = {c.R*255, c.G*255, c.B*255, c.A*255};
-	FreeImage_FillBackground(shared->bitmap, color);
+	FreeImage_FillBackground(bitmap, color);
 }
 
 void poImage::resizeMaxDimension(float max_dim) {
@@ -314,19 +313,19 @@ void poImage::resizeHeight(float h) {
 }
 
 void poImage::resize(float w, float h) {
-	FIBITMAP *img = FreeImage_Rescale(shared->bitmap, w, h, FILTER_CATMULLROM);
+	FIBITMAP *img = FreeImage_Rescale(bitmap, w, h, FILTER_CATMULLROM);
 
-	FreeImage_Unload(shared->bitmap);
-	shared->bitmap = img;
+	FreeImage_Unload(bitmap);
+	bitmap = img;
 }
 
 std::string poImage::getUrl() const {
-	return shared->url;
+	return url;
 }
 
 void poImage::clear() {
 	ubyte color[] = {0,0,0,0};
-	FreeImage_FillBackground(shared->bitmap, &color[0]);
+	FreeImage_FillBackground(bitmap, &color[0]);
 }
 
 FIBITMAP *loadDIB(const std::string &url) {
@@ -368,35 +367,35 @@ FIBITMAP *loadDIB(const std::string &url) {
 void poImage::load(const std::string &url) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		shared.reset(new ImageImpl);
-		shared->bitmap = loadDIB(url);
-		shared->url = url;
+		bitmap = loadDIB(url);
+		this->url = url;
 	}
 }
 
 void poImage::load(const std::string &url, uint c) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		shared.reset(new ImageImpl);
-		shared->bitmap = loadDIB(url);
-		shared->url = url;
+		bitmap = loadDIB(url);
+		this->url = url;
 		setNumChannels(c);
 	}
 }
 
 void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
-	shared.reset(new ImageImpl);
+	if(bitmap)
+		FreeImage_Unload(bitmap);
+	
 	if(pix != NULL)
-		shared->bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
+		bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
 	else {
-		shared->bitmap = FreeImage_Allocate(w, h, c*8);
+		bitmap = FreeImage_Allocate(w, h, c*8);
 		char black[] = {0,0,0,0};
-		FreeImage_FillBackground(shared->bitmap, black);
+		FreeImage_FillBackground(bitmap, black);
 	}
 }
 
-std::ostream &operator<<(std::ostream &out, const poImage &img) {
-	return out << "img(" << img.getUrl() << ")";
+std::ostream &operator<<(std::ostream &out, const poImage *img) {
+	return out << "image('" << img->getUrl() << "')";
 }
 
 //void writeImageToCHeader(const std::string &str, poImage *img) {
