@@ -328,8 +328,9 @@ inline bool circInOutFunc(float *v, float bv, float ev,
 }
 
 
-// -------------- Additional Tweens --------------
-
+// -------------- Additional Tweens: Back --------------
+// e1: overshoot
+// e2:
 inline bool backInFunc(float *v, float bv, float ev, 
 					   double t, double b, double e, double d,
 					   double e1, double e2)
@@ -358,10 +359,10 @@ inline bool backInOutFunc(float *v, float bv, float ev,
 	double t2 = (t - b) / d * 2.f;
 	
 	if(t2 < 1)
-		*v = (ev-bv)/2.f * t2 * t2 * ((e1*e2+1)*t2 - e1*e2) + bv;
+		*v = (ev-bv)/2.f * t2 * t2 * ((e1+1)*t2 - e1) + bv;
 	else {
 		t2 -= 2.f;
-		*v = (ev-bv)/2.f * (t2 * t2 * ((e1*e2+1)*t2 + e1*e2) + 2) + bv;
+		*v = (ev-bv)/2.f * (t2 * t2 * ((e1+1)*t2 + e1) + 2) + bv;
 	}
 	
 	return (t-b) >= d;
@@ -379,7 +380,9 @@ inline bool backInOutFunc(float *v, float bv, float ev,
 //	8. e1   = extra value for specific easing functions
 //	9. e2   = extra value for specific easing functions
 
-
+// -------------- Additional Tweens: Bounce --------------
+// e1: 
+// e2: 
 inline bool bounceInFunc()
 {
 	return 0;
@@ -395,9 +398,36 @@ inline bool bounceInOutFunc()
 	return 0;
 }
 
-inline bool elasticInFunc()
+// -------------- Additional Tweens: Elastic --------------
+// e1: amplitude
+// e2: period
+inline bool elasticInFunc(float *v, float bv, float ev, 
+						  double t, double b, double e, double d,
+						  double e1, double e2)
 {
-	return 0;
+	double t2 = (t - b) / d;
+	
+	if ((t-b) <= 0) {
+		*v = 0;
+	} 
+	if (t2 >= 1) {
+		*v = 1;
+	}
+	if (e2 == 0) {
+		e2 = d * .3f;	//default period
+	} 
+	
+	double decay;
+	
+	if (e1 < 1) { 
+		e1 = 1; 
+		decay = e2 / 4.f; 
+	} else {
+		decay= e2 / M_2PI * ::asin(1/e1);
+	}
+	*v = -(e1 * powf(2.f, 10*(t2-1)) * ::sin(((t2-1)*d-decay)*M_2PI/e2));
+	
+	return (t-b) >= d;
 }
 
 inline bool elasticOutFunc()
