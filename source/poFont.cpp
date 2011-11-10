@@ -70,7 +70,12 @@ poFont::FontImpl::FontImpl()
 		FT_Init_FreeType(&lib);
 }
 
-poFont::FontImpl::FontImpl(const std::string &family_or_url, const std::string &style) {
+poFont::FontImpl::FontImpl(const std::string &family_or_url, const std::string &style) 
+:	face(NULL)
+,	size(0)
+,	url("")
+,	glyph(0)
+{
 	if(!lib)
 		FT_Init_FreeType(&lib);
 

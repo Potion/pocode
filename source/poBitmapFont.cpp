@@ -33,6 +33,9 @@ poBitmapFont::poBitmapFont(const std::string &fam, int sz, const std::string &st
 	atlas.layoutAtlas();
 }
 
+poBitmapFont::~poBitmapFont() {
+}
+
 void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
 	if(!atlas.hasUID(glyph))
 		cacheGlyph(glyph);

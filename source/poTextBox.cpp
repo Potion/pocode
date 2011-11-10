@@ -274,6 +274,7 @@ void poTextBox::draw() {
 	}
 	
 	poBitmapFont bitmapFont = getBitmapFont(getFont(), layout.textSize);
+//    printf("%s %d %d\n", bitmapFont.getFamilyName().c_str(), layout.textSize, bitmapFont.getPointSize());
 	
     if ( layout.isRichText ) {
 //		int count = 0;
