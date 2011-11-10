@@ -9,6 +9,7 @@
 
 #define PADDING 20
 
+
 poObject *createObjectForID(uint uid) {
 	return new TextBoxApp();
 }
@@ -24,6 +25,7 @@ TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D());
 	
 	tb = new poTextBox(getWindowWidth()-2*20, getWindowHeight()/2-2*20);
+	tb->setCacheToTexture(true);
 	tb->setFont(getFont("Helvetica", "Regular"));
 	tb->setTextSize(20);
 	tb->textColor = poColor::red;

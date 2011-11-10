@@ -10,18 +10,6 @@
 #include "poTexture.h"
 #include <FreeImage.h>
 
-poImage::ImageImpl::ImageImpl() 
-:	bitmap(NULL)
-,	url("")
-{}
-
-poImage::ImageImpl::~ImageImpl() {
-	if(bitmap) {
-		FreeImage_Unload(bitmap);
-		bitmap = NULL;
-	}
-}
-
 static void loadFreeImageIfNeeded() {
 	static bool free_image_loaded = false;
 	if(!free_image_loaded) {
@@ -30,29 +18,43 @@ static void loadFreeImageIfNeeded() {
 	}
 }
 
-poImage::poImage() {
+poImage::ImageImpl::ImageImpl()
+:	bitmap(NULL)
+,	url("")
+{
 	loadFreeImageIfNeeded();
 }
 
-poImage::poImage(const std::string &url) {
-	loadFreeImageIfNeeded();
+poImage::ImageImpl::~ImageImpl() {
+	FreeImage_Unload(bitmap);
+	bitmap = NULL;
+}
+
+poImage::poImage()
+:	shared(new ImageImpl)
+{}
+
+poImage::poImage(const std::string &url)
+:	shared(new ImageImpl)
+{
 	load(url);
 }
 
-poImage::poImage(const std::string &url, uint c) {
-	loadFreeImageIfNeeded();
+poImage::poImage(const std::string &url, uint c) 
+:	shared(new ImageImpl)
+{
 	load(url, c);
 }
 
-poImage::poImage(uint w, uint h, uint c, const ubyte *p) {
-	loadFreeImageIfNeeded();
+poImage::poImage(uint w, uint h, uint c, const ubyte *p) 
+:	shared(new ImageImpl)
+{
 	load(w, h, c, p);
 }
 
 poImage poImage::copy() {
-	poImage image = poImage();
+	poImage image;
 	if(isValid()) {
-		image.shared.reset(new ImageImpl());
 		image.shared->bitmap = FreeImage_Clone(shared->bitmap);
 		image.shared->url = shared->url;
 	}
@@ -182,7 +184,6 @@ void poImage::setNumChannels(uint c) {
 }
 
 void poImage::composite(poImage img, poPoint into, float blend) {
-//	FreeImage_Paste(bitmap, img->bitmap, into.x, height()-img->height()-into.y, blend*256);
 	FreeImage_Paste(shared->bitmap, img.shared->bitmap, into.x, into.y, blend*256);
 }
 
@@ -371,7 +372,6 @@ FIBITMAP *loadDIB(const std::string &url) {
 void poImage::load(const std::string &url) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		shared.reset(new ImageImpl);
 		shared->bitmap = loadDIB(url);
 		shared->url = url;
 	}
@@ -380,7 +380,6 @@ void poImage::load(const std::string &url) {
 void poImage::load(const std::string &url, uint c) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		shared.reset(new ImageImpl);
 		shared->bitmap = loadDIB(url);
 		shared->url = url;
 		setNumChannels(c);
@@ -388,7 +387,9 @@ void poImage::load(const std::string &url, uint c) {
 }
 
 void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
-	shared.reset(new ImageImpl);
+	if(shared->bitmap)
+		FreeImage_Unload(shared->bitmap);
+	
 	if(pix != NULL)
 		shared->bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
 	else {
@@ -398,8 +399,8 @@ void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
 	}
 }
 
-std::ostream &operator<<(std::ostream &out, const poImage &img) {
-	return out << "img(" << img.getUrl() << ")";
+std::ostream &operator<<(std::ostream &out, const poImage *img) {
+	return out << "image('" << img->getUrl() << "')";
 }
 
 //void writeImageToCHeader(const std::string &str, poImage *img) {

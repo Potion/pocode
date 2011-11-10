@@ -49,19 +49,13 @@ void poFileLoader::getFile(std::string url, std::string filename) {
 
 std::string poFileLoader::getFileAsString(std::string url) {
     std::string response;
-    std::FILE * file = (FILE *)fopen("test.jpg","w+");
-    if(!file){
-        perror("File Open:");
-        exit(0);
-    }
+    
     CURL *handle = curl_easy_init();
     curl_easy_setopt(handle,CURLOPT_URL, url.c_str()); /*Using the http protocol*/
     curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
     curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
     curl_easy_perform(handle);
     curl_easy_cleanup(handle);
-    
-    fclose(file);
     
     return response;
 }

@@ -46,15 +46,16 @@ poXMLNode::poXMLNode(xml_node node)
 {}
 
 bool poXMLNode::isValid() const {
-	return node;
+	return strlen(node.name()) > 0 || node.first_attribute() || !node.empty();
 }
 
 std::string poXMLNode::getName() const {
 	return node.name();
 }
 
-void poXMLNode::setName(const std::string &str) {
+poXMLNode& poXMLNode::setName(const std::string &str) {
 	node.set_name(str.c_str());
+	return *this;
 }
 
 int poXMLNode::getInnerInt() const {
@@ -69,25 +70,30 @@ std::string poXMLNode::getInnerString() const {
 	return node.child_value();
 }
 
-void poXMLNode::setInnerString(const std::string &str) {
-	if(!node.first_child())
-		node.append_child(node_pcdata);
+poXMLNode& poXMLNode::setInnerString(const std::string &str) {
+	for(xml_node::iterator iter=node.begin(); iter!=node.end(); iter++) {
+		node.remove_child(*iter);
+	}
 	
+	node.append_child(node_pcdata);
 	node.first_child().set_value(str.c_str());
+	return *this;
 }
 
-void poXMLNode::setInnerInt(int i) {
+poXMLNode& poXMLNode::setInnerInt(int i) {
 	if(!node.first_child())
 		node.append_child(node_pcdata);
 	
 	node.first_child().set_value(LCAST(std::string,i).c_str());
+	return *this;
 }
 
-void poXMLNode::setInnerFloat(float f) {
+poXMLNode& poXMLNode::setInnerFloat(float f) {
 	if(!node.first_child())
 		node.append_child(node_pcdata);
 	
 	node.first_child().set_value(LCAST(std::string,f).c_str());
+	return *this;
 }
 
 uint poXMLNode::getNumAttributes() const {
@@ -120,28 +126,30 @@ std::string poXMLNode::getStringAttribute(const std::string &name) const {
 	return node.attribute(name.c_str()).value();
 }
 
-void poXMLNode::setAttribute(const std::string &name, int value) {
+poXMLNode& poXMLNode::setAttribute(const std::string &name, int value) {
+	if(!hasAttribute(name))
+		node.append_attribute(name.c_str());
 	node.attribute(name.c_str()) = value;
+	return *this;
 }
 
-void poXMLNode::setAttribute(const std::string &name, float value) {
+poXMLNode& poXMLNode::setAttribute(const std::string &name, float value) {
+	if(!hasAttribute(name))
+		node.append_attribute(name.c_str());
 	node.attribute(name.c_str()) = value;
+	return *this;
 }
 
-void poXMLNode::setAttribute(const std::string &name, const std::string &value) {
+poXMLNode& poXMLNode::setAttribute(const std::string &name, const std::string &value) {
+	if(!hasAttribute(name))
+		node.append_attribute(name.c_str());
 	node.attribute(name.c_str()) = value.c_str();
+	return *this;
 }
 
-void poXMLNode::addAttribute(const std::string &name, int value) {
-	node.append_attribute(name.c_str()) = value;
-}
-
-void poXMLNode::addAttribute(const std::string &name, float value) {
-	node.append_attribute(name.c_str()) = value;
-}
-
-void poXMLNode::addAttribute(const std::string &name, const std::string &value) {
-	node.append_attribute(name.c_str()) = value.c_str();
+poXMLNode& poXMLNode::removeAttribute(const std::string &name) {
+	node.remove_attribute(name.c_str());
+	return *this;
 }
 
 uint poXMLNode::getNumChildren() const {
@@ -158,12 +166,9 @@ poXMLNode poXMLNode::addChild(const std::string &name) {
 	return poXMLNode(node.append_child(name.c_str()));
 }
 
-void poXMLNode::removeChild(const std::string &name) {
+poXMLNode &poXMLNode::removeChild(const std::string &name) {
 	node.remove_child(name.c_str());
-}
-
-void poXMLNode::removeAttribute(const std::string &name) {
-	node.remove_attribute(name.c_str());
+	return *this;
 }
 
 poXMLNode poXMLNode::getChild(uint idx) {
@@ -219,10 +224,13 @@ poXPathResult poXMLNode::find(const std::string &xpath) {
 	return poXPathResult(node.select_nodes(xpath.c_str()));
 }
 
-pugi::xml_node poXMLNode::handle() {
+pugi::xml_node poXMLNode::getHandle() const {
 	return node;
 }
 
+bool operator==(poXMLNode const& n1, poXMLNode const &n2) {
+	return n1.getHandle() == n2.getHandle();
+}
 
 #pragma mark - poXMLDocument -
 
@@ -237,23 +245,23 @@ poXMLDocument::poXMLDocument(const std::string &url) {
 }
 
 bool poXMLDocument::isValid() const {
-	return document->empty();
+	return document->first_child();
 }
 
 poXMLNode poXMLDocument::getRootNode() const {
 	return poXMLNode(document->first_child());
 }
 
-void poXMLDocument::setRootNode(poXMLNode node) {
+poXMLNode poXMLDocument::resetRootNode() {
 	document.reset(new pugi::xml_document);
-	node.node = document->append_copy(node.handle());
+	return poXMLNode(document->append_child());
 }
 
 bool poXMLDocument::read(const std::string &url) {
+	document.reset(new pugi::xml_document);
 	xml_parse_result result = document->load_file(url.c_str(), parse_default, encoding_utf8);
 	if(!result) {
 		log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
-		document.reset();
 		return false;
 	}
 	return true;
@@ -273,10 +281,12 @@ bool poXMLDocument::write(const std::string &url) {
 	document->save_file(url.c_str());
 }
 
-void poXMLDocument::print() {
+void poXMLDocument::print() const {
 	document->print(std::cout);
 }
 
-
+pugi::xml_document &poXMLDocument::getHandle() const {
+	return *document.get();
+}
 
 

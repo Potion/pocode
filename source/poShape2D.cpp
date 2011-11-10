@@ -334,7 +334,7 @@ void poShape2D::write(poXMLNode &node) {
 
 	int points_sz = sizeof(poPoint)*points.size();
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
-	node.addChild("points").handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
+	node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
 		
 //	if(texture && texture->image() && texture->image()->isValid()) {
 //		poXMLNode tex = node.addChild("texture");

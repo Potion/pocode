@@ -6,10 +6,11 @@
 #include "poResource.h"
 #include "poBinPacker.h"
 
-class poTextureAtlas : public poResource {
+class poTextureAtlas {
 public:
 	poTextureAtlas(GLenum f, uint w, uint h);
 	poTextureAtlas(poTextureConfig config, uint w, uint h);
+	~poTextureAtlas();
 	
     // pass in the id you want to have associated with the image
 	void            addImage(poImage img, uint requested_id);
@@ -48,13 +49,13 @@ private:
 		poPoint size;
 	};
 	
+	void clearPages();
+	void clearTextures();
+	
 	struct TextureAtlasImpl {
-		TextureAtlasImpl(poTextureConfig c, uint w, uint h);
+		TextureAtlasImpl();
+		TextureAtlasImpl(poTextureConfig config, uint w, uint h);
 		~TextureAtlasImpl();
-		
-		void clearImages();
-		void clearPages();
-		void clearTextures();
 		
 		void layoutAtlas();
 		
@@ -80,5 +81,4 @@ private:
 		BinPacker packer;
 	};
 	boost::shared_ptr<TextureAtlasImpl> shared;
-	
 };
