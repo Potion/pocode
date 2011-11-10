@@ -36,15 +36,14 @@ typedef std::map<std::string, poFont*> poFontMap;
 // 
 
 class poFont {
-	friend std::ostream &operator<<(std::ostream &o, const poFont &f);
-	friend bool operator==(const poFont &f1, const poFont &f2);
-	friend bool operator!=(const poFont &f1, const poFont &f2);
+	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
 
 public:
 	static bool fontExists(const std::string &family_or_url);
 	
 	poFont();
 	poFont(const std::string &family_or_url, const std::string &style="");
+	virtual ~poFont();
 	
     // FONT LOADING
 	bool                isValid() const;
@@ -86,19 +85,19 @@ public:
 	std::string         toString() const;
 
 private:
-	void                init();
 	void                loadGlyph(int g);
 	
 	struct FontImpl {
 		FontImpl();
+		FontImpl(const std::string &family_or_url, const std::string &style="");
 		~FontImpl();
 		
-		std::string		url;
-		int				size;
-		int				glyph;
-		FT_Face			face;
+		std::string			url;
+		int					size;
+		int					glyph;
+		FT_Face				face;
+		static FT_Library   lib;
 	};
 	boost::shared_ptr<FontImpl> shared;
-    static FT_Library   lib;
 };
 

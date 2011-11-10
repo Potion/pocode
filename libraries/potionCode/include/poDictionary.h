@@ -12,7 +12,7 @@
 
 class poDictionary;
 
-typedef boost::variant<int,double,std::string,poPoint,poColor,poFont,poImage,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
+typedef boost::variant<int,double,std::string,poPoint,poColor,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
 
 enum poDictionaryType {
 	PO_INT_T=0,
@@ -20,8 +20,6 @@ enum poDictionaryType {
 	PO_STRING_T,
 	PO_POINT_T,
 	PO_COLOR_T,
-	PO_FONT_T,
-	PO_IMAGE_T,
 	PO_VOID_PTR_T,
 	PO_DICTIONARY_T
 };
@@ -39,8 +37,6 @@ public:
 	std::string			getString() const;
 	poPoint				getPoint() const;
 	poColor				getColor() const;
-	poFont				getFont() const;
-	poImage				getImage() const;
 	void*				getPtr() const;
 	poDictionary		getDictionary() const;
 	poDictionaryType	getType() const;
@@ -67,8 +63,6 @@ public:
 	std::string			getString(const std::string &s) const;
 	poPoint				getPoint(const std::string &s) const;
 	poColor				getColor(const std::string &s) const;
-	poFont				getFont(const std::string &s) const;
-	poImage				getImage(const std::string &s) const;
 	void*				getPtr(const std::string &s) const;
 	poDictionary		getDictionary(const std::string &s) const;
 	poDictionaryType	getType(const std::string &s) const;
@@ -84,6 +78,7 @@ public:
 	void				write(poXMLNode node);
 	void				write(poXMLDocument &doc);
 	void				write(const std::string &url);
+	void				read(poXMLNode node);
 	void				read(const std::string &url);
 	
 	poDictionaryItemMap::iterator begin();

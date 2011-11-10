@@ -6,38 +6,17 @@
 #include "poBasicRenderer.h"
 #include "poOpenGLState.h"
 
-poTextureAtlas::TextureAtlasImpl::TextureAtlasImpl(poTextureConfig c, uint w, uint h)
+poTextureAtlas::TextureAtlasImpl::TextureAtlasImpl(poTextureConfig config, uint w, uint h) 
 :	width(w)
 ,	height(h)
-,	config(c)
-,	packer(w,h,2)
-{
-	
-}
+,	config(config)
+,	packer(w,h)
+{}
 
-poTextureAtlas::TextureAtlasImpl::~TextureAtlasImpl() {
-	clearTextures();
-	clearPages();
-	clearImages();
-}
-
-void poTextureAtlas::TextureAtlasImpl::clearTextures() {
-	textures.clear();
-	coords.clear();
-	uids.clear();
-}
-
-void poTextureAtlas::TextureAtlasImpl::clearPages() {
-	pages.clear();
-}
-
-void poTextureAtlas::TextureAtlasImpl::clearImages() {
-	images.clear();
-	requestedIDs.clear();
-}
+poTextureAtlas::TextureAtlasImpl::~TextureAtlasImpl()
+{}
 
 void poTextureAtlas::TextureAtlasImpl::layoutAtlas() {
-	clearTextures();
 	packer.reset();
 	
 	for(int i=0; i<images.size(); i++) {
@@ -80,18 +59,21 @@ void poTextureAtlas::TextureAtlasImpl::layoutAtlas() {
 		poImage img = pages[i];
 		textures[i] = poTexture(img,config);
 	}
-	
-	clearPages();
 }
 
-
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
-:	shared(new TextureAtlasImpl(poTextureConfig(f),w,h))
+:	shared(new TextureAtlasImpl(poTextureConfig(f), w, h))
 {}
 
 poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
-:	shared(new TextureAtlasImpl(c,w,h))
+:	shared(new TextureAtlasImpl(c, w, h))
 {}
+
+poTextureAtlas::~poTextureAtlas() {
+	clearTextures();
+	clearPages();
+	clearImages();
+}
 
 void poTextureAtlas::addImage(poImage img, uint request) {
 	shared->requestedIDs.push_back(request);
@@ -99,14 +81,6 @@ void poTextureAtlas::addImage(poImage img, uint request) {
 	poImage copy = img.copy();
 	copy.setNumChannels(channelsForFormat(shared->config.format));
 	shared->images.push_back(copy);
-}
-
-void poTextureAtlas::clearImages() {
-	shared->clearImages();
-}
-
-void poTextureAtlas::layoutAtlas() {
-	shared->layoutAtlas();
 }
 
 bool poTextureAtlas::hasUID(uint uid) {
@@ -163,4 +137,25 @@ void poTextureAtlas::debugDraw() {
 	shared->packer.render();
 }
 
+void poTextureAtlas::clearTextures() {
+	shared->textures.clear();
+	shared->coords.clear();
+	shared->uids.clear();
+}
+
+void poTextureAtlas::clearPages() {
+	shared->pages.clear();
+}
+
+void poTextureAtlas::clearImages() {
+	shared->images.clear();
+	shared->requestedIDs.clear();
+}
+
+void poTextureAtlas::layoutAtlas() {
+	clearTextures();
+	shared->layoutAtlas();
+	// save some space
+	clearPages();
+}
 

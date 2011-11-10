@@ -95,7 +95,7 @@ void MasksApp::setupSurprise() {
 	std::string pos = common.getRootNode().getChild("entry").getInnerString();
 	
 	// move the panda to the right spot
-	img->position.set(pos);
+	img->position.fromString(pos);
 }
 
 void MasksApp::setupAperture() {
@@ -135,6 +135,7 @@ void MasksApp::setupAperture() {
 	poGeometryMask *mask = new poGeometryMask(circle, true);
 	// apply the mask
 	holder->addModifier(mask);
+	
 
 //	holder->addChild(circle);
 }

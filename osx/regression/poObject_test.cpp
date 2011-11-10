@@ -10,10 +10,8 @@
 #include "poObject.h"
 #include "poShapeBasics2D.h"
 
-BOOST_AUTO_TEST_CASE( poObject_test ) {
-	
+BOOST_AUTO_TEST_CASE( poObject_children ) {
 	// CHILDREN
-	
 	poObject* parent = new poObject();
 	poObject* child = new poObject();
 	child->name = "child";
@@ -30,17 +28,14 @@ BOOST_AUTO_TEST_CASE( poObject_test ) {
 	BOOST_CHECK(parent->getChildIndex(child) == 0);
 	
 	parent->moveChildToBack(child);
-	BOOST_CHECK(parent->getChildIndex(child) == 0); // error: it should still be 0, but it's 1
+	BOOST_CHECK(parent->getChildIndex(child) == 0);
 	
 	parent->moveChildToFront(child);
 	BOOST_CHECK(parent->getChildIndex(child) == 10);
 	
-//	printf("num children: %d\n", parent->getNumChildren());
-	for(int i=0; i < parent->getNumChildren(); i++) {
-		if(parent->getChild(i) != child)
-			parent->removeChild(i);
+	while(parent->getNumChildren() > 1) {
+		parent->removeChild(0, true);
 	}
-//	printf("num children: %d\n", parent->getNumChildren());
 	BOOST_CHECK(parent->getNumChildren() == 1); // error: there are 6 children instead of 1.
 //	printf("child idx: %d\n", parent->getChildIndex(child));
 	BOOST_CHECK(parent->getChildIndex(child) == 0);
@@ -59,17 +54,22 @@ BOOST_AUTO_TEST_CASE( poObject_test ) {
 	parent->addChild(moving_child);
 	BOOST_CHECK(parent->getChildIndex(moving_child) == parent->getNumChildren()-1);
 	
+	int idx = parent->getChildIndex(moving_child);
 	parent->moveChildBackward(moving_child);
-	BOOST_CHECK(parent->getChildIndex(moving_child) == parent->getNumChildren()-2); // error: it moved from index 8 to 1...
+	BOOST_CHECK(parent->getChildIndex(moving_child) == idx-1); // error: it moved from index 8 to 1...
 	
-	//parent->moveChildForward(moving_child); // error: this makes it crash
-	//printf("%d\n", parent->getChildIndex(moving_child));
+	idx = parent->getChildIndex(moving_child);
+	parent->moveChildForward(moving_child); // error: this makes it crash
+	BOOST_CHECK(parent->getChildIndex(moving_child) == idx+1); // error: it moved from index 8 to 1...
 	
-	parent->removeAllChildren();
+	parent->removeAllChildren(true);
 	BOOST_CHECK(parent->getNumChildren() == 0);
+
+}
 	
-	
-	// EVENTS
+BOOST_AUTO_TEST_CASE( poObject_events ) {
+	// EVENTS	
+	poObject *parent = new poObject();
 	
 	parent->addEvent(PO_MOUSE_UP_EVENT, parent, "event1");
 	parent->addEvent(PO_MOUSE_UP_EVENT, parent, "event2");
@@ -111,6 +111,7 @@ BOOST_AUTO_TEST_CASE( poObject_test ) {
 	BOOST_CHECK(poEventCenter::get()->objectHasEvent(parent, PO_KEY_DOWN_EVENT) == false);
 	BOOST_CHECK(poEventCenter::get()->objectHasEvent(parent, PO_TOUCH_BEGAN_EVENT) == false);
 
+	poObject *child = new poObject();
 	parent->addChild(child);
 	
 	child->addEvent(PO_MOUSE_UP_EVENT, parent, "event1");
@@ -134,9 +135,12 @@ BOOST_AUTO_TEST_CASE( poObject_test ) {
 	BOOST_CHECK(poEventCenter::get()->objectHasEvent(child, PO_MOUSE_DOWN_EVENT) == false);
 	BOOST_CHECK(poEventCenter::get()->objectHasEvent(child, PO_KEY_DOWN_EVENT) == false);
 	BOOST_CHECK(poEventCenter::get()->objectHasEvent(child, PO_TOUCH_BEGAN_EVENT) == false);
+}
 	
-	
+BOOST_AUTO_TEST_CASE( poObject_modifiers) {
 	// MODIFIERS
+	
+	poObject *parent = new poObject();
 	
 	poObjectModifier* modifier = new poObjectModifier();
 	BOOST_CHECK(modifier->isEnabled() == true);
@@ -161,8 +165,10 @@ BOOST_AUTO_TEST_CASE( poObject_test ) {
 	
 	parent->removeAllModifiers(true);
 	BOOST_CHECK(parent->getNumModifiers() == 0);
+}
 	
-	
+
+BOOST_AUTO_TEST_CASE( poObject_bounds ) {
 	// BOUNDS
 	
 	poRectShape* rect = new poRectShape(200,200);

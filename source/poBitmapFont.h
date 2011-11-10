@@ -19,8 +19,6 @@
 // 
 
 class poBitmapFont : public poFont {
-	friend bool operator==(const poBitmapFont& f1, const poBitmapFont& f2);
-	friend bool operator!=(const poBitmapFont& f1, const poBitmapFont& f2);
 
 public:
 	poBitmapFont();
@@ -33,10 +31,5 @@ private:
 	void	setPointSize(int size) {}
 	void	cacheGlyph(int glyph);
 	
-	struct BitmapFontImpl {
-		BitmapFontImpl();
-		~BitmapFontImpl();
-		poTextureAtlas atlas;
-	};
-	boost::shared_ptr<BitmapFontImpl> shared;
+	poTextureAtlas atlas;
 };

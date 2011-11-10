@@ -40,7 +40,7 @@ void po::TextBoxLayout::doLayout() {
 	
 	lineLayoutProps props;
 	
-	poFont fnt = poFont();
+	poFont fnt = getFont();
 	float spacer = 0;
 	
 	uint lastCodepoint = 0;
@@ -71,47 +71,47 @@ void po::TextBoxLayout::doLayout() {
 		
 		// if we're parsing the fanciness
 		if(isRichText) {
-			// get the dictionary for this position
-			poDictionary dict = parsedText.attributes(props.glyphCount);
-			// keep track of how many glyphs we have total
-			props.glyphCount++;
-			
-			// check if the font has changed
-			if(dict.has("font")) {
-				// there's one in hte dictionary
-				poFont tmp = dict.getFont("font");
-				int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
-				
-				// and it isn't the same as last time
-				if(tmp != fnt && fnt.getPointSize() != tmpSize) {
-					fnt = tmp;
-					fnt.setPointSize(tmpSize);
-					font_changed = true;
-				}
-			}
-			else {
-				// there's nothing in the dictionary
-				if(fnt != getFont()) {
-					// and the current font isn't the default one
-					fnt = getFont();
-					fnt.setPointSize(textSize);
-					font_changed = true;
-				}
-			}
-			
-			// do what we need to do when the font switches
-			if(font_changed) {
-				fnt.setGlyph(' ');
-				spacer = fnt.getGlyphAdvance().x;
-			}
-			
-			if(dict.has("tracking")) {
-				tracking_tmp = dict.getDouble("tracking");
-			}
-			
-			if(dict.has("leading")) {
-				props.leading = dict.getDouble("leading");
-			}
+//			// get the dictionary for this position
+//			poDictionary dict = parsedText.attributes(props.glyphCount);
+//			// keep track of how many glyphs we have total
+//			props.glyphCount++;
+//			
+//			// check if the font has changed
+//			if(dict.has("font")) {
+//				// there's one in hte dictionary
+//				poFont* tmp = (poFont*)dict.getPtr("font");
+//				int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
+//				
+//				// and it isn't the same as last time
+//				if(tmp != fnt && fnt->getPointSize() != tmpSize) {
+//					fnt = tmp;
+//					fnt->setPointSize(tmpSize);
+//					font_changed = true;
+//				}
+//			}
+//			else {
+//				// there's nothing in the dictionary
+//				if(fnt != getFont()) {
+//					// and the current font isn't the default one
+//					fnt = getFont();
+//					fnt->setPointSize(textSize);
+//					font_changed = true;
+//				}
+//			}
+//			
+//			// do what we need to do when the font switches
+//			if(font_changed) {
+//				fnt->setGlyph(' ');
+//				spacer = fnt->getGlyphAdvance().x;
+//			}
+//			
+//			if(dict.has("tracking")) {
+//				tracking_tmp = dict.getDouble("tracking");
+//			}
+//			
+//			if(dict.has("leading")) {
+//				props.leading = dict.getDouble("leading");
+//			}
 		}
 		
 		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph
