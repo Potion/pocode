@@ -24,7 +24,6 @@ public:
 	poBitmapFont();
 	poBitmapFont(poFont font, int pointSize);
 	poBitmapFont(const std::string &fam, int pointSize, const std::string &style="");
-    virtual ~poBitmapFont();
 
 	void	drawGlyph(int glyph, const poPoint &at);
 	

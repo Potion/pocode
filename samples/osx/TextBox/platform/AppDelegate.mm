@@ -225,9 +225,6 @@ void applicationMakeWindowFullscreen(poWindow* win, bool value) {
 	}
 }
 
-std::string applicationGetApplicationSupportDirectory() {
-}
-
 void applicationMoveWindow(poWindow* win, poPoint p) {
 	NSWindow *window = (NSWindow*)win->getWindowHandle();
 	[window setFrameOrigin:NSMakePoint(p.x, p.y)];

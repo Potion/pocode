@@ -65,8 +65,6 @@ poBitmapFont getBitmapFont(poFont font, uint size, int group) {
 	size_t hash = 0;
 	
 	std::string combined = font.getFamilyName() + font.getStyleName();
-    printf("combinded: %s\n", combined.c_str());
-    
 	boost::hash_combine(hash, combined);
 	boost::hash_combine(hash, size);
 	ResourceLocator lookup = std::make_pair(hash, group);
