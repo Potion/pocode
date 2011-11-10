@@ -14,8 +14,8 @@ inline float determinant(poPoint row1, poPoint row2, poPoint row3) {
 }
 
 bool rayIntersection(poRay r1, poRay r2, poPoint *p1, poPoint *p2) {
-	poPoint c1 = r1.dir.cross(r2.dir);
-	float len_sqr = c1.lengthSquared();
+	poPoint c1 = r1.dir.getCross(r2.dir);
+	float len_sqr = c1.getLengthSquared();
 	
 	if(compare(len_sqr, 0.f)) {
 		return false;
@@ -41,14 +41,12 @@ float angleBetweenPoints(poPoint a, poPoint b, poPoint c) {
 	return ret;
 }
 
-bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C )
-{
+bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C ) {
     poPoint AB = A - B;
     poPoint BC = B - C;
     poPoint PA = P - A;
     
-    if ( BC.x*AB.y - BC.y*AB.x > 0)    // test winding
-    {
+    if ( BC.x*AB.y - BC.y*AB.x > 0) {   // test winding
         if ( PA.x*AB.y - PA.y*AB.x > 0 )
             return false;
         poPoint PB = P - B;
@@ -59,8 +57,7 @@ bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C )
         if ( PC.x*CA.y - PC.y*CA.x > 0 )
             return false;
     }
-    else
-    {
+    else {
         if ( PA.x*AB.y - PA.y*AB.x < 0 )
             return false;
         poPoint PB = P - B;

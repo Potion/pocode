@@ -20,10 +20,10 @@ public:
 	
 	GLuint getUid();
 	
-	std::vector<std::string> allAttributes();
+	std::vector<std::string> getAllAttributes();
 	GLint attribLocation(const char *name);
 	
-	std::vector<std::string> allUniforms();
+	std::vector<std::string> getAllUniforms();
 	GLint uniformLocation(const char *name);
 	
 private:

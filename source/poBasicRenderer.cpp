@@ -1,6 +1,6 @@
 #include "poBasicRenderer.h"
 #include "poOpenGLState.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 const char * colored_shader = 
 "	[[uniforms]]							\n"
@@ -93,8 +93,7 @@ poBasicRenderer *poBasicRenderer::get() {
 #endif
 }
 
-poBasicRenderer::poBasicRenderer()
-{
+poBasicRenderer::poBasicRenderer() {
 	rebuild();
 }
 
@@ -102,13 +101,13 @@ void poBasicRenderer::setFromState() {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	// but texturing isn't on by default
-	if(ogl->texture.bound_id > 0) {
+	if(ogl->texture.boundID > 0) {
 		if(active->getUid() != texturedShader.getUid()) {
 			glUseProgram(texturedShader.getUid());
 			active = &texturedShader;
 		}
 		glUniform1i(texturedShader.uniformLocation("tex"), 0);
-		glUniform1i(texturedShader.uniformLocation("isAlphaMask"), ogl->texture.is_mask);
+		glUniform1i(texturedShader.uniformLocation("isAlphaMask"), ogl->texture.isMask);
 	}
 	else if(active->getUid() != colorShader.getUid()) {
 		glUseProgram(colorShader.getUid());

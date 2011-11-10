@@ -32,8 +32,8 @@ enum poOrientation {
 };
 
 // poAlignment
-// Used by all poObjects as arguments to the alignment() method.
-// Also used by poTextBoxes in the textAlignment() method.
+// Used by all poObjects as arguments to the setAlignment() method.
+// Also used by poTextBoxes in the setTextAlignment() method.
 enum poAlignment {
 	PO_ALIGN_TOP_LEFT=0,
 	PO_ALIGN_TOP_CENTER,

@@ -53,7 +53,10 @@ BOOST_AUTO_TEST_CASE( poDictionary_readWrite ) {
 	D1.read("test.dict.xml");
 	BOOST_CHECK_CLOSE(D1.getInt("int"), 15.f, 0.00001f);
 	
-	fs::remove("test.dict.xml");
+	BOOST_CHECK(D2.has("int"));
+	BOOST_CHECK(!D2.has("some other node key"));
+	
+//	fs::remove("test.dict.xml");
 }
 
 BOOST_AUTO_TEST_CASE( poDictionary_mutate ) {

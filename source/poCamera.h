@@ -11,7 +11,6 @@
 #include "poObject.h"
 #include "poColor.h"
 
-
 // CLASS NOTES
 //
 // poCamera dervies from poObjectModifier. It is the parent class of poCamera2D,
@@ -24,8 +23,7 @@
 // the OpenGL projection matrix.
 //
 
-class poCamera : public poObjectModifier
-{
+class poCamera : public poObjectModifier {
 public:
 	poCamera();
 	poCamera(poColor clear);
@@ -33,20 +31,20 @@ public:
 	
     // BACKGROUND CLEARING and BACKGROUND COLOR
 	bool                clearsBackground() const;
-	poCamera*           clearsBackground(bool b);
-	poColor             backgroundColor() const;
-	poCamera*           backgroundColor(poColor color);
-	poCamera*           backgroundColor(float r, float g, float b, float a=1.f);
+	poCamera*           setClearsBackground(bool b);
+	poColor             getBackgroundColor() const;
+	poCamera*           setBackgroundColor(poColor color);
+	poCamera*           setBackgroundColor(float r, float g, float b, float a=1.f);
 	
     // RESET MODEL VIEW
     // Setting this to true means the model view matrix will be reset by the camera.
     // Setting this to false means the model view matrix will be inherited.
 	bool                resetsModelview() const;
-	poCamera*           resetsModelview(bool b);
+	poCamera*           setResetsModelview(bool b);
 	
     // FIXED VIEW SIZE
-	bool                fixedSize() const;
-	poCamera*           fixedSize(bool b, poPoint p=poPoint());
+	bool                isFixedSize() const;
+	poCamera*           setFixedSize(bool b, poPoint p=poPoint());
 	
 protected:
 	void				clone(poCamera *cam);
@@ -62,13 +60,13 @@ protected:
 	virtual void        saveAndUpdateGLSettings();
 	virtual void        restoreGLSettings();
 	
-	poPoint             fixed_size;
+	poPoint             fixedSize;
 	bool                reset;
 
 private:
-    bool                clears_background;
-    poColor             background_color;
-	bool                is_fixed_size;
+    bool                clearsBG;
+    poColor             backgroundColor;
+	bool                isSizeFixed;
 };
 
 // CLASS NOTES
@@ -76,8 +74,7 @@ private:
 // poCamera2D implements a simple two-dimensional camera. All objects viewed by this camera
 // should have Z values equal to 0.
 
-class poCamera2D : public poCamera
-{
+class poCamera2D : public poCamera {
 public:
 	poCamera2D();
     poCamera2D(poColor clear);
@@ -88,7 +85,6 @@ protected:
 	virtual void        setProjection();
 };
 
-
 // CLASS NOTES
 //
 // poOrthoCamera implements an orthographic camera. This is a 3D camera in which
@@ -98,8 +94,7 @@ protected:
 // be set to greater values in the expanded constructor or via the set() method.
 //
 
-class poOrthoCamera : public poCamera
-{
+class poOrthoCamera : public poCamera {
 public:
 	poOrthoCamera();
     poOrthoCamera(float w, float h, float n, float f);
@@ -118,7 +113,6 @@ private:
 	float               x1, y1, x2, y2, near, far;
 };
 
-
 // CLASS NOTES
 //
 // poPerspectiveCamera implements a traditional 3D camera. The camera's view is defined
@@ -135,8 +129,7 @@ private:
 // Notice that the Z value of the cameraPosition is set to -100. This effectively pulls
 // camera back from the scene so it can see the objects at the origin.
 
-class poPerspectiveCamera : public poCamera
-{
+class poPerspectiveCamera : public poCamera {
 public:
 	poPerspectiveCamera(float fov, float near, float far);
 	virtual poObjectModifier* copy();
@@ -157,8 +150,6 @@ protected:
 
 private:
 	float                   fov, near, far;
-	poPoint                 look_at_pos, camera_pos;
+	poPoint                 lookAtPos, cameraPos;
 };
-
-
 

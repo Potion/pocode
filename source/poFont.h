@@ -35,8 +35,7 @@ typedef std::map<std::string, poFont*> poFontMap;
 //
 // 
 
-class poFont
-{
+class poFont {
 	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
 
 public:
@@ -78,7 +77,7 @@ public:
 	float               getGlyphDescender() const;
 	poPoint             getGlyphBearing() const;
 	poPoint             getGlyphAdvance() const;
-	poImage*             getGlyphImage() const;
+	poImage             getGlyphImage() const;
 //	poShape2D           *getGlyphOutline() const;
 
 	poPoint             kernGlyphs(int glyph1, int glyph2) const;
@@ -86,14 +85,19 @@ public:
 	std::string         toString() const;
 
 private:
-	void                init();
 	void                loadGlyph(int g);
 	
-	std::string			url;
-	int					size;
-	int					glyph;
-	FT_Face				face;
-
-    static FT_Library   lib;
+	struct FontImpl {
+		FontImpl();
+		FontImpl(const std::string &family_or_url, const std::string &style="");
+		~FontImpl();
+		
+		std::string			url;
+		int					size;
+		int					glyph;
+		FT_Face				face;
+		static FT_Library   lib;
+	};
+	boost::shared_ptr<FontImpl> shared;
 };
 

@@ -7,7 +7,7 @@
 //
 
 #include "poXML.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 using namespace pugi;
 
@@ -18,7 +18,7 @@ poXPathResult::poXPathResult(xpath_node_set nodes)
 :	nodes(nodes) 
 {}
 
-uint poXPathResult::numMatches() {
+uint poXPathResult::getNumMatches() {
 	return nodes.size();
 }
 
@@ -107,10 +107,7 @@ bool poXMLNode::hasAttribute(const std::string &name) const {
 std::vector<std::string> poXMLNode::getAttributeNames() const {
 	std::vector<std::string> response;
 
-	for(xml_attribute_iterator i=node.attributes_begin();
-		i != node.attributes_end();
-		++i)
-	{
+	for(xml_attribute_iterator i=node.attributes_begin(); i != node.attributes_end(); ++i) {
 		response.push_back(i->name());
 	}
 	
@@ -155,7 +152,7 @@ poXMLNode& poXMLNode::removeAttribute(const std::string &name) {
 	return *this;
 }
 
-uint poXMLNode::numChildren() const {
+uint poXMLNode::getNumChildren() const {
 	int size = 0;
 	xml_node::iterator n = node.begin();
 	while(n != node.end()) {
@@ -175,7 +172,7 @@ poXMLNode &poXMLNode::removeChild(const std::string &name) {
 }
 
 poXMLNode poXMLNode::getChild(uint idx) {
-	if(idx > numChildren())
+	if(idx > getNumChildren())
 		return poXMLNode();
 	
 	std::vector<poXMLNode> kids = getChildren();

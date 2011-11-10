@@ -22,7 +22,7 @@ class poBitmapFont : public poFont {
 
 public:
 	poBitmapFont();
-	poBitmapFont(poFont *font, int pointSize);
+	poBitmapFont(poFont font, int pointSize);
 	poBitmapFont(const std::string &fam, int pointSize, const std::string &style="");
 
 	void	drawGlyph(int glyph, const poPoint &at);
@@ -31,5 +31,5 @@ private:
 	void	setPointSize(int size) {}
 	void	cacheGlyph(int glyph);
 	
-	poTextureAtlas* atlas;
+	poTextureAtlas atlas;
 };

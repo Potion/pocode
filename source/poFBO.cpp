@@ -12,6 +12,8 @@
 
 poFBOConfig::poFBOConfig()
 :	numMultisamples(0)
+,	numColorBuffers(1)
+,	textureConfig(GL_RGBA)
 {}
 
 poFBOConfig &poFBOConfig::setNumMultisamples(uint nm) {
@@ -35,7 +37,7 @@ poFBO::poFBO(uint w, uint h)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
 {
-	cam->fixedSize(true, poPoint(w,h));
+	cam->setFixedSize(true, poPoint(w,h));
 	setup();
 }
 
@@ -46,7 +48,7 @@ poFBO::poFBO(uint w, uint h, const poFBOConfig &c)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
 {
-	cam->fixedSize(true, poPoint(w,h));
+	cam->setFixedSize(true, poPoint(w,h));
 	setup();
 }
 
@@ -86,12 +88,12 @@ void poFBO::reset(uint w, uint h, const poFBOConfig &c) {
 }
 
 // retrieve this texture to draw the FBO
-poTexture* poFBO::colorTexture(uint idx) const {
+poTexture poFBO::getColorTexture(uint idx) const {
 	return colorbuffers[idx];
 }
 
-poTexture* poFBO::depthTexture() const {
-	return NULL;
+poTexture poFBO::getDepthTexture() const {
+	return poTexture();
 }
 
 void poFBO::doSetUp(poObject* obj) {
@@ -155,8 +157,8 @@ void poFBO::setup() {
 		// make new textures
 		colorbuffers.clear();
 		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
+			colorbuffers.push_back(poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i].getUid(), 0);
 		}
 		
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -174,9 +176,10 @@ void poFBO::setup() {
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 		
 		colorbuffers.clear();
+		
 		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
+			colorbuffers.push_back(poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i].getUid(), 0);
 		}
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -188,8 +191,6 @@ void poFBO::setup() {
 }
 
 void poFBO::cleanup() {
-	BOOST_FOREACH(poTexture *tex, colorbuffers) 
-		delete tex;
 	colorbuffers.clear();
 	
 	// make sure none of this is bound right now

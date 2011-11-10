@@ -35,18 +35,16 @@ struct FIBITMAP;
 // native size of the image.
 //
 
-class poImage
-{
-friend std::ostream &operator<<(std::ostream &out, const poImage *img);
+class poImage {
+	friend std::ostream &operator<<(std::ostream &out, const poImage &img);
 
 public:
 	poImage();
 	poImage(const std::string &url);
 	poImage(const std::string &url, uint numChannels);
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
-	~poImage();
 
-	poImage*			copy();
+	poImage				copy();
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;
@@ -65,7 +63,7 @@ public:
 	
     // IMAGE OPERATIONS
 	void                setNumChannels(uint numChannels);
-	void                composite(poImage *img, poPoint into, float blend);
+	void                composite(poImage img, poPoint into, float blend);
 	void                blur(int kernel_size, float sigma, int stepMultiplier=1);
 	void                flip(poOrientation dir);
 	void				fill(poColor c);
@@ -86,8 +84,14 @@ private:
 	void                load(const std::string &url, uint c);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
-	FIBITMAP            *bitmap;
-	std::string         url;
+	struct ImageImpl {
+		ImageImpl();
+		~ImageImpl();
+		
+		FIBITMAP            *bitmap;
+		std::string         url;
+	};
+	boost::shared_ptr<ImageImpl> shared;
 };
 
 

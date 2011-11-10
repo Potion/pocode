@@ -46,7 +46,7 @@ testApp::testApp() {
 	poTexture tex(img, poTextureConfig(GL_RGB).setInternalFormat(GL_RGB32F_ARB));
 	
 	poShape2D *image = new poRectShape(tex);
-    image->alignment(PO_ALIGN_CENTER_CENTER);
+    image->setAlignment(PO_ALIGN_CENTER_CENTER);
     image->position.set(getWindowWidth()/2, getWindowHeight()/2, 0);
     addChild(image);
 

@@ -31,28 +31,27 @@
 // A poRectShape may also have rounded corners:
 //      poRectShape* S = new poRectShape( 100,200,10 );
 
-class poRectShape : public poShape2D
-{
+class poRectShape : public poShape2D {
 public:
 	poRectShape();
 	// rounded rect shape
 	poRectShape( float width, float height, float rad=0.f );
 	// place an already-made texture
-	poRectShape( poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+	poRectShape( poTexture tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
 	// make a texture from the specified url and place it
 	poRectShape( const std::string &str, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT);
 	// make a shape of a certain size and put the texture in place inside it
-	poRectShape( float width, float height, poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+	poRectShape( float width, float height, poTexture tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
 	
 	virtual poObject* copy();
 	
-    void reshape( float width, float height, float rad=0.f );
+    void	reshape( float width, float height, float rad=0.f );
     
 protected:
-	void clone(poRectShape* shp);
-    void construct( float _width, float _height, float rad );
+	void	clone(poRectShape* shp);
+    void	construct( float _width, float _height, float rad );
     
-    float radius;
+    float	radius;
 };
 
 
@@ -73,11 +72,11 @@ protected:
 //      poOvalShape* S = new poOvalShape( 100,200,33 );
 
 
-class poOvalShape : public poShape2D
-{
+class poOvalShape : public poShape2D {
 public:
     poOvalShape();
     poOvalShape( float _width, float _height, int numPoints );
+	
 	virtual poObject *copy();
     
     void    reshape( float _width, float _height, int numPoints );
@@ -101,8 +100,7 @@ protected:
 // A simple poLineShape can be constructed as follows:
 //      poLineShape* S = new poLineShape( poPoint(0,0), poPoint(100,100) );
 
-class poLineShape : public poShape2D
-{
+class poLineShape : public poShape2D {
 public:
     poLineShape();
     poLineShape( poPoint A, poPoint B );
@@ -121,8 +119,7 @@ protected:
 // A simple poStarShape can be constructed as follows:
 //      poStarShape* S = new poStarShape( 100, 5, 150 );
 
-class poStarShape : public poShape2D
-{
+class poStarShape : public poShape2D {
 public:
     poStarShape();
     poStarShape( float _outerRadius, int numPoints, float depth );
@@ -130,15 +127,15 @@ public:
 	
 	virtual poObject *copy();
     
-    void reshape( float _outerRadius, int numPoints, float depth );
-    void reshape( float _width, float _height, int numPoints, float depth );
+    void	reshape( float _outerRadius, int numPoints, float depth );
+    void	reshape( float _width, float _height, int numPoints, float depth );
     
 protected:
-	void clone(poStarShape* shp);
+	void	clone(poStarShape* shp);
 	
-    void construct( float _outerRadius, int numPoints, float depth );
-    void construct( float _width, float _height, int numPoints, float depth );
+    void	construct( float _outerRadius, int numPoints, float depth );
+    void	construct( float _width, float _height, int numPoints, float depth );
     
-    float width, height, depth;
-    float outerRadius, innerRadius;
+    float	width, height, depth;
+    float	outerRadius, innerRadius;
 };

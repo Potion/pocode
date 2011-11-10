@@ -20,8 +20,6 @@ typedef struct {
     int type;
 } poSqlite3Column;
 
-
-
 //------------------------------------------------------------
 //poSqlite3Result
 class poSqlite3Result {
@@ -44,8 +42,6 @@ private:
     bool bVerbose;
     int nRows;
 };
-
-
 
 class poSqlite3 {
 public:
@@ -70,3 +66,4 @@ private:
     bool bLoaded;
     bool bVerbose;
 };
+

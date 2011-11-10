@@ -15,8 +15,7 @@
 // 
 // 
 
-class poRect 
-{
+class poRect {
 public:
 	
     // CONSTRUCTORS
@@ -27,7 +26,6 @@ public:
     // RECT SET METHODS
     poRect&         set(float x, float y, float w, float h);
 	poRect&         set(poPoint pos, poPoint size);
-	bool            set(const std::string &str);
     
     poRect&         setPosition(float x, float y);
     poRect&         setPosition(poPoint pos);
@@ -68,6 +66,7 @@ public:
 	
     // RECT TO STRING
 	std::string     toString() const;
+	bool            fromString(std::string const& str);
     
     float           x,y,width,height;
 };

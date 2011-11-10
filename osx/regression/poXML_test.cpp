@@ -49,12 +49,12 @@ BOOST_AUTO_TEST_CASE( poXML_modify ) {
 	// make a regular node and add it as a sibling of the previous text node
 	// will look like <two>10.5 <twoChild /></two>
 	poXMLNode child2A = child2.addChild("c2A");
-	BOOST_CHECK(child2.numChildren() == 2);
+	BOOST_CHECK(child2.getNumChildren() == 2);
 	// make a text node and replace the contents of child2
 	child2.setInnerString("hello");
-	BOOST_CHECK(child2.numChildren() == 1);
+	BOOST_CHECK(child2.getNumChildren() == 1);
 	
-	BOOST_CHECK(node.numChildren() == 2);
+	BOOST_CHECK(node.getNumChildren() == 2);
 	
 	BOOST_CHECK(!doc.getRootNode().getChild("doesn't exist").isValid());
 }
@@ -82,15 +82,15 @@ BOOST_AUTO_TEST_CASE( poXML_find ) {
 	poXMLNode root = doc.getRootNode();
 	
 	poXPathResult rez = root.find("//book");
-	BOOST_CHECK(rez.numMatches() == 3);
+	BOOST_CHECK(rez.getNumMatches() == 3);
 	
 	rez = root.find("//book[@isbn = 0137030274]");
-	BOOST_CHECK(rez.numMatches() == 1);
+	BOOST_CHECK(rez.getNumMatches() == 1);
 	BOOST_CHECK(rez.getNode(0).getChild("author").getInnerString() == "Mark Twain");
 	BOOST_CHECK(rez.getNode(0).getChild("title").getInnerString() == "The Prince and the Pauper");
 	
 	rez = root.find("//book[title = 'The Prince and the Pauper']");
-	BOOST_CHECK(rez.numMatches() == 1);
+	BOOST_CHECK(rez.getNumMatches() == 1);
 	BOOST_CHECK(rez.getNode(0).getStringAttribute("isbn") == "0137030274");
 }
 
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE( poXML_readWrite ) {
 	BOOST_CHECK(fs::exists("test.xml"));
 	
 	poXMLDocument doc2("test.xml");
-	BOOST_CHECK(doc2.getRootNode().numChildren() == 2);
+	BOOST_CHECK(doc2.getRootNode().getNumChildren() == 2);
 	BOOST_CHECK(doc2.getRootNode().getFirstChild().getIntAttribute("intAttrib") == 10);
 	
 	fs::remove("test.xml");

@@ -20,19 +20,6 @@ poTriangle3D    poShape3D::errorTriangle;
 
 poShape3D::poShape3D()
 {
-    /*poVertex3D V;
-    
-    addVertex( poPoint( 0,0,0) );
-    addVertex( poPoint(100,0,0) );
-    addVertex( poPoint(100,200,0) );
-
-    addVertex( poPoint(200,200,0) );
-    addVertex( poPoint(200,300,0) );
-    addVertex( poPoint(300,300,0) );
-    
-    addTriangle( 0,1,2 );
-    addTriangle( 3,4,5 );*/
-    
     useVertexNormals = false;
     useVertexColors = false;
     useVertexTextureCoords = false;
@@ -41,46 +28,62 @@ poShape3D::poShape3D()
 
 void poShape3D::draw()
 {
-    poOpenGLState *ogl = poOpenGLState::get();
-    ogl->color = poColor::red;
-	ogl->setTexture(po::TextureState());
     
+    poOpenGLState *ogl = poOpenGLState::get();
+    ogl->color = poColor::white;
+	ogl->setTexture(po::TextureState());
+
+
     po::VertexState vert;
     vert.enableAttrib(0).disableAttrib(1).disableAttrib(2).disableAttrib(3);
     
     glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].position.x ); 
     
-//    if ( useVertexTextureCoords ) {
-//        vert.enableAttrib(1);
-//        glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x ); 
-//    }
-//
-//    if ( useVertexColors ) {
-//        vert.enableAttrib(2);
-//        glVertexAttribPointer( 2, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x );
-//    }
+    if ( useVertexTextureCoords ) {
+        vert.enableAttrib(1);
+        ogl->setTexture(po::TextureState(texture));
+        glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x ); 
+    }
+
+    if ( useVertexColors ) {
+        vert.enableAttrib(2);
+        glVertexAttribPointer( 2, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x );
+    }
 
     if ( useVertexNormals ) {
         vert.enableAttrib(1);
         glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].normal.x );     
     }
     
+
     ogl->setVertex(vert);
     
-
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_DEPTH_BUFFER_BIT);
     
-    poBasicRenderer::get()->setFor3D();
+    poBasicRenderer::get()->setFromState();
 
     //last argument is starting point of the indices
     glDrawElements( GL_TRIANGLES, triangleList.size()*3, GL_UNSIGNED_INT, &triangleList[0].vertexIndexSet[0] );
     
-    glDisable(GL_DEPTH_TEST);
+
+    // draw points
+    ogl->color = poColor::red;
+    poBasicRenderer::get()->setFromState();
+    glPointSize(5);
+    glDrawElements( GL_POINTS, triangleList.size()*3, GL_UNSIGNED_INT, &triangleList[0].vertexIndexSet[0] );
+
+    
+    
+    /*glEnable(GL_DEPTH_TEST);
+     glDepthFunc(GL_LEQUAL);
+     glClear(GL_DEPTH_BUFFER_BIT);
+     poBasicRenderer::get()->setFor3D();*/
+    
+    //glDisable(GL_DEPTH_TEST);
     
     // extern void glMultiDrawElements (GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount);
     // int* indexLocation = &triangleList[0].vertexIndexSet[0];
     // glMultiDrawElements( GL_LINE_LOOP, &triangleSizeVector[0], GL_UNSIGNED_INT, (const GLvoid **)indexLocation, triangleSizeVector.size() );
+    
 }
 
 

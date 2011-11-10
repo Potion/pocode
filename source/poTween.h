@@ -48,8 +48,8 @@ class poTweenBase {
 public:
 	typedef boost::function<void()> poTweenFinishedCallback;
 	
-	typedef bool (*poTweenFunction)(float *val, float begin_val, float end_val,
-									double time, double begin_time, double end_time, double duration,
+	typedef bool (*poTweenFunction)(float *val, float beginVal, float endVal,
+									double time, double beginTime, double endTime, double duration,
 									double extra1, double extra2);
 	
 	poTweenBase();
@@ -72,7 +72,7 @@ public:
 	poTweenBase&        setExtraValues(double e1, double e2);
 	
 	poTweenBase&        start();
-	poTweenBase&        stop(bool jump_to_end=false);
+	poTweenBase&        stop(bool jumpToEnd=false);
 	
 	bool                isRunning() const;
 	bool                isComplete() const;
@@ -83,7 +83,7 @@ public:
 	float               getProgress() const;
 	
 protected:
-	void reset();
+	void				reset();
 	
 	// these exist to mitigate the different types
 	virtual void        setValueToBegin() = 0;
@@ -93,12 +93,12 @@ protected:
     
 	// returns true when the tween is complete
 	virtual bool        updateTweenWithTime(double time, double begin, double end, 
-									 double duration, double e1, double e2) = 0;
+											double duration, double e1, double e2) = 0;
 	
-	poTweenFunction tween_func;
+	poTweenFunction tweenFunc;
 	
 private:
-	void startWithDelay(bool do_delay);
+	void startWithDelay(bool doDelay);
 	
 	enum {
 		NOT_RUNNING,
@@ -106,11 +106,11 @@ private:
 		COMPLETE
 	} state;
 	
-	int                 repeat_count, repeat_counter;
-	poTweenRepeat       repeat_type;
+	int                 repeatCount, repeatCounter;
+	poTweenRepeat       repeatType;
 	
-	double              time, last_time;
-	double              begin_time, end_time, duration, delay;
+	double              time, lastTime;
+	double              beginTime, endTime, duration, delay;
 	double              extra1, extra2;
 	
 	bool                delay_on_repeat;
@@ -152,35 +152,32 @@ static bool tweenUpdater(poTweenBase::poTweenFunction func,
 
 
 template <typename T>
-class poTween : public poTweenBase
-{
+class poTween : public poTweenBase {
 public:
-	typedef T value_type;
+	typedef T valueType;
     
 	// Construct a poTween with an initial value.
-	poTween(value_type val) 
-	:	shared(new value_type(val))
-	{
+	poTween(valueType val) : shared(new valueType(val)) {
 		value = shared.get();
     }
     
 	// Construct a tween using a pointer to value.
-	poTween(value_type *addr) : value(addr) 
+	poTween(valueType *addr) : value(addr) 
 	{}
     
     // Set a tween's destination.
-	poTween &set(value_type end_value) {
+	poTween &set(valueType endValue) {
 		reset();
 		begin = *value;
-		end = end_value;
+		end = endValue;
 		return *this;
 	}
 	
 
-	void setValue(value_type val) {
+	void setValue(valueType val) {
         *value = val;
     }
-	value_type getValue() const {
+	valueType getValue() const {
         return *value;
     }
 	
@@ -191,16 +188,16 @@ protected:
 	void            slewBeginValue()	{ begin = *value; }
     
 	virtual bool    updateTweenWithTime(double t, double b, double e, 
-									 double d, double e1, double e2) 
+										double d, double e1, double e2)
 	{
-		return tweenUpdater(tween_func, value, begin, end, t, b, e, d, e1, e2);
+		return tweenUpdater(tweenFunc, value, begin, end, t, b, e, d, e1, e2);
 	}
     
 private:
-	value_type *value;
-	value_type begin, end;
+	valueType *value;
+	valueType begin, end;
     
-	boost::shared_ptr<value_type> shared;
+	boost::shared_ptr<valueType> shared;
 };
 
 

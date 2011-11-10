@@ -14,7 +14,6 @@ class poXMLNode;
 class poXPathResult;
 class poXMLDocument;
 
-
 // CLASS NOTES
 //
 // poXMLDocument is used for reading and writing XML files.
@@ -46,7 +45,6 @@ public:
 private:
 	boost::shared_ptr<pugi::xml_document> document;
 };
-
 
 // CLASS NOTES
 //
@@ -96,7 +94,7 @@ public:
 	poXMLNode&		removeAttribute(const std::string &name);
     
     // ADD and REMOVE CHILDREN
-	uint			numChildren() const;
+	uint			getNumChildren() const;
 	poXMLNode		addChild(const std::string &name);
 	poXMLNode&		removeChild(const std::string &name);	
     
@@ -139,7 +137,7 @@ class poXPathResult {
 	friend class poXMLNode;
     
 public:
-	uint            numMatches();
+	uint            getNumMatches();
 	
     // GET RESULT NODES
 	poXMLNode       getNode(uint idx=0);

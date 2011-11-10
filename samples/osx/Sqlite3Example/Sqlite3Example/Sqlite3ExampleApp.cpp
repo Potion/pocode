@@ -3,6 +3,7 @@
 #include "poCamera.h"
 #include "Helpers.h"
 
+
 poObject *createObjectForID(uint uid) {
 	return new Sqlite3ExampleApp();
 }
@@ -24,7 +25,7 @@ Sqlite3ExampleApp::Sqlite3ExampleApp() {
     db = new poSqlite3(true);
     
     //Load database (creates DB if not found)
-    db->loadFile("test.sqlite");
+    db->openDatabase("test.sqlite");
     
     //Create table if necessary
     db->query("CREATE TABLE table1 (id INTEGER PRIMARY KEY, one varchar(10), two smallint);");
@@ -38,19 +39,19 @@ Sqlite3ExampleApp::Sqlite3ExampleApp() {
     poSqlite3Result results = db->query("SELECT * FROM table1");
     
     //Show Columns
-    std::cout << results.getColumnNames() << std::endl;
+    printf("%s\n", results.getColumnNames().c_str());
     
     //Loop through rows
     for(int i=0; i<results.rows.size(); i++) {
-        poDictionary *thisRow = results.getRow(i);
+        poDictionary thisRow = results.getRow(i);
         
         std::string rowString;
         
-        rowString += poToString(thisRow->getInt("id")) + " | ";
-        rowString += poToString(thisRow->getString("one")) + " | ";
-        rowString += poToString(thisRow->getInt("two"));
+        rowString += poToString(thisRow.getInt("id")) + " | ";
+        rowString += poToString(thisRow.getString("one")) + " | ";
+        rowString += poToString(thisRow.getInt("two"));
         
-        std::cout << rowString << std::endl;
+        printf("%s\n", rowString.c_str());
     }
     
     

@@ -23,8 +23,7 @@ struct poFBOConfig {
 	poTextureConfig textureConfig;
 };
 
-class poFBO : public poObjectModifier
-{
+class poFBO : public poObjectModifier {
 public:
 	poFBO(uint w, uint h);
 	poFBO(uint w, uint h, const poFBOConfig &config);
@@ -37,8 +36,8 @@ public:
 	void reset(uint w, uint h, const poFBOConfig &config);
 
 	// retrieve this texture to draw the FBO
-	poTexture* colorTexture(uint idx=0) const;
-	poTexture* depthTexture() const;
+	poTexture getColorTexture(uint idx=0) const;
+	poTexture getDepthTexture() const;
 	
 	// after the fbo is created
 	uint width, height;
@@ -56,7 +55,7 @@ protected:
 private:
 	std::vector<GLuint> framebuffers;
 	std::vector<GLuint> renderbuffers;
-	std::vector<poTexture*> colorbuffers;
+	std::vector<poTexture> colorbuffers;
 	
 	poCamera *cam;
 	

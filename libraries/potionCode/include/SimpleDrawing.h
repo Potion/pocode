@@ -19,15 +19,16 @@ namespace po {
     
     void setColor(poColor color);
 	void setColor(poColor color, float new_alpha);
-    
-	void drawStroke(float x, float y, float w, float h);
-	void drawStroke(poRect rect);
-    
+	
 	void drawLine(poPoint a, poPoint b);
     
-	void drawRect(float x, float y, float w, float h);
-	void drawRect(poRect rect);
+	void drawStrokedRect(float x, float y, float w, float h);
+	void drawStrokedRect(poRect rect);
+    
+	void drawFilledRect(float x, float y, float w, float h);
+	void drawFilledRect(poRect rect);
 
+<<<<<<< HEAD
 	void drawRect(poTexture *tex);
 	void drawRect(poTexture *tex, float x, float y, float w, float h);
 	void drawRect(poTexture *tex, poRect rect);
@@ -38,6 +39,18 @@ namespace po {
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &tex_coords, GLenum type);
+=======
+	void drawTexturedRect(poTexture tex);
+	void drawTexturedRect(poTexture tex, float x, float y, float w, float h);
+	void drawTexturedRect(poTexture tex, poRect rect);
+	void drawTexturedRect(poTexture tex, poRect rect, poRect coords);
+	void drawTexturedRect(poTexture tex, poRect rect, poTextureFitOption fit);
+    
+	void drawPoints(const std::vector<poPoint> &points, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type);
+>>>>>>> 7affbf66b041e8753c99c3ceaca61cc0b1724ddd
     
 	void drawString(const std::string &str, poFont* font, poPoint position, int ptSize=0, float tracking=1.f);
 

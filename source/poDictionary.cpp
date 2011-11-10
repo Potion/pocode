@@ -192,7 +192,7 @@ void poDictionary::read(poXMLNode node) {
 			break;
 		case PO_POINT_T: {
 			poPoint p;
-			if(p.set(node.getInnerString()))
+			if(p.fromString(node.getInnerString()))
 				set(name, p);
 			break;
 		}

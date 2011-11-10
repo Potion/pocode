@@ -3,8 +3,6 @@
 //#include "poImage.h"
 #include "poShape2D.h"
 
-
-
 // CLASS NOTES
 //
 // poGeometryMask implements a mask based upon a poShape2D object. A geometry mask is used as follows:
@@ -23,13 +21,12 @@
 // The maskShape should NOT be added to the scene graph.
 //
 
-class poGeometryMask : public poObjectModifier
-{
+class poGeometryMask : public poObjectModifier {
 public:
 	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
-	virtual ~poGeometryMask();
+	virtual			~poGeometryMask();
 	
-	virtual poObjectModifier *copy();
+	virtual			poObjectModifier *copy();
 	
 	void            setShape(poShape2D *shape);	
 	// this isn't implemented yet
@@ -40,8 +37,8 @@ protected:
 	void			doSetDown(poObject*);
 	
 private:
-	poShape2D *shape;
-	bool clears_stencil;
+	poShape2D*		shape;
+	bool			clearsStencil;
 };
 
 /*

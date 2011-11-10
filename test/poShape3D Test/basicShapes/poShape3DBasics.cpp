@@ -22,7 +22,7 @@ poMesh3D::poMesh3D( int _numRows, int _numColumns )
     {
         for( int j=0; j<numColumns; j++ )
         {
-            getVertex( i,j ).position.set( i*25,j*25, 0 );
+            getVertex( i,j ).position.set( i*10,j*10, 0 );
         }
     }
     
@@ -66,6 +66,20 @@ int             poMesh3D::getVertexIndex( int row, int col )
     return (row*numColumns + col);
 }
 
+void            poMesh3D::placeTexture( poTexture tex )
+{
+    texture = tex;
+    
+    for( int i=0; i<numRows; i++ )
+    {
+        for( int j=0; j<numColumns; j++ )
+        {
+            float U = (float)i / (float)numRows;
+            float V = 1.0 - (float)j / (float)numColumns; 
+            getVertex( i,j ).textureCoords.set( U,V,0 );
+        }
+    }
+}
 
 // ============= poSphere3D ================ //
 

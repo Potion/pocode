@@ -119,14 +119,16 @@ poSqlite3Result poSqlite3::query(std::string query) {
                 
                 //Don't need to keep checking column names
                 bColumnsSet = true;
-            } else {
+            }
+			else {
                 //If no rows returned, we're done
                 break;
             }
         }
         
         sqlite3_finalize(statement);
-    } else {
+    }
+	else {
         //If statement is wack, tell why
         results.errorMessage = "Problem with query '" + (std::string)query + "'\n " + (std::string)sqlite3_errmsg(db);
         if(bVerbose) std::cout << results.errorMessage << std::endl;
@@ -137,12 +139,11 @@ poSqlite3Result poSqlite3::query(std::string query) {
 }
 
 
-std::string poSqlite3::escapeQuotes(std::string text){
+std::string poSqlite3::escapeQuotes(std::string text) {
 	
 	int position = text.find( "'" );
 	
-	while ( position != std::string::npos ) 
-	{
+	while ( position != std::string::npos ) {
 		text.replace( position, 1, "''" );
 		position = text.find( "'", position + 2 );
 	} 
@@ -174,7 +175,8 @@ int poSqlite3Result::getNumRows() { return rows.size(); }
 poDictionary poSqlite3Result::getRow(int rowNum) {
     if(rowNum < rows.size()) {
         return rows[rowNum];
-    } else {
+    }
+	else {
         if(bVerbose) std::cout << "Row " << rowNum << " is out of range, only " << rows.size() << " rows in result";
         return rows[rows.size()-1];
     }

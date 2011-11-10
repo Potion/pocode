@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poShader.h"
 
 #include <boost/regex.hpp>
@@ -202,7 +202,7 @@ GLuint poShader::getUid() {
 	return uid;
 }
 
-std::vector<std::string> poShader::allAttributes() {
+std::vector<std::string> poShader::getAllAttributes() {
 	return po::allKeys(attributeLocations);
 }
 
@@ -212,7 +212,7 @@ GLint poShader::attribLocation(const char *name) {
 	return -1;
 }
 
-std::vector<std::string> poShader::allUniforms() {
+std::vector<std::string> poShader::getAllUniforms() {
 	return po::allKeys(uniformLocations);
 }
 

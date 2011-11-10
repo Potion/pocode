@@ -3,16 +3,16 @@
 #include "poApplication.h"
 
 
-bool isNumericMask(poEvent* e)	{return (e->modifiers & PO_NUMERIC_KEY_MASK) > 0;}
-bool isFunctionMask(poEvent* e)	{return (e->modifiers & PO_FUNCTION_KEY_MASK) > 0;}
-bool isArrowMask(poEvent* e)	{return isNumericMask(e) && isFunctionMask(e);}
-bool isMetaMask(poEvent* e)		{return (e->modifiers & PO_KEY_META) > 0;}
-bool isAltMask(poEvent* e)		{return (e->modifiers & PO_KEY_ALT) > 0;}
-bool isShiftMask(poEvent* e)	{return (e->modifiers & PO_KEY_SHIFT) > 0;}
-bool isCtrlMask(poEvent* e)		{return (e->modifiers & PO_KEY_CTRL) > 0;}
-bool isLeftMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_LEFT) > 0;}
-bool isRightMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_RIGHT) > 0;}
-bool isCenterMouse(poEvent* e)	{return (e->modifiers & PO_MOUSE_MIDDLE) > 0;}
+bool isNumericMask(poEvent* e)	{ return (e->modifiers & PO_NUMERIC_KEY_MASK) > 0; }
+bool isFunctionMask(poEvent* e)	{ return (e->modifiers & PO_FUNCTION_KEY_MASK) > 0; }
+bool isArrowMask(poEvent* e)	{ return isNumericMask(e) && isFunctionMask(e); }
+bool isMetaMask(poEvent* e)		{ return (e->modifiers & PO_KEY_META) > 0; }
+bool isAltMask(poEvent* e)		{ return (e->modifiers & PO_KEY_ALT) > 0; }
+bool isShiftMask(poEvent* e)	{ return (e->modifiers & PO_KEY_SHIFT) > 0; }
+bool isCtrlMask(poEvent* e)		{ return (e->modifiers & PO_KEY_CTRL) > 0; }
+bool isLeftMouse(poEvent* e)	{ return (e->modifiers & PO_MOUSE_LEFT) > 0; }
+bool isRightMouse(poEvent* e)	{ return (e->modifiers & PO_MOUSE_RIGHT) > 0; }
+bool isCenterMouse(poEvent* e)	{ return (e->modifiers & PO_MOUSE_MIDDLE) > 0; }
 
 bool isMouseEvent(int type) {
 	return (type == PO_MOUSE_UP_EVENT			||

@@ -53,16 +53,15 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	NSOpenGLPixelFormatAttribute attributes[] = {
 		NSOpenGLPFADoubleBuffer, YES,
 		NSOpenGLPFAWindow, YES,
-		NSOpenGLPFADepthSize, 32,
-		NSOpenGLPFAColorSize, 24,
-		NSOpenGLPFAAlphaSize, 8,
+		NSOpenGLPFADepthSize, 24,
+		NSOpenGLPFAColorSize, 32,
 		NSOpenGLPFAStencilSize, 8,
-		NSOpenGLPFAAccumSize, 64,
 		NSOpenGLPFAMultisample,
         NSOpenGLPFASampleBuffers, 1,
         NSOpenGLPFASamples, 4,
 		0
 	};
+	
 	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
 }
 

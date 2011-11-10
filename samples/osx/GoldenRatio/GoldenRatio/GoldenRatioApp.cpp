@@ -62,7 +62,7 @@ void GoldenRatioApp::postDraw(){
 void GoldenRatioApp::eventHandler(poEvent *event){
     if(event->type == PO_MOUSE_MOVE_EVENT){
         for(int j=0; j<seeds.size(); j++){
-            seeds[j]->scale.set(8*(event->position)/getWindowWidth());
+            seeds[j]->scale.set(8*(event->globalPosition)/getWindowWidth());
         }
     }
     
