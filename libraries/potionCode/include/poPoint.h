@@ -30,7 +30,7 @@ public:
     
     // SET POINT with STRING
     // Format is "point(x,y)" or "point(x,y,z)"
-	bool			fromString(std::string const& str);
+	bool            set(const std::string &str);
 	std::string     toString() const;
 	
     // POINT (VECTOR) OPERATIONS

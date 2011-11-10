@@ -1,52 +1,58 @@
 #include "poBitmapFont.h"
 
+poBitmapFont::BitmapFontImpl::BitmapFontImpl()
+:	atlas(GL_ALPHA, 512, 512)
+{}
+
+poBitmapFont::BitmapFontImpl::~BitmapFontImpl() 
+{}
 
 poBitmapFont::poBitmapFont()
-:	atlas(GL_ALPHA, 512, 512)
 {}
 
 poBitmapFont::poBitmapFont(poFont font, int sz)
 :	poFont(font)
-,	atlas(GL_ALPHA, 512, 512)
+,	shared(new BitmapFontImpl)
 {
 	poFont::setPointSize(sz);
 	for(int i=32; i<128; i++) {
 		setGlyph(i);
-		
-		poImage img = getGlyphImage();
-		atlas.addImage(img,i);
+		shared->atlas.addImage(getGlyphImage(),i);
 	}
-	atlas.layoutAtlas();
+	shared->atlas.layoutAtlas();
 }
 
 poBitmapFont::poBitmapFont(const std::string &fam, int sz, const std::string &style)
 :	poFont(fam, style)
-,	atlas(GL_ALPHA, 512, 512)
+,	shared(new BitmapFontImpl)
 {
 	poFont::setPointSize(sz);
 	for(int i=32; i<128; i++) {
 		setGlyph(i);
-		
-		poImage img = getGlyphImage();
-		atlas.addImage(img,i);
+		shared->atlas.addImage(getGlyphImage(),i);
 	}
-	atlas.layoutAtlas();
+	shared->atlas.layoutAtlas();
 }
 
 void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
-	if(!atlas.hasUID(glyph))
+	if(!shared->atlas.hasUID(glyph))
 		cacheGlyph(glyph);
-	atlas.drawUID(glyph, at);
+	shared->atlas.drawUID(glyph, at);
 }
 
 void poBitmapFont::cacheGlyph(int glyph) {
-	if(!atlas.hasUID(glyph)) {
+	if(!shared->atlas.hasUID(glyph)) {
 		setPointSize(getPointSize());
 		setGlyph(glyph);
-		
-		poImage img = getGlyphImage();
-		atlas.addImage(img, glyph);
-		
-		atlas.layoutAtlas();
+		shared->atlas.addImage(getGlyphImage(), glyph);
+		shared->atlas.layoutAtlas();
 	}
+}
+
+bool operator==(const poBitmapFont& f1, const poBitmapFont& f2) {
+	return f1.shared == f2.shared;
+}
+
+bool operator!=(const poBitmapFont& f1, const poBitmapFont& f2) {
+	return f1.shared == f2.shared;
 }

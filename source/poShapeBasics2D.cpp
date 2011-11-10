@@ -26,7 +26,7 @@ poRectShape::poRectShape(poTexture tex, poTextureFitOption fit, poAlignment alig
 }
 
 poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
-	poImage img(str);
+	poImage img = getImage(str);
 	if(img.isValid()) {
 		construct(img.getWidth(), img.getHeight(), 0);
 		placeTexture(poTexture(img), fit, align);

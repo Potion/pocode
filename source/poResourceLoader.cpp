@@ -37,8 +37,9 @@ poImage getImage(const std::string &url, int group) {
 		return iter->second;
 	}
 
-	imageResources[lookup] = poImage(url);
-	return imageResources[lookup];
+	poImage img(url);
+	imageResources[lookup] = img;
+	return img;
 }
 
 void deleteImageGroup(int group) {
@@ -53,8 +54,9 @@ poFont getFont(const std::string &url, const std::string &style, int group) {
 		return iter->second;
 	}
 	
-	fontResources[lookup] = poFont(url, style);
-	return fontResources[lookup];
+	poFont font(url, style);
+	fontResources[lookup] = font;
+	return font;
 }
 
 void deleteFontGroup(int group) {
@@ -64,7 +66,7 @@ void deleteFontGroup(int group) {
 poBitmapFont getBitmapFont(poFont font, uint size, int group) {
 	size_t hash = 0;
 	
-	std::string combined = font.getFamilyName() + font.getStyleName();
+	std::string combined = std::string(font.getFamilyName()) + font.getStyleName();
 	boost::hash_combine(hash, combined);
 	boost::hash_combine(hash, size);
 	ResourceLocator lookup = std::make_pair(hash, group);
@@ -74,8 +76,9 @@ poBitmapFont getBitmapFont(poFont font, uint size, int group) {
 		return iter->second;
 	}
 	
-	bitmapFontResources[lookup] = poBitmapFont(font, size);
-	return bitmapFontResources[lookup];
+	poBitmapFont bitmapFont(font, size);
+	bitmapFontResources[lookup] = bitmapFont;
+	return bitmapFont;
 }
 
 void deleteBitmapFontGroup(int group) {

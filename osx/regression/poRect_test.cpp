@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE( poRectTest ) {
 	BOOST_CHECK_CLOSE(r1.height, r2.height, 0.00005f);
 	
 	r1.set(poPoint(111.1f,111.1f),poPoint(999.9f,555.9f));
-	r2.fromString("rect(111.1,111.1,999.9,555.9)");
+	r2.set("rect(111.1,111.1,999.9,555.9)");
 	BOOST_CHECK_CLOSE(r1.x, r2.x, 0.00005f);
 	BOOST_CHECK_CLOSE(r1.y, r2.y, 0.00005f);
 	BOOST_CHECK_CLOSE(r1.width, r2.width, 0.00005f);

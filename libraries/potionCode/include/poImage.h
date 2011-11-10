@@ -36,7 +36,7 @@ struct FIBITMAP;
 //
 
 class poImage {
-	friend std::ostream &operator<<(std::ostream &out, const poImage &img);
+friend std::ostream &operator<<(std::ostream &out, const poImage &img);
 
 public:
 	poImage();

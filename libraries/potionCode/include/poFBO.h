@@ -15,12 +15,8 @@
 struct poFBOConfig {
 	poFBOConfig();
 	poFBOConfig &setNumMultisamples(uint numMultisamples);
-	poFBOConfig &setNumColorBuffers(uint numColorBuffers);
-	poFBOConfig &setColorBufferConfig(poTextureConfig config);
 	
-	uint numColorBuffers;
 	uint numMultisamples;
-	poTextureConfig textureConfig;
 };
 
 class poFBO : public poObjectModifier {
@@ -36,7 +32,7 @@ public:
 	void reset(uint w, uint h, const poFBOConfig &config);
 
 	// retrieve this texture to draw the FBO
-	poTexture getColorTexture(uint idx=0) const;
+	poTexture getColorTexture() const;
 	poTexture getDepthTexture() const;
 	
 	// after the fbo is created
@@ -55,9 +51,9 @@ protected:
 private:
 	std::vector<GLuint> framebuffers;
 	std::vector<GLuint> renderbuffers;
-	std::vector<poTexture> colorbuffers;
 	
 	poCamera *cam;
+	poTexture colorTex;
 	
 	bool multisampling;
 };

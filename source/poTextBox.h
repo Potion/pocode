@@ -81,8 +81,8 @@ public:
     //        TB->setFont( getFont("Courier Bold"), PO_TEXT_BOLD );
     //        TB->setFont( getFont("Courier Italic"), PO_TEXT_ITALIC );
 	// These fonts will be used where the <b> and <i> HTML tags appear in the text.
-	void                setFont(poFont font, const std::string &name=PO_TEXT_REGULAR);
 	poFont				getFont(const std::string &name=PO_TEXT_REGULAR);
+	void                setFont(poFont font, const std::string &name=PO_TEXT_REGULAR);
     
     // textAlignment may be set using one of the poAlignment enums found in "poEnums.h".
     // Commonly used settings are PO_ALIGN_TOP_LEFT, PO_ALIGN_TOP_CENTER and PO_ALIGN_CENTER_CENTER.
@@ -143,7 +143,7 @@ public:
     // DEBUGGING
     // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
 	// You can use the PO_TEXT_BOX_STROKE_XXXXX settings in the enum defined at the top of this file.
-    virtual void		_drawBounds();
+    virtual void	_drawBounds();
 	
     // DRAWING
     // The draw() method is called automatically if a text box is added to the scene graph.

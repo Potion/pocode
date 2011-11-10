@@ -23,7 +23,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	window_settings = [[NSMutableDictionary alloc] init];
 	
 	// initialize the time
-	poGetElapsedTime();
+	getTime();
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	// make sure we have a context to share
@@ -119,7 +119,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 		[window setOpaque:YES];
 		[window setHidesOnDeactivate:YES];
 		
-		powin->setFullscreen(true);
+		powin->fullscreen(true);
 	}
 
 	NSRect glrect = frame;
@@ -175,7 +175,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 }
 
 -(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
-	window->setFullscreen(b);
+	window->fullscreen(b);
 
 	NSWindow *win = (NSWindow*)window->getWindowHandle();
 	

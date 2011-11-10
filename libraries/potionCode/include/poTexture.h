@@ -72,12 +72,11 @@ private:
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	void				loadDummyImage();
 	void                unload();
-	
+
 	struct TextureImpl {
 		TextureImpl();
-		TextureImpl(uint width, uint height, ubyte const* pixels, poTextureConfig const& config);
+		TextureImpl(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 		~TextureImpl();
-		
 		poTextureConfig     config;
 		uint				uid, width, height, channels;
 	};

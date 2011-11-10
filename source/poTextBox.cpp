@@ -25,7 +25,6 @@ poTextBox::poTextBox()
 ,	fitHeightToBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
 {}
 
 poTextBox::poTextBox(int w) 
@@ -35,7 +34,6 @@ poTextBox::poTextBox(int w)
 ,	fitHeightToBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
 {
 	setWidth(w);
 }
@@ -47,7 +45,6 @@ poTextBox::poTextBox(int w, int h)
 ,	fitHeightToBounds(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
 {
 	setWidth(w);
     setHeight(h);
@@ -63,14 +60,13 @@ void poTextBox::clone(poTextBox *tb) {
 	tb->textColor = textColor;
 	tb->fitHeightToBounds = fitHeightToBounds;
 	tb->cacheToTexture = cacheToTexture;
+	tb->textAlignment = textAlignment;
 	tb->layout = layout;
 	tb->cached = cached;
 	poObject::clone(tb);
-	
 }
 
-poTextBox::~poTextBox() {
-}
+poTextBox::~poTextBox() {}
 
 std::string poTextBox::getText() const {
 	return layout.text;
@@ -142,7 +138,21 @@ bool poTextBox::getCacheToTexture() const {
 }
 
 void poTextBox::setCacheToTexture(bool b) {
-	cacheToTexture = b;
+    if(cacheToTexture != b) {
+        cacheToTexture = b;
+        
+        if(b) {
+            //Create cached
+            if(!layoutDone) {
+                doLayout();
+            } else {
+                generateCachedTexture();
+            }
+        } else {
+            //Erase cached
+            cached = poTexture();
+        }
+    }
 }
 
 float poTextBox::getLeading() const {
@@ -212,7 +222,7 @@ void poTextBox::doLayout() {
 		setHeight(getTextBounds().height);
 
 	setAlignment(getAlignment());
-	setTextAlignment(getTextAlignment());
+	layout.alignment = textAlignment;
 	layout.realignText();
 	
 	if(cacheToTexture) {
@@ -224,7 +234,9 @@ void poTextBox::doLayout() {
 
 
 void poTextBox::generateCachedTexture() {
-	cached = poTexture();
+    if(cached.isValid()) {
+        cached = poTexture();
+    }
     
     poRect bounds = getBounds();
     bounds.include(getTextBounds());
@@ -273,39 +285,40 @@ void poTextBox::draw() {
 		return;
 	}
 	
-	poBitmapFont bitmapFont = getBitmapFont(getFont(), layout.textSize);
+	poBitmapFont regFont = getBitmapFont(getFont(), layout.textSize);
+	poBitmapFont bitmapFont = regFont;
 	
     if ( layout.isRichText ) {
-//		int count = 0;
-//		for(int i=0; i<getNumLines(); i++) {
-//			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
-//				po::setColor(poColor(textColor, getAppliedAlpha()));
-//				
-//				poDictionary dict = layout.getTextPropsAtIndex(count);
-//				count++;
-//				
-//				// see if the user wants anything special
-//				if(dict.has("color"))
-//					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
-//				
-//				// a new font, perhaps?
-//				if(dict.has("font")) {
-//					poFont theFont = (poFont*)dict.getPtr("font");
-//					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
-//					poBitmapFont* newFont = getBitmapFont(theFont, fontSize);
-//					
-//					if(newFont != bitmapFont) {
-//						bitmapFont = newFont;
-//					}
-//				}
-//				else if(bitmapFont != regFont) {
-//					bitmapFont = regFont;
-//				}
-//				
-//				// very well, now draw it
-//				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
-//			}
-//		}
+		int count = 0;
+		for(int i=0; i<getNumLines(); i++) {
+			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
+				po::setColor(poColor(textColor, getAppliedAlpha()));
+				
+				poDictionary dict = layout.getTextPropsAtIndex(count);
+				count++;
+				
+				// see if the user wants anything special
+				if(dict.has("color"))
+					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
+				
+				// a new font, perhaps?
+				if(dict.has("font")) {
+					poFont theFont = dict.getFont("font");
+					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
+					poBitmapFont newFont = getBitmapFont(theFont, fontSize);
+					
+					if(newFont != bitmapFont) {
+						bitmapFont = newFont;
+					}
+				}
+				else if(bitmapFont != regFont) {
+					bitmapFont = regFont;
+				}
+				
+				// very well, now draw it
+				bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+			}
+		}
     }
     else {
 		po::setColor( poColor(textColor, getAppliedAlpha()) );

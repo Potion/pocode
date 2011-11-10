@@ -19,13 +19,13 @@
 int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
-std::string applicationGetApplicationSupportDirectory();
 poWindow*	applicationCurrentWindow();
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);
 void		applicationMoveWindow(poWindow*,poPoint);
 void		applicationReshapeWindow(poWindow*,poRect);
 void        applicationQuit();
+
 
 // These three functions should be defined in your application. They are not defined in poApplication.cpp.
 
@@ -40,7 +40,6 @@ extern void         setupApplication();
 
 // This function is called when the application quits. All potionCode example projects implement this function.
 extern void         cleanupApplication();
-
 
 
 

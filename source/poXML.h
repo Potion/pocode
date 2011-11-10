@@ -24,14 +24,13 @@ class poXMLDocument;
 class poXMLDocument {
 public:
 	poXMLDocument();
-	// load from a file
 	poXMLDocument(const std::string &url);
 	
 	bool			isValid() const;
     
     // GET ROOT NODE FROM XML DOCUMENT
 	poXMLNode       getRootNode() const;
-	poXMLNode		resetRootNode();
+	void			setRootNode(poXMLNode node);
 	
     // READ and WRITE XML FILE
 	bool            read(const std::string &url);
@@ -39,8 +38,7 @@ public:
 	bool            write(const std::string &url);
 	
     // PRINT
-	void            print() const;
-	pugi::xml_document &getHandle() const;
+	void            print();
 	
 private:
 	boost::shared_ptr<pugi::xml_document> document;
@@ -65,7 +63,7 @@ public:
 	
     // XML NODE NAME
 	std::string     getName() const;
-	poXMLNode&		setName(const std::string &str);
+	void            setName(const std::string &str);
 
     // GET XML VALUE
 	int             getInnerInt() const;
@@ -73,9 +71,9 @@ public:
 	std::string     getInnerString() const;
 
     // SET XML VALUE
-	poXMLNode&		setInnerInt(int i);
-	poXMLNode&		setInnerFloat(float f);
-	poXMLNode&		setInnerString(const std::string &str);
+	void            setInnerInt(int i);
+	void            setInnerFloat(float f);
+	void            setInnerString(const std::string &str);
 	
     // XML ATTRIBUTES
 	uint            getNumAttributes() const;
@@ -88,15 +86,20 @@ public:
 	std::string     getStringAttribute(const std::string &name) const;
 
     // SET ATTRIBUTE VALUE
-	poXMLNode&		setAttribute(const std::string &name, int value);
-	poXMLNode&		setAttribute(const std::string &name, float value);
-	poXMLNode&		setAttribute(const std::string &name, const std::string &value);
-	poXMLNode&		removeAttribute(const std::string &name);
+	void            setAttribute(const std::string &name, int value);
+	void            setAttribute(const std::string &name, float value);
+	void            setAttribute(const std::string &name, const std::string &value);
+	
+    // ADD and REMOVE ATTRIBUTES
+	void            addAttribute(const std::string &name, int i);
+	void            addAttribute(const std::string &name, float f);
+	void            addAttribute(const std::string &name, const std::string &value);
+	void            removeAttribute(const std::string &name);
     
     // ADD and REMOVE CHILDREN
-	uint			getNumChildren() const;
-	poXMLNode		addChild(const std::string &name);
-	poXMLNode&		removeChild(const std::string &name);	
+	uint            getNumChildren() const;
+	poXMLNode       addChild(const std::string &name);
+	void            removeChild(const std::string &name);	
     
     // GET CHILDREN
 	poXMLNode       getChild(uint idx);
@@ -115,14 +118,11 @@ public:
 	// http://tinyxpath.sourceforge.net/out.htm supported operations
 	poXPathResult find(const std::string &xpath);
 	
-	pugi::xml_node getHandle() const;
+	pugi::xml_node handle();
 	
 private:
 	pugi::xml_node  node;
-	poXMLDocument doc;
 };
-
-bool operator==(poXMLNode const& n1, poXMLNode const &n2);
 
 // CLASS NOTES
 //

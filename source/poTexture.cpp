@@ -76,9 +76,7 @@ poTexture::TextureImpl::TextureImpl()
 :	uid(0), width(0), height(0), channels(0), config()
 {}
 
-poTexture::TextureImpl::TextureImpl(uint w, uint h, ubyte const* p, poTextureConfig const& c)
-:	uid(0)
-{	
+poTexture::TextureImpl::TextureImpl(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 	width = w;
 	height = h;
 	channels = channelsForFormat(c.format);
@@ -115,16 +113,16 @@ poTexture::TextureImpl::TextureImpl(uint w, uint h, ubyte const* p, poTextureCon
 }
 
 poTexture::TextureImpl::~TextureImpl() {
-	glDeleteTextures(1, &uid);
-	uid = 0;
+	if(uid > 0) {
+		glDeleteTextures(1, &uid);
+		uid = 0;
+	}
 }
 
-poTexture::poTexture()
-{}
+poTexture::poTexture() {}
 
 poTexture::poTexture(const std::string &url) {
-	poImage img(url);
-	load(img);
+	load(poImage(url));
 }
 
 poTexture::poTexture(poImage img) {
@@ -152,7 +150,7 @@ void poTexture::replace(const ubyte *pixels) {
 }
 
 bool poTexture::isValid() const {
-	return (shared && shared->uid > 0);
+	return shared && shared->uid > 0;
 }
 
 poTextureConfig poTexture::getConfig() const {
@@ -205,13 +203,15 @@ void poTexture::load(uint width, uint height, int channels, const ubyte *pixels)
 	load(width, height, pixels, poTextureConfig(formatForChannels(channels)));
 }
 
-void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
-	shared.reset(new TextureImpl(w,h,p,c));
+void poTexture::load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config) {
+	shared.reset(new TextureImpl(width,height,pixels,config));
 }
 
 void poTexture::loadDummyImage() {
 	static boost::shared_ptr<TextureImpl> dummy;
 	if(!dummy) {
+		dummy.reset(new TextureImpl);
+		
 		ubyte *pix = new ubyte[20*20*3]();
 		for(int y=0; y<20; y++) {
 			for(int x=0; x<20; x++) {
@@ -224,9 +224,7 @@ void poTexture::loadDummyImage() {
 		}
 		
 		dummy.reset(new TextureImpl(20,20,pix,poTextureConfig(GL_RGB)));
-		delete [] pix;
 	}
-	
 	shared = dummy;
 }
 
@@ -364,4 +362,23 @@ void textureFitVertical(poRect rect, poTexture tex, poAlignment align, std::vect
 		coords[i] -= offset;
 	}
 }
+
+//void loadNotFound() {
+//	static poImage *img = NULL;
+//	if(!img) {
+//		ubyte *pix = new ubyte[10*10*3]();
+//		for(int i=0; i<10*10; i++) {
+//			pix[i*3+2] = 255;
+//			pix[i*3+1] = 0;
+//			pix[i*3] = 0;
+//		}
+//		img = new poImage(10,10,IMAGE_24,pix);
+//	}
+//	load(img);
+//}
+//
+//
+
+
+
 

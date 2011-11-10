@@ -26,7 +26,6 @@ namespace po {
 	void drawStrokedRect(poRect rect);
 	void drawFilledRect(float x, float y, float w, float h);
 	void drawFilledRect(poRect rect);
-	
 	void drawTexturedRect(poTexture tex);
 	void drawTexturedRect(poTexture tex, float x, float y, float w, float h);
 	void drawTexturedRect(poTexture tex, poRect rect);

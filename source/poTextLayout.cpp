@@ -39,7 +39,7 @@ image_data parseImageNode(const pugi::xml_node &node) {
 	img.image = poImage();
 	img.align = PO_ALIGN_TOP_LEFT;
 	
-//	img.image = getImage(node.attribute("src").value());
+	img.image = getImage(node.attribute("src").value());
 	if(img.image.isValid()) {
 		
 	}

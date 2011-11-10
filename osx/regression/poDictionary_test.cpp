@@ -7,59 +7,12 @@
 //
 
 #include <boost/test/unit_test.hpp>
-
 #include "poObject.h"
 #include "poDictionary.h"
 #include "poImage.h"
 
-BOOST_AUTO_TEST_CASE( poDictionary_readWrite ) {
-	poDictionary D, D1, D2;
-	
-	// fill out a dictionary with test data 
-	D.set("int", 10);
-	D.set("double", 10.4);
-	D.set("string", "hello");
-	D.set("point", poPoint(100,10,0));
-	D.set("color", poColor::red);
-	
-	D1.set("int", 50);
-	D1.set("double",50.00000999988887777);
-	D1.set("string", "what");
-	D1.set("point", poPoint(.5f,.5f,.5f));
-	D1.set("color", poColor::blue);
-	D.set("dictionary", D1);
-	
-	BOOST_CHECK(D.count() == 6);
-	
-	// write it to a file
-	D.write("test.dict.xml");
-	// confirm that the file exists
-	BOOST_CHECK(fs::exists("test.dict.xml"));
-	
-	// read it back into the other dictionary
-	D2.read("test.dict.xml");
-	// make sure something was in there
-	BOOST_CHECK(D2.count() == 6);
-	
-	// and make sure the read was ok
-	BOOST_CHECK(D2.getInt("int") == 10);
-	BOOST_CHECK(D2.getDictionary("dictionary").getInt("int") == 50);
-	BOOST_CHECK_CLOSE(D2.getPoint("point").x, 100.f, 0.00001f);
-	BOOST_CHECK_CLOSE(D2.getDictionary("dictionary").getColor("color").B, 1.f, 0.00001f);
-	
-	// test that reading into a full dictionary replaces whats in there already
-	D2.set("int", 15);
-	D2.write("test.dict.xml");
-	D1.read("test.dict.xml");
-	BOOST_CHECK_CLOSE(D1.getInt("int"), 15.f, 0.00001f);
-	
-	BOOST_CHECK(D2.has("int"));
-	BOOST_CHECK(!D2.has("some other node key"));
-	
-//	fs::remove("test.dict.xml");
-}
 
-BOOST_AUTO_TEST_CASE( poDictionary_mutate ) {
+BOOST_AUTO_TEST_CASE( poDictionaryTest ) {
 	
 	poDictionary D = poDictionary();
 	

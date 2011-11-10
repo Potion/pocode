@@ -258,7 +258,7 @@ void poObject::addChild(poObject* obj, int idx) {
 	if(obj->parent != NULL)
 		obj->parent->removeChild(obj);
 	obj->parent = this;
-	children.insert(children.begin()+idx, obj);
+	children.insert(children.begin()+idx+1, obj);
 }
 
 void poObject::addChildBefore(poObject* obj, poObject* before) {
@@ -334,13 +334,13 @@ void poObject::moveChildToBack(poObject* child) {
 void poObject::moveChildForward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
-	addChild(child, std::min(idx+1, getNumChildren()));
+	addChild(child, std::max(idx, getNumChildren()));
 }
 
 void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
 	removeChild(child);
-	addChild(child, std::max(idx-1, 0));
+	addChild(child, std::min(idx-1, 0));
 }
 
 poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
@@ -571,14 +571,14 @@ void poObject::stopAllTweens(bool recurse) {
 void poObject::read(poXMLNode node) {
 	uid = (uint)node.getChild("uid").getInnerInt();
 	name = node.getChild("name").getInnerString();
-	position.fromString(node.getChild("position").getInnerString());
+	position.set(node.getChild("position").getInnerString());
 	width   = node.getChild("width").getInnerFloat();
 	height  = node.getChild("height").getInnerFloat();
-	scale.fromString(node.getChild("scale").getInnerString());
+	scale.set(node.getChild("scale").getInnerString());
 	alpha = node.getChild("alpha").getInnerFloat();
 	rotation = node.getChild("rotation").getInnerFloat();
-	rotationAxis.fromString(node.getChild("rotationAxis").getInnerString());
-	offset.fromString(node.getChild("offset").getInnerString());
+	rotationAxis.set(node.getChild("rotationAxis").getInnerString());
+	offset.set(node.getChild("offset").getInnerString());
 	visible = node.getChild("visible").getInnerInt();
 	bFixedWidth = node.getChild("bFixedWidth").getInnerInt();
 	bFixedHeight = node.getChild("bFixedHeight").getInnerInt();
@@ -588,7 +588,7 @@ void poObject::read(poXMLNode node) {
 }
 
 void poObject::write(poXMLNode &node) {
-	node.setAttribute("type", "poObject");
+	node.addAttribute("type", "poObject");
 
 	node.addChild("uid").setInnerInt(getUID());
 	node.addChild("name").setInnerString(name);

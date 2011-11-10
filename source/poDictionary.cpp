@@ -16,8 +16,8 @@ namespace {
 		void operator()(const string& s) const		{out << "'" << s << "'";}
 		void operator()(const poPoint& p) const		{out << p;}
 		void operator()(const poColor& c) const		{out << c;}
-		void operator()(const poFont* f) const		{out << f;}
-		void operator()(const poImage* i) const		{out << i;}
+		void operator()(const poFont& f) const		{out << f;}
+		void operator()(const poImage& i) const		{out << i;}
 		void operator()(const void* p) const		{out << "&" << hex << (size_t)p;}
 		void operator()(const poDictionary& d) const{out << d;}
 	};
@@ -30,8 +30,8 @@ namespace {
 		string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
 		string operator()(poPoint& p)		{ss << p; return ss.str();}
 		string operator()(poColor& c)		{ss << c; return ss.str();}
-		string operator()(poFont* f)		{ss << f; return ss.str();}
-		string operator()(poImage* i)		{ss << i; return ss.str();}
+		string operator()(poFont& f)		{ss << f; return ss.str();}
+		string operator()(poImage& i)		{ss << i; return ss.str();}
 		string operator()(void* p)			{ss << "&" << hex << (size_t)p; return ss.str();}
 		string operator()(poDictionary& d)	{ss << d; return ss.str();}
 	};
@@ -61,6 +61,12 @@ poPoint poDictionaryItem::getPoint() const {
 }
 poColor poDictionaryItem::getColor() const {
 	return boost::get<poColor>(item);
+}
+poFont poDictionaryItem::getFont() const {
+	return boost::get<poFont>(item);
+}
+poImage poDictionaryItem::getImage() const {
+	return boost::get<poImage>(item);
 }
 void* poDictionaryItem::getPtr() const {
 	return boost::get<void*>(item);
@@ -112,6 +118,12 @@ poPoint poDictionary::getPoint(const std::string &s) const {
 poColor poDictionary::getColor(const std::string &s) const {
 	return shared->items.at(s).getColor();
 }
+poFont poDictionary::getFont(const std::string &s) const {
+	return shared->items.at(s).getFont();
+}
+poImage poDictionary::getImage(const std::string &s) const {
+	return shared->items.at(s).getImage();
+}
 void* poDictionary::getPtr(const string &s) const {
 	return shared->items.at(s).getPtr();
 }
@@ -149,86 +161,28 @@ vector<string> poDictionary::keys() const {
 	return response;
 }
 void poDictionary::write(poXMLNode node) {
-	node.setName("item");
+	node.setName("dict");
 	for(poDictionaryItemMap::iterator iter=shared->items.begin(); iter!=shared->items.end(); ++iter) {
 		poXMLNode item = node.addChild("item");
 		
-		item.setAttribute("name", iter->first);
-		item.setAttribute("type", iter->second.getType());
-
 		if(iter->second.getType() == PO_DICTIONARY_T) {
-			poDictionary dict = iter->second.getDictionary();
-			dict.write(item);
+			item.addAttribute("name", iter->first);
+			iter->second.getDictionary().write(item);
 		}
 		else {
+			item.addAttribute("name", iter->first);
+			item.addAttribute("type", iter->second.getType());
 			item.setInnerString(iter->second.toString().c_str());
 		}
 	}
 }
 void poDictionary::write(poXMLDocument &doc) {
-	poXMLNode root = doc.getRootNode();
-	root.setAttribute("name", "root");
-	root.setAttribute("type", PO_DICTIONARY_T);
-	write(root);
+	write(doc.getRootNode());
 }
 void poDictionary::write(const std::string &url) {
 	poXMLDocument doc;
 	write(doc);
 	doc.write(url.c_str());
-}
-void poDictionary::read(poXMLNode node) {
-	int type = node.getIntAttribute("type");
-	std::string name = node.getStringAttribute("name");
-	
-	switch(type) {
-		case PO_INT_T:
-			set(name, node.getInnerInt());
-			break;
-		case PO_DOUBLE_T:
-			set(name, node.getInnerFloat());
-			break;
-		case PO_STRING_T:
-			set(name, node.getInnerString());
-			break;
-		case PO_POINT_T: {
-			poPoint p;
-			if(p.fromString(node.getInnerString()))
-				set(name, p);
-			break;
-		}
-		case PO_COLOR_T: {
-			poColor c;
-			if(c.set(node.getInnerString()))
-				set(name, c);
-			break;
-		}
-		case PO_VOID_PTR_T:
-			printf("reading void ptr from dictionary not supported; inserting address as string, though its basically meaningless\n");
-			set(name, node.getInnerString());
-			break;
-		case PO_DICTIONARY_T: {
-			poDictionary dict;
-			poXMLNode item = node.getFirstChild();
-			while(item.isValid()) {
-				dict.read(item);
-				item = item.getNextSibling();
-			}
-			set(node.getStringAttribute("name"), dict);
-			break;
-		}
-	}
-}
-void poDictionary::read(const std::string &url) {
-	shared.reset(new DictionaryImpl);
-	
-	poXMLDocument doc(url);
-	if(doc.isValid()) {
-		poXMLNode item = doc.getRootNode().getFirstChild();
-		while(item.isValid()) {
-			read(item);
-			item = item.getNextSibling();
-		}
-	}
 }
 poDictionaryItemMap::iterator poDictionary::begin() {
 	return shared->items.begin();

@@ -57,11 +57,6 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 	return false;
 }
 
-
-std::string getApplicationSupportDirectory() {
-    return applicationGetApplicationSupportDirectory();
-}
-
 unsigned int getNumCpus() {
 	return boost::thread::hardware_concurrency();
 }
