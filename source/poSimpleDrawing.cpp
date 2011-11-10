@@ -254,8 +254,6 @@ void po::drawString(const std::string &str, poFont font, poPoint pos, int ptSize
 	if(ptSize > 0)
 		font.setPointSize(ptSize);
 	
-	poBitmapFont bitmapFont = getBitmapFont(font, ptSize);
-
 	font.setGlyph(' ');
 	float spacer = font.getGlyphAdvance().x * tracking;
 	
@@ -268,7 +266,7 @@ void po::drawString(const std::string &str, poFont font, poPoint pos, int ptSize
 		poPoint org = round(pos+font.getGlyphBearing());
 		org.y += font.getAscender();
 		
-		bitmapFont.drawGlyph( codepoint, org );
+		getBitmapFont(font, ptSize).drawGlyph( codepoint, org );
 		
 		pos.x += adv.x * tracking;
 	}

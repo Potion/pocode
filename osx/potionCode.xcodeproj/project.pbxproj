@@ -328,13 +328,13 @@
 			name = common;
 			sourceTree = "<group>";
 		};
-		E494686B14679A00009D3AFC /* Network */ = {
+		E494686B14679A00009D3AFC /* network */ = {
 			isa = PBXGroup;
 			children = (
 				E494686D14679A7F009D3AFC /* poFileLoader.cpp */,
 				E494686E14679A7F009D3AFC /* poFileLoader.h */,
 			);
-			name = Network;
+			name = network;
 			sourceTree = "<group>";
 		};
 		E84CECBF142ADCEF008B3E3E /* opengl */ = {
@@ -391,7 +391,6 @@
 		E8B2D0B4132E9F4D002BE3D9 /* potionLib */ = {
 			isa = PBXGroup;
 			children = (
-				E494686B14679A00009D3AFC /* Network */,
 				E8E7559213C60A5D00A91EB8 /* poObjects */,
 				7F9E4BBF140AE8B300548BDB /* common */,
 				E8E7558D13C6099A00A91EB8 /* application */,
@@ -399,6 +398,7 @@
 				7F59A5E51409D42A0070E84A /* resources */,
 				E8E7558F13C609C600A91EB8 /* graphics */,
 				7F9E4BBD140AE78B00548BDB /* data */,
+				E494686B14679A00009D3AFC /* network */,
 				7F9E4BBE140AE86100548BDB /* math */,
 				E84CECBF142ADCEF008B3E3E /* opengl */,
 				E8E7559413C60AF900A91EB8 /* helpers */,
@@ -781,7 +781,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				OTHER_CFLAGS = "-Wshadow";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 			};
 			name = Debug;
@@ -797,6 +797,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
+				OTHER_CFLAGS = "";
 			};
 			name = Release;
 		};
@@ -805,6 +806,7 @@
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_CFLAGS = "";
 				SDKROOT = iphoneos5.0;
 			};
 			name = Debug;
@@ -815,7 +817,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				OTHER_CFLAGS = "-Wshadow";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 			};
 			name = Release;

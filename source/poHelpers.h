@@ -35,6 +35,8 @@ bool pathToFolder(const std::string &folder_name, fs::path *path);
 bool lookUpAndSetPath(const std::string &folder_name);
 bool lookUpAndSetPathNextTo(const std::string &folder_name);
 
+std::string getApplicationSupportDirectory();
+
 // point related
 std::vector<poPoint> roundedRect(float w, float h, float r);
 std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution);

@@ -84,18 +84,6 @@ poRect &poRect::set(poPoint pos, poPoint size) {
 	return *this;
 }
 
-bool poRect::set(const std::string &str) {
-	float x, y, w, h;
-	int wrote = sscanf(str.c_str(), "rect(%f,%f,%f,%f)", &x, &y, &w, &h);
-	if(wrote < 4) {
-		set(0,0,0,0);
-		return false;
-	}
-	
-	set(x,y,w,h);
-	return true;
-}
-
 poRect &poRect::include(float x, float y) {
     poPoint maxPoint = getPosition() + getSize();
     
@@ -186,6 +174,18 @@ std::string poRect::toString() const {
 	std::stringstream ss;
 	ss << "rect(" << x << "," << y << "," << width << "," << height << ")";
 	return ss.str();
+}
+
+bool poRect::fromString(const std::string &str) {
+	float x, y, w, h;
+	int wrote = sscanf(str.c_str(), "rect(%f,%f,%f,%f)", &x, &y, &w, &h);
+	if(wrote < 4) {
+		set(0,0,0,0);
+		return false;
+	}
+	
+	set(x,y,w,h);
+	return true;
 }
 
 poPoint poRect::remap(poRect from, poPoint p) {
