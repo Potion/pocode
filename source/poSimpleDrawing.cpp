@@ -8,7 +8,7 @@
 #include "poApplication.h"
 
 #include "poLineExtruder.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 
 #include <cfloat>
 #include <utf8.h>
@@ -138,25 +138,25 @@ void po::drawFilledRect(poRect rect) {
 	drawFilledRect(rect.x, rect.y, rect.width, rect.height);
 }
 
-void po::drawTexturedRect(poTexture tex) {
-	drawTexturedRect(tex, poRect(0,0,tex.getWidth(),tex.getHeight()), poRect(0,0,1,1));
+void po::drawTexturedRect(poTexture *tex) {
+	drawTexturedRect(tex, poRect(0,0,tex->getWidth(),tex->getHeight()), poRect(0,0,1,1));
 }
 
-void po::drawTexturedRect(poTexture tex, float x, float y, float w, float h) {
+void po::drawTexturedRect(poTexture *tex, float x, float y, float w, float h) {
 	drawTexturedRect(tex, poRect(x,y,w,h), poRect(0,0,1,1));
 }
 
-void po::drawTexturedRect(poTexture tex, poRect rect) {
+void po::drawTexturedRect(poTexture *tex, poRect rect) {
 	drawTexturedRect(tex, rect, poRect(0,0,1,1));
 }
 
-void po::drawTexturedRect(poTexture tex, poRect rect, poTextureFitOption fit) {
+void po::drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit) {
 	std::vector<poPoint> coords = textureFit(rect, tex, fit, PO_ALIGN_TOP_LEFT);
 	poRect coords_rect(coords[0], coords[2]);
 	drawTexturedRect(tex, rect, coords_rect);
 }
 
-void po::drawTexturedRect(poTexture tex, poRect rect, poRect coords) {
+void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 	GLfloat quad[4*3] = { 
 		rect.x,  rect.y, 0, 
 		rect.x+rect.width, rect.y, 0, 
@@ -197,11 +197,11 @@ void po::drawFilledPolygon(const std::vector<poPoint> &points, const std::vector
 	drawPoints(points, indices, GL_TRIANGLE_FAN);
 }
 
-void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords) {
+void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords) {
 	drawPoints(points, tex, texCoords, GL_TRIANGLE_FAN);
 }
 
-void po::drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords) {
+void po::drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords) {
 	drawPoints(points, indices, tex, texCoords, GL_TRIANGLE_FAN);
 }
 
@@ -226,7 +226,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState(tex));
@@ -238,7 +238,7 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture tex, const std
 	glDrawArrays(type, 0, points.size());
 }
 
-void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type) {
+void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
 	poOpenGLState *ogl = poOpenGLState::get();
 	
 	ogl->setTexture(po::TextureState(tex));
@@ -250,23 +250,25 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
-void po::drawString(const std::string &str, poFont font, poPoint pos, int ptSize, float tracking) {
+void po::drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
 	if(ptSize > 0)
-		font.setPointSize(ptSize);
+		font->setPointSize(ptSize);
 	
-	font.setGlyph(' ');
-	float spacer = font.getGlyphAdvance().x * tracking;
+	font->setGlyph(' ');
+	float spacer = font->getGlyphAdvance().x * tracking;
+	
+	poBitmapFont *bmpFont = poGetBitmapFont(font, ptSize);
 	
 	std::string::const_iterator ch = str.begin();
 	while(ch != str.end()) {
 		uint codepoint = utf8::next(ch, str.end());
 
-		font.setGlyph(codepoint);
-		poPoint adv = font.getGlyphAdvance();
-		poPoint org = round(pos+font.getGlyphBearing());
-		org.y += font.getAscender();
+		font->setGlyph(codepoint);
+		poPoint adv = font->getGlyphAdvance();
+		poPoint org = round(pos+font->getGlyphBearing());
+		org.y += font->getAscender();
 		
-		getBitmapFont(font, ptSize).drawGlyph( codepoint, org );
+		bmpFont->drawGlyph( codepoint, org );
 		
 		pos.x += adv.x * tracking;
 	}

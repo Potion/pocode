@@ -16,8 +16,6 @@ namespace {
 		void operator()(const string& s) const		{out << "'" << s << "'";}
 		void operator()(const poPoint& p) const		{out << p;}
 		void operator()(const poColor& c) const		{out << c;}
-		void operator()(const poFont* f) const		{out << f;}
-		void operator()(const poImage* i) const		{out << i;}
 		void operator()(const void* p) const		{out << "&" << hex << (size_t)p;}
 		void operator()(const poDictionary& d) const{out << d;}
 	};
@@ -30,8 +28,6 @@ namespace {
 		string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
 		string operator()(poPoint& p)		{ss << p; return ss.str();}
 		string operator()(poColor& c)		{ss << c; return ss.str();}
-		string operator()(poFont* f)		{ss << f; return ss.str();}
-		string operator()(poImage* i)		{ss << i; return ss.str();}
 		string operator()(void* p)			{ss << "&" << hex << (size_t)p; return ss.str();}
 		string operator()(poDictionary& d)	{ss << d; return ss.str();}
 	};

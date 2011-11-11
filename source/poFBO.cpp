@@ -88,12 +88,12 @@ void poFBO::reset(uint w, uint h, const poFBOConfig &c) {
 }
 
 // retrieve this texture to draw the FBO
-poTexture poFBO::getColorTexture(uint idx) const {
+poTexture *poFBO::getColorTexture(uint idx) const {
 	return colorbuffers[idx];
 }
 
-poTexture poFBO::getDepthTexture() const {
-	return poTexture();
+poTexture *poFBO::getDepthTexture() const {
+	return NULL;
 }
 
 void poFBO::doSetUp(poObject* obj) {
@@ -157,8 +157,8 @@ void poFBO::setup() {
 		// make new textures
 		colorbuffers.clear();
 		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i].getUid(), 0);
+			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
 		}
 		
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -178,8 +178,8 @@ void poFBO::setup() {
 		colorbuffers.clear();
 		
 		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i].getUid(), 0);
+			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
 		}
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -191,16 +191,15 @@ void poFBO::setup() {
 }
 
 void poFBO::cleanup() {
+	BOOST_FOREACH(poTexture *tex, colorbuffers)
+		delete tex;
 	colorbuffers.clear();
-	
+
 	// make sure none of this is bound right now
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDeleteFramebuffers(framebuffers.size(), &framebuffers[0]);
 	glDeleteRenderbuffers(renderbuffers.size(), &renderbuffers[0]);
 	framebuffers[0] = 0;
 }
-
-
-
 
 

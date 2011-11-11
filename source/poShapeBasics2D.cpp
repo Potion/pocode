@@ -6,9 +6,9 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "poResourceLoader.h"
-#include "poShapeBasics2D.h"
 #include "poHelpers.h"
+#include "poShapeBasics2D.h"
+#include "poResourceStore.h"
 
 #pragma mark poRectShape
 
@@ -20,20 +20,20 @@ poRectShape::poRectShape(float width, float height, float rad) {
 	construct(width,height,rad);
 }
 
-poRectShape::poRectShape(poTexture tex, poTextureFitOption fit, poAlignment align) {
-	construct(tex.getWidth(), tex.getHeight(), 0);
+poRectShape::poRectShape(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	construct(tex->getWidth(), tex->getHeight(), 0);
 	placeTexture(tex, fit, align);
 }
 
 poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
-	poImage img(str);
-	if(img.isValid()) {
-		construct(img.getWidth(), img.getHeight(), 0);
-		placeTexture(poTexture(img), fit, align);
+	poTexture *tex = poGetTexture(str);
+	if(tex && tex->isValid()) {
+		construct(tex->getWidth(), tex->getHeight(), 0);
+		placeTexture(tex, fit, align);
 	}
 }
 
-poRectShape::poRectShape(float width, float height, poTexture tex, poTextureFitOption fit, poAlignment align) {
+poRectShape::poRectShape(float width, float height, poTexture *tex, poTextureFitOption fit, poAlignment align) {
 	construct(width, height, 0);
 	placeTexture(tex, fit, align);
 }

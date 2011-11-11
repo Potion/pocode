@@ -58,9 +58,14 @@
 
 #endif
 
-FT_Library poFont::FontImpl::lib = NULL;
+FT_Library poFont::lib = NULL;
 
-poFont::FontImpl::FontImpl()
+bool poFont::fontExists(const std::string &family) {
+	std::string url;
+	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
+}
+
+poFont::poFont()
 :	face(NULL)
 ,	size(0)
 ,	url("")
@@ -70,7 +75,12 @@ poFont::FontImpl::FontImpl()
 		FT_Init_FreeType(&lib);
 }
 
-poFont::FontImpl::FontImpl(const std::string &family_or_url, const std::string &style) {
+poFont::poFont(const std::string &family_or_url, const std::string &style)
+:	face(NULL)
+,	size(0)
+,	url("")
+,	glyph(0)
+{
 	if(!lib)
 		FT_Init_FreeType(&lib);
 
@@ -100,92 +110,78 @@ poFont::FontImpl::FontImpl(const std::string &family_or_url, const std::string &
 	
 	this->url = url;
 	this->face = tmp;
-}
 
-poFont::FontImpl::~FontImpl() {
-	if(face)
-		FT_Done_Face(face);
-}
-
-bool poFont::fontExists(const std::string &family) {
-	std::string url;
-	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
-}
-
-poFont::poFont() 
-{}
-
-poFont::poFont(const std::string &family_or_url, const std::string &style) {
-	shared.reset(new FontImpl(family_or_url, style));
 	setPointSize(12);
 	setGlyph(0);
 }
 
 poFont::~poFont() {
+	if(face)
+		FT_Done_Face(face);
 }
 
 bool poFont::isValid() const {
-	return shared && shared->face != NULL;
+	return face != NULL;
 }
 
 std::string poFont::getFamilyName() const {
-	return shared->face->family_name;
+	return face->family_name;
 }
 std::string poFont::getStyleName() const {
-	return shared->face->style_name;
+	return face->style_name;
 }
 std::string poFont::getUrl() const {
-	return shared->url;
+	return url;
 }
 bool poFont::hasKerning() const {
-	return (shared->face->face_flags & FT_FACE_FLAG_KERNING) != 0;
+	return (face->face_flags & FT_FACE_FLAG_KERNING) != 0;
 }
 
 int poFont::getPointSize() const {
-	return shared->size;
+	return size;
 }
 
 void poFont::setPointSize(int sz) {
-	if(sz != shared->size) {
-		shared->size = sz;
+	if(sz != size) {
+		size = sz;
 		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(shared->face, shared->size*64, 0, rez.x, 0);
+		FT_Set_Char_Size(face, size*64, 0, rez.x, 0);
 	}
 }
 
 float poFont::getLineHeight() const {
-	return shared->face->size->metrics.height >> 6;
+	return face->size->metrics.height >> 6;
 }
 float poFont::getAscender() const {
-	return shared->face->size->metrics.ascender >> 6;
+	return face->size->metrics.ascender >> 6;
 }
 float poFont::getDescender() const {
-	return shared->face->size->metrics.descender >> 6;
+	return face->size->metrics.descender >> 6;
 }
 
 float poFont::getUnderlinePosition() const {
-	return shared->face->underline_position >> 6;
+	return face->underline_position >> 6;
 }
 float poFont::getUnderlineThickness() const {
-	return shared->face->underline_thickness >> 6;
+	return face->underline_thickness >> 6;
 }
 
 int poFont::getGlyph() const {
-	return shared->glyph;
+	return glyph;
 }
 
 void poFont::setGlyph(int g) {
-	if(g != shared->glyph) {
-		shared->glyph = g;
-		loadGlyph(shared->glyph);
+	if(g != glyph) {
+		glyph = g;
+		loadGlyph(glyph);
 	}
 }
 
 poRect poFont::getGlyphBounds() const {
 	float x = 0;
 	float y = 0;
-	float w = shared->face->glyph->metrics.width >> 6;
-	float h = shared->face->glyph->metrics.height >> 6;
+	float w = face->glyph->metrics.width >> 6;
+	float h = face->glyph->metrics.height >> 6;
 	return poRect(x, y, w, h);
 }
 
@@ -199,18 +195,18 @@ float poFont::getGlyphDescender() const {
 }
 
 poPoint poFont::getGlyphBearing() const {
-	return poPoint(shared->face->glyph->metrics.horiBearingX >> 6,
-				   -(shared->face->glyph->metrics.horiBearingY >> 6));
+	return poPoint(face->glyph->metrics.horiBearingX >> 6,
+				   -(face->glyph->metrics.horiBearingY >> 6));
 }
 
 poPoint poFont::getGlyphAdvance() const {
-	return poPoint(shared->face->glyph->metrics.horiAdvance >> 6, 
-				   shared->face->glyph->metrics.vertAdvance >> 6);
+	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
+				   face->glyph->metrics.vertAdvance >> 6);
 }
 
-poImage poFont::getGlyphImage() const {
-	FT_Render_Glyph(shared->face->glyph, FT_RENDER_MODE_NORMAL);
-	const FT_Bitmap bitmap = shared->face->glyph->bitmap;
+poImage* poFont::getGlyphImage() const {
+	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+	const FT_Bitmap bitmap = face->glyph->bitmap;
 	
 	uint w = bitmap.width+1;
 	uint h = bitmap.rows+1;
@@ -221,7 +217,7 @@ poImage poFont::getGlyphImage() const {
 		// inset the copy 1 x 1 so the top and left sides doesn't look aliased 
 		memcpy(buffer+(i*w)+1, bitmap.buffer+(bitmap.rows-i-1)*bitmap.pitch, bitmap.width);
 	
-	poImage img(w, h, 1, buffer);
+	poImage *img = new poImage(w, h, 1, buffer);
 	
 	delete [] buffer;
 	return img;
@@ -235,19 +231,19 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	}
 	
 	FT_Vector kern;
-	FT_Get_Kerning(shared->face, 
-				   FT_Get_Char_Index(shared->face, glyph1), FT_Get_Char_Index(shared->face, glyph2),
+	FT_Get_Kerning(face, 
+				   FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
 				   0, &kern);
 	return poPoint(kern.x, kern.y);
 }
 
 std::string poFont::toString() const {
-	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%shared->url).str();
+	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%url).str();
 }
 
 void poFont::loadGlyph(int g) {
-	uint idx = FT_Get_Char_Index(shared->face, g);
-	FT_Load_Glyph(shared->face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
+	uint idx = FT_Get_Char_Index(face, g);
+	FT_Load_Glyph(face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
 }
 
 std::ostream &operator<<(std::ostream &o, const poFont *f) {

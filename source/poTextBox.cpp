@@ -14,7 +14,7 @@ using namespace std;
 #include "poSimpleDrawing.h"
 #include "poOpenGLState.h"
 #include "poShapeBasics2D.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 
 #include <float.h>
 
@@ -25,7 +25,7 @@ poTextBox::poTextBox()
 ,	fitHeightToBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
+,	cached(NULL)
 {}
 
 poTextBox::poTextBox(int w) 
@@ -35,7 +35,7 @@ poTextBox::poTextBox(int w)
 ,	fitHeightToBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
+,	cached(NULL)
 {
 	setWidth(w);
 }
@@ -47,7 +47,7 @@ poTextBox::poTextBox(int w, int h)
 ,	fitHeightToBounds(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
-,	cached()
+,	cached(NULL)
 {
 	setWidth(w);
     setHeight(h);
@@ -197,11 +197,11 @@ int poTextBox::getTabWidth() const {
 	return layout.tabWidth;
 }
 
-void poTextBox::setFont(poFont f, const std::string &name) {
+void poTextBox::setFont(poFont *f, const std::string &name) {
 	layout.setFont(f,name);
 }
 
-poFont poTextBox::getFont(const std::string &name) {
+poFont* poTextBox::getFont(const std::string &name) {
 	return layout.getFont(name);
 }
 
@@ -224,7 +224,10 @@ void poTextBox::doLayout() {
 
 
 void poTextBox::generateCachedTexture() {
-	cached = poTexture();
+	if(cached) {
+		delete cached;
+		cached = NULL;
+	}
     
     poRect bounds = getBounds();
     bounds.include(getTextBounds());
@@ -241,25 +244,25 @@ void poTextBox::generateCachedTexture() {
     ogl->pushBlendState();
     ogl->setBlend(blend);
     
-    poBitmapFont bmp = getBitmapFont(getFont(), layout.textSize);
+    poBitmapFont *bmp = poGetBitmapFont(getFont(), layout.textSize);
     
     po::setColor(poColor::white);
     for(int i=0; i<getNumLines(); i++) {
         BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-            bmp.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+            bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
         }
     }
     
     ogl->popBlendState();
     
     fbo->setDown(this);
-    cached = fbo->getColorTexture();
+    cached = fbo->getColorTexture()->copy();
     delete fbo;
 }
 
 
 void poTextBox::draw() {
-	if(cached.isValid()) {
+	if(cached && cached->isValid()) {
 		po::BlendState blend = po::BlendState::preMultipliedBlending();
 		
 		poOpenGLState* ogl = poOpenGLState::get();
@@ -273,7 +276,7 @@ void poTextBox::draw() {
 		return;
 	}
 	
-	poBitmapFont bitmapFont = getBitmapFont(getFont(), layout.textSize);
+	poBitmapFont *bitmapFont = poGetBitmapFont(getFont(), layout.textSize);
 	
     if ( layout.isRichText ) {
 //		int count = 0;
@@ -312,7 +315,7 @@ void poTextBox::draw() {
 		
         for(int i=0; i<getNumLines(); i++) {
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                bitmapFont.drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
         }
     }

@@ -40,7 +40,7 @@ void po::TextBoxLayout::doLayout() {
 	
 	lineLayoutProps props;
 	
-	poFont fnt = getFont();
+	poFont *fnt = getFont();
 	float spacer = 0;
 	
 	uint lastCodepoint = 0;
@@ -50,13 +50,13 @@ void po::TextBoxLayout::doLayout() {
 		// if we broke to a new line last pass reset the line height, etc
 		if(props.broke) {
 			fnt = getFont();
-			fnt.setPointSize(textSize);
-			fnt.setGlyph(' ');
+			fnt->setPointSize(textSize);
+			fnt->setGlyph(' ');
 			
-			spacer = fnt.getGlyphAdvance().x;
+			spacer = fnt->getGlyphAdvance().x;
 			
-			props.maxLineHeight = fnt.getLineHeight();
-			props.maxDrop = fnt.getAscender();
+			props.maxLineHeight = fnt->getLineHeight();
+			props.maxDrop = fnt->getAscender();
 			props.leading = leading;
 			
 			props.broke = false;
@@ -118,8 +118,8 @@ void po::TextBoxLayout::doLayout() {
 		uint codepoint = utf8::next(ch, str.end());
 		
 		poPoint kern;
-		if(lastCodepoint != 0 && fnt.hasKerning() && !font_changed) {
-			kern = fnt.kernGlyphs(lastCodepoint, codepoint);
+		if(lastCodepoint != 0 && fnt->hasKerning() && !font_changed) {
+			kern = fnt->kernGlyphs(lastCodepoint, codepoint);
 		}
 		
 		// handle whitespace specially
@@ -159,21 +159,21 @@ void po::TextBoxLayout::doLayout() {
 		}
 		
 		// change glyph
-		fnt.setGlyph(codepoint);
+		fnt->setGlyph(codepoint);
 		
 		// store all the info we need to render
 		TextLayoutGlyph glyph;
 		glyph.glyph = codepoint;
-		glyph.bbox = fnt.getGlyphBounds();
-        glyph.bbox.setPosition(glyph.bbox.getPosition() + poPoint(props.word.width, 0) + fnt.getGlyphBearing() + kern);
+		glyph.bbox = fnt->getGlyphBounds();
+        glyph.bbox.setPosition(glyph.bbox.getPosition() + poPoint(props.word.width, 0) + fnt->getGlyphBearing() + kern);
 		props.word.glyphs.push_back(glyph);
 		
 		// see if we need to update our line height
-		props.maxDrop = std::max(props.maxDrop, -fnt.getGlyphBearing().y + line_padding_fudge);
-		props.maxLineHeight = std::max(props.maxLineHeight, props.maxDrop + fnt.getGlyphDescender() + line_padding_fudge);
+		props.maxDrop = std::max(props.maxDrop, -fnt->getGlyphBearing().y + line_padding_fudge);
+		props.maxLineHeight = std::max(props.maxLineHeight, props.maxDrop + fnt->getGlyphDescender() + line_padding_fudge);
 		
 		// update the pen x position
-		props.word.width += (fnt.getGlyphAdvance().x + kern.x) * tracking_tmp;
+		props.word.width += (fnt->getGlyphAdvance().x + kern.x) * tracking_tmp;
 		
 		// check if we've gone over
 		if(props.line.bbox.width + props.word.width > (size.x-padding[PADDING_LEFT]-padding[PADDING_RIGHT]) && props.line.wordCount >= 1) {

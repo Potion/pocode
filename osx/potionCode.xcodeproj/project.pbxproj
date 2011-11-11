@@ -118,10 +118,9 @@
 		E86F939713F987FC00D924F0 /* poVBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poVBO.cpp */; };
 		E86F939913F987FC00D924F0 /* poVBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939313F987FC00D924F0 /* poVBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E88E746613C753DC0051F026 /* poAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* poAttributedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E8CAA4C11444DE9F00A7D3D5 /* poResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceLoader.cpp */; };
-		E8CAA4C21444DE9F00A7D3D5 /* poResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceLoader.cpp */; };
-		E8CAA4C31444DE9F00A7D3D5 /* poResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CAA4C01444DE9E00A7D3D5 /* poResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E8CAA4CE1444E35A00A7D3D5 /* poResourceLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CAA4CD1444E35A00A7D3D5 /* poResourceLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E8CAA4C11444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */; };
+		E8CAA4C21444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */; };
+		E8CAA4CE1444E35A00A7D3D5 /* poResourceStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CAA4CD1444E35A00A7D3D5 /* poResourceStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8CE963E13B004EB00DFB769 /* poLineExtruder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CE963B13B004E800DFB769 /* poLineExtruder.cpp */; };
 		E8CE963F13B004EB00DFB769 /* poLineExtruder.h in Headers */ = {isa = PBXBuildFile; fileRef = E8CE963C13B004E900DFB769 /* poLineExtruder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8D8F33B144C986E0077F6DA /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D8F33A144C986E0077F6DA /* poFBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -233,9 +232,8 @@
 		E8C7E71513913E3A00E6848E /* poApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poApplication.h; path = ../source/poApplication.h; sourceTree = "<group>"; };
 		E8C7E71613913E3A00E6848E /* poWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWindow.cpp; path = ../source/poWindow.cpp; sourceTree = "<group>"; };
 		E8C7E71713913E3A00E6848E /* poWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWindow.h; path = ../source/poWindow.h; sourceTree = "<group>"; };
-		E8CAA4BF1444DE9E00A7D3D5 /* poResourceLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResourceLoader.cpp; path = ../source/poResourceLoader.cpp; sourceTree = "<group>"; };
-		E8CAA4C01444DE9E00A7D3D5 /* poResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResource.h; path = ../source/poResource.h; sourceTree = "<group>"; };
-		E8CAA4CD1444E35A00A7D3D5 /* poResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResourceLoader.h; path = ../source/poResourceLoader.h; sourceTree = "<group>"; };
+		E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poResourceStore.cpp; path = ../source/poResourceStore.cpp; sourceTree = "<group>"; };
+		E8CAA4CD1444E35A00A7D3D5 /* poResourceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poResourceStore.h; path = ../source/poResourceStore.h; sourceTree = "<group>"; };
 		E8CE963B13B004E800DFB769 /* poLineExtruder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poLineExtruder.cpp; path = ../source/poLineExtruder.cpp; sourceTree = "<group>"; };
 		E8CE963C13B004E900DFB769 /* poLineExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poLineExtruder.h; path = ../source/poLineExtruder.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
@@ -285,9 +283,8 @@
 		7F59A5E51409D42A0070E84A /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				E8CAA4CD1444E35A00A7D3D5 /* poResourceLoader.h */,
-				E8CAA4BF1444DE9E00A7D3D5 /* poResourceLoader.cpp */,
-				E8CAA4C01444DE9E00A7D3D5 /* poResource.h */,
+				E8CAA4CD1444E35A00A7D3D5 /* poResourceStore.h */,
+				E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -552,8 +549,7 @@
 				E84CEC0F1429556B008B3E3E /* poOpenGLState.h in Headers */,
 				E8F48BB9142D61850020D9CE /* poShader.h in Headers */,
 				E8F29986144628C700D0A507 /* poTextBoxLayout.h in Headers */,
-				E8CAA4C31444DE9F00A7D3D5 /* poResource.h in Headers */,
-				E8CAA4CE1444E35A00A7D3D5 /* poResourceLoader.h in Headers */,
+				E8CAA4CE1444E35A00A7D3D5 /* poResourceStore.h in Headers */,
 				E851C27F1448DDCE0018FB34 /* poGeometryMask.h in Headers */,
 				7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */,
 				E8D8F33B144C986E0077F6DA /* poFBO.h in Headers */,
@@ -692,7 +688,7 @@
 				E84CEC0914295526008B3E3E /* poBasicRenderer.cpp in Sources */,
 				E84CEC0E1429556B008B3E3E /* poOpenGLState.cpp in Sources */,
 				E8F48BBD142D61950020D9CE /* poShader.cpp in Sources */,
-				E8CAA4C11444DE9F00A7D3D5 /* poResourceLoader.cpp in Sources */,
+				E8CAA4C11444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */,
 				E8F29989144628E900D0A507 /* poTextBoxLayout.cpp in Sources */,
 				E851C27D1448DDCE0018FB34 /* poGeometryMask.cpp in Sources */,
 				7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,
@@ -739,7 +735,7 @@
 				E84CEC92142A3533008B3E3E /* poTextLayout.cpp in Sources */,
 				E84CEC93142A3533008B3E3E /* poVBO.cpp in Sources */,
 				E8F48BBE142D61950020D9CE /* poShader.cpp in Sources */,
-				E8CAA4C21444DE9F00A7D3D5 /* poResourceLoader.cpp in Sources */,
+				E8CAA4C21444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */,
 				E8F2998A144628E900D0A507 /* poTextBoxLayout.cpp in Sources */,
 				E851C27E1448DDCE0018FB34 /* poGeometryMask.cpp in Sources */,
 				7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */,

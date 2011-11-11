@@ -16,7 +16,7 @@
 #include "poMath.h"
 #include "poHelpers.h"
 #include "poDictionary.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 
 #pragma mark - Layout Helper -
 
@@ -168,11 +168,11 @@ void po::TextLayout::rotateLine(uint line, poPoint origin, float rot) {
 	}
 }
 
-void po::TextLayout::setFont(poFont f, const std::string &weight) {
+void po::TextLayout::setFont(poFont *f, const std::string &weight) {
 	fonts[weight] = f;
 }
 
-poFont po::TextLayout::getFont(const std::string &weight) {
+poFont* po::TextLayout::getFont(const std::string &weight) {
 	return fonts[weight];
 }
 
