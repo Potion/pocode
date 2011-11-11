@@ -19,6 +19,7 @@
 int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
+std::string applicationGetApplicationSupportDirectory();
 poWindow*	applicationCurrentWindow();
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);
@@ -39,6 +40,7 @@ extern void         setupApplication();
 
 // This function is called when the application quits. All potionCode example projects implement this function.
 extern void         cleanupApplication();
+
 
 
 
