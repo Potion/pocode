@@ -35,11 +35,11 @@ TextBoxApp::TextBoxApp() {
 	addChild(tb);
 	
 	poTextBox *tb2 = (poTextBox*)tb->copy();
+	tb2->setCacheToTexture(true);
 	tb2->position.set(20,150,0);
 	tb2->setTextSize(50);
 	tb2->doLayout();
 	addChild(tb2);
-
 	
 //	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
 //	obj->position = tb->position;

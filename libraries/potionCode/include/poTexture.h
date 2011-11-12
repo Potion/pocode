@@ -64,6 +64,8 @@ public:
 	uint				getWidth() const;
 	uint				getHeight() const;
 	uint				getChannels() const;
+	uint				getBitsPerPixel() const;
+	size_t				getSizeInBytes() const;
 	poPoint				getDimensions() const;
 	poRect				getBounds() const;
 	

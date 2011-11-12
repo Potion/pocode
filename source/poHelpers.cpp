@@ -59,7 +59,7 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 
 
 std::string getApplicationSupportDirectory() {
-    return applicationGetApplicationSupportDirectory();
+    return applicationGetSupportDirectory();
 }
 
 unsigned int getNumCpus() {

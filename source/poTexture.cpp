@@ -10,6 +10,7 @@
 #include "poImage.h"
 #include "poHelpers.h"
 #include "poOpenGLState.h"
+#include "poGLBuffer.h"
 
 GLenum formatForChannels(uint channels) {
 	switch(channels) {
@@ -29,17 +30,56 @@ GLenum formatForChannels(uint channels) {
 
 uint channelsForFormat(GLenum format) {
 	switch(format) {
-		case GL_LUMINANCE:
+		case GL_COLOR_INDEX:
+		case GL_RED:
+		case GL_GREEN:
+		case GL_BLUE:
 		case GL_ALPHA:
+		case GL_LUMINANCE:
 			return 1;
 		case GL_LUMINANCE_ALPHA:
 			return 2;
 		case GL_RGB:
+		case GL_BGR:
 			return 3;
 		case GL_RGBA:
+		case GL_BGRA:
 			return 4;
 	}
 	return 1;
+}
+
+uint bitsPerChannelForType(GLenum type) {
+	switch(type) {
+		case GL_BYTE:
+		case GL_BITMAP:
+		case GL_UNSIGNED_BYTE:
+		case GL_UNSIGNED_BYTE_3_3_2:
+		case GL_UNSIGNED_BYTE_2_3_3_REV:
+			return 8;
+		case GL_SHORT:
+		case GL_UNSIGNED_SHORT:
+		case GL_UNSIGNED_SHORT_5_6_5:
+		case GL_UNSIGNED_SHORT_5_6_5_REV:
+		case GL_UNSIGNED_SHORT_4_4_4_4:
+		case GL_UNSIGNED_SHORT_4_4_4_4_REV:
+		case GL_UNSIGNED_SHORT_5_5_5_1:
+		case GL_UNSIGNED_SHORT_1_5_5_5_REV:
+			return 16;
+		case GL_INT:
+		case GL_UNSIGNED_INT:
+		case GL_UNSIGNED_INT_8_8_8_8:
+		case GL_UNSIGNED_INT_8_8_8_8_REV:
+		case GL_UNSIGNED_INT_10_10_10_2:
+		case GL_UNSIGNED_INT_2_10_10_10_REV:
+			return 32;
+		case GL_FLOAT:
+			return 32;
+	}
+}
+
+uint bppForFormatAndType(GLenum format, GLenum type) {
+	return channelsForFormat(format) * bitsPerChannelForType(type);
 }
 
 poTextureConfig::poTextureConfig()
@@ -89,7 +129,9 @@ poTexture::poTexture(poImage* img)
 	load(img);
 }
 
-poTexture::poTexture(poImage* img, const poTextureConfig &config) {
+poTexture::poTexture(poImage* img, const poTextureConfig &config)
+:	uid(0), width(0), height(0), channels(0), config()
+{
 	load(img, config);
 }
 
@@ -105,7 +147,21 @@ poTexture::~poTexture() {
 }
 
 poTexture* poTexture::copy() {
-	return NULL;
+	glBindTexture(GL_TEXTURE_2D, uid);
+
+	poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
+	glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
+	glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
+	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+	
+	poTexture *tex = new poTexture(width,height,NULL,config);
+	glBindTexture(GL_TEXTURE_2D, tex->getUid());
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	return tex;
 }
 
 void poTexture::replace(poImage* image) {
@@ -144,6 +200,14 @@ uint poTexture::getChannels() const {
 	return channels;
 }
 
+uint poTexture::getBitsPerPixel() const {
+	return bppForFormatAndType(config.format, config.type);
+}
+
+size_t poTexture::getSizeInBytes() const {
+	return getWidth() * getHeight() * getBitsPerPixel();
+}
+
 poPoint poTexture::getDimensions() const {
 	return poPoint(width, height, 0);
 }
@@ -153,7 +217,7 @@ poRect poTexture::getBounds() const {
 }
 
 void poTexture::load(poImage* img) {
-	if(!img->isValid()) {
+	if(!(img && img->isValid())) {
 		loadDummyImage();
 		return;
 	}
@@ -162,7 +226,7 @@ void poTexture::load(poImage* img) {
 }
 
 void poTexture::load(poImage* img, const poTextureConfig &config) {
-	if(!img->isValid()) {
+	if(!(img && img->isValid())) {
 		loadDummyImage();
 		return;
 	}

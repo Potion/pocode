@@ -213,6 +213,13 @@ poWindow* applicationCurrentWindow() {
 	return app.currentWindow;
 }
 
+std::string applicationGetSupportDirectory() {
+	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
+		[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+	return [dir UTF8String];
+}
+
 void applicationMakeWindowCurrent(poWindow* win) {
 	AppDelegate *app = [NSApplication sharedApplication].delegate;
 	app.currentWindow = win;
