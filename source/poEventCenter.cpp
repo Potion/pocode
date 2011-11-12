@@ -191,26 +191,39 @@ void poEventCenter::processEvents(std::deque<poEvent> &events) {
 		
 		events.pop_front();
     }
-}
+} 
+
 
 void poEventCenter::processMouseEvents( poEvent &Event ) {
-	// notify all objects listening for PO_MOUSE_DOWN_EVENT
-	notifyAllListeners( Event );
 
+    // notify all objects listening for basic events
+    notifyAllListeners( Event );
+    
+    
     // handles PO_MOUSE_DOWN_EVENT and PO_MOUSE_DOWN_INSIDE_EVENT
     if ( Event.type == PO_MOUSE_DOWN_EVENT ) {
+  
         // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
         Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
         poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
         if ( callback )
             notifyOneListener( callback, Event );
+        
+        // set lastDragID for object to receive PO_MOUSE_DRAG_INSIDE_EVENT
+        poEventCallback* drag_callback = findTopObjectUnderPoint( PO_MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
+        if ( drag_callback )
+        {
+            poObject* obj = drag_callback->event.source;
+            obj->eventMemory->lastDragID = 1;
+        }
     }
     
     // handles PO_MOUSE_UP_EVENT
     // also handles last part of PO_MOUSE_DRAG_EVENT
     else if ( Event.type == PO_MOUSE_UP_EVENT ) {
-        // notify all objects listening for PO_MOUSE_UP_EVERYWHERE_EVENT
-        std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_EVENT];
+        
+        // reset lastDragID for object receiving PO_MOUSE_DRAG_EVENT
+        std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
         for( int i=0; i<event_vec.size(); i++ ) {
             poEventCallback* callback = event_vec[i];
             poObject* obj = callback->event.source;
@@ -220,6 +233,7 @@ void poEventCenter::processMouseEvents( poEvent &Event ) {
     
     // handles PO_MOUSE_MOVE_EVENT, PO_MOUSE_OVER_EVENT, PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
     else if ( Event.type == PO_MOUSE_MOVE_EVENT ) {
+
 		// enter and leave have to be done together
 		std::vector<poEventCallback*> enterLeave = events[PO_MOUSE_ENTER_EVENT];
 		enterLeave.insert(enterLeave.end(), events[PO_MOUSE_LEAVE_EVENT].begin(), events[PO_MOUSE_LEAVE_EVENT].end());
@@ -263,14 +277,15 @@ void poEventCenter::processMouseEvents( poEvent &Event ) {
 	
     // handles PO_MOUSE_DRAG_EVERYWHERE_EVENT and PO_MOUSE_DRAG_EVENT
     else if ( Event.type == PO_MOUSE_DRAG_EVENT ) {
-        // for all objects listening to PO_MOUSE_DRAG_EVENT with lastDragID set
+
+        // for all objects listening to PO_MOUSE_DRAG_INSIDE_EVENT with lastDragID set
         // for mouse control, this should just be a single object in the set
-        std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_EVENT];
+        std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
         for( int i=0; i<event_vec.size(); i++ ) {
             poEventCallback* callback = event_vec[i];
             poObject* obj = callback->event.source;
             if ( obj->eventMemory->lastDragID != -1 ) {  
-                Event.type = PO_MOUSE_DRAG_EVENT;
+                Event.type = PO_MOUSE_DRAG_INSIDE_EVENT;
                 notifyOneListener( callback, Event );
             }
         }
