@@ -176,6 +176,10 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAli
 	return *this;
 }
 
+poTexture* poShape2D::getTexture() {
+    return texture;
+}
+
 poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) {
 	return *this;
 }
