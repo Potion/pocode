@@ -147,6 +147,13 @@ poTexture::~poTexture() {
 }
 
 poTexture* poTexture::copy() {
+	poTexture *tex = new poTexture(width,height,NULL,config);
+
+#if defined(OPENGL_ES)
+#warning poTexture::copy not implemented on iOS\n\
+	call poFBO::copyColorTexture to copy out of an FBO\n
+	
+#else
 	glBindTexture(GL_TEXTURE_2D, uid);
 
 	poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
@@ -154,12 +161,12 @@ poTexture* poTexture::copy() {
 	glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
 	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
 	
-	poTexture *tex = new poTexture(width,height,NULL,config);
 	glBindTexture(GL_TEXTURE_2D, tex->getUid());
 	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
 	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+#endif
 	
 	return tex;
 }
