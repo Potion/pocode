@@ -3,7 +3,7 @@
 
 #include <map>
 #include "poWindow.h"
-#include "Helpers.h"
+#include "poHelpers.h"
 
 poRect rectFromNSRect(NSRect r) {
 	return poRect(r.origin.x, r.origin.y, r.size.width, r.size.height);
@@ -23,7 +23,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	window_settings = [[NSMutableDictionary alloc] init];
 	
 	// initialize the time
-	getTime();
+	poGetElapsedTime();
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	// make sure we have a context to share
@@ -49,10 +49,10 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 -(void)windowWillClose:(NSNotification*)notice {
 	NSWindow *window = notice.object;
-
+    
 	NSView *view = window.contentView;
 	window.contentView = nil;
-
+    
 	[view release];
 }
 
@@ -86,7 +86,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	// create the context
 	NSOpenGLContext *context = [[NSOpenGLContext alloc] initWithFormat:[poOpenGLView defaultPixelFormat]
-										 shareContext:shared_context];
+                                                          shareContext:shared_context];
 	[context makeCurrentContext];
 	// lock it so we can make our app window
 	CGLContextObj cglcontext = (CGLContextObj)context.CGLContextObj;
@@ -104,7 +104,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 													styleMask:style_mask
 													  backing:NSBackingStoreBuffered
 														defer:YES];
-
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:window];
 	
 	[window setFrameOrigin:frame.origin];
@@ -112,16 +112,16 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	// configure the window a little
 	[window setAcceptsMouseMovedEvents:YES];
 	[window setReleasedWhenClosed:YES];
-
+    
 	// in case its full screen
 	if(type == WINDOW_TYPE_FULLSCREEN) {
 		[window setLevel:NSMainMenuWindowLevel+1];
 		[window setOpaque:YES];
 		[window setHidesOnDeactivate:YES];
 		
-		powin->fullscreen(true);
+		powin->setFullscreen(true);
 	}
-
+    
 	NSRect glrect = frame;
 	glrect.origin = NSMakePoint(0.f, 0.f);
 	
@@ -134,7 +134,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	[window setContentView:opengl];
 	[opengl release];
-
+    
 	[window makeKeyAndOrderFront:self];
 	
 	return powin;
@@ -154,7 +154,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	[window setStyleMask:NSBorderlessWindowMask];
 	[window setFrame:[screen frame] display:YES animate:NO];
-
+    
 	[window setLevel:NSMainMenuWindowLevel+1];
 	[window setOpaque:YES];
 	[window setHidesOnDeactivate:YES];
@@ -175,8 +175,8 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 }
 
 -(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
-	window->fullscreen(b);
-
+	window->setFullscreen(b);
+    
 	NSWindow *win = (NSWindow*)window->getWindowHandle();
 	
 	SEL function = @selector(fullscreenWindow:);
@@ -232,7 +232,15 @@ void applicationMoveWindow(poWindow* win, poPoint p) {
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
 	NSWindow *window = (NSWindow*)win->getWindowHandle();
-	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width(), r.height());
+	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width, r.height);
 	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
 	[window setFrame:new_frame display:YES];
 }
+
+std::string applicationGetSupportDirectory() {
+	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
+		[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+	return [dir UTF8String];
+}
+
