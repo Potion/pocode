@@ -134,7 +134,7 @@ void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent &globa
     poEvent &stored_event = callback->event;
 	poEvent sentEvent = stored_event;
 	
-    if(stored_event.source->visible) {
+    if(stored_event.source->isVisible()) {
         // prep the event for sending
         localizeEvent(global_event, sentEvent);
 		
