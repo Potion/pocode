@@ -126,7 +126,7 @@ void poEventCenter::notifyAllListeners( poEvent &global_event ) {
     // for all registed event listeners
 	std::vector<poEventCallback*> &event_vec = events[global_event.type];
 	for(int i=0; i<event_vec.size(); i++)
-        notifyOneListener( event_vec[i], global_event );
+            notifyOneListener( event_vec[i], global_event );
 }
 
 void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent &global_event ) {
@@ -134,7 +134,7 @@ void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent &globa
     poEvent &stored_event = callback->event;
 	poEvent sentEvent = stored_event;
 	
-    if(stored_event.source->isVisible()) {
+    if(objectIsAvailableForEvents(stored_event.source)) {
         // prep the event for sending
         localizeEvent(global_event, sentEvent);
 		
