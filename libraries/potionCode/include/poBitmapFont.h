@@ -18,18 +18,25 @@
 //		bitmapFont->cacheUID('a');
 // 
 
-class poBitmapFont : public poFont {
+class poBitmapFont : public poResource {
 
 public:
 	poBitmapFont();
-	poBitmapFont(poFont font, int pointSize);
-	poBitmapFont(const std::string &fam, int pointSize, const std::string &style="");
+	poBitmapFont(poFont* font, int pointSize);
+	poBitmapFont(const std::string &url, int pointSize);
+	poBitmapFont(const std::string &fam, const std::string &style, int pointSize);
+	virtual ~poBitmapFont();
+
+	poFont*	getFont() const;
+	int		getPointSize() const;
 
 	void	drawGlyph(int glyph, const poPoint &at);
 	
 private:
-	void	setPointSize(int size) {}
+	void	init();
 	void	cacheGlyph(int glyph);
 	
-	poTextureAtlas atlas;
+	poFont *font;
+	poTextureAtlas *atlas;
+	int pointSize;
 };

@@ -37,11 +37,11 @@ public:
 	// rounded rect shape
 	poRectShape( float width, float height, float rad=0.f );
 	// place an already-made texture
-	poRectShape( poTexture tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+	poRectShape( poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
 	// make a texture from the specified url and place it
 	poRectShape( const std::string &str, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT);
 	// make a shape of a certain size and put the texture in place inside it
-	poRectShape( float width, float height, poTexture tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+	poRectShape( float width, float height, poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
 	
 	virtual poObject* copy();
 	

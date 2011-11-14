@@ -16,6 +16,7 @@ int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
 poWindow*	applicationCurrentWindow();
+std::string	applicationGetSupportDirectory();
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);
 void		applicationMoveWindow(poWindow*,poPoint);
@@ -27,6 +28,7 @@ int			applicationNumberWindows()						{return 0;}
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int) {return NULL;}
 poWindow*	applicationGetWindow(int index)					{return NULL;}
 poWindow*	applicationCurrentWindow()						{return NULL;}
+std::string	applicationGetSupportDirectory()				{return "";}
 void		applicationMakeWindowCurrent(poWindow*)			{}
 void		applicationMakeWindowFullscreen(poWindow*,bool)	{}
 void		applicationMoveWindow(poWindow*,poPoint)		{}

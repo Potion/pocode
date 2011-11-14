@@ -1,9 +1,9 @@
 #include "TextBoxApp.h"
 
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poCamera.h"
 #include "poApplication.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 #include "poShapeBasics2D.h"
 #include "poSimpleDrawing.h"
 
@@ -25,8 +25,7 @@ TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D());
 	
 	tb = new poTextBox(getWindowWidth()-2*20, getWindowHeight()/2-2*20);
-	tb->setCacheToTexture(true);
-	tb->setFont(getFont("Helvetica", "Regular"));
+	tb->setFont(poGetFont("Helvetica", "Regular"));
 	tb->setTextSize(20);
 	tb->textColor = poColor::red;
 	tb->position.set(20,20,0);
@@ -34,7 +33,14 @@ TextBoxApp::TextBoxApp() {
 	tb->setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->doLayout();
 	addChild(tb);
-
+	
+	poTextBox *tb2 = (poTextBox*)tb->copy();
+	tb2->setCacheToTexture(true);
+	tb2->position.set(20,150,0);
+	tb2->setTextSize(50);
+	tb2->doLayout();
+	addChild(tb2);
+	
 //	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
 //	obj->position = tb->position;
 //	addChild(obj);

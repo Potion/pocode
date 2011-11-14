@@ -2,51 +2,76 @@
 
 
 poBitmapFont::poBitmapFont()
-:	atlas(GL_ALPHA, 512, 512)
+:	font(NULL)
+,	atlas(NULL)
+,	pointSize(0)
 {}
 
-poBitmapFont::poBitmapFont(poFont font, int sz)
-:	poFont(font)
-,	atlas(GL_ALPHA, 512, 512)
+poBitmapFont::poBitmapFont(poFont* font, int sz)
+:	font(font)
+,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+,	pointSize(sz)
 {
-	poFont::setPointSize(sz);
-	for(int i=32; i<128; i++) {
-		setGlyph(i);
-		
-		poImage img = getGlyphImage();
-		atlas.addImage(img,i);
-	}
-	atlas.layoutAtlas();
+	init();
 }
 
-poBitmapFont::poBitmapFont(const std::string &fam, int sz, const std::string &style)
-:	poFont(fam, style)
-,	atlas(GL_ALPHA, 512, 512)
+poBitmapFont::poBitmapFont(const std::string &url, int sz)
+:	font(poGetFont(url))
+,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+,	pointSize(sz)
 {
-	poFont::setPointSize(sz);
+	init();
+}
+
+poBitmapFont::poBitmapFont(const std::string &fam, const std::string &style, int sz)
+:	font(poGetFont(fam,style))
+,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+,	pointSize(sz)
+{
+	init();
+}
+
+void poBitmapFont::init() {
+	font->setPointSize(pointSize);
 	for(int i=32; i<128; i++) {
-		setGlyph(i);
+		font->setGlyph(i);
 		
-		poImage img = getGlyphImage();
-		atlas.addImage(img,i);
+		poImage *img = font->getGlyphImage();
+		atlas->addImage(img,i);
+		delete img;
 	}
-	atlas.layoutAtlas();
+	atlas->layoutAtlas();
+}
+
+poBitmapFont::~poBitmapFont() {
+	delete atlas;
+}
+
+poFont *poBitmapFont::getFont() const {
+	return font;
+}
+
+int poBitmapFont::getPointSize() const {
+	return pointSize;
 }
 
 void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
-	if(!atlas.hasUID(glyph))
+	if(!atlas->hasUID(glyph))
 		cacheGlyph(glyph);
-	atlas.drawUID(glyph, at);
+	atlas->drawUID(glyph, at);
 }
 
 void poBitmapFont::cacheGlyph(int glyph) {
-	if(!atlas.hasUID(glyph)) {
-		setPointSize(getPointSize());
-		setGlyph(glyph);
+	if(!atlas->hasUID(glyph)) {
+		font->setPointSize(getPointSize());
+		font->setGlyph(glyph);
 		
-		poImage img = getGlyphImage();
-		atlas.addImage(img, glyph);
+		poImage* img = font->getGlyphImage();
+		atlas->addImage(img, glyph);
+		delete img;
 		
-		atlas.layoutAtlas();
+		atlas->layoutAtlas();
 	}
 }
+
+

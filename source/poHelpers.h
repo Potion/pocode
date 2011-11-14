@@ -1,8 +1,7 @@
 #pragma once
 
 #include "poRect.h"
-#include "poFont.h"
-#include "poTexture.h"
+#include "poEnums.h"
 
 #include <sstream>
 #include <boost/lexical_cast.hpp>

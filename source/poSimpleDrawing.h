@@ -27,25 +27,25 @@ namespace po {
 	void drawFilledRect(float x, float y, float w, float h);
 	void drawFilledRect(poRect rect);
 	
-	void drawTexturedRect(poTexture tex);
-	void drawTexturedRect(poTexture tex, float x, float y, float w, float h);
-	void drawTexturedRect(poTexture tex, poRect rect);
-	void drawTexturedRect(poTexture tex, poRect rect, poRect coords);
-	void drawTexturedRect(poTexture tex, poRect rect, poTextureFitOption fit);
+	void drawTexturedRect(poTexture *tex);
+	void drawTexturedRect(poTexture *tex, float x, float y, float w, float h);
+	void drawTexturedRect(poTexture *tex, poRect rect);
+	void drawTexturedRect(poTexture *tex, poRect rect, poRect coords);
+	void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit);
 	
 	void drawStrokedPolygon(const std::vector<poPoint> &points);
 	void drawStrokedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
 	void drawFilledPolygon(const std::vector<poPoint> &points);
 	void drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
-	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords);
-	void drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords);
+	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords);
+	void drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords);
 	
 	void drawPoints(const std::vector<poPoint> &points, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
     
-	void drawString(const std::string &str, poFont font, poPoint position, int ptSize=0, float tracking=1.f);
+	void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
 
 }
 

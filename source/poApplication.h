@@ -19,7 +19,7 @@
 int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
-std::string applicationGetApplicationSupportDirectory();
+std::string applicationGetSupportDirectory();
 poWindow*	applicationCurrentWindow();
 void		applicationMakeWindowCurrent(poWindow*);
 void		applicationMakeWindowFullscreen(poWindow*,bool);

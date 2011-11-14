@@ -13,7 +13,8 @@
 #include "poRect.h"
 #include "poEnums.h"
 #include "poImage.h"
-#include "poResource.h"
+
+#include "poResourceStore.h"
 
 // This utlity class contains the settings for a poTexture.
 class poTextureConfig {
@@ -43,17 +44,18 @@ public:
 // poTexture's are also used in frame buffer objects (FBO's) and in video display.
 //
 
-class poTexture {
+class poTexture : public poResource {
 public:
-	// this will make an imageless texture
-	// useful for when you just need to allocate space on the graphics card
 	poTexture();
 	poTexture(const std::string &url);
-	poTexture(poImage img);
-	poTexture(poImage img, const poTextureConfig &config);
+	poTexture(poImage* img);
+	poTexture(poImage* img, const poTextureConfig &config);
 	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
+	~poTexture();
+	
+	poTexture*			copy();
     
-	void				replace(poImage image);
+	void				replace(poImage* image);
 	void				replace(const ubyte *pixels);
 	
 	bool                isValid() const;
@@ -62,33 +64,28 @@ public:
 	uint				getWidth() const;
 	uint				getHeight() const;
 	uint				getChannels() const;
+	uint				getBitsPerPixel() const;
+	size_t				getSizeInBytes() const;
 	poPoint				getDimensions() const;
 	poRect				getBounds() const;
 	
 private:
-	void                load(poImage img);
-	void                load(poImage img, const poTextureConfig &config);
+	void                load(poImage* img);
+	void                load(poImage* img, const poTextureConfig &config);
 	void				load(uint width, uint height, int channels, const ubyte *pixels);
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	void				loadDummyImage();
 	void                unload();
 	
-	struct TextureImpl {
-		TextureImpl();
-		TextureImpl(uint width, uint height, ubyte const* pixels, poTextureConfig const& config);
-		~TextureImpl();
-		
-		poTextureConfig     config;
-		uint				uid, width, height, channels;
-	};
-	boost::shared_ptr<TextureImpl> shared;
+	poTextureConfig     config;
+	uint				uid, width, height, channels;
 };
 
 
 // figures out tex coords to fit texture in rect
-std::vector<poPoint> textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align);
+std::vector<poPoint> textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align);
 // these do the same but make coordinates for each point in points array
 // returns texture coordinates thru coords
-void textureFit(poRect rect, poTexture tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
 uint channelsForFormat(GLenum format);
 

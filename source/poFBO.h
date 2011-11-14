@@ -36,8 +36,8 @@ public:
 	void reset(uint w, uint h, const poFBOConfig &config);
 
 	// retrieve this texture to draw the FBO
-	poTexture getColorTexture(uint idx=0) const;
-	poTexture getDepthTexture() const;
+	poTexture *getColorTexture(uint idx=0) const;
+	poTexture *getDepthTexture() const;
 	
 	// after the fbo is created
 	uint width, height;
@@ -55,7 +55,7 @@ protected:
 private:
 	std::vector<GLuint> framebuffers;
 	std::vector<GLuint> renderbuffers;
-	std::vector<poTexture> colorbuffers;
+	std::vector<poTexture*> colorbuffers;
 	
 	poCamera *cam;
 	

@@ -3,7 +3,7 @@
 #include "poLineExtruder.h"
 #include "nanosvg.h"
 #include "poApplication.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
@@ -17,7 +17,7 @@ poShape2D::poShape2D()
 ,   useSimpleStroke(true)
 ,	fillDrawStyle(GL_TRIANGLE_FAN)
 ,	closed(true)
-,	texture()
+,	texture(NULL)
 ,	fillColorTween(&fillColor)
 //,	alphaTestTexture(false)
 {}
@@ -53,7 +53,7 @@ void poShape2D::draw() {
 		// set the color
 		po::setColor(fillColor, getAppliedAlpha());
 
-		if(texture.isValid()) {
+		if(texture && texture->isValid()) {
 			po::drawPoints(points, texture, texCoords, fillDrawStyle);
 		}
 		else {
@@ -155,16 +155,16 @@ bool poShape2D::setPoint(int idx, poPoint p ) {
 	return true;
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex) {
+poShape2D& poShape2D::placeTexture(poTexture *tex) {
 	return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit) {
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
 	return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
 }
 
-poShape2D& poShape2D::placeTexture(poTexture tex, poTextureFitOption fit, poAlignment align) {
-	if(tex.isValid()) {
+poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	if(tex && tex->isValid()) {
 		poRect rect = getBounds();
 		
 		texCoords.clear();
@@ -248,7 +248,7 @@ poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty 
 
 // localize will convert global to local first
 // otherwise, point is assumed to be local
-bool        poShape2D::pointInside(poPoint point, bool localize ) {
+bool poShape2D::pointInside(poPoint point, bool localize ) {
 	if(!visible)
 		return false;
 	
