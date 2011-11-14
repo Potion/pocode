@@ -1,13 +1,13 @@
 #include "MasksApp.h"
 
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poCamera.h"
 #include "poTextBox.h"
 #include "poDictionary.h"
 #include "poApplication.h"
 #include "poGeometryMask.h"
 #include "poShapeBasics2D.h"
-#include "poResourceLoader.h"
+#include "poResourceStore.h"
 
 
 poObject *createObjectForID(uint uid) {
@@ -144,7 +144,7 @@ void MasksApp::setupInstructions() {
 	poTextBox *text = new poTextBox(200,200);
 	addChild(text);
 	
-	text->setFont(getFont("Lucida Grande"));
+	text->setFont(new poFont("Lucida Grande"));
 	text->setTextSize(20);
 	text->setText("'⌘-o' to open\n'⌘-c' to close\n");
 	text->doLayout();
