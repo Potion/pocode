@@ -155,8 +155,8 @@ public:
 	
     
 	// SCENE GRAPH TRAVERSAL (DO NOT CALL)
-	void                drawTree();
-	void                updateTree();
+	virtual void                drawTree();
+	virtual void                updateTree();
     
     // These properties may be set directly either inside or outside the class.
     // Changes to these properties require no additional computation.
@@ -193,6 +193,9 @@ public:
 	float               getAppliedAlpha() const;
     poMatrixSet         getMatrixSet() const;
 	int                 getDrawOrder() const;
+    
+    //Recursively check parents for definitive visibility
+    bool                isVisible(); 
 	
     static const int    INVALID_INDEX = -1;
     

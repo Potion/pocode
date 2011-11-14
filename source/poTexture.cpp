@@ -30,17 +30,21 @@ GLenum formatForChannels(uint channels) {
 
 uint channelsForFormat(GLenum format) {
 	switch(format) {
+        #ifndef OPENGL_ES
 		case GL_COLOR_INDEX:
 		case GL_RED:
 		case GL_GREEN:
 		case GL_BLUE:
+        #endif
 		case GL_ALPHA:
 		case GL_LUMINANCE:
 			return 1;
 		case GL_LUMINANCE_ALPHA:
 			return 2;
 		case GL_RGB:
+        #ifndef OPENGL_ES
 		case GL_BGR:
+        #endif
 			return 3;
 		case GL_RGBA:
 		case GL_BGRA:
@@ -52,26 +56,33 @@ uint channelsForFormat(GLenum format) {
 uint bitsPerChannelForType(GLenum type) {
 	switch(type) {
 		case GL_BYTE:
-		case GL_BITMAP:
 		case GL_UNSIGNED_BYTE:
+            
+        #ifndef OPENGL_ES
+		case GL_BITMAP:
 		case GL_UNSIGNED_BYTE_3_3_2:
 		case GL_UNSIGNED_BYTE_2_3_3_REV:
+        #endif
 			return 8;
 		case GL_SHORT:
 		case GL_UNSIGNED_SHORT:
 		case GL_UNSIGNED_SHORT_5_6_5:
-		case GL_UNSIGNED_SHORT_5_6_5_REV:
 		case GL_UNSIGNED_SHORT_4_4_4_4:
 		case GL_UNSIGNED_SHORT_4_4_4_4_REV:
 		case GL_UNSIGNED_SHORT_5_5_5_1:
 		case GL_UNSIGNED_SHORT_1_5_5_5_REV:
+        #ifndef OPENGL_ES
+		case GL_UNSIGNED_SHORT_5_6_5_REV:
+        #endif
 			return 16;
 		case GL_INT:
 		case GL_UNSIGNED_INT:
+        #ifndef OPENGL_ES
 		case GL_UNSIGNED_INT_8_8_8_8:
 		case GL_UNSIGNED_INT_8_8_8_8_REV:
 		case GL_UNSIGNED_INT_10_10_10_2:
 		case GL_UNSIGNED_INT_2_10_10_10_REV:
+        #endif
 			return 32;
 		case GL_FLOAT:
 			return 32;
@@ -147,28 +158,28 @@ poTexture::~poTexture() {
 }
 
 poTexture* poTexture::copy() {
-	poTexture *tex = new poTexture(width,height,NULL,config);
-
-#if defined(OPENGL_ES)
-#warning poTexture::copy not implemented on iOS\n\
-	call poFBO::copyColorTexture to copy out of an FBO\n
-	
-#else
-	glBindTexture(GL_TEXTURE_2D, uid);
-
-	poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
-	glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
-	glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
-	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-	
-	glBindTexture(GL_TEXTURE_2D, tex->getUid());
-	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
-	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-#endif
-	
-	return tex;
+	#if defined(OPENGL_ES)
+	#warning poTexture::copy not implemented on iOS\n\
+	#warning call poFBO::copyColorTexture to copy out of an FBO\n
+		return NULL;
+	#else
+		glBindTexture(GL_TEXTURE_2D, uid);
+		
+		#ifndef OPENGL_ES
+		poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
+		glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
+		glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
+		glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+		#endif
+		
+		poTexture *tex = new poTexture(width,height,NULL,config);
+		glBindTexture(GL_TEXTURE_2D, tex->getUid());
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		return tex;
+	#endif
 }
 
 void poTexture::replace(poImage* image) {
@@ -304,8 +315,15 @@ void poTexture::loadDummyImage() {
 		glBindTexture(GL_TEXTURE_2D, dummy);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        
+        #ifndef OPENGL_ES
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        #else
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        #endif
+        
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 20, 20, 0, GL_RGB, GL_UNSIGNED_BYTE, pix);
 		delete [] pix;
 		

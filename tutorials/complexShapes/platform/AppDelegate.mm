@@ -238,9 +238,8 @@ void applicationReshapeWindow(poWindow* win, poRect r) {
 }
 
 std::string applicationGetSupportDirectory() {
-	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
-		[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
-	return [dir UTF8String];
-}
-
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+    return [dir UTF8String];
+}	

@@ -472,6 +472,19 @@ poMatrixSet     poObject::getMatrixSet() const {return matrices;}
 int				poObject::getDrawOrder() const {return drawOrder;}
 
 
+
+bool poObject::isVisible() {
+    poObject *thisParent = getParent();
+    while(thisParent) {
+        if(!thisParent->visible) return false;
+           
+        thisParent = thisParent->getParent();
+    }
+           
+    return true;
+}
+
+
 void poObject::drawTree() {
 	if(!visible)
 		return;
