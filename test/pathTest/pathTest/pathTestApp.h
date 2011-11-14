@@ -3,7 +3,6 @@
  */
 
 #include "poObject.h"
-#include "poPath.h"
 
 class pathTestApp : public poObject {
 public:
@@ -11,5 +10,7 @@ public:
 	virtual void draw();
 	virtual void eventHandler(poEvent *event);
 	
-	poPath path;
+	void addPoint(poPoint p);
+	void movePoint(poPoint p);
+	void moveControl(poPoint p);
 };

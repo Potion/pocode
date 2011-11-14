@@ -14,6 +14,7 @@
 		E82CC366146DD388003718FE /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E82CC365146DD388003718FE /* main.xib */; };
 		E82CC369146DD388003718FE /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E82CC368146DD388003718FE /* poOpenGLView.mm */; };
 		E82CC36D146DD388003718FE /* pathTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E82CC36C146DD388003718FE /* pathTestApp.cpp */; };
+		E82CC375146F1E67003718FE /* poPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E82CC374146F1E67003718FE /* poPath.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		E82CC368146DD388003718FE /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		E82CC36B146DD388003718FE /* pathTestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pathTestApp.h; sourceTree = "<group>"; };
 		E82CC36C146DD388003718FE /* pathTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pathTestApp.cpp; sourceTree = "<group>"; };
+		E82CC373146F1E39003718FE /* poPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poPath.h; sourceTree = "<group>"; };
+		E82CC374146F1E67003718FE /* poPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poPath.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 			children = (
 				E82CC36B146DD388003718FE /* pathTestApp.h */,
 				E82CC36C146DD388003718FE /* pathTestApp.cpp */,
+				E82CC373146F1E39003718FE /* poPath.h */,
+				E82CC374146F1E67003718FE /* poPath.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 				E82CC361146DD388003718FE /* main.m in Sources */,
 				E82CC369146DD388003718FE /* poOpenGLView.mm in Sources */,
 				E82CC36D146DD388003718FE /* pathTestApp.cpp in Sources */,
+				E82CC375146F1E67003718FE /* poPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,12 +193,18 @@
 		E82CC371146DD388003718FE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				KEEP_PRIVATE_EXTERNS = NO;
 			};
 			name = Debug;
 		};
 		E82CC372146DD388003718FE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				KEEP_PRIVATE_EXTERNS = NO;
 			};
 			name = Release;
 		};

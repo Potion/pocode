@@ -32,7 +32,7 @@ poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group) {
 }
 
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group) {
-	return poGetBitmapFont(font->getFamilyName(), font->getStyleName(), size, group);
+	return poGetBitmapFont(font->getUrl(), font->getStyleName(), size, group);
 }
 
 poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group) {

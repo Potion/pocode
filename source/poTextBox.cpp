@@ -256,7 +256,8 @@ void poTextBox::generateCachedTexture() {
     ogl->popBlendState();
     
     fbo->setDown(this);
-    cached = fbo->getColorTexture()->copy();
+//	cached = fbo->getColorTexture()->copy();
+    cached = fbo->getColorTextureCopy();
     delete fbo;
 }
 

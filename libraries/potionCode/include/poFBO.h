@@ -37,6 +37,7 @@ public:
 
 	// retrieve this texture to draw the FBO
 	poTexture *getColorTexture(uint idx=0) const;
+	poTexture *getColorTextureCopy(uint idx=0);
 	poTexture *getDepthTexture() const;
 	
 	// after the fbo is created
