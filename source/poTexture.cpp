@@ -160,17 +160,22 @@ poTexture::~poTexture() {
 poTexture* poTexture::copy() {
 	glBindTexture(GL_TEXTURE_2D, uid);
     
-//	poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
-//	glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
-//	glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
-//	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+    #ifndef OPENGL_ES
+	poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
+	glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
+	glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
+	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+    #endif
 	
 	poTexture *tex = new poTexture(width,height,NULL,config);
-//	glBindTexture(GL_TEXTURE_2D, tex->getUid());
-//	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
-//	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
-//	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-//	glBindTexture(GL_TEXTURE_2D, 0);
+    
+    #ifndef OPENGL_ES
+	glBindTexture(GL_TEXTURE_2D, tex->getUid());
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+    #endif
 	
 	return tex;
 }
