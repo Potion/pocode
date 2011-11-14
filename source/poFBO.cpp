@@ -92,6 +92,17 @@ poTexture *poFBO::getColorTexture(uint idx) const {
 	return colorbuffers[idx];
 }
 
+poTexture *poFBO::getColorTextureCopy(uint idx) {
+	poTexture *col = colorbuffers[idx];
+	poTexture *tex = new poTexture(col->getWidth(), col->getHeight(), NULL, col->getConfig());
+	
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, col->getWidth(), col->getHeight());
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
+	return tex;
+}
+
 poTexture *poFBO::getDepthTexture() const {
 	return NULL;
 }
@@ -112,7 +123,7 @@ void poFBO::doSetDown(poObject* obj) {
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, framebuffers[1]);
 			glResolveMultisampleFramebufferAPPLE();
 		#else
-			#pragma warning non-ios opengl es fbo multisample implementation incomplete
+			#warning non-ios opengl es fbo multisample implementation incomplete
 		#endif
 	#else
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffers[0]);

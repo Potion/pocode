@@ -15,6 +15,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
+	lookUpAndSetPath("resources");
 	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "TextBox", 100, 600, 600, 500);
 }
 
@@ -25,7 +26,7 @@ TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D());
 	
 	tb = new poTextBox(getWindowWidth()-2*20, getWindowHeight()/2-2*20);
-	tb->setFont(poGetFont("Helvetica", "Regular"));
+	tb->setFont(poGetFont("Helvetica", "Oblique"));
 	tb->setTextSize(20);
 	tb->textColor = poColor::red;
 	tb->position.set(20,20,0);
@@ -35,6 +36,7 @@ TextBoxApp::TextBoxApp() {
 	addChild(tb);
 	
 	poTextBox *tb2 = (poTextBox*)tb->copy();
+	tb2->setFont(poGetFont("Maharam-Regular.otf"));
 	tb2->setCacheToTexture(true);
 	tb2->position.set(20,150,0);
 	tb2->setTextSize(50);
