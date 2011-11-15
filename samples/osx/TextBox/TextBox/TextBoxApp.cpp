@@ -34,6 +34,7 @@ TextBoxApp::TextBoxApp() {
 	tb->setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->doLayout();
 	addChild(tb);
+
 	
 	poTextBox *tb2 = (poTextBox*)tb->copy();
 	tb2->setFont(poGetFont("Maharam-Regular.otf"));
@@ -42,6 +43,7 @@ TextBoxApp::TextBoxApp() {
 	tb2->setTextSize(50);
 	tb2->doLayout();
 	addChild(tb2);
+	
 	
 //	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
 //	obj->position = tb->position;

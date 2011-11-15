@@ -69,6 +69,8 @@ poFont::poFont()
 :	face(NULL)
 ,	size(0)
 ,	url("")
+,	reqUrlOrFamily("")
+,	reqStyle("")
 ,	glyph(0)
 {
 	if(!lib)
@@ -79,12 +81,16 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 :	face(NULL)
 ,	size(0)
 ,	url("")
+,	reqUrlOrFamily("")
+,	reqStyle("")
 ,	glyph(0)
 {
 	if(!lib)
 		FT_Init_FreeType(&lib);
 
-	std::string url = "";
+	reqUrlOrFamily = family_or_url;
+	reqStyle = style;
+	
 	if(fs::exists(family_or_url))
 		url = family_or_url;
 	else if(!urlForFontFamilyName(family_or_url, style, url)) {
@@ -239,6 +245,14 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 
 std::string poFont::toString() const {
 	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%url).str();
+}
+
+std::string poFont::getRequestedFamilyName() const {
+	return reqUrlOrFamily;
+}
+
+std::string poFont::getRequestedStyleName() const {
+	return reqStyle;
 }
 
 void poFont::loadGlyph(int g) {

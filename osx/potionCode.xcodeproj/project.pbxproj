@@ -330,8 +330,8 @@
 		E494686B14679A00009D3AFC /* network */ = {
 			isa = PBXGroup;
 			children = (
-				E494686D14679A7F009D3AFC /* poFileLoader.cpp */,
 				E494686E14679A7F009D3AFC /* poFileLoader.h */,
+				E494686D14679A7F009D3AFC /* poFileLoader.cpp */,
 			);
 			name = network;
 			sourceTree = "<group>";

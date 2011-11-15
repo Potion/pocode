@@ -32,7 +32,7 @@ poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group) {
 }
 
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group) {
-	return poGetBitmapFont(font->getUrl(), font->getStyleName(), size, group);
+	return poGetBitmapFont(font->getRequestedFamilyName(), font->getRequestedStyleName(), size, group);
 }
 
 poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group) {
@@ -62,6 +62,26 @@ poTexture *poGetTexture(const std::string &url, int group) {
 void poDeleteResourceGroup(int group);
 void poDeleteResourceType(const std::type_info &type);
 
+// this is the only way to make one of these
+poResourceLocator::poResourceLocator(size_t h, int g, const std::type_info &t)
+:	hash(h)
+,	group(g)
+,	type(t)
+{}
+
+// must define to make this usable in a std::map
+bool poResourceLocator::operator<(const poResourceLocator &rhs) const {
+	if(rhs.type.before(type))
+		return true;
+	
+	if(hash < rhs.hash)
+		return true;
+	
+	if(group < rhs.group)
+		return true;
+	
+	return false;
+}
 
 static boost::hash<std::string> string_hasher;
 
