@@ -67,20 +67,14 @@ poResourceLocator::poResourceLocator(size_t h, int g, const std::type_info &t)
 :	hash(h)
 ,	group(g)
 ,	type(t)
-{}
+{
+	boost::hash_combine(hash, group);
+	boost::hash_combine(hash, type.name());
+}
 
 // must define to make this usable in a std::map
 bool poResourceLocator::operator<(const poResourceLocator &rhs) const {
-	if(rhs.type.before(type))
-		return true;
-	
-	if(hash < rhs.hash)
-		return true;
-	
-	if(group < rhs.group)
-		return true;
-	
-	return false;
+	return hash < rhs.hash;
 }
 
 static boost::hash<std::string> string_hasher;
