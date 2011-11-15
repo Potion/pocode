@@ -1,7 +1,8 @@
 ARCHS				= i386
 ONLY_ACTIVE_ARCH	= YES
 SDKROOT				= macosx
-DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+DEBUG_INFORMATION_FORMAT = dwarf
+COPY_PHASE_STRIP	= NO
 MACOSX_DEPLOYMENT_TARGET = 10.6
 LIBRARY_SEARCH_PATHS= $(POTION)
 OTHER_LDFLAGS		= $(LIBRARIES_CMD) $(FRAMEWORKS_CMD)
@@ -28,5 +29,5 @@ MIKKO				= $(LIBRARIES)/libMikko
 BZ2					= $(LIBRARIES)/bz2
 PUGIXML				= $(LIBRARIES)/pugixml
 SQLITE				= /usr/lib/libsqlite3.0.dylib
-LIBRARIES_CMD		= -lPotionCode $(SQLITE)
+LIBRARIES_CMD		= -lPotionCode_d $(SQLITE)
 FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
