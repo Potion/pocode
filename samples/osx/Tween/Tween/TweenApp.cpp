@@ -17,20 +17,20 @@ TweenApp::TweenApp()
 :	simple_tween(&simple_tween_val)
 ,	simple_tween_val(0.f)
 {
-	addModifier(new poCamera2D(poColor::black));
+	addModifier(new poCamera2D(poColor::white));
 	
 	zoomed = false;
     
     pho = new poRectShape(50,50);
     pho->position = poPoint(20,20,0);
-	pho->fillColor = poColor::dk_grey;
+	pho->fillColor = poColor::dkGrey;
 	pho->strokeColor = poColor::cyan;
     pho->generateStroke(2);
     addChild(pho);
 	
 	banh = new poOvalShape(50,50,3);
 	banh->position = poPoint(150,150,0);
-	banh->fillColor = poColor::dk_grey;
+	banh->fillColor = poColor::dkGrey;
 	banh->strokeColor = poColor::yellow;
 	banh->generateStroke(2);
 	banh->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
@@ -38,7 +38,7 @@ TweenApp::TweenApp()
 
 	mi = new poOvalShape(50,50,100);
 	mi->position = poPoint(450,150,0);
-	mi->fillColor = poColor::dk_grey;
+	mi->fillColor = poColor::dkGrey;
 	mi->strokeColor = poColor::magenta;
 	mi->generateStroke(2);
 	mi->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);

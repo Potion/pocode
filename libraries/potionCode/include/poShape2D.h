@@ -64,6 +64,7 @@ public:
 	poShape2D&              placeTexture(poTexture *tex);
 	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit);
 	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
+    poTexture*              getTexture();
 	poShape2D&              transformTexture(poPoint pt, poPoint scale, float rotate);
     
     // HIGH QUALITY SHAPE STROKE

@@ -176,6 +176,15 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAli
 	return *this;
 }
 
+poTexture* poShape2D::getTexture() {
+    return texture;
+}
+
+void poShape2D::removeTexture(bool andDelete) {
+    if(andDelete) delete texture;
+    texture = NULL;
+}
+
 poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) {
 	return *this;
 }

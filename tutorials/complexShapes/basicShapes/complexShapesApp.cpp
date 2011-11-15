@@ -31,7 +31,12 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	lookUpAndSetPath("resources");
+	
+    
+    // define path to the resource folder
+    lookUpAndSetPath("resources");
+    
+    // define window settings
 	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "MainWindow", 100, 100, 800, 600);
 }
 
@@ -103,12 +108,11 @@ complexShapesApp::complexShapesApp() {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // make a heart shape, using a vector of points
-    // find many more fun forumas to generate curves at http://mathworld.wolfram.com/topics/Curves.htm
+    // make a scribbled line shape
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    // create a curvy po2Dshape 
+    // create a new po2Dshape 
     poShape2D* curvedShape = new poShape2D();
 
     //------------------------------------------------------------------------------------------------------------
