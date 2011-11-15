@@ -1,3 +1,9 @@
+/////////////////////////////////////////
+//
+// LESSON : Basic Shapes
+//
+/////////////////////////////////////////
+
 #include "BasicShapesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
@@ -17,19 +23,16 @@ void cleanupApplication() {
 }
 
 BasicShapesApp::BasicShapesApp() {
+	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
-	// poCode template image in the background
+	// Show poCode lesson image in the background
     poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
-	/////////////////////////////////////////
-	//
-	// LESSON 1. Basic Shapes
-	//
-	/////////////////////////////////////////
 	
-	// Make a rectangular shape
+	// A. poRectShape ///////////////////////
+	
 	poRectShape* A;
     A = new poRectShape(75, 75);
     A->fillColor = poColor::red;			// Set the color, red
@@ -38,7 +41,9 @@ BasicShapesApp::BasicShapesApp() {
 	A->position.set(88, 264, 0);			// Set the position (x, y, z)
 	addChild( A );							// Add the object, so it gets drawn on the screen
 	
-	// Make an oval shape
+	
+	// B. poOvalShape ///////////////////////
+	
 	poOvalShape* B;
 	B = new poOvalShape(100, 65, 50);		// 50 is the number of vertices to draw the circle
 	B->fillColor = poColor::red;
@@ -47,17 +52,19 @@ BasicShapesApp::BasicShapesApp() {
 	B->position.set(310, 300, 0);
 	addChild( B );
 	
-	// Make a star shape
+	
+	// C. poStarShape ///////////////////////
+	
 	poStarShape* C;
 //	C = new poStarShape(100, 100, 20, 30);
 	C = new poStarShape(50, 20, 20);
 	C->fillColor = poColor::red;
-	C->generateStroke(1);
-	C->strokeColor = poColor::black;
 	C->position.set(490, 300, 0);
 	addChild( C );
 	
-    // Make a rectangular shape with an image
+	
+    // D. poRectShape ///////////////////////
+	
 	poRectShape* D;
 	D = new poRectShape( "apple.jpg" );
     D->scale.set(0.5, 0.5, 1);				// Scale the object in 3 dimensions (x, y, z)
