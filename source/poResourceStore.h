@@ -17,12 +17,12 @@ class poBitmapFont;
 class poTexture;
 
 // simple helper functions to retreive the resources you want
-poFont *poGetFont(const std::string &url, int group=-1);
-poFont *poGetFont(const std::string &url, const std::string &style, int group=-1);
-poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=-1);
-poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group=-1);
-poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group=-1);
-poTexture *poGetTexture(const std::string &url, int group=-1);
+poFont *poGetFont(const std::string &url, int group=0);
+poFont *poGetFont(const std::string &url, const std::string &style, int group=0);
+poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=0);
+poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group=0);
+poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group=0);
+poTexture *poGetTexture(const std::string &url, int group=0);
 void poDeleteResourceGroup(int group);
 void poDeleteResourceType(const std::type_info &type);
 
@@ -36,26 +36,14 @@ struct poResourceLocator {
 	const std::type_info &type;
 	
 	// this is the only way to make one of these
-	poResourceLocator(size_t hash, int group, const std::type_info &type)
-	:	hash(hash)
-	,	group(group)
-	,	type(type)
-	{}
-	
+	poResourceLocator(size_t h, int g, const std::type_info &t);
 	// must define to make this usable in a std::map
-	bool operator<(const poResourceLocator &rhs) const {
-		if(type.before(rhs.type))
-			return true;
-		
-		if(group < rhs.group)
-			return true;
-		
-		if(hash < rhs.hash)
-			return true;
-		
-		return false;
-	}
+	bool operator<(const poResourceLocator &rhs) const;
 };
+inline std::ostream &operator<<(std::ostream &out, poResourceLocator const& loc) {
+	out << "resource(" << loc.hash << "," << loc.group << "," << loc.type.name() << ")";
+	return out;
+}
 
 // base class for resources
 class poResource {

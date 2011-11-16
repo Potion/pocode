@@ -25,6 +25,10 @@ void cleanupApplication() {
 TextBoxApp::TextBoxApp() {
 	addModifier(new poCamera2D());
 	
+//	assert(poGetFont("Courier","Regular") == poGetFont("Courier", "Regular"));
+//	assert(poGetBitmapFont("Courier","Regular",15) == poGetBitmapFont("Courier","Regular",15));
+//	assert(poGetBitmapFont("Courier","Regular",15) == poGetBitmapFont(poGetFont("Courier","Regular"),15));
+	
 	tb = new poTextBox(getWindowWidth()-2*20, getWindowHeight()/2-2*20);
 	tb->setFont(poGetFont("Helvetica", "Oblique"));
 	tb->setTextSize(20);
@@ -37,20 +41,12 @@ TextBoxApp::TextBoxApp() {
 	
 	poTextBox *tb2 = (poTextBox*)tb->copy();
 	tb2->setFont(poGetFont("Maharam-Regular.otf"));
-	tb2->setCacheToTexture(true);
 	tb2->position.set(20,150,0);
 	tb2->setTextSize(50);
 	tb2->doLayout();
 	addChild(tb2);
-	
-//	poObject *obj = new poRectShape(tb->getTextBounds().width, tb->getTextBounds().height);
-//	obj->position = tb->position;
-//	addChild(obj);
-//	moveChildBackward(obj);
-//	addChild(tb);
-	
-//	poObject *obj = addChild(new poRectShape(getBitmapFont(getFont("Helvetica", "Regular"), 50)->textureForPage(0)));
-	addEvent(PO_KEY_DOWN_EVENT, this);
+
+//	addEvent(PO_KEY_DOWN_EVENT, this);
 }
  
 static uint codepoint = 'l';

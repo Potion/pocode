@@ -78,11 +78,13 @@ public:
 	poPoint             kernGlyphs(int glyph1, int glyph2) const;
 
 	std::string         toString() const;
+	std::string			getRequestedFamilyName() const;
+	std::string			getRequestedStyleName() const;
 
 private:
 	void                loadGlyph(int g);
 	
-	std::string			url;
+	std::string			url, reqUrlOrFamily, reqStyle;
 	int					size;
 	int					glyph;
 	FT_Face				face;
