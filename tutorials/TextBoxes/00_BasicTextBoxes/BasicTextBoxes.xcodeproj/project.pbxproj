@@ -1,0 +1,227 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		411EBCE3147589D20004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCE2147589D20004D98B /* AppConfig.cpp */; };
+		413F20F41473239D003FA300 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 413F20F31473239D003FA300 /* Debug.xcconfig */; };
+		413F20F61473239D003FA300 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 413F20F51473239D003FA300 /* Release.xcconfig */; };
+		413F20F91473239D003FA300 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 413F20F81473239D003FA300 /* AppDelegate.mm */; };
+		413F20FB1473239D003FA300 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 413F20FA1473239D003FA300 /* en.strings */; };
+		413F20FD1473239D003FA300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 413F20FC1473239D003FA300 /* main.m */; };
+		413F20FF1473239D003FA300 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 413F20FE1473239D003FA300 /* main.pch */; };
+		413F21021473239D003FA300 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413F21011473239D003FA300 /* main.xib */; };
+		413F21051473239D003FA300 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 413F21041473239D003FA300 /* poOpenGLView.mm */; };
+		413F21091473239D003FA300 /* BasicTextBoxesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 413F21081473239D003FA300 /* BasicTextBoxesApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		411EBCE2147589D20004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		413F20EE1473239D003FA300 /* BasicTextBoxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicTextBoxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		413F20F31473239D003FA300 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		413F20F51473239D003FA300 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		413F20F71473239D003FA300 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		413F20F81473239D003FA300 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		413F20FA1473239D003FA300 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		413F20FC1473239D003FA300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		413F20FE1473239D003FA300 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		413F21001473239D003FA300 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		413F21011473239D003FA300 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		413F21031473239D003FA300 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		413F21041473239D003FA300 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		413F21071473239D003FA300 /* BasicTextBoxesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicTextBoxesApp.h; sourceTree = "<group>"; };
+		413F21081473239D003FA300 /* BasicTextBoxesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicTextBoxesApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		413F20EB1473239D003FA300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		413F20E31473239D003FA300 = {
+			isa = PBXGroup;
+			children = (
+				413F20F11473239D003FA300 /* BasicTextBoxes */,
+				413F20EF1473239D003FA300 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		413F20EF1473239D003FA300 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				413F20EE1473239D003FA300 /* BasicTextBoxes.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		413F20F11473239D003FA300 /* BasicTextBoxes */ = {
+			isa = PBXGroup;
+			children = (
+				413F20F21473239D003FA300 /* platform */,
+				413F21061473239D003FA300 /* application */,
+			);
+			path = BasicTextBoxes;
+			sourceTree = "<group>";
+		};
+		413F20F21473239D003FA300 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				413F20F31473239D003FA300 /* Debug.xcconfig */,
+				413F20F51473239D003FA300 /* Release.xcconfig */,
+				413F20F71473239D003FA300 /* AppDelegate.h */,
+				413F20F81473239D003FA300 /* AppDelegate.mm */,
+				413F20FA1473239D003FA300 /* en.strings */,
+				413F20FC1473239D003FA300 /* main.m */,
+				413F20FE1473239D003FA300 /* main.pch */,
+				413F21001473239D003FA300 /* main.plist */,
+				413F21011473239D003FA300 /* main.xib */,
+				413F21031473239D003FA300 /* poOpenGLView.h */,
+				413F21041473239D003FA300 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		413F21061473239D003FA300 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				413F21071473239D003FA300 /* BasicTextBoxesApp.h */,
+				413F21081473239D003FA300 /* BasicTextBoxesApp.cpp */,
+				411EBCE2147589D20004D98B /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		413F20ED1473239D003FA300 /* BasicTextBoxes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 413F210C1473239D003FA300 /* Build configuration list for PBXNativeTarget "BasicTextBoxes" */;
+			buildPhases = (
+				413F20EA1473239D003FA300 /* Sources */,
+				413F20EB1473239D003FA300 /* Frameworks */,
+				413F20EC1473239D003FA300 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BasicTextBoxes;
+			productName = BasicTextBoxes;
+			productReference = 413F20EE1473239D003FA300 /* BasicTextBoxes.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		413F20E51473239D003FA300 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 413F20E81473239D003FA300 /* Build configuration list for PBXProject "BasicTextBoxes" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 413F20E31473239D003FA300;
+			productRefGroup = 413F20EF1473239D003FA300 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				413F20ED1473239D003FA300 /* BasicTextBoxes */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		413F20EC1473239D003FA300 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				413F20F41473239D003FA300 /* Debug.xcconfig in Resources */,
+				413F20F61473239D003FA300 /* Release.xcconfig in Resources */,
+				413F20FB1473239D003FA300 /* en.strings in Resources */,
+				413F20FF1473239D003FA300 /* main.pch in Resources */,
+				413F21021473239D003FA300 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		413F20EA1473239D003FA300 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				413F20F91473239D003FA300 /* AppDelegate.mm in Sources */,
+				413F20FD1473239D003FA300 /* main.m in Sources */,
+				413F21051473239D003FA300 /* poOpenGLView.mm in Sources */,
+				413F21091473239D003FA300 /* BasicTextBoxesApp.cpp in Sources */,
+				411EBCE3147589D20004D98B /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		413F210A1473239D003FA300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413F20F31473239D003FA300 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		413F210B1473239D003FA300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413F20F51473239D003FA300 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		413F210D1473239D003FA300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		413F210E1473239D003FA300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		413F20E81473239D003FA300 /* Build configuration list for PBXProject "BasicTextBoxes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				413F210A1473239D003FA300 /* Debug */,
+				413F210B1473239D003FA300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		413F210C1473239D003FA300 /* Build configuration list for PBXNativeTarget "BasicTextBoxes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				413F210D1473239D003FA300 /* Debug */,
+				413F210E1473239D003FA300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 413F20E51473239D003FA300 /* Project object */;
+}
