@@ -53,14 +53,25 @@ void RotationAxisApp::update() {
 void RotationAxisApp::flip() {
 	
 	float flip_duration = 1.f;
-	
+
+	// flip rotation
 	rect->rotationTween
 		.set(rect->rotation+180)
 		.setDuration(flip_duration)
 		.setTweenFunction(PO_TWEEN_QUAD_INOUT_FUNC)
 		.start();
+	
+	// move back for rotation
 	rect->positionTween
 		.set(poPoint(getWindowWidth()/2, getWindowHeight()/2, rect->getHeight()*5/8.f))
+		.setDuration(flip_duration/2.f)
+		.setTweenFunction(PO_TWEEN_SINUS_INOUT_FUNC)
+		.setRepeat(PO_TWEEN_REPEAT_PINGPONG,1)
+		.start();	
+	
+	// dim color when rotating
+	rect->fillColorTween
+		.set(poColor(.5f,.5f,.5f,1.f))
 		.setDuration(flip_duration/2.f)
 		.setTweenFunction(PO_TWEEN_SINUS_INOUT_FUNC)
 		.setRepeat(PO_TWEEN_REPEAT_PINGPONG,1)
