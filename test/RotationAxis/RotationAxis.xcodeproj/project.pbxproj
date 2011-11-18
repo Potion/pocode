@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2BCAE8531474BE7F00535180 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAE8521474BE7F00535180 /* AppDelegate.mm */; };
+		2BCAE8551474BE7F00535180 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BCAE8541474BE7F00535180 /* en.strings */; };
+		2BCAE8571474BE7F00535180 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAE8561474BE7F00535180 /* main.m */; };
+		2BCAE8591474BE7F00535180 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2BCAE8581474BE7F00535180 /* main.pch */; };
+		2BCAE85C1474BE7F00535180 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BCAE85B1474BE7F00535180 /* main.xib */; };
+		2BCAE85F1474BE7F00535180 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAE85E1474BE7F00535180 /* poOpenGLView.mm */; };
+		2BCAE8631474BE7F00535180 /* RotationAxisApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAE8621474BE7F00535180 /* RotationAxisApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2BCAE84A1474BE7F00535180 /* RotationAxis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotationAxis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BCAE84F1474BE7F00535180 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2BCAE8501474BE7F00535180 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2BCAE8511474BE7F00535180 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2BCAE8521474BE7F00535180 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2BCAE8541474BE7F00535180 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2BCAE8561474BE7F00535180 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2BCAE8581474BE7F00535180 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2BCAE85A1474BE7F00535180 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2BCAE85B1474BE7F00535180 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2BCAE85D1474BE7F00535180 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2BCAE85E1474BE7F00535180 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2BCAE8611474BE7F00535180 /* RotationAxisApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationAxisApp.h; sourceTree = "<group>"; };
+		2BCAE8621474BE7F00535180 /* RotationAxisApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RotationAxisApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BCAE8471474BE7F00535180 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BCAE83F1474BE7F00535180 = {
+			isa = PBXGroup;
+			children = (
+				2BCAE84D1474BE7F00535180 /* RotationAxis */,
+				2BCAE84B1474BE7F00535180 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BCAE84B1474BE7F00535180 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BCAE84A1474BE7F00535180 /* RotationAxis.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2BCAE84D1474BE7F00535180 /* RotationAxis */ = {
+			isa = PBXGroup;
+			children = (
+				2BCAE84E1474BE7F00535180 /* platform */,
+				2BCAE8601474BE7F00535180 /* application */,
+			);
+			path = RotationAxis;
+			sourceTree = "<group>";
+		};
+		2BCAE84E1474BE7F00535180 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2BCAE84F1474BE7F00535180 /* Debug.xcconfig */,
+				2BCAE8501474BE7F00535180 /* Release.xcconfig */,
+				2BCAE8511474BE7F00535180 /* AppDelegate.h */,
+				2BCAE8521474BE7F00535180 /* AppDelegate.mm */,
+				2BCAE8541474BE7F00535180 /* en.strings */,
+				2BCAE8561474BE7F00535180 /* main.m */,
+				2BCAE8581474BE7F00535180 /* main.pch */,
+				2BCAE85A1474BE7F00535180 /* main.plist */,
+				2BCAE85B1474BE7F00535180 /* main.xib */,
+				2BCAE85D1474BE7F00535180 /* poOpenGLView.h */,
+				2BCAE85E1474BE7F00535180 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2BCAE8601474BE7F00535180 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2BCAE8611474BE7F00535180 /* RotationAxisApp.h */,
+				2BCAE8621474BE7F00535180 /* RotationAxisApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BCAE8491474BE7F00535180 /* RotationAxis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BCAE8661474BE7F00535180 /* Build configuration list for PBXNativeTarget "RotationAxis" */;
+			buildPhases = (
+				2BCAE8461474BE7F00535180 /* Sources */,
+				2BCAE8471474BE7F00535180 /* Frameworks */,
+				2BCAE8481474BE7F00535180 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RotationAxis;
+			productName = RotationAxis;
+			productReference = 2BCAE84A1474BE7F00535180 /* RotationAxis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BCAE8411474BE7F00535180 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = Potion;
+			};
+			buildConfigurationList = 2BCAE8441474BE7F00535180 /* Build configuration list for PBXProject "RotationAxis" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2BCAE83F1474BE7F00535180;
+			productRefGroup = 2BCAE84B1474BE7F00535180 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BCAE8491474BE7F00535180 /* RotationAxis */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BCAE8481474BE7F00535180 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BCAE8551474BE7F00535180 /* en.strings in Resources */,
+				2BCAE8591474BE7F00535180 /* main.pch in Resources */,
+				2BCAE85C1474BE7F00535180 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BCAE8461474BE7F00535180 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BCAE8531474BE7F00535180 /* AppDelegate.mm in Sources */,
+				2BCAE8571474BE7F00535180 /* main.m in Sources */,
+				2BCAE85F1474BE7F00535180 /* poOpenGLView.mm in Sources */,
+				2BCAE8631474BE7F00535180 /* RotationAxisApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2BCAE8641474BE7F00535180 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BCAE84F1474BE7F00535180 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2BCAE8651474BE7F00535180 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BCAE8501474BE7F00535180 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2BCAE8671474BE7F00535180 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2BCAE8681474BE7F00535180 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BCAE8441474BE7F00535180 /* Build configuration list for PBXProject "RotationAxis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BCAE8641474BE7F00535180 /* Debug */,
+				2BCAE8651474BE7F00535180 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BCAE8661474BE7F00535180 /* Build configuration list for PBXNativeTarget "RotationAxis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BCAE8671474BE7F00535180 /* Debug */,
+				2BCAE8681474BE7F00535180 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BCAE8411474BE7F00535180 /* Project object */;
+}

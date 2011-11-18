@@ -165,7 +165,8 @@ void poObject::setSize(poPoint size) {
 }
 
 poPoint poObject::getSize() {
-    return poPoint(width, height, 0);;
+    poRect bounds = getBounds();
+    return poPoint(bounds.width, bounds.height, 0);
 }
 
 poRect poObject::getFrame() {
@@ -180,6 +181,10 @@ poRect poObject::getFrame() {
 
 poRect poObject::getBounds() {
     poRect rect(0, 0, width, height);
+    rect.setPosition(rect.getPosition() + offset);
+    
+    if(bFixedWidth && bFixedHeight) return rect;
+    
 	BOOST_FOREACH(poObject* obj, children) {
         if (obj->visible) {
             poRect obj_b = obj->getBounds();
@@ -187,7 +192,10 @@ poRect poObject::getBounds() {
             rect.include(objectToLocal(obj, obj_b.getTopLeft()));
         }
 	}
-	rect.setPosition(rect.getPosition() + offset);
+    
+    if(bFixedWidth)     rect.width  = width;
+    if(bFixedHeight)    rect.height = height;
+    
 	return rect;
 }
        
