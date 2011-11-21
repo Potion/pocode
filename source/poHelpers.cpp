@@ -57,7 +57,6 @@ bool lookUpAndSetPathNextTo(const std::string &folder_name) {
 	return false;
 }
 
-
 std::string getApplicationSupportDirectory() {
     return applicationGetSupportDirectory();
 }

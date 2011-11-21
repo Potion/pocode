@@ -3,6 +3,7 @@
  */
 
 #include "poObject.h"
+#include "poPath.h"
 
 class pathTestApp : public poObject {
 public:
@@ -13,4 +14,7 @@ public:
 	void addPoint(poPoint p);
 	void movePoint(poPoint p);
 	void moveControl(poPoint p);
+	
+	std::vector<poPath> paths;
+	poTexture *controlHandle, *pointHandle;
 };

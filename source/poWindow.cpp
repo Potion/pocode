@@ -30,6 +30,7 @@ poWindow::poWindow(const char *title, uint rootID, poRect b)
 ,	totalFramecount(0)
 ,	lastMark(0.0)
 ,	framerate(0.f)
+,	mouseMoveEnabled(true)
 {
 }
 
@@ -116,6 +117,14 @@ poPoint poWindow::getMousePosition() const {
 	return mousePos;
 }
 
+bool poWindow::isMouseMoveEnabled() const {
+	return mouseMoveEnabled;
+}
+
+void poWindow::setMouseMoveEnabled(bool b) {
+	mouseMoveEnabled = b;
+}
+
 void poWindow::makeCurrent() {
 	applicationMakeWindowCurrent(this);
 }
@@ -173,6 +182,9 @@ void poWindow::mouseUp(int x, int y, int mod) {
 }
 
 void poWindow::mouseMove(int x, int y, int mod) {
+	if(!mouseMoveEnabled)
+		return;
+	
 	mousePos.set(x,y,1);
 	
 	poEvent event;

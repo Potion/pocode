@@ -18,12 +18,14 @@ void cleanupApplication() {
 
 RotationAxisApp::RotationAxisApp() {
 
-//	addModifier(new poCamera2D(poColor::black)); // does not work with 2D camera
+//	addModifier(new poCamera2D( poColor::black ));	// does not work with 2D camera
 	
-	poPoint camera_position	= poPoint(-300,-150,-450);
-	poPoint look_position	= poPoint(-300,-150,0);
+//	addModifier(new poOrthoCamera(getWindowWidth(), getWindowHeight(), -500, 500));	// works as ortho 2D
+
+	poPoint camera_position	= poPoint(-getWindowWidth()/2,-getWindowHeight()/2,-getWindowWidth()*3/4.f);
+	poPoint look_position	= poPoint(-getWindowWidth()/2,-getWindowHeight()/2,0);
 	
-	poPerspectiveCamera* Cam = new poPerspectiveCamera(45, 1, 1000);
+	poPerspectiveCamera* Cam = new poPerspectiveCamera(45, .001, 1000);
 	Cam->cameraPosition( camera_position );
 	Cam->lookAtPosition( look_position );
 	addModifier(Cam);
@@ -35,7 +37,7 @@ RotationAxisApp::RotationAxisApp() {
 	addChild(rect);
 	
 	//	press
-	//	'f' for flip on current axis
+	//	' ' for flip on current axis
 	//	'x' for x-rotation
 	//	'y' for y-rotation 
 	//	'z' for z-rotation
@@ -51,14 +53,25 @@ void RotationAxisApp::update() {
 void RotationAxisApp::flip() {
 	
 	float flip_duration = 1.f;
-	
+
+	// flip rotation
 	rect->rotationTween
 		.set(rect->rotation+180)
 		.setDuration(flip_duration)
 		.setTweenFunction(PO_TWEEN_QUAD_INOUT_FUNC)
 		.start();
+	
+	// move back for rotation
 	rect->positionTween
 		.set(poPoint(getWindowWidth()/2, getWindowHeight()/2, rect->getHeight()*5/8.f))
+		.setDuration(flip_duration/2.f)
+		.setTweenFunction(PO_TWEEN_SINUS_INOUT_FUNC)
+		.setRepeat(PO_TWEEN_REPEAT_PINGPONG,1)
+		.start();	
+	
+	// dim color when rotating
+	rect->fillColorTween
+		.set(poColor(.5f,.5f,.5f,1.f))
 		.setDuration(flip_duration/2.f)
 		.setTweenFunction(PO_TWEEN_SINUS_INOUT_FUNC)
 		.setRepeat(PO_TWEEN_REPEAT_PINGPONG,1)
@@ -69,7 +82,7 @@ void RotationAxisApp::eventHandler(poEvent *event) {
 	
 	switch( event->keyChar ){
 		
-		case 'f':	flip(); break;
+		case ' ':	flip(); break;
 		case 'x':	rect->rotationAxis = poPoint(1,0,0); break;
 		case 'y':	rect->rotationAxis = poPoint(0,1,0); break;
 		case 'z':	rect->rotationAxis = poPoint(0,0,1); break;

@@ -9,6 +9,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
+	lookUpAndSetPathNextTo("pathTest");
 	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "pathTest", 100, 100, 400, 400);
 }
 
@@ -18,31 +19,42 @@ void cleanupApplication() {
 pathTestApp::pathTestApp() {
 	addModifier(new poCamera2D());
 	addEvent(PO_MOUSE_DOWN_EVENT, this);
-	addEvent(PO_MOUSE_DRAG_INSIDE_EVENT, this);
+	
+	controlHandle = poGetTexture("controlHandle.png");
+	pointHandle = poGetTexture("pointHandle.png");
 }
 
 void pathTestApp::draw() {
+	BOOST_FOREACH(poPath &path, paths) {
+		po::drawPoints(path.generatePoints(), GL_LINE_STRIP);
+	}
+	BOOST_FOREACH(poPath &path, paths) {
+		for(int i=0; i<path.getNumSegments(); i++) {
+			
+		}
+	}
 }
 
 void pathTestApp::eventHandler(poEvent *event) {
-	if(event->type == PO_MOUSE_DOWN_EVENT) {
-	}
-	else 
-	if(event->type == PO_MOUSE_DRAG_INSIDE_EVENT) {
-		
+	switch(event->type) {
+		case PO_MOUSE_DOWN_EVENT:
+			if(isMetaMask(event))
+				paths.push_back(poPath().start(event->globalPosition));
+			else
+				paths.back().lineTo(event->globalPosition);
+			break;
 	}
 }
 
 void pathTestApp::addPoint(poPoint p) {
-	
+	if(paths.empty())
+		paths.push_back(poPath().start(p));
 }
 
 void pathTestApp::movePoint(poPoint p) {
-	
 }
 
 void pathTestApp::moveControl(poPoint p) {
-	
 }
 
 

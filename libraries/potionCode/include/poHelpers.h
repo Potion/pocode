@@ -33,7 +33,6 @@ bool pathToFolder(const std::string &folder_name, fs::path *path);
 // search up the filesystem from pwd and set to a folder if its there
 bool lookUpAndSetPath(const std::string &folder_name);
 bool lookUpAndSetPathNextTo(const std::string &folder_name);
-
 std::string getApplicationSupportDirectory();
 
 // point related
