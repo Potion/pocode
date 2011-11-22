@@ -179,7 +179,18 @@ poRect poObject::getFrame() {
 }
 
 poRect poObject::getBounds() {
-    poRect rect(0, 0, width, height);
+    poRect rect(0, 0, 0,0);
+    
+    if(bFixedWidth)     rect.width  = width;
+    if(bFixedHeight)    rect.height = height;
+    
+    //If width and height are fixed, just return them
+    if(bFixedWidth && bFixedHeight) {
+        rect.setPosition(rect.getPosition() + offset);
+        return rect;
+    }
+    
+    
 	BOOST_FOREACH(poObject* obj, children) {
         if (obj->visible) {
             poRect obj_b = obj->getBounds();
