@@ -37,6 +37,9 @@ TextBoxApp::TextBoxApp() {
 	tb->drawBounds = PO_TEXT_BOX_STROKE_TEXT_BOUNDS;
 	tb->setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent massa ante, malesuada a laoreet imperdiet, fringilla ut tellus. In sem est, imperdiet in lobortis vel, varius lobortis velit.");
 	tb->doLayout();
+	
+	tb->scaleTween.set(poPoint(.2,.2,1)).setDuration(5).setRepeat(PO_TWEEN_REPEAT_PINGPONG).setTweenFunction(PO_TWEEN_LINEAR_FUNC).start();
+	
 	addChild(tb);
 	
 	poTextBox *tb2 = (poTextBox*)tb->copy();
