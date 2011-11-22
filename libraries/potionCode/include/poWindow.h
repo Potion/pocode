@@ -54,8 +54,9 @@ public:
 	bool            isFullscreen() const;
 	bool            wasClosed() const;
     poPoint         getMousePosition() const;
-
 	poObject*       getRootObject();
+	bool			isMouseMoveEnabled() const;
+	void			setMouseMoveEnabled(bool b);
 
     // EVENT RECEIVING METHODS
     // These methods are called by the platform-specific windowing system. On the Mac and iOS
@@ -118,6 +119,8 @@ private:
 	
 	// GLOBAL MOUSE POSITION
 	poPoint         mousePos;
+	
+	bool			mouseMoveEnabled;
     
 //    //MOUSE INTERACTION POINT
 //    interactionPoint mouse;

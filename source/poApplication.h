@@ -19,6 +19,7 @@
 int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
 poWindow*	applicationGetWindow(int index);
+std::string	applicationGetResourceDirectory();
 std::string applicationGetSupportDirectory();
 poWindow*	applicationCurrentWindow();
 void		applicationMakeWindowCurrent(poWindow*);
@@ -59,6 +60,9 @@ float		getWindowLastFrameTime();
 float		getWindowLastFrameDuration();
 poPoint		getWindowMousePosition();
 poPoint		getWindowInvMousePosition();
+
+void		setWindowMouseMoveEnabled(bool b);
+bool		getWindowMouseMoveEnabled();
 
 
 

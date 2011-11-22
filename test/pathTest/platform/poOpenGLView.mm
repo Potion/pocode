@@ -165,32 +165,32 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 
 -(void)keyDown:(NSEvent*)event {
 	if(event.characters.length)
-		self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+		self.appWindow->keyDown([event.characters characterAtIndex:0], event.keyCode, [event modifierFlags]);
 }
 
 -(void)keyUp:(NSEvent*)event {
 	if(event.characters.length)
-		self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, (int)event.modifierFlags);
+		self.appWindow->keyUp([event.characters characterAtIndex:0], event.keyCode, [event modifierFlags]);
 }
 
 -(void)mouseDown:(NSEvent*)event {
 	NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
-	self.appWindow->mouseDown(point.x, point.y, 0);
+	self.appWindow->mouseDown(point.x, point.y, [event modifierFlags]);
 }
 
 -(void)mouseUp:(NSEvent*)event {
 	NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
-	self.appWindow->mouseUp(point.x, point.y, 0);
+	self.appWindow->mouseUp(point.x, point.y, [event modifierFlags]);
 }
 
 -(void)mouseMoved:(NSEvent*)event {
 	NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
-	self.appWindow->mouseMove(point.x, point.y, 0);
+	self.appWindow->mouseMove(point.x, point.y, [event modifierFlags]);
 }
 
 -(void)mouseDragged:(NSEvent*)event {
 	NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
-	self.appWindow->mouseDrag(point.x, point.y, 0);
+	self.appWindow->mouseDrag(point.x, point.y, [event modifierFlags]);
 }
 
 @end

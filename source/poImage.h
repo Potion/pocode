@@ -48,6 +48,7 @@ public:
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;
+	bool				hasAlpha() const;
 	uint                getWidth() const;
 	uint                getHeight() const;
 	uint				getChannels() const;

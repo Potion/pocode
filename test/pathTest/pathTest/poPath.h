@@ -19,14 +19,14 @@ enum poPathSegmentType {
 	PO_PATH_SEGMENT_CLOSE
 };
 
-class poSubPath {
+class poPath {
 public:
-	poSubPath& start(poPoint startPoint);
-	poSubPath& lineTo(poPoint endPoint);
-	poSubPath& arcTo(poPoint center, float startAngle, float endAngle, bool clockwise);
-	poSubPath& curveTo(poPoint endPoint, poPoint control);
-	poSubPath& curveTo(poPoint endPoint, poPoint control1, poPoint control2);
-	poSubPath& close();
+	poPath& start(poPoint startPoint);
+	poPath& lineTo(poPoint endPoint);
+	poPath& arcTo(poPoint center, float startAngle, float endAngle, bool clockwise);
+	poPath& curveTo(poPoint endPoint, poPoint control);
+	poPath& curveTo(poPoint endPoint, poPoint control1, poPoint control2);
+	poPath& close();
 	
 	uint getNumSegments() const;
 	poPathSegmentType getSegmentType(uint idx) const;
@@ -37,6 +37,11 @@ public:
 	void modifyCubeTo(uint idx, poPoint point, poPoint control1, poPoint control2);
 	void removeSegment(uint idx);
 	
+	bool isEmpty() const;
+	bool isOpen() const;
+
+	std::vector<poPoint> generatePoints() const;
+
 private:
 	struct segment_storage {
 		short startIdx, count;
@@ -50,29 +55,4 @@ private:
 	std::vector<segment_storage> segments;
 	std::vector<poPoint> points;
 };
-
-class poPath {
-public:
-	poPath &moveTo(poPoint startPoint);
-	poPath &lineTo(poPoint endPoint);
-	poPath &curveTo(poPoint endPoint, poPoint control);
-	poPath &curveTo(poPoint endPoint, poPoint control1, poPoint control2);
-	poPath &arcTo(poPoint arcCenter, float arcRadius, float startAngle, float endAngle, bool clockwise);
-	poPath &close();
-	
-	poPath &addRect(poRect r);
-	poPath &addElipseInRect(poRect r);
-	
-	size_t getNumSubPaths() const;
-	void addSubpath(poSubPath const& subPath);
-	void insertSubPath(uint idx, poSubPath const& subPath);
-	void removeSubPath(uint idx);
-	void setSubPath(uint idx, poSubPath const& subPath);
-	poSubPath &getSubPath(uint idx) const;
-	poSubPath &getCurrentSubPath() const;
-	
-private:
-	std::vector<poSubPath> subPaths;
-};
-
 

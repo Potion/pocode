@@ -61,6 +61,10 @@ bool poImage::isValid() const {
 	return bitmap != NULL;
 }
 
+bool poImage::hasAlpha() const {
+	return FreeImage_GetColorType(bitmap) == FIC_RGBALPHA;
+}
+
 uint poImage::getWidth() const {
 	return FreeImage_GetWidth(bitmap);
 }
