@@ -68,3 +68,12 @@ poPoint getWindowInvMousePosition() {
 	response.y = window->getBounds().height - response.y;
 	return response;
 }
+
+void setWindowMouseMoveEnabled(bool b) {
+	poWindow *window = applicationCurrentWindow();
+	window->setMouseMoveEnabled(b);
+}
+bool getWindowMouseMoveEnabled() {
+	poWindow *window = applicationCurrentWindow();
+	return window->isMouseMoveEnabled();
+}
