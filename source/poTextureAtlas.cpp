@@ -10,14 +10,14 @@ poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	config(f)
-,	packer(w,h)
+,	packer(w,h,2)
 {}
 
 poTextureAtlas::poTextureAtlas(poTextureConfig c, uint w, uint h)
 :	width(w)
 ,	height(h)
 ,	config(c)
-,	packer(w,h)
+,	packer(w,h,2)
 {}
 
 poTextureAtlas::~poTextureAtlas() {
