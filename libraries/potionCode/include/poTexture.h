@@ -47,7 +47,7 @@ public:
 class poTexture : public poResource {
 public:
 	poTexture();
-	poTexture(const std::string &url);
+	poTexture(const std::string &url, bool keepImage=false );
 	poTexture(poImage* img);
 	poTexture(poImage* img, const poTextureConfig &config);
 	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
@@ -68,7 +68,11 @@ public:
 	size_t				getSizeInBytes() const;
 	poPoint				getDimensions() const;
 	poRect				getBounds() const;
-	
+    
+    bool                hasSourceImage() { return (sourceImage != NULL); };
+	poColor             getSourceImagePixel(poPoint p);
+    poImage*            getSourceImage() { return sourceImage; };
+    
 private:
 	void                load(poImage* img);
 	void                load(poImage* img, const poTextureConfig &config);
@@ -79,6 +83,8 @@ private:
 	
 	poTextureConfig     config;
 	uint				uid, width, height, channels;
+    
+    poImage*            sourceImage;
 };
 
 

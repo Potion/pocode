@@ -59,7 +59,7 @@ void poRectShape::reshape( float w, float h, float rad ) {
 }
 
 void poRectShape::construct( float w, float h, float rad ) {
-    setSize(w,h);
+    //setSize(w,h);
 	radius = rad;
 	
 	if(rad > 0.f) {

@@ -9,7 +9,7 @@
 #include "poCamera.h"
 #include "poShapeBasics2D.h"				// Include poShapeBasics2D.h to be able to use poShapes
 
-
+ 
 // APP CONSTRUCTOR.
 // Create all objects here.
 BasicShapesApp::BasicShapesApp() {
@@ -21,7 +21,7 @@ BasicShapesApp::BasicShapesApp() {
     poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
-	
+    
 	// A. poRectShape ///////////////////////
 	
 	poRectShape* A;

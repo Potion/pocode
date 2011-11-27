@@ -78,21 +78,9 @@ void poShape2D::draw() {
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
-	if(points.empty()) {
-        points.push_back(p);
-        setSize(p.x,p.y);
-    }
-	else {
-        points.push_back(p);
 
-        poRect tmp;
-        BOOST_FOREACH(poPoint &p, points) {
-            tmp.include(p);
-        }
-        
-        offset = poPoint(std::max(0.0f,tmp.x), std::max(0.0f,tmp.y));
-        setSize(tmp.width, tmp.height);
-	}
+    points.push_back(p);
+    
 	return *this;
 }
 
@@ -282,6 +270,22 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
 	}
 	
 	return false;
+}
+
+poRect  poShape2D::getBounds()
+{
+    poRect rect;
+    
+    // must initialize rect with first point
+    if ( points.size() > 0 )
+        rect.set( points[0].x, points[0].y, 0, 0 );
+    
+    // include all other points
+    BOOST_FOREACH(poPoint &p, points) {
+        rect.include(p);
+    }
+    
+    return rect;
 }
 
 void poShape2D::stopAllTweens(bool recurse) {

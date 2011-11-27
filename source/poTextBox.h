@@ -56,7 +56,6 @@ enum {
 class poTextBox : public poObject {
 public:
 	poTextBox();
-	poTextBox(int w);
 	poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
@@ -128,8 +127,10 @@ public:
     // So, if the text does not fill the whole textbox, the bounds will differ.
     void                reshape(int w, int h);
 	void                reshape(poPoint p);
+    void                useTextBoundsAsBounds( bool B ) { useTextBounds = B; };
 	poRect              getTextBounds() const;
-	
+    virtual poRect      getBounds();
+    
     // LINES OF TEXT
 	uint                getNumLines() const;
 	poRect              boundsForLine(uint num) const;
@@ -150,18 +151,26 @@ public:
     // You should not need to call the draw() method yourself.
 	void                draw();
 
+    // FILL AND STROKE
+    poColor                 fillColor;
+	bool                    fillEnabled;
+	poColor                 strokeColor;
+    int                     strokeWidth;
+    	
 protected:
 	void				clone(poTextBox *tb);
 	
 private:
     void                generateCachedTexture();
-    
-	bool                fitHeightToBounds;
+
+	bool                useTextBounds;
 	bool				cacheToTexture;
     bool                layoutDone;
 	poAlignment         textAlignment;
 	po::TextBoxLayout   layout;
 	poTexture*			cached;
+    
+
 };
 
 

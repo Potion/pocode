@@ -22,7 +22,7 @@ poFont *poGetFont(const std::string &url, const std::string &style, int group=0)
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=0);
 poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group=0);
 poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group=0);
-poTexture *poGetTexture(const std::string &url, int group=0);
+poTexture *poGetTexture(const std::string &url, bool keepImage=false, int group=0);
 void poDeleteResourceGroup(int group);
 void poDeleteResourceType(const std::type_info &type);
 
