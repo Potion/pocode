@@ -7,7 +7,7 @@
 #include "BasicShapesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"				// include poShapeBasics2D.h to be able to use poShapes
+#include "poShapeBasics2D.h"				// Include poShapeBasics2D.h to be able to use poShapes
 
 
 // APP CONSTRUCTOR.
