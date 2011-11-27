@@ -94,6 +94,7 @@ ubyte const*poImage::getPixels() const {
 }
 
 poColor poImage::getPixel(poPoint p) const {
+        
 	if(!isValid() || p.x < 0 || p.y < 0 || p.x >= getWidth() || p.y >=getHeight())
 		return poColor();
 

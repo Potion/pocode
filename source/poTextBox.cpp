@@ -22,35 +22,26 @@ poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint())
-,	fitHeightToBounds(true)
+,	useTextBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
+,   fillEnabled(false)
+,   strokeWidth(0)
 {}
-
-poTextBox::poTextBox(int w) 
-:	poObject()
-,	textColor(poColor::white)
-,	layout(poPoint(w,0))
-,	fitHeightToBounds(true)
-,	textAlignment(PO_ALIGN_TOP_LEFT)
-,	cacheToTexture(false)
-,	cached(NULL)
-{
-	setWidth(w);
-}
 
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint(w,h))
-,	fitHeightToBounds(false)
+,	useTextBounds(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
+,   fillEnabled(false)
+,   strokeWidth(0)
 {
-	setWidth(w);
-    setHeight(h);
+    layout.size = poPoint( w,h );
 }
 
 poObject* poTextBox::copy() {
@@ -61,7 +52,7 @@ poObject* poTextBox::copy() {
 
 void poTextBox::clone(poTextBox *tb) {
 	tb->textColor = textColor;
-	tb->fitHeightToBounds = fitHeightToBounds;
+	tb->useTextBounds = useTextBounds;
 	tb->cacheToTexture = cacheToTexture;
 	tb->layout = layout;
 	tb->cached = cached;
@@ -100,8 +91,15 @@ poRect poTextBox::getTextBounds() const {
 	return layout.getTextBounds();
 }
 
+poRect      poTextBox::getBounds()
+{
+    if ( useTextBounds )
+        return getTextBounds();
+    else
+        return poRect( poPoint(0,0), layout.size );
+}
+
 void poTextBox::reshape(int w, int h) {
-	setSize(w,h);
 	layout.size = poPoint(getWidth(), getHeight());
 }
 
@@ -208,9 +206,6 @@ poFont* poTextBox::getFont(const std::string &name) {
 void poTextBox::doLayout() {
 	layout.layout();
 	
-	if(fitHeightToBounds)
-		setHeight(getTextBounds().height);
-
 	setAlignment(getAlignment());
 	setTextAlignment(getTextAlignment());
 	layout.realignText();
@@ -277,6 +272,19 @@ void poTextBox::draw() {
 		return;
 	}
 	
+    // draw fill and stroke
+    if ( fillEnabled )
+    {
+        po::setColor( fillColor, getAppliedAlpha() );
+        po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+    }
+    if ( strokeWidth > 0 )
+    {
+        glLineWidth( strokeWidth );
+        po::setColor( strokeColor, getAppliedAlpha() );
+        po::drawStrokedRect( 0, 0, layout.size.x, layout.size.y );
+    }
+
 	poBitmapFont *bitmapFont = poGetBitmapFont(getFont(), layout.textSize);
 	
     if ( layout.isRichText ) {
@@ -343,11 +351,13 @@ void poTextBox::_drawBounds() {
         po::drawStrokedRect(getTextBounds());
     }
     
-    po::setColor(poColor::dkGrey, .8f);
+    poObject::_drawBounds();
+    
+    /*po::setColor(poColor::dkGrey, .8f);
     po::drawStrokedRect(getBounds());
     
     po::setColor(poColor::red);
-    po::drawFilledRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+    po::drawFilledRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));*/
 }
 
 

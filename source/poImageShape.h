@@ -5,15 +5,20 @@
  */
 
 #include "poObject.h"
+#include "poApplication.h"
 
 class poImageShape : public poObject
 {
 public:
 	poImageShape();
-	poImageShape(poImage *img);
-	poImageShape(const std::string &str);
+	poImageShape(poImage *img, bool keepImage=false);
+	poImageShape(const std::string &str, bool keepImage=false);
 	virtual ~poImageShape();
 	
+    void    reshapeToWidth( float W );
+    void    reshapeToHeight( float H );
+    void    reshapeToWidthAndHeight( float W, float H );
+    
 	virtual void draw();
 	
 	bool doesAlphaTest() const;
@@ -22,10 +27,12 @@ public:
 	poImage *getImage() const;
 	void setImage(poImage* img);
 	
-	bool pointInside(poPoint p, bool localize=false);
-	
+    
+	bool                    pointInside(poPoint p, bool localize=false);
+	virtual poRect          getBounds();
+    
 private:
-	poImage *img;
-	poTexture *tex;
-	bool alphaTest;
+	poTexture*  tex;
+	bool        alphaTest;
+    float       imageScale;
 };
