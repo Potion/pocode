@@ -49,7 +49,7 @@ XMLApp::XMLApp() {
 	
 	std::string textA = nodeA.getInnerString();				// Get the content of node A as a string
 	
-	poTextBox* textBoxA = new poTextBox( 140 );				// Create a TextBox to display the string
+	poTextBox* textBoxA = new poTextBox(140, 140);			// Create a TextBox to display the string
 	textBoxA->setText( textA );								// Set the text based on the content of node <A>
 	textBoxA->setFont( new poFont( fontA ) );				// Set the font based on the "font" attribute
 	textBoxA->setTextSize( textSizeA );						// Set the size based on the "textSize" attribute

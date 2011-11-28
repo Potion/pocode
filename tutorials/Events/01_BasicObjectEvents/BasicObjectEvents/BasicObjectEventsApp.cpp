@@ -65,7 +65,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	D->position.set(640, 264, 0);
 	addChild(D);
 	
-//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER for OVER to work. Is that ok?
+//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER for OVER to work.
 	D->addEvent(PO_MOUSE_OVER_EVENT, this);
 	
 	

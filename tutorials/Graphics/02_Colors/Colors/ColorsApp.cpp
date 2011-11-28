@@ -27,10 +27,10 @@ ColorsApp::ColorsApp() {
 	poColor A;
 	A = poColor::red;
 	
-	poRectShape* rect = new poRectShape(135, 75);
-	rect->fillColor = A;
-	rect->position.set(57, 232, 0);
-	addChild(rect);
+	poRectShape* rectA = new poRectShape(135, 75);
+	rectA->fillColor = A;
+	rectA->position.set(57, 232, 0);
+	addChild(rectA);
 	
 	
 	// B. RGB (0 to 1) ///////////////////////
@@ -38,10 +38,10 @@ ColorsApp::ColorsApp() {
 	poColor B;
 	B.set(1, 0.75, 0, 1);
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = B;
-	rect->position.set(240, 232, 0);
-	addChild(rect);
+	poRectShape* rectB = new poRectShape(135, 75);
+	rectB->fillColor = B;
+	rectB->position.set(240, 232, 0);
+	addChild(rectB);
 	
 	
 	// C. RGB (0 to 255) ///////////////////////
@@ -49,10 +49,10 @@ ColorsApp::ColorsApp() {
 	poColor C;
 	C.set255(255, 255, 0, 255);
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = C;
-	rect->position.set(423, 232, 0);
-	addChild(rect);
+	poRectShape* rectC = new poRectShape(135, 75);
+	rectC->fillColor = C;
+	rectC->position.set(423, 232, 0);
+	addChild(rectC);
 	
 	
 	// D. HSV ///////////////////////
@@ -60,10 +60,10 @@ ColorsApp::ColorsApp() {
 	poColor D;
 	D.setHSV(0.45, 1.0, 1.0);
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = D;
-	rect->position.set(607, 232, 0);
-	addChild(rect);
+	poRectShape* rectD = new poRectShape(135, 75);
+	rectD->fillColor = D;
+	rectD->position.set(607, 232, 0);
+	addChild(rectD);
 	
 	
 	// E. Set with a string ///////////////////////
@@ -71,10 +71,10 @@ ColorsApp::ColorsApp() {
 	poColor E;
 	E.set("#00CCFF");
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = E;
-	rect->position.set(57, 403, 0);
-	addChild(rect);
+	poRectShape* rectE = new poRectShape(135, 75);
+	rectE->fillColor = E;
+	rectE->position.set(57, 403, 0);
+	addChild(rectE);
 	
 	
 	// F. Set individual values ///////////////////////
@@ -85,10 +85,10 @@ ColorsApp::ColorsApp() {
 	F.B = 1;
 	F.A = 1;
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = F;
-	rect->position.set(240, 403, 0);
-	addChild(rect);
+	poRectShape* rectF = new poRectShape(135, 75);
+	rectF->fillColor = F;
+	rectF->position.set(240, 403, 0);
+	addChild(rectF);
 	
 	
 	// G. Blend 2 colors ///////////////////////
@@ -96,10 +96,10 @@ ColorsApp::ColorsApp() {
 	poColor G;
 	G = blendColors(poColor::blue, poColor::magenta, 0.5); 
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = G;
-	rect->position.set(423, 403, 0);
-	addChild(rect);
+	poRectShape* rectG = new poRectShape(135, 75);
+	rectG->fillColor = G;
+	rectG->position.set(423, 403, 0);
+	addChild(rectG);
 	
 	
 	// H. Random color ///////////////////////
@@ -107,10 +107,10 @@ ColorsApp::ColorsApp() {
 	poColor H;
 	H = poColor::random();							// INTERNAL: it's not working!!
 	
-	rect = new poRectShape(135, 75);
-	rect->fillColor = H;
-	rect->position.set(607, 403, 0);
-	addChild(rect);
+	poRectShape* rectH = new poRectShape(135, 75);
+	rectH->fillColor = H;
+	rectH->position.set(607, 403, 0);
+	addChild(rectH);
 	
 }
 

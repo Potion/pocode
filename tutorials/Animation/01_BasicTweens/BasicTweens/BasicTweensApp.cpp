@@ -47,9 +47,9 @@ BasicTweensApp::BasicTweensApp() {
 	addChild( B );
 	
 	B->scaleTween.set(poPoint(2, 2, 1));						// Set the final scale value (x, y, z)
-	B->scaleTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
-	B->scaleTween.setDuration(2.0);
-	B->scaleTween.start();
+	B->scaleTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);		// Set the type of easing function
+	B->scaleTween.setDuration(2.0);								// Set the duration in seconds
+	B->scaleTween.start();										// Start the animation
 	
 	
 	// C. Rotation Tween ///////////////////////
@@ -62,11 +62,12 @@ BasicTweensApp::BasicTweensApp() {
 	C->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( C );
 	
-	C->rotationTween.set(225);									// Set the rotation in degrees
-	C->rotationTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
-	C->rotationTween.setDuration(2.0);
+	C->rotationTween.set(360);									// Set the rotation in degrees
+	C->rotationTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);	// Set the type of easing function
+	C->rotationTween.setDuration(2.0);							// Set the duration in seconds
+	C->rotationTween.setRepeat(PO_TWEEN_REPEAT_REGULAR);		// Make it repeat when it's done
 	C->rotationTween.setDelay(1.0);								// Set the delay, it waits 1 second before it starts
-	C->rotationTween.start();
+	C->rotationTween.start();									// Start the animation
 	
 	
     // D. Alpha Tween ///////////////////////
@@ -79,12 +80,12 @@ BasicTweensApp::BasicTweensApp() {
 	D->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( D );
 	
-	D->alphaTween.set(0);
-	D->alphaTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
+	D->alphaTween.set(0);										// Set the final alpha value (0 to 1)
+	D->alphaTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);		// Set the type of easing function
 	D->alphaTween.setRepeat(PO_TWEEN_REPEAT_PINGPONG, 1);		// Make it repeat, 1 time
 																// PO_TWEEN_REPEAT_PINGPONG will make alpha go back to its original state
-	D->alphaTween.setDuration(2.0);
-	D->alphaTween.start();
+	D->alphaTween.setDuration(2.0);								// Set the duration in seconds
+	D->alphaTween.start();										// Start the animation
 	
 	
 	// key to restart the tweens
