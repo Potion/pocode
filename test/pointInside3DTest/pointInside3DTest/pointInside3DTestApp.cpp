@@ -24,7 +24,7 @@ pointInside3DTestApp::pointInside3DTestApp()
     myShape->fillColor = poColor::white;   
     myShape->rotationAxis.set( 0,1,0 ); 
     myShape->rotation = 45;   
-    myShape->position.set( 40,30,20 );  
+    myShape->position.set( 40,30,20 );    
     myShape->setAlignment( PO_ALIGN_CENTER_CENTER ); 
     myShape->addEvent( PO_MOUSE_DOWN_INSIDE_EVENT, this, "star_click" ); 
     addChild( myShape );  
