@@ -11,6 +11,8 @@
 #include "poOpenGLState.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+cameraType   poCamera::currentCameraType = PO_CAMERA_NONE;
+
 // camera base class
 poCamera::poCamera()
 :	reset(true)
@@ -150,6 +152,8 @@ void poCamera2D::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	poRect viewp = stack->getViewport();
 	stack->pushProjection(glm::ortho(viewp.x, viewp.width + viewp.x, viewp.height + viewp.y, viewp.y));
+    
+    poCamera::currentCameraType = PO_CAMERA_2D;
 }
 
 // orthographic camera
@@ -215,6 +219,7 @@ poRect poOrthoCamera::get() const {
 
 void poOrthoCamera::setProjection() {
 	poOpenGLState::get()->matrix.pushProjection(glm::ortho(x1,x2,y2,y1,near,far));
+    poCamera::currentCameraType = PO_CAMERA_2D;
 }
 
 
@@ -245,7 +250,21 @@ poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {
 	lookAtPos = p;
 	return this;
 }
-	
+
+void    poPerspectiveCamera::setupFor2DOnZPlane()
+{
+    float half_fov = deg2rad(fov/2.0); 
+    float half_window_height = getWindowHeight() / 2.0;
+    float new_z = half_window_height / tan(half_fov); 
+    
+    cameraPos.set( 0,0,-new_z );
+    lookAtPos.set( 0,0,0 );
+      
+    near = 0.10;
+    far = new_z*10.0;
+}
+ 
+
 poPoint poPerspectiveCamera::cameraPosition() const  {
 	return cameraPos;
 }
@@ -262,6 +281,7 @@ void poPerspectiveCamera::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
     float aspect = getWindowAspect();
 	stack->pushProjection(glm::perspective(fov, aspect, near, far));
+    poCamera::currentCameraType = PO_CAMERA_3D;
 }
 
 void poPerspectiveCamera::setModelview() {
@@ -275,7 +295,6 @@ void poPerspectiveCamera::setModelview() {
 	stack->pushModelview(glm::lookAt(eye,center,up));
 	stack->scale(poPoint(-1,-1,1));
 }
-
 
 
 

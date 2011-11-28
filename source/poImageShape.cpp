@@ -1,5 +1,6 @@
 #include "poImageShape.h"
 #include "poSimpleDrawing.h"
+#include "poCamera.h"
 
 poImageShape::poImageShape()
 :	tex(NULL)
@@ -75,21 +76,46 @@ bool poImageShape::pointInside(poPoint p, bool localize)
     if(!visible)
 		return false;
 	
-	if(localize) {
-		p.y = getWindowHeight() - p.y;
-		p = globalToLocal(p);
-	}
-	
-	if(alphaTest) {
-        // flip y value, since poImage y coordinates are reversed
-        p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
-        p /= imageScale;
-		poColor pix = tex->getSourceImagePixel(p);
-		return pix.A > 0.f;
-	}
-	
-    poRect r(0,0,tex->getWidth()*imageScale,tex->getHeight()*imageScale);
-	return r.contains(p.x, p.y);
+    // DO POINT INSIDE TEST FOR 2D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    {
+        if(localize) {
+            p.y = getWindowHeight() - p.y;
+            p = globalToLocal(p);
+        }
+        
+        if(alphaTest) {
+            // flip y value, since poImage y coordinates are reversed
+            p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
+            p /= imageScale;
+            poColor pix = tex->getSourceImagePixel(p);
+            return pix.A > 0.f;
+        }
+        
+        poRect r(0,0,tex->getWidth()*imageScale,tex->getHeight()*imageScale);
+        return r.contains(p.x, p.y);
+    }
+     
+    // DO POINT INSIDE TEST FOR 3D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    {
+        if(localize) {
+            p.y = getWindowHeight() - p.y;
+        }
+        
+        /*if(alphaTest) {
+            // flip y value, since poImage y coordinates are reversed
+            p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
+            p /= imageScale;
+            poColor pix = tex->getSourceImagePixel(p);
+            return pix.A > 0.f;
+        }*/
+
+        poRect r(0,0,tex->getWidth()*imageScale,tex->getHeight()*imageScale);
+        return pointInRect3D( p, getMatrixSet(), r );
+    }
+    
+    return false;
 }
 
 poRect  poImageShape::getBounds()

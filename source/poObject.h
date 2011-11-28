@@ -83,6 +83,7 @@ public:
     float				getHeight();
     virtual poRect      getBounds();
     poRect				getFrame();
+    poPoint             getTransformedPoint( poPoint P );
 
     // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
     // A potionCode app is itself a poObject and is also the root of the tree.
@@ -182,7 +183,7 @@ public:
 	uint                getUID() const;
     //!alpha with parent alpha pre-multiplied
 	float               getAppliedAlpha() const;
-    poMatrixSet         getMatrixSet() const;
+    poMatrixSet&        getMatrixSet();
 	int                 getDrawOrder() const;
     
     //Recursively check parents for definitive visibility

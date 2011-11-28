@@ -131,6 +131,8 @@ public:
 	poRect              getTextBounds() const;
     virtual poRect      getBounds();
     
+    virtual bool        pointInside(poPoint p, bool localize);
+    
     // LINES OF TEXT
 	uint                getNumLines() const;
 	poRect              boundsForLine(uint num) const;

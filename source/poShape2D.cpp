@@ -4,6 +4,7 @@
 #include "nanosvg.h"
 #include "poApplication.h"
 #include "poResourceStore.h"
+#include "poCamera.h"
 
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
@@ -249,28 +250,56 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
 	if(!visible)
 		return false;
 	
-	if(localize) {
-		point.y = getWindowHeight() - point.y;
-		point = globalToLocal(point);
-	}
+    // DO POINT INSIDE TEST FOR 2D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    {
+        if(localize) {
+            point.y = getWindowHeight() - point.y;
+            point = globalToLocal(point);
+        }
+        
+        // test point inside for given drawstyle
+        if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
+            for( int i=1; i<points.size()-1; i++ )
+                if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
+                    return true;
+            if (fillDrawStyle == GL_TRIANGLE_FAN)
+                if ( pointInTriangle( point, points[0], points[1], points.back() ))
+                    return true;
+        }
+        else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
+            for( int i=0; i<points.size()-2; i++ )
+                if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
+                    return true;
+        }
+    }
 	
-	// test point inside for given drawstyle
-	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
-		for( int i=1; i<points.size()-1; i++ )
-			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
-				return true;
-		if (fillDrawStyle == GL_TRIANGLE_FAN)
-			if ( pointInTriangle( point, points[0], points[1], points.back() ))
-				return true;
-	}
-	else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
-		for( int i=0; i<points.size()-2; i++ )
-			if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
-				return true;
-	}
-	
+    // DO POINT INSIDE TEST FOR 3D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    {
+        if(localize) {
+            point.y = getWindowHeight() - point.y;
+        }
+        
+        // test point inside for given drawstyle
+        if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
+            for( int i=1; i<points.size()-1; i++ )
+                if ( pointInTriangle3D( point, getMatrixSet(), points[0], points[i], points[i+1] ) )
+                    return true;
+            if (fillDrawStyle == GL_TRIANGLE_FAN)
+                if ( pointInTriangle3D( point, getMatrixSet(), points[0], points[1], points.back() ))
+                    return true;
+        }
+        else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
+            for( int i=0; i<points.size()-2; i++ )
+                if ( pointInTriangle3D( point, getMatrixSet(), points[i], points[i+1], points[i+2] ) )
+                    return true;
+        }
+    }
+    
 	return false;
 }
+
 
 poRect  poShape2D::getBounds()
 {

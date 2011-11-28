@@ -71,3 +71,32 @@ bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C ) {
     
     return true;
 }
+
+bool pointInTriangle3D( poPoint P, poMatrixSet& M, poPoint A, poPoint B, poPoint C )
+{
+    A = M.localToGlobal(A);
+    B = M.localToGlobal(B);
+    C = M.localToGlobal(C);
+    
+    return pointInTriangle( P, A, B, C );
+}
+
+
+bool pointInRect3D( poPoint P, poMatrixSet& M, poRect R )
+{
+    poPoint A( R.x, R.y, 0 );
+    poPoint B( R.x+R.width, R.y, 0 );
+    poPoint C( R.x+R.width, R.y+R.height, 0 );
+    poPoint D( R.x, R.y+R.height, 0 );
+    
+    printf("%.2f %.2f\n", A.x, A.y );
+    printf("%.2f %.2f\n", B.x, B.y );
+    printf("%.2f %.2f\n", C.x, D.y );
+    printf("%.2f %.2f\n\n", D.x, D.y );
+    
+    if ( pointInTriangle3D( P, M, A, B, C ) )
+        return true;
+    if ( pointInTriangle3D( P, M, C, D, A ) )
+        return true;
+    return false;
+}

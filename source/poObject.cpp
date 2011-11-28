@@ -120,12 +120,32 @@ float poObject::getHeight() {
        return getBounds().height;
 }
 
+
+poPoint poObject::getTransformedPoint( poPoint P )
+{   
+    // This assumes standard transformation order (PO_MATRIX_ORDER_TRS)
+    // It should include alternate orders.
+    P += offset;
+    P.x *= scale.x;
+    P.y *= scale.y;
+    P = P.getRotate2D(rotation );
+    P += position;
+    return P;
+}
+ 
 poRect poObject::getFrame() {
     poRect rect = getBounds();
     
+    poPoint topLeft = getTransformedPoint( rect.getTopLeft() );
+    poPoint topRight = getTransformedPoint( rect.getTopRight() );
+    poPoint bottomRight = getTransformedPoint( rect.getBottomRight() );
+    poPoint bottomLeft = getTransformedPoint( rect.getBottomLeft() );
+    
     poRect frame;
-    frame.setPosition(getParent()->objectToLocal(this, rect.getBottomRight()));
-    frame.include(getParent()->objectToLocal(this, rect.getTopLeft()));
+    frame.setPosition( bottomRight );
+    frame.include( topLeft );
+    frame.include( topRight );
+    frame.include( bottomLeft );
     
 	return frame;
 }
@@ -136,15 +156,11 @@ poRect poObject::getBounds()
     
     // must initialize rect with first object
     if ( children.size() > 0 )
-        rect = children[0]->getFrame();
+        rect = children[0]->getFrame(); 
     
-	BOOST_FOREACH(poObject* obj, children) {
-        if (obj->visible) {
-            poRect obj_b = obj->getBounds();
-            rect.include(objectToLocal(obj, obj_b.getBottomRight()));
-            rect.include(objectToLocal(obj, obj_b.getTopLeft()));
-        }
-	}
+	BOOST_FOREACH(poObject* obj, children)
+        if (obj->visible) 
+            rect.include( obj->getFrame() );
     
 	return rect;
 }
@@ -426,7 +442,7 @@ poObject*		poObject::getParent() const {return parent;}
 uint			poObject::getUID() const {return uid;}
 
 float			poObject::getAppliedAlpha() const {return trueAlpha;}
-poMatrixSet     poObject::getMatrixSet() const {return matrices;}
+poMatrixSet&    poObject::getMatrixSet()  {return matrices;}
 int				poObject::getDrawOrder() const {return drawOrder;}
 
 

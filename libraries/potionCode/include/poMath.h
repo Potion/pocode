@@ -11,6 +11,7 @@
 #include "poPoint.h"
 #include "poRect.h"
 #include "poColor.h"
+#include "poMatrixSet.h"
 
 #define M_2PI (M_PI*2.0)
 #define M_HALF_PI (M_PI/2.0)
@@ -123,4 +124,6 @@ float angleBetweenPoints(poPoint a, poPoint b, poPoint c);
 bool rayIntersection(poRay r1, poRay r2, poPoint *p1, poPoint *p2);
 
 bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C );
+bool pointInTriangle3D( poPoint P, poMatrixSet& M, poPoint A, poPoint B, poPoint C );
+bool pointInRect3D( poPoint P, poMatrixSet& M, poRect R );
 

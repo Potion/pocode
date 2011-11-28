@@ -23,6 +23,8 @@
 // the OpenGL projection matrix.
 //
 
+enum cameraType { PO_CAMERA_NONE, PO_CAMERA_2D, PO_CAMERA_3D };
+
 class poCamera : public poObjectModifier {
 public:
 	poCamera();
@@ -45,6 +47,8 @@ public:
     // FIXED VIEW SIZE
 	bool                isFixedSize() const;
 	poCamera*           setFixedSize(bool b, poPoint p=poPoint());
+    
+    static cameraType   getCurrentCameraType() { return currentCameraType; };
 	
 protected:
 	void				clone(poCamera *cam);
@@ -63,6 +67,8 @@ protected:
 	poPoint             fixedSize;
 	bool                reset;
 
+    static cameraType   currentCameraType;
+    
 private:
     bool                clearsBG;
     poColor             backgroundColor;
@@ -140,6 +146,13 @@ public:
     
 	poPoint                 lookAtPosition() const;
 	poPerspectiveCamera*    lookAtPosition(poPoint p);
+    
+    // This method positions the 3D camera so that at Z=0, there is a 1:1 dimension match
+    // to the XY coordinate system of a 2D camera. The only difference is that the origin
+    // is at the center of the screen, instead of the upper left corner. The method is
+    // dependendent on the field of view (fov), and always positions the camera along
+    // the Z axis.
+    void                    setupFor2DOnZPlane();
 	
 protected:
 	void					clone(poPerspectiveCamera *cam);
