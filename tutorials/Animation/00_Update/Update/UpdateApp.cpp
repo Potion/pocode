@@ -42,10 +42,21 @@ UpdateApp::UpdateApp() {
 	
 	
 	C = new poRectShape(4, 70);
+	C->fillColor.set(0.6, 0.8, 0.4);
 	C->position.set(490, 300, 0);
 	C->setAlignment(PO_ALIGN_BOTTOM_CENTER);
-	C->fillColor.set(0.6, 0.8, 0.4);
 	addChild(C);
+    
+    
+    D = new poTextBox(140, 140);
+    D->setFont(new poFont("Lucida Grande"));
+    D->setTextSize(25);
+	D->textColor.set(0.6, 0.8, 0.4);
+    D->position.set(674, 300, 0);
+    D->useTextBoundsAsBounds( true );
+    D->setAlignment(PO_ALIGN_CENTER_CENTER);
+    D->doLayout();
+    addChild(D);
 }
 
 
@@ -85,6 +96,15 @@ void UpdateApp::update() {
 	int currentSecond = currentTime.seconds;
 	
 	C->rotation = 360/60 * currentSecond;
+    
+    
+    // C. Update text manually ///////////////////////
+    
+    char timeString[32];
+    sprintf(timeString, "%d:%d:%d", currentTime.amPmHours, currentTime.minutes, currentTime.seconds);
+    
+    D->setText(timeString);
+    D->doLayout();
 }
 
 
