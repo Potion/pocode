@@ -20,4 +20,6 @@ public:
 	poTexture* bgTex;
 	poTexture* rectTex;
 	poTexture* polygonTex;
+	
+	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align);
 };
