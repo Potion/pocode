@@ -5,6 +5,7 @@
 /////////////////////////////////////////
 
 #include "poObject.h"
+#include "poTextBox.h"
 
 class UpdateApp : public poObject {
 public:
@@ -23,5 +24,5 @@ public:
 	
 	poShape2D* C;
 	
-	poShape2D* D;
+	poTextBox* D;
 };
