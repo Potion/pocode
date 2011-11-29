@@ -24,8 +24,6 @@ poObject::poObject()
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	width(0.0f)
-,   height(0.0f)
 ,	alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
@@ -36,8 +34,6 @@ poObject::poObject()
 ,	alphaTween(&alpha)
 ,	rotationTween(&rotation)
 ,	trueAlpha(1.f)
-,   bFixedWidth(false)
-,   bFixedHeight(false)
 ,	drawBounds(false)
 ,	eventMemory(NULL)
 {}
@@ -52,8 +48,6 @@ poObject::poObject(const std::string &name)
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	width(0.0f)
-,   height(0.0f)
 ,	alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
@@ -64,8 +58,6 @@ poObject::poObject(const std::string &name)
 ,	alphaTween(&alpha)
 ,	rotationTween(&rotation)
 ,	trueAlpha(1.f)
-,   bFixedWidth(false)
-,   bFixedHeight(false)
 ,	drawBounds(false)
 ,	eventMemory(NULL)
 {}
@@ -81,8 +73,6 @@ poObject::poObject(int width, int height, const std::string &name)
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	width(0.0f)
-,   height(0.0f)
 ,	alignment(PO_ALIGN_TOP_LEFT)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
@@ -93,12 +83,9 @@ poObject::poObject(int width, int height, const std::string &name)
 ,	alphaTween(&alpha)
 ,	rotationTween(&rotation)
 ,	trueAlpha(1.f)
-,   bFixedWidth(false)
-,   bFixedHeight(false)
 ,	drawBounds(false)
 ,	eventMemory(NULL)
 {
-    setSize(width, height);
 }
 
 poObject::~poObject() {
@@ -125,82 +112,56 @@ void poObject::messageHandler(const std::string &msg, const poDictionary& dict) 
 }
 
 float poObject::getWidth() {
-    if(!bFixedWidth) {
-        poRect b = getBounds();
-        width = b.width; 
-    }
-    
-    return width;
-}
-
-
-void poObject::setWidth(float width) {
-    this->width = width;
-    bFixedWidth = true;
+    return getBounds().width;
 }
 
 
 float poObject::getHeight() {
-    if(!bFixedHeight) {
-        poRect b = getBounds();
-        height = b.height; 
-    }
-    
-    return height;
-}
-
-void poObject::setHeight(float height) {
-    this->height = height;
-    bFixedHeight = true;
+       return getBounds().height;
 }
 
 
-void poObject::setSize(float width, float height) {
-    setWidth(width);
-    setHeight(height);
+poPoint poObject::getTransformedPoint( poPoint P )
+{   
+    // This assumes standard transformation order (PO_MATRIX_ORDER_TRS)
+    // It should include alternate orders.
+    P += offset;
+    P.x *= scale.x;
+    P.y *= scale.y;
+    P = P.getRotate2D(rotation );
+    P += position;
+    return P;
 }
-
-void poObject::setSize(poPoint size) {
-    setSize(size.x, size.y);
-}
-
-poPoint poObject::getSize() {
-    poRect bounds = getBounds();
-    return poPoint(bounds.width, bounds.height, 0);
-}
-
+ 
 poRect poObject::getFrame() {
     poRect rect = getBounds();
     
+    poPoint topLeft = getTransformedPoint( rect.getTopLeft() );
+    poPoint topRight = getTransformedPoint( rect.getTopRight() );
+    poPoint bottomRight = getTransformedPoint( rect.getBottomRight() );
+    poPoint bottomLeft = getTransformedPoint( rect.getBottomLeft() );
+    
     poRect frame;
-    frame.setPosition(getParent()->objectToLocal(this, rect.getBottomRight()));
-    frame.include(getParent()->objectToLocal(this, rect.getTopLeft()));
+    frame.setPosition( bottomRight );
+    frame.include( topLeft );
+    frame.include( topRight );
+    frame.include( bottomLeft );
     
 	return frame;
 }
 
-poRect poObject::getBounds() {
-    poRect rect(0, 0, 0,0);
+
+poRect poObject::getBounds()
+{    
+    poRect rect(0,0,0,0);
     
-    if(bFixedWidth)     rect.width  = width;
-    if(bFixedHeight)    rect.height = height;
+    // must initialize rect with first object
+    if ( children.size() > 0 )
+        rect = children[0]->getFrame(); 
     
-    //If width and height are fixed, just return them
-    if(bFixedWidth && bFixedHeight) {
-        rect.setPosition(rect.getPosition() + offset);
-        return rect;
-    }
-    
-	BOOST_FOREACH(poObject* obj, children) {
-        if (obj->visible) {
-            poRect obj_b = obj->getBounds();
-            rect.include(objectToLocal(obj, obj_b.getBottomRight()));
-            rect.include(objectToLocal(obj, obj_b.getTopLeft()));
-        }
-	}
-    
-    if(bFixedWidth)     rect.width  = width;
-    if(bFixedHeight)    rect.height = height;
+	BOOST_FOREACH(poObject* obj, children)
+        if (obj->visible) 
+            rect.include( obj->getFrame() );
     
 	return rect;
 }
@@ -482,7 +443,7 @@ poObject*		poObject::getParent() const {return parent;}
 uint			poObject::getUID() const {return uid;}
 
 float			poObject::getAppliedAlpha() const {return trueAlpha;}
-poMatrixSet     poObject::getMatrixSet() const {return matrices;}
+poMatrixSet&    poObject::getMatrixSet()  {return matrices;}
 int				poObject::getDrawOrder() const {return drawOrder;}
 
 
@@ -539,12 +500,11 @@ void poObject::drawTree() {
     }
 	
 	draw();
-
+    if(drawBounds) 
+		_drawBounds();
+    
 	// go back to centered around the origin
 	stack->translate(-offset);
-	
-	if(drawBounds) 
-		_drawBounds();
 	
 	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
@@ -580,6 +540,8 @@ void poObject::_drawBounds() {
     po::setColor(poColor::red);
     po::drawStrokedRect(getBounds());
     po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
+    po::setColor(poColor::blue);
+    po::drawFilledRect(poRect(-offset-poPoint(2.5,2.5), poPoint(5,5)));
 }
 
 void poObject::stopAllTweens(bool recurse) {
@@ -599,16 +561,14 @@ void poObject::read(poXMLNode node) {
 	uid = (uint)node.getChild("uid").getInnerInt();
 	name = node.getChild("name").getInnerString();
 	position.fromString(node.getChild("position").getInnerString());
-	width   = node.getChild("width").getInnerFloat();
-	height  = node.getChild("height").getInnerFloat();
+	//width   = node.getChild("width").getInnerFloat();
+	//height  = node.getChild("height").getInnerFloat();
 	scale.fromString(node.getChild("scale").getInnerString());
 	alpha = node.getChild("alpha").getInnerFloat();
 	rotation = node.getChild("rotation").getInnerFloat();
 	rotationAxis.fromString(node.getChild("rotationAxis").getInnerString());
 	offset.fromString(node.getChild("offset").getInnerString());
 	visible = node.getChild("visible").getInnerInt();
-	bFixedWidth = node.getChild("bFixedWidth").getInnerInt();
-	bFixedHeight = node.getChild("bFixedHeight").getInnerInt();
 	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").getInnerInt());
 	alignment = poAlignment(node.getChild("alignment").getInnerInt());
 	setAlignment(alignment);
@@ -620,16 +580,14 @@ void poObject::write(poXMLNode &node) {
 	node.addChild("uid").setInnerInt(getUID());
 	node.addChild("name").setInnerString(name);
 	node.addChild("position").setInnerString(position.toString());
-	node.addChild("width").setInnerFloat(width);
-    node.addChild("height").setInnerFloat(height);
+	//node.addChild("width").setInnerFloat(width);
+    //node.addChild("height").setInnerFloat(height);
 	node.addChild("scale").setInnerString(scale.toString());
 	node.addChild("alpha").setInnerFloat(alpha);
 	node.addChild("rotation").setInnerFloat(rotation);
 	node.addChild("rotationAxis").setInnerString(rotationAxis.toString());
 	node.addChild("offset").setInnerString(offset.toString());
 	node.addChild("visible").setInnerInt(visible);
-	node.addChild("bFixedWidth").setInnerInt(bFixedWidth);
-	node.addChild("bFixedHeight").setInnerInt(bFixedHeight);
 	node.addChild("matrixOrder").setInnerInt(matrixOrder);
 	node.addChild("alignment").setInnerInt(alignment);
 }
@@ -650,8 +608,6 @@ void poObject::clone(poObject *obj) {
 	obj->rotationAxis = rotationAxis;
 	obj->offset = offset;
 	obj->visible = visible;
-	obj->bFixedWidth = bFixedWidth;
-	obj->bFixedHeight = bFixedHeight;
 	obj->drawBounds = drawBounds;
 	obj->matrixOrder = matrixOrder;
 	obj->positionTween = positionTween;
@@ -659,8 +615,6 @@ void poObject::clone(poObject *obj) {
 	obj->offsetTween = offsetTween;
 	obj->alphaTween = alphaTween;
 	obj->rotationTween = rotationTween;
-	obj->width = width;
-	obj->height = height;
 	obj->alignment = alignment;
 	
 	for(int i=0; i<getNumChildren(); i++) {

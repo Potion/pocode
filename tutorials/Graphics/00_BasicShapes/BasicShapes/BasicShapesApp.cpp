@@ -7,9 +7,10 @@
 #include "BasicShapesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"				// include poShapeBasics2D.h to be able to use poShapes
+#include "poShapeBasics2D.h"				// Include poShapeBasics2D.h to be able to use poShapes
+#include "poImageShape.h"					// Include poImageShape.h to be able to use poImageShapes
 
-
+ 
 // APP CONSTRUCTOR.
 // Create all objects here.
 BasicShapesApp::BasicShapesApp() {
@@ -21,12 +22,12 @@ BasicShapesApp::BasicShapesApp() {
     poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
-	
+    
 	// A. poRectShape ///////////////////////
 	
 	poRectShape* A;
     A = new poRectShape(75, 75);			// Make a new poRectShape with width=75 and height=75
-    A->fillColor = poColor::red;			// Set the color, red
+    A->fillColor = poColor::red;			// Set the fill color, red
 	A->generateStroke(1);					// Create a 1 pixel stroke around it
 	A->strokeColor = poColor::black;		// Set the stroke color
 	A->position.set(88, 264, 0);			// Set the position (x, y, z)
@@ -37,7 +38,9 @@ BasicShapesApp::BasicShapesApp() {
 	
 	poOvalShape* B;
 	B = new poOvalShape(100, 65, 50);		// Set width=100, height=65 and number of vertices=50
-	B->fillColor = poColor::red;			// Set the color, red
+	B->fillColor = poColor::red;			// Set the fill color, red
+	B->generateStroke(1);					// Create a 1 pixel stroke around it
+	B->strokeColor = poColor::black;		// Set the stroke color
 	B->position.set(310, 300, 0);			// Set the position (x, y, z)
 	addChild( B );							// Add the object, so it gets drawn on the screen
 	
@@ -54,8 +57,8 @@ BasicShapesApp::BasicShapesApp() {
 	
     // D. poRectShape ///////////////////////
 	
-	poRectShape* D;
-	D = new poRectShape( "apple.jpg" );		// Set the image url
+	poImageShape* D;
+	D = new poImageShape( "apple.jpg" );	// Set the image url
     D->scale.set(0.5, 0.5, 1);				// Scale the object in 3 dimensions (x, y, z)
     D->position.set(615, 250, 0);			// Set the position (x, y, z)
     addChild( D );							// Add the object, so it gets drawn on the screen

@@ -15,6 +15,10 @@
 		41AE8156146868DD00B7A17D /* poObject_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AE8155146868DD00B7A17D /* poObject_test.cpp */; };
 		41B20508144F28E8002F715F /* poXML_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20506144F28E8002F715F /* poXML_test.cpp */; };
 		41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B28C00144CE5F7009CA807 /* poRect_test.cpp */; };
+		7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A21482C89100890604 /* poShapeBasics3D.cpp */; };
+		7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188A31482C89100890604 /* poShapeBasics3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F5188AC1482C8B300890604 /* poShape3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188AA1482C8B000890604 /* poShape3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F5188C2148467FA00890604 /* poShape3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A91482C8AF00890604 /* poShape3D.cpp */; };
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,6 +175,10 @@
 		41B28C00144CE5F7009CA807 /* poRect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poRect_test.cpp; path = regression/poRect_test.cpp; sourceTree = SOURCE_ROOT; };
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
+		7F5188A21482C89100890604 /* poShapeBasics3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics3D.cpp; path = ../source/poShapeBasics3D.cpp; sourceTree = "<group>"; };
+		7F5188A31482C89100890604 /* poShapeBasics3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics3D.h; path = ../source/poShapeBasics3D.h; sourceTree = "<group>"; };
+		7F5188A91482C8AF00890604 /* poShape3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShape3D.cpp; path = ../source/poShape3D.cpp; sourceTree = "<group>"; };
+		7F5188AA1482C8B000890604 /* poShape3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShape3D.h; path = ../source/poShape3D.h; sourceTree = "<group>"; };
 		7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poEventCenter.cpp; path = ../source/poEventCenter.cpp; sourceTree = "<group>"; };
 		7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEventCenter.h; path = ../source/poEventCenter.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
@@ -487,6 +495,10 @@
 				E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */,
 				AA09790B138593A800BBA07F /* poShapeBasics2D.h */,
 				AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */,
+				7F5188AA1482C8B000890604 /* poShape3D.h */,
+				7F5188A91482C8AF00890604 /* poShape3D.cpp */,
+				7F5188A31482C89100890604 /* poShapeBasics3D.h */,
+				7F5188A21482C89100890604 /* poShapeBasics3D.cpp */,
 				E85EE94B13731F9C0066679A /* poTextBox.h */,
 				E85EE94A13731F9C0066679A /* poTextBox.cpp */,
 				E8D18FA41386BF3E0087288A /* poObjectModifier.h */,
@@ -566,6 +578,8 @@
 				E8D8F33B144C986E0077F6DA /* poFBO.h in Headers */,
 				E494687014679A7F009D3AFC /* poFileLoader.h in Headers */,
 				E8FAE3A41476B86600A917EB /* poImageShape.h in Headers */,
+				7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */,
+				7F5188AC1482C8B300890604 /* poShape3D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,6 +724,8 @@
 				E8EBF0F5144FD44C00884C4A /* poAttributedString.cpp in Sources */,
 				E494686F14679A7F009D3AFC /* poFileLoader.cpp in Sources */,
 				E8FAE3A21476B86600A917EB /* poImageShape.cpp in Sources */,
+				7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */,
+				7F5188C2148467FA00890604 /* poShape3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -124,30 +124,35 @@ poTextureConfig::poTextureConfig(GLenum format)
 {}
 
 poTexture::poTexture()
-:	uid(0), width(0), height(0), channels(0), config()
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
 {}
 
-poTexture::poTexture(const std::string &url)
-:	uid(0), width(0), height(0), channels(0), config()
+poTexture::poTexture(const std::string &url, bool keepImage )
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
 {
-	poImage img(url);
-	load(&img);
+	poImage* img = new poImage(url);
+	load(img);
+    
+    if ( keepImage )
+        sourceImage = img;
+    else
+        delete img;
 }
 
 poTexture::poTexture(poImage* img) 
-:	uid(0), width(0), height(0), channels(0), config()
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img)
 {
 	load(img);
 }
 
 poTexture::poTexture(poImage* img, const poTextureConfig &config)
-:	uid(0), width(0), height(0), channels(0), config()
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img)
 {
 	load(img, config);
 }
 
 poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config)
-:	uid(0), width(0), height(0), channels(0), config()
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
 {
 	load(width, height, pixels, config);
 }
@@ -155,6 +160,8 @@ poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextu
 poTexture::~poTexture() {
 	glDeleteTextures(1, &uid);
 	uid = 0;
+    
+    // should delete sourceImage in some cases
 }
 
 poTexture* poTexture::copy() {
@@ -232,6 +239,14 @@ poPoint poTexture::getDimensions() const {
 
 poRect poTexture::getBounds() const {
 	return poRect(0,0,width,height);
+}
+
+poColor poTexture::getSourceImagePixel(poPoint p)
+{
+    if ( sourceImage == NULL )
+        return poColor(1,1,1,1);
+    else
+        return sourceImage->getPixel(p);
 }
 
 void poTexture::load(poImage* img) {

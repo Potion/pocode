@@ -15,6 +15,7 @@ using namespace std;
 #include "poOpenGLState.h"
 #include "poShapeBasics2D.h"
 #include "poResourceStore.h"
+#include "poApplication.h"
 
 #include <float.h>
 
@@ -22,35 +23,26 @@ poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint())
-,	fitHeightToBounds(true)
+,	useTextBounds(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
+,   fillEnabled(false)
+,   strokeWidth(0)
 {}
-
-poTextBox::poTextBox(int w) 
-:	poObject()
-,	textColor(poColor::white)
-,	layout(poPoint(w,0))
-,	fitHeightToBounds(true)
-,	textAlignment(PO_ALIGN_TOP_LEFT)
-,	cacheToTexture(false)
-,	cached(NULL)
-{
-	setWidth(w);
-}
 
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint(w,h))
-,	fitHeightToBounds(false)
+,	useTextBounds(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
+,   fillEnabled(false)
+,   strokeWidth(0)
 {
-	setWidth(w);
-    setHeight(h);
+    layout.size = poPoint( w,h );
 }
 
 poObject* poTextBox::copy() {
@@ -61,7 +53,7 @@ poObject* poTextBox::copy() {
 
 void poTextBox::clone(poTextBox *tb) {
 	tb->textColor = textColor;
-	tb->fitHeightToBounds = fitHeightToBounds;
+	tb->useTextBounds = useTextBounds;
 	tb->cacheToTexture = cacheToTexture;
 	tb->layout = layout;
 	tb->cached = cached;
@@ -100,8 +92,15 @@ poRect poTextBox::getTextBounds() const {
 	return layout.getTextBounds();
 }
 
+poRect      poTextBox::getBounds()
+{
+    if ( useTextBounds )
+        return getTextBounds();
+    else
+        return poRect( poPoint(0,0), layout.size );
+}
+
 void poTextBox::reshape(int w, int h) {
-	setSize(w,h);
 	layout.size = poPoint(getWidth(), getHeight());
 }
 
@@ -208,9 +207,6 @@ poFont* poTextBox::getFont(const std::string &name) {
 void poTextBox::doLayout() {
 	layout.layout();
 	
-	if(fitHeightToBounds)
-		setHeight(getTextBounds().height);
-
 	setAlignment(getAlignment());
 	setTextAlignment(getTextAlignment());
 	layout.realignText();
@@ -256,7 +252,7 @@ void poTextBox::generateCachedTexture() {
     ogl->popBlendState();
     
     fbo->setDown(this);
-//	cached = fbo->getColorTexture()->copy();
+    //	cached = fbo->getColorTexture()->copy();
     cached = fbo->getColorTextureCopy();
     delete fbo;
 }
@@ -277,39 +273,52 @@ void poTextBox::draw() {
 		return;
 	}
 	
+    // draw fill and stroke
+    if ( fillEnabled )
+    {
+        po::setColor( fillColor, getAppliedAlpha() );
+        po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+    }
+    if ( strokeWidth > 0 )
+    {
+        glLineWidth( strokeWidth );
+        po::setColor( strokeColor, getAppliedAlpha() );
+        po::drawStrokedRect( 0, 0, layout.size.x, layout.size.y );
+    }
+    
 	poBitmapFont *bitmapFont = poGetBitmapFont(getFont(), layout.textSize);
 	
     if ( layout.isRichText ) {
-//		int count = 0;
-//		for(int i=0; i<getNumLines(); i++) {
-//			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
-//				po::setColor(poColor(textColor, getAppliedAlpha()));
-//				
-//				poDictionary dict = layout.getTextPropsAtIndex(count);
-//				count++;
-//				
-//				// see if the user wants anything special
-//				if(dict.has("color"))
-//					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
-//				
-//				// a new font, perhaps?
-//				if(dict.has("font")) {
-//					poFont theFont = (poFont*)dict.getPtr("font");
-//					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
-//					poBitmapFont* newFont = getBitmapFont(theFont, fontSize);
-//					
-//					if(newFont != bitmapFont) {
-//						bitmapFont = newFont;
-//					}
-//				}
-//				else if(bitmapFont != regFont) {
-//					bitmapFont = regFont;
-//				}
-//				
-//				// very well, now draw it
-//				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
-//			}
-//		}
+        //		int count = 0;
+        //		for(int i=0; i<getNumLines(); i++) {
+        //			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
+        //				po::setColor(poColor(textColor, getAppliedAlpha()));
+        //				
+        //				poDictionary dict = layout.getTextPropsAtIndex(count);
+        //				count++;
+        //				
+        //				// see if the user wants anything special
+        //				if(dict.has("color"))
+        //					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
+        //				
+        //				// a new font, perhaps?
+        //				if(dict.has("font")) {
+        //					poFont theFont = (poFont*)dict.getPtr("font");
+        //					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
+        //					poBitmapFont* newFont = getBitmapFont(theFont, fontSize);
+        //					
+        //					if(newFont != bitmapFont) {
+        //						bitmapFont = newFont;
+        //					}
+        //				}
+        //				else if(bitmapFont != regFont) {
+        //					bitmapFont = regFont;
+        //				}
+        //				
+        //				// very well, now draw it
+        //				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+        //			}
+        //		}
     }
     else {
 		po::setColor( poColor(textColor, getAppliedAlpha()) );
@@ -343,13 +352,45 @@ void poTextBox::_drawBounds() {
         po::drawStrokedRect(getTextBounds());
     }
     
-    po::setColor(poColor::dkGrey, .8f);
-    po::drawStrokedRect(getBounds());
+    poObject::_drawBounds();
     
-    po::setColor(poColor::red);
-    po::drawFilledRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));
+    /*po::setColor(poColor::dkGrey, .8f);
+     po::drawStrokedRect(getBounds());
+     
+     po::setColor(poColor::red);
+     po::drawFilledRect(poRect(-offset-poPoint(5,5), poPoint(10,10)));*/
 }
 
 
-
+bool poTextBox::pointInside(poPoint p, bool localize)
+{	
+    if(!visible)
+		return false;
+	
+    // DO POINT INSIDE TEST FOR 2D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    {
+        if(localize) {
+            p.y = getWindowHeight() - p.y;
+            p = globalToLocal(p);
+        }
+        
+        poRect bounds = getBounds();
+        return bounds.contains(p.x, p.y);
+    }
+    
+    // DO POINT INSIDE TEST FOR 3D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    {
+        if(localize) {
+            p.y = getWindowHeight() - p.y;
+            
+            poRect bounds = getBounds();
+            return pointInRect3D( p, getMatrixSet(), bounds );
+        }
+        
+        return false;
+    }
+}
+ 
 

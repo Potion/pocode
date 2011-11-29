@@ -27,9 +27,9 @@ AlignmentApp::AlignmentApp() {
 	float y = 236;
 	
 	
-	// A. PO_ALIGN_TOP_LEFT ///////////////////////
+	// A. PO_ALIGN_TOP_LEFT /////////////////////// 
 	
-	poRectShape* A;
+	poRectShape* A; 
 	A = new poRectShape(65, 50);
     A->fillColor.set(0.5, 0.7, 0.2);
 	A->position.set(x, y, 0);
@@ -45,9 +45,9 @@ AlignmentApp::AlignmentApp() {
 	B = new poRectShape(65, 50);
     B->fillColor.set(0.5, 0.7, 0.2);
 	B->position.set(x + offsetX, y, 0);
-	B->drawBounds = true;
+	B->drawBounds = true; 
 	addChild( B );
-	
+    
 	B->setAlignment(PO_ALIGN_TOP_CENTER);
 	
 	

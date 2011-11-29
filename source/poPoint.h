@@ -47,7 +47,7 @@ public:
     // For example, where A and B are both poPoints, and S is a scalar
     bool            operator==(poPoint rhs);    // A == B
 	void            operator+=(poPoint rhs);    // A += B
-	void            operator-=(poPoint rhs);    // A -= B    
+	void            operator-=(poPoint rhs);    // A -= B
 	void            operator*=(float scalar);   // A *= S
 	void            operator/=(float scalar);   // A /= S
     
