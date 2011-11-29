@@ -56,7 +56,8 @@ enum {
 class poTextBox : public poObject {
 public:
 	poTextBox();
-	poTextBox(int w, int h);
+	poTextBox(int w);
+    poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
 	virtual poObject* copy();
@@ -128,6 +129,7 @@ public:
     void                reshape(int w, int h);
 	void                reshape(poPoint p);
     void                useTextBoundsAsBounds( bool B ) { useTextBounds = B; };
+    void                useAutoAdjustHeight( bool B ) { autoAdjustHeight = B; };
 	poRect              getTextBounds() const;
     virtual poRect      getBounds();
     
@@ -166,6 +168,7 @@ private:
     void                generateCachedTexture();
 
 	bool                useTextBounds;
+    bool                autoAdjustHeight;
 	bool				cacheToTexture;
     bool                layoutDone;
 	poAlignment         textAlignment;
