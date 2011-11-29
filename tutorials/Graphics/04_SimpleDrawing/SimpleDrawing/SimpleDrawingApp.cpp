@@ -25,7 +25,7 @@ SimpleDrawingApp::SimpleDrawingApp() {
 	
 	bgTex = new poTexture("bg.jpg");
 	rectTex = new poTexture("pear.jpg");
-	polygonTex = new poTexture("lego.jpg");
+	polygonTex = new poTexture("orange.jpg");
 }
 
 
@@ -102,64 +102,18 @@ void SimpleDrawingApp::draw() {
 	po::drawStrokedPolygon(points);
 	
 	for(int i=0; i < points.size(); i++) {
-		points[i] += poPoint(20,30);
+		points[i] += poPoint(20,25);
 	}
 	
 	po::drawFilledPolygon(points);
 	
 	for(int i=0; i < points.size(); i++) {
-		points[i] += poPoint(20,30);
+		points[i] += poPoint(20,25);
 	}
 	
-//	poRect polygonBounds;
-//    
-//    // must initialize rect with first point
-//    if ( points.size() > 0 )
-//        polygonBounds.set( points[0].x, points[0].y, 0, 0 );
-//    
-//    // include all other points
-//    BOOST_FOREACH(poPoint &p, points) {
-//        polygonBounds.include(p);
-//    }
-//	
-//	po::drawStrokedRect(poRect(polygonBounds.x, polygonBounds.y, polygonBounds.width, polygonBounds.height));
-//	
-//	std::vector<poPoint> boundsTexCoords = textureFit(poRect(0, 0, polygonBounds.width, polygonBounds.height), polygonTex, PO_TEX_FIT_NONE, PO_ALIGN_BOTTOM_LEFT);
-//	
-//	std::vector<poPoint> texCoords;
-//	for(int i=0; i < points.size(); i++) {
-//		
-//		float coordX = (points[i].x - polygonBounds.x) / polygonBounds.width;
-//		float coordY = (points[i].y - polygonBounds.y) / polygonBounds.height;
-//		
-//		coordX = poMapf(0, 1, coordX, boundsTexCoords[0].x, boundsTexCoords[1].x);
-//		coordY = 1 - poMapf(0, 1, coordY, boundsTexCoords[2].y, boundsTexCoords[0].y);
-//		
-//		texCoords.push_back(poPoint(coordX, coordY));
-//	}
-	
 	po::setColor(poColor::white);
-	drawTexturedPolygon(points, polygonTex, PO_TEX_FIT_NONE, PO_ALIGN_TOP_RIGHT);
+	po::drawTexturedPolygon(points, polygonTex, PO_TEX_FIT_INSIDE, PO_ALIGN_CENTER_CENTER);
 
-}
-
-
-void SimpleDrawingApp::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align) {
-	
-	poRect bounds;
-    
-    // must initialize rect with first point
-    if ( points.size() > 0 )
-        bounds.set( points[0].x, points[0].y, 0, 0 );
-    
-	// include all other points
-    BOOST_FOREACH(poPoint p, points) {
-        bounds.include(p);
-    }
-
-	std::vector<poPoint> coords(points.size());
-	textureFit(bounds, tex, fit, align, coords, points);
-	po::drawTexturedPolygon(points, tex, coords);
 }
 
 

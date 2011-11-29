@@ -29,7 +29,7 @@ UpdateApp::UpdateApp() {
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(A);
 	
-	isScalingA = true;
+	isScalingUp = true;
 	
 	
 	B = new poOvalShape(30, 30, 30);
@@ -38,7 +38,7 @@ UpdateApp::UpdateApp() {
 	B->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(B);
 	
-	velocityB = poPoint(0.5, 1, 0);
+	velocity = poPoint(0.5, 1, 0);
 	
 	
 	C = new poRectShape(4, 70);
@@ -73,21 +73,21 @@ void UpdateApp::update() {
 	
 	// A. Update scale manually ///////////////////////
 	
-	if(isScalingA)
+	if(isScalingUp)
 		A->scale += poPoint(0.1, 0.1, 0);
 	else
 		A->scale -= poPoint(0.1, 0.1, 0);
 	
-	if(isScalingA && A->scale.x >= 30) isScalingA = false;
-	if(!isScalingA && A->scale.x <= 0) isScalingA = true;
+	if(isScalingUp && A->scale.x >= 30) isScalingUp = false;
+	if(!isScalingUp && A->scale.x <= 0) isScalingUp = true;
 	
 	
 	// B. Update position manually ///////////////////////
 	
-	B->position += velocityB;
+	B->position += velocity;
 	
-	if (B->position.x > 385 - 15 || B->position.x < 235 + 15) velocityB.x *= -1;
-	if (B->position.y > 375 - 15 || B->position.y < 225 + 15) velocityB.y *= -1;
+	if (B->position.x > 385 - 15 || B->position.x < 235 + 15) velocity.x *= -1;
+	if (B->position.y > 375 - 15 || B->position.y < 225 + 15) velocity.y *= -1;
 	
 	
 	// C. Update rotation manually ///////////////////////
@@ -101,7 +101,7 @@ void UpdateApp::update() {
     // C. Update text manually ///////////////////////
     
     char timeString[32];
-    sprintf(timeString, "%d:%d:%d", currentTime.amPmHours, currentTime.minutes, currentTime.seconds);
+    sprintf(timeString, "%.2d:%.2d:%.2d", currentTime.amPmHours, currentTime.minutes, currentTime.seconds);
     
     D->setText(timeString);
     D->doLayout();
