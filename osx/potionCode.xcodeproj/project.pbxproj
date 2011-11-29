@@ -16,9 +16,9 @@
 		41B20508144F28E8002F715F /* poXML_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B20506144F28E8002F715F /* poXML_test.cpp */; };
 		41B28C01144CE5F7009CA807 /* poRect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B28C00144CE5F7009CA807 /* poRect_test.cpp */; };
 		7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A21482C89100890604 /* poShapeBasics3D.cpp */; };
-		7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188A31482C89100890604 /* poShapeBasics3D.h */; };
-		7F5188AB1482C8B300890604 /* poShape3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A91482C8AF00890604 /* poShape3D.cpp */; };
-		7F5188AC1482C8B300890604 /* poShape3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188AA1482C8B000890604 /* poShape3D.h */; };
+		7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188A31482C89100890604 /* poShapeBasics3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F5188AC1482C8B300890604 /* poShape3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188AA1482C8B000890604 /* poShape3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F5188C2148467FA00890604 /* poShape3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A91482C8AF00890604 /* poShape3D.cpp */; };
 		7FBB4E39144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -725,7 +725,7 @@
 				E494686F14679A7F009D3AFC /* poFileLoader.cpp in Sources */,
 				E8FAE3A21476B86600A917EB /* poImageShape.cpp in Sources */,
 				7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */,
-				7F5188AB1482C8B300890604 /* poShape3D.cpp in Sources */,
+				7F5188C2148467FA00890604 /* poShape3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
