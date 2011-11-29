@@ -19,11 +19,14 @@ using namespace std;
 
 #include <float.h>
 
+#define UNBOUND_TEXTBOX_HEIGHT 9999999
+
 poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint())
-,	useTextBounds(true)
+,	useTextBounds(false)
+,   autoAdjustHeight(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
@@ -31,11 +34,27 @@ poTextBox::poTextBox()
 ,   strokeWidth(0)
 {}
 
+poTextBox::poTextBox(int w) 
+:	poObject()
+,	textColor(poColor::white)
+,	layout(poPoint(w,UNBOUND_TEXTBOX_HEIGHT))
+,	useTextBounds(false)
+,   autoAdjustHeight(true)
+,	textAlignment(PO_ALIGN_TOP_LEFT)
+,	cacheToTexture(false)
+,	cached(NULL)
+,   fillEnabled(false)
+,   strokeWidth(0)
+{
+    layout.size = poPoint( w,UNBOUND_TEXTBOX_HEIGHT );
+}
+
 poTextBox::poTextBox(int w, int h) 
 :	poObject()
 ,	textColor(poColor::white)
 ,	layout(poPoint(w,h))
 ,	useTextBounds(false)
+,   autoAdjustHeight(false)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
 ,	cacheToTexture(false)
 ,	cached(NULL)
@@ -97,11 +116,16 @@ poRect      poTextBox::getBounds()
     if ( useTextBounds )
         return getTextBounds();
     else
-        return poRect( poPoint(0,0), layout.size );
+    {
+        if ( autoAdjustHeight )
+            return poRect( 0, 0, layout.size.x,  getTextBounds().height );
+        else
+            return poRect( poPoint(0,0), layout.size );
+    }
 }
 
 void poTextBox::reshape(int w, int h) {
-	layout.size = poPoint(getWidth(), getHeight());
+	layout.size = poPoint(w,h);
 }
 
 bool poTextBox::isRichText() const {
