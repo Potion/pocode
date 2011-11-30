@@ -57,7 +57,7 @@
 	#endif
 
 #endif
-
+boost::mutex poFont::poFontMutex;
 FT_Library poFont::lib = NULL;
 
 bool poFont::fontExists(const std::string &family) {
@@ -256,6 +256,9 @@ std::string poFont::getRequestedStyleName() const {
 }
 
 void poFont::loadGlyph(int g) {
+    //This needs to be a mutex-locked operation
+    //boost::lock_guard<boost::mutex> lock(poFontMutex);
+    
 	uint idx = FT_Get_Char_Index(face, g);
 	FT_Load_Glyph(face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
 }

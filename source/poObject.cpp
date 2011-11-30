@@ -150,6 +150,7 @@ poRect poObject::getFrame() {
 	return frame;
 }
 
+
 poRect poObject::getBounds()
 {    
     poRect rect(0,0,0,0);
@@ -208,7 +209,7 @@ bool poObject::removeChild(int idx, bool and_delete) {
 void poObject::removeAllChildren(bool and_delete) {
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->parent = NULL;
-		if(and_delete)
+		if(obj && and_delete)
 			delete obj;
 	}
 	children.clear();
