@@ -29,31 +29,15 @@ ParentsChildrenApp::ParentsChildrenApp() {
 	parent->position.set(150, 300, 0);
 	addChild(parent);
 	
-	poShape2D* body = new poOvalShape(60, 60, 30);
-	body->fillColor.set(0.8, 0.6, 0.8);
-	body->position.set(0, 15, 0);
-	body->setAlignment(PO_ALIGN_BOTTOM_CENTER);
-	parent->addChild(body);
-	
-	poShape2D* head = new poOvalShape(20, 20, 50);
-	head->fillColor.set(0.8, 0.6, 0.8);
-	head->position.set(0, 15-60, 0);
-	head->setAlignment(PO_ALIGN_BOTTOM_CENTER);
-	parent->addChild(head);
-	
-	poRectShape* rightLeg = new poRectShape(5, 30);
-	rightLeg->fillColor.set(0.8, 0.6, 0.8);
-	rightLeg->rotation = -25;
-	rightLeg->setAlignment(PO_ALIGN_TOP_CENTER);
-	rightLeg->offset += poPoint(0, 15, 0);
-	parent->addChild(rightLeg);
-	
-	poRectShape* leftLeg = new poRectShape(5, 30);
-	leftLeg->fillColor.set(0.8, 0.6, 0.8);
-	leftLeg->rotation = 25;
-	leftLeg->setAlignment(PO_ALIGN_TOP_CENTER);
-	leftLeg->offset += poPoint(0, 15, 0);
-	parent->addChild(leftLeg);
+	poOvalShape* circle = new poOvalShape(40, 40, 30);
+    circle->fillColor.set(0.8, 0.2, 0.2);
+    circle->position.set(-30, 0, 0);
+    parent->addChild(circle);
+    
+    poOvalShape* circleB = new poOvalShape(40, 40, 30);
+    circleB->fillColor.set(0.8, 0.2, 0.2);
+    circleB->position.set(30, 0, 0);
+    parent->addChild(circleB);
 }
 
 
