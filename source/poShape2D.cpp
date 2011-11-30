@@ -170,7 +170,7 @@ poTexture* poShape2D::getTexture() {
 }
 
 void poShape2D::removeTexture(bool andDelete) {
-    if(andDelete) delete texture;
+    if(andDelete && texture) delete texture;
     texture = NULL;
 }
 
