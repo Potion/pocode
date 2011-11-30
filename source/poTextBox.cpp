@@ -81,6 +81,7 @@ void poTextBox::clone(poTextBox *tb) {
 }
 
 poTextBox::~poTextBox() {
+    if(cached) delete cached; cached = NULL;
 }
 
 std::string poTextBox::getText() const {
@@ -166,6 +167,7 @@ bool poTextBox::getCacheToTexture() const {
 
 void poTextBox::setCacheToTexture(bool b) {
 	cacheToTexture = b;
+    if(!cacheToTexture && cached) delete cached; cached = NULL;
 }
 
 float poTextBox::getLeading() const {
