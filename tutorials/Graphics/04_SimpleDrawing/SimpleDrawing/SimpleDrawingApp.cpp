@@ -79,7 +79,7 @@ void SimpleDrawingApp::draw() {
 	po::drawFilledRect(325, 240, 120, 120);
 	
 	po::setColor(poColor::white);
-	po::drawTexturedRect(rectTex, 345, 270, 160, 120);
+	po::drawTexturedRect(rectTex, 345, 270, 120, 120);
 	
 	
 	// C. Draw polygons ///////////////////////
@@ -102,40 +102,18 @@ void SimpleDrawingApp::draw() {
 	po::drawStrokedPolygon(points);
 	
 	for(int i=0; i < points.size(); i++) {
-		points[i] += poPoint(20,30);
+		points[i] += poPoint(20,25);
 	}
 	
 	po::drawFilledPolygon(points);
 	
 	for(int i=0; i < points.size(); i++) {
-		points[i] += poPoint(20,30);
-	}
-	
-	float leftMost = MAXFLOAT;
-	float rightMost = FLT_MIN;
-	float topMost = MAXFLOAT;
-	float bottomMost = FLT_MIN;
-	for(int i=0; i < points.size(); i++) {
-		if(points[i].x < leftMost) leftMost = points[i].x;
-		if(points[i].x > rightMost) rightMost = points[i].x;
-		if(points[i].y < topMost) topMost = points[i].y;
-		if(points[i].y > bottomMost) bottomMost = points[i].y;
-	}
-	poRect polygonBounds(leftMost, topMost, rightMost - leftMost, bottomMost - topMost);
-//	polygonBounds.width = polygonTex->getWidth();
-//	polygonBounds.height = polygonTex->getHeight();
-	
-	std::vector<poPoint> texCoords;
-	for(int i=0; i < points.size(); i++) {
-		
-		float coordX = (points[i].x - leftMost) / polygonBounds.width;
-		float coordY = 1 - (points[i].y - topMost) / polygonBounds.height;
-		
-		texCoords.push_back(poPoint(coordX, coordY));
+		points[i] += poPoint(20,25);
 	}
 	
 	po::setColor(poColor::white);
-	po::drawTexturedPolygon(points, polygonTex, texCoords);
+	po::drawTexturedPolygon(points, polygonTex, PO_TEX_FIT_INSIDE, PO_ALIGN_CENTER_CENTER);
+
 }
 
 

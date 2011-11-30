@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41E6D22D14855E85004BC657 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D22C14855E85004BC657 /* Debug.xcconfig */; };
+		41E6D22F14855E85004BC657 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D22E14855E85004BC657 /* Release.xcconfig */; };
+		41E6D23214855E85004BC657 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D23114855E85004BC657 /* AppDelegate.mm */; };
+		41E6D23414855E85004BC657 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D23314855E85004BC657 /* en.strings */; };
+		41E6D23614855E85004BC657 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D23514855E85004BC657 /* main.m */; };
+		41E6D23814855E85004BC657 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D23714855E85004BC657 /* main.pch */; };
+		41E6D23B14855E85004BC657 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D23A14855E85004BC657 /* main.xib */; };
+		41E6D23E14855E85004BC657 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D23D14855E85004BC657 /* poOpenGLView.mm */; };
+		41E6D24214855E85004BC657 /* TextureAlignmentShape2DApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D24114855E85004BC657 /* TextureAlignmentShape2DApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41E6D22714855E85004BC657 /* TextureAlignmentShape2D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextureAlignmentShape2D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41E6D22C14855E85004BC657 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		41E6D22E14855E85004BC657 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		41E6D23014855E85004BC657 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		41E6D23114855E85004BC657 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		41E6D23314855E85004BC657 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		41E6D23514855E85004BC657 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		41E6D23714855E85004BC657 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		41E6D23914855E85004BC657 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		41E6D23A14855E85004BC657 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		41E6D23C14855E85004BC657 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		41E6D23D14855E85004BC657 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		41E6D24014855E85004BC657 /* TextureAlignmentShape2DApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureAlignmentShape2DApp.h; sourceTree = "<group>"; };
+		41E6D24114855E85004BC657 /* TextureAlignmentShape2DApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureAlignmentShape2DApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41E6D22414855E85004BC657 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41E6D21C14855E85004BC657 = {
+			isa = PBXGroup;
+			children = (
+				41E6D22A14855E85004BC657 /* TextureAlignmentShape2D */,
+				41E6D22814855E85004BC657 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41E6D22814855E85004BC657 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D22714855E85004BC657 /* TextureAlignmentShape2D.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41E6D22A14855E85004BC657 /* TextureAlignmentShape2D */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D22B14855E85004BC657 /* platform */,
+				41E6D23F14855E85004BC657 /* application */,
+			);
+			path = TextureAlignmentShape2D;
+			sourceTree = "<group>";
+		};
+		41E6D22B14855E85004BC657 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D22C14855E85004BC657 /* Debug.xcconfig */,
+				41E6D22E14855E85004BC657 /* Release.xcconfig */,
+				41E6D23014855E85004BC657 /* AppDelegate.h */,
+				41E6D23114855E85004BC657 /* AppDelegate.mm */,
+				41E6D23314855E85004BC657 /* en.strings */,
+				41E6D23514855E85004BC657 /* main.m */,
+				41E6D23714855E85004BC657 /* main.pch */,
+				41E6D23914855E85004BC657 /* main.plist */,
+				41E6D23A14855E85004BC657 /* main.xib */,
+				41E6D23C14855E85004BC657 /* poOpenGLView.h */,
+				41E6D23D14855E85004BC657 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		41E6D23F14855E85004BC657 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D24014855E85004BC657 /* TextureAlignmentShape2DApp.h */,
+				41E6D24114855E85004BC657 /* TextureAlignmentShape2DApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41E6D22614855E85004BC657 /* TextureAlignmentShape2D */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41E6D24514855E85004BC657 /* Build configuration list for PBXNativeTarget "TextureAlignmentShape2D" */;
+			buildPhases = (
+				41E6D22314855E85004BC657 /* Sources */,
+				41E6D22414855E85004BC657 /* Frameworks */,
+				41E6D22514855E85004BC657 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextureAlignmentShape2D;
+			productName = TextureAlignmentShape2D;
+			productReference = 41E6D22714855E85004BC657 /* TextureAlignmentShape2D.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41E6D21E14855E85004BC657 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 41E6D22114855E85004BC657 /* Build configuration list for PBXProject "TextureAlignmentShape2D" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41E6D21C14855E85004BC657;
+			productRefGroup = 41E6D22814855E85004BC657 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41E6D22614855E85004BC657 /* TextureAlignmentShape2D */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41E6D22514855E85004BC657 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41E6D22D14855E85004BC657 /* Debug.xcconfig in Resources */,
+				41E6D22F14855E85004BC657 /* Release.xcconfig in Resources */,
+				41E6D23414855E85004BC657 /* en.strings in Resources */,
+				41E6D23814855E85004BC657 /* main.pch in Resources */,
+				41E6D23B14855E85004BC657 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41E6D22314855E85004BC657 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41E6D23214855E85004BC657 /* AppDelegate.mm in Sources */,
+				41E6D23614855E85004BC657 /* main.m in Sources */,
+				41E6D23E14855E85004BC657 /* poOpenGLView.mm in Sources */,
+				41E6D24214855E85004BC657 /* TextureAlignmentShape2DApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41E6D24314855E85004BC657 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41E6D22C14855E85004BC657 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41E6D24414855E85004BC657 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41E6D22E14855E85004BC657 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41E6D24614855E85004BC657 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41E6D24714855E85004BC657 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41E6D22114855E85004BC657 /* Build configuration list for PBXProject "TextureAlignmentShape2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41E6D24314855E85004BC657 /* Debug */,
+				41E6D24414855E85004BC657 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41E6D24514855E85004BC657 /* Build configuration list for PBXNativeTarget "TextureAlignmentShape2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41E6D24614855E85004BC657 /* Debug */,
+				41E6D24714855E85004BC657 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41E6D21E14855E85004BC657 /* Project object */;
+}
