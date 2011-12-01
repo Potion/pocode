@@ -75,21 +75,15 @@ public:
     void				removeAllEvents();
 	void				removeAllEventsOfType(int eventType);
 
-    //  Width/height should never be set directly!
-	// SETTERS/GETTERS
+    // OBJECT DIMENSIONS
+    // The bounds are relative local to the object's coordinate system. The frame is relative
+    // to the parents coordinate system. 
     
     float				getWidth();
-    void				setWidth(float width);
-    
     float				getHeight();
-    void				setHeight(float height);
-    
-    poPoint				getSize();
-    void				setSize(float width, float height);
-    void				setSize(poPoint size);
-
-    poRect				getBounds();
+    virtual poRect      getBounds();
     poRect				getFrame();
+    poPoint             getTransformedPoint( poPoint P );
 
     // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
     // A potionCode app is itself a poObject and is also the root of the tree.
@@ -155,8 +149,8 @@ public:
 	
     
 	// SCENE GRAPH TRAVERSAL (DO NOT CALL)
-	virtual void                drawTree();
-	virtual void                updateTree();
+	virtual void        drawTree();
+	virtual void        updateTree();
     
     // These properties may be set directly either inside or outside the class.
     // Changes to these properties require no additional computation.
@@ -170,8 +164,6 @@ public:
 	poPoint             rotationAxis;
 	poPoint             offset;
 	bool                visible;
-	bool                bFixedWidth;
-    bool                bFixedHeight;
     int                 drawBounds;
 	poMatrixOrder       matrixOrder;
     
@@ -191,7 +183,7 @@ public:
 	uint                getUID() const;
     //!alpha with parent alpha pre-multiplied
 	float               getAppliedAlpha() const;
-    poMatrixSet         getMatrixSet() const;
+    poMatrixSet&        getMatrixSet();
 	int                 getDrawOrder() const;
     
     //Recursively check parents for definitive visibility
@@ -212,8 +204,6 @@ protected:
 private:
     
     // PRIVATE PROPERTIES
-
-    float width, height;
     
     // "children" is a vector of poObjects. It is the basis for the poObject scene graph/tree structure.
     // Every poObject that has been added as child has a parent. Be careful not to access the parent

@@ -57,7 +57,7 @@ class poTextBox : public poObject {
 public:
 	poTextBox();
 	poTextBox(int w);
-	poTextBox(int w, int h);
+    poTextBox(int w, int h);
 	virtual ~poTextBox();
 	
 	virtual poObject* copy();
@@ -128,10 +128,16 @@ public:
     // So, if the text does not fill the whole textbox, the bounds will differ.
     void                reshape(int w, int h);
 	void                reshape(poPoint p);
+    void                useTextBoundsAsBounds( char B ) { useTextBounds = B; layout.setUseTextBounds(B); };
+    void                useAutoAdjustHeight( bool B ) { autoAdjustHeight = B; };
 	poRect              getTextBounds() const;
-	
+    virtual poRect      getBounds();
+    
+    virtual bool        pointInside(poPoint p, bool localize);
+    
     // LINES OF TEXT
 	uint                getNumLines() const;
+    uint                getNumWordsForLine(uint lineNum);
 	poRect              boundsForLine(uint num) const;
     int                 numLettersForLine( int lineIndex );
     poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
@@ -150,18 +156,27 @@ public:
     // You should not need to call the draw() method yourself.
 	void                draw();
 
+    // FILL AND STROKE
+    poColor                 fillColor;
+	bool                    fillEnabled;
+	poColor                 strokeColor;
+    int                     strokeWidth;
+    	
 protected:
 	void				clone(poTextBox *tb);
 	
 private:
     void                generateCachedTexture();
-    
-	bool                fitHeightToBounds;
+
+	bool                useTextBounds;
+    bool                autoAdjustHeight;
 	bool				cacheToTexture;
     bool                layoutDone;
 	poAlignment         textAlignment;
 	po::TextBoxLayout   layout;
 	poTexture*			cached;
+    
+
 };
 
 

@@ -31,12 +31,14 @@ namespace po {
 	void drawTexturedRect(poTexture *tex, float x, float y, float w, float h);
 	void drawTexturedRect(poTexture *tex, poRect rect);
 	void drawTexturedRect(poTexture *tex, poRect rect, poRect coords);
-	void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit);
+	void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, poAlignment align);
 	
 	void drawStrokedPolygon(const std::vector<poPoint> &points);
 	void drawStrokedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
 	void drawFilledPolygon(const std::vector<poPoint> &points);
 	void drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
+	
+	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align);
 	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords);
 	void drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords);
 	

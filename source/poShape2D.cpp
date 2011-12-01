@@ -4,6 +4,7 @@
 #include "nanosvg.h"
 #include "poApplication.h"
 #include "poResourceStore.h"
+#include "poCamera.h"
 
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
@@ -78,21 +79,9 @@ void poShape2D::draw() {
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
-	if(points.empty()) {
-        points.push_back(p);
-        setSize(p.x,p.y);
-    }
-	else {
-        points.push_back(p);
 
-        poRect tmp;
-        BOOST_FOREACH(poPoint &p, points) {
-            tmp.include(p);
-        }
-        
-        offset = poPoint(std::max(0.0f,tmp.x), std::max(0.0f,tmp.y));
-        setSize(tmp.width, tmp.height);
-	}
+    points.push_back(p);
+    
 	return *this;
 }
 
@@ -181,7 +170,7 @@ poTexture* poShape2D::getTexture() {
 }
 
 void poShape2D::removeTexture(bool andDelete) {
-    if(andDelete) delete texture;
+    if(andDelete && texture) delete texture;
     texture = NULL;
 }
 
@@ -261,27 +250,71 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
 	if(!visible)
 		return false;
 	
-	if(localize) {
-		point.y = getWindowHeight() - point.y;
-		point = globalToLocal(point);
-	}
+    // DO POINT INSIDE TEST FOR 2D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    {
+        if(localize) {
+            point.y = getWindowHeight() - point.y;
+            point = globalToLocal(point);
+        }
+        
+        // test point inside for given drawstyle
+        if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
+            for( int i=1; i<points.size()-1; i++ )
+                if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
+                    return true;
+            if (fillDrawStyle == GL_TRIANGLE_FAN)
+                if ( pointInTriangle( point, points[0], points[1], points.back() ))
+                    return true;
+        }
+        else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
+            for( int i=0; i<points.size()-2; i++ )
+                if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
+                    return true;
+        }
+    }
 	
-	// test point inside for given drawstyle
-	if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
-		for( int i=1; i<points.size()-1; i++ )
-			if ( pointInTriangle( point, points[0], points[i], points[i+1] ) )
-				return true;
-		if (fillDrawStyle == GL_TRIANGLE_FAN)
-			if ( pointInTriangle( point, points[0], points[1], points.back() ))
-				return true;
-	}
-	else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
-		for( int i=0; i<points.size()-2; i++ )
-			if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
-				return true;
-	}
-	
+    // DO POINT INSIDE TEST FOR 3D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    {
+        if(localize) {
+            point.y = getWindowHeight() - point.y;
+        }
+        
+        // test point inside for given drawstyle
+        if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
+            for( int i=1; i<points.size()-1; i++ )
+                if ( pointInTriangle3D( point, getMatrixSet(), points[0], points[i], points[i+1] ) )
+                    return true;
+            if (fillDrawStyle == GL_TRIANGLE_FAN)
+                if ( pointInTriangle3D( point, getMatrixSet(), points[0], points[1], points.back() ))
+                    return true;
+        }
+        else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
+            for( int i=0; i<points.size()-2; i++ )
+                if ( pointInTriangle3D( point, getMatrixSet(), points[i], points[i+1], points[i+2] ) )
+                    return true;
+        }
+    }
+    
 	return false;
+}
+
+
+poRect  poShape2D::getBounds()
+{
+    poRect rect;
+    
+    // must initialize rect with first point
+    if ( points.size() > 0 )
+        rect.set( points[0].x, points[0].y, 0, 0 );
+    
+    // include all other points
+    BOOST_FOREACH(poPoint &p, points) {
+        rect.include(p);
+    }
+    
+    return rect;
 }
 
 void poShape2D::stopAllTweens(bool recurse) {

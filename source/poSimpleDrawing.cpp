@@ -150,8 +150,8 @@ void po::drawTexturedRect(poTexture *tex, poRect rect) {
 	drawTexturedRect(tex, rect, poRect(0,0,1,1));
 }
 
-void po::drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit) {
-	std::vector<poPoint> coords = textureFit(rect, tex, fit, PO_ALIGN_TOP_LEFT);
+void po::drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, poAlignment align) {
+	std::vector<poPoint> coords = textureFit(rect, tex, fit, align);
 	poRect coords_rect(coords[0], coords[2]);
 	drawTexturedRect(tex, rect, coords_rect);
 }
@@ -203,6 +203,20 @@ void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex,
 
 void po::drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords) {
 	drawPoints(points, indices, tex, texCoords, GL_TRIANGLE_FAN);
+}
+
+void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align) {
+	if(points.empty())
+		return;
+
+	poRect bounds( points[0].x, points[0].y, 0, 0 );
+    BOOST_FOREACH(poPoint p, points) {
+        bounds.include(p);
+    }
+	
+	std::vector<poPoint> coords(points.size());
+	textureFit(bounds, tex, fit, align, coords, points);
+	po::drawTexturedPolygon(points, tex, coords);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, GLenum type) {

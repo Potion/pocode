@@ -110,6 +110,7 @@ po::TextLayout::TextLayout()
 :	isRichText(false)
 ,	text("")
 ,	textSize(12)
+,   useTextBounds(PO_USE_TEXTBOX_BOUNDS)
 {}
 
 void po::TextLayout::layout() {
@@ -194,12 +195,46 @@ void po::TextLayout::replaceLine(int i, const TextLayoutLine &line) {
 }
 
 void po::TextLayout::recalculateTextBounds() {
-	if(!lines.empty()) {
-		textBounds = lines[0].bbox;
-		for(int i=1; i<getNumLines(); i++)
-			textBounds.include(lines[i].bbox);
+    
+    if ( useTextBounds == PO_USE_TEXTBOX_BOUNDS )
+    {
+        // use same as line bounds for now
+        // could just be the box size
+        if(!lines.empty()) {
+            textBounds = lines[0].bbox;
+            for(int i=1; i<getNumLines(); i++)
+            {
+                textBounds.include(lines[i].bbox);
+            }
+        }
+    }
+    else if ( useTextBounds == PO_USE_TEXT_LINE_BOUNDS )
+    {
+        if(!lines.empty()) {
+            textBounds = lines[0].bbox;
+            for(int i=1; i<getNumLines(); i++)
+            {
+                textBounds.include(lines[i].bbox);
+            }
+        }
 	}
+    else if ( useTextBounds == PO_USE_TEXT_CHARACTER_BOUNDS )
+    {
+        if( !lines.empty() && lines[0].glyphs.size() > 0 ) 
+        {
+            textBounds = lines[0].glyphs[0].bbox;
+            for(int i=0; i<getNumLines(); i++)
+            {
+                BOOST_FOREACH(TextLayoutGlyph &glyph, lines[i].glyphs) 
+                {
+                    textBounds.include( glyph.bbox );
+                }
+            }
+        } 
+    }
 }
+
+
 
 void po::TextLayout::prepareText() {
 	// clean up

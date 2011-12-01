@@ -87,7 +87,8 @@ public:
     // The localize option will convert the point from global to local coordinates before
     // performing the test.
     virtual bool            pointInside(poPoint point, bool localize=false);
-
+    virtual poRect          getBounds();
+    
     // TWEEN MANAGEMENT
     virtual void            stopAllTweens(bool recurse=false);
     

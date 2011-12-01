@@ -32,7 +32,6 @@ AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
 	A->doLayout();
 	A->drawBounds = true;
 	A->position.set(75, 248, 0);
-//	A->setAlignment(PO_ALIGN_CENTER);			// Alignment of the text can be left, center, right
 	addChild( A );
 	
 	
@@ -45,12 +44,12 @@ AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
 	B->setFont( poGetFont("Lucida Grande", 18), PO_TEXT_BOLD );
 	B->textColor = poColor::black;
 	B->doLayout();
-	B->drawBounds = true;
+	B->drawBounds= true;
 	B->position.set(445, 248, 0);
 	addChild( B );
 }
 
-
+ 
 // APP DESTRUCTOR
 // Delete all objects here. (optional)
 AdvancedTextBoxesApp::~AdvancedTextBoxesApp() {

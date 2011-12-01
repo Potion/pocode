@@ -227,27 +227,52 @@ void po::TextBoxLayout::breakLine(lineLayoutProps &props) {
 }
 
 void po::TextBoxLayout::realignText() {
-	poRect text_bounds = getTextBounds();
 	
+    poRect bounds = getTextBounds();
+    
 	for(int i=0; i<lines.size(); i++) {
 		TextLayoutLine line = lines[i];
 		
 		poPoint glyphOffset(0.f, 0.f);
-		
+		        
 		switch(alignment) {
 			case PO_ALIGN_TOP_LEFT:
+                glyphOffset.x = 0;
+                glyphOffset.y = 0;
+                break;
 			case PO_ALIGN_CENTER_LEFT:
+                glyphOffset.x = 0;
+                glyphOffset.y = (size.y - bounds.height)/2;
+                break;
 			case PO_ALIGN_BOTTOM_LEFT:
+                glyphOffset.x = 0;
+                glyphOffset.y = (size.y - bounds.height);
 				break;
+                
 			case PO_ALIGN_TOP_CENTER:
+                glyphOffset.x = (size.x - line.bbox.width)/2;
+                glyphOffset.y = 0;
+                break;
 			case PO_ALIGN_CENTER_CENTER:
+                glyphOffset.x = (size.x - line.bbox.width)/2;
+                glyphOffset.y = (size.y - bounds.height)/2;
+                break;
 			case PO_ALIGN_BOTTOM_CENTER:
 				glyphOffset.x = (size.x - line.bbox.width)/2;
-				break;
+				glyphOffset.y = (size.y - bounds.height);
+                break;
+                
 			case PO_ALIGN_TOP_RIGHT:
+                glyphOffset.x = (size.x - line.bbox.width); 
+                glyphOffset.y = 0;
+                break;
 			case PO_ALIGN_CENTER_RIGHT:
+                glyphOffset.x = (size.x - line.bbox.width); 
+                glyphOffset.y = (size.y - bounds.height)/2;
+                break;
 			case PO_ALIGN_BOTTOM_RIGHT:
 				glyphOffset.x = (size.x - line.bbox.width); 
+                glyphOffset.y = (size.y - bounds.height);
 				break;
 		}
 		

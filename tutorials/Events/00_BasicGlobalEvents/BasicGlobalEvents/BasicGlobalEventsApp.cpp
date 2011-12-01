@@ -35,7 +35,7 @@ BasicGlobalEventsApp::BasicGlobalEventsApp() {
 	// Draw a shape that will change color
 	A = new poRectShape(75, 75);
 	A->fillColor.set(1, 0.85, 0);
-	A->position.set(90, 264, 0);
+	A->position.set(90, 204, 0);
 	addChild(A);
 	
 	
@@ -46,7 +46,7 @@ BasicGlobalEventsApp::BasicGlobalEventsApp() {
 	// Draw a shape that will change color
 	B = new poRectShape(75, 75);
 	B->fillColor.set(1, 0.85, 0);
-	B->position.set(275, 264, 0);
+	B->position.set(270, 204, 0);
 	addChild(B);
 	
 	
@@ -57,7 +57,7 @@ BasicGlobalEventsApp::BasicGlobalEventsApp() {
 	// Draw a shape that will change color
 	C = new poRectShape(75, 75);
 	C->fillColor.set(1, 0.85, 0);
-	C->position.set(455, 264, 0);
+	C->position.set(455, 204, 0);
 	addChild(C);
 	
 	
@@ -68,7 +68,7 @@ BasicGlobalEventsApp::BasicGlobalEventsApp() {
 	// Draw a shape that will change color
 	D = new poRectShape(75, 75);
 	D->fillColor.set(1, 0.85, 0);
-	D->position.set(640, 264, 0);
+	D->position.set(640, 204, 0);
 	addChild(D);
 }
 
