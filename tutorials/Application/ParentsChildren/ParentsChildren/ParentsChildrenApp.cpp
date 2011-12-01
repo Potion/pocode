@@ -23,7 +23,7 @@ ParentsChildrenApp::ParentsChildrenApp() {
     addChild( BG );
 	
     
-	// A. Children positions relative to parents ///////////////////////
+	// A. Children hierarchy ///////////////////////
 	
 	poObject* A = new poObject();
 	A->position.set(100, 250, 0);
@@ -43,12 +43,20 @@ ParentsChildrenApp::ParentsChildrenApp() {
 	}
 	
 	
-	// B. Children positions relative to parents ///////////////////////
+	// B. Parents affect children ///////////////////////
 	
 	poObject* B = new poObject();
 	B->position.set(440, 190, 0);
-	B->positionTween.set(poPoint(610, 190, 0)).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(3).setRepeat(PO_TWEEN_REPEAT_PINGPONG).start();
-	B->scaleTween.set(poPoint(0.8, 0.8, 1)).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(1.5).setRepeat(PO_TWEEN_REPEAT_PINGPONG).start();
+	B->positionTween.set(poPoint(610, 190, 0));
+	B->positionTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
+	B->positionTween.setDuration(3);
+	B->positionTween.setRepeat(PO_TWEEN_REPEAT_PINGPONG);
+	B->positionTween.start();
+	B->scaleTween.set(poPoint(0.6, 0.6, 1));
+	B->scaleTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
+	B->scaleTween.setDuration(1.5);
+	B->scaleTween.setRepeat(PO_TWEEN_REPEAT_PINGPONG);
+	B->scaleTween.start();
 	addChild(B);
 	
 	poRectShape* head = new poRectShape(120,120);

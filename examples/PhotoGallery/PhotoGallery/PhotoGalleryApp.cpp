@@ -1,6 +1,7 @@
 #include "PhotoGalleryApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
+#include "poImageShape.h"
 
 poObject *createObjectForID(uint uid) {
 	return new PhotoGalleryApp();
@@ -15,7 +16,13 @@ void cleanupApplication() {
 }
 
 PhotoGalleryApp::PhotoGalleryApp() {
+	
+	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
+	
+	// Show poCode lesson image in the background
+    poImageShape* BG = new poImageShape("bg.jpg");
+    addChild( BG );
     
     smallScale.set(160.f/350.f, 160.f/350.f, 1);
 	
@@ -23,7 +30,7 @@ PhotoGalleryApp::PhotoGalleryApp() {
 	for(int i=0; i < 2; i++) {
 		for(int j=0; j < 2; j++) {
 			
-			poPoint P(35,100);
+			poPoint P(35,170);
 			P.x += 190 * j;
 			P.y += 190 * i;
 			
@@ -59,6 +66,9 @@ void PhotoGalleryApp::eventHandler(poEvent *event) {
 		if (event->source->scaleTween.isRunning())
 			return;
 		
+		if (event->source->scale.x == 1)
+			return;
+		
 		if(selectedPhoto != NULL) {
 			selectedPhoto->positionTween.set(goBackPosition).start();
 			selectedPhoto->scaleTween.set(smallScale).start();
@@ -66,7 +76,7 @@ void PhotoGalleryApp::eventHandler(poEvent *event) {
 		
 		moveChildToFront(event->source);
 		event->source->scaleTween.set(poPoint(1, 1, 1)).start();
-		event->source->positionTween.set(poPoint(415, 100)).start();
+		event->source->positionTween.set(poPoint(415, 170)).start();
 		
 		selectedPhoto = (poImageShape*) event->source;
 		goBackPosition = event->source->position;

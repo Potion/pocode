@@ -1,5 +1,5 @@
 <xml>
-    <A font="Lucida Grande" textSize="16" colorR="0.8" colorG="0.6" colorB="0">Hello, my name is Node A!</A>
+    <A fontFamily="Courier" textSize="20" colorR="0.8" colorG="0.6" colorB="0">Hello, my name is Node A!</A>
 	<B>
 		<rectangle>40</rectangle>
 		<rectangle>80</rectangle>
@@ -13,18 +13,4 @@
         <circle size="15"/>
         <circle size="35" stroke="3"/>
 	</C>
-    <D>
-        <boxes>
-            <box></box>
-            <box></box>
-            <box></box>
-            <box></box>
-        </boxes>
-        <things>
-            <thing></thing>
-            <thing></thing>
-            <thing></thing>
-            <thing></thing>
-        </things>
-    </D>
 </xml>

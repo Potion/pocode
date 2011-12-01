@@ -78,7 +78,7 @@ void Coin::eventHandler( poEvent* event ) {
 		
 		isDragged = false;
 		
-		poRect droppingArea(450, 0, 300, 200);
+		poRect droppingArea(430, 0, 300, 200);
 		
 		if( droppingArea.contains( coinImage->position ) ) {
 			
