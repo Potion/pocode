@@ -55,7 +55,7 @@ XMLApp::XMLApp() {
 	textBoxA->setTextSize( textSizeA );						// Set the size based on the "textSize" attribute
 	textBoxA->textColor.set(colorR, colorG, colorB);		// Set the text color based on the color attriutes
 	textBoxA->doLayout();
-	textBoxA->position.set(55, 235, 0);
+	textBoxA->position.set(55, 175, 0);
 	addChild(textBoxA);
 	
 	
@@ -74,7 +74,7 @@ XMLApp::XMLApp() {
 		poRectShape* rect = new poRectShape(size, 20);		// Create a rectangle with size based on the
 															// value of the XML node
 		rect->fillColor.set(0.8, 0.6, 0);
-		rect->position.set(247, 240 + (25*i), 0);
+		rect->position.set(247, 180 + (25*i), 0);
 		addChild(rect);
 		
 		std::string stringValue = node.getInnerString();	// Get the content of the child node as a string
@@ -85,7 +85,7 @@ XMLApp::XMLApp() {
 		text->setTextSize(13);
 		text->textColor = poColor::white;
 		text->doLayout();
-		text->position.set(248, 240 + (25*i), 0);
+		text->position.set(248, 180 + (25*i), 0);
 		addChild(text);
 	}
 	
@@ -117,7 +117,7 @@ XMLApp::XMLApp() {
 		oval->fillColor.set(0.8, 0.6, 0);
 		oval->generateStroke(strokeWidth);					// Set the stroke width (0 if "stroke" wasn't found)
 		oval->strokeColor = poColor::black;
-		oval->position.set(x, 300, 0);
+		oval->position.set(x, 240, 0);
 		addChild(oval);
 		
 		childNodeC = childNodeC.getNextSibling();			// Make childNodeC equal to its sibling node

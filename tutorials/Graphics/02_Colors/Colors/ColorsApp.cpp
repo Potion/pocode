@@ -7,18 +7,19 @@
 #include "ColorsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
+#include "poImageShape.h"
 #include "poShapeBasics2D.h"
 
 
 // APP CONSTRUCTOR.
 // Create all objects here.
 ColorsApp::ColorsApp() {
-	
+
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -29,7 +30,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectA = new poRectShape(135, 75);
 	rectA->fillColor = A;
-	rectA->position.set(57, 232, 0);
+	rectA->position.set(57, 173, 0);
 	addChild(rectA);
 	
 	
@@ -40,7 +41,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectB = new poRectShape(135, 75);
 	rectB->fillColor = B;
-	rectB->position.set(240, 232, 0);
+	rectB->position.set(240, 173, 0);
 	addChild(rectB);
 	
 	
@@ -51,7 +52,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectC = new poRectShape(135, 75);
 	rectC->fillColor = C;
-	rectC->position.set(423, 232, 0);
+	rectC->position.set(423, 173, 0);
 	addChild(rectC);
 	
 	
@@ -62,7 +63,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectD = new poRectShape(135, 75);
 	rectD->fillColor = D;
-	rectD->position.set(607, 232, 0);
+	rectD->position.set(607, 173, 0);
 	addChild(rectD);
 	
 	
@@ -73,7 +74,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectE = new poRectShape(135, 75);
 	rectE->fillColor = E;
-	rectE->position.set(57, 403, 0);
+	rectE->position.set(57, 353, 0);
 	addChild(rectE);
 	
 	
@@ -87,7 +88,7 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectF = new poRectShape(135, 75);
 	rectF->fillColor = F;
-	rectF->position.set(240, 403, 0);
+	rectF->position.set(240, 353, 0);
 	addChild(rectF);
 	
 	
@@ -98,20 +99,22 @@ ColorsApp::ColorsApp() {
 	
 	poRectShape* rectG = new poRectShape(135, 75);
 	rectG->fillColor = G;
-	rectG->position.set(423, 403, 0);
+	rectG->position.set(423, 353, 0);
 	addChild(rectG);
 	
 	
 	// H. Random color ///////////////////////
 	
+	poRandSeed();								// Call this only once in your application
+												// if you want to use poCode random functions
+												// like poRand() or poColor::random()
 	poColor H;
-	H = poColor::random();							// INTERNAL: it's not working!!
+	H = poColor::random();
 	
 	poRectShape* rectH = new poRectShape(135, 75);
 	rectH->fillColor = H;
-	rectH->position.set(607, 403, 0);
+	rectH->position.set(607, 353, 0);
 	addChild(rectH);
-	
 }
 
 

@@ -24,7 +24,7 @@ poObject::poObject()
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	alignment(PO_ALIGN_TOP_LEFT)
+,	alignment(PO_ALIGN_NONE)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	drawOrder(-1)
@@ -48,7 +48,7 @@ poObject::poObject(const std::string &name)
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	alignment(PO_ALIGN_TOP_LEFT)
+,	alignment(PO_ALIGN_NONE)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	drawOrder(-1)
@@ -73,7 +73,7 @@ poObject::poObject(int width, int height, const std::string &name)
 ,	rotation(0.f)
 ,	rotationAxis(0.f, 0.f, 1.f)
 ,	offset(0.f, 0.f, 0.f)
-,	alignment(PO_ALIGN_TOP_LEFT)
+,	alignment(PO_ALIGN_NONE)
 ,	visible(true)
 ,	matrixOrder(PO_MATRIX_ORDER_TRS)
 ,	drawOrder(-1)
@@ -409,6 +409,9 @@ poAlignment poObject::getAlignment() const {return alignment;}
 poObject& poObject::setAlignment(poAlignment align) {
 	alignment = align;
 	
+    if ( alignment == PO_ALIGN_NONE )
+        return *this;
+    
 	// first calculate bounds
 	poRect bounds = getBounds();
 	

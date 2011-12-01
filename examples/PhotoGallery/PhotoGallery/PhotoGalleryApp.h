@@ -19,4 +19,6 @@ public:
 	
 	poImageShape* selectedPhoto;
 	poPoint	goBackPosition;
+    
+    poPoint smallScale;
 };

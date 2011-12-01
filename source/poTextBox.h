@@ -128,7 +128,7 @@ public:
     // So, if the text does not fill the whole textbox, the bounds will differ.
     void                reshape(int w, int h);
 	void                reshape(poPoint p);
-    void                useTextBoundsAsBounds( bool B ) { useTextBounds = B; };
+    void                useTextBoundsAsBounds( char B ) { useTextBounds = B; layout.setUseTextBounds(B); };
     void                useAutoAdjustHeight( bool B ) { autoAdjustHeight = B; };
 	poRect              getTextBounds() const;
     virtual poRect      getBounds();

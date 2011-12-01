@@ -25,35 +25,58 @@ ParentsChildrenApp::ParentsChildrenApp() {
     
 	// A. Children positions relative to parents ///////////////////////
 	
-	poObject* parent = new poObject();
-	parent->position.set(150, 300, 0);
-	addChild(parent);
+	poObject* A = new poObject();
+	A->position.set(100, 250, 0);
+	addChild(A);
 	
-	poShape2D* body = new poOvalShape(60, 60, 30);
-	body->fillColor.set(0.8, 0.6, 0.8);
-	body->position.set(0, 15, 0);
-	body->setAlignment(PO_ALIGN_BOTTOM_CENTER);
-	parent->addChild(body);
+	float offsetX = 0;
+	for(int i=0; i < 10; i++) {
+		
+		poOvalShape* circle = new poOvalShape(40, 40, 30);
+		circle->fillColor.set(0.8, 0.1, 0.1);
+		circle->generateStroke(1);
+		circle->strokeColor = poColor::black;
+		circle->position.set(offsetX, 0, 0);
+		A->addChild(circle);
+		
+		offsetX += 25;
+	}
 	
-	poShape2D* head = new poOvalShape(20, 20, 50);
-	head->fillColor.set(0.8, 0.6, 0.8);
-	head->position.set(0, 15-60, 0);
-	head->setAlignment(PO_ALIGN_BOTTOM_CENTER);
-	parent->addChild(head);
 	
-	poRectShape* rightLeg = new poRectShape(5, 30);
-	rightLeg->fillColor.set(0.8, 0.6, 0.8);
-	rightLeg->rotation = -25;
-	rightLeg->setAlignment(PO_ALIGN_TOP_CENTER);
-	rightLeg->offset += poPoint(0, 15, 0);
-	parent->addChild(rightLeg);
+	// B. Children positions relative to parents ///////////////////////
 	
-	poRectShape* leftLeg = new poRectShape(5, 30);
-	leftLeg->fillColor.set(0.8, 0.6, 0.8);
-	leftLeg->rotation = 25;
-	leftLeg->setAlignment(PO_ALIGN_TOP_CENTER);
-	leftLeg->offset += poPoint(0, 15, 0);
-	parent->addChild(leftLeg);
+	poObject* B = new poObject();
+	B->position.set(440, 190, 0);
+	B->positionTween.set(poPoint(610, 190, 0)).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(3).setRepeat(PO_TWEEN_REPEAT_PINGPONG).start();
+	B->scaleTween.set(poPoint(0.8, 0.8, 1)).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(1.5).setRepeat(PO_TWEEN_REPEAT_PINGPONG).start();
+	addChild(B);
+	
+	poRectShape* head = new poRectShape(120,120);
+	head->fillColor.set(0.8, 0.1, 0.1);
+	head->generateStroke(1);
+	head->strokeColor = poColor::black;
+	B->addChild(head);
+	
+	poRectShape* leftEye = new poRectShape(30,20);
+	leftEye->fillColor.set(0.9, 0.5, 0.5);
+	leftEye->generateStroke(1);
+	leftEye->strokeColor = poColor::black;
+	leftEye->position.set(20, 20, 0);
+	B->addChild(leftEye);
+	
+	poRectShape* rightEye = new poRectShape(30,20);
+	rightEye->fillColor.set(0.9, 0.5, 0.5);
+	rightEye->generateStroke(1);
+	rightEye->strokeColor = poColor::black;
+	rightEye->position.set(70, 20, 0);
+	B->addChild(rightEye);
+	
+	poRectShape* mouth = new poRectShape(60,20);
+	mouth->fillColor.set(0.9, 0.5, 0.5);
+	mouth->generateStroke(1);
+	mouth->strokeColor = poColor::black;
+	mouth->position.set(30, 80, 0);
+	B->addChild(mouth);
 }
 
 
