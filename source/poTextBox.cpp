@@ -233,9 +233,9 @@ poFont* poTextBox::getFont(const std::string &name) {
 void poTextBox::doLayout() {
 	layout.layout();
 	
-	setAlignment(getAlignment());
-	setTextAlignment(getTextAlignment());
+    layout.alignment = getTextAlignment();
 	layout.realignText();
+    setAlignment(getAlignment());
 	
 	if(cacheToTexture) {
         generateCachedTexture();

@@ -11,6 +11,14 @@
 #include "poFont.h"
 #include "poAttributedString.h"
 
+
+enum {
+	PO_USE_TEXTBOX_BOUNDS = 0,
+    PO_USE_TEXT_LINE_BOUNDS = 1,
+	PO_USE_TEXT_CHARACTER_BOUNDS = 1<<1,
+};
+
+
 namespace po {
 		
 	struct TextLayoutGlyph {
@@ -50,7 +58,9 @@ namespace po {
 		TextLayoutGlyph &getGlyphOnLine(uint glyph, uint line);
 		poRect	getBoundsForLine(uint line) const;
 		poRect	getBoundsForGlyphOnLine(uint glyphIdx, uint line) const;
-		
+
+        void    setUseTextBounds( char B ) { useTextBounds = B; };
+        
 		void	shiftLine(uint line, poPoint p);
 		void	rotateLine(uint line, poPoint origin, float rot);
 		
@@ -60,12 +70,12 @@ namespace po {
 		void	setFont(poFont *f, const std::string &style="");
 		poFont*	getFont(const std::string &style="");
 		bool	hasFont(const std::string &style="");
-
+        
 	protected:
 		virtual void doLayout() = 0;
 		void	addLine(const TextLayoutLine &line);
 		void	replaceLine(int i, const TextLayoutLine &line);
-		void	recalculateTextBounds();
+		void	recalculateTextBounds(); 
 		
 	private:
 		// 1. strip html
@@ -74,7 +84,8 @@ namespace po {
 		void	prepareText();
 		
 		std::map<std::string, poFont*> fonts;
-		poRect textBounds;
+		poRect  textBounds;
+        char    useTextBounds;
 	};
 	
 }
