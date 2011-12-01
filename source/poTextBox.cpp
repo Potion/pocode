@@ -145,6 +145,10 @@ uint poTextBox::getNumLines() const {
 	return layout.getNumLines();
 }
 
+uint poTextBox::getNumWordsForLine(uint lineNum) {
+	return layout.getLine(lineNum).wordCount;
+}
+
 poRect poTextBox::boundsForLine(uint num) const {
 	return layout.getBoundsForLine(num);
 }

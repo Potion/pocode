@@ -137,6 +137,7 @@ public:
     
     // LINES OF TEXT
 	uint                getNumLines() const;
+    uint                getNumWordsForLine(uint lineNum);
 	poRect              boundsForLine(uint num) const;
     int                 numLettersForLine( int lineIndex );
     poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
