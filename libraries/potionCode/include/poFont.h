@@ -29,11 +29,14 @@ class poShape2D;
 //
 // 
 
+#include "boost/thread/locks.hpp"
+
 class poFont : public poResource
 {
 	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
 
 public:
+    static boost::mutex poFontMutex;
 	static bool fontExists(const std::string &family_or_url);
 	
 	poFont();

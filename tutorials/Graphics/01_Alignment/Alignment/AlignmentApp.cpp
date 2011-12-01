@@ -8,6 +8,7 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poShapeBasics2D.h"
+#include "poImageShape.h"
 
 
 // APP CONSTRUCTOR.
@@ -18,19 +19,19 @@ AlignmentApp::AlignmentApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
-	float offsetX = 165;
+	float offsetX = 250;
 	float offsetY = 135;
-	float x = 240;
-	float y = 236;
+	float x = 150;
+	float y = 200;
 	
 	
 	// A. PO_ALIGN_TOP_LEFT /////////////////////// 
 	
 	poRectShape* A; 
-	A = new poRectShape(65, 50);
+	A = new poRectShape(100, 50);
     A->fillColor.set(0.5, 0.7, 0.2);
 	A->position.set(x, y, 0);
 	A->drawBounds = true;
@@ -42,7 +43,7 @@ AlignmentApp::AlignmentApp() {
 	// B. PO_ALIGN_TOP_CENTER ///////////////////////
 	
 	poRectShape* B;
-	B = new poRectShape(65, 50);
+	B = new poRectShape(100, 50);
     B->fillColor.set(0.5, 0.7, 0.2);
 	B->position.set(x + offsetX, y, 0);
 	B->drawBounds = true; 
@@ -54,7 +55,7 @@ AlignmentApp::AlignmentApp() {
 	// C. PO_ALIGN_TOP_RIGHT ///////////////////////
 	
 	poRectShape* C;
-	C = new poRectShape(65, 50);
+	C = new poRectShape(100, 50);
     C->fillColor.set(0.5, 0.7, 0.2);
 	C->position.set(x + offsetX*2, y, 0);
 	C->drawBounds = true;
@@ -66,7 +67,7 @@ AlignmentApp::AlignmentApp() {
 	// D. PO_ALIGN_CENTER_LEFT ///////////////////////
 	
 	poRectShape* D;
-	D = new poRectShape(65, 50);
+	D = new poRectShape(100, 50);
     D->fillColor.set(0.5, 0.7, 0.2);
 	D->position.set(x, y + offsetY, 0);
 	D->drawBounds = true;
@@ -78,7 +79,7 @@ AlignmentApp::AlignmentApp() {
 	// E. PO_ALIGN_CENTER_CENTER ///////////////////////
 	
 	poRectShape* E;
-	E = new poRectShape(65, 50);
+	E = new poRectShape(100, 50);
     E->fillColor.set(0.5, 0.7, 0.2);
 	E->position.set(x + offsetX, y + offsetY, 0);
 	E->drawBounds = true;
@@ -90,7 +91,7 @@ AlignmentApp::AlignmentApp() {
 	// F. PO_ALIGN_CENTER_RIGHT ///////////////////////
 	
 	poRectShape* F;
-	F = new poRectShape(65, 50);
+	F = new poRectShape(100, 50);
     F->fillColor.set(0.5, 0.7, 0.2);
 	F->position.set(x + offsetX*2, y + offsetY, 0);
 	F->drawBounds = true;
@@ -102,7 +103,7 @@ AlignmentApp::AlignmentApp() {
 	// G. PO_ALIGN_BOTTOM_LEFT ///////////////////////
 	
 	poRectShape* G;
-	G = new poRectShape(65, 50);
+	G = new poRectShape(100, 50);
     G->fillColor.set(0.5, 0.7, 0.2);
 	G->position.set(x, y + offsetY*2, 0);
 	G->drawBounds = true;
@@ -114,7 +115,7 @@ AlignmentApp::AlignmentApp() {
 	// H. PO_ALIGN_BOTTOM_CENTER ///////////////////////
 	
 	poRectShape* H;
-	H = new poRectShape(65, 50);
+	H = new poRectShape(100, 50);
     H->fillColor.set(0.5, 0.7, 0.2);
 	H->position.set(x + offsetX, y + offsetY*2, 0);
 	H->drawBounds = true;
@@ -126,7 +127,7 @@ AlignmentApp::AlignmentApp() {
 	// I. PO_ALIGN_BOTTOM_RIGHT ///////////////////////
 	
 	poRectShape* I;
-	I = new poRectShape(65, 50);
+	I = new poRectShape(100, 50);
     I->fillColor.set(0.5, 0.7, 0.2);
 	I->position.set(x + offsetX*2, y + offsetY*2, 0);
 	I->drawBounds = true;

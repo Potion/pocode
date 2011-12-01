@@ -8,16 +8,18 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poShapeBasics2D.h"
+#include "poImageShape.h"
 
 
 // APP CONSTRUCTOR.
 // Create all objects here.
 AdvancedShapesApp::AdvancedShapesApp() {
+	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
 	// poCode template image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -30,7 +32,7 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	A->addPoint(30,40);
 	A->addPoint(-20,30);
     A->fillColor = poColor::orange;
-	A->position.set(120, 300, 0);
+	A->position.set(120, 240, 0);
 	addChild( A );
 	
 	
@@ -67,7 +69,7 @@ AdvancedShapesApp::AdvancedShapesApp() {
         B->addPoint(P);
     }
     B->fillColor = poColor::orange;
-	B->position.set(310, 340, 0);
+	B->position.set(310, 280, 0);
 	addChild( B );
 	
 	
@@ -92,7 +94,7 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	C->curveTo(poPoint(0,0), poPoint(50,0));
 	
 	C->fillColor = poColor::orange;
-	C->position.set(490, 300, 0);
+	C->position.set(490, 240, 0);
 	addChild( C );
 	
 	
@@ -106,7 +108,7 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	// Since we know there is only 1 shape, we can decide to get only the last one
 	D = shapes.back();
 	D->fillColor = poColor::orange;
-    D->position.set(630, 250, 0);
+    D->position.set(630, 190, 0);
     addChild( D );
 }
 

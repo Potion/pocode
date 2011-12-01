@@ -26,7 +26,7 @@ BasicTweensApp::BasicTweensApp() {
     A->fillColor.set(0.5, 0.8, 0.9);
 	A->generateStroke(1);
 	A->strokeColor = poColor::black;
-	A->position.set(125, 300, 0);
+	A->position.set(125, 240, 0);
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( A );
 	
@@ -42,7 +42,7 @@ BasicTweensApp::BasicTweensApp() {
     B->fillColor.set(0.5, 0.8, 0.9);
 	B->generateStroke(1);
 	B->strokeColor = poColor::black;
-	B->position.set(307, 300, 0);
+	B->position.set(307, 240, 0);
 	B->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( B );
 	
@@ -58,7 +58,7 @@ BasicTweensApp::BasicTweensApp() {
     C->fillColor.set(0.5, 0.8, 0.9);
 	C->generateStroke(1);
 	C->strokeColor = poColor::black;
-	C->position.set(490, 300, 0);
+	C->position.set(490, 240, 0);
 	C->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( C );
 	
@@ -76,7 +76,7 @@ BasicTweensApp::BasicTweensApp() {
     D->fillColor.set(0.5, 0.8, 0.9);
 	D->generateStroke(1);
 	D->strokeColor = poColor::black;
-	D->position.set(673, 300, 0);
+	D->position.set(673, 240, 0);
 	D->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( D );
 	
@@ -111,7 +111,7 @@ void BasicTweensApp::eventHandler(poEvent *event) {
 	
 	if(event->keyChar == 'r') {
 		A->stopAllTweens();
-		A->position.set(125, 300, 0);
+		A->position.set(125, 240, 0);
 		A->positionTween.start();
 		
 		B->stopAllTweens();

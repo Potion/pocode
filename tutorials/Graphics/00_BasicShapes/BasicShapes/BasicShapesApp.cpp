@@ -19,7 +19,7 @@ BasicShapesApp::BasicShapesApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
     
@@ -30,7 +30,7 @@ BasicShapesApp::BasicShapesApp() {
     A->fillColor = poColor::red;			// Set the fill color, red
 	A->generateStroke(1);					// Create a 1 pixel stroke around it
 	A->strokeColor = poColor::black;		// Set the stroke color
-	A->position.set(88, 264, 0);			// Set the position (x, y, z)
+	A->position.set(88, 204, 0);			// Set the position (x, y, z)
 	addChild( A );							// Add the object, so it gets drawn on the screen
 	
 	
@@ -41,7 +41,7 @@ BasicShapesApp::BasicShapesApp() {
 	B->fillColor = poColor::red;			// Set the fill color, red
 	B->generateStroke(1);					// Create a 1 pixel stroke around it
 	B->strokeColor = poColor::black;		// Set the stroke color
-	B->position.set(310, 300, 0);			// Set the position (x, y, z)
+	B->position.set(310, 240, 0);			// Set the position (x, y, z)
 	addChild( B );							// Add the object, so it gets drawn on the screen
 	
 	
@@ -51,7 +51,7 @@ BasicShapesApp::BasicShapesApp() {
 	C = new poStarShape(100, 100, 5, 30);	// Set width=100, height=100,
 											// number of vertices=5, depth=30
 	C->fillColor = poColor::red;			// Set the color, red
-	C->position.set(490, 300, 0);			// Set the position (x, y, z)
+	C->position.set(490, 240, 0);			// Set the position (x, y, z)
 	addChild( C );							// Add the object, so it gets drawn on the screen
 	
 	
@@ -60,7 +60,7 @@ BasicShapesApp::BasicShapesApp() {
 	poImageShape* D;
 	D = new poImageShape( "apple.jpg" );	// Set the image url
     D->scale.set(0.5, 0.5, 1);				// Scale the object in 3 dimensions (x, y, z)
-    D->position.set(615, 250, 0);			// Set the position (x, y, z)
+    D->position.set(615, 190, 0);			// Set the position (x, y, z)
     addChild( D );							// Add the object, so it gets drawn on the screen
 }
 

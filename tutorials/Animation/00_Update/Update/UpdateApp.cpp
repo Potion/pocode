@@ -25,7 +25,7 @@ UpdateApp::UpdateApp() {
 	
 	A = new poRectShape(5, 5);
 	A->fillColor.set(0.6, 0.8, 0.4);
-	A->position.set(125, 300, 0);
+	A->position.set(125, 240, 0);
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(A);
 	
@@ -34,7 +34,7 @@ UpdateApp::UpdateApp() {
 	
 	B = new poOvalShape(30, 30, 30);
 	B->fillColor.set(0.6, 0.8, 0.4);
-	B->position.set(310, 300, 0);
+	B->position.set(310, 240, 0);
 	B->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(B);
 	
@@ -43,7 +43,7 @@ UpdateApp::UpdateApp() {
 	
 	C = new poRectShape(4, 70);
 	C->fillColor.set(0.6, 0.8, 0.4);
-	C->position.set(490, 300, 0);
+	C->position.set(490, 240, 0);
 	C->setAlignment(PO_ALIGN_BOTTOM_CENTER);
 	addChild(C);
     
@@ -52,7 +52,7 @@ UpdateApp::UpdateApp() {
     D->setFont(new poFont("Lucida Grande"));
     D->setTextSize(25);
 	D->textColor.set(0.6, 0.8, 0.4);
-    D->position.set(674, 300, 0);
+    D->position.set(674, 240, 0);
     D->useTextBoundsAsBounds( true );
     D->setAlignment(PO_ALIGN_CENTER_CENTER);
     D->doLayout();
@@ -87,7 +87,7 @@ void UpdateApp::update() {
 	B->position += velocity;
 	
 	if (B->position.x > 385 - 15 || B->position.x < 235 + 15) velocity.x *= -1;
-	if (B->position.y > 375 - 15 || B->position.y < 225 + 15) velocity.y *= -1;
+	if (B->position.y > 315 - 15 || B->position.y < 165 + 15) velocity.y *= -1;
 	
 	
 	// C. Update rotation manually ///////////////////////

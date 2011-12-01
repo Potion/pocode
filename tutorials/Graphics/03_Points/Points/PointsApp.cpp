@@ -7,6 +7,7 @@
 #include "PointsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
+#include "poImageShape.h"
 #include "poShapeBasics2D.h"
 #include "poTextBox.h"
 
@@ -19,7 +20,7 @@ PointsApp::PointsApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -30,7 +31,7 @@ PointsApp::PointsApp() {
 	
 	// Create a holder to draw inside the white rectangle A
 	poObject* holderA = new poObject();
-	holderA->position.set(50, 225, 0);
+	holderA->position.set(50, 165, 0);
 	addChild(holderA);
 	
 	// Draw pointA as an oval
@@ -48,7 +49,7 @@ PointsApp::PointsApp() {
 	poPoint sum = pointA + pointB;
 	
 	poObject* holderB = new poObject();
-	holderB->position.set(233, 225, 0);
+	holderB->position.set(233, 165, 0);
 	addChild(holderB);
 	
 	// Draw pointA as an oval
@@ -101,7 +102,7 @@ PointsApp::PointsApp() {
 	poPoint div = pointC / 2;
 	
 	poObject* holderC = new poObject();
-	holderC->position.set(417, 225, 0);
+	holderC->position.set(417, 165, 0);
 	addChild(holderC);
 	
 	// Draw pointC as an oval
