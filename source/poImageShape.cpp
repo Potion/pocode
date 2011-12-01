@@ -25,7 +25,8 @@ poImageShape::poImageShape(const std::string &str, bool keepImage)
 }
 
 poImageShape::~poImageShape() {
-	delete tex;
+    if(!poResourceStore::get()->resourceIsCached(tex))
+        delete tex;
 }
 
 void    poImageShape::reshapeToWidth( float W )

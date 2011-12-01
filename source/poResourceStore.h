@@ -83,6 +83,7 @@ public:
 	void deleteResourceGroup(int group);
 	// delete all resources of a given type
 	void deleteAllResourcesOfType(const std::type_info &type);
+    bool resourceIsCached(poResource* rez);
 	
 private:
 	poResourceStore();

@@ -1,0 +1,2 @@
+Main-Class: org.OpenNI.Samples.SimpleRead.SimpleRead
+Class-Path:  ../Bin/x86-Debug/org.OpenNI.jar /usr/share/java/org.OpenNI.jar
