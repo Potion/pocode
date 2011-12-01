@@ -19,8 +19,6 @@ using namespace std;
 
 #include <float.h>
 
-#define UNBOUND_TEXTBOX_HEIGHT 9999999
-
 poTextBox::poTextBox()
 :	poObject()
 ,	textColor(poColor::white)
@@ -37,7 +35,7 @@ poTextBox::poTextBox()
 poTextBox::poTextBox(int w) 
 :	poObject()
 ,	textColor(poColor::white)
-,	layout(poPoint(w,UNBOUND_TEXTBOX_HEIGHT))
+,	layout(poPoint(w,0))
 ,	useTextBounds(false)
 ,   autoAdjustHeight(true)
 ,	textAlignment(PO_ALIGN_TOP_LEFT)
@@ -46,7 +44,7 @@ poTextBox::poTextBox(int w)
 ,   fillEnabled(false)
 ,   strokeWidth(0)
 {
-    layout.size = poPoint( w,UNBOUND_TEXTBOX_HEIGHT );
+    layout.size = poPoint( w,0 );
 }
 
 poTextBox::poTextBox(int w, int h) 
