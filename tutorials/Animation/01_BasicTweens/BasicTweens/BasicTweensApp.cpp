@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// LESSON : Basic Tweens
+// poCode : Basic Tweens
 //
 /////////////////////////////////////////
 
@@ -30,7 +30,7 @@ BasicTweensApp::BasicTweensApp() {
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( A );
 	
-	A->positionTween.set(poPoint(125, 245, 0));					// Set the final position
+	A->positionTween.set(poPoint(125, 195, 0));					// Set the final position
 	A->positionTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);	// Set the type of easing function
 	A->positionTween.setDuration(2.0);							// Set the duration in seconds
 	A->positionTween.start();									// Start the animation

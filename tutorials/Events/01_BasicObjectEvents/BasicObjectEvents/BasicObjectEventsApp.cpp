@@ -1,12 +1,13 @@
 /////////////////////////////////////////
 //
-// LESSON : Basic Object Events
+// poCode : Basic Object Events
 //
 /////////////////////////////////////////
 
 #include "BasicObjectEventsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
+#include "poImageShape.h"
 
 
 // APP CONSTRUCTOR.
@@ -17,15 +18,13 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	// poCode template image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
 	
-	// NOTES ON EVENTS AND GLOBAL EVENTS ///////////////////////
+	// NOTES ON OBJECT EVENTS ///////////////////////
 	
-	// Every poObject has a addEvent() function
-	// Each event that occurs has a sender and a receiver of the poEvent
-	// Sender->addEvent(eventType, Receiver)
+	// Object events happen within the bounds of a certain shape
 	
 	
 	// A. PO_MOUSE_DOWN_INSIDE_EVENT ///////////////////////
@@ -65,7 +64,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	D->position.set(640, 204, 0);
 	addChild(D);
 	
-//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER for OVER to work.
+//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER if we want OVER
 	D->addEvent(PO_MOUSE_OVER_EVENT, this);
 	
 	

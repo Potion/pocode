@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// LESSON : Basic TextBoxes
+// poCode : Basic TextBoxes
 //
 /////////////////////////////////////////
 
@@ -14,6 +14,7 @@
 // APP CONSTRUCTOR.
 // Create all objects here.
 BasicTextBoxesApp::BasicTextBoxesApp() {
+	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	

@@ -49,6 +49,9 @@ void Particle::eventHandler(poEvent *event) {
 	
 	if( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
 		
+		if( shape->rotationTween.isRunning() )
+			return;
+		
 		shape->rotationTween.set( 360 );
 		shape->rotationTween.setNotification(this, "rotation done");
 		shape->rotationTween.start();
@@ -64,6 +67,7 @@ void Particle::messageHandler(const std::string &msg, const poDictionary& dict) 
 	if(msg == "rotation done") {
 		
 		shape->rotation = 0;
+		shape->rotationTween.set( 360 );
 		shape->rotationTween.setNotification(NULL);
 	}
 }
