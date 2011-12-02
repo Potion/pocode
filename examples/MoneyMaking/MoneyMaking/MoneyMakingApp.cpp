@@ -1,6 +1,7 @@
 #include "MoneyMakingApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
+#include "poImageShape.h"
 
 poObject *createObjectForID(uint uid) {
 	return new MoneyMakingApp();
@@ -16,7 +17,13 @@ void cleanupApplication() {
 }
 
 MoneyMakingApp::MoneyMakingApp() {
+	
+	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
+	
+	// Show poCode lesson image in the background
+    poImageShape* BG = new poImageShape("bg.jpg");
+    addChild( BG );
 	
 	for(int i=0; i < 100; i++) {
 		
@@ -27,18 +34,19 @@ MoneyMakingApp::MoneyMakingApp() {
 	}
 	
 	poImageShape* jar = new poImageShape("jar.png");
-	jar->position.set(450, 200, 0);
+	jar->position.set(430, 200, 0);
 	addChild(jar);
 	
 	currentCount = 0.f;
 	
-	countText = new poTextBox(150, 100);
+	countText = new poTextBox(300, 100);
 	countText->setFont(new poFont("Lucida Grande"));
 	countText->setText("Money: 0.00");
-	countText->setTextSize(20);
+	countText->setTextSize(30);
+	countText->textColor = poColor::black;
 	countText->useTextBoundsAsBounds(true);
 	countText->setAlignment(PO_ALIGN_CENTER_CENTER);
-	countText->position.set(600, 50, 0);
+	countText->position.set(610, 400, 0);
 	countText->doLayout();
 	addChild(countText);
 }
