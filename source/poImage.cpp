@@ -346,8 +346,8 @@ FIBITMAP *loadDIB(const std::string &url) {
 
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	fif = FreeImage_GetFileType(url.c_str());
-	if(fif == FIF_UNKNOWN)
-		fif = FreeImage_GetFIFFromFilename(url.c_str());
+//	if(fif == FIF_UNKNOWN)
+//		fif = FreeImage_GetFIFFromFilename(url.c_str());
 	if(fif == FIF_UNKNOWN) {
 		printf("poImage: image isn't a supported file type (%s)\n", url.c_str());
 		return NULL;
