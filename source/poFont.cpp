@@ -57,7 +57,6 @@
 	#endif
 
 #endif
-
 FT_Library poFont::lib = NULL;
 
 bool poFont::fontExists(const std::string &family) {

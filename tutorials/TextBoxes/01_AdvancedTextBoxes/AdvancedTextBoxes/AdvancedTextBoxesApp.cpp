@@ -22,30 +22,32 @@ AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
     addChild( BG );
 	
 	
-	// A. poTextBox with alignment? ///////////////////////
+	// A. poTextBox with alignment ///////////////////////
 	
-	poTextBox* A = new poTextBox(200, 120);
-	A->setText("This is a plain text  example...");
-	A->setFont( poGetFont("Helvetica") );
+	poTextBox* A = new poTextBox(220, 120);
+	A->setText("This text is is set in 18 point Helvetica. It is red and aligned center.");
+	A->setFont( poGetFont("Helvetica", "Regular") );
 	A->setTextSize(18);
 	A->textColor = poColor::red;
+	A->setTextAlignment(PO_ALIGN_TOP_CENTER);
 	A->doLayout();
 	A->drawBounds = true;
-	A->position.set(75, 248, 0);
+	A->position.set(75, 185, 0);
 	addChild( A );
 	
 	
 	// B. poTextBox with  ///////////////////////
 	
-	poTextBox* B = new poTextBox(200, 120);
+	poTextBox* B = new poTextBox(220, 120);
 	B->setText("This is a <b>rich text</b> example...");
 	B->setRichText( true );
-	B->setFont( poGetFont("Helvetica", 18) );
-	B->setFont( poGetFont("Lucida Grande", 18), PO_TEXT_BOLD );
-	B->textColor = poColor::black;
+	B->setFont( poGetFont("Courier", "Regular") );
+	B->setFont( poGetFont("Helvetica", "Bold"), PO_TEXT_BOLD );
+	B->setTextSize(18);									// Set the text size
+	B->textColor = poColor::blue;
 	B->doLayout();
 	B->drawBounds= true;
-	B->position.set(445, 248, 0);
+	B->position.set(445, 185, 0);
 	addChild( B );
 }
 

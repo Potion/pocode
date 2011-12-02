@@ -32,7 +32,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	A = new poRectShape(75, 75);
 	A->fillColor.set(1, 0.85, 0);
-	A->position.set(90, 264, 0);
+	A->position.set(90, 204, 0);
 	addChild(A);
 	
 	A->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);				// Add the event to the shape
@@ -42,7 +42,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	B = new poRectShape(75, 75);
 	B->fillColor.set(1, 0.85, 0);
-	B->position.set(275, 264, 0);
+	B->position.set(270, 204, 0);
 	addChild(B);
 	
 	B->addEvent(PO_MOUSE_ENTER_EVENT, this);
@@ -52,7 +52,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	C = new poRectShape(75, 75);
 	C->fillColor.set(1, 0.85, 0);
-	C->position.set(455, 264, 0);
+	C->position.set(455, 204, 0);
 	addChild(C);
 	
 	C->addEvent(PO_MOUSE_LEAVE_EVENT, this);
@@ -62,10 +62,10 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	D = new poRectShape(75, 75);
 	D->fillColor.set(1, 0.85, 0);
-	D->position.set(640, 264, 0);
+	D->position.set(640, 204, 0);
 	addChild(D);
 	
-//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER for OVER to work. Is that ok?
+//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER for OVER to work.
 	D->addEvent(PO_MOUSE_OVER_EVENT, this);
 	
 	
