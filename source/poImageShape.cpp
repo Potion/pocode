@@ -63,14 +63,14 @@ poImage *poImageShape::getImage() const {
 	return tex->getSourceImage();
 }
 
-/*void poImageShape::setImage(poImage* i) {
-	if(img) {
+void poImageShape::setImage(poImage* i) {
+	if(tex->getSourceImage()) {
 		delete tex;
 		
-		img = i;
-		tex = new poTexture(img);
+//		img = i;
+		tex = new poTexture(i);
 	}
-}*/
+}
 
 bool poImageShape::pointInside(poPoint p, bool localize)
 {	
