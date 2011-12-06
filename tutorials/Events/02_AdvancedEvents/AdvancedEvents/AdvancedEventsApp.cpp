@@ -24,59 +24,66 @@ AdvancedEventsApp::AdvancedEventsApp() {
 	
 	// A. Events priority ///////////////////////
 	
-	Abottom = new poRectShape(100, 100);
+	Abottom = new poRectShape(100, 100);							// Draw a rectangle
 	Abottom->fillColor = poColor::blue;
 	Abottom->generateStroke(1);
 	Abottom->strokeColor = poColor::black;
 	Abottom->position.set(95, 180, 0);
-	Abottom->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event A");
+	Abottom->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event A");	// Add a mouse down inside event to it
 	addChild(Abottom);
 	
-	Atop = new poRectShape(100, 100);
+	Atop = new poRectShape(100, 100);								// Draw a rectangle on top of the previous one
 	Atop->fillColor = poColor::blue;
 	Atop->generateStroke(1);
 	Atop->strokeColor = poColor::black;
 	Atop->position.set(115, 200, 0);
-	Atop->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event A");
+	Atop->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event A");	// Add a mouse down inside event to it
 	addChild(Atop);
 	
 	
 	// B. Visible / invisible objects ///////////////////////
 	
-	for(int i=0; i < 3; i++) {
+	for(int i=0; i < 3; i++) {										// Draw 3 rectangles on top of each other
 		
-		float rectSize = 100;
+		float rectSize = 100 - (i * 10);							// Slightly reduce the size for each new rect
 		
-		poRectShape* B;
-		B = new poRectShape(rectSize, rectSize);
-		B->fillColor = poColor::blue;
-		B->generateStroke(1);
-		B->strokeColor = poColor::black;
-		B->setAlignment(PO_ALIGN_CENTER_CENTER);
-		B->position.set(400, 240, 0);
-		B->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event B");
-		addChild(B);
+		poRectShape* Brect = new poRectShape(rectSize, rectSize);	// Create the rectangle
+		Brect->fillColor = poColor::blue;
+		Brect->generateStroke(1);
+		Brect->strokeColor = poColor::black;
+		Brect->setAlignment(PO_ALIGN_CENTER_CENTER);
+		Brect->position.set(400, 240, 0);
+		Brect->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "event B");
+		addChild(Brect);
 		
-		poTextBox* TB = new poTextBox(rectSize, rectSize);
-		TB->setFont(poGetFont("Helvetica", "Bold"));
-		TB->setTextSize(35);
-		TB->textColor = poColor::white;
-		TB->setTextAlignment(PO_ALIGN_CENTER_CENTER);
-		TB->setAlignment(PO_ALIGN_CENTER_CENTER);
-		B->addChild(TB);
+		poTextBox* Btext = new poTextBox(rectSize, rectSize);		// Draw a text on top of the rectangle
+		Btext->setFont(poGetFont("Helvetica", "Bold"));
+		Btext->setTextSize(35);
+		Btext->textColor = poColor::white;
+		Btext->setTextAlignment(PO_ALIGN_CENTER_CENTER);
+		Btext->setAlignment(PO_ALIGN_CENTER_CENTER);
 		
-		if(i == 0) { Bone = B; TB->setText("1"); }
-		if(i == 1) { Btwo = B; TB->setText("2"); }
-		if(i == 2) { Bthree = B;  TB->setText("3"); }
+		if(i == 0) {												// Set the text to be a number from 1 to 3
+			Btext->setText("3");									// The bottom rectangle is number 3
+		}
+		if(i == 1) {
+			Btext->setText("2");									// The rectangle in the middle is number 2
+		}
+		if(i == 2) {
+			Btext->setText("1");									// The top rectangle is number 1
+		}
 		
-		TB->doLayout();
+		Btext->doLayout();
+		Brect->addChild(Btext);										// Add the text box as a child of the rectangle
+		
+		B.push_back(Brect);											// Save each rectangle into an array
 	}
 	
 	
 	// C. Alpha Test ///////////////////////
 	
-	img = new poImage("alphatest.png");
-	img_over = new poImage("alphatest_over.png");
+	img = new poImage("alphatest.png");								// Define a blue poImage for non-selected state
+	img_over = new poImage("alphatest_over.png");					// Define a yellow poImage for selected state
 	
 	C = new poImageShape("alphatest.png", true);
 	C->setAlphaTest(true);
@@ -117,22 +124,19 @@ void AdvancedEventsApp::eventHandler(poEvent *event) {
 	}
 	else if( event->message == "event B" ) {
 		
-		poRectShape* rect;
+		if(event->source->alphaTween.isRunning())
+			return;
 		
-		if( event->source == Bone ) {		
-			rect = Bone;
-		}
-		else if( event->source == Btwo ) {		
-			rect = Btwo;
-		}
-		else if( event->source == Bthree ) {		
-			rect = Bthree;
-		}
+		poRectShape* rect = (poRectShape*) event->source;
 		
 		rect->fillColor = poColor::yellow;
-		
-		rect->alpha -= 0.01;
-		if(rect->alpha <= 0.99) rect->visible = false;
+		rect->alphaTween.set(0);
+		rect->alphaTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
+		rect->alphaTween.setDuration(2.0);
+		poDictionary D;
+		D.set("rect", rect);
+		rect->alphaTween.setNotification(this, "alpha tween done", D);
+		rect->alphaTween.start();
 	}
 	else if( event->type == PO_MOUSE_ENTER_EVENT ) {
 		
@@ -149,17 +153,13 @@ void AdvancedEventsApp::eventHandler(poEvent *event) {
 			Abottom->fillColor = poColor::blue;
 			Atop->fillColor = poColor::blue;
 			
-			Bone->visible = true;
-			Bone->alpha = 1.f;
-			Bone->fillColor = poColor::blue;
-			
-			Btwo->visible = true;
-			Btwo->alpha = 1.f;
-			Btwo->fillColor = poColor::blue;
-			
-			Bthree->visible = true;
-			Bthree->alpha = 1.f;
-			Bthree->fillColor = poColor::blue;
+			for(int i=0; i < B.size(); i++) {
+				
+				B[i]->stopAllTweens();
+				B[i]->visible = true;
+				B[i]->alpha = 1.f;
+				B[i]->fillColor = poColor::blue;
+			}
 		}
 	}
 }
@@ -168,4 +168,10 @@ void AdvancedEventsApp::eventHandler(poEvent *event) {
 // MESSAGE HANDLER
 // Receive inter-object messages here.
 void AdvancedEventsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
+	
+	if(msg == "alpha tween done") {
+		
+		poRectShape* rect = (poRectShape*) dict.getPtr("rect");
+		rect->visible = false;
+	}
 }

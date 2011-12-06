@@ -20,9 +20,7 @@ public:
 	poRectShape* Abottom;
 	poRectShape* Atop;
 	
-	poRectShape* Bone;
-	poRectShape* Btwo;
-	poRectShape* Bthree;
+	std::vector<poRectShape*> B;
 	
 	poImageShape* C;
 	poImage* img;

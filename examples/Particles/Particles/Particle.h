@@ -24,6 +24,7 @@ public:
 	poShape2D* shape;
 	poPoint	velocity;
 	float	rotationSpeed;
+	float	defaultScale;
 };
 
 

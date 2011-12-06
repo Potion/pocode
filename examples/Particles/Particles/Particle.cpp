@@ -11,7 +11,7 @@
 
 Particle::Particle() {
 	
-	float size = poRand(0.3, 1);
+	defaultScale = poRand(0.3, 1);
 	float posX = poRand(50, 750);
 	float posY = poRand(150, 550);
 	float velX = poRand(-1, 1);
@@ -26,9 +26,10 @@ Particle::Particle() {
 	shape = new poStarShape( 50, 50, 5, 10 );
 	shape->fillColor = poColor::orange;
 	shape->alpha = 0.75;
-	shape->scale.set(size, size, 1);
-	shape->rotationTween.setTweenFunction(PO_TWEEN_QUAD_OUT_FUNC);
-	shape->rotationTween.setDuration(4);
+	shape->scale.set(defaultScale, defaultScale, 1);
+	shape->scaleTween.setTweenFunction(PO_TWEEN_QUAD_OUT_FUNC);
+	shape->scaleTween.setRepeat(PO_TWEEN_REPEAT_PINGPONG, 1);
+	shape->scaleTween.setDuration(1);
 	shape->setAlignment(PO_ALIGN_CENTER_CENTER);
 	shape->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
 	addChild(shape);
@@ -54,25 +55,14 @@ void Particle::eventHandler(poEvent *event) {
 	
 	if( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
 		
-		if( shape->rotationTween.isRunning() )
+		if( shape->scaleTween.isRunning() )
 			return;
 		
-		shape->rotationTween.set( 360 );
-		shape->rotationTween.setNotification(this, "rotation done");
-		shape->rotationTween.start();
-		
-		poDictionary dict;
-		dict.set("position", position);
-		getParent()->messageHandler("particle clicked", dict);
+		shape->scale.set(defaultScale, defaultScale, 1);
+		shape->scaleTween.set( poPoint(defaultScale*2, defaultScale*2, 1) );
+		shape->scaleTween.start();
 	}
 }
 
 void Particle::messageHandler(const std::string &msg, const poDictionary& dict) {
-	
-	if(msg == "rotation done") {
-		
-		shape->rotation = 0;
-		shape->rotationTween.set( 360 );
-		shape->rotationTween.setNotification(NULL);
-	}
 }
