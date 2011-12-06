@@ -22,54 +22,52 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
     addChild( BG );
 	
 	
-	// NOTES ON OBJECT EVENTS ///////////////////////
-	
-	// Object events happen within the bounds of a certain shape
+	// A NOTE ON OBJECT EVENTS ///////////////////////
+	// Object events happen within the bounds of a shape
 	
 	
 	// A. PO_MOUSE_DOWN_INSIDE_EVENT ///////////////////////
 	
-	A = new poRectShape(75, 75);
+	A = new poRectShape(75, 75);						// Draw a rectangle that will change color
 	A->fillColor.set(1, 0.85, 0);
 	A->position.set(90, 204, 0);
 	addChild(A);
 	
-	A->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);				// Add the event to the shape
+	A->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);		// Add a "mouse down inside" event to shape A
 	
 	
 	// B. PO_MOUSE_ENTER_EVENT ///////////////////////
 	
-	B = new poRectShape(75, 75);
+	B = new poRectShape(75, 75);						// Draw a rectangle that will change color
 	B->fillColor.set(1, 0.85, 0);
 	B->position.set(270, 204, 0);
 	addChild(B);
 	
-	B->addEvent(PO_MOUSE_ENTER_EVENT, this);
+	B->addEvent(PO_MOUSE_ENTER_EVENT, this);			// Add a "mouse enter" event to shape B
 	
 	
 	// C. PO_MOUSE_LEAVE_EVENT ///////////////////////
 	
-	C = new poRectShape(75, 75);
+	C = new poRectShape(75, 75);						// Draw a rectangle that will change color
 	C->fillColor.set(1, 0.85, 0);
 	C->position.set(455, 204, 0);
 	addChild(C);
 	
-	C->addEvent(PO_MOUSE_LEAVE_EVENT, this);
+	C->addEvent(PO_MOUSE_LEAVE_EVENT, this);			// Add a "mouse leave" event to shape C
 	
 	
 	// D. PO_MOUSE_OVER_EVENT ///////////////////////
 	
-	D = new poRectShape(75, 75);
+	D = new poRectShape(75, 75);						// Draw a rectangle that will change color
 	D->fillColor.set(1, 0.85, 0);
 	D->position.set(640, 204, 0);
 	addChild(D);
 	
 //	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER if we want OVER
-	D->addEvent(PO_MOUSE_OVER_EVENT, this);
+	D->addEvent(PO_MOUSE_OVER_EVENT, this);				// Add a "mouse over" event to shape D
 	
 	
-	// Key event to reset the color
-	addEvent(PO_KEY_DOWN_EVENT, this);
+	addEvent(PO_KEY_DOWN_EVENT, this);					// Add a "key down" event to reset the color
 }
 
 
@@ -89,26 +87,26 @@ void BasicObjectEventsApp::update() {
 // Respond to user events here.
 void BasicObjectEventsApp::eventHandler(poEvent *event) {
 	
-	if(event->type == PO_MOUSE_DOWN_INSIDE_EVENT) {
+	if(event->type == PO_MOUSE_DOWN_INSIDE_EVENT) {		// Verify if you get an event of type mouse down inside
 		
-		A->fillColor = poColor::blue;
+		A->fillColor = poColor::blue;					// Change the color of rectangle A
 	}
-	else if(event->type == PO_MOUSE_ENTER_EVENT) {
+	else if(event->type == PO_MOUSE_ENTER_EVENT) {		// Verify if you get an event of type mouse enter
 		
-		B->fillColor = poColor::blue;
+		B->fillColor = poColor::blue;					// Change the color of rectangle B
 	}
-	else if(event->type == PO_MOUSE_LEAVE_EVENT) {
+	else if(event->type == PO_MOUSE_LEAVE_EVENT) {		// Verify if you get an event of type mouse leave
 		
-		C->fillColor = poColor::blue;
+		C->fillColor = poColor::blue;					// Change the color of rectangle C
 	}
-	else if(event->type == PO_MOUSE_OVER_EVENT) {
+	else if(event->type == PO_MOUSE_OVER_EVENT) {		// Verify if you get an event of type mouse over
 		
-		D->fillColor = poColor::blue;
-		printf("OVER\n");
+		D->fillColor = poColor::blue;					// Change the color of rectangle D
 	}
-	else if(event->type == PO_KEY_DOWN_EVENT) {
+	else if(event->type == PO_KEY_DOWN_EVENT) {			// Verify if you get an event of type key down
 		
 		if(event->keyChar == 'r') {						// Verify which key was pressed
+														// If the key is 'r' reset the color of each rectangle
 			A->fillColor.set(1, 0.85, 0);
 			B->fillColor.set(1, 0.85, 0);
 			C->fillColor.set(1, 0.85, 0);

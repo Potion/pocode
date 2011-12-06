@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// poCode : Basic Object Events
+// poCode : Advanced Events
 //
 /////////////////////////////////////////
 
@@ -17,7 +17,14 @@ public:
 	virtual void eventHandler(poEvent *event);
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 	
-	poRectShape* B;
-	poTexture* img;
-	poTexture* img_over;
+	poRectShape* Abottom;
+	poRectShape* Atop;
+	
+	poRectShape* Bone;
+	poRectShape* Btwo;
+	poRectShape* Bthree;
+	
+	poImageShape* C;
+	poImage* img;
+	poImage* img_over;
 };
