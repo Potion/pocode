@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// LESSON : Advanced TextBoxes
+// poCode : Advanced TextBoxes
 //
 /////////////////////////////////////////
 
@@ -14,6 +14,7 @@
 // APP CONSTRUCTOR.
 // Create all objects here.
 AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
+	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	

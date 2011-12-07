@@ -1,20 +1,20 @@
 /////////////////////////////////////////
 //
-// pocode application configuration
+// poCode Application Configuration
 //
 /////////////////////////////////////////
 
 
 #include "poApplication.h"
-#include "ParentsChildrenApp.h"
+#include "AdvancedEventsApp.h"
 
 poObject *createObjectForID(uint uid) {
-	return new ParentsChildrenApp();
+	return new AdvancedEventsApp();
 }
 
 void setupApplication() {
 	lookUpAndSetPath("resources");
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "ParentsChildren", 100, 100, 800, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "AdvancedEvents", 100, 100, 800, 600);
 }
 
 void cleanupApplication() {

@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// LESSON : Update function
+// poCode : Update function
 //
 /////////////////////////////////////////
 
@@ -23,33 +23,41 @@ UpdateApp::UpdateApp() {
    	addChild( BG );
 	
 	
-	A = new poRectShape(5, 5);
+	// A. Update scale ///////////////////////
+	
+	A = new poRectShape(5, 5);							// Draw a rectangle that scales up and down
 	A->fillColor.set(0.6, 0.8, 0.4);
 	A->position.set(125, 240, 0);
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(A);
 	
-	isScalingUp = true;
+	isScalingUp = true;									// Boolean to determine if the rectangle
+														// is getting bigger or smaller
 	
+	// B. Update position ///////////////////////
 	
-	B = new poOvalShape(30, 30, 30);
+	B = new poOvalShape(30, 30, 30);					// Draw a bouncing ball
 	B->fillColor.set(0.6, 0.8, 0.4);
 	B->position.set(310, 240, 0);
 	B->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild(B);
 	
-	velocity = poPoint(0.5, 1, 0);
+	velocity = poPoint(0.5, 1, 0);						// Store the velocity (direction) of the ball
+														// to add to the position at each frame
 	
+	// C. Update rotation ///////////////////////
 	
-	C = new poRectShape(4, 70);
+	C = new poRectShape(4, 70);							// Draw a clock hand that rotates each second
 	C->fillColor.set(0.6, 0.8, 0.4);
 	C->position.set(490, 240, 0);
 	C->setAlignment(PO_ALIGN_BOTTOM_CENTER);
 	addChild(C);
     
+	
+	// D. Update text ///////////////////////
     
-    D = new poTextBox(140, 140);
-    D->setFont(new poFont("Lucida Grande"));
+    D = new poTextBox(140, 140);						// Draw a text box that shows the current time
+    D->setFont(new poFont("Helvetica", "Bold"));
     D->setTextSize(25);
 	D->textColor.set(0.6, 0.8, 0.4);
     D->position.set(674, 240, 0);
@@ -71,40 +79,53 @@ UpdateApp::~UpdateApp() {
 void UpdateApp::update() {
 	
 	
-	// A. Update scale manually ///////////////////////
+	// A. Update scale ///////////////////////
 	
-	if(isScalingUp)
-		A->scale += poPoint(0.1, 0.1, 0);
+	if(isScalingUp && A->scale.x >= 30)					// If the scale is more than 30 times bigger
+		isScalingUp = false;							// start reducing the scale
+	if(!isScalingUp && A->scale.x <= 0)					// Otherwise if the scale is less than zero,
+		isScalingUp = true;								// start increasing the scale
+	
+	if(isScalingUp)										// Check if the rectangle is scaling up or down
+		A->scale += poPoint(0.1, 0.1, 0);				// Increase the x and y scale
 	else
-		A->scale -= poPoint(0.1, 0.1, 0);
-	
-	if(isScalingUp && A->scale.x >= 30) isScalingUp = false;
-	if(!isScalingUp && A->scale.x <= 0) isScalingUp = true;
+		A->scale -= poPoint(0.1, 0.1, 0);				// Decrease the x and y scale
 	
 	
-	// B. Update position manually ///////////////////////
 	
-	B->position += velocity;
+	// B. Update position ///////////////////////
 	
-	if (B->position.x > 385 - 15 || B->position.x < 235 + 15) velocity.x *= -1;
-	if (B->position.y > 315 - 15 || B->position.y < 165 + 15) velocity.y *= -1;
+	B->position += velocity;							// Change the position of the ball by adding velocity
+	
+														// Check the bounds
+	if (B->position.x > 385 - B->getWidth()/2 || 
+		B->position.x < 235 + B->getWidth()/2)			// If the ball hits the left or right wall
+		velocity.x *= -1;								// Invert the x value of the velocity vector
+	if (B->position.y > 315 - B->getHeight()/2 || 
+		B->position.y < 165 + B->getHeight()/2)			// If the ball hits the top or bottom wall
+		velocity.y *= -1;								// Invert the y value of the velocity vector
 	
 	
-	// C. Update rotation manually ///////////////////////
 	
-	poTime currentTime = poGetCurrentTime();
-	int currentSecond = currentTime.seconds;
+	// C. Update rotation ///////////////////////
 	
-	C->rotation = 360/60 * currentSecond;
+	poTime currentTime = poGetCurrentTime();			// Get the current time (see the file poHelpers.h)
+	int currentSecond = currentTime.seconds;			// Get the current second from the poTime
+	
+	C->rotation = 360/60 * currentSecond;				// Set the rotation of the clock hand
+														// based on the current second
     
+	
+    // D. Update text ///////////////////////
     
-    // C. Update text manually ///////////////////////
+    char timeString[32];								// Create a string
+	sprintf(timeString, "%.2d:%.2d:%.2d",				// Append current hour, minutes and seconds to it
+			currentTime.amPmHours, 
+			currentTime.minutes, 
+			currentTime.seconds);
     
-    char timeString[32];
-    sprintf(timeString, "%.2d:%.2d:%.2d", currentTime.amPmHours, currentTime.minutes, currentTime.seconds);
-    
-    D->setText(timeString);
-    D->doLayout();
+    D->setText(timeString);								// Replace the string in the text box
+    D->doLayout();										// Remember to call this to apply the changes
 }
 
 

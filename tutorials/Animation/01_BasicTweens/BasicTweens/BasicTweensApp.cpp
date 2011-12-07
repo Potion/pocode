@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// LESSON : Basic Tweens
+// poCode : Basic Tweens
 //
 /////////////////////////////////////////
 
@@ -22,7 +22,7 @@ BasicTweensApp::BasicTweensApp() {
 	
 	// A. Position Tween ///////////////////////
 	
-	A = new poRectShape(30, 30);
+	A = new poRectShape(30, 30);								// Draw a rectangle that will change position
     A->fillColor.set(0.5, 0.8, 0.9);
 	A->generateStroke(1);
 	A->strokeColor = poColor::black;
@@ -30,7 +30,7 @@ BasicTweensApp::BasicTweensApp() {
 	A->setAlignment(PO_ALIGN_CENTER_CENTER);
 	addChild( A );
 	
-	A->positionTween.set(poPoint(125, 245, 0));					// Set the final position
+	A->positionTween.set(poPoint(125, 195, 0));					// Set the final position
 	A->positionTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);	// Set the type of easing function
 	A->positionTween.setDuration(2.0);							// Set the duration in seconds
 	A->positionTween.start();									// Start the animation
@@ -38,7 +38,7 @@ BasicTweensApp::BasicTweensApp() {
 	
 	// B. Scale Tween ///////////////////////
 	
-	B = new poRectShape(30, 30);
+	B = new poRectShape(30, 30);								// Draw a rectangle that will change scale
     B->fillColor.set(0.5, 0.8, 0.9);
 	B->generateStroke(1);
 	B->strokeColor = poColor::black;
@@ -54,7 +54,7 @@ BasicTweensApp::BasicTweensApp() {
 	
 	// C. Rotation Tween ///////////////////////
 	
-	C = new poRectShape(30, 30);
+	C = new poRectShape(30, 30);								// Draw a rectangle that will rotate
     C->fillColor.set(0.5, 0.8, 0.9);
 	C->generateStroke(1);
 	C->strokeColor = poColor::black;
@@ -72,7 +72,7 @@ BasicTweensApp::BasicTweensApp() {
 	
     // D. Alpha Tween ///////////////////////
 	
-	D = new poRectShape(30, 30);
+	D = new poRectShape(30, 30);								// Draw a rectangle that will change alpha
     D->fillColor.set(0.5, 0.8, 0.9);
 	D->generateStroke(1);
 	D->strokeColor = poColor::black;
@@ -109,23 +109,24 @@ void BasicTweensApp::update() {
 // Respond to user events here.
 void BasicTweensApp::eventHandler(poEvent *event) {
 	
-	if(event->keyChar == 'r') {
-		A->stopAllTweens();
-		A->position.set(125, 240, 0);
-		A->positionTween.start();
+	if(event->keyChar == 'r') {									// If you press 'r'
+		A->stopAllTweens();										// Stop all the tweens in rectangle A
+		A->position.set(125, 240, 0);							// Reset its position to the original position
+		A->positionTween.start();								// Start the position tween again
 		
-		B->stopAllTweens();
-		B->scale.set(1, 1, 1);
-		B->scaleTween.start();
+		B->stopAllTweens();										// Stop all the tweens in rectangle B
+		B->scale.set(1, 1, 1);									// Reset its scale to the original scale
+		B->scaleTween.start();									// Start the scale tween again
 		
-		C->stopAllTweens();
-		C->rotation = 0;
-		C->rotationTween.start();
+		C->stopAllTweens();										// Stop all the tweens in rectangle C
+		C->rotation = 0;										// Reset its rotation to the original rotation
+		C->rotationTween.start();								// Start the rotation tween again
 		
-		D->stopAllTweens();
-		D->alpha = 1.f;
-		D->alphaTween.set(0);
-		D->alphaTween.start();
+		D->stopAllTweens();										// Stop all the tweens in rectangle D
+		D->alpha = 1.f;											// Reset its alpha to the original alpha
+		D->alphaTween.set(0);									// Since the tween is repeating ping pong style,
+																// we need to reset also the final value
+		D->alphaTween.start();									// Start the alpha tween again
 	}
 }
 
