@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E84161AF13DF4F1D00C5993F /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E84161AE13DF4F1D00C5993F /* Debug.xcconfig */; };
+		E84161B113DF4F1D00C5993F /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E84161B013DF4F1D00C5993F /* Release.xcconfig */; };
+		E84161B413DF4F1D00C5993F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84161B313DF4F1D00C5993F /* AppDelegate.mm */; };
+		E84161B613DF4F1D00C5993F /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E84161B513DF4F1D00C5993F /* en.strings */; };
+		E84161B813DF4F1D00C5993F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E84161B713DF4F1D00C5993F /* main.m */; };
+		E84161BA13DF4F1D00C5993F /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E84161B913DF4F1D00C5993F /* main.pch */; };
+		E84161BD13DF4F1D00C5993F /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E84161BC13DF4F1D00C5993F /* main.xib */; };
+		E84161C013DF4F1D00C5993F /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E84161BF13DF4F1D00C5993F /* poOpenGLView.mm */; };
+		E84161C413DF4F1D00C5993F /* ExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E84161C313DF4F1D00C5993F /* ExampleApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E84161A913DF4F1D00C5993F /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E84161AE13DF4F1D00C5993F /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E84161B013DF4F1D00C5993F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E84161B213DF4F1D00C5993F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E84161B313DF4F1D00C5993F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E84161B513DF4F1D00C5993F /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E84161B713DF4F1D00C5993F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E84161B913DF4F1D00C5993F /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E84161BB13DF4F1D00C5993F /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E84161BC13DF4F1D00C5993F /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E84161BE13DF4F1D00C5993F /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E84161BF13DF4F1D00C5993F /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E84161C213DF4F1D00C5993F /* ExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleApp.h; sourceTree = "<group>"; };
+		E84161C313DF4F1D00C5993F /* ExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExampleApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E84161A613DF4F1D00C5993F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E841619E13DF4F1D00C5993F = {
+			isa = PBXGroup;
+			children = (
+				E84161AC13DF4F1D00C5993F /* Example */,
+				E84161AA13DF4F1D00C5993F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E84161AA13DF4F1D00C5993F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E84161A913DF4F1D00C5993F /* Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E84161AC13DF4F1D00C5993F /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				E84161AD13DF4F1D00C5993F /* platform */,
+				E84161C113DF4F1D00C5993F /* application */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		E84161AD13DF4F1D00C5993F /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E84161AE13DF4F1D00C5993F /* Debug.xcconfig */,
+				E84161B013DF4F1D00C5993F /* Release.xcconfig */,
+				E84161B213DF4F1D00C5993F /* AppDelegate.h */,
+				E84161B313DF4F1D00C5993F /* AppDelegate.mm */,
+				E84161B513DF4F1D00C5993F /* en.strings */,
+				E84161B713DF4F1D00C5993F /* main.m */,
+				E84161B913DF4F1D00C5993F /* main.pch */,
+				E84161BB13DF4F1D00C5993F /* main.plist */,
+				E84161BC13DF4F1D00C5993F /* main.xib */,
+				E84161BE13DF4F1D00C5993F /* poOpenGLView.h */,
+				E84161BF13DF4F1D00C5993F /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E84161C113DF4F1D00C5993F /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E84161C213DF4F1D00C5993F /* ExampleApp.h */,
+				E84161C313DF4F1D00C5993F /* ExampleApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E84161A813DF4F1D00C5993F /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E84161C713DF4F1D00C5993F /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				E84161A513DF4F1D00C5993F /* Sources */,
+				E84161A613DF4F1D00C5993F /* Frameworks */,
+				E84161A713DF4F1D00C5993F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Example;
+			productName = Example;
+			productReference = E84161A913DF4F1D00C5993F /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E84161A013DF4F1D00C5993F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E84161A313DF4F1D00C5993F /* Build configuration list for PBXProject "Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E841619E13DF4F1D00C5993F;
+			productRefGroup = E84161AA13DF4F1D00C5993F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E84161A813DF4F1D00C5993F /* Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E84161A713DF4F1D00C5993F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E84161AF13DF4F1D00C5993F /* Debug.xcconfig in Resources */,
+				E84161B113DF4F1D00C5993F /* Release.xcconfig in Resources */,
+				E84161B613DF4F1D00C5993F /* en.strings in Resources */,
+				E84161BA13DF4F1D00C5993F /* main.pch in Resources */,
+				E84161BD13DF4F1D00C5993F /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E84161A513DF4F1D00C5993F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E84161B413DF4F1D00C5993F /* AppDelegate.mm in Sources */,
+				E84161B813DF4F1D00C5993F /* main.m in Sources */,
+				E84161C013DF4F1D00C5993F /* poOpenGLView.mm in Sources */,
+				E84161C413DF4F1D00C5993F /* ExampleApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E84161C513DF4F1D00C5993F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E84161AE13DF4F1D00C5993F /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E84161C613DF4F1D00C5993F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E84161B013DF4F1D00C5993F /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E84161C813DF4F1D00C5993F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E84161C913DF4F1D00C5993F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E84161A313DF4F1D00C5993F /* Build configuration list for PBXProject "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E84161C513DF4F1D00C5993F /* Debug */,
+				E84161C613DF4F1D00C5993F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E84161C713DF4F1D00C5993F /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E84161C813DF4F1D00C5993F /* Debug */,
+				E84161C913DF4F1D00C5993F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E84161A013DF4F1D00C5993F /* Project object */;
+}

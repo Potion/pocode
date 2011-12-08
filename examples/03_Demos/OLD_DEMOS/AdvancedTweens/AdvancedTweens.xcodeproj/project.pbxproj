@@ -1,0 +1,221 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B6969BD13F4E16200A1F430 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B6969BC13F4E16200A1F430 /* AppDelegate.mm */; };
+		2B6969BF13F4E16200A1F430 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B6969BE13F4E16200A1F430 /* en.strings */; };
+		2B6969C113F4E16200A1F430 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6969C013F4E16200A1F430 /* main.m */; };
+		2B6969C313F4E16200A1F430 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2B6969C213F4E16200A1F430 /* main.pch */; };
+		2B6969C613F4E16200A1F430 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B6969C513F4E16200A1F430 /* main.xib */; };
+		2B6969C913F4E16200A1F430 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B6969C813F4E16200A1F430 /* poOpenGLView.mm */; };
+		2B6969CD13F4E16200A1F430 /* AdvancedTweensApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B6969CC13F4E16200A1F430 /* AdvancedTweensApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B6969B413F4E16200A1F430 /* AdvancedTweens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedTweens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6969B913F4E16200A1F430 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2B6969BA13F4E16200A1F430 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2B6969BB13F4E16200A1F430 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2B6969BC13F4E16200A1F430 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2B6969BE13F4E16200A1F430 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2B6969C013F4E16200A1F430 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2B6969C213F4E16200A1F430 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2B6969C413F4E16200A1F430 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2B6969C513F4E16200A1F430 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2B6969C713F4E16200A1F430 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2B6969C813F4E16200A1F430 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2B6969CB13F4E16200A1F430 /* AdvancedTweensApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedTweensApp.h; sourceTree = "<group>"; };
+		2B6969CC13F4E16200A1F430 /* AdvancedTweensApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdvancedTweensApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B6969B113F4E16200A1F430 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B6969A913F4E16200A1F430 = {
+			isa = PBXGroup;
+			children = (
+				2B6969B713F4E16200A1F430 /* AdvancedTweens */,
+				2B6969B513F4E16200A1F430 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B6969B513F4E16200A1F430 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B6969B413F4E16200A1F430 /* AdvancedTweens.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B6969B713F4E16200A1F430 /* AdvancedTweens */ = {
+			isa = PBXGroup;
+			children = (
+				2B6969B813F4E16200A1F430 /* platform */,
+				2B6969CA13F4E16200A1F430 /* application */,
+			);
+			path = AdvancedTweens;
+			sourceTree = "<group>";
+		};
+		2B6969B813F4E16200A1F430 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2B6969B913F4E16200A1F430 /* Debug.xcconfig */,
+				2B6969BA13F4E16200A1F430 /* Release.xcconfig */,
+				2B6969BB13F4E16200A1F430 /* AppDelegate.h */,
+				2B6969BC13F4E16200A1F430 /* AppDelegate.mm */,
+				2B6969BE13F4E16200A1F430 /* en.strings */,
+				2B6969C013F4E16200A1F430 /* main.m */,
+				2B6969C213F4E16200A1F430 /* main.pch */,
+				2B6969C413F4E16200A1F430 /* main.plist */,
+				2B6969C513F4E16200A1F430 /* main.xib */,
+				2B6969C713F4E16200A1F430 /* poOpenGLView.h */,
+				2B6969C813F4E16200A1F430 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2B6969CA13F4E16200A1F430 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2B6969CB13F4E16200A1F430 /* AdvancedTweensApp.h */,
+				2B6969CC13F4E16200A1F430 /* AdvancedTweensApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B6969B313F4E16200A1F430 /* AdvancedTweens */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B6969D013F4E16200A1F430 /* Build configuration list for PBXNativeTarget "AdvancedTweens" */;
+			buildPhases = (
+				2B6969B013F4E16200A1F430 /* Sources */,
+				2B6969B113F4E16200A1F430 /* Frameworks */,
+				2B6969B213F4E16200A1F430 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AdvancedTweens;
+			productName = AdvancedTweens;
+			productReference = 2B6969B413F4E16200A1F430 /* AdvancedTweens.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B6969AB13F4E16200A1F430 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 2B6969AE13F4E16200A1F430 /* Build configuration list for PBXProject "AdvancedTweens" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2B6969A913F4E16200A1F430;
+			productRefGroup = 2B6969B513F4E16200A1F430 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B6969B313F4E16200A1F430 /* AdvancedTweens */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B6969B213F4E16200A1F430 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B6969BF13F4E16200A1F430 /* en.strings in Resources */,
+				2B6969C313F4E16200A1F430 /* main.pch in Resources */,
+				2B6969C613F4E16200A1F430 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B6969B013F4E16200A1F430 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B6969BD13F4E16200A1F430 /* AppDelegate.mm in Sources */,
+				2B6969C113F4E16200A1F430 /* main.m in Sources */,
+				2B6969C913F4E16200A1F430 /* poOpenGLView.mm in Sources */,
+				2B6969CD13F4E16200A1F430 /* AdvancedTweensApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B6969CE13F4E16200A1F430 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B6969B913F4E16200A1F430 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B6969CF13F4E16200A1F430 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B6969BA13F4E16200A1F430 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2B6969D113F4E16200A1F430 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B6969D213F4E16200A1F430 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B6969AE13F4E16200A1F430 /* Build configuration list for PBXProject "AdvancedTweens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B6969CE13F4E16200A1F430 /* Debug */,
+				2B6969CF13F4E16200A1F430 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B6969D013F4E16200A1F430 /* Build configuration list for PBXNativeTarget "AdvancedTweens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B6969D113F4E16200A1F430 /* Debug */,
+				2B6969D213F4E16200A1F430 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2B6969AB13F4E16200A1F430 /* Project object */;
+}

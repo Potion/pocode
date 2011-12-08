@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8814FF013DDDB9700F6E0E1 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8814FEF13DDDB9700F6E0E1 /* Debug.xcconfig */; };
+		E8814FF213DDDB9700F6E0E1 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E8814FF113DDDB9700F6E0E1 /* Release.xcconfig */; };
+		E8814FF513DDDB9700F6E0E1 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8814FF413DDDB9700F6E0E1 /* AppDelegate.mm */; };
+		E8814FF713DDDB9700F6E0E1 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8814FF613DDDB9700F6E0E1 /* en.strings */; };
+		E8814FF913DDDB9700F6E0E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8814FF813DDDB9700F6E0E1 /* main.m */; };
+		E8814FFB13DDDB9700F6E0E1 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8814FFA13DDDB9700F6E0E1 /* main.pch */; };
+		E8814FFE13DDDB9700F6E0E1 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8814FFD13DDDB9700F6E0E1 /* main.xib */; };
+		E881500113DDDB9700F6E0E1 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E881500013DDDB9700F6E0E1 /* poOpenGLView.mm */; };
+		E881500513DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */; };
+		E881500C13DDDD8F00F6E0E1 /* enumNames.c in Sources */ = {isa = PBXBuildFile; fileRef = E881500B13DDDD8F00F6E0E1 /* enumNames.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8814FEA13DDDB9700F6E0E1 /* AlphaTestTexture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlphaTestTexture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8814FEF13DDDB9700F6E0E1 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8814FF113DDDB9700F6E0E1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8814FF313DDDB9700F6E0E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8814FF413DDDB9700F6E0E1 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8814FF613DDDB9700F6E0E1 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8814FF813DDDB9700F6E0E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8814FFA13DDDB9700F6E0E1 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8814FFC13DDDB9700F6E0E1 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8814FFD13DDDB9700F6E0E1 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8814FFF13DDDB9700F6E0E1 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E881500013DDDB9700F6E0E1 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E881500313DDDB9700F6E0E1 /* AlphaTestTextureApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlphaTestTextureApp.h; sourceTree = "<group>"; };
+		E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AlphaTestTextureApp.cpp; sourceTree = "<group>"; };
+		E881500B13DDDD8F00F6E0E1 /* enumNames.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = enumNames.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8814FE713DDDB9700F6E0E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8814FDF13DDDB9700F6E0E1 = {
+			isa = PBXGroup;
+			children = (
+				E8814FED13DDDB9700F6E0E1 /* AlphaTestTexture */,
+				E8814FEB13DDDB9700F6E0E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8814FEB13DDDB9700F6E0E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8814FEA13DDDB9700F6E0E1 /* AlphaTestTexture.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8814FED13DDDB9700F6E0E1 /* AlphaTestTexture */ = {
+			isa = PBXGroup;
+			children = (
+				E8814FEE13DDDB9700F6E0E1 /* platform */,
+				E881500213DDDB9700F6E0E1 /* application */,
+			);
+			path = AlphaTestTexture;
+			sourceTree = "<group>";
+		};
+		E8814FEE13DDDB9700F6E0E1 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8814FEF13DDDB9700F6E0E1 /* Debug.xcconfig */,
+				E8814FF113DDDB9700F6E0E1 /* Release.xcconfig */,
+				E8814FF313DDDB9700F6E0E1 /* AppDelegate.h */,
+				E8814FF413DDDB9700F6E0E1 /* AppDelegate.mm */,
+				E8814FF613DDDB9700F6E0E1 /* en.strings */,
+				E8814FF813DDDB9700F6E0E1 /* main.m */,
+				E8814FFA13DDDB9700F6E0E1 /* main.pch */,
+				E8814FFC13DDDB9700F6E0E1 /* main.plist */,
+				E8814FFD13DDDB9700F6E0E1 /* main.xib */,
+				E8814FFF13DDDB9700F6E0E1 /* poOpenGLView.h */,
+				E881500013DDDB9700F6E0E1 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E881500213DDDB9700F6E0E1 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E881500313DDDB9700F6E0E1 /* AlphaTestTextureApp.h */,
+				E881500413DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp */,
+				E881500B13DDDD8F00F6E0E1 /* enumNames.c */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8814FE913DDDB9700F6E0E1 /* AlphaTestTexture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E881500813DDDB9700F6E0E1 /* Build configuration list for PBXNativeTarget "AlphaTestTexture" */;
+			buildPhases = (
+				E8814FE613DDDB9700F6E0E1 /* Sources */,
+				E8814FE713DDDB9700F6E0E1 /* Frameworks */,
+				E8814FE813DDDB9700F6E0E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlphaTestTexture;
+			productName = AlphaTestTexture;
+			productReference = E8814FEA13DDDB9700F6E0E1 /* AlphaTestTexture.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8814FE113DDDB9700F6E0E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8814FE413DDDB9700F6E0E1 /* Build configuration list for PBXProject "AlphaTestTexture" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8814FDF13DDDB9700F6E0E1;
+			productRefGroup = E8814FEB13DDDB9700F6E0E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8814FE913DDDB9700F6E0E1 /* AlphaTestTexture */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8814FE813DDDB9700F6E0E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8814FF013DDDB9700F6E0E1 /* Debug.xcconfig in Resources */,
+				E8814FF213DDDB9700F6E0E1 /* Release.xcconfig in Resources */,
+				E8814FF713DDDB9700F6E0E1 /* en.strings in Resources */,
+				E8814FFB13DDDB9700F6E0E1 /* main.pch in Resources */,
+				E8814FFE13DDDB9700F6E0E1 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8814FE613DDDB9700F6E0E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8814FF513DDDB9700F6E0E1 /* AppDelegate.mm in Sources */,
+				E8814FF913DDDB9700F6E0E1 /* main.m in Sources */,
+				E881500113DDDB9700F6E0E1 /* poOpenGLView.mm in Sources */,
+				E881500513DDDB9700F6E0E1 /* AlphaTestTextureApp.cpp in Sources */,
+				E881500C13DDDD8F00F6E0E1 /* enumNames.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E881500613DDDB9700F6E0E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8814FEF13DDDB9700F6E0E1 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E881500713DDDB9700F6E0E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8814FF113DDDB9700F6E0E1 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E881500913DDDB9700F6E0E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E881500A13DDDB9700F6E0E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8814FE413DDDB9700F6E0E1 /* Build configuration list for PBXProject "AlphaTestTexture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E881500613DDDB9700F6E0E1 /* Debug */,
+				E881500713DDDB9700F6E0E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E881500813DDDB9700F6E0E1 /* Build configuration list for PBXNativeTarget "AlphaTestTexture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E881500913DDDB9700F6E0E1 /* Debug */,
+				E881500A13DDDB9700F6E0E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8814FE113DDDB9700F6E0E1 /* Project object */;
+}
