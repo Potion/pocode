@@ -2,6 +2,9 @@
 
 #include "poObject.h"
 
+#include <boost/signals2.hpp>
+typedef boost::signals2::connection SigConn;
+
 // CLASS NOTES
 //
 // This class implements a platform-independent window. The poWindow holds the root poObject
@@ -76,12 +79,13 @@ public:
 	void            touchMove(int x, int y, int uid, int tapCount );
 	void            touchEnd(int x, int y, int uid, int tapCount );
     void            touchCancelled(int x, int y, int uid, int tapCount );
-    
-    
-    // DRAW ORDER COUNTER
+	
+	// DRAW ORDER COUNTER
     // The draw order of every poObject in the scene graph is set based upon the drawOrderCounter.
     // The draw order is used by the event system to determine which objects are drawn on top of others.
 	int             getNextDrawOrder();
+	
+	SigConn			addUpdate(const boost::function<void()> &func);
 
 private:
     
@@ -133,7 +137,8 @@ private:
 	
     // DRAW ORDER COUNTER
     int drawOrderCounter;
-    
+	
+	boost::signals2::signal<void()> updateSignal;
 };
 
 

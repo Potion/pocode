@@ -14,11 +14,10 @@
 		E8FAE3C41476BC4100A917EB /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8FAE3C31476BC4100A917EB /* main.xib */; };
 		E8FAE3C71476BC4100A917EB /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8FAE3C61476BC4100A917EB /* poOpenGLView.mm */; };
 		E8FAE3CB1476BC4100A917EB /* imageShape_testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FAE3CA1476BC4100A917EB /* imageShape_testApp.cpp */; };
-		E8FAE3D21476BDD900A917EB /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = E8FAE3D11476BDD900A917EB /* test.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E8FAE3B21476BC4100A917EB /* imageShape test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "imageShape test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8FAE3B21476BC4100A917EB /* imageShape_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imageShape_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FAE3B71476BC4100A917EB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8FAE3B81476BC4100A917EB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		E8FAE3B91476BC4100A917EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -32,7 +31,6 @@
 		E8FAE3C61476BC4100A917EB /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		E8FAE3C91476BC4100A917EB /* imageShape_testApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imageShape_testApp.h; sourceTree = "<group>"; };
 		E8FAE3CA1476BC4100A917EB /* imageShape_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imageShape_testApp.cpp; sourceTree = "<group>"; };
-		E8FAE3D11476BDD900A917EB /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test.png; path = ../../../../Users/joshua_fisher/Desktop/test.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +47,7 @@
 		E8FAE3A71476BC4100A917EB = {
 			isa = PBXGroup;
 			children = (
-				E8FAE3B51476BC4100A917EB /* imageShape test */,
+				E8FAE3B51476BC4100A917EB /* imageShape_test */,
 				E8FAE3B31476BC4100A917EB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,19 +55,18 @@
 		E8FAE3B31476BC4100A917EB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E8FAE3B21476BC4100A917EB /* imageShape test.app */,
+				E8FAE3B21476BC4100A917EB /* imageShape_test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E8FAE3B51476BC4100A917EB /* imageShape test */ = {
+		E8FAE3B51476BC4100A917EB /* imageShape_test */ = {
 			isa = PBXGroup;
 			children = (
-				E8FAE3D11476BDD900A917EB /* test.png */,
 				E8FAE3B61476BC4100A917EB /* platform */,
 				E8FAE3C81476BC4100A917EB /* application */,
 			);
-			path = "imageShape test";
+			path = imageShape_test;
 			sourceTree = "<group>";
 		};
 		E8FAE3B61476BC4100A917EB /* platform */ = {
@@ -102,9 +99,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E8FAE3B11476BC4100A917EB /* imageShape test */ = {
+		E8FAE3B11476BC4100A917EB /* imageShape_test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E8FAE3CE1476BC4100A917EB /* Build configuration list for PBXNativeTarget "imageShape test" */;
+			buildConfigurationList = E8FAE3CE1476BC4100A917EB /* Build configuration list for PBXNativeTarget "imageShape_test" */;
 			buildPhases = (
 				E8FAE3AE1476BC4100A917EB /* Sources */,
 				E8FAE3AF1476BC4100A917EB /* Frameworks */,
@@ -114,9 +111,9 @@
 			);
 			dependencies = (
 			);
-			name = "imageShape test";
+			name = imageShape_test;
 			productName = "imageShape test";
-			productReference = E8FAE3B21476BC4100A917EB /* imageShape test.app */;
+			productReference = E8FAE3B21476BC4100A917EB /* imageShape_test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -128,7 +125,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E8FAE3AC1476BC4100A917EB /* Build configuration list for PBXProject "imageShape test" */;
+			buildConfigurationList = E8FAE3AC1476BC4100A917EB /* Build configuration list for PBXProject "imageShape_test" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -140,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E8FAE3B11476BC4100A917EB /* imageShape test */,
+				E8FAE3B11476BC4100A917EB /* imageShape_test */,
 			);
 		};
 /* End PBXProject section */
@@ -153,7 +150,6 @@
 				E8FAE3BD1476BC4100A917EB /* en.strings in Resources */,
 				E8FAE3C11476BC4100A917EB /* main.pch in Resources */,
 				E8FAE3C41476BC4100A917EB /* main.xib in Resources */,
-				E8FAE3D21476BDD900A917EB /* test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,19 +187,21 @@
 		E8FAE3CF1476BC4100A917EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = imageShape_test;
 			};
 			name = Debug;
 		};
 		E8FAE3D01476BC4100A917EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = imageShape_test;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E8FAE3AC1476BC4100A917EB /* Build configuration list for PBXProject "imageShape test" */ = {
+		E8FAE3AC1476BC4100A917EB /* Build configuration list for PBXProject "imageShape_test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8FAE3CC1476BC4100A917EB /* Debug */,
@@ -212,13 +210,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E8FAE3CE1476BC4100A917EB /* Build configuration list for PBXNativeTarget "imageShape test" */ = {
+		E8FAE3CE1476BC4100A917EB /* Build configuration list for PBXNativeTarget "imageShape_test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8FAE3CF1476BC4100A917EB /* Debug */,
 				E8FAE3D01476BC4100A917EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

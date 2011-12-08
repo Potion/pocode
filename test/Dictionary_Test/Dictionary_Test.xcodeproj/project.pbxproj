@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E86F93B313F9C85C00D924F0 /* Dictionary Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dictionary Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E86F93B313F9C85C00D924F0 /* Dictionary_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dictionary_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86F93B813F9C85C00D924F0 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E86F93BA13F9C85C00D924F0 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		E86F93BC13F9C85C00D924F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		E86F93A813F9C85C00D924F0 = {
 			isa = PBXGroup;
 			children = (
-				E86F93B613F9C85C00D924F0 /* Dictionary Test */,
+				E86F93B613F9C85C00D924F0 /* Dictionary_Test */,
 				E86F93B413F9C85C00D924F0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,18 +57,18 @@
 		E86F93B413F9C85C00D924F0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E86F93B313F9C85C00D924F0 /* Dictionary Test.app */,
+				E86F93B313F9C85C00D924F0 /* Dictionary_Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E86F93B613F9C85C00D924F0 /* Dictionary Test */ = {
+		E86F93B613F9C85C00D924F0 /* Dictionary_Test */ = {
 			isa = PBXGroup;
 			children = (
 				E86F93B713F9C85C00D924F0 /* platform */,
 				E86F93CB13F9C85C00D924F0 /* application */,
 			);
-			path = "Dictionary Test";
+			path = Dictionary_Test;
 			sourceTree = "<group>";
 		};
 		E86F93B713F9C85C00D924F0 /* platform */ = {
@@ -101,9 +101,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E86F93B213F9C85C00D924F0 /* Dictionary Test */ = {
+		E86F93B213F9C85C00D924F0 /* Dictionary_Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E86F93D113F9C85C00D924F0 /* Build configuration list for PBXNativeTarget "Dictionary Test" */;
+			buildConfigurationList = E86F93D113F9C85C00D924F0 /* Build configuration list for PBXNativeTarget "Dictionary_Test" */;
 			buildPhases = (
 				E86F93AF13F9C85C00D924F0 /* Sources */,
 				E86F93B013F9C85C00D924F0 /* Frameworks */,
@@ -113,9 +113,9 @@
 			);
 			dependencies = (
 			);
-			name = "Dictionary Test";
+			name = Dictionary_Test;
 			productName = "Dictionary Test";
-			productReference = E86F93B313F9C85C00D924F0 /* Dictionary Test.app */;
+			productReference = E86F93B313F9C85C00D924F0 /* Dictionary_Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -126,7 +126,7 @@
 			attributes = {
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E86F93AD13F9C85C00D924F0 /* Build configuration list for PBXProject "Dictionary Test" */;
+			buildConfigurationList = E86F93AD13F9C85C00D924F0 /* Build configuration list for PBXProject "Dictionary_Test" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -138,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E86F93B213F9C85C00D924F0 /* Dictionary Test */,
+				E86F93B213F9C85C00D924F0 /* Dictionary_Test */,
 			);
 		};
 /* End PBXProject section */
@@ -190,6 +190,7 @@
 		E86F93D213F9C85C00D924F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = Dictionary_Test;
 			};
 			name = Debug;
 		};
@@ -202,7 +203,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E86F93AD13F9C85C00D924F0 /* Build configuration list for PBXProject "Dictionary Test" */ = {
+		E86F93AD13F9C85C00D924F0 /* Build configuration list for PBXProject "Dictionary_Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E86F93CF13F9C85C00D924F0 /* Debug */,
@@ -211,13 +212,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E86F93D113F9C85C00D924F0 /* Build configuration list for PBXNativeTarget "Dictionary Test" */ = {
+		E86F93D113F9C85C00D924F0 /* Build configuration list for PBXNativeTarget "Dictionary_Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E86F93D213F9C85C00D924F0 /* Debug */,
 				E86F93D313F9C85C00D924F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

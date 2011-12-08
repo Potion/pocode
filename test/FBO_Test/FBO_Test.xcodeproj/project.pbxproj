@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E8D8F34B144CBB940077F6DA /* FBO Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FBO Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D8F34B144CBB940077F6DA /* FBO_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBO_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8D8F350144CBB940077F6DA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8D8F351144CBB940077F6DA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		E8D8F352144CBB940077F6DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		E8D8F34C144CBB940077F6DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E8D8F34B144CBB940077F6DA /* FBO Test.app */,
+				E8D8F34B144CBB940077F6DA /* FBO_Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,7 +66,8 @@
 				E8D8F34F144CBB940077F6DA /* platform */,
 				E8D8F361144CBB940077F6DA /* application */,
 			);
-			path = "FBO Test";
+			name = "FBO Test";
+			path = FBO_Test;
 			sourceTree = "<group>";
 		};
 		E8D8F34F144CBB940077F6DA /* platform */ = {
@@ -99,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E8D8F34A144CBB940077F6DA /* FBO Test */ = {
+		E8D8F34A144CBB940077F6DA /* FBO_Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO Test" */;
+			buildConfigurationList = E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO_Test" */;
 			buildPhases = (
 				E8D8F347144CBB940077F6DA /* Sources */,
 				E8D8F348144CBB940077F6DA /* Frameworks */,
@@ -111,9 +112,9 @@
 			);
 			dependencies = (
 			);
-			name = "FBO Test";
+			name = FBO_Test;
 			productName = "FBO Test";
-			productReference = E8D8F34B144CBB940077F6DA /* FBO Test.app */;
+			productReference = E8D8F34B144CBB940077F6DA /* FBO_Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -125,7 +126,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO Test" */;
+			buildConfigurationList = E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO_Test" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -137,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E8D8F34A144CBB940077F6DA /* FBO Test */,
+				E8D8F34A144CBB940077F6DA /* FBO_Test */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +188,7 @@
 		E8D8F368144CBB940077F6DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = FBO_Test;
 			};
 			name = Debug;
 		};
@@ -199,7 +201,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO Test" */ = {
+		E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO_Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8D8F365144CBB940077F6DA /* Debug */,
@@ -208,13 +210,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO Test" */ = {
+		E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO_Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8D8F368144CBB940077F6DA /* Debug */,
 				E8D8F369144CBB940077F6DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E894E00D13FAB3F30040B27C /* data dump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "data dump"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E894E00D13FAB3F30040B27C /* data_dump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = data_dump; sourceTree = BUILT_PRODUCTS_DIR; };
 		E894E01113FAB3F30040B27C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E894E01313FAB3F30040B27C /* data_dump.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = data_dump.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +52,7 @@
 		E894E00E13FAB3F30040B27C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E894E00D13FAB3F30040B27C /* data dump */,
+				E894E00D13FAB3F30040B27C /* data_dump */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,15 +63,16 @@
 				E894E01113FAB3F30040B27C /* main.cpp */,
 				E894E01313FAB3F30040B27C /* data_dump.1 */,
 			);
-			path = "data dump";
+			name = "data dump";
+			path = data_dump;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E894E00C13FAB3F30040B27C /* data dump */ = {
+		E894E00C13FAB3F30040B27C /* data_dump */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E894E01713FAB3F30040B27C /* Build configuration list for PBXNativeTarget "data dump" */;
+			buildConfigurationList = E894E01713FAB3F30040B27C /* Build configuration list for PBXNativeTarget "data_dump" */;
 			buildPhases = (
 				E894E00913FAB3F30040B27C /* Sources */,
 				E894E00A13FAB3F30040B27C /* Frameworks */,
@@ -81,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = "data dump";
+			name = data_dump;
 			productName = "data dump";
-			productReference = E894E00D13FAB3F30040B27C /* data dump */;
+			productReference = E894E00D13FAB3F30040B27C /* data_dump */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -92,9 +93,10 @@
 		E894E00413FAB3F30040B27C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E894E00713FAB3F30040B27C /* Build configuration list for PBXProject "data dump" */;
+			buildConfigurationList = E894E00713FAB3F30040B27C /* Build configuration list for PBXProject "data_dump" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -106,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E894E00C13FAB3F30040B27C /* data dump */,
+				E894E00C13FAB3F30040B27C /* data_dump */,
 			);
 		};
 /* End PBXProject section */
@@ -171,21 +173,21 @@
 		E894E01813FAB3F30040B27C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = data_dump;
 			};
 			name = Debug;
 		};
 		E894E01913FAB3F30040B27C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = data_dump;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E894E00713FAB3F30040B27C /* Build configuration list for PBXProject "data dump" */ = {
+		E894E00713FAB3F30040B27C /* Build configuration list for PBXProject "data_dump" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E894E01513FAB3F30040B27C /* Debug */,
@@ -194,13 +196,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E894E01713FAB3F30040B27C /* Build configuration list for PBXNativeTarget "data dump" */ = {
+		E894E01713FAB3F30040B27C /* Build configuration list for PBXNativeTarget "data_dump" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E894E01813FAB3F30040B27C /* Debug */,
 				E894E01913FAB3F30040B27C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -19,7 +19,7 @@
 
 /* Begin PBXFileReference section */
 		E851C26B1448CF8A0018FB34 /* ImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageLoader.cpp; sourceTree = "<group>"; };
-		E8F0111E1448AB150019CBEA /* Threaded Image Loading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Threaded Image Loading.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded_Image_Loading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F011231448AB160019CBEA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		E8F011241448AB160019CBEA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
 		E8F011251448AB160019CBEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		E8F0111F1448AB150019CBEA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E8F0111E1448AB150019CBEA /* Threaded Image Loading.app */,
+				E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,7 +69,8 @@
 				E8F011221448AB160019CBEA /* platform */,
 				E8F011341448AB160019CBEA /* application */,
 			);
-			path = "Threaded Image Loading";
+			name = "Threaded Image Loading";
+			path = Threaded_Image_Loading;
 			sourceTree = "<group>";
 		};
 		E8F011221448AB160019CBEA /* platform */ = {
@@ -104,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E8F0111D1448AB150019CBEA /* Threaded Image Loading */ = {
+		E8F0111D1448AB150019CBEA /* Threaded_Image_Loading */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded Image Loading" */;
+			buildConfigurationList = E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded_Image_Loading" */;
 			buildPhases = (
 				E8F0111A1448AB150019CBEA /* Sources */,
 				E8F0111B1448AB150019CBEA /* Frameworks */,
@@ -116,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = "Threaded Image Loading";
+			name = Threaded_Image_Loading;
 			productName = "Threaded Image Loading";
-			productReference = E8F0111E1448AB150019CBEA /* Threaded Image Loading.app */;
+			productReference = E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +131,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded Image Loading" */;
+			buildConfigurationList = E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded_Image_Loading" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -142,7 +143,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E8F0111D1448AB150019CBEA /* Threaded Image Loading */,
+				E8F0111D1448AB150019CBEA /* Threaded_Image_Loading */,
 			);
 		};
 /* End PBXProject section */
@@ -193,6 +194,7 @@
 		E8F0113B1448AB160019CBEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = Threaded_Image_Loading;
 			};
 			name = Debug;
 		};
@@ -205,7 +207,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded Image Loading" */ = {
+		E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded_Image_Loading" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8F011381448AB160019CBEA /* Debug */,
@@ -214,7 +216,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded Image Loading" */ = {
+		E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded_Image_Loading" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8F0113B1448AB160019CBEA /* Debug */,

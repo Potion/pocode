@@ -42,6 +42,8 @@ public:
 	void            print() const;
 	pugi::xml_document &getHandle() const;
 	
+	poXMLDocument	copy();
+	
 private:
 	boost::shared_ptr<pugi::xml_document> document;
 };

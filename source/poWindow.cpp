@@ -155,6 +155,9 @@ void poWindow::update() {
 	}
 	received.clear();
 
+	// tell everyone who cares they should update
+	updateSignal();
+	
 	// update the objects
 	getRootObject()->updateTree();
 }
@@ -363,3 +366,8 @@ void poWindow::setWindowHandle(void *handle) {
 int poWindow::getNextDrawOrder() {
 	return drawOrderCounter++;
 }
+
+SigConn poWindow::addUpdate(const boost::function<void()> &func) {
+	updateSignal.connect(func);
+}
+

@@ -289,4 +289,6 @@ pugi::xml_document &poXMLDocument::getHandle() const {
 	return *document.get();
 }
 
-
+poXMLDocument poXMLDocument::copy() {
+	
+}

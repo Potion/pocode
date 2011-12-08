@@ -127,6 +127,10 @@ void poTextBox::reshape(int w, int h) {
 	layout.size = poPoint(w,h);
 }
 
+void poTextBox::reshape(poRect r) {
+	layout.size = r.getSize();
+}
+
 bool poTextBox::isRichText() const {
 	return layout.isRichText;
 }
