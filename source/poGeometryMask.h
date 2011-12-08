@@ -23,7 +23,7 @@
 
 class poGeometryMask : public poObjectModifier {
 public:
-	poGeometryMask(poShape2D *shape, bool clearsStencil=false);
+	poGeometryMask(poShape2D *shape, bool clearsStencil=false, bool inverse=false);
 	virtual			~poGeometryMask();
 	
 	virtual			poObjectModifier *copy();
@@ -39,6 +39,7 @@ protected:
 private:
 	poShape2D*		shape;
 	bool			clearsStencil;
+    bool            inverse;
 };
 
 /*
