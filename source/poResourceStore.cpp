@@ -150,4 +150,14 @@ void poResourceStore::addResource(poResourceLocator locator, poResource *resourc
 	}
 }
 
+bool poResourceStore::resourceIsCached(poResource *rez) {
+	std::map<poResourceLocator, poResource*>::iterator iter = resources.begin();
+    while(iter != resources.end()) {
+        if(iter->second == rez)
+            return true;
+        ++iter;
+    }
+    return false;
+    
+}
 

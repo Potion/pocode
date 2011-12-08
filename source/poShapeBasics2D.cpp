@@ -104,6 +104,8 @@ void    poOvalShape::reshape( float _width, float _height, int nPoints ) {
         float dA = M_2PI / (float) nPoints;
         for( int i=0; i<nPoints; i++ )
             setPoint( i, poPoint(_width/2.0*cos(dA*i), _height/2.0*sin(dA*i), 0) );
+        
+        setAlignment( getAlignment() );
     }
 	// if not, clear the list and make new points
     else {
@@ -137,7 +139,7 @@ void poOvalShape::clone(poOvalShape *shp) {
 	poShape2D::clone(shp);
 }
 
-// ============== poOvalShape ================================
+// ============== poLineShape ================================
 
 poLineShape::poLineShape() {
     construct( poPoint(0,0,0), poPoint(0,100,0) );
@@ -239,6 +241,7 @@ void    poStarShape::reshape( float _outerRadius, int nPoints, float depth ) {
 				setPoint( i+1, poPoint(innerRadius*cos(dA*i + origin), innerRadius*sin(dA*i + origin), 0) );
         }
         setPoint( 2*nPoints+1, poPoint( 0.f, -outerRadius, 0) );
+        setAlignment( getAlignment() );
     }
 	// if not, clear the list and make new points
     else {

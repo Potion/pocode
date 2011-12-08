@@ -81,7 +81,7 @@ void poShape2D::draw() {
 poShape2D& poShape2D::addPoint(poPoint p) {
 
     points.push_back(p);
-    
+    setAlignment( getAlignment() );
 	return *this;
 }
 
@@ -170,8 +170,10 @@ poTexture* poShape2D::getTexture() {
 }
 
 void poShape2D::removeTexture(bool andDelete) {
-    if(andDelete && texture) delete texture;
-    texture = NULL;
+    if(andDelete && texture) {
+        delete texture;
+        texture = NULL;
+    }
 }
 
 poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) {

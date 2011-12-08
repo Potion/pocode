@@ -260,21 +260,23 @@ poXMLNode poXMLDocument::resetRootNode() {
 bool poXMLDocument::read(const std::string &url) {
 	document.reset(new pugi::xml_document);
 	xml_parse_result result = document->load_file(url.c_str(), parse_default, encoding_utf8);
-	if(!result) {
-		log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
-		return false;
-	}
-	return true;
+    if(result.status == status_ok) {
+        return true;
+    }
+    
+    log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
+    return false;
 }
 
 bool poXMLDocument::readStr(const std::string &str) {
+	document.reset(new pugi::xml_document);
 	xml_parse_result result = document->load(str.c_str());
-	if(!result) {
-		log("poXML: parse error", result.description());
-		document.reset();
-		return false;
-	}
-	return true;
+    if(result.status == status_ok) {
+        return true;
+    }
+    
+    log("poXML: parse error (error: %s)", result.description());
+    return false;
 }
 
 bool poXMLDocument::write(const std::string &url) {
