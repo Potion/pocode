@@ -4,7 +4,10 @@
 
 #pragma once
 
+
 #include "poPoint.h"
+
+#include <vector>
 
 // CLASS NOTES
 //

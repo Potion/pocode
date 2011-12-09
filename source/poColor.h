@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <string>
+#include <ostream>
+
 class poHSVColor;
 
 // CLASS NOTES

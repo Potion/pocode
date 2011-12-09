@@ -162,8 +162,8 @@ poOrthoCamera::poOrthoCamera()
 ,	y1(-1)
 ,	x2(1)
 ,	y2(1)
-,	near(-1)
-,	far(1)
+,	nearClip(-1)
+,	farClip(1)
 {}
 
 poOrthoCamera::poOrthoCamera(float w, float h, float n, float f)
@@ -171,8 +171,8 @@ poOrthoCamera::poOrthoCamera(float w, float h, float n, float f)
 ,	y1(0)
 ,	x2(w)
 ,	y2(h)
-,	near(n)
-,	far(f)
+,	nearClip(n)
+,	farClip(f)
 {}
 
 poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, float f)
@@ -180,8 +180,8 @@ poOrthoCamera::poOrthoCamera(float x1, float y1, float x2, float y2, float n, fl
 ,	y1(y1)
 ,	x2(x2)
 ,	y2(y2)
-,	near(n)
-,	far(f)
+,	nearClip(n)
+,	farClip(f)
 {}
 
 poObjectModifier *poOrthoCamera::copy() {
@@ -195,8 +195,8 @@ void poOrthoCamera::clone(poOrthoCamera *cam) {
 	cam->y1 = y1;
 	cam->x2 = x2;
 	cam->y2 = y2;
-	cam->near = near;
-	cam->far = far;
+	cam->nearClip = nearClip;
+	cam->farClip = farClip;
 	poCamera::clone(cam);
 }
 
@@ -209,8 +209,8 @@ void poOrthoCamera::set(float x1, float y1, float x2, float y2, float n, float f
 	this->x2 = x2;
 	this->y1 = y1;
 	this->y2 = y2;
-	near = n;
-	far = f;
+	nearClip = n;
+	farClip = f;
 }
 
 poRect poOrthoCamera::get() const {
@@ -218,20 +218,20 @@ poRect poOrthoCamera::get() const {
 }
 
 void poOrthoCamera::setProjection() {
-	poOpenGLState::get()->matrix.pushProjection(glm::ortho(x1,x2,y2,y1,near,far));
+	poOpenGLState::get()->matrix.pushProjection(glm::ortho(x1,x2,y2,y1,nearClip,farClip));
     poCamera::currentCameraType = PO_CAMERA_2D;
 }
 
 
 
-poPerspectiveCamera::poPerspectiveCamera(float fov, float near, float far)
+poPerspectiveCamera::poPerspectiveCamera(float fov, float nearClip, float farClip)
 :	fov(fov)
-,	near(near)
-,	far(far)
+,	nearClip(nearClip)
+,	farClip(farClip)
 {}
 
 poObjectModifier *poPerspectiveCamera::copy() {
-	poPerspectiveCamera *cam = new poPerspectiveCamera(fov, near, far);
+	poPerspectiveCamera *cam = new poPerspectiveCamera(fov, nearClip, farClip);
 	clone(cam);
 	return cam;
 }
@@ -260,8 +260,8 @@ void    poPerspectiveCamera::setupFor2DOnZPlane()
     cameraPos.set( 0,0,-new_z );
     lookAtPos.set( 0,0,0 );
       
-    near = 0.10;
-    far = new_z*10.0;
+    nearClip = 0.10;
+    farClip = new_z*10.0;
 }
  
 
@@ -280,7 +280,7 @@ void poPerspectiveCamera::doSetUp(poObject *obj) {
 void poPerspectiveCamera::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
     float aspect = getWindowAspect();
-	stack->pushProjection(glm::perspective(fov, aspect, near, far));
+	stack->pushProjection(glm::perspective(fov, aspect, nearClip, farClip));
     poCamera::currentCameraType = PO_CAMERA_3D;
 }
 

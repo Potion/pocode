@@ -7,8 +7,12 @@
 //
 
 #pragma once
+
+#include "common.h"
 #include "poColor.h"
 #include "poMatrixStack.h"
+
+#include <boost/thread.hpp>
 
 class poTexture;
 

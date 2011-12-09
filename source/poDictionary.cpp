@@ -12,7 +12,7 @@ namespace {
 		item_printer(ostream &os) : out(os) {}
 		
 		void operator()(const int& i) const			{out << i;}
-		void operator()(const double& d) const		{out << setprecision(1) << std::fixed << d;}
+		void operator()(const float& d) const		{out << setprecision(1) << std::fixed << d;}
 		void operator()(const string& s) const		{out << "'" << s << "'";}
 		void operator()(const poPoint& p) const		{out << p;}
 		void operator()(const poColor& c) const		{out << c;}
@@ -24,7 +24,7 @@ namespace {
 		ostringstream ss;
 		
 		string operator()(int& i)			{ss << i; return ss.str();}
-		string operator()(double& d)		{ss << setprecision(1) << std::fixed << d; return ss.str();}
+		string operator()(float& d)		{ss << setprecision(1) << std::fixed << d; return ss.str();}
 		string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
 		string operator()(poPoint& p)		{ss << p; return ss.str();}
 		string operator()(poColor& c)		{ss << c; return ss.str();}
@@ -46,8 +46,8 @@ bool poDictionaryItem::getBool() const {
 int poDictionaryItem::getInt() const {
 	return boost::get<int>(item);
 }
-double poDictionaryItem::getDouble() const {
-	return boost::get<double>(item);
+float poDictionaryItem::getFloat() const {
+	return boost::get<float>(item);
 }
 string poDictionaryItem::getString() const {
 	return boost::get<string>(item);
@@ -96,8 +96,8 @@ bool poDictionary::getBool(const string &s) const {
 int poDictionary::getInt(const string &s) const {
 	return shared->items.at(s).getInt();
 }
-double poDictionary::getDouble(const string &s) const {
-	return shared->items.at(s).getDouble();
+float poDictionary::getFloat(const string &s) const {
+	return shared->items.at(s).getFloat();
 }
 string poDictionary::getString(const string &s) const {
 	return shared->items.at(s).getString();
@@ -180,7 +180,7 @@ void poDictionary::read(poXMLNode node) {
 		case PO_INT_T:
 			set(name, node.getInnerInt());
 			break;
-		case PO_DOUBLE_T:
+		case PO_FLOAT_T:
 			set(name, node.getInnerFloat());
 			break;
 		case PO_STRING_T:

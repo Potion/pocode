@@ -1,9 +1,17 @@
 #pragma once
 
-#include "poObject.h"
+#include "common.h"
+#include "poRect.h"
+#include "poPoint.h"
+#include "poEvent.h"
+
+#include <set>
+#include <deque>
 
 #include <boost/signals2.hpp>
 typedef boost::signals2::connection SigConn;
+
+class poObject;
 
 // CLASS NOTES
 //
@@ -42,10 +50,10 @@ public:
     
     // WINDOW PROPERTIES
 	std::string     getTitle() const;
-	int             getX() const;
-	int             getY() const;
-	int             getWidth() const;
-	int             getHeight() const;
+	float			getX() const;
+	float           getY() const;
+	float           getWidth() const;
+	float			getHeight() const;
 	poPoint         getDimensions() const;
 	poRect          getFrame() const;
 	poRect          getBounds() const;
@@ -117,7 +125,7 @@ private:
 	std::string     title;
 	
     // FRAME COUNTING and FRAME RATE
-	double          lastMark, lastFrame;
+	float          lastMark, lastFrame;
 	int             framecounter, totalFramecount;
 	float           framerate, lastElapsed;
 	

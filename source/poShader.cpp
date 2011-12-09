@@ -6,14 +6,13 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include <iostream>
-#include <fstream>
 #include "poHelpers.h"
 #include "poShader.h"
 
+#include <fstream>
+#include <iostream>
+#include <boost/bind.hpp>
 #include <boost/regex.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
 #include <boost/algorithm/string/trim.hpp>
 
 namespace po {
@@ -85,13 +84,13 @@ namespace po {
 	std::vector<std::string> allKeys(const std::map<std::string,GLint> &theMap) {
 		// http://stackoverflow.com/questions/110157/how-to-retrieve-all-keys-or-values-from-a-stdmap/110228#110228
 		using namespace std;
-		using namespace boost::lambda;
+		using namespace boost;
 		
 		std::vector<std::string> keys;
 		transform(theMap.begin(), 
 				  theMap.end(), 
 				  back_inserter(keys), 
-				  bind(&map<string,int>::value_type::first, boost::lambda::_1) 
+				  boost::bind(&map<string,int>::value_type::first, _1) 
 				  );
 		return keys;
 	}

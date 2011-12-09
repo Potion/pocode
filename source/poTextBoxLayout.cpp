@@ -8,8 +8,10 @@
 
 #include "poTextBoxLayout.h"
 
-#include <utf8.h>
 #include "poMath.h"
+
+#include <utf8.h>
+#include <boost/foreach.hpp>
 
 po::TextBoxLayout::TextBoxLayout(poPoint s)
 :	size(s)
@@ -18,8 +20,7 @@ po::TextBoxLayout::TextBoxLayout(poPoint s)
 ,	alignment(PO_ALIGN_LEFT)
 ,	tabWidth(4)
 ,	padding()
-{
-}
+{}
 
 void po::TextBoxLayout::doLayout() {
 	using namespace po;
@@ -189,7 +190,7 @@ void po::TextBoxLayout::doLayout() {
 void po::TextBoxLayout::addWordToLine(lineLayoutProps &props) {
 	if(!props.word.glyphs.empty()) {
 		props.line.wordCount++;
-		for(int i=0; i<props.word.glyphs.size(); i++) {
+		for(uint i=0; i<props.word.glyphs.size(); i++) {
 			TextLayoutGlyph &glyph = props.word.glyphs[i];
             glyph.bbox.setPosition(glyph.bbox.getPosition() + props.line.bbox.getSize());
 			props.line.glyphs.push_back(glyph);
@@ -205,7 +206,7 @@ void po::TextBoxLayout::breakLine(lineLayoutProps &props) {
 		// save the start pos
 		float start_y = props.line.bbox.y;
 		
-		for(int i=0; i<props.line.glyphs.size(); i++) {
+		for(uint i=0; i<props.line.glyphs.size(); i++) {
 			TextLayoutGlyph &glyph = props.line.glyphs[i];
 			// move the glyph down to the baseline + the start position
 			glyph.bbox.y += props.maxDrop + start_y;
@@ -230,7 +231,7 @@ void po::TextBoxLayout::realignText() {
 	
     poRect bounds = getTextBounds();
     
-	for(int i=0; i<lines.size(); i++) {
+	for(uint i=0; i<lines.size(); i++) {
 		TextLayoutLine line = lines[i];
 		
 		poPoint glyphOffset(0.f, 0.f);

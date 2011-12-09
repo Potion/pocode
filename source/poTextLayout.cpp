@@ -11,6 +11,7 @@
 #include <pugixml.hpp>
 
 #include <utf8.h>
+#include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
 #include "poMath.h"
@@ -21,7 +22,7 @@
 #pragma mark - Layout Helper -
 
 struct image_data {
-	poImage image;
+	poImage *image;
 	poAlignment align;
 };
 
@@ -36,16 +37,18 @@ struct parse_data {
 
 image_data parseImageNode(const pugi::xml_node &node) {
 	image_data img;
-	img.image = poImage();
+	img.image = NULL;
 	img.align = PO_ALIGN_TOP_LEFT;
 	
 //	img.image = getImage(node.attribute("src").value());
-	if(img.image.isValid()) {
+	if(img.image != NULL && img.image->isValid()) {
 		
 	}
 	else {
 		
 	}
+
+	return img;
 }
 
 void parseText(const pugi::xml_node &node, parse_data *data) {
@@ -151,7 +154,7 @@ poRect po::TextLayout::getBoundsForGlyphOnLine(uint glyphIdx, uint line) const {
 }
 
 void po::TextLayout::shiftLine(uint line, poPoint p) {
-	for(int i=0; i<lines[line].glyphs.size(); i++) {
+	for(uint i=0; i<lines[line].glyphs.size(); i++) {
 		poRect &r = lines[line].glyphs[i].bbox;
 		r.x += p.x;
 		r.y += p.y;
@@ -162,7 +165,7 @@ void po::TextLayout::rotateLine(uint line, poPoint origin, float rot) {
 	float rad = deg2rad(rot);
 	float cs = cosf(rad);
 	float ss = sinf(rad);
-	for(int i=0; i<lines[line].glyphs.size(); i++) {
+	for(uint i=0; i<lines[line].glyphs.size(); i++) {
 		poRect &r = lines[line].glyphs[i].bbox;
 		r.x = (r.x - origin.x) * cs + origin.x;
 		r.y = (r.y - origin.y) * ss + origin.y;
@@ -202,7 +205,7 @@ void po::TextLayout::recalculateTextBounds() {
         // could just be the box size
         if(!lines.empty()) {
             textBounds = lines[0].bbox;
-            for(int i=1; i<getNumLines(); i++)
+            for(uint i=1; i<getNumLines(); i++)
             {
                 textBounds.include(lines[i].bbox);
             }
@@ -212,7 +215,7 @@ void po::TextLayout::recalculateTextBounds() {
     {
         if(!lines.empty()) {
             textBounds = lines[0].bbox;
-            for(int i=1; i<getNumLines(); i++)
+            for(uint i=1; i<getNumLines(); i++)
             {
                 textBounds.include(lines[i].bbox);
             }
@@ -223,7 +226,7 @@ void po::TextLayout::recalculateTextBounds() {
         if( !lines.empty() && lines[0].glyphs.size() > 0 ) 
         {
             textBounds = lines[0].glyphs[0].bbox;
-            for(int i=0; i<getNumLines(); i++)
+            for(uint i=0; i<getNumLines(); i++)
             {
                 BOOST_FOREACH(TextLayoutGlyph &glyph, lines[i].glyphs) 
                 {

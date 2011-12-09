@@ -10,7 +10,13 @@
 #include "poShape2D.h"
 #include "poHelpers.h"
 
+#include <boost/format.hpp>
+
 #ifdef _WIN32
+
+	bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+		return false;
+	}
 
 #elif defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>

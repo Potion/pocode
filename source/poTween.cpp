@@ -6,6 +6,9 @@
 #include "poObject.h"
 #include "poHelpers.h"
 
+#undef min
+#undef max
+
 poTweenBase::poTweenBase()
 :	state(NOT_RUNNING)
 ,	repeatType(PO_TWEEN_REPEAT_NONE)
@@ -27,8 +30,8 @@ void poTweenBase::update() {
 		return;
 	
 	if(tweenFunc) {
-		double now = poGetElapsedTime();
-		double dt = now - lastTime;
+		float now = poGetElapsedTime();
+		float dt = now - lastTime;
 		lastTime = now;
 		
 		time += dt;
@@ -89,18 +92,18 @@ poTweenBase& poTweenBase::setTweenFunction(poTweenFunction func) {
 	return *this;
 }
 
-poTweenBase& poTweenBase::setDuration(double dur) {
+poTweenBase& poTweenBase::setDuration(float dur) {
 	duration = dur;
 	return *this;
 }
 
-poTweenBase& poTweenBase::setDelay(double del, bool d) {
+poTweenBase& poTweenBase::setDelay(float del, bool d) {
 	delay = del;
 	delay_on_repeat = d;
 	return *this;
 }
 
-poTweenBase& poTweenBase::setExtraValues(double e1, double e2) {
+poTweenBase& poTweenBase::setExtraValues(float e1, float e2) {
 	extra1 = e1;
 	extra2 = e2;
 	return *this;
@@ -143,7 +146,7 @@ int poTweenBase::getRepeatCount() const {
 }
 
 float poTweenBase::getProgress() const {
-	return (float)std::min(1.0, std::max(0.0, (time - beginTime - delay) / duration));
+	return (float)std::min(1.f, std::max(0.f, (time - beginTime - delay) / duration));
 }
 
 void poTweenBase::reset() {

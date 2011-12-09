@@ -5,6 +5,8 @@
 #include "poRect.h"
 #include "poMath.h"
 
+#include <sstream>
+
 using namespace std;
 
 poRect::poRect() 

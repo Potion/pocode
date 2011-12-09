@@ -91,7 +91,7 @@ unsigned int getNumCpus() {
 
 	#endif
 
-	double poGetElapsedTime() {
+	float poGetElapsedTime() {
 		static uint64_t start = 0.0;
 		static mach_timebase_info_data_t info;
 		if(info.denom == 0) {
@@ -269,6 +269,7 @@ void log(const char *format, ...) {
 }
 
 size_t utf8strlen(const std::string &str) {
+	using utf8::unchecked::next;
 	return utf8::unchecked::distance(str.begin(), str.end());
 }
 

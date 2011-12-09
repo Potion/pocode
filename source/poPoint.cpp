@@ -5,6 +5,8 @@
 #include "poMath.h"
 #include "poPoint.h"
 
+#include <sstream>
+
 poPoint::poPoint()
 :	x(0.f), y(0.f), z(0.f)
 {}

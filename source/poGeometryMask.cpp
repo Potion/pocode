@@ -41,6 +41,7 @@ void poGeometryMask::setShape(poShape2D *s) {
 bool poGeometryMask::pointInside(poPoint p) {
 	if(shape)
 		return shape->pointInside(p);
+	return false;
 }
 
 void poGeometryMask::doSetUp(poObject *obj) {

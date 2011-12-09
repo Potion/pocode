@@ -7,6 +7,7 @@
 //
 
 #include "poImage.h"
+#include "poHelpers.h"
 #include <FreeImage.h>
 
 static void loadFreeImageIfNeeded() {

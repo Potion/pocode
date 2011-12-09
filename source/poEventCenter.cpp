@@ -5,12 +5,13 @@
 //  Created by Jared Schiffman on 10/16/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
-
 #include "poEventCenter.h"
 #include "poObject.h"
 #include "poApplication.h"
 
-
+#include <vector>
+#include <iostream>
+#include <boost/foreach.hpp>
 
 void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	tolocal.timestamp			= global_event.timestamp;

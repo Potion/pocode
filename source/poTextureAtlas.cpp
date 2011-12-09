@@ -6,6 +6,8 @@
 #include "poBasicRenderer.h"
 #include "poOpenGLState.h"
 
+#include <boost/foreach.hpp>
+
 poTextureAtlas::poTextureAtlas(GLenum f, uint w, uint h)
 :	width(w)
 ,	height(h)
@@ -114,7 +116,7 @@ void poTextureAtlas::layoutAtlas() {
 
 	packer.reset();
 	
-	for(int i=0; i<images.size(); i++) {
+	for(uint i=0; i<images.size(); i++) {
 		uids[requestedIDs[i]] = packer.addRect(poRect(0,0,images[i]->getWidth(),images[i]->getHeight()));
 	}
 	packer.pack();
@@ -124,7 +126,7 @@ void poTextureAtlas::layoutAtlas() {
 	
 	coords.resize(images.size());
 	
-	for(int i=0; i<images.size(); i++) {
+	for(uint i=0; i<images.size(); i++) {
 		uint pg;
 		poRect pack_loc = packer.packPosition(i, &pg);
 		
@@ -150,7 +152,7 @@ void poTextureAtlas::layoutAtlas() {
 	
 	textures.resize(pages.size());
 	
-	for(int i=0; i<pages.size(); i++) {
+	for(uint i=0; i<pages.size(); i++) {
 		poImage* img = pages[i];
 		textures[i] = new poTexture(img,config);
 	}

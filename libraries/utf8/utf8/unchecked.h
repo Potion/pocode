@@ -122,7 +122,7 @@ namespace utf8
         {
             typename std::iterator_traits<octet_iterator>::difference_type dist;
             for (dist = 0; first < last; ++dist) 
-                next(first);
+                utf8::unchecked::next(first);
             return dist;
         }
 

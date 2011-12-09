@@ -12,6 +12,7 @@
 
 #include <cfloat>
 #include <utf8.h>
+#include <boost/foreach.hpp>
 #include <boost/assign/list_of.hpp>
 
 std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, 
@@ -26,7 +27,7 @@ std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points,
 	std::vector<poExtrudedLineSeg> segments;
 	poPoint p1, p2, p3, p4, tmp;
 	
-	for(int i=0; i<points.size()-1; i++) {
+	for(uint i=0; i<points.size()-1; i++) {
 		p1 = points[i];
 		p2 = points[i+1];
 		segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
@@ -43,7 +44,7 @@ std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points,
 	}
 	
 	// generate middle points
-	for(int i=0; i<segments.size()-1; i++) {
+	for(uint i=0; i<segments.size()-1; i++) {
 		makeStrokeForJoint(stroke, segments[i], segments[i+1], join, strokeWidth);
 	}
 	
@@ -61,7 +62,7 @@ std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points,
 std::vector<poPoint> po::generateOval(float xRad, float yRad, uint resolution) {
 	std::vector<poPoint> response;
 
-	for(int i=0; i<resolution; i++) {
+	for(uint i=0; i<resolution; i++) {
 		float phase = i / float(resolution);
 		response.push_back(poPoint(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
 	}
