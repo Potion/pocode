@@ -106,6 +106,17 @@ AdvancedEventsApp::~AdvancedEventsApp() {
 // UPDATE
 // Animate objects here. This is called after every frame is drawn.
 void AdvancedEventsApp::update() {
+	
+	for(int i=0; i < B.size(); i++) {								// Check if one of the B rectangles is yellow
+		
+		if( B[i]->fillColor == poColor::yellow ) {					// If the rectangle is yellow,
+																	// it means that the rect has been clicked on
+			B[i]->alpha -= 0.01;									// Reduce the alpha value of the rectangle
+			if( B[i]->alpha <= 0 ) {								// If the alpha value is 0,
+				B[i]->visible = false;								// make the rectangle invisible
+			}
+		}
+	}
 }
 
 
@@ -113,43 +124,33 @@ void AdvancedEventsApp::update() {
 // Respond to user events here.
 void AdvancedEventsApp::eventHandler(poEvent *event) {
 	
-	if( event->message == "event A" ) {
+	if( event->message == "event A" ) {						// Check if you receive a mouse press event
+															// from one of the rectangles in A
+		poRectShape* rect;									// Create a pointer to a poRectShape
+		rect = (poRectShape*) event->source;				// Cast the event source to a poRectShape
 		
-		if( event->source == Abottom ) {		
-			Abottom->fillColor = poColor::yellow;
-		}
-		else if( event->source == Atop ) {		
-			Atop->fillColor = poColor::yellow;
-		}
+		rect->fillColor = poColor::yellow;					// Make the rectangle yellow
 	}
-	else if( event->message == "event B" ) {
+	else if( event->message == "event B" ) {				// Check if you receive a mouse press event
+															// from one of the rectangles in B
 		
-		if(event->source->alphaTween.isRunning())
-			return;
+		poRectShape* rect;									// Create a pointer to a poRectShape
+		rect = (poRectShape*) event->source;				// Cast the event source to a poRectShape
 		
-		poRectShape* rect = (poRectShape*) event->source;
-		
-		rect->fillColor = poColor::yellow;
-		rect->alphaTween.set(0);
-		rect->alphaTween.setTweenFunction(PO_TWEEN_LINEAR_FUNC);
-		rect->alphaTween.setDuration(2.0);
-		poDictionary D;
-		D.set("rect", rect);
-		rect->alphaTween.setNotification(this, "alpha tween done", D);
-		rect->alphaTween.start();
+		rect->fillColor = poColor::yellow;					// Make the rectangle yellow
 	}
-	else if( event->type == PO_MOUSE_ENTER_EVENT ) {
-		
-		C->setImage(img_over);
+	else if( event->type == PO_MOUSE_ENTER_EVENT ) {		// Check if you receive a mouse enter event
+															// from the transparent png.
+		C->setImage(img_over);								// Load the image for mouse over state (yellow)
 	}
-	else if( event->type == PO_MOUSE_LEAVE_EVENT ) {
-		
-		C->setImage(img);
+	else if( event->type == PO_MOUSE_LEAVE_EVENT ) {		// Check if you receive a mouse leave event
+															// from the transparent png.
+		C->setImage(img);									// Load the image for default state (blue)
 	}
-	else if( event->type == PO_KEY_DOWN_EVENT ) {
+	else if( event->type == PO_KEY_DOWN_EVENT ) {			// Verify if you get an event of type key down
 		
-		if( event->keyChar == 'r' ) {
-			
+		if( event->keyChar == 'r' ) {						// Verify which key was pressed
+															// If the key is 'r' reset the color of each rectangle
 			Abottom->fillColor = poColor::blue;
 			Atop->fillColor = poColor::blue;
 			
@@ -168,10 +169,4 @@ void AdvancedEventsApp::eventHandler(poEvent *event) {
 // MESSAGE HANDLER
 // Receive inter-object messages here.
 void AdvancedEventsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-	
-	if(msg == "alpha tween done") {
-		
-		poRectShape* rect = (poRectShape*) dict.getPtr("rect");
-		rect->visible = false;
-	}
 }
