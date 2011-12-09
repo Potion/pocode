@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="potionLib">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\poApplication.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poAttributedString.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poBasicRenderer.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poBinPacker.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poBitmapFont.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poCamera.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poColor.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poDictionary.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poEasingFunctions.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poEnums.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poEvent.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poEventCenter.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poFBO.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poFileLoader.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poFont.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poGeometryMask.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poGLBuffer.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poHelpers.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poImage.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poImageShape.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poLineExtruder.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poMath.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poMatrixSet.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poMatrixStack.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poObject.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poObjectModifier.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poOpenGLState.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poPoint.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poRect.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poResourceStore.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poShader.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poShape2D.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poShape3D.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poShapeBasics2D.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poShapeBasics3D.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poSimpleDrawing.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poSqlite3.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTextBox.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTextBoxLayout.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTextLayout.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTexture.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTextureAtlas.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poTween.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poWindow.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poXML.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common.h">
+      <Filter>potionLib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\poApplication.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poAttributedString.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poBasicRenderer.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poBinPacker.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poBitmapFont.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poCamera.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poColor.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poDictionary.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poEvent.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poEventCenter.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poFBO.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poFileLoader.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poFont.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poGeometryMask.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poGLBuffer.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poHelpers.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poImage.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poImageShape.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poLineExtruder.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poMath.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poMatrixSet.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poMatrixStack.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poObject.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poOpenGLState.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poPoint.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poRect.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poResourceStore.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poShader.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poShape2D.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poShape3D.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poShapeBasics2D.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poShapeBasics3D.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poSimpleDrawing.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poSqlite3.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTextBox.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTextBoxLayout.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTextLayout.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTexture.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTextureAtlas.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poTween.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poWindow.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poXML.cpp">
+      <Filter>potionLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
