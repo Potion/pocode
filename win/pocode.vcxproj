@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -57,8 +57,9 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>C:\PotionCode\libraries\sqlite3\win;C:\PotionCode\libraries\pugixml\win;C:\PotionCode\libraries\libMikko\win;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\win;C:\PotionCode\libraries\FreeType\win;C:\PotionCode\libraries\FreeImage\win;C:\PotionCode\libraries\bz2\win;C:\PotionCode\libraries\Boost\boost_1_45_0\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:libcmt</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -81,6 +82,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugiconfig.hpp" />
+    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.hpp" />
     <ClInclude Include="..\source\common.h" />
     <ClInclude Include="..\source\poApplication.h" />
     <ClInclude Include="..\source\poAttributedString.h" />
@@ -129,6 +132,7 @@
     <ClInclude Include="..\source\poXML.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.cpp" />
     <ClCompile Include="..\source\poApplication.cpp" />
     <ClCompile Include="..\source\poAttributedString.cpp" />
     <ClCompile Include="..\source\poBasicRenderer.cpp" />

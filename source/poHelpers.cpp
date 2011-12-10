@@ -107,39 +107,65 @@ unsigned int getNumCpus() {
         return poGetElapsedTime() * 1000.0f;
     }
 
-    poTime poGetCurrentTime() {
-        date today(day_clock::local_day());
-        
-        ptime now = second_clock::local_time();
-        
-        poTime t;
-        t.hours      = now.time_of_day().hours();
-        t.minutes    = now.time_of_day().minutes();
-        t.seconds    = now.time_of_day().seconds();
-        
-        //Am/PM
-        t.amPmHours   = t.hours;
-        
-        t.amPm = t.amPmHours < 12 ? "AM" : "PM";
-        
-        if(t.amPmHours > 12) t.amPmHours -= 12;
-        if(t.amPmHours == 0) t.amPmHours = 12;
-        
-        return t;
-    }
-
 	void setCurrentPath(const fs::path &path) {
 		NSString *nsstr = [NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding];
 		[[NSFileManager defaultManager] changeCurrentDirectoryPath:nsstr];
 	}
 
-#else
+#elif defined(POTION_WIN32)
+
+	poPoint deviceResolution() {
+		return poPoint(72, 72);
+	}
+
+	float poGetElapsedTime() {
+		static __int64 freq=0L, start;
+
+		if(freq == 0) {
+			// start
+			QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+			QueryPerformanceCounter((LARGE_INTEGER*)&start);
+		}
+
+		// end
+		__int64 end;
+		QueryPerformanceCounter((LARGE_INTEGER*)&end);
+		double diff = (end - start) / (double)freq;
+		return diff;
+	}
+
+    int poGetElapsedTimeMillis() {
+        return poGetElapsedTime() * 1000.0f;
+    }
 
 	void setCurrentPath(const fs::path &path) {
-		printf("setCurrentPath unimplemented\n");
+		fs::path pth(path);
+		SetCurrentDirectory(pth.remove_filename().string().c_str());
 	}
 
 #endif
+
+poTime poGetCurrentTime() {
+	date today(day_clock::local_day());
+        
+	ptime now = second_clock::local_time();
+        
+	poTime t;
+	t.hours      = now.time_of_day().hours();
+	t.minutes    = now.time_of_day().minutes();
+	t.seconds    = now.time_of_day().seconds();
+        
+	//Am/PM
+	t.amPmHours   = t.hours;
+        
+	t.amPm = t.amPmHours < 12 ? "AM" : "PM";
+        
+	if(t.amPmHours > 12) t.amPmHours -= 12;
+	if(t.amPmHours == 0) t.amPmHours = 12;
+        
+	return t;
+}
+
 
 std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;

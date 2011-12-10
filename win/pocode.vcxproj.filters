@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="pugixml">
+      <UniqueIdentifier>{dcb096ac-a371-4156-811a-56bd049b0999}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\poApplication.h">
@@ -145,6 +148,12 @@
     <ClInclude Include="..\source\common.h">
       <Filter>potionLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugiconfig.hpp">
+      <Filter>pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.hpp">
+      <Filter>pugixml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
@@ -272,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="..\source\poXML.cpp">
       <Filter>potionLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.cpp">
+      <Filter>pugixml</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
