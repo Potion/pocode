@@ -8,6 +8,7 @@
 
 #pragma once
 
+
 #include "poObject.h"
 #include "poTextBoxLayout.h"
 
@@ -129,8 +130,8 @@ public:
     void                reshape(int w, int h);
 	void                reshape(poPoint p);
 	void				reshape(poRect r);
-    void                useTextBoundsAsBounds( char B ) { useTextBounds = B; layout.setUseTextBounds(B); };
-    void                useAutoAdjustHeight( bool B ) { autoAdjustHeight = B; };
+    void                useTextBoundsAsBounds( bool B );
+    void                useAutoAdjustHeight( bool B );
 	poRect              getTextBounds() const;
     virtual poRect      getBounds();
     

@@ -8,6 +8,7 @@
 
 #pragma once
 
+
 #include <map>
 #include <typeinfo>
 #include "poHelpers.h"
@@ -51,10 +52,10 @@ public:
 	virtual ~poResource()		{}
 
 	void resourceMarkUsed()		{timestamp = poGetElapsedTime();}
-	double resourceLastUsed()	{return timestamp;}
+	float resourceLastUsed()	{return timestamp;}
 	
 private:
-	double timestamp;
+	float timestamp;
 };
 
 // helper function to retrieve the type_info of a given poResource subclass

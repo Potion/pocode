@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 // CLASS NOTES
 //
 // poPoint is a three dimensional vector, composed of three floats X,Y and Z.
@@ -15,6 +16,9 @@
 // poPoint overloads all common mathematical operators, so one may write A = B + C,
 // where A,B and C are all poPoints.
 //
+
+#include <string>
+#include <ostream>
 
 class poPoint {
 public:

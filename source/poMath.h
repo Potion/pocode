@@ -14,6 +14,7 @@
 #include "poColor.h"
 #include "poMatrixSet.h"
 
+#undef M_PI
 #define M_PI 3.14159265f
 #define M_2PI (M_PI*2.f)
 #define M_HALF_PI (M_PI/2.f)

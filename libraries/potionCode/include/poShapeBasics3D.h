@@ -6,8 +6,8 @@
 //  Copyright 2011 Potion. All rights reserved.
 //
 
-#ifndef PO_SHAPE_3D_BASICS_H
-#define PO_SHAPE_3D_BASICS_H
+#pragma once
+
 
 #include "poShape3D.h"
 
@@ -44,6 +44,3 @@ public:
 
     float cubeWidth, cubeHeight, cubeDepth;
 };
-
-
-#endif

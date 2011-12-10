@@ -4,10 +4,14 @@
 
 #pragma once
 
+#include "common.h"
 #include "poEnums.h"
 #include "poPoint.h"
 #include "poDictionary.h"
 #include "poEasingFunctions.h"
+
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
 
 class poObject;
 
@@ -49,8 +53,8 @@ public:
 	typedef boost::function<void()> poTweenFinishedCallback;
 	
 	typedef bool (*poTweenFunction)(float *val, float beginVal, float endVal,
-									double time, double beginTime, double endTime, double duration,
-									double extra1, double extra2);
+									float time, float beginTime, float endTime, float duration,
+									float extra1, float extra2);
 	
 	poTweenBase();
 	virtual             ~poTweenBase();
@@ -65,11 +69,11 @@ public:
 	// reregister in the notification callback if you want to get one for the next repeat
 	poTweenBase&        setNotification(poObject *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
 	poTweenBase&        setTweenFunction(poTweenFunction func);
-	poTweenBase&        setDuration(double duration);
+	poTweenBase&        setDuration(float duration);
     
 	// default will not take delay into account when repeating
-	poTweenBase&        setDelay(double delay, bool delayOnRepeat=false);
-	poTweenBase&        setExtraValues(double e1, double e2);
+	poTweenBase&        setDelay(float delay, bool delayOnRepeat=false);
+	poTweenBase&        setExtraValues(float e1, float e2);
 	
 	poTweenBase&        start();
 	poTweenBase&        stop(bool jumpToEnd=false);
@@ -92,8 +96,8 @@ protected:
 	virtual void        slewBeginValue() = 0;
     
 	// returns true when the tween is complete
-	virtual bool        updateTweenWithTime(double time, double begin, double end, 
-											double duration, double e1, double e2) = 0;
+	virtual bool        updateTweenWithTime(float time, float begin, float end, 
+											float duration, float e1, float e2) = 0;
 	
 	poTweenFunction tweenFunc;
 	
@@ -109,9 +113,9 @@ private:
 	int                 repeatCount, repeatCounter;
 	poTweenRepeat       repeatType;
 	
-	double              time, lastTime;
-	double              beginTime, endTime, duration, delay;
-	double              extra1, extra2;
+	float              time, lastTime;
+	float              beginTime, endTime, duration, delay;
+	float              extra1, extra2;
 	
 	bool                delay_on_repeat;
 	
@@ -120,16 +124,16 @@ private:
 
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
 						 float *value, float begin_value, float end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
 {
 	return func(value, begin_value, end_value, time, begin, end, duration, e1, e2);
 }
 
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
 						 poPoint *value, poPoint begin_value, poPoint end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
 {
     bool A = func(&value->x, begin_value.x, end_value.x, time, begin, end, duration, e1, e2);
     bool B = func(&value->y, begin_value.y, end_value.y, time, begin, end, duration, e1, e2);
@@ -139,8 +143,8 @@ static bool tweenUpdater(poTweenBase::poTweenFunction func,
 
 static bool tweenUpdater(poTweenBase::poTweenFunction func, 
 						 poColor *value, poColor begin_value, poColor end_value,
-						 double time, double begin, double end,
-						 double duration, double e1, double e2) 
+						 float time, float begin, float end,
+						 float duration, float e1, float e2) 
 {
 	poHSVColor hsv1, hsv2(begin_value), hsv3(end_value);
 	bool d1 = func(&hsv1.H, hsv2.H, hsv3.H, time, begin, end, duration, e1, e2);
@@ -187,8 +191,8 @@ protected:
 	void            swapBeginAndEnd()	{ std::swap(begin, end); }
 	void            slewBeginValue()	{ begin = *value; }
     
-	virtual bool    updateTweenWithTime(double t, double b, double e, 
-										double d, double e1, double e2)
+	virtual bool    updateTweenWithTime(float t, float b, float e, 
+										float d, float e1, float e2)
 	{
 		return tweenUpdater(tweenFunc, value, begin, end, t, b, e, d, e1, e2);
 	}

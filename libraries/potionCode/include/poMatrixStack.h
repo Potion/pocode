@@ -8,6 +8,7 @@
 
 #pragma once
 
+
 #define GLM_PRECISION_MEDIUMP_INT 
 #define GLM_PRECISION_MEDIUMP_FLOAT
 
@@ -19,7 +20,7 @@
 
 #include "poRect.h"
 
-class poMatrixStack : boost::noncopyable {
+class poMatrixStack {
 public:
 	poMatrixStack();
 

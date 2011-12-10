@@ -122,6 +122,8 @@
 		E86F939613F987FC00D924F0 /* poMatrixStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939113F987FC00D924F0 /* poMatrixStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E86F939713F987FC00D924F0 /* poGLBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E86F939213F987FC00D924F0 /* poGLBuffer.cpp */; };
 		E86F939913F987FC00D924F0 /* poGLBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = E86F939313F987FC00D924F0 /* poGLBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E87862CA1492E303005CA612 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = E87862C91492E303005CA612 /* common.h */; };
+		E87862CB1492E303005CA612 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = E87862C91492E303005CA612 /* common.h */; };
 		E88E746613C753DC0051F026 /* poAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E88E746313C753DB0051F026 /* poAttributedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8CAA4C11444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */; };
 		E8CAA4C21444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */; };
@@ -216,6 +218,7 @@
 		E86F939113F987FC00D924F0 /* poMatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixStack.h; path = ../source/poMatrixStack.h; sourceTree = "<group>"; };
 		E86F939213F987FC00D924F0 /* poGLBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poGLBuffer.cpp; path = ../source/poGLBuffer.cpp; sourceTree = "<group>"; };
 		E86F939313F987FC00D924F0 /* poGLBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poGLBuffer.h; path = ../source/poGLBuffer.h; sourceTree = "<group>"; };
+		E87862C91492E303005CA612 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../source/common.h; sourceTree = "<group>"; };
 		E87E18761367696800DB6934 /* poTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTexture.cpp; path = ../source/poTexture.cpp; sourceTree = "<group>"; };
 		E87E18771367696800DB6934 /* poTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTexture.h; path = ../source/poTexture.h; sourceTree = "<group>"; };
 		E87E18811368615A00DB6934 /* poImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poImage.cpp; path = ../source/poImage.cpp; sourceTree = "<group>"; };
@@ -336,6 +339,7 @@
 		7F9E4BBF140AE8B300548BDB /* common */ = {
 			isa = PBXGroup;
 			children = (
+				E87862C91492E303005CA612 /* common.h */,
 				E830965913315F2D00080C86 /* poEnums.h */,
 			);
 			name = common;
@@ -580,6 +584,7 @@
 				E8FAE3A41476B86600A917EB /* poImageShape.h in Headers */,
 				7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */,
 				7F5188AC1482C8B300890604 /* poShape3D.h in Headers */,
+				E87862CA1492E303005CA612 /* common.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +598,7 @@
 				AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */,
 				E8D8F33C144C986E0077F6DA /* poFBO.h in Headers */,
 				E8FAE3A51476B86600A917EB /* poImageShape.h in Headers */,
+				E87862CB1492E303005CA612 /* common.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,7 +865,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = main.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -902,7 +908,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = main.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
