@@ -44,7 +44,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries\libMikko;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\include;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\bz2;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\win;C:\PotionCode\source;C:\PotionCode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>common_include.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>common_include.pch</PrecompiledHeaderOutputFile>
@@ -54,14 +54,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glew32s.lib;libboost_date_time.lib;libboost_filesystem.lib;libboost_regex.lib;libboost_system.lib;libboost_thread.lib;FreeImaged.lib;freetype246_D.lib;curllib_static.lib;libMikko.lib;pugixml_sd.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>C:\PotionCode\libraries\sqlite3\win;C:\PotionCode\libraries\pugixml\win;C:\PotionCode\libraries\libMikko\win;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\win;C:\PotionCode\libraries\FreeType\win;C:\PotionCode\libraries\FreeImage\win;C:\PotionCode\libraries\bz2\win;C:\PotionCode\libraries\Boost\boost_1_45_0\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:libcmt</IgnoreSpecificDefaultLibraries>
     </Lib>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
