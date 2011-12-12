@@ -1,4 +1,5 @@
 #ifdef __APPLE__
+	#define POTION_APPLE
 	#include "TargetConditionals.h"
 	#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 		#include <OpenGLES/ES2/gl.h>
