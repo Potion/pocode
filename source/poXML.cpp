@@ -245,10 +245,13 @@ poXMLDocument::poXMLDocument(const std::string &url) {
 }
 
 bool poXMLDocument::isValid() const {
-	return document->first_child();
+	return document->first_child() != NULL;
 }
 
 poXMLNode poXMLDocument::getRootNode() const {
+    if(!isValid())
+        return poXMLNode();
+    
 	return poXMLNode(document->first_child());
 }
 
