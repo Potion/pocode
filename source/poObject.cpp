@@ -219,7 +219,7 @@ int poObject::getNumChildren() const {
 	return (int)children.size();
 }
 
-void poObject::addChild(poObject* obj) {
+poObject* poObject::addChild(poObject* obj) {
 	if(obj->parent != NULL) {
         std::cout << "poCode::Child " << obj->name << "added in two place, removing from old..." << std::endl;
 		obj->parent->removeChild(obj);
@@ -227,27 +227,31 @@ void poObject::addChild(poObject* obj) {
     
 	obj->parent = this;
 	children.push_back(obj);
+    return obj;
 }
 
-void poObject::addChild(poObject* obj, int idx) {
+poObject* poObject::addChild(poObject* obj, int idx) {
 	if(obj->parent != NULL)
 		obj->parent->removeChild(obj);
 	obj->parent = this;
 	children.insert(children.begin()+idx, obj);
+    return obj;
 }
 
-void poObject::addChildBefore(poObject* obj, poObject* before) {
+poObject* poObject::addChildBefore(poObject* obj, poObject* before) {
 	if(obj->parent != NULL)
 		obj->parent->removeChild(obj);
 	obj->parent = this;
 	children.insert(children.begin()+getChildIndex(before), obj);
+    return obj;
 }
 
-void poObject::addChildAfter(poObject* obj, poObject* after) {
+poObject*  poObject::addChildAfter(poObject* obj, poObject* after) {
 	if(obj->parent != NULL)
 		obj->parent->removeChild(obj);
 	obj->parent = this;
 	children.insert(children.begin()+getChildIndex(after)+1, obj);
+    return obj;
 }
 
 poObject* poObject::getChild(int idx) {
