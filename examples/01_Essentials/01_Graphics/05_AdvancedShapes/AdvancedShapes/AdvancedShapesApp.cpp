@@ -25,9 +25,8 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	
 	// A. poShape2D ///////////////////////
 	
-	poShape2D* A;
-    A = new poShape2D();
-	A->addPoint(-40,-10);
+	poShape2D* A = new poShape2D();							// Create a poShape2D
+	A->addPoint(-40,-10);									// Add a point to the shape, x and y coordinates
 	A->addPoint(50,-50);
 	A->addPoint(30,40);
 	A->addPoint(-20,30);
@@ -38,13 +37,12 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	
 	// B. poShape2D using math ///////////////////////
 	
-	poShape2D* B;
-    B = new poShape2D();
+	poShape2D* B = new poShape2D();							// Create a poShape2D
+	
 	for ( int i=0 ; i<=120 ; i++ ) {   
         
-		// Set veriables to control the progression of the mathematical formula          
-        float dirX,dirY;
-        float scale = 0.05;
+        float dirX,dirY;									// Set veriables to control the progression
+        float scale = 0.05;									// of the mathematical formula
         int val;
 		
         if (i<=60) {
@@ -57,16 +55,13 @@ AdvancedShapesApp::AdvancedShapesApp() {
             dirY = -1;
             val = (int)(i-60);
         } 
-        
-        // Mathematical equation to calculate x and y of a point
+															// Mathematical equation to calculate x and y of a point
         float x = dirX*scale*(-powf(val, 2)+40*val+1200)*sin(M_PI*val/180); 
         float y = dirY*scale*(-powf(val, 2)+40*val+1200)*cos(M_PI*val/180);
 		
-		// poPoint is a vertex in poCode
-        poPoint P = poPoint(x, y);
+        poPoint P = poPoint(x, y);							// Create the poPoint
 		
-        // add point to the poShape2D
-        B->addPoint(P);
+        B->addPoint(P);										// Add the poPoint to the shape B
     }
     B->fillColor = poColor::orange;
 	B->position.set(310, 280, 0);
@@ -75,19 +70,14 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	
 	// C. poStarShape ///////////////////////
 	
-	poShape2D* C;
-	C = new poShape2D();
+	poShape2D* C = new poShape2D();							// Create a poShape2D
 	
-	C->addPoint(0,0);
+	C->addPoint(0,0);										// Add a point to the shape C
 	
-	// curveTo() allows you to define a curve when drawing a shape
-	// Define an end point and control point to describe the curve
-	// Alternatively a curve sergment can be defined using two control points: 
-	// curveTo( poPoint pt, poPoint control1, poPoint control2 )
-	C->curveTo(poPoint(50,-50), poPoint(50,0));
-	C->curveTo(poPoint(0,0), poPoint(0,-50));
-	C->curveTo(poPoint(-50,-50), poPoint(0,-50));
-	C->curveTo(poPoint(0,0), poPoint(-50,0));
+	C->curveTo(poPoint(50,-50), poPoint(50,0));		// curveTo() allows you to define a curve when drawing a shape
+	C->curveTo(poPoint(0,0), poPoint(0,-50));		// Define an end point and control point to describe the curve
+	C->curveTo(poPoint(-50,-50), poPoint(0,-50));	// Alternatively define a curve sergment using 2 control points: 
+	C->curveTo(poPoint(0,0), poPoint(-50,0));		// curveTo( poPoint pt, poPoint control1, poPoint control2 )
 	C->curveTo(poPoint(-50,50), poPoint(-50,0));
 	C->curveTo(poPoint(0,0), poPoint(0,50));
 	C->curveTo(poPoint(50,50), poPoint(0,50));
@@ -102,11 +92,11 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	
 	poShape2D* D;
 	
-	// createShapesFromSVGfile(file.svg) returns a std::vector list of poShape2D pointers
-	std::vector<poShape2D*> shapes = createShapesFromSVGfile("house.svg");
+	std::vector<poShape2D*> shapes = createShapesFromSVGfile("house.svg");	// createShapesFromSVGfile(file.svg) 
+																			// returns a std::vector list of 
+																			// poShape2D pointers
 	
-	// Since we know there is only 1 shape, we can decide to get only the last one
-	D = shapes.back();
+	D = shapes.back();					// Since we know there is only 1 shape, we can get only the last one
 	D->fillColor = poColor::orange;
     D->position.set(630, 190, 0);
     addChild( D );

@@ -25,6 +25,13 @@ MoneyMakingApp::MoneyMakingApp() {
     poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
+	
+	poRectShape* dropArea = new poRectShape(255, 400);
+	dropArea->fillColor = poColor::orange;
+	dropArea->alpha = 0.5f;
+	dropArea->position.set( 480, 105, 0 );
+	addChild(dropArea);
+	
 	for(int i=0; i < 100; i++) {
 		
 		coinType type = coinType(int(poRand(0, 5)));
@@ -64,7 +71,7 @@ void MoneyMakingApp::messageHandler(const std::string &msg, const poDictionary& 
 	
 	if( msg == "coin dropped" ) {
 		
-		currentCount += dict.getDouble("value");
+		currentCount += dict.getFloat("value");
 		
 		char countString[32];
 		sprintf(countString, "Money: %.2f", currentCount);

@@ -40,10 +40,10 @@ Coin::Coin( coinType type ) {
 	float x = poRand(50, 250);
 	float y = poRand(getWindowHeight() - 100, getWindowHeight() - 300);
 	
-	coinImage = new poImageShape(imgUrl);
+	coinImage = new poImageShape(imgUrl, true);
+	coinImage->setAlphaTest(true);
 	coinImage->scale.set(0.5, 0.5, 1);
 	coinImage->setAlignment(PO_ALIGN_CENTER_CENTER);
-//	coinImage->setAlphaTest(true);
 	coinImage->position.set(x, y, 0);
 	coinImage->positionTween.setTweenFunction(PO_TWEEN_EXPO_OUT_FUNC).setDuration(1);
 	coinImage->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
@@ -78,7 +78,7 @@ void Coin::eventHandler( poEvent* event ) {
 		
 		isDragged = false;
 		
-		poRect droppingArea(430, 0, 300, 200);
+		poRect droppingArea(480, 105, 255, 400);
 		
 		if( droppingArea.contains( coinImage->position ) ) {
 			

@@ -22,118 +22,119 @@ AlignmentApp::AlignmentApp() {
     poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
-	float offsetX = 250;
-	float offsetY = 135;
-	float x = 150;
-	float y = 200;
+													// Define a grid to draw the rectangles
+	float col = 250;								// Define columns width
+	float row = 135;								// Define rows height
+	float x = 150;									// Define initial x
+	float y = 200;									// Define initial y
 	
 	
 	// A. PO_ALIGN_TOP_LEFT /////////////////////// 
 	
-	poRectShape* A; 
+	poRectShape* A;									// Draw a rectangle
 	A = new poRectShape(100, 50);
     A->fillColor.set(0.5, 0.7, 0.2);
 	A->position.set(x, y, 0);
 	A->drawBounds = true;
 	addChild( A );
 	
-	A->setAlignment(PO_ALIGN_TOP_LEFT);
+	A->setAlignment(PO_ALIGN_TOP_LEFT);				// Set the alignment to top-left
 	
 	
 	// B. PO_ALIGN_TOP_CENTER ///////////////////////
 	
-	poRectShape* B;
+	poRectShape* B;									// Draw a rectangle
 	B = new poRectShape(100, 50);
     B->fillColor.set(0.5, 0.7, 0.2);
-	B->position.set(x + offsetX, y, 0);
+	B->position.set(x + col, y, 0);
 	B->drawBounds = true; 
 	addChild( B );
     
-	B->setAlignment(PO_ALIGN_TOP_CENTER);
+	B->setAlignment(PO_ALIGN_TOP_CENTER);			// Set the alignment to top-center
 	
 	
 	// C. PO_ALIGN_TOP_RIGHT ///////////////////////
 	
-	poRectShape* C;
+	poRectShape* C;									// Draw a rectangle
 	C = new poRectShape(100, 50);
     C->fillColor.set(0.5, 0.7, 0.2);
-	C->position.set(x + offsetX*2, y, 0);
+	C->position.set(x + col*2, y, 0);
 	C->drawBounds = true;
 	addChild( C );
 	
-	C->setAlignment(PO_ALIGN_TOP_RIGHT);
+	C->setAlignment(PO_ALIGN_TOP_RIGHT);			// Set the alignment to top-right
 	
 	
 	// D. PO_ALIGN_CENTER_LEFT ///////////////////////
 	
-	poRectShape* D;
+	poRectShape* D;									// Draw a rectangle
 	D = new poRectShape(100, 50);
     D->fillColor.set(0.5, 0.7, 0.2);
-	D->position.set(x, y + offsetY, 0);
+	D->position.set(x, y + row, 0);
 	D->drawBounds = true;
 	addChild( D );
 	
-	D->setAlignment(PO_ALIGN_CENTER_LEFT);
+	D->setAlignment(PO_ALIGN_CENTER_LEFT);			// Set the alignment to center-left
 	
 	
 	// E. PO_ALIGN_CENTER_CENTER ///////////////////////
 	
-	poRectShape* E;
+	poRectShape* E;									// Draw a rectangle
 	E = new poRectShape(100, 50);
     E->fillColor.set(0.5, 0.7, 0.2);
-	E->position.set(x + offsetX, y + offsetY, 0);
+	E->position.set(x + col, y + row, 0);
 	E->drawBounds = true;
 	addChild( E );
 	
-	E->setAlignment(PO_ALIGN_CENTER_CENTER);
+	E->setAlignment(PO_ALIGN_CENTER_CENTER);		// Set the alignment to center-center
 	
 	
 	// F. PO_ALIGN_CENTER_RIGHT ///////////////////////
 	
-	poRectShape* F;
+	poRectShape* F;									// Draw a rectangle
 	F = new poRectShape(100, 50);
     F->fillColor.set(0.5, 0.7, 0.2);
-	F->position.set(x + offsetX*2, y + offsetY, 0);
+	F->position.set(x + col*2, y + row, 0);
 	F->drawBounds = true;
 	addChild( F );
 	
-	F->setAlignment(PO_ALIGN_CENTER_RIGHT);
+	F->setAlignment(PO_ALIGN_CENTER_RIGHT);			// Set the alignment to center-right
 	
 	
 	// G. PO_ALIGN_BOTTOM_LEFT ///////////////////////
 	
-	poRectShape* G;
+	poRectShape* G;									// Draw a rectangle
 	G = new poRectShape(100, 50);
     G->fillColor.set(0.5, 0.7, 0.2);
-	G->position.set(x, y + offsetY*2, 0);
+	G->position.set(x, y + row*2, 0);
 	G->drawBounds = true;
 	addChild( G );
 	
-	G->setAlignment(PO_ALIGN_BOTTOM_LEFT);
+	G->setAlignment(PO_ALIGN_BOTTOM_LEFT);			// Set the alignment to bottom-left
 	
 	
 	// H. PO_ALIGN_BOTTOM_CENTER ///////////////////////
 	
-	poRectShape* H;
+	poRectShape* H;									// Draw a rectangle
 	H = new poRectShape(100, 50);
     H->fillColor.set(0.5, 0.7, 0.2);
-	H->position.set(x + offsetX, y + offsetY*2, 0);
+	H->position.set(x + col, y + row*2, 0);
 	H->drawBounds = true;
 	addChild( H );
 	
-	H->setAlignment(PO_ALIGN_BOTTOM_CENTER);
+	H->setAlignment(PO_ALIGN_BOTTOM_CENTER);		// Set the alignment to bottom-center
 	
 	
 	// I. PO_ALIGN_BOTTOM_RIGHT ///////////////////////
 	
-	poRectShape* I;
+	poRectShape* I;									// Draw a rectangle
 	I = new poRectShape(100, 50);
     I->fillColor.set(0.5, 0.7, 0.2);
-	I->position.set(x + offsetX*2, y + offsetY*2, 0);
+	I->position.set(x + col*2, y + row*2, 0);
 	I->drawBounds = true;
 	addChild( I );
 	
-	I->setAlignment(PO_ALIGN_BOTTOM_RIGHT);
+	I->setAlignment(PO_ALIGN_BOTTOM_RIGHT);			// Set the alignment to bottom-right
 }
 
 

@@ -26,127 +26,80 @@ PointsApp::PointsApp() {
 	
 	// A. Common poPoints: position and scale ///////////////////////
 	
-	poPoint pointA = poPoint(50, 50);
-	poPoint scaleA = poPoint(2, 2, 1);
+	poPoint A = poPoint(50, 50);						// Define poPoint A
+	poPoint scaleA = poPoint(2, 2, 1);					// Define poPoint scaleA
 	
-	// Create a holder to draw inside the white rectangle A
-	poObject* holderA = new poObject();
-	holderA->position.set(50, 165, 0);
+	poObject* holderA = new poObject();					// Offset everything to the white rectangle
+	holderA->position.set(50, 166, 0);
 	addChild(holderA);
 	
-	// Draw pointA as an oval
-	poOvalShape* oval = new poOvalShape(5,5,10);
+	poOvalShape* oval = new poOvalShape(5,5,10);		// Draw pointA as an oval
 	oval->fillColor = poColor::black;
-	oval->position = pointA;
-	oval->scale = scaleA;
-	holderA->addChild(oval);
+	oval->position = A;									// Set the position equal to poPoint A
+	oval->scale = scaleA;								// Set the scale equal to poPoint scaleA
+	holderA->addChild(oval);							// Add the circle to holderA
 	
 	
 	// B. poPoints: + and - ///////////////////////
 	
-	poPoint pointB = poPoint(50, 25);
-	poPoint diff = pointA - pointB;
-	poPoint sum = pointA + pointB;
+	poPoint B = poPoint(50, 25);								// Define poPoint B
+	poPoint diff = A - B;										// Define a poPoint as A - B
+	poPoint sum = A + B;										// Define a poPoint as A + B
 	
-	poObject* holderB = new poObject();
-	holderB->position.set(233, 165, 0);
+	poObject* holderB = new poObject();							// Offset everything to the white rectangle
+	holderB->position.set(295, 166, 0);
 	addChild(holderB);
 	
-	// Draw pointA as an oval
-	poOvalShape* ovalA = new poOvalShape(5, 5, 10);
+	poOvalShape* ovalA = new poOvalShape(5, 5, 10);				// Draw A as a black circle
 	ovalA->fillColor = poColor::black;
-	ovalA->position = pointA;
-	holderB->addChild(ovalA);
+	ovalA->position = A;										// Set the position equal to poPoint A
+	holderB->addChild(ovalA);									// Add the circle to holderB
 	
-	// Draw pointB as an oval
-	poOvalShape* ovalB = new poOvalShape(5, 5, 10);
+	poOvalShape* ovalB = new poOvalShape(5, 5, 10);				// Draw B as a black circle
 	ovalB->fillColor = poColor::black;
-	ovalB->position = pointB;
-	holderB->addChild(ovalB);
+	ovalB->position = B;										// Set the position equal to poPoint B
+	holderB->addChild(ovalB);									// Add the circle to holderB
 	
-	// Draw diff as a line
-	poLineShape* diffLine = new poLineShape(poPoint(0,0), diff);
+	poLineShape* diffLine = new poLineShape(poPoint(0,0), diff); // Draw diff as a BLUE line
+																// from 0,0 to poPoint diff
 	diffLine->generateStroke(2);
 	diffLine->strokeColor = poColor::blue;
-	holderB->addChild(diffLine);
-	
-	poTextBox* diffText = new poTextBox();
-	diffText->setFont( new poFont("Lucida Grande") );
-	diffText->setText("Diff");
-	diffText->setTextSize(13);
-	diffText->textColor = poColor::blue;
-	diffText->doLayout();
-	diffText->position = diff;
-	holderB->addChild(diffText);
+	holderB->addChild(diffLine);								// Add the line to holderB
 	
 	// Draw sum as a line
-	poLineShape* sumLine = new poLineShape(poPoint(0,0), sum);
+	poLineShape* sumLine = new poLineShape(poPoint(0,0), sum);	// Draw sum as a RED line
+																// from 0,0 to poPoint sum
 	sumLine->generateStroke(2);
 	sumLine->strokeColor = poColor::red;
-	holderB->addChild(sumLine);
-	
-	poTextBox* sumText = new poTextBox();
-	sumText->setFont( new poFont("Lucida Grande") );
-	sumText->setText("Sum");
-	sumText->setTextSize(13);
-	sumText->textColor = poColor::red;
-	sumText->doLayout();
-	sumText->position = sum;
-	holderB->addChild(sumText);
+	holderB->addChild(sumLine);									// Add the line to holderB
 	
 	
 	// C. poPoints: * and / ///////////////////////
 	
-	poPoint pointC = poPoint(40, 60, 0);
-	poPoint mult = pointC * 2;
-	poPoint div = pointC / 2;
+	poPoint C = poPoint(40, 60, 0);								// Define poPoint C
+	poPoint mult = C * 2;										// Define a poPoint as A * B
+	poPoint div = C / 2;										// Define a poPoint as A / B
 	
-	poObject* holderC = new poObject();
-	holderC->position.set(417, 165, 0);
+	poObject* holderC = new poObject();							// Offset everything to the white rectangle
+	holderC->position.set(538, 166, 0);
 	addChild(holderC);
 	
-	// Draw pointC as an oval
-	poOvalShape* ovalC = new poOvalShape(5, 5, 10);
+	poOvalShape* ovalC = new poOvalShape(5, 5, 10);				// Draw C as a black circle
 	ovalC->fillColor = poColor::black;
-	ovalC->position = pointC;
-	holderC->addChild(ovalC);
+	ovalC->position = C;										// Set the position equal to poPoint C
+	holderC->addChild(ovalC);									// Add the line to holderC
 	
-	// Draw mult as a line
-	poLineShape* multLine = new poLineShape(poPoint(0,0), mult);
+	poLineShape* multLine = new poLineShape(poPoint(0,0), mult); // Draw mult as a RED line
+																// from 0,0 to poPoint mult
 	multLine->generateStroke(2);
 	multLine->strokeColor = poColor::red;
-	holderC->addChild(multLine);
+	holderC->addChild(multLine);								// Add the line to holderC
 	
-	poTextBox* multText = new poTextBox();
-	multText->setFont( new poFont("Lucida Grande") );
-	multText->setText("Mult");
-	multText->setTextSize(13);
-	multText->textColor = poColor::red;
-	multText->doLayout();
-	multText->position = mult;
-	holderC->addChild(multText);
-	
-	// Draw div as a line
-	poLineShape* divLine = new poLineShape(poPoint(0,0), div);
+	poLineShape* divLine = new poLineShape(poPoint(0,0), div);	// Draw div as a BLUE line
+																// from 0,0 to poPoint div
 	divLine->generateStroke(2);
 	divLine->strokeColor = poColor::blue;
-	holderC->addChild(divLine);
-	
-	poTextBox* divText = new poTextBox();
-	divText->setFont( new poFont("Lucida Grande") );
-	divText->setText("Div");
-	divText->setTextSize(13);
-	divText->textColor = poColor::blue;
-	divText->doLayout();
-	divText->position = div;
-	holderC->addChild(divText);
-	
-	
-    // D. Common poPoints: position and scale ///////////////////////
-	
-	poObject* holderD = new poObject();
-	holderD->position.set(600, 225, 0);
-	addChild(holderD);
+	holderC->addChild(divLine);									// Add the line to holderC
 }
 
 

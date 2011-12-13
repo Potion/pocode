@@ -26,7 +26,7 @@ DictionariesApp::DictionariesApp() {
 	
 	poDictionary A;												// Create a poDictionary
 	A.set("textSize", 25);										// Set an integer value called "textSize"
-	A.set("text", "This text and its properties"				// Set a string value called "text"
+	A.set("text", "This text and its properties "				// Set a string value called "text"
 				  "are stored in the poDictionary A");	
 	A.set("textColor", poColor::orange);						// Set a poColor value called "textColor"
 	A.set("textPosition", poPoint(60, 180));					// Set a poPoint value called "textPosition"
