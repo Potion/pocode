@@ -114,11 +114,18 @@ poRect poTextBox::getTextBounds() const {
 poRect      poTextBox::getBounds()
 {
     if ( useTextBounds )
-        return getTextBounds();
+    {
+        poRect R = getTextBounds();
+        R.x -= getPaddingLeft();
+        R.width += getPaddingLeft() + getPaddingRight();
+        R.y -= getPaddingTop();
+        R.height += getPaddingTop() + getPaddingBottom();
+        return R;
+    }
     else
     {
         if ( autoAdjustHeight )
-            return poRect( 0, 0, layout.size.x,  getTextBounds().height );
+            return poRect( 0, 0, layout.size.x,  getTextBounds().height+getPaddingTop()+getPaddingBottom() );
         else
             return poRect( poPoint(0,0), layout.size );
     }
@@ -316,7 +323,8 @@ void poTextBox::draw() {
     if ( fillEnabled )
     {
         po::setColor( fillColor, getAppliedAlpha() );
-        po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+        //po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+        po::drawFilledRect( getBounds() );
     }
     if ( strokeWidth > 0 )
     {

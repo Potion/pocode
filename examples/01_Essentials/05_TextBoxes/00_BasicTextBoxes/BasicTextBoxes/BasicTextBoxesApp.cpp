@@ -21,7 +21,7 @@ BasicTextBoxesApp::BasicTextBoxesApp() {
 	// Show poCode lesson image in the background
     poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
-	
+	 
 	
 	// A. poTextBox with plain text ///////////////////////
 	
