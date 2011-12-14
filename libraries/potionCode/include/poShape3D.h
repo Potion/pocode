@@ -6,8 +6,8 @@
 //  Copyright 2011 Potion. All rights reserved.
 //
 
-#ifndef PO_SHAPE_3D_H
-#define PO_SHAPE_3D_H
+#pragma once
+
 
 #include "poObject.h"
 
@@ -89,6 +89,3 @@ protected:
 };
 
 
-
-
-#endif

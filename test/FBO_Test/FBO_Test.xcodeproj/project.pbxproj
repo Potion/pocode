@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8D8F354144CBB940077F6DA /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F353144CBB940077F6DA /* AppDelegate.mm */; };
+		E8D8F356144CBB940077F6DA /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8D8F355144CBB940077F6DA /* en.strings */; };
+		E8D8F358144CBB940077F6DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F357144CBB940077F6DA /* main.m */; };
+		E8D8F35A144CBB940077F6DA /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8D8F359144CBB940077F6DA /* main.pch */; };
+		E8D8F35D144CBB940077F6DA /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8D8F35C144CBB940077F6DA /* main.xib */; };
+		E8D8F360144CBB940077F6DA /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F35F144CBB940077F6DA /* poOpenGLView.mm */; };
+		E8D8F364144CBB940077F6DA /* FBO_TestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F363144CBB940077F6DA /* FBO_TestApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8D8F34B144CBB940077F6DA /* FBO_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBO_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D8F350144CBB940077F6DA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8D8F351144CBB940077F6DA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8D8F352144CBB940077F6DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8D8F353144CBB940077F6DA /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8D8F355144CBB940077F6DA /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8D8F357144CBB940077F6DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8D8F359144CBB940077F6DA /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8D8F35B144CBB940077F6DA /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8D8F35C144CBB940077F6DA /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8D8F35E144CBB940077F6DA /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8D8F35F144CBB940077F6DA /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8D8F362144CBB940077F6DA /* FBO_TestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBO_TestApp.h; sourceTree = "<group>"; };
+		E8D8F363144CBB940077F6DA /* FBO_TestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FBO_TestApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8D8F348144CBB940077F6DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8D8F340144CBB940077F6DA = {
+			isa = PBXGroup;
+			children = (
+				E8D8F34E144CBB940077F6DA /* FBO Test */,
+				E8D8F34C144CBB940077F6DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8D8F34C144CBB940077F6DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8D8F34B144CBB940077F6DA /* FBO_Test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8D8F34E144CBB940077F6DA /* FBO Test */ = {
+			isa = PBXGroup;
+			children = (
+				E8D8F34F144CBB940077F6DA /* platform */,
+				E8D8F361144CBB940077F6DA /* application */,
+			);
+			name = "FBO Test";
+			path = FBO_Test;
+			sourceTree = "<group>";
+		};
+		E8D8F34F144CBB940077F6DA /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8D8F350144CBB940077F6DA /* Debug.xcconfig */,
+				E8D8F351144CBB940077F6DA /* Release.xcconfig */,
+				E8D8F352144CBB940077F6DA /* AppDelegate.h */,
+				E8D8F353144CBB940077F6DA /* AppDelegate.mm */,
+				E8D8F355144CBB940077F6DA /* en.strings */,
+				E8D8F357144CBB940077F6DA /* main.m */,
+				E8D8F359144CBB940077F6DA /* main.pch */,
+				E8D8F35B144CBB940077F6DA /* main.plist */,
+				E8D8F35C144CBB940077F6DA /* main.xib */,
+				E8D8F35E144CBB940077F6DA /* poOpenGLView.h */,
+				E8D8F35F144CBB940077F6DA /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8D8F361144CBB940077F6DA /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8D8F362144CBB940077F6DA /* FBO_TestApp.h */,
+				E8D8F363144CBB940077F6DA /* FBO_TestApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8D8F34A144CBB940077F6DA /* FBO_Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO_Test" */;
+			buildPhases = (
+				E8D8F347144CBB940077F6DA /* Sources */,
+				E8D8F348144CBB940077F6DA /* Frameworks */,
+				E8D8F349144CBB940077F6DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FBO_Test;
+			productName = "FBO Test";
+			productReference = E8D8F34B144CBB940077F6DA /* FBO_Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8D8F342144CBB940077F6DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO_Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8D8F340144CBB940077F6DA;
+			productRefGroup = E8D8F34C144CBB940077F6DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8D8F34A144CBB940077F6DA /* FBO_Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8D8F349144CBB940077F6DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8D8F356144CBB940077F6DA /* en.strings in Resources */,
+				E8D8F35A144CBB940077F6DA /* main.pch in Resources */,
+				E8D8F35D144CBB940077F6DA /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8D8F347144CBB940077F6DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8D8F354144CBB940077F6DA /* AppDelegate.mm in Sources */,
+				E8D8F358144CBB940077F6DA /* main.m in Sources */,
+				E8D8F360144CBB940077F6DA /* poOpenGLView.mm in Sources */,
+				E8D8F364144CBB940077F6DA /* FBO_TestApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8D8F365144CBB940077F6DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8D8F350144CBB940077F6DA /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8D8F366144CBB940077F6DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8D8F351144CBB940077F6DA /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8D8F368144CBB940077F6DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = FBO_Test;
+			};
+			name = Debug;
+		};
+		E8D8F369144CBB940077F6DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8D8F345144CBB940077F6DA /* Build configuration list for PBXProject "FBO_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8D8F365144CBB940077F6DA /* Debug */,
+				E8D8F366144CBB940077F6DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8D8F367144CBB940077F6DA /* Build configuration list for PBXNativeTarget "FBO_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8D8F368144CBB940077F6DA /* Debug */,
+				E8D8F369144CBB940077F6DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8D8F342144CBB940077F6DA /* Project object */;
+}

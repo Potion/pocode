@@ -8,6 +8,7 @@
 
 #pragma once
 
+
 class poObject;
 
 // CLASS NOTES

@@ -1,5 +1,5 @@
-
 #include "poBinPacker.h"
+#include <boost/foreach.hpp>
 
 BinPacker::insertRect::insertRect(uint w, uint h, uint handle) : w(w), h(h), handle(handle) {}
 bool BinPacker::insertRect::operator<(const insertRect &r) {

@@ -1,5 +1,7 @@
 #include "poSqlite3.h"
 
+#include <iostream>
+
 #pragma mark - poSqlite3 -
 
 poSqlite3::poSqlite3(bool bVerbose) {
@@ -51,7 +53,7 @@ void poSqlite3::save() {
 
 
 void poSqlite3::save(const char* url) {
-    sqlite3 * toFile;
+    //sqlite3 * toFile;
 }
 
 
@@ -173,7 +175,7 @@ int poSqlite3Result::getNumRows() { return rows.size(); }
 
 //Get a poDictionary for a row
 poDictionary poSqlite3Result::getRow(int rowNum) {
-    if(rowNum < rows.size()) {
+    if((uint)rowNum < rows.size()) {
         return rows[rowNum];
     }
 	else {
@@ -187,7 +189,7 @@ poDictionary poSqlite3Result::getRow(int rowNum) {
 std::string poSqlite3Result::getColumnNames() {
     std::string columnNames;
     
-    for(int i=0; i <columns.size(); i++) {
+    for(uint i=0; i <columns.size(); i++) {
         columnNames += columns[i].name;
         if(i != columns.size() - 1) columnNames += " | ";
     }

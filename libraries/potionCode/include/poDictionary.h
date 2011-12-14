@@ -4,19 +4,22 @@
 
 #pragma once
 
+
 #include "poColor.h"
 #include "poPoint.h"
 #include "poFont.h"
 #include "poImage.h"
 #include "poXML.h"
 
+#include <boost/variant.hpp>
+
 class poDictionary;
 
-typedef boost::variant<int,double,std::string,poPoint,poColor,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
+typedef boost::variant<int,float,std::string,poPoint,poColor,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
 
 enum poDictionaryType {
 	PO_INT_T=0,
-	PO_DOUBLE_T,
+	PO_FLOAT_T,
 	PO_STRING_T,
 	PO_POINT_T,
 	PO_COLOR_T,
@@ -33,7 +36,7 @@ public:
 	
 	bool				getBool() const;
 	int					getInt() const;
-	double				getDouble() const;
+	float				getFloat() const;
 	std::string			getString() const;
 	poPoint				getPoint() const;
 	poColor				getColor() const;
@@ -59,7 +62,7 @@ public:
 	
 	bool				getBool(const std::string &s) const;
 	int					getInt(const std::string &s) const;
-	double				getDouble(const std::string &s) const;
+	float				getFloat(const std::string &s) const;
 	std::string			getString(const std::string &s) const;
 	poPoint				getPoint(const std::string &s) const;
 	poColor				getColor(const std::string &s) const;

@@ -13,9 +13,10 @@
 
 // ============ poGeometryMask =============== //
 
-poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil)
+poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil, bool inverse)
 :	shape(shape)
 ,	clearsStencil(clearsStencil)
+,   inverse(inverse)
 {}
 
 poGeometryMask::~poGeometryMask() {
@@ -40,6 +41,7 @@ void poGeometryMask::setShape(poShape2D *s) {
 bool poGeometryMask::pointInside(poPoint p) {
 	if(shape)
 		return shape->pointInside(p);
+	return false;
 }
 
 void poGeometryMask::doSetUp(poObject *obj) {
@@ -68,6 +70,9 @@ void poGeometryMask::doSetUp(poObject *obj) {
 		ogl->matrix.popModelview();
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 
+        if(inverse)
+            state.funcRef = 0;
+        
 		state.func = GL_EQUAL;
 		ogl->setStencil(state);
 	}

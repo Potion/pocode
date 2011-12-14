@@ -75,7 +75,7 @@ void            poMesh3D::placeTexture( poTexture* tex )
         for( int j=0; j<numColumns; j++ )
         {
             float U = (float)i / (float)numRows;
-            float V = 1.0 - (float)j / (float)numColumns; 
+            float V = 1.f - (float)j / (float)numColumns; 
             getVertex( i,j ).textureCoords.set( U,V,0 );
         }
     }
@@ -87,20 +87,20 @@ poSphere3D::poSphere3D( int _numRows, int _numColumns, float _radius ) : poMesh3
 {
     radius = _radius;
     
-	float dA =  360.0 / (float)(numColumns-1);
-	float dB =  180.0 / (float)(numRows-1);
+	float dA =  360.f / (float)(numColumns-1);
+	float dB =  180.f / (float)(numRows-1);
     
 	for( int i=0; i<numRows; i++ )
 	{
 		for( int j=0; j<numColumns; j++ )
 		{
 			int N = getVertexIndex(i,j);
-            if ( N==-1 || N < 0 || N >= vertexList.size() )
+            if ( N==-1 || N < 0 || N >= (int)vertexList.size() )
             {
                 printf("ERROR\n");
                 continue;
             }
-			float A = -1.0 * dA * j;
+			float A = -1.f * dA * j;
 			float B = 90 - dB * i;
 			
 			vertexList[N].position.set( cos_deg(B)*cos_deg(A)*radius, sin_deg(B)*radius, cos_deg(B)*sin_deg(A)*radius );
@@ -113,7 +113,7 @@ poSphere3D::poSphere3D( int _numRows, int _numColumns, float _radius ) : poMesh3
 void	poSphere3D::calculateNormals()
 {
     // set sphere normals based upon position relative to center
-    for( int i=0; i<vertexList.size(); i++ )
+    for( uint i=0; i<vertexList.size(); i++ )
     {
         vertexList[i].normal = vertexList[i].position; 
         vertexList[i].normal *= -1.0;

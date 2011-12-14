@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E851C26C1448CF8A0018FB34 /* ImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E851C26B1448CF8A0018FB34 /* ImageLoader.cpp */; };
+		E8F011271448AB160019CBEA /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8F011261448AB160019CBEA /* AppDelegate.mm */; };
+		E8F011291448AB160019CBEA /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8F011281448AB160019CBEA /* en.strings */; };
+		E8F0112B1448AB160019CBEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F0112A1448AB160019CBEA /* main.m */; };
+		E8F0112D1448AB160019CBEA /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8F0112C1448AB160019CBEA /* main.pch */; };
+		E8F011301448AB160019CBEA /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8F0112F1448AB160019CBEA /* main.xib */; };
+		E8F011331448AB160019CBEA /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8F011321448AB160019CBEA /* poOpenGLView.mm */; };
+		E8F011371448AB160019CBEA /* Threaded_Image_LoadingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F011361448AB160019CBEA /* Threaded_Image_LoadingApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E851C26B1448CF8A0018FB34 /* ImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageLoader.cpp; sourceTree = "<group>"; };
+		E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded_Image_Loading.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F011231448AB160019CBEA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8F011241448AB160019CBEA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8F011251448AB160019CBEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8F011261448AB160019CBEA /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8F011281448AB160019CBEA /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8F0112A1448AB160019CBEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8F0112C1448AB160019CBEA /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8F0112E1448AB160019CBEA /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8F0112F1448AB160019CBEA /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8F011311448AB160019CBEA /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8F011321448AB160019CBEA /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8F011351448AB160019CBEA /* Threaded_Image_LoadingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Threaded_Image_LoadingApp.h; sourceTree = "<group>"; };
+		E8F011361448AB160019CBEA /* Threaded_Image_LoadingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Threaded_Image_LoadingApp.cpp; sourceTree = "<group>"; };
+		E8F0115C1448BAA40019CBEA /* ImageLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ImageLoader.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8F0111B1448AB150019CBEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8F011131448AB150019CBEA = {
+			isa = PBXGroup;
+			children = (
+				E8F011211448AB150019CBEA /* Threaded Image Loading */,
+				E8F0111F1448AB150019CBEA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8F0111F1448AB150019CBEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8F011211448AB150019CBEA /* Threaded Image Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E8F011221448AB160019CBEA /* platform */,
+				E8F011341448AB160019CBEA /* application */,
+			);
+			name = "Threaded Image Loading";
+			path = Threaded_Image_Loading;
+			sourceTree = "<group>";
+		};
+		E8F011221448AB160019CBEA /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8F011231448AB160019CBEA /* Debug.xcconfig */,
+				E8F011241448AB160019CBEA /* Release.xcconfig */,
+				E8F011251448AB160019CBEA /* AppDelegate.h */,
+				E8F011261448AB160019CBEA /* AppDelegate.mm */,
+				E8F011281448AB160019CBEA /* en.strings */,
+				E8F0112A1448AB160019CBEA /* main.m */,
+				E8F0112C1448AB160019CBEA /* main.pch */,
+				E8F0112E1448AB160019CBEA /* main.plist */,
+				E8F0112F1448AB160019CBEA /* main.xib */,
+				E8F011311448AB160019CBEA /* poOpenGLView.h */,
+				E8F011321448AB160019CBEA /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8F011341448AB160019CBEA /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8F011351448AB160019CBEA /* Threaded_Image_LoadingApp.h */,
+				E8F011361448AB160019CBEA /* Threaded_Image_LoadingApp.cpp */,
+				E8F0115C1448BAA40019CBEA /* ImageLoader.h */,
+				E851C26B1448CF8A0018FB34 /* ImageLoader.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8F0111D1448AB150019CBEA /* Threaded_Image_Loading */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded_Image_Loading" */;
+			buildPhases = (
+				E8F0111A1448AB150019CBEA /* Sources */,
+				E8F0111B1448AB150019CBEA /* Frameworks */,
+				E8F0111C1448AB150019CBEA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Threaded_Image_Loading;
+			productName = "Threaded Image Loading";
+			productReference = E8F0111E1448AB150019CBEA /* Threaded_Image_Loading.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8F011151448AB150019CBEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Potion Design";
+			};
+			buildConfigurationList = E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded_Image_Loading" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8F011131448AB150019CBEA;
+			productRefGroup = E8F0111F1448AB150019CBEA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8F0111D1448AB150019CBEA /* Threaded_Image_Loading */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8F0111C1448AB150019CBEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F011291448AB160019CBEA /* en.strings in Resources */,
+				E8F0112D1448AB160019CBEA /* main.pch in Resources */,
+				E8F011301448AB160019CBEA /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8F0111A1448AB150019CBEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F011271448AB160019CBEA /* AppDelegate.mm in Sources */,
+				E8F0112B1448AB160019CBEA /* main.m in Sources */,
+				E8F011331448AB160019CBEA /* poOpenGLView.mm in Sources */,
+				E8F011371448AB160019CBEA /* Threaded_Image_LoadingApp.cpp in Sources */,
+				E851C26C1448CF8A0018FB34 /* ImageLoader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8F011381448AB160019CBEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8F011231448AB160019CBEA /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8F011391448AB160019CBEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8F011241448AB160019CBEA /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8F0113B1448AB160019CBEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = Threaded_Image_Loading;
+			};
+			name = Debug;
+		};
+		E8F0113C1448AB160019CBEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8F011181448AB150019CBEA /* Build configuration list for PBXProject "Threaded_Image_Loading" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F011381448AB160019CBEA /* Debug */,
+				E8F011391448AB160019CBEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8F0113A1448AB160019CBEA /* Build configuration list for PBXNativeTarget "Threaded_Image_Loading" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F0113B1448AB160019CBEA /* Debug */,
+				E8F0113C1448AB160019CBEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8F011151448AB150019CBEA /* Project object */;
+}

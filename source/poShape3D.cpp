@@ -12,6 +12,7 @@
 #include "poCamera.h"
 #include "poApplication.h"
 
+#include <boost/foreach.hpp>
 
 poVertex3D      poShape3D::errorVertex;
 poTriangle3D    poShape3D::errorTriangle;
@@ -83,7 +84,7 @@ void poShape3D::draw()
         glLineWidth(strokeWidth);
         // Draw each triangle separately. In theory, this could be done with glDrawElements, but it's not working.
         // Also, this draws edges that appear in two triangles twice.
-        for( int i=0; i<triangleList.size(); i++ )
+        for( uint i=0; i<triangleList.size(); i++ )
             glDrawElements( GL_LINE_LOOP, 3, GL_UNSIGNED_INT, &triangleList[i].vertexIndexSet[0] );
     } 
 
@@ -140,7 +141,7 @@ int poShape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal, poColo
 
 poVertex3D&         poShape3D::getVertex( int N ) 
 {
-    if ( N < 0 || N >= vertexList.size() )
+    if ( N < 0 || N >= (int)vertexList.size() )
     {
         printf("ERROR: getVertex out of bounds (%d of %d)\n", N, (int)vertexList.size() );
         return poShape3D::errorVertex;
@@ -170,7 +171,7 @@ int poShape3D::addTriangle( int vertexIndexA, int vertexIndexB, int vertexIndexC
 
 poTriangle3D&       poShape3D::getTriangle( int N ) 
 {    
-    if ( N < 0 || N >= triangleList.size() )
+    if ( N < 0 || N >= (int)triangleList.size() )
     {
         printf("ERROR: getTriangle out of bounds (%d of %d)\n", N, (int)triangleList.size() );
         return poShape3D::errorTriangle;
@@ -182,11 +183,11 @@ poTriangle3D&       poShape3D::getTriangle( int N )
 void        poShape3D::calculateNormals()
 {
     // zero out all normals
-    for( int i=0; i<vertexList.size(); i++ )
+    for( uint i=0; i<vertexList.size(); i++ )
         vertexList[i].normal.set( 0,0,0 );
     
     // add in normals for each face
-    for( int i=0; i<triangleList.size(); i++ )
+    for( uint i=0; i<triangleList.size(); i++ )
     {
         poTriangle3D& T = triangleList[i];
         
@@ -209,7 +210,7 @@ void        poShape3D::calculateNormals()
     }
     
     // average (normalize) all normals
-    for( int i=0; i<vertexList.size(); i++ )
+    for( uint i=0; i<vertexList.size(); i++ )
         vertexList[i].normal.normalize();
 }
 
@@ -232,7 +233,7 @@ bool poShape3D::pointInside(poPoint point, bool localize ) {
         if(localize)
             point.y = getWindowHeight() - point.y;
         
-        for( int i=0; i<triangleList.size(); i++ )
+        for( uint i=0; i<triangleList.size(); i++ )
         {
             int indexA = triangleList[i].vertexIndexSet[0];
             int indexB = triangleList[i].vertexIndexSet[1];

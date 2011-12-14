@@ -1,6 +1,5 @@
 #pragma once
-
-
+#pragma warning (disable:4068)
 
 // FILE NOTES
 //

@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "common.h"
+
 #include "poTween.h"
 #include "poEventCenter.h"
 #include "poDictionary.h"
@@ -37,7 +39,7 @@ class poWindow;
 
 
 
-class poObject : public boost::noncopyable {
+class poObject {
 	friend class poWindow;
 public:
 	// OBJECT CREATION AND DESTRUCTION

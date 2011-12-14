@@ -1,6 +1,17 @@
 #pragma once
 
-#include "poObject.h"
+#include "common.h"
+#include "poRect.h"
+#include "poPoint.h"
+#include "poEvent.h"
+
+#include <set>
+#include <deque>
+
+#include <boost/signals2.hpp>
+typedef boost::signals2::connection SigConn;
+
+class poObject;
 
 // CLASS NOTES
 //
@@ -39,10 +50,10 @@ public:
     
     // WINDOW PROPERTIES
 	std::string     getTitle() const;
-	int             getX() const;
-	int             getY() const;
-	int             getWidth() const;
-	int             getHeight() const;
+	float			getX() const;
+	float           getY() const;
+	float           getWidth() const;
+	float			getHeight() const;
 	poPoint         getDimensions() const;
 	poRect          getFrame() const;
 	poRect          getBounds() const;
@@ -76,12 +87,13 @@ public:
 	void            touchMove(int x, int y, int uid, int tapCount );
 	void            touchEnd(int x, int y, int uid, int tapCount );
     void            touchCancelled(int x, int y, int uid, int tapCount );
-    
-    
-    // DRAW ORDER COUNTER
+	
+	// DRAW ORDER COUNTER
     // The draw order of every poObject in the scene graph is set based upon the drawOrderCounter.
     // The draw order is used by the event system to determine which objects are drawn on top of others.
 	int             getNextDrawOrder();
+	
+	SigConn			addUpdate(const boost::function<void()> &func);
 
 private:
     
@@ -113,7 +125,7 @@ private:
 	std::string     title;
 	
     // FRAME COUNTING and FRAME RATE
-	double          lastMark, lastFrame;
+	float          lastMark, lastFrame;
 	int             framecounter, totalFramecount;
 	float           framerate, lastElapsed;
 	
@@ -133,7 +145,8 @@ private:
 	
     // DRAW ORDER COUNTER
     int drawOrderCounter;
-    
+	
+	boost::signals2::signal<void()> updateSignal;
 };
 
 

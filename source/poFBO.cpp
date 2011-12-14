@@ -7,8 +7,11 @@
 //
 
 #include "poFBO.h"
+#include "poTexture.h"
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
+
+#include <boost/foreach.hpp>
 
 poFBOConfig::poFBOConfig()
 :	numMultisamples(0)

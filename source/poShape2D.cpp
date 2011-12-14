@@ -9,6 +9,8 @@
 #include "poOpenGLState.h"
 #include "poBasicRenderer.h"
 
+#include <boost/foreach.hpp>
+
 poShape2D::poShape2D()
 :	fillEnabled(true)
 ,	strokeEnabled(false)

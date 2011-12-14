@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 #include "poEnums.h"
 #include "poDictionary.h"
 
@@ -136,7 +137,7 @@ public:
 	// The event type.
 	int             type;
 	// When the event happened.
-	double          timestamp;
+	float          timestamp;
 
     // The event message and dictionary are set by the user per event, via the addEvent method.
     std::string     message;

@@ -18,6 +18,7 @@ using namespace std;
 #include "poApplication.h"
 
 #include <float.h>
+#include <boost/foreach.hpp>
 
 poTextBox::poTextBox()
 :	poObject()
@@ -113,11 +114,18 @@ poRect poTextBox::getTextBounds() const {
 poRect      poTextBox::getBounds()
 {
     if ( useTextBounds )
-        return getTextBounds();
+    {
+        poRect R = getTextBounds();
+        R.x -= getPaddingLeft();
+        R.width += getPaddingLeft() + getPaddingRight();
+        R.y -= getPaddingTop();
+        R.height += getPaddingTop() + getPaddingBottom();
+        return R;
+    }
     else
     {
         if ( autoAdjustHeight )
-            return poRect( 0, 0, layout.size.x,  getTextBounds().height );
+            return poRect( 0, 0, layout.size.x,  getTextBounds().height+getPaddingTop()+getPaddingBottom() );
         else
             return poRect( poPoint(0,0), layout.size );
     }
@@ -125,6 +133,10 @@ poRect      poTextBox::getBounds()
 
 void poTextBox::reshape(int w, int h) {
 	layout.size = poPoint(w,h);
+}
+
+void poTextBox::reshape(poRect r) {
+	layout.size = r.getSize();
 }
 
 bool poTextBox::isRichText() const {
@@ -171,6 +183,12 @@ void poTextBox::setCacheToTexture(bool b) {
 	cacheToTexture = b;
     if(!cacheToTexture && cached) delete cached; cached = NULL;
 }
+void poTextBox::useTextBoundsAsBounds( bool B ) { 
+	useTextBounds = B; layout.setUseTextBounds(B); 
+};
+void poTextBox::useAutoAdjustHeight( bool B ) { 
+	autoAdjustHeight = B; 
+};
 
 float poTextBox::getLeading() const {
 	return layout.leading;}
@@ -271,7 +289,7 @@ void poTextBox::generateCachedTexture() {
     poBitmapFont *bmp = poGetBitmapFont(getFont(), layout.textSize);
     
     po::setColor(poColor::white);
-    for(int i=0; i<getNumLines(); i++) {
+    for(uint i=0; i<getNumLines(); i++) {
         BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
             bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
         }
@@ -305,7 +323,8 @@ void poTextBox::draw() {
     if ( fillEnabled )
     {
         po::setColor( fillColor, getAppliedAlpha() );
-        po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+        //po::drawFilledRect( 0, 0, layout.size.x, layout.size.y );
+        po::drawFilledRect( getBounds() );
     }
     if ( strokeWidth > 0 )
     {
@@ -351,7 +370,7 @@ void poTextBox::draw() {
     else {
 		po::setColor( poColor(textColor, getAppliedAlpha()) );
 		
-        for(int i=0; i<getNumLines(); i++) {
+        for(uint i=0; i<getNumLines(); i++) {
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
                 bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
             }
@@ -361,7 +380,7 @@ void poTextBox::draw() {
 
 
 void poTextBox::_drawBounds() {
-    for(int i=0; i<getNumLines(); i++) {
+    for(uint i=0; i<getNumLines(); i++) {
         if(drawBounds & PO_TEXT_BOX_STROKE_GLYPHS) {
             po::setColor(poColor::ltGrey, .5f);
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
@@ -395,30 +414,22 @@ bool poTextBox::pointInside(poPoint p, bool localize)
     if(!visible)
 		return false;
 	
-    // DO POINT INSIDE TEST FOR 2D
-    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
-    {
-        if(localize) {
-            p.y = getWindowHeight() - p.y;
-            p = globalToLocal(p);
-        }
+    if(localize) {
+        p.y = getWindowHeight() - p.y;
+        p = globalToLocal(p);
+    }
         
-        poRect bounds = getBounds();
+    poRect bounds = getBounds();
+
+	// DO POINT INSIDE TEST FOR 2D
+    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D ) {
         return bounds.contains(p.x, p.y);
-    }
-    
-    // DO POINT INSIDE TEST FOR 3D
-    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
-    {
-        if(localize) {
-            p.y = getWindowHeight() - p.y;
-            
-            poRect bounds = getBounds();
-            return pointInRect3D( p, getMatrixSet(), bounds );
-        }
-        
-        return false;
-    }
+	}
+	else if(poCamera::getCurrentCameraType() == PO_CAMERA_3D) {
+        return pointInRect3D( p, getMatrixSet(), bounds );
+	}
+
+	return false;
 }
  
 

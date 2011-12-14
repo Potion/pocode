@@ -9,6 +9,9 @@
 #include "poXML.h"
 #include "poHelpers.h"
 
+#include <iostream>
+#include <boost/lexical_cast.hpp>
+
 using namespace pugi;
 
 #define LCAST(type,val) boost::lexical_cast<type>(val)
@@ -283,7 +286,7 @@ bool poXMLDocument::readStr(const std::string &str) {
 }
 
 bool poXMLDocument::write(const std::string &url) {
-	document->save_file(url.c_str());
+	return document->save_file(url.c_str());
 }
 
 void poXMLDocument::print() const {
@@ -294,4 +297,9 @@ pugi::xml_document &poXMLDocument::getHandle() const {
 	return *document.get();
 }
 
-
+poXMLDocument poXMLDocument::copy() {
+	poXMLDocument doc;
+	doc.document.reset(new pugi::xml_document);
+	doc.document->reset(*document);
+	return doc;
+}

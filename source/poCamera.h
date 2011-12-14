@@ -8,6 +8,7 @@
 
 #pragma once
 
+
 #include "poObject.h"
 #include "poColor.h"
 
@@ -116,7 +117,7 @@ protected:
 	virtual void        setProjection();
 
 private:
-	float               x1, y1, x2, y2, near, far;
+	float               x1, y1, x2, y2, nearClip, farClip;
 };
 
 // CLASS NOTES
@@ -162,7 +163,7 @@ protected:
 	virtual void            setModelview();
 
 private:
-	float                   fov, near, far;
+	float                   fov, nearClip, farClip;
 	poPoint                 lookAtPos, cameraPos;
 };
 

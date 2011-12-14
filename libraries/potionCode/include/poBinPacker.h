@@ -1,6 +1,10 @@
 #pragma once
 
+#include "common.h"
 #include "poRect.h"
+
+#include <map>
+#include <list>
 
 /*	addRect with the image dimensions, get back a handle
  *	use the handle to find where to put the image into digest
@@ -50,7 +54,7 @@ private:
 		int taken;
 	};
 
-	typedef boost::unordered_map<uint, packRect*> PackMap_t;
+	typedef std::map<uint, packRect*> PackMap_t;
 
 	struct pack_page {
 		std::vector<packRect*> rows;

@@ -1,14 +1,19 @@
 #include "poFileLoader.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include <curl/curl.h>
 
-#include<boost/tokenizer.hpp>
+#include <stdio.h>
+#include <stdlib.h>
+#include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 
 size_t write_data( void *ptr, size_t size, size_t nmeb, FILE *stream) {
     return std::fwrite(ptr,size,nmeb,stream);
 }
-
 
 size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
     ((std::string*)stream)->append((char*)ptr, 0, size*count);
@@ -25,9 +30,8 @@ poFileLoader::~poFileLoader() {}
 void poFileLoader::getFile(std::string url, std::string filename) {
     if(filename == "") {
         boost::char_separator<char> sep("/");
-        
         boost::tokenizer< boost::char_separator<char> > tokens(url, sep);
-        BOOST_FOREACH(std::string t, tokens) {
+        BOOST_FOREACH(const std::string &t, tokens) {
             filename = t;
         }
     }

@@ -48,7 +48,7 @@ void poWindow::setFullscreen(bool b) {
 	applicationMakeWindowFullscreen(this, b);
 }
 
-int poWindow::getX() const {
+float poWindow::getX() const {
 	return bounds.x;
 }
 
@@ -56,11 +56,11 @@ std::string poWindow::getTitle() const {
 	return title;
 }
 
-int poWindow::getY() const {
+float poWindow::getY() const {
 	return bounds.y;
 }
 
-int poWindow::getWidth() const {
+float poWindow::getWidth() const {
 	return bounds.width;
 }
 
@@ -80,7 +80,7 @@ poPoint poWindow::getCenterPoint() const {
 	return poPoint(bounds.width/2.f, bounds.height/2.f);
 }
 
-int poWindow::getHeight() const {
+float poWindow::getHeight() const {
 	return bounds.height;
 }
 
@@ -136,13 +136,13 @@ void poWindow::draw() {
 }
 
 void poWindow::update() {
-	double now = poGetElapsedTime();
+	float now = poGetElapsedTime();
 	
 	totalFramecount++;
 	framecounter++;
 	if(now - lastMark >= 1.0) {
 		lastMark = now;
-		framerate = framecounter;
+		framerate = (float)framecounter;
 		framecounter = 0;
 	}
 	
@@ -155,12 +155,15 @@ void poWindow::update() {
 	}
 	received.clear();
 
+	// tell everyone who cares they should update
+	updateSignal();
+	
 	// update the objects
 	getRootObject()->updateTree();
 }
 
 void poWindow::mouseDown(int x, int y, int mod) {
-	mousePos.set(x,y,1);
+	mousePos.set(x,y,1.f);
 	
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
@@ -339,11 +342,12 @@ void poWindow::trackTouch(interactionPoint *t) {
 
 
 interactionPoint *poWindow::getTouch(int uid) {
-    for(int i=0;i<trackedTouches.size(); i++) {
+    for(uint i=0;i<trackedTouches.size(); i++) {
         if(trackedTouches[i]->uid == uid) {
             return trackedTouches[i];
         }
     }
+	return NULL;
 }
 
 
@@ -363,3 +367,8 @@ void poWindow::setWindowHandle(void *handle) {
 int poWindow::getNextDrawOrder() {
 	return drawOrderCounter++;
 }
+
+SigConn poWindow::addUpdate(const boost::function<void()> &func) {
+	return updateSignal.connect(func);
+}
+

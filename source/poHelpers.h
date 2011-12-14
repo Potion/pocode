@@ -1,13 +1,20 @@
 #pragma once
 
+
 #include "poRect.h"
 #include "poEnums.h"
 
+#include <vector>
+#include <string>
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
+#define BOOST_FILESYSTEM_3
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
 // in seconds
-double poGetElapsedTime();
+float poGetElapsedTime();
 int    poGetElapsedTimeMillis();
 
 typedef struct {

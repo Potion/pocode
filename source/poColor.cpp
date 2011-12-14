@@ -1,10 +1,12 @@
 /*
  *  Copyright 2011 Potion Design. All rights reserved.
  */
-
+#include "common.h"
 #include "poColor.h"
 #include "poMath.h"
 #include "poHelpers.h"
+
+#include <boost/format.hpp>
 
 #define min3(a,b,c) a < b ? (a < c ? a : c) : (b < c ? b : c)
 #define max3(a,b,c) a > b ? (a > c ? a : c) : (b > c ? b : c)
@@ -56,11 +58,11 @@ poHSVColor rgba2hsv(poColor rgba) {
 			H += 360.f;
 	}
 	
-	return poHSVColor(H/255.f,S,V);
+	return poHSVColor(H/360.f,S,V);
 }
 
 poColor hsv2rgba(poHSVColor hsv) {
-	float h6 = (hsv.H*255) / 60.0;
+	float h6 = (hsv.H*360) / 60.0;
 	
 	int i = (int)floorf(h6);
 	float f = h6 - i;
@@ -126,6 +128,7 @@ poColor& poColor::set255(float r, float g, float b, float a) {
 poColor& poColor::setHSV(float h, float s, float v, float a) {
     *this = hsv2rgba( poHSVColor(h,s,v) );
     A = a;
+	return *this;
 }
 
 poColor &poColor::set(poColor &fromColor) {

@@ -9,6 +9,7 @@
 
 #pragma once
 
+
 #include "poShape2D.h"
 
 struct poExtrudedLineSeg { 

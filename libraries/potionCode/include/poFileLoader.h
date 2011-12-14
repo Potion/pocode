@@ -1,12 +1,13 @@
 #pragma once
 
+
 /*	Created by Stephen Varga on 11/6/11.
  *	Copyright 2011 Potion Design. All rights reserved.
  */
 
 #include "poObject.h"
-#include <curl/curl.h>
 
+#include <string>
 
 class poFileLoader {
 public:

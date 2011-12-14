@@ -58,6 +58,18 @@ void poRectShape::reshape( float w, float h, float rad ) {
 		generateStroke(getStrokeWidth());
 }
 
+void poRectShape::reshape( poRect r, float rad ) {
+	reshape(r.width, r.height, rad);
+}
+
+void poRectShape::setCornerRadius(float rad) {
+	radius = rad;
+}
+
+float poRectShape::getCornerRadius() const {
+	return radius;
+}
+
 void poRectShape::construct( float w, float h, float rad ) {
     //setSize(w,h);
 	radius = rad;

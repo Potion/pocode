@@ -7,6 +7,7 @@
 //
 #pragma once
 
+
 #include "poShape2D.h"
 #include "poTexture.h"
 
@@ -46,6 +47,10 @@ public:
 	virtual poObject* copy();
 	
     void	reshape( float width, float height, float rad=0.f );
+	void	reshape( poRect r, float rad=0.f );
+	
+	void	setCornerRadius(float rad);
+	float	getCornerRadius() const;
     
 protected:
 	void	clone(poRectShape* shp);

@@ -12,6 +12,9 @@
 
 #include "poSimpleDrawing.h"
 
+#include <iostream>
+#include <boost/foreach.hpp>
+
 static uint PO_OBJECT_UID = 0;
 
 poObject::poObject() 
@@ -324,6 +327,7 @@ void poObject::moveChildBackward(poObject* child) {
 
 poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
 	modifiers.push_back(mod);
+	return mod;
 }
 
 poObjectModifier* poObject::getModifier(int idx) {
@@ -575,7 +579,7 @@ void poObject::read(poXMLNode node) {
 	rotation = node.getChild("rotation").getInnerFloat();
 	rotationAxis.fromString(node.getChild("rotationAxis").getInnerString());
 	offset.fromString(node.getChild("offset").getInnerString());
-	visible = node.getChild("visible").getInnerInt();
+	visible = (bool)node.getChild("visible").getInnerInt();
 	matrixOrder = poMatrixOrder(node.getChild("matrixOrder").getInnerInt());
 	alignment = poAlignment(node.getChild("alignment").getInnerInt());
 	setAlignment(alignment);

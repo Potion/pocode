@@ -87,45 +87,45 @@
 
 
 inline bool goToFunc(float *v, float bv, float ev, 
-					 double t, double b, double e, double d,
-					 double e1, double e2)
+					 float t, float b, float e, float d,
+					 float e1, float e2)
 {
 	*v = (*v * e1) + (ev * (1-e1));
 	return ::fabs(*v - ev) < e2;
 }
 
 inline bool linearFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2) 
+					   float t, float b, float e, float d,
+					   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2 + bv;
 	return (t-b) >= d;
 }
 
 inline bool quadInFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2) 
+					   float t, float b, float e, float d,
+					   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2*t2 + bv;
 	return (t-b) >= d;
 }
 
 inline bool quadOutFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = -(ev-bv) * t2*(t2-2) + bv;
 	return (t-b) >= d;
 }
 
 inline bool quadInOutFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2) 
+						  float t, float b, float e, float d,
+						  float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f) 
 		*v = (ev-bv)/2.f * t2*t2 + bv;
 	else {
@@ -136,29 +136,29 @@ inline bool quadInOutFunc(float *v, float bv, float ev,
 }
 
 inline bool cubeInFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2) 
+					   float t, float b, float e, float d,
+					   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2*t2*t2 + bv;
 	return (t-b) >= d;
 }
 
 inline bool cubeOutFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	t2--;
 	*v = (ev-bv) * (t2*t2*t2+1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool cubeInOutFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2) 
+						  float t, float b, float e, float d,
+						  float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * (t2*t2*t2) + bv;
 	else {
@@ -169,29 +169,29 @@ inline bool cubeInOutFunc(float *v, float bv, float ev,
 }
 
 inline bool quartInFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2*t2*t2 + bv;
 	return (t-b) >= d;
 }
 
 inline bool quartOutFunc(float *v, float bv, float ev, 
-						 double t, double b, double e, double d,
-						 double e1, double e2) 
+						 float t, float b, float e, float d,
+						 float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	t2--;
 	*v = -(ev-bv) * (t2*t2*t2*t2-1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool quartInOutFunc(float *v, float bv, float ev, 
-						   double t, double b, double e, double d,
-						   double e1, double e2) 
+						   float t, float b, float e, float d,
+						   float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2 + bv;
 	else {
@@ -202,30 +202,30 @@ inline bool quartInOutFunc(float *v, float bv, float ev,
 }
 
 inline bool quintInFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2*t2*t2*t2*t2 + bv;
 	return (t-b) >= d;
 }
 
 
 inline bool quintOutFunc(float *v, float bv, float ev, 
-						 double t, double b, double e, double d,
-						 double e1, double e2) 
+						 float t, float b, float e, float d,
+						 float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	t2--;
 	*v = (ev-bv) * (t2*t2*t2*t2*t2+1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool quintInOutFunc(float *v, float bv, float ev, 
-						   double t, double b, double e, double d,
-						   double e1, double e2) 
+						   float t, float b, float e, float d,
+						   float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1)
 		*v = (ev-bv)/2.f * t2*t2*t2*t2*t2 + bv;
 	else {
@@ -236,55 +236,55 @@ inline bool quintInOutFunc(float *v, float bv, float ev,
 }
 
 inline bool sinusInFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = -(ev-bv) * ::cosf(t2 * M_HALF_PI) + (ev-bv) + bv;
 	return (t-b) >= d;
 }
 
 inline bool sinusOutFunc(float *v, float bv, float ev, 
-						 double t, double b, double e, double d,
-						 double e1, double e2) 
+						 float t, float b, float e, float d,
+						 float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * ::sin(t2 * M_HALF_PI) + bv;
 	return (t-b) >= d;
 }
 
 inline bool sinusInOutFunc(float *v, float bv, float ev, 
-						   double t, double b, double e, double d,
-						   double e1, double e2) 
+						   float t, float b, float e, float d,
+						   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = -(ev-bv)/2.f * (::cosf(M_PI*t2) - 1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool expoInFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2) 
+					   float t, float b, float e, float d,
+					   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * ::powf(2, 10*(t2-1.f)) + bv;
 	return (t-b) >= d;
 }
 
 inline bool expoOutFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * (-::powf(2, -10*t2) + 1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool expoInOutFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2) 
+						  float t, float b, float e, float d,
+						  float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1.f)
 		*v = (ev-bv)/2.f * ::powf(2.f, 10 * (t2-1.f)) + bv;
 	else {
@@ -295,29 +295,29 @@ inline bool expoInOutFunc(float *v, float bv, float ev,
 }
 
 inline bool circInFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2) 
+					   float t, float b, float e, float d,
+					   float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = -(ev-bv) * (::sqrtf(1.f - t2*t2) - 1.f) + bv;
 	return (t-b) >= d;
 }
 
 inline bool circOutFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2) 
+						float t, float b, float e, float d,
+						float e1, float e2) 
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	t2--;
 	*v = (ev-bv) * ::sqrtf(1.f - t2*t2) + bv;
 	return (t-b) >= d;
 }
 
 inline bool circInOutFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2) 
+						  float t, float b, float e, float d,
+						  float e1, float e2) 
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	if(t2 < 1)
 		*v = -(ev-bv)/2.f * (::sqrtf(1.f - t2*t2) - 1.f) + bv;
 	else {
@@ -332,20 +332,20 @@ inline bool circInOutFunc(float *v, float bv, float ev,
 // e1: overshoot
 // e2:
 inline bool backInFunc(float *v, float bv, float ev, 
-					   double t, double b, double e, double d,
-					   double e1, double e2)
+					   float t, float b, float e, float d,
+					   float e1, float e2)
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	*v = (ev-bv) * t2 * t2 * ((e1+1)*t2 - e1) + bv;
 	
 	return (t-b) >= d;
 }
 
 inline bool backOutFunc(float *v, float bv, float ev, 
-						double t, double b, double e, double d,
-						double e1, double e2)
+						float t, float b, float e, float d,
+						float e1, float e2)
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	t2--;
 	*v = (ev-bv) * (t2 * t2 * ((e1+1)*t2 + e1) + 1)  + bv;
 	
@@ -353,10 +353,10 @@ inline bool backOutFunc(float *v, float bv, float ev,
 }
 
 inline bool backInOutFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2)
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	double t2 = (t - b) / d * 2.f;
+	float t2 = (t - b) / d * 2.f;
 	
 	if(t2 < 1)
 		*v = (ev-bv)/2.f * t2 * t2 * ((e1+1)*t2 - e1) + bv;
@@ -402,10 +402,10 @@ inline bool bounceInOutFunc()
 // e1: amplitude
 // e2: period
 inline bool elasticInFunc(float *v, float bv, float ev, 
-						  double t, double b, double e, double d,
-						  double e1, double e2)
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	double t2 = (t - b) / d;
+	float t2 = (t - b) / d;
 	
 	if ((t-b) <= 0) {
 		*v = 0;
@@ -417,7 +417,7 @@ inline bool elasticInFunc(float *v, float bv, float ev,
 		e2 = d * .3f;	//default period
 	} 
 	
-	double decay;
+	float decay;
 	
 	if (e1 < 1) { 
 		e1 = 1; 

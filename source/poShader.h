@@ -8,6 +8,12 @@
 
 #pragma once
 
+#include "common.h"
+
+#include <map>
+#include <vector>
+#include <sstream>
+
 class poShader {
 public:
 	poShader();

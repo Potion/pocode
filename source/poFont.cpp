@@ -10,9 +10,16 @@
 #include "poShape2D.h"
 #include "poHelpers.h"
 
-#ifdef _WIN32
+#include <boost/format.hpp>
+#include <boost/algorithm/string.hpp>
 
-#elif defined(__APPLE__)
+#ifdef POTION_WIN32
+
+	bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+		return false;
+	}
+
+#elif defined(POTION_APPLE)
 #include <CoreFoundation/CoreFoundation.h>
 
 	#if defined(POTION_MAC)

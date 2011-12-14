@@ -87,6 +87,8 @@ uint bitsPerChannelForType(GLenum type) {
 		case GL_FLOAT:
 			return 32;
 	}
+
+	return 0;
 }
 
 uint bppForFormatAndType(GLenum format, GLenum type) {
@@ -396,7 +398,7 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-	for(int i=0; i<points.size(); i++) {
+	for(uint i=0; i<points.size(); i++) {
 		float s = (points[i].x-rect.x) / rect.width;
 		float t = (points[i].y-rect.y) / rect.height;
 		coords[i].set(s,1.f-t,0.f);
@@ -407,7 +409,7 @@ void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector
 void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
 	poPoint max(FLT_MIN, FLT_MIN);
 	
-	for(int i=0; i<points.size(); i++) {
+	for(uint i=0; i<points.size(); i++) {
 		float s = (points[i].x-rect.x) / tex->getWidth();
 		float t = (points[i].y-rect.y) / tex->getHeight();
 		
@@ -419,7 +421,7 @@ void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
-	for(int i=0; i<coords.size(); i++) {
+	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
@@ -432,7 +434,7 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
-	for(int i=0; i<points.size(); i++) {
+	for(uint i=0; i<points.size(); i++) {
 		float s = (points[i].x-rect.x) / rect.width;
 		float t = (points[i].y-rect.y) / new_h;
 		
@@ -444,7 +446,7 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
-	for(int i=0; i<coords.size(); i++) {
+	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}
@@ -456,7 +458,7 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 	
 	poPoint max(FLT_MIN, FLT_MIN);
 	
-	for(int i=0; i<points.size(); i++) {
+	for(uint i=0; i<points.size(); i++) {
 		float s = (points[i].x-rect.x) / new_w;
 		float t = (points[i].y-rect.y) / rect.height;
 		
@@ -468,7 +470,7 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 	
 	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
 	
-	for(int i=0; i<coords.size(); i++) {
+	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;
 		coords[i] -= offset;
 	}

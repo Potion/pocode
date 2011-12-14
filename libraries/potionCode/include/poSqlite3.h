@@ -1,13 +1,15 @@
 #pragma once
 
+
 /*	Created by Stephen Varga on 9/15/11.
  *	Copyright 2011 Potion. All rights reserved.
  */
 
-#include <sqlite3.h>
-
 #include "poDictionary.h"
 
+#include <string>
+#include <vector>
+#include <sqlite3.h>
 
 #define PO_COL_TYPE_STRING  SQLITE_TEXT
 #define PO_COL_TYPE_INT     SQLITE_INTEGER

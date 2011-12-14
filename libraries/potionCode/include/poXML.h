@@ -8,7 +8,12 @@
 
 #pragma once 
 
+#include "common.h"
+
+#include <string>
+#include <vector>
 #include <pugixml.hpp>
+#include <boost/shared_ptr.hpp>
 
 class poXMLNode;
 class poXPathResult;
@@ -41,6 +46,8 @@ public:
     // PRINT
 	void            print() const;
 	pugi::xml_document &getHandle() const;
+	
+	poXMLDocument	copy();
 	
 private:
 	boost::shared_ptr<pugi::xml_document> document;
@@ -131,8 +138,8 @@ bool operator==(poXMLNode const& n1, poXMLNode const &n2);
 //
 
 // can be a couple of different things
-// either a single int, double or string
-// or a set of ints, doubles, strings or nodes
+// either a single int, float or string
+// or a set of ints, floats, strings or nodes
 class poXPathResult {
 	friend class poXMLNode;
     

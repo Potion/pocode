@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 #include <cmath>
 #include <ctime>
 #include <algorithm>
@@ -13,20 +14,22 @@
 #include "poColor.h"
 #include "poMatrixSet.h"
 
-#define M_2PI (M_PI*2.0)
-#define M_HALF_PI (M_PI/2.0)
-#define M_QUARTER_PI (M_HALF_PI/2.0)
+#undef M_PI
+#define M_PI 3.14159265f
+#define M_2PI (M_PI*2.f)
+#define M_HALF_PI (M_PI/2.f)
+#define M_QUARTER_PI (M_HALF_PI/2.f)
 
 inline bool compare(float f1, float f2, float range=1.0e-6f) {
 	return ::fabs(f1-f2) < range;
 }
 
 inline float deg2rad(float deg) {
-	return deg / 180.0 * M_PI;
+	return deg / 180.f * M_PI;
 }
 
 inline float rad2deg(float rad) {
-	return rad / M_PI * 180.0;
+	return rad / M_PI * 180.f;
 }
 
 inline float sin_deg(float deg) {
@@ -75,7 +78,7 @@ inline void capToRange(poPoint *pt, float low, float high) {
 
 // will round -.5 to -1
 inline float roundSym(float f) {
-	return (f > 0.0) ? floor(f + 0.5) : ceil(f - 0.5);
+	return (f > 0.f) ? floor(f + 0.5f) : ceil(f - 0.5f);
 }
 
 inline poPoint roundSym(poPoint p) {
@@ -83,7 +86,7 @@ inline poPoint roundSym(poPoint p) {
 }
 
 inline float round(float f) {
-	return floor(f + 0.5);
+	return floor(f + 0.5f);
 }
 
 inline poPoint round(poPoint p) {
