@@ -93,10 +93,10 @@ public:
     
 	// SCENE GRAPH COMPOSITION
     int                 getNumChildren() const;
-	void				addChild(poObject* obj);
-	void				addChild(poObject* obj, int idx); 
-	void				addChildBefore(poObject* obj, poObject* before);
-	void				addChildAfter(poObject* obj, poObject* after);
+	poObject*			addChild(poObject* obj);
+	poObject*			addChild(poObject* obj, int idx); 
+	poObject*			addChildBefore(poObject* obj, poObject* before);
+	poObject*			addChildAfter(poObject* obj, poObject* after);
 	int                 getChildIndex(poObject* child);
 	poObject*           getChild(int at_idx);
 	poObject*           getChildWithUID(uint uid);
