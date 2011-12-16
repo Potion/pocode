@@ -149,7 +149,6 @@ void poTextureAtlas::layoutAtlas() {
 		coords[i] = item;
 		pages[pg]->composite(images[i], pack_loc.getPosition(), 1.f);
 	}
-	clearImages();
     
 	textures.resize(pages.size());
 	
