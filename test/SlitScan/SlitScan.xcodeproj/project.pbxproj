@@ -1,0 +1,221 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2BEAE344149DDB9500BD622B /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE343149DDB9500BD622B /* AppDelegate.mm */; };
+		2BEAE346149DDB9500BD622B /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BEAE345149DDB9500BD622B /* en.strings */; };
+		2BEAE348149DDB9500BD622B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE347149DDB9500BD622B /* main.m */; };
+		2BEAE34A149DDB9500BD622B /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2BEAE349149DDB9500BD622B /* main.pch */; };
+		2BEAE34D149DDB9500BD622B /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BEAE34C149DDB9500BD622B /* main.xib */; };
+		2BEAE350149DDB9500BD622B /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE34F149DDB9500BD622B /* poOpenGLView.mm */; };
+		2BEAE354149DDB9500BD622B /* SlitScanApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE353149DDB9500BD622B /* SlitScanApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2BEAE33B149DDB9500BD622B /* SlitScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlitScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BEAE340149DDB9500BD622B /* Debug.xcconfig */ = {isa = PBXFileReference; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2BEAE341149DDB9500BD622B /* Release.xcconfig */ = {isa = PBXFileReference; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2BEAE342149DDB9500BD622B /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2BEAE343149DDB9500BD622B /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2BEAE345149DDB9500BD622B /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2BEAE347149DDB9500BD622B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2BEAE349149DDB9500BD622B /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2BEAE34B149DDB9500BD622B /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2BEAE34C149DDB9500BD622B /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2BEAE34E149DDB9500BD622B /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2BEAE34F149DDB9500BD622B /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2BEAE352149DDB9500BD622B /* SlitScanApp.h */ = {isa = PBXFileReference; path = SlitScanApp.h; sourceTree = "<group>"; };
+		2BEAE353149DDB9500BD622B /* SlitScanApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SlitScanApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BEAE338149DDB9500BD622B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BEAE330149DDB9500BD622B = {
+			isa = PBXGroup;
+			children = (
+				2BEAE33E149DDB9500BD622B /* SlitScan */,
+				2BEAE33C149DDB9500BD622B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BEAE33C149DDB9500BD622B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BEAE33B149DDB9500BD622B /* SlitScan.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2BEAE33E149DDB9500BD622B /* SlitScan */ = {
+			isa = PBXGroup;
+			children = (
+				2BEAE33F149DDB9500BD622B /* platform */,
+				2BEAE351149DDB9500BD622B /* application */,
+			);
+			path = SlitScan;
+			sourceTree = "<group>";
+		};
+		2BEAE33F149DDB9500BD622B /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2BEAE340149DDB9500BD622B /* Debug.xcconfig */,
+				2BEAE341149DDB9500BD622B /* Release.xcconfig */,
+				2BEAE342149DDB9500BD622B /* AppDelegate.h */,
+				2BEAE343149DDB9500BD622B /* AppDelegate.mm */,
+				2BEAE345149DDB9500BD622B /* en.strings */,
+				2BEAE347149DDB9500BD622B /* main.m */,
+				2BEAE349149DDB9500BD622B /* main.pch */,
+				2BEAE34B149DDB9500BD622B /* main.plist */,
+				2BEAE34C149DDB9500BD622B /* main.xib */,
+				2BEAE34E149DDB9500BD622B /* poOpenGLView.h */,
+				2BEAE34F149DDB9500BD622B /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2BEAE351149DDB9500BD622B /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2BEAE352149DDB9500BD622B /* SlitScanApp.h */,
+				2BEAE353149DDB9500BD622B /* SlitScanApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BEAE33A149DDB9500BD622B /* SlitScan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BEAE357149DDB9500BD622B /* Build configuration list for PBXNativeTarget "SlitScan" */;
+			buildPhases = (
+				2BEAE337149DDB9500BD622B /* Sources */,
+				2BEAE338149DDB9500BD622B /* Frameworks */,
+				2BEAE339149DDB9500BD622B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlitScan;
+			productName = SlitScan;
+			productReference = 2BEAE33B149DDB9500BD622B /* SlitScan.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BEAE332149DDB9500BD622B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 2BEAE335149DDB9500BD622B /* Build configuration list for PBXProject "SlitScan" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2BEAE330149DDB9500BD622B;
+			productRefGroup = 2BEAE33C149DDB9500BD622B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BEAE33A149DDB9500BD622B /* SlitScan */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BEAE339149DDB9500BD622B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BEAE346149DDB9500BD622B /* en.strings in Resources */,
+				2BEAE34A149DDB9500BD622B /* main.pch in Resources */,
+				2BEAE34D149DDB9500BD622B /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BEAE337149DDB9500BD622B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BEAE344149DDB9500BD622B /* AppDelegate.mm in Sources */,
+				2BEAE348149DDB9500BD622B /* main.m in Sources */,
+				2BEAE350149DDB9500BD622B /* poOpenGLView.mm in Sources */,
+				2BEAE354149DDB9500BD622B /* SlitScanApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2BEAE355149DDB9500BD622B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BEAE340149DDB9500BD622B /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2BEAE356149DDB9500BD622B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BEAE341149DDB9500BD622B /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2BEAE358149DDB9500BD622B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2BEAE359149DDB9500BD622B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BEAE335149DDB9500BD622B /* Build configuration list for PBXProject "SlitScan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BEAE355149DDB9500BD622B /* Debug */,
+				2BEAE356149DDB9500BD622B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BEAE357149DDB9500BD622B /* Build configuration list for PBXNativeTarget "SlitScan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BEAE358149DDB9500BD622B /* Debug */,
+				2BEAE359149DDB9500BD622B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BEAE332149DDB9500BD622B /* Project object */;
+}
