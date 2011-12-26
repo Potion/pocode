@@ -74,6 +74,8 @@ public:
 	poColor             getSourceImagePixel(poPoint p);
     poImage*            getSourceImage() { return sourceImage; };
     
+    static int          getTotalAllocatedTextureMemorySize() { return totalAllocatedTextureMemorySize; };
+    
 private:
 	void                load(poImage* img);
 	void                load(poImage* img, const poTextureConfig &config);
@@ -86,6 +88,8 @@ private:
 	uint				uid, width, height, channels;
     
     poImage*            sourceImage;
+    
+    static int          totalAllocatedTextureMemorySize;
 };
 
 

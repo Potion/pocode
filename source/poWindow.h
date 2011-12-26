@@ -95,6 +95,9 @@ public:
 	
 	SigConn			addUpdate(const boost::function<void()> &func);
 
+    // MEMORY MANAGEMENT
+    int             getTotalAllocatedMemory();
+    
 private:
     
     // THE SCENE GRAPH ROOT NODE

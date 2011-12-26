@@ -12,6 +12,7 @@
 #include "poOpenGLState.h"
 #include "poGLBuffer.h"
 
+
 GLenum formatForChannels(uint channels) {
 	switch(channels) {
 		case 1:
@@ -125,6 +126,8 @@ poTextureConfig::poTextureConfig(GLenum format)
 	#endif
 {}
 
+int         poTexture::totalAllocatedTextureMemorySize = 0;
+
 poTexture::poTexture()
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
 {}
@@ -162,6 +165,8 @@ poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextu
 poTexture::~poTexture() {
 	glDeleteTextures(1, &uid);
 	uid = 0;
+    
+    totalAllocatedTextureMemorySize -= width*height*channels;
     
     // should delete sourceImage in some cases
 }
@@ -274,6 +279,10 @@ void poTexture::load(uint width, uint height, int channels, const ubyte *pixels)
 }
 
 void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
+    
+    totalAllocatedTextureMemorySize -= width*height*channels;
+    totalAllocatedTextureMemorySize += w*h*channelsForFormat(c.format);
+    
 	width = w;
 	height = h;
 	channels = channelsForFormat(c.format);

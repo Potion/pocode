@@ -34,7 +34,9 @@ namespace po {
 
 		uint getNumGlyphs() const { return glyphs.size(); }
 		TextLayoutGlyph &getGlyph(uint g) { return glyphs[g]; }
-		
+        
+        virtual int getSizeInMemory() { return ( sizeof(TextLayoutLine)+(glyphs.capacity()*sizeof(TextLayoutGlyph)) ); };
+        
 		std::vector<TextLayoutGlyph> glyphs;
 		poRect bbox;
 		int wordCount;

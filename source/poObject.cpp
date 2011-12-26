@@ -457,6 +457,19 @@ float			poObject::getAppliedAlpha() const {return trueAlpha;}
 poMatrixSet&    poObject::getMatrixSet()  {return matrices;}
 int				poObject::getDrawOrder() const {return drawOrder;}
 
+int             poObject::getSizeInMemoryTree() {
+    // get own size
+    int S = getSizeInMemory();
+    // get size of children
+    BOOST_FOREACH(poObject* obj, children)
+        S += obj->getSizeInMemoryTree();
+    // should also get poObjectModifier sizes
+    return S;
+}
+
+int             poObject::getSizeInMemory() {
+    return sizeof(poObject);
+}
 
 
 bool poObject::isVisible() {

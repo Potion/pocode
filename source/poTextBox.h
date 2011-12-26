@@ -158,6 +158,9 @@ public:
     // You should not need to call the draw() method yourself.
 	void                draw();
 
+    // MEMORY MANAGEMENT
+    virtual int         getSizeInMemory();
+    
     // FILL AND STROKE
     poColor                 fillColor;
 	bool                    fillEnabled;

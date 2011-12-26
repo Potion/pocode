@@ -83,7 +83,9 @@ public:
 	
 	// IMAGE URL, COULD BE ""
 	std::string         getUrl() const;
-	
+    
+    static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
+    
 private:
 	void                load(const std::string &url);
 	void                load(const std::string &url, uint c);
@@ -91,6 +93,8 @@ private:
 	
 	FIBITMAP            *bitmap;
 	std::string         url;
+    
+    static int          totalAllocatedImageMemorySize;
 };
 
 

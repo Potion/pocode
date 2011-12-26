@@ -291,3 +291,20 @@ void po::TextBoxLayout::realignText() {
 	
 	recalculateTextBounds();
 }
+
+
+int po::TextBoxLayout::getSizeInMemory()
+{
+    int S = sizeof( po::TextBoxLayout );
+    
+    S += text.capacity() * sizeof(char);
+    
+    // should include AttributedString parsedText;
+    // should include std::map<std::string, poFont*> fonts;
+    
+    for( int i=0; i<lines.size(); i++ )
+        S += lines[i].getSizeInMemory();
+    
+    return S;
+}
+

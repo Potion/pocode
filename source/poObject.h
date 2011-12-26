@@ -190,6 +190,10 @@ public:
     
     //Recursively check parents for definitive visibility
     bool                isVisible(); 
+    
+    // MEMORY MANAGEMENT
+    int                 getSizeInMemoryTree();
+    virtual int         getSizeInMemory();
 	
     static const int    INVALID_INDEX = -1;
     

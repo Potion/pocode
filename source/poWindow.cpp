@@ -5,6 +5,9 @@
 #include "poOpenGLState.h"
 #include "poApplication.h"
 
+#include "poTexture.h"
+#include "poImage.h"
+
 void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
 	if(!(obj->visible && obj->alpha > 0.01))
 		return; 
@@ -371,4 +374,17 @@ int poWindow::getNextDrawOrder() {
 SigConn poWindow::addUpdate(const boost::function<void()> &func) {
 	return updateSignal.connect(func);
 }
+
+
+int poWindow::getTotalAllocatedMemory()
+{
+    int S = 0;
+    
+    S += getRootObject()->getSizeInMemoryTree();
+    S += poImage::getTotalAllocatedImageMemorySize();
+    S += poTexture::getTotalAllocatedTextureMemorySize();
+    
+    return S;
+}
+
 
