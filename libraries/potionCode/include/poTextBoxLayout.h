@@ -30,8 +30,11 @@ namespace po {
 		float padding[4];
 		
 		TextBoxLayout(poPoint s);
-		void realignText();
-		
+        
+		void                realignText();
+        
+        virtual int         getSizeInMemory();
+        
 	protected:
 		virtual void doLayout();
 		

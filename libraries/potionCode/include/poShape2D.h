@@ -93,6 +93,9 @@ public:
     // TWEEN MANAGEMENT
     virtual void            stopAllTweens(bool recurse=false);
     
+    // MEMORY MANAGEMENT
+    virtual int         getSizeInMemory();
+    
     // SHAPE SERIALIZAATION
 	virtual void            read(poXMLNode node);
 	virtual void            write(poXMLNode &node);

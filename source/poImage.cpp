@@ -18,6 +18,9 @@ static void loadFreeImageIfNeeded() {
 	}
 }
 
+int poImage::totalAllocatedImageMemorySize = 0;
+
+
 poImage::poImage()
 :	bitmap(NULL)
 ,	url("")
@@ -45,6 +48,7 @@ poImage::poImage(uint w, uint h, uint c, const ubyte *p)
 }
 
 poImage::~poImage() {
+    totalAllocatedImageMemorySize -= FreeImage_GetDIBSize(bitmap);
 	FreeImage_Unload(bitmap);
 	bitmap = NULL;
 }
@@ -381,23 +385,28 @@ FIBITMAP *loadDIB(const std::string &url) {
 void poImage::load(const std::string &url) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		bitmap = loadDIB(url);
+		bitmap = bmp;
 		this->url = url;
+        totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 	}
 }
 
 void poImage::load(const std::string &url, uint c) {
 	FIBITMAP *bmp = loadDIB(url);
 	if(bmp) {
-		bitmap = loadDIB(url);
+		bitmap = bmp;
 		this->url = url;
 		setNumChannels(c);
+        totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 	}
 }
 
 void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
 	if(bitmap)
+    {
+        totalAllocatedImageMemorySize -= FreeImage_GetDIBSize(bitmap);
 		FreeImage_Unload(bitmap);
+    }
 	
 	if(pix != NULL)
 		bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
@@ -406,6 +415,8 @@ void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
 		char black[] = {0,0,0,0};
 		FreeImage_FillBackground(bitmap, black);
 	}
+    
+    totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 }
 
 std::ostream &operator<<(std::ostream &out, const poImage *img) {

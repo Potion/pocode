@@ -331,6 +331,16 @@ void poShape2D::updateAllTweens() {
 	fillColorTween.update();
 }
 
+int poShape2D::getSizeInMemory() {
+    int S = sizeof(poShape2D);
+
+    S += points.capacity() * sizeof(poPoint);
+    S += texCoords.capacity() * sizeof(poPoint);
+    S += stroke.capacity() * sizeof(poPoint);
+    
+    return S;
+}
+
 void poShape2D::read(poXMLNode node) {
 	fillDrawStyle = node.getChild("fillDrawStyle").getInnerInt();
 	fillColor.set(node.getChild("fillColor").getInnerString());

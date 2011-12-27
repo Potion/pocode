@@ -431,5 +431,16 @@ bool poTextBox::pointInside(poPoint p, bool localize)
 
 	return false;
 }
- 
+
+
+int poTextBox::getSizeInMemory() {
+    int S = sizeof(poTextBox);
+    
+    S += layout.getSizeInMemory();
+    
+    //if ( cached )
+    //    S += cached->getSizeInMemory();
+    
+    return S;
+}
 

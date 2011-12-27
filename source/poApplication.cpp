@@ -1,5 +1,7 @@
 #include "poApplication.h"
 #include "poWindow.h"
+#include "poImage.h"
+#include "poTexture.h"
 
 float getWindowWidth() {
 	poWindow *window = applicationCurrentWindow();
@@ -77,3 +79,5 @@ bool getWindowMouseMoveEnabled() {
 	poWindow *window = applicationCurrentWindow();
 	return window->isMouseMoveEnabled();
 }
+
+

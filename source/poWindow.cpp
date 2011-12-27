@@ -5,6 +5,9 @@
 #include "poOpenGLState.h"
 #include "poApplication.h"
 
+#include "poTexture.h"
+#include "poImage.h"
+
 void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
 	if(!(obj->visible && obj->alpha > 0.01))
 		return; 
@@ -155,12 +158,12 @@ void poWindow::update() {
 	}
 	received.clear();
 
-	// tell everyone who cares they should update
+	// tell everyone who cares they should update 
 	updateSignal();
 	
 	// update the objects
 	getRootObject()->updateTree();
-}
+} 
 
 void poWindow::mouseDown(int x, int y, int mod) {
 	mousePos.set(x,y,1.f);
@@ -169,7 +172,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
-	event.type = PO_MOUSE_DOWN_EVENT;
+	event.type = PO_MOUSE_DOWN_EVENT; 
 	received.push_back(event);
 }
 
@@ -371,4 +374,7 @@ int poWindow::getNextDrawOrder() {
 SigConn poWindow::addUpdate(const boost::function<void()> &func) {
 	return updateSignal.connect(func);
 }
+
+
+
 

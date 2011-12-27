@@ -43,8 +43,6 @@ extern void         setupApplication();
 extern void         cleanupApplication();
 
 
-
-
 // These functions are defined in poApplication.cpp. The values returned are for the current top-most window.
 // All of these extract data from the poWindow class.
 float		getWindowWidth();
