@@ -1,0 +1,14 @@
+<root>
+	<container attrib1="1" attrib2="5.4" attrib3="blank">
+		<obj>one</obj>
+		<obj>two</obj>
+		<obj>three</obj>
+		<obj>four</obj>
+	</container>
+	<container attrib1="8" attrib2="100.8" attrib3="full">
+		<obj>20</obj>
+		<obj>21</obj>
+		<obj>22</obj>
+		<obj>23</obj>
+	</container>
+</root>

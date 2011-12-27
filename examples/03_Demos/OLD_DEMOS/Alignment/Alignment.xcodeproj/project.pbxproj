@@ -1,0 +1,223 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B0642AC13A280B300D982FB /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B0642AB13A280B300D982FB /* Debug.xcconfig */; };
+		2B0642AE13A280B300D982FB /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2B0642AD13A280B300D982FB /* Release.xcconfig */; };
+		2B0642B113A280B300D982FB /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B0642B013A280B300D982FB /* AppDelegate.mm */; };
+		2B0642B313A280B300D982FB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B0642B213A280B300D982FB /* en.strings */; };
+		2B0642B513A280B300D982FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0642B413A280B300D982FB /* main.m */; };
+		2B0642B713A280B300D982FB /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2B0642B613A280B300D982FB /* main.pch */; };
+		2B0642BA13A280B300D982FB /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B0642B913A280B300D982FB /* main.xib */; };
+		2B0642BD13A280B300D982FB /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B0642BC13A280B300D982FB /* poOpenGLView.mm */; };
+		2B0642C113A280B300D982FB /* AlignmentApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0642C013A280B300D982FB /* AlignmentApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B0642A613A280B300D982FB /* Alignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B0642AB13A280B300D982FB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2B0642AD13A280B300D982FB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2B0642AF13A280B300D982FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2B0642B013A280B300D982FB /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2B0642B213A280B300D982FB /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2B0642B413A280B300D982FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2B0642B613A280B300D982FB /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2B0642B813A280B300D982FB /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2B0642B913A280B300D982FB /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2B0642BB13A280B300D982FB /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2B0642BC13A280B300D982FB /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2B0642BF13A280B300D982FB /* AlignmentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlignmentApp.h; sourceTree = "<group>"; };
+		2B0642C013A280B300D982FB /* AlignmentApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AlignmentApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B0642A313A280B300D982FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B06429B13A280B300D982FB = {
+			isa = PBXGroup;
+			children = (
+				2B0642A913A280B300D982FB /* Alignment */,
+				2B0642A713A280B300D982FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B0642A713A280B300D982FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B0642A613A280B300D982FB /* Alignment.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B0642A913A280B300D982FB /* Alignment */ = {
+			isa = PBXGroup;
+			children = (
+				2B0642AA13A280B300D982FB /* platform */,
+				2B0642BE13A280B300D982FB /* application */,
+			);
+			path = Alignment;
+			sourceTree = "<group>";
+		};
+		2B0642AA13A280B300D982FB /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2B0642AB13A280B300D982FB /* Debug.xcconfig */,
+				2B0642AD13A280B300D982FB /* Release.xcconfig */,
+				2B0642AF13A280B300D982FB /* AppDelegate.h */,
+				2B0642B013A280B300D982FB /* AppDelegate.mm */,
+				2B0642B213A280B300D982FB /* en.strings */,
+				2B0642B413A280B300D982FB /* main.m */,
+				2B0642B613A280B300D982FB /* main.pch */,
+				2B0642B813A280B300D982FB /* main.plist */,
+				2B0642B913A280B300D982FB /* main.xib */,
+				2B0642BB13A280B300D982FB /* poOpenGLView.h */,
+				2B0642BC13A280B300D982FB /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2B0642BE13A280B300D982FB /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2B0642BF13A280B300D982FB /* AlignmentApp.h */,
+				2B0642C013A280B300D982FB /* AlignmentApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B0642A513A280B300D982FB /* Alignment */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B0642C413A280B300D982FB /* Build configuration list for PBXNativeTarget "Alignment" */;
+			buildPhases = (
+				2B0642A213A280B300D982FB /* Sources */,
+				2B0642A313A280B300D982FB /* Frameworks */,
+				2B0642A413A280B300D982FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alignment;
+			productName = Alignment;
+			productReference = 2B0642A613A280B300D982FB /* Alignment.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B06429D13A280B300D982FB /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2B0642A013A280B300D982FB /* Build configuration list for PBXProject "Alignment" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2B06429B13A280B300D982FB;
+			productRefGroup = 2B0642A713A280B300D982FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B0642A513A280B300D982FB /* Alignment */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B0642A413A280B300D982FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B0642AC13A280B300D982FB /* Debug.xcconfig in Resources */,
+				2B0642AE13A280B300D982FB /* Release.xcconfig in Resources */,
+				2B0642B313A280B300D982FB /* en.strings in Resources */,
+				2B0642B713A280B300D982FB /* main.pch in Resources */,
+				2B0642BA13A280B300D982FB /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B0642A213A280B300D982FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B0642B113A280B300D982FB /* AppDelegate.mm in Sources */,
+				2B0642B513A280B300D982FB /* main.m in Sources */,
+				2B0642BD13A280B300D982FB /* poOpenGLView.mm in Sources */,
+				2B0642C113A280B300D982FB /* AlignmentApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B0642C213A280B300D982FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B0642AB13A280B300D982FB /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B0642C313A280B300D982FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B0642AD13A280B300D982FB /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2B0642C513A280B300D982FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2B0642C613A280B300D982FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B0642A013A280B300D982FB /* Build configuration list for PBXProject "Alignment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B0642C213A280B300D982FB /* Debug */,
+				2B0642C313A280B300D982FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B0642C413A280B300D982FB /* Build configuration list for PBXNativeTarget "Alignment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B0642C513A280B300D982FB /* Debug */,
+				2B0642C613A280B300D982FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2B06429D13A280B300D982FB /* Project object */;
+}

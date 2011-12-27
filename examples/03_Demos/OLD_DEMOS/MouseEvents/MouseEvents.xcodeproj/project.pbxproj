@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2BFF93CB139D56B70063995D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93CA139D56B70063995D /* AppDelegate.mm */; };
+		2BFF93CD139D56B70063995D /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93CC139D56B70063995D /* en.strings */; };
+		2BFF93CF139D56B70063995D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93CE139D56B70063995D /* main.m */; };
+		2BFF93D1139D56B70063995D /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93D0139D56B70063995D /* main.pch */; };
+		2BFF93D4139D56B70063995D /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF93D3139D56B70063995D /* main.xib */; };
+		2BFF93D7139D56B70063995D /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93D6139D56B70063995D /* poOpenGLView.mm */; };
+		2BFF93DB139D56B70063995D /* MouseEventsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BFF93DA139D56B70063995D /* MouseEventsApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2BFF93C0139D56B70063995D /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = .app; path = MouseEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BFF93C5139D56B70063995D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		2BFF93C7139D56B70063995D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		2BFF93C9139D56B70063995D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		2BFF93CA139D56B70063995D /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		2BFF93CC139D56B70063995D /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		2BFF93CE139D56B70063995D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		2BFF93D0139D56B70063995D /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		2BFF93D2139D56B70063995D /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		2BFF93D3139D56B70063995D /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		2BFF93D5139D56B70063995D /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		2BFF93D6139D56B70063995D /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		2BFF93D9139D56B70063995D /* MouseEventsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MouseEventsApp.h; sourceTree = "<group>"; };
+		2BFF93DA139D56B70063995D /* MouseEventsApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MouseEventsApp.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BFF93BD139D56B70063995D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BFF93B5139D56B70063995D = {
+			isa = PBXGroup;
+			children = (
+				2BFF93C3139D56B70063995D /* MouseEvents */,
+				2BFF93C1139D56B70063995D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BFF93C1139D56B70063995D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BFF93C0139D56B70063995D /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2BFF93C3139D56B70063995D /* MouseEvents */ = {
+			isa = PBXGroup;
+			children = (
+				2BFF93C4139D56B70063995D /* platform */,
+				2BFF93D8139D56B70063995D /* application */,
+			);
+			path = MouseEvents;
+			sourceTree = "<group>";
+		};
+		2BFF93C4139D56B70063995D /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				2BFF93C5139D56B70063995D /* Debug.xcconfig */,
+				2BFF93C7139D56B70063995D /* Release.xcconfig */,
+				2BFF93C9139D56B70063995D /* AppDelegate.h */,
+				2BFF93CA139D56B70063995D /* AppDelegate.mm */,
+				2BFF93CC139D56B70063995D /* en.strings */,
+				2BFF93CE139D56B70063995D /* main.m */,
+				2BFF93D0139D56B70063995D /* main.pch */,
+				2BFF93D2139D56B70063995D /* main.plist */,
+				2BFF93D3139D56B70063995D /* main.xib */,
+				2BFF93D5139D56B70063995D /* poOpenGLView.h */,
+				2BFF93D6139D56B70063995D /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		2BFF93D8139D56B70063995D /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2BFF93D9139D56B70063995D /* MouseEventsApp.h */,
+				2BFF93DA139D56B70063995D /* MouseEventsApp.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BFF93BF139D56B70063995D /* MouseEvents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BFF93DE139D56B70063995D /* Build configuration list for PBXNativeTarget "MouseEvents" */;
+			buildPhases = (
+				2BFF93BC139D56B70063995D /* Sources */,
+				2BFF93BD139D56B70063995D /* Frameworks */,
+				2BFF93BE139D56B70063995D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MouseEvents;
+			productName = MouseEvents;
+			productReference = 2BFF93C0139D56B70063995D /* .app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BFF93B7139D56B70063995D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = Potion;
+			};
+			buildConfigurationList = 2BFF93BA139D56B70063995D /* Build configuration list for PBXProject "MouseEvents" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2BFF93B5139D56B70063995D;
+			productRefGroup = 2BFF93C1139D56B70063995D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BFF93BF139D56B70063995D /* MouseEvents */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BFF93BE139D56B70063995D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BFF93CD139D56B70063995D /* en.strings in Resources */,
+				2BFF93D1139D56B70063995D /* main.pch in Resources */,
+				2BFF93D4139D56B70063995D /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BFF93BC139D56B70063995D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BFF93CB139D56B70063995D /* AppDelegate.mm in Sources */,
+				2BFF93CF139D56B70063995D /* main.m in Sources */,
+				2BFF93D7139D56B70063995D /* poOpenGLView.mm in Sources */,
+				2BFF93DB139D56B70063995D /* MouseEventsApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2BFF93DC139D56B70063995D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BFF93C5139D56B70063995D /* Debug.xcconfig */;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+			};
+			name = Debug;
+		};
+		2BFF93DD139D56B70063995D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BFF93C7139D56B70063995D /* Release.xcconfig */;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+			};
+			name = Release;
+		};
+		2BFF93DF139D56B70063995D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2BFF93E0139D56B70063995D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BFF93BA139D56B70063995D /* Build configuration list for PBXProject "MouseEvents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BFF93DC139D56B70063995D /* Debug */,
+				2BFF93DD139D56B70063995D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BFF93DE139D56B70063995D /* Build configuration list for PBXNativeTarget "MouseEvents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BFF93DF139D56B70063995D /* Debug */,
+				2BFF93E0139D56B70063995D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BFF93B7139D56B70063995D /* Project object */;
+}
