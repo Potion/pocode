@@ -158,12 +158,12 @@ void poWindow::update() {
 	}
 	received.clear();
 
-	// tell everyone who cares they should update
+	// tell everyone who cares they should update 
 	updateSignal();
 	
 	// update the objects
 	getRootObject()->updateTree();
-}
+} 
 
 void poWindow::mouseDown(int x, int y, int mod) {
 	mousePos.set(x,y,1.f);
@@ -172,7 +172,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
 	
-	event.type = PO_MOUSE_DOWN_EVENT;
+	event.type = PO_MOUSE_DOWN_EVENT; 
 	received.push_back(event);
 }
 
@@ -376,15 +376,5 @@ SigConn poWindow::addUpdate(const boost::function<void()> &func) {
 }
 
 
-int poWindow::getTotalAllocatedMemory()
-{
-    int S = 0;
-    
-    S += getRootObject()->getSizeInMemoryTree();
-    S += poImage::getTotalAllocatedImageMemorySize();
-    S += poTexture::getTotalAllocatedTextureMemorySize();
-    
-    return S;
-}
 
 
