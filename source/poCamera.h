@@ -161,6 +161,7 @@ protected:
 	virtual void            doSetUp(poObject* obj);
 	virtual void            setProjection();
 	virtual void            setModelview();
+    virtual void            saveAndUpdateGLSettings();
 
 private:
 	float                   fov, nearClip, farClip;
