@@ -31,6 +31,16 @@ class poShape2D;
 //
 // 
 
+struct poFontGlyphMetrics
+{
+    poRect  glyphBounds;
+	poRect  glyphFrame;
+	float   glyphDescender;
+	poPoint glyphBearing;
+	poPoint glyphAdvance;
+};
+
+
 class poFont : public poResource
 {
 	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
@@ -69,12 +79,12 @@ public:
 	void                setGlyph(int g);
     
 	// These functions (starting with 'glyph') return info about the current codepoint.
-	poRect              getGlyphBounds() const;
-	poRect              getGlyphFrame() const;
-	float               getGlyphDescender() const;
-	poPoint             getGlyphBearing() const;
-	poPoint             getGlyphAdvance() const;
-	poImage*			getGlyphImage() const;
+	poRect              getGlyphBounds();
+	poRect              getGlyphFrame();
+	float               getGlyphDescender();
+	poPoint             getGlyphBearing();
+	poPoint             getGlyphAdvance();
+	poImage*			getGlyphImage();
 //	poShape2D           *getGlyphOutline() const;
 
 	poPoint             kernGlyphs(int glyph1, int glyph2) const;
@@ -83,12 +93,17 @@ public:
 	std::string			getRequestedFamilyName() const;
 	std::string			getRequestedStyleName() const;
 
+    void                cacheGlyphMetrics();
+
 private:
 	void                loadGlyph(int g);
-	
+    
+    bool                                cachedYet;
+    std::vector<poFontGlyphMetrics>     cachedGlyphMetricsVector;
+    
 	std::string			url, reqUrlOrFamily, reqStyle;
 	int					size;
-	int					glyph;
+	int					glyph, loadedGlyph;
 	FT_Face				face;
 	static FT_Library   lib;
 };

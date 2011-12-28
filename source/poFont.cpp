@@ -78,6 +78,8 @@ poFont::poFont()
 ,	reqUrlOrFamily("")
 ,	reqStyle("")
 ,	glyph(0)
+,   loadedGlyph(0)
+,   cachedYet(false)
 {
 	if(!lib)
 		FT_Init_FreeType(&lib);
@@ -90,6 +92,8 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 ,	reqUrlOrFamily("")
 ,	reqStyle("")
 ,	glyph(0)
+,   loadedGlyph(0)
+,   cachedYet(false)
 {
 	if(!lib)
 		FT_Init_FreeType(&lib);
@@ -183,13 +187,15 @@ int poFont::getGlyph() const {
 }
 
 void poFont::setGlyph(int g) {
-	if(g != glyph) {
-		glyph = g;
-		loadGlyph(glyph);
-	}
+    glyph = g;
 }
 
-poRect poFont::getGlyphBounds() const {
+poRect poFont::getGlyphBounds() {
+    
+    if ( cachedYet && glyph < 128 )
+        return cachedGlyphMetricsVector[ glyph ].glyphBounds;
+                                
+    loadGlyph( glyph );
 	float x = 0;
 	float y = 0;
 	float w = face->glyph->metrics.width >> 6;
@@ -197,26 +203,43 @@ poRect poFont::getGlyphBounds() const {
 	return poRect(x, y, w, h);
 }
 
-poRect poFont::getGlyphFrame() const {
+poRect poFont::getGlyphFrame() {
+    if ( cachedYet && glyph < 128 )
+        return cachedGlyphMetricsVector[ glyph ].glyphFrame;
+    
+    loadGlyph( glyph );
 	return poRect(getGlyphBearing(), getGlyphBounds().getSize());
 }
 
-float poFont::getGlyphDescender() const {
+float poFont::getGlyphDescender() {
+    if ( cachedYet && glyph < 128 )
+        return cachedGlyphMetricsVector[ glyph ].glyphDescender;
+    
+    loadGlyph( glyph );
 	poRect r = getGlyphFrame();
 	return r.height + r.y;
 }
 
-poPoint poFont::getGlyphBearing() const {
+poPoint poFont::getGlyphBearing()  {
+    if ( cachedYet && glyph < 128 )
+        return cachedGlyphMetricsVector[ glyph ].glyphBearing;
+    
+    loadGlyph( glyph );
 	return poPoint(face->glyph->metrics.horiBearingX >> 6,
 				   -(face->glyph->metrics.horiBearingY >> 6));
 }
 
-poPoint poFont::getGlyphAdvance() const {
+poPoint poFont::getGlyphAdvance() {
+    if ( cachedYet && glyph < 128 )
+        return cachedGlyphMetricsVector[ glyph ].glyphAdvance;
+    
+    loadGlyph( glyph );
 	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
 				   face->glyph->metrics.vertAdvance >> 6);
 }
 
-poImage* poFont::getGlyphImage() const {
+poImage* poFont::getGlyphImage() {
+    loadGlyph( glyph );
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 	const FT_Bitmap bitmap = face->glyph->bitmap;
 	
@@ -262,8 +285,31 @@ std::string poFont::getRequestedStyleName() const {
 }
 
 void poFont::loadGlyph(int g) {
-	uint idx = FT_Get_Char_Index(face, g);
-	FT_Load_Glyph(face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
+    if ( loadedGlyph != g )
+    {
+        uint idx = FT_Get_Char_Index(face, g);
+        FT_Load_Glyph(face, idx, FT_LOAD_NO_BITMAP | FT_LOAD_FORCE_AUTOHINT);
+        loadedGlyph = g;
+    }
+}
+
+void    poFont::cacheGlyphMetrics()
+{
+    if ( cachedYet )
+        return;
+    cachedGlyphMetricsVector.resize(128);
+    for( int i=0; i<128; i++ )
+    {
+        poFontGlyphMetrics& M = cachedGlyphMetricsVector[i];
+        setGlyph(i);
+        M.glyphBounds = getGlyphBounds();
+        M.glyphFrame = getGlyphFrame();
+        M.glyphDescender = getGlyphDescender();
+        M.glyphBearing = getGlyphBearing();
+        M.glyphAdvance = getGlyphAdvance();
+    }
+    cachedYet = true;
+    setGlyph(0);
 }
 
 std::ostream &operator<<(std::ostream &o, const poFont *f) {

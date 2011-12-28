@@ -42,6 +42,8 @@ void po::TextBoxLayout::doLayout() {
 	lineLayoutProps props;
 	
 	poFont *fnt = getFont();
+    fnt->setPointSize(textSize);
+    fnt->cacheGlyphMetrics();       // caches the first time font is used (presently, only works for single poFont size)
 	float spacer = 0;
 	
 	uint lastCodepoint = 0;
@@ -51,7 +53,7 @@ void po::TextBoxLayout::doLayout() {
 		// if we broke to a new line last pass reset the line height, etc
 		if(props.broke) {
 			fnt = getFont();
-			fnt->setPointSize(textSize);
+			//fnt->setPointSize(textSize);      // this must be set before caching
 			fnt->setGlyph(' ');
 			
 			spacer = fnt->getGlyphAdvance().x;

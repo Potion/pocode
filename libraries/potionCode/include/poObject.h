@@ -194,7 +194,6 @@ public:
     // MEMORY MANAGEMENT
     int                 getSizeInMemoryTree();
     virtual int         getSizeInMemory();
-	
     static const int    INVALID_INDEX = -1;
     
     poEventMemory       *eventMemory;
