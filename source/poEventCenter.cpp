@@ -21,6 +21,7 @@ void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	tolocal.keyChar				= global_event.keyChar;
 	tolocal.keyCode				= global_event.keyCode;
 	tolocal.touchID				= global_event.touchID;
+    tolocal.uniqueID			= global_event.uniqueID;
 	
 	if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
 		// flip the coords so the local position can match the orientation of the global one
@@ -123,7 +124,7 @@ void poEventCenter::copyEventsFromObject(poObject *from, poObject *to) {
 // ======================= EVENT REWRITE CODE ======================= 
 
 
-void poEventCenter::notifyAllListeners( poEvent &global_event ) {
+void poEventCenter::notifyAllListeners( poEvent &global_event ) {    
     // for all registed event listeners
 	std::vector<poEventCallback*> &event_vec = events[global_event.type];
 	for(int i=0; i<event_vec.size(); i++)

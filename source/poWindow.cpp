@@ -258,7 +258,7 @@ void poWindow::touchBegin(int x, int y, int uid, int tapCount ) {
     
     //Begin tracking touch + give it a simple ID (0-100)
     trackTouch(t);
-    
+        
     //Fire Event
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
