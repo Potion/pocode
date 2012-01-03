@@ -15,7 +15,7 @@ namespace fs = boost::filesystem;
 
 // in seconds
 float poGetElapsedTime();
-int   poGetElapsedTimeMillis();
+int    poGetElapsedTimeMillis();
 
 typedef struct {
     int hours;
