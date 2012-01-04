@@ -67,12 +67,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level1</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\include\GL;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\bz2;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\win;C:\PotionCode\source;C:\PotionCode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,8 +83,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugiconfig.hpp" />
-    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.hpp" />
+    <ClInclude Include="..\libraries\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\libraries\pugixml\pugixml.hpp" />
     <ClInclude Include="..\source\common.h" />
     <ClInclude Include="..\source\poApplication.h" />
     <ClInclude Include="..\source\poAttributedString.h" />
@@ -132,7 +133,7 @@
     <ClInclude Include="..\source\poXML.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.cpp" />
+    <ClCompile Include="..\libraries\pugixml\pugixml.cpp" />
     <ClCompile Include="..\source\poApplication.cpp" />
     <ClCompile Include="..\source\poAttributedString.cpp" />
     <ClCompile Include="..\source\poBasicRenderer.cpp" />
