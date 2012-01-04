@@ -43,7 +43,7 @@ void po::TextBoxLayout::doLayout() {
 	
 	poFont *fnt = getFont();
     fnt->setPointSize(textSize);
-    fnt->cacheGlyphMetrics();       // caches the first time font is used (presently, only works for single poFont size)
+    //fnt->cacheGlyphMetrics();       // caches the first time font is used (presently, only works for single poFont size)
 	float spacer = 0;
 	
 	uint lastCodepoint = 0;
