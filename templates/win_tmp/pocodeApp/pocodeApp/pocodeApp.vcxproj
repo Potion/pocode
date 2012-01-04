@@ -49,7 +49,7 @@
       <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;BOOST_ALL_NO_LIB;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Potioncode\libraries\potionCode\include;C:\PotionCode\libraries\glew\include\GL\;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\libcurl;C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries;C:\PotionCode\templates\win_tmp\pocodeApp\App</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Potioncode\libraries\potionCode\include;C:\PotionCode\libraries\glew\include\GL\;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\libcurl;C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries;..\App</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -66,7 +66,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Potioncode\libraries\potionCode\include;C:\PotionCode\libraries\glew\include\GL\;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\libcurl;C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries;C:\PotionCode\templates\win_tmp\pocodeApp\App</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Potioncode\libraries\potionCode\include;C:\PotionCode\libraries\glew\include\GL\;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\libcurl;C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries;..\App</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
