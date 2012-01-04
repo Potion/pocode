@@ -44,8 +44,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries\libMikko;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\include;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\bz2;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\win;C:\PotionCode\source;C:\PotionCode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;BOOST_ALL_NO_LIB=1;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\PotionCode\libraries\utf8;C:\PotionCode\libraries\pugixml;C:\PotionCode\libraries\libcurl\win;C:\PotionCode\libraries\glew\include\GL;C:\PotionCode\libraries\FreeType;C:\PotionCode\libraries\bz2;C:\PotionCode\libraries\FreeImage;C:\PotionCode\libraries\Boost\boost_1_45_0;C:\PotionCode\libraries\sqlite3\include;C:\PotionCode\win;C:\PotionCode\source;C:\PotionCode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>common_include.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>common_include.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
