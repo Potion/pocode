@@ -148,10 +148,10 @@
     <ClInclude Include="..\source\common.h">
       <Filter>potionLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugiconfig.hpp">
+    <ClInclude Include="..\libraries\pugixml\pugixml.hpp">
       <Filter>pugixml</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.hpp">
+    <ClInclude Include="..\libraries\pugixml\pugiconfig.hpp">
       <Filter>pugixml</Filter>
     </ClInclude>
   </ItemGroup>
@@ -282,7 +282,7 @@
     <ClCompile Include="..\source\poXML.cpp">
       <Filter>potionLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\wvu\Downloads\pugixml-1.0\src\pugixml.cpp">
+    <ClCompile Include="..\libraries\pugixml\pugixml.cpp">
       <Filter>pugixml</Filter>
     </ClCompile>
   </ItemGroup>
