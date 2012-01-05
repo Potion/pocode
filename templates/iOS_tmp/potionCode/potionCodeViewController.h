@@ -12,7 +12,7 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-#include "Helpers.h"
+#include "poHelpers.h"
 #include "poWindow.h"
 #import "EAGLView.h"
 

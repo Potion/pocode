@@ -14,7 +14,7 @@ class TestObj : public poObject {
 public:
 	TestObj();
 	
-	void update();
+	void draw();
     void eventHandler(poEvent *event);
 	
 };

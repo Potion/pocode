@@ -11,7 +11,6 @@
 #import "potionCodeViewController.h"
 
 #include "poObject.h"
-#include "Helpers.h"
 #include "poApplication.h"
 
 poObject *root = NULL;

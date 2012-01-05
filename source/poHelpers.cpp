@@ -139,8 +139,12 @@ unsigned int getNumCpus() {
     }
 
 	void setCurrentPath(const fs::path &path) {
+#ifdef POTION_WIN32
+		fs::current_path(path);
+#elif POTION_APPLE
 		fs::path pth(path);
 		SetCurrentDirectory(pth.remove_filename().string().c_str());
+#endif
 	}
 
 #endif
@@ -171,18 +175,39 @@ std::vector<poPoint> roundedRect(float width, float height, float rad) {
 	std::vector<poPoint> response;
 	std::vector<poPoint> tmp;
 	
-	tmp = quadTo(poPoint(0,rad), poPoint(rad, 0), poPoint(0, 0), 10);
-	response.insert(response.end(), tmp.begin(), tmp.end());
-	
-	tmp = quadTo(poPoint(width-rad,0), poPoint(width,rad), poPoint(width, 0), 10);
-	response.insert(response.end(), tmp.begin(), tmp.end());
-	
-	tmp = quadTo(poPoint(width,height-rad), poPoint(width-rad, height), poPoint(width, height), 10);
-	response.insert(response.end(), tmp.begin(), tmp.end());
-	
-	tmp = quadTo(poPoint(rad,height), poPoint(0, height-rad), poPoint(0, height), 10);
-	response.insert(response.end(), tmp.begin(), tmp.end());
-	
+    poPoint P1( rad,rad );
+    poPoint P2( width-rad,rad );
+    poPoint P3( width-rad,height-rad );
+    poPoint P4( rad,height-rad );
+    
+    for( int i=180; i>=90; i-=10 )
+    {
+        float A = i;
+        poPoint P = P1 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=90; i>=0; i-=10 )
+    {
+        float A = i;
+        poPoint P = P2 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=0; i>=-90; i-=10 )
+    {
+        float A = i;
+        poPoint P = P3 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=-90; i>=-180; i-=10 )
+    {
+        float A = i;
+        poPoint P = P4 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
 	return response;
 }
 

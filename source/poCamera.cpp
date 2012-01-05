@@ -55,7 +55,10 @@ void poCamera::doSetUp( poObject* obj ) {
 
 	if(clearsBG) {
         glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
-        glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        if ( glIsEnabled( GL_DEPTH_TEST ) )
+            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        else
+            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
     }
 	
 	setProjection();
@@ -296,5 +299,10 @@ void poPerspectiveCamera::setModelview() {
 	stack->scale(poPoint(-1,-1,1));
 }
 
+void poPerspectiveCamera::saveAndUpdateGLSettings()
+{
+    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+}
 
 

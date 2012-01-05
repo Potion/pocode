@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	// initialize the time
-	getTime();
+	poGetCurrentTime();
 	
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[NSBundle mainBundle] resourcePath]];
@@ -109,5 +109,12 @@ void applicationMoveWindow(poWindow* win, poPoint p) {
 
 void applicationReshapeWindow(poWindow* win, poRect r) {
 }
+
+std::string applicationGetSupportDirectory() {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    return [documentsDirectoryPath UTF8String];
+}
+
 
 
