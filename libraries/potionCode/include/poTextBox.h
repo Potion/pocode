@@ -145,6 +145,10 @@ public:
     poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
     void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds );
 	
+	// MOVE LINES OF TEXT
+	void				setLineOffset(uint lineNum, poPoint offset);
+	
+	// CACHE TEXT
 	bool				getCacheToTexture() const;
 	void				setCacheToTexture(bool b);
 	

@@ -175,6 +175,12 @@ void    poTextBox::setBoundsForLetterOnLine( int letterIndex, int lineIndex, poR
 	layout.lines[lineIndex].glyphs[letterIndex].bbox = newBounds;
 }
 
+
+void poTextBox::setLineOffset(uint lineNum, poPoint offset)
+{    
+	layout.shiftLine(lineNum, offset);
+}
+
 bool poTextBox::getCacheToTexture() const {
 	return cacheToTexture;
 }
