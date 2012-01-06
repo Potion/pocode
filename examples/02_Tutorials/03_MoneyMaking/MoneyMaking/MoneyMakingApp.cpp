@@ -32,12 +32,14 @@ MoneyMakingApp::MoneyMakingApp() {
 	dropArea->position.set( 480, 105, 0 );
 	addChild(dropArea);
 	
-	for(int i=0; i < 100; i++) {
+	for(int i=0; i < 1; i++) {
 		
 		coinType type = coinType(int(poRand(0, 5)));
 		
 		Coin* coinObject = new Coin( type );
 		addChild( coinObject );
+		
+		printf("%d\n", int(type));
 	}
 	
 	poImageShape* jar = new poImageShape("jar.png");
