@@ -79,7 +79,7 @@ poFont::poFont()
 ,	reqStyle("")
 ,	glyph(0)
 ,   loadedGlyph(0)
-,   cachedYet(false)
+,   currentCache(NULL)
 {
 	if(!lib)
 		FT_Init_FreeType(&lib);
@@ -93,7 +93,7 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 ,	reqStyle("")
 ,	glyph(0)
 ,   loadedGlyph(0)
-,   cachedYet(false)
+,   currentCache(NULL)
 {
 	if(!lib)
 		FT_Init_FreeType(&lib);
@@ -163,6 +163,10 @@ void poFont::setPointSize(int sz) {
 		poPoint rez = deviceResolution();
 		FT_Set_Char_Size(face, size*64, 0, rez.x, 0);
 	}
+    
+    if ( cachedForSizeYet(size)==false )
+        cacheGlyphMetrics();
+    currentCache = &cachedGlyphMetricsSet[size];
 }
 
 float poFont::getLineHeight() const {
@@ -192,8 +196,8 @@ void poFont::setGlyph(int g) {
 
 poRect poFont::getGlyphBounds() {
     
-    if ( cachedYet && glyph < 128 )
-        return cachedGlyphMetricsVector[ glyph ].glyphBounds;
+    if ( currentCache != NULL && glyph < 128 )
+        return (*currentCache)[ glyph ].glyphBounds;
                                 
     loadGlyph( glyph );
 	float x = 0;
@@ -204,16 +208,16 @@ poRect poFont::getGlyphBounds() {
 }
 
 poRect poFont::getGlyphFrame() {
-    if ( cachedYet && glyph < 128 )
-        return cachedGlyphMetricsVector[ glyph ].glyphFrame;
+    if ( currentCache != NULL && glyph < 128 )
+        return (*currentCache)[ glyph ].glyphFrame;
     
     loadGlyph( glyph );
 	return poRect(getGlyphBearing(), getGlyphBounds().getSize());
 }
 
 float poFont::getGlyphDescender() {
-    if ( cachedYet && glyph < 128 )
-        return cachedGlyphMetricsVector[ glyph ].glyphDescender;
+    if ( currentCache != NULL && glyph < 128 )
+        return (*currentCache)[ glyph ].glyphDescender;
     
     loadGlyph( glyph );
 	poRect r = getGlyphFrame();
@@ -221,8 +225,8 @@ float poFont::getGlyphDescender() {
 }
 
 poPoint poFont::getGlyphBearing()  {
-    if ( cachedYet && glyph < 128 )
-        return cachedGlyphMetricsVector[ glyph ].glyphBearing;
+    if ( currentCache != NULL && glyph < 128 )
+        return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
 	return poPoint(face->glyph->metrics.horiBearingX >> 6,
@@ -230,8 +234,8 @@ poPoint poFont::getGlyphBearing()  {
 }
 
 poPoint poFont::getGlyphAdvance() {
-    if ( cachedYet && glyph < 128 )
-        return cachedGlyphMetricsVector[ glyph ].glyphAdvance;
+    if ( currentCache != NULL && glyph < 128 )
+        return (*currentCache)[ glyph ].glyphAdvance;
     
     loadGlyph( glyph );
 	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
@@ -293,14 +297,34 @@ void poFont::loadGlyph(int g) {
     }
 }
 
+bool    poFont::cachedForSizeYet(int fontSize)
+{
+    std::map<int,glyphMetricsVector>::iterator iter;
+    iter = cachedGlyphMetricsSet.find(fontSize);
+    if ( iter == cachedGlyphMetricsSet.end() )
+        return false;
+    else
+        return true;
+}
+
+
 void    poFont::cacheGlyphMetrics()
 {
-    if ( cachedYet )
+    if ( cachedForSizeYet(size) )
+    {
+        currentCache = &cachedGlyphMetricsSet[size];
         return;
-    cachedGlyphMetricsVector.resize(128);
+    }
+    
+    printf("caching font size %d\n", size );
+    glyphMetricsVector tmpVector;
+    cachedGlyphMetricsSet[size] = tmpVector;
+    cachedGlyphMetricsSet[size].resize(128);
+    currentCache = NULL; 
+    
     for( int i=0; i<128; i++ )
     {
-        poFontGlyphMetrics& M = cachedGlyphMetricsVector[i];
+        poFontGlyphMetrics& M = cachedGlyphMetricsSet[size][i];
         setGlyph(i);
         M.glyphBounds = getGlyphBounds();
         M.glyphFrame = getGlyphFrame();
@@ -308,7 +332,8 @@ void    poFont::cacheGlyphMetrics()
         M.glyphBearing = getGlyphBearing();
         M.glyphAdvance = getGlyphAdvance();
     }
-    cachedYet = true;
+
+    currentCache = &cachedGlyphMetricsSet[size];
     setGlyph(0);
 }
 

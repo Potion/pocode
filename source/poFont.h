@@ -40,6 +40,8 @@ struct poFontGlyphMetrics
 	poPoint glyphAdvance;
 };
 
+typedef std::vector<poFontGlyphMetrics> glyphMetricsVector;
+
 
 class poFont : public poResource
 {
@@ -93,13 +95,14 @@ public:
 	std::string			getRequestedFamilyName() const;
 	std::string			getRequestedStyleName() const;
 
+    bool                cachedForSizeYet(int fontSize);
     void                cacheGlyphMetrics();
 
 private:
 	void                loadGlyph(int g);
     
-    bool                                cachedYet;
-    std::vector<poFontGlyphMetrics>     cachedGlyphMetricsVector;
+    glyphMetricsVector                  *currentCache;
+    std::map<int,glyphMetricsVector>    cachedGlyphMetricsSet;
     
 	std::string			url, reqUrlOrFamily, reqStyle;
 	int					size;
