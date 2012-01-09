@@ -1,9 +1,8 @@
-/*	Created by filippo on 12/1/11.
- *	Copyright 2011 __MyCompanyName__. All rights reserved.
+/*	Created by Potion on 12/1/11.
+ *	Copyright 2011 Potion Design. All rights reserved.
  */
 
 #include "poObject.h"
-#include "Particle.h"
 
 class ParticlesApp : public poObject {
 public:

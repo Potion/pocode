@@ -2,6 +2,7 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poImageShape.h"
+#include "Particle.h"
 
 poObject *createObjectForID(uint uid) {
 	return new ParticlesApp();
@@ -26,7 +27,6 @@ ParticlesApp::ParticlesApp() {
     addChild( BG );
 	
 	for(int i=0; i < 200; i++) {
-		
 		Particle* P = new Particle();
 		addChild(P);
 	}

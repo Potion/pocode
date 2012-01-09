@@ -40,6 +40,8 @@ Coin::Coin( coinType type ) {
 	float x = poRand(50, 250);
 	float y = poRand(getWindowHeight() - 100, getWindowHeight() - 300);
 	
+	printf("position %f %f\n", x, y);
+	
 	coinImage = new poImageShape(imgUrl, true);
 	coinImage->setAlphaTest(true);
 	coinImage->scale.set(0.5, 0.5, 1);
@@ -68,6 +70,7 @@ void Coin::eventHandler( poEvent* event ) {
 		dragOffset.y += coinImage->offset.y;
 		dragOffset.x *= coinImage->scale.x;
 		dragOffset.y *= coinImage->scale.y;
+		printf("%f\n", event->localPosition.z);
 	}
 	else if( event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
 		
