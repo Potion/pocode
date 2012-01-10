@@ -316,7 +316,6 @@ void    poFont::cacheGlyphMetrics()
         return;
     }
     
-    printf("caching font size %d\n", size );
     glyphMetricsVector tmpVector;
     cachedGlyphMetricsSet[size] = tmpVector;
     cachedGlyphMetricsSet[size].resize(128);
