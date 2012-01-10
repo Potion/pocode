@@ -7,7 +7,6 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-using namespace std;
 
 #include "poFBO.h"
 #include "poTextBox.h"
