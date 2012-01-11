@@ -1,0 +1,33 @@
+
+
+ARCHS = $(ARCHS_UNIVERSAL_IPHONE_OS)
+
+SDKROOT = iphoneos
+
+GCC_VERSION = com.apple.compilers.llvmgcc42
+
+IPHONEOS_DEPLOYMENT_TARGET = 4.3
+
+ALWAYS_SEARCH_USER_PATHS = NO
+
+TARGETED_DEVICE_FAMILY = 1,2
+
+LD_NO_PIE = YES
+
+PRODUCT_NAME = pocodeApp
+
+INFOPLIST_FILE = platform/pocodeCustom-Info.plist
+
+OTHER_LDFLAGS = /PotionCode/libraries/potionCode/libPotionCode_ios_d.a $(THE_FRAMEWORKS)
+
+HEADER_SEARCH_PATHS = /PotionCode/libraries/pugixml /PotionCode/libraries/Boost/boost_1_45_0 /PotionCode/libraries/FreeImage /PotionCode/libraries/FreeType /PotionCode/libraries/utf8 /PotionCode/libraries/libMikko /PotionCode/libraries
+
+USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include
+
+GCC_THUMB_SUPPORT = YES
+
+GCC_SYMBOLS_PRIVATE_EXTERN = YES
+
+THE_FRAMEWORKS = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText
+
+
