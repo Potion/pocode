@@ -3,7 +3,6 @@
  */
 
 #include "poObject.h"
-#include "poShapeBasics2D.h"
 #include "poImageShape.h"
 
 class PhotoGalleryApp : public poObject {
@@ -15,10 +14,7 @@ public:
 	virtual void eventHandler(poEvent *event);
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 	
-	std::vector<poImageShape*> images;
-	
-	poImageShape* selectedPhoto;
-	poPoint	goBackPosition;
-    
     poPoint smallScale;
+	poObject* selectedPhoto;
+	poPoint	goBackPosition;
 };
