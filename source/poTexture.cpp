@@ -394,7 +394,7 @@ void textureFit(poRect rect, poTexture *tex, poTextureFitOption fit, poAlignment
 			
 		case PO_TEX_FIT_INSIDE: 
 		{
-			float new_h = rect.width * (tex->getHeight() / (float)tex->getHeight());
+			float new_h = ((float)rect.width) * ((float)tex->getHeight()) / ((float)tex->getWidth());
 			if(new_h > rect.height)
 				textureFitVertical(rect, tex, align, coords, points);
 			else
