@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41A1D0E314C08EBB000A94E8 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A1D0E214C08EBB000A94E8 /* AppConfig.cpp */; };
 		41DF645C14882C4A003A5ED1 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF645B14882C4A003A5ED1 /* Debug.xcconfig */; };
 		41DF645E14882C4A003A5ED1 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF645D14882C4A003A5ED1 /* Release.xcconfig */; };
 		41DF646114882C4A003A5ED1 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41DF646014882C4A003A5ED1 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41A1D0E214C08EBB000A94E8 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41DF645614882C4A003A5ED1 /* Particles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DF645B14882C4A003A5ED1 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		41DF645D14882C4A003A5ED1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				41DF647014882C4A003A5ED1 /* ParticlesApp.cpp */,
 				41DF647C14882D16003A5ED1 /* Particle.h */,
 				41DF647914882CD8003A5ED1 /* Particle.cpp */,
+				41A1D0E214C08EBB000A94E8 /* AppConfig.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				41DF646D14882C4A003A5ED1 /* poOpenGLView.mm in Sources */,
 				41DF647114882C4A003A5ED1 /* ParticlesApp.cpp in Sources */,
 				41DF647A14882CD8003A5ED1 /* Particle.cpp in Sources */,
+				41A1D0E314C08EBB000A94E8 /* AppConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
