@@ -47,7 +47,7 @@ void    poImageShape::reshapeToWidthAndHeight( float W, float H )
 }
 
 void poImageShape::draw() {
-    po::setColor(poColor::white);
+    po::setColor(poColor::white, getAppliedAlpha());
     po::drawTexturedRect(tex, 0,0, tex->getWidth()*imageScale, tex->getHeight()*imageScale);
 }
 
