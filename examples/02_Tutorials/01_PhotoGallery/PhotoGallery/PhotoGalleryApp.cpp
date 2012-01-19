@@ -65,6 +65,9 @@ void PhotoGalleryApp::eventHandler(poEvent *event) {
 		if (event->source->scaleTween.isRunning())
 			return;
 		
+		if (event->source->scale.x == 1)
+			return;
+		
 		if(selectedPhoto != NULL) {
 			selectedPhoto->positionTween.set(goBackPosition);
 			selectedPhoto->positionTween.start();
