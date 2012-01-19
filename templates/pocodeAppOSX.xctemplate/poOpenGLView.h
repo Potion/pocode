@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreVideo/CoreVideo.h>
+#import <Cocoa/Cocoa.h>
 
 class poWindow;
 
