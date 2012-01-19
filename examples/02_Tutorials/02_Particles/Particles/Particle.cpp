@@ -20,7 +20,7 @@ Particle::Particle() {
 	shape->scaleTween.setTweenFunction(PO_TWEEN_QUAD_OUT_FUNC);
 	shape->scaleTween.setRepeat(PO_TWEEN_REPEAT_PINGPONG, 1);
 	shape->scaleTween.setDuration(1);
-	shape->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "particle clicked");
+	shape->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this, "particle_clicked");
 	addChild(shape);
 	
 	float posX = poRand(100, 700);
@@ -52,7 +52,7 @@ void Particle::update() {
 
 void Particle::eventHandler(poEvent *event) {
 	
-	if( event->message == "particle clicked" ) {
+	if( event->message == "particle_clicked" ) {
 		
 		if( shape->scaleTween.isRunning() )
 			return;

@@ -62,10 +62,7 @@ void PhotoGalleryApp::eventHandler(poEvent *event) {
 	
 	if (event->message == "photo_clicked") {
 		
-		if (event->source->scaleTween.isRunning())
-			return;
-		
-		if (event->source->scale.x == 1)
+		if (event->source == selectedPhoto)
 			return;
 		
 		if(selectedPhoto != NULL) {

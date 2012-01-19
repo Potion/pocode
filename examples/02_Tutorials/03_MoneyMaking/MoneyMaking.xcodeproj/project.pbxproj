@@ -17,6 +17,7 @@
 		41A83063148681210046130F /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41A83062148681210046130F /* poOpenGLView.mm */; };
 		41A83067148681210046130F /* MoneyMakingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A83066148681210046130F /* MoneyMakingApp.cpp */; };
 		41A8306F1486855D0046130F /* Coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A8306E1486855D0046130F /* Coin.cpp */; };
+		41EA514F14BF924B00058492 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41EA514E14BF924B00058492 /* AppConfig.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		41A83066148681210046130F /* MoneyMakingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MoneyMakingApp.cpp; sourceTree = "<group>"; };
 		41A8306D148685510046130F /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		41A8306E1486855D0046130F /* Coin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coin.cpp; sourceTree = "<group>"; };
+		41EA514E14BF924B00058492 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				41A83066148681210046130F /* MoneyMakingApp.cpp */,
 				41A8306D148685510046130F /* Coin.h */,
 				41A8306E1486855D0046130F /* Coin.cpp */,
+				41EA514E14BF924B00058492 /* AppConfig.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				41A83063148681210046130F /* poOpenGLView.mm in Sources */,
 				41A83067148681210046130F /* MoneyMakingApp.cpp in Sources */,
 				41A8306F1486855D0046130F /* Coin.cpp in Sources */,
+				41EA514F14BF924B00058492 /* AppConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +225,7 @@
 				41A8306C148681210046130F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
 
 #include "Coin.h"
 
+
 Coin::Coin( coinType type ) {
 	
 	std::string imgUrl;
@@ -37,17 +38,11 @@ Coin::Coin( coinType type ) {
 		value = 1.00;
 	}
 	
-	float x = poRand(50, 250);
-	float y = poRand(getWindowHeight() - 100, getWindowHeight() - 300);
-	
-	printf("position %f %f\n", x, y);
-	
 	coinImage = new poImageShape(imgUrl, true);
-	coinImage->setAlphaTest(true);
-	coinImage->scale.set(0.5, 0.5, 1);
 	coinImage->setAlignment(PO_ALIGN_CENTER_CENTER);
-	coinImage->position.set(x, y, 0);
-	coinImage->positionTween.setTweenFunction(PO_TWEEN_EXPO_OUT_FUNC).setDuration(1);
+	coinImage->positionTween.setTweenFunction(PO_TWEEN_EXPO_OUT_FUNC);
+	coinImage->positionTween.setDuration(1);
+	coinImage->setAlphaTest(true);
 	coinImage->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
 	coinImage->addEvent(PO_MOUSE_DRAG_INSIDE_EVENT, this);
 	addChild( coinImage );
@@ -57,20 +52,12 @@ Coin::Coin( coinType type ) {
 	addEvent(PO_MOUSE_UP_EVENT, this);
 }
 
-Coin::~Coin() {
-}
-
 void Coin::eventHandler( poEvent* event ) {
 	
 	if( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
 		
-//		dragOffset = event->localPosition;
 		dragOffset.set( event->localPosition.x, event->localPosition.y, 0);
-		dragOffset.x += coinImage->offset.x;
-		dragOffset.y += coinImage->offset.y;
-		dragOffset.x *= coinImage->scale.x;
-		dragOffset.y *= coinImage->scale.y;
-		printf("%f\n", event->localPosition.z);
+		dragOffset += coinImage->offset;
 	}
 	else if( event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
 		
@@ -81,9 +68,7 @@ void Coin::eventHandler( poEvent* event ) {
 		
 		isDragged = false;
 		
-		poRect droppingArea(480, 105, 255, 400);
-		
-		if( droppingArea.contains( coinImage->position ) ) {
+		if( dropArea.contains( coinImage->position ) ) {
 			
 			poPoint droppedPosition(coinImage->position.x, getWindowHeight() - 250, 0);
 			coinImage->positionTween.set( droppedPosition ).setNotification(this, "drop done").start();

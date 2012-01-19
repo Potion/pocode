@@ -11,22 +11,21 @@
 
 #include "poObject.h"
 #include "poImageShape.h"
-#include "poShapeBasics2D.h"
 
-enum coinType { CENT, HALF_DIME, DIME, QUARTER, HALF_DOLLAR, DOLLAR};
+enum coinType { CENT, HALF_DIME, DIME, QUARTER, HALF_DOLLAR, DOLLAR };
 
+static const poRect dropArea = poRect(537, 105, 140, 430);
 
 class Coin : public poObject {
 public:
 	Coin( coinType type );
-	virtual ~Coin();
 	
 	virtual void eventHandler( poEvent* event );
 	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
 	
 	poImageShape* coinImage;
 	
-	float value;
+	float	value;
 	
 	bool	isDragged;
 	poPoint dragOffset;
