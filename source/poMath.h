@@ -49,7 +49,7 @@ inline void poRandSeed(int seed) {
 }
 
 inline float poRand() {
-	return rand() / (float)INT_MAX;
+	return rand() / (float)RAND_MAX;
 }
 
 inline float poRand(float low, float high) {
