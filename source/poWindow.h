@@ -19,7 +19,7 @@ class poObject;
 // of the scene graph, and is responsible for the continuous draw/update loop. It also
 // receives events (mouse, keyboard, touch, etc) from the operating system and turns them into
 // poEvents, which are processed and propagated to poObjects that have registed for them.
-// potionCode can support multiple windows. Each window may contains its own scene graph,
+// pocode can support multiple windows. Each window may contains its own scene graph,
 // or may share a common scene graph.
 
 typedef struct {

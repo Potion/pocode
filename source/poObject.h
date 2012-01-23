@@ -26,7 +26,7 @@ typedef std::vector<poObjectModifier*> poObjectModifierVec;
 
 class poWindow;
 
-// poObject is the central object in the potionCode library. All potionCode graphic objects
+// poObject is the central object in the pocode library. All pocode graphic objects
 // (including poShape2D, poRectShape and poTextBox) are subclasses poObject.
 // 
 // All poObjects and poObject subclasses:
@@ -55,7 +55,7 @@ public:
     // The other three are called automatically if the object is added to the scene graph. 
      
     /// WORK-HORSE METHODS
-    // "draw" is only necessary if the class does its own OpenGL drawing, instead of using potionCode shapes.
+    // "draw" is only necessary if the class does its own OpenGL drawing, instead of using pocode shapes.
     virtual void        draw();
     
     // Draw the bounds if drawBounds is set.
@@ -88,7 +88,7 @@ public:
     poPoint             getTransformedPoint( poPoint P );
 
     // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
-    // A potionCode app is itself a poObject and is also the root of the tree.
+    // A pocode app is itself a poObject and is also the root of the tree.
     // The most recently added objects appear on top of previously added objects.
     
 	// SCENE GRAPH COMPOSITION

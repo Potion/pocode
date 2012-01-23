@@ -1,6 +1,6 @@
 //
 //  poShapeBasics2D.h
-//  poFramework4
+//  pocode
 //
 //  Created by Jared Schiffman on 5/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.
@@ -19,7 +19,7 @@
 
 // CLASS NOTES (poRectShape)
 //
-// poRectShape is one of the most commonly used classes in potionCode.
+// poRectShape is one of the most commonly used classes in pocode.
 //
 // A simple poRectShape can be constructed as follows:
 //      poRectShape* S = new poRectShape( 100,200 );

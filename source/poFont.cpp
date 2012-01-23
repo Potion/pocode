@@ -1,6 +1,6 @@
 //
 //  poFont.cpp
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 3/23/11.
 //  Copyright 2011 Potion Design. All rights reserved.

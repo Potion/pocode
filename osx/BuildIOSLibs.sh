@@ -10,11 +10,11 @@ build_lib() {
 		TAIL="_d"
 	fi
 
-	xcodebuild -target potionCode_iOS -configuration $1 -sdk iphonesimulator
-	xcodebuild -target potionCode_iOS -configuration $1 -sdk iphoneos
+	xcodebuild -target pocode_iOS -configuration $1 -sdk iphonesimulator
+	xcodebuild -target pocode_iOS -configuration $1 -sdk iphoneos
 
-	lipo -create build/$1-iphoneos/libPotionCode_iOS$TAIL.a build/$1-iphonesimulator/libPotionCode_iOS$TAIL.a -output ./libPotionCode_iOS$TAIL.a
-	mv libPotionCode_iOS$TAIL.a /PotionCode/libraries/potionCode
+	lipo -create build/$1-iphoneos/libpocode_iOS$TAIL.a build/$1-iphonesimulator/libpocode_iOS$TAIL.a -output ./libpocode_iOS$TAIL.a
+	mv libpocode_iOS$TAIL.a /pocode/libraries/pocode
 }
 
 help() {
@@ -32,14 +32,14 @@ if [[ -n "$1" ]]; then
 		build_lib "Debug"
 		build_lib
 	elif [[ $1 = "Clean" ]]; then
-		xcodebuild -target potionCode_iOS -configuration Debug -sdk iphonesimulator clean
-		xcodebuild -target potionCode_iOS -configuration Debug -sdk iphoneos clean
-		xcodebuild -target potionCode_iOS -configuration Release -sdk iphonesimulator clean
-		xcodebuild -target potionCode_iOS -configuration Release -sdk iphoneos clean
+		xcodebuild -target pocode_iOS -configuration Debug -sdk iphonesimulator clean
+		xcodebuild -target pocode_iOS -configuration Debug -sdk iphoneos clean
+		xcodebuild -target pocode_iOS -configuration Release -sdk iphonesimulator clean
+		xcodebuild -target pocode_iOS -configuration Release -sdk iphoneos clean
 		
-		DIR=/PotionCode/libraries/potionCode
-		if [ -a $DIR/libPotionCode_iOS_d.a ]; then rm $DIR/libPotionCode_iOS_d.a; fi
-		if [ -a $DIR/libPotionCode_iOS.a ]; then rm $DIR/libPotionCode_iOS.a; fi
+		DIR=/pocode/libraries/pocode
+		if [ -a $DIR/libpocode_iOS_d.a ]; then rm $DIR/libpocode_iOS_d.a; fi
+		if [ -a $DIR/libpocode_iOS.a ]; then rm $DIR/libpocode_iOS.a; fi
 	else
 		help
 	fi

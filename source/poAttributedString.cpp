@@ -1,6 +1,6 @@
 //
 //  AttributedString.cpp
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 10/20/11.
 //  Copyright (c) 2011 Potion Design. All rights reserved.

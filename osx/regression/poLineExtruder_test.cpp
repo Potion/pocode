@@ -1,6 +1,6 @@
 //
 //  poLineExtruder_test.cpp
-//  potionCode
+//  pocode
 //
 //  Created by filippo on 11/7/11.
 //  Copyright 2011 Potion Design. All rights reserved.

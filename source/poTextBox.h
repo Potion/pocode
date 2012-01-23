@@ -1,6 +1,6 @@
 //
 //  poTextBox.h
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 5/5/11.
 //  Copyright 2011 Potion Design. All rights reserved.
@@ -33,7 +33,7 @@ enum {
 
 // CLASS NOTES
 //
-// poTextBox derives directly from poObject. It is one of the most commonly used objects in potionCode.
+// poTextBox derives directly from poObject. It is one of the most commonly used objects in pocode.
 // 
 // A simple poTextBox may be constructed as follows:
 // 

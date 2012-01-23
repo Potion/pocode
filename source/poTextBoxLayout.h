@@ -1,6 +1,6 @@
 //
 //  TextBoxLayout.h
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 10/12/11.
 //  Copyright 2011 Potion Design. All rights reserved.

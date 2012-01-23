@@ -1,6 +1,6 @@
 //
 //  poDictionary_test.cpp
-//  potionCode
+//  pocode
 //
 //  Created by filippo on 10/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.

@@ -1,7 +1,7 @@
 
 //
 //  poTextBox.cpp
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 5/5/11.
 //  Copyright 2011 Potion Design. All rights reserved.

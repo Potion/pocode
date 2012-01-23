@@ -1,6 +1,6 @@
 //
 //  poTexture.cpp
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 4/26/11.
 //  Copyright 2011 Potion Design. All rights reserved.

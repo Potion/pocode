@@ -12,7 +12,7 @@ class poHSVColor;
 // CLASS NOTES
 //
 // poColor represents a color in RGBA format. It is one of the most commonly used
-// classes in potionCode.
+// classes in pocode.
 //
 // poColor assumes RGBA values are between 0.0 and 1.0. To set a poColor using
 // 0 to 255 values, use the set255() method. Values will be converted to the

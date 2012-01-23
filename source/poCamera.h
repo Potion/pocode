@@ -1,6 +1,6 @@
 //
 //  poCamera.h
-//  poFramework4
+//  pocode
 //
 //  Created by Jared Schiffman on 5/20/11.
 //  Copyright 2011 Potion Design. All rights reserved.

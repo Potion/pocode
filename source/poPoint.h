@@ -8,7 +8,7 @@
 // CLASS NOTES
 //
 // poPoint is a three dimensional vector, composed of three floats X,Y and Z.
-// poPoint is one of the most commonly used classes in potionCode.
+// poPoint is one of the most commonly used classes in pocode.
 //
 // poPoints are used to specify position and scale of objects. They are also used to represent
 // vectors in space, as in the axis of rotation. poPoints also form the contours in poShape2D.

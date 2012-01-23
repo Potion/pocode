@@ -3,7 +3,7 @@
 
 // FILE NOTES
 //
-// This file contains enumerated values used throughough potionCode.
+// This file contains enumerated values used throughough pocode.
 //
 
 

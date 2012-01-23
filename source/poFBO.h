@@ -1,6 +1,6 @@
 //
 //  poFBO.h
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 10/17/11.
 //  Copyright (c) 2011 Potion Design. All rights reserved.

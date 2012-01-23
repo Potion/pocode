@@ -5,11 +5,11 @@
 
 // FILE NOTES
 //
-// The functions declared in this file act as glue between the operating system and potionCode.
+// The functions declared in this file act as glue between the operating system and pocode.
 // Their implemenations are platform specific.
 //
 // Most of the functions declared here are not implemented in poApplication.cpp because they are
-// platform specific. All of potionCode examples include implementations of these functions.
+// platform specific. All of pocode examples include implementations of these functions.
 //
 // The set of window-related functions at the bottom are defined in poApplication.cpp.
 
@@ -33,13 +33,13 @@ void        applicationQuit();
 // This function should return a poObject, that is the root node of the scene graph.
 // The UID is the same UID passed in per window as each window is created.
 // This allows you to have multiple windows, each with their own scenge graph.
-// All potionCode example projects implement this function.
+// All pocode example projects implement this function.
 extern poObject*    createObjectForID(uint uid);
 
-// This function is where windows should be created. All potionCode example projects implement this function.
+// This function is where windows should be created. All pocode example projects implement this function.
 extern void         setupApplication();
 
-// This function is called when the application quits. All potionCode example projects implement this function.
+// This function is called when the application quits. All pocode example projects implement this function.
 extern void         cleanupApplication();
 
 

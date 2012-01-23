@@ -13,7 +13,7 @@
 // CLASS NOTES
 //
 // poShape2D derives directly from poObject and is the parent class of all 2D graphics objects
-// in potionCode, including poRectShape, poOvalShape and poLineShape (see "poShapeBasics2D.h").
+// in pocode, including poRectShape, poOvalShape and poLineShape (see "poShapeBasics2D.h").
 //
 // All poShape2D objects and poShape2D subclasses:
 //

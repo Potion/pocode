@@ -1,6 +1,6 @@
 //
 //  poPath_test.cpp
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 11/11/11.
 //  Copyright (c) 2011 Potion Design. All rights reserved.

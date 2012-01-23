@@ -1,6 +1,6 @@
 //
 //  poShader.cpp
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 9/23/11.
 //  Copyright 2011 Potion Design. All rights reserved.

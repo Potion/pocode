@@ -12,7 +12,7 @@
 // CLASS NOTES
 //
 // poRect is a light-weight object used to specify bounding boxes and other rectangular forms
-// throughout potionCode.
+// throughout pocode.
 //
 // poRect is not a poObject and hence cannot be added to the scene graph. See poRectShape.
 // 

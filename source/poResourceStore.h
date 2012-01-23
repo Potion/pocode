@@ -1,6 +1,6 @@
 //
 //  poResourceLoader.h
-//  potionCode
+//  pocode
 //
 //  Created by Joshua Fisher on 10/11/11.
 //  Copyright 2011 Potion Design. All rights reserved.

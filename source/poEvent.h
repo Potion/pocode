@@ -108,7 +108,7 @@ enum {
 
 // CLASS NOTES
 //
-// poEvent is an object used in potionCode for communicating user events to poObjects.
+// poEvent is an object used in pocode for communicating user events to poObjects.
 //
 // poObjects register for events by calling the poObject's addEvent() method as follows:
 //

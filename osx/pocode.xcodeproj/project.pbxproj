@@ -196,7 +196,7 @@
 		E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextureAtlas.cpp; path = ../source/poTextureAtlas.cpp; sourceTree = "<group>"; };
 		E802C75F13D76F9100CBEB1C /* poBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBitmapFont.h; path = ../source/poBitmapFont.h; sourceTree = "<group>"; };
 		E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBitmapFont.cpp; path = ../source/poBitmapFont.cpp; sourceTree = "<group>"; };
-		E80625911396FEDA00615CCB /* libPotionCode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPotionCode.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E80625911396FEDA00615CCB /* libpocode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82CC343146DCA2A003718FE /* poPath_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPath_test.cpp; path = regression/poPath_test.cpp; sourceTree = SOURCE_ROOT; };
 		E83092ED13D09C9100836802 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 		E84CEC0814295525008B3E3E /* poBasicRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBasicRenderer.h; path = ../source/poBasicRenderer.h; sourceTree = "<group>"; };
 		E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLState.cpp; path = ../source/poOpenGLState.cpp; sourceTree = "<group>"; };
 		E84CEC0C1429556B008B3E3E /* poOpenGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLState.h; path = ../source/poOpenGLState.h; sourceTree = "<group>"; };
-		E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPotionCode_iOS.a; path = lib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_iOS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E851C27B1448DDCE0018FB34 /* poGeometryMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poGeometryMask.cpp; path = ../source/poGeometryMask.cpp; sourceTree = "<group>"; };
 		E851C27C1448DDCE0018FB34 /* poGeometryMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poGeometryMask.h; path = ../source/poGeometryMask.h; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		E8CE963B13B004E800DFB769 /* poLineExtruder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poLineExtruder.cpp; path = ../source/poLineExtruder.cpp; sourceTree = "<group>"; };
 		E8CE963C13B004E900DFB769 /* poLineExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poLineExtruder.h; path = ../source/poLineExtruder.h; sourceTree = "<group>"; };
 		E8D18FA41386BF3E0087288A /* poObjectModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poObjectModifier.h; path = ../source/poObjectModifier.h; sourceTree = "<group>"; };
-		E8D8F309144C8DEA0077F6DA /* potionCode_reg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = potionCode_reg; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D8F309144C8DEA0077F6DA /* potionCode_reg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = potionCode_reg; path = pocode_reg; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8D8F33A144C986E0077F6DA /* poFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFBO.h; path = ../source/poFBO.h; sourceTree = "<group>"; };
 		E8D8F33D144C9F700077F6DA /* poFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFBO.cpp; path = ../source/poFBO.cpp; sourceTree = "<group>"; };
 		E8E51B3D13A13E5C008C67FF /* poBinPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBinPacker.cpp; path = ../source/poBinPacker.cpp; sourceTree = "<group>"; };
@@ -398,8 +398,8 @@
 		E8B2D06C132E9CA7002BE3D9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E80625911396FEDA00615CCB /* libPotionCode.a */,
-				E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */,
+				E80625911396FEDA00615CCB /* libpocode.a */,
+				E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */,
 				E8D8F309144C8DEA0077F6DA /* potionCode_reg */,
 			);
 			name = Products;
@@ -605,9 +605,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		E80625901396FEDA00615CCB /* potionCode_osx */ = {
+		E80625901396FEDA00615CCB /* pocode_osx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E806259E1396FEDA00615CCB /* Build configuration list for PBXNativeTarget "potionCode_osx" */;
+			buildConfigurationList = E806259E1396FEDA00615CCB /* Build configuration list for PBXNativeTarget "pocode_osx" */;
 			buildPhases = (
 				E806258D1396FEDA00615CCB /* Sources */,
 				E806258E1396FEDA00615CCB /* Frameworks */,
@@ -617,14 +617,14 @@
 			);
 			dependencies = (
 			);
-			name = potionCode_osx;
+			name = pocode_osx;
 			productName = potionLib;
-			productReference = E80625911396FEDA00615CCB /* libPotionCode.a */;
+			productReference = E80625911396FEDA00615CCB /* libpocode.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E84CEC5B142A2F48008B3E3E /* potionCode_iOS */ = {
+		E84CEC5B142A2F48008B3E3E /* pocode_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E84CEC68142A2F49008B3E3E /* Build configuration list for PBXNativeTarget "potionCode_iOS" */;
+			buildConfigurationList = E84CEC68142A2F49008B3E3E /* Build configuration list for PBXNativeTarget "pocode_iOS" */;
 			buildPhases = (
 				E84CEC58142A2F48008B3E3E /* Sources */,
 				E84CEC59142A2F48008B3E3E /* Frameworks */,
@@ -634,14 +634,14 @@
 			);
 			dependencies = (
 			);
-			name = potionCode_iOS;
+			name = pocode_iOS;
 			productName = potionCode_iOS;
-			productReference = E84CEC5C142A2F48008B3E3E /* libPotionCode_iOS.a */;
+			productReference = E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E8D8F308144C8DEA0077F6DA /* potionCode_reg */ = {
+		E8D8F308144C8DEA0077F6DA /* pocode_reg */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E8D8F312144C8DEA0077F6DA /* Build configuration list for PBXNativeTarget "potionCode_reg" */;
+			buildConfigurationList = E8D8F312144C8DEA0077F6DA /* Build configuration list for PBXNativeTarget "pocode_reg" */;
 			buildPhases = (
 				E8D8F305144C8DEA0077F6DA /* Sources */,
 				E8D8F306144C8DEA0077F6DA /* Frameworks */,
@@ -651,7 +651,7 @@
 			);
 			dependencies = (
 			);
-			name = potionCode_reg;
+			name = pocode_reg;
 			productName = potionCode_reg;
 			productReference = E8D8F309144C8DEA0077F6DA /* potionCode_reg */;
 			productType = "com.apple.product-type.tool";
@@ -665,7 +665,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Potion Design";
 			};
-			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "potionCode" */;
+			buildConfigurationList = E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "pocode" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -677,9 +677,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E80625901396FEDA00615CCB /* potionCode_osx */,
-				E84CEC5B142A2F48008B3E3E /* potionCode_iOS */,
-				E8D8F308144C8DEA0077F6DA /* potionCode_reg */,
+				E80625901396FEDA00615CCB /* pocode_osx */,
+				E84CEC5B142A2F48008B3E3E /* pocode_iOS */,
+				E8D8F308144C8DEA0077F6DA /* pocode_reg */,
 			);
 		};
 /* End PBXProject section */
@@ -873,18 +873,18 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/pugixml,
-					/PotionCode/libraries/glm,
-					/PotionCode/libraries/utf8,
-					/PotionCode/libraries,
+					/pocode/libraries/Boost/boost_1_45_0,
+					/pocode/libraries/FreeType,
+					/pocode/libraries/FreeImage,
+					/pocode/libraries/pugixml,
+					/pocode/libraries/glm,
+					/pocode/libraries/utf8,
+					/pocode/libraries,
 				);
-				LIBRARY_SEARCH_PATHS = /PotionCode/libraries/potionCode;
+				LIBRARY_SEARCH_PATHS = /pocode/libraries/pocode;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
-					"-lPotionCode_d",
+					"-lpocode_d",
 					"-framework",
 					Cocoa,
 					"-framework",
@@ -894,7 +894,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
+				USER_HEADER_SEARCH_PATHS = /pocode/libraries/potionCode/include;
 			};
 			name = Release;
 		};
@@ -921,19 +921,19 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/PotionCode/libraries/Boost/boost_1_45_0,
-					/PotionCode/libraries/FreeType,
-					/PotionCode/libraries/FreeImage,
-					/PotionCode/libraries/pugixml,
-					/PotionCode/libraries/glm,
-					/PotionCode/libraries/utf8,
-					/PotionCode/libraries,
+					/pocode/libraries/Boost/boost_1_45_0,
+					/pocode/libraries/FreeType,
+					/pocode/libraries/FreeImage,
+					/pocode/libraries/pugixml,
+					/pocode/libraries/glm,
+					/pocode/libraries/utf8,
+					/pocode/libraries,
 				);
-				LIBRARY_SEARCH_PATHS = /PotionCode/libraries/potionCode;
+				LIBRARY_SEARCH_PATHS = /pocode/libraries/pocode;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
-					"-lPotionCode_d",
+					"-lpocode_d",
 					"-framework",
 					Cocoa,
 					"-framework",
@@ -943,14 +943,14 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = /PotionCode/libraries/potionCode/include;
+				USER_HEADER_SEARCH_PATHS = /pocode/libraries/potionCode/include;
 			};
 			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E806259E1396FEDA00615CCB /* Build configuration list for PBXNativeTarget "potionCode_osx" */ = {
+		E806259E1396FEDA00615CCB /* Build configuration list for PBXNativeTarget "pocode_osx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E806259D1396FEDA00615CCB /* Release */,
@@ -959,7 +959,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E84CEC68142A2F49008B3E3E /* Build configuration list for PBXNativeTarget "potionCode_iOS" */ = {
+		E84CEC68142A2F49008B3E3E /* Build configuration list for PBXNativeTarget "pocode_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E84CEC66142A2F48008B3E3E /* Release */,
@@ -968,7 +968,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "potionCode" */ = {
+		E8B2D065132E9CA7002BE3D9 /* Build configuration list for PBXProject "pocode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8B2D088132E9CA7002BE3D9 /* Release */,
@@ -977,7 +977,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E8D8F312144C8DEA0077F6DA /* Build configuration list for PBXNativeTarget "potionCode_reg" */ = {
+		E8D8F312144C8DEA0077F6DA /* Build configuration list for PBXNativeTarget "pocode_reg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E8D8F310144C8DEA0077F6DA /* Release */,

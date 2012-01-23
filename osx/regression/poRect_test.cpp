@@ -1,6 +1,6 @@
 //
 //  poRect_test.cpp
-//  potionCode
+//  pocode
 //
 //  Created by Filippo Vanucci on 10/17/11.
 //  Copyright 2011 Potion Design. All rights reserved.

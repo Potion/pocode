@@ -1,6 +1,6 @@
 //
 //  poEventCenter.cpp
-//  potionCode
+//  pocode
 //
 //  Created by Jared Schiffman on 10/16/11.
 //  Copyright 2011 Potion Design. All rights reserved.

@@ -1,12 +1,12 @@
 //
 //  TestMain.cpp
-//  potionCode
+//  pocode
 //
 //  Created by filippo on 10/18/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#define BOOST_TEST_MODULE PotionCode Test Suite
+#define BOOST_TEST_MODULE pocode Test Suite
 #include <boost/test/unit_test.hpp>
 
 #include "poWindow.h"

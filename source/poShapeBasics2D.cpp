@@ -1,6 +1,6 @@
 //
 //  poShapeBasics2D.cpp
-//  poFramework4
+//  pocode
 //
 //  Created by Jared Schiffman on 5/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.
