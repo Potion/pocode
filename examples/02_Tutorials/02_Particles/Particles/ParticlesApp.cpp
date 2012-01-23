@@ -1,9 +1,14 @@
+/////////////////////////////////////////
+//
+// pocode : Particles
+//
+/////////////////////////////////////////
+
 #include "ParticlesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poImageShape.h"
 #include "Particle.h"
-
 
 ParticlesApp::ParticlesApp() {
 	

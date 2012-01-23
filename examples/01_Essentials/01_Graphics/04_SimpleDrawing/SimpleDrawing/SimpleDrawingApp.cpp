@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// poCode : Simple drawing
+// pocode : Simple drawing
 //
 /////////////////////////////////////////
 
@@ -117,7 +117,7 @@ void SimpleDrawingApp::draw() {
 	po::setColor(poColor::white);						// Set the color to white to draw an image
 														// with its original color (not tinted)
 														// Draw a polygon with a texture on it
-	po::drawTexturedPolygon(points, polygonTex, PO_TEX_FIT_INSIDE, PO_ALIGN_CENTER_CENTER);
+	po::drawTexturedPolygon(points, polygonTex, PO_TEX_FIT_EXACT, PO_ALIGN_CENTER_CENTER);
 	
 }
 

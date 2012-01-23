@@ -1,10 +1,8 @@
+/////////////////////////////////////////
 //
-//  Particle.h
-//  Particle
+// pocode : Particles
 //
-//  Created by Potion on 12/1/11.
-//  Copyright 2011 Potion Design. All rights reserved.
-//
+/////////////////////////////////////////
 
 #ifndef Particle_h
 #define Particle_h

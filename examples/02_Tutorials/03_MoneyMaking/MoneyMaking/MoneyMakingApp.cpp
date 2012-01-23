@@ -1,3 +1,9 @@
+/////////////////////////////////////////
+//
+// pocode : Money Making
+//
+/////////////////////////////////////////
+
 #include "MoneyMakingApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
@@ -20,30 +26,6 @@ MoneyMakingApp::MoneyMakingApp() {
 	dropRect->alpha = 0.5f;
 	dropRect->position.set( dropArea.x, dropArea.y, 0 );
 	addChild(dropRect);
-	
-//	float radius = 20;
-//	float angle = 0;
-//	float radiusInc = 8;
-//	float angleInc = 90;
-//	for(int i=0; i < 50; i++) {
-//		
-//		coinType type = coinType(floor(poRand(0, 5.99)));
-//		
-//		Coin* coinObject = new Coin( type );
-//		addChild( coinObject );
-//		
-//		float x = 200 + radius * cos(angle);
-//		float y = 370 + radius * sin(angle);
-//		coinObject->coinImage->position.set(x, y, 0);
-//		
-//		radius += radiusInc;
-//		angle += angleInc;
-//		if(angle > 360) {
-//			angle -= 360;
-//			angleInc /= 2;
-//			radiusInc /= 2;
-//		}
-//	}
 	
 	coinType type;
 	poPoint P;

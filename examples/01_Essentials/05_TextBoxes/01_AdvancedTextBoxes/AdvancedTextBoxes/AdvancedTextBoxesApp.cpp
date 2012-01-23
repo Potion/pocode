@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// poCode : Advanced TextBoxes
+// pocode : Advanced TextBoxes
 //
 /////////////////////////////////////////
 
@@ -41,9 +41,9 @@ AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
 	
 	poTextBox* B = new poTextBox(220, 120);
 	B->setText("This is a <b>rich text</b> example...");
-	B->setRichText( true );
-	B->setFont( poGetFont("Courier", "Regular") );
-	B->setFont( poGetFont("Helvetica", "Bold"), PO_TEXT_BOLD );
+//	B->setRichText( true );
+	B->setFont( poGetFont("Helvetica", "Regular") );
+//	B->setFont( poGetFont("Helvetica", "Bold"), PO_TEXT_BOLD );
 	B->setTextSize(18);									// Set the text size
 	B->textColor = poColor::blue;
 	B->doLayout();

@@ -1,6 +1,6 @@
 /////////////////////////////////////////
 //
-// poCode : Basic TextBoxes
+// pocode : Basic TextBoxes
 //
 /////////////////////////////////////////
 
@@ -38,15 +38,14 @@ BasicTextBoxesApp::BasicTextBoxesApp() {
 	addChild( A );
 	
 	
-	// B. poTextBox with rich text ///////////////////////
+	// B. poTextBox color, style and text alignment ///////////////////////
 	
-	poTextBox* B = new poTextBox(200, 120);
-	B->setText("This is a <b>rich text</b> example...");
-	B->setRichText( true );
-	B->setFont( poGetFont("Helvetica", "Regular") );
-	B->setFont( poGetFont("Helvetica", "Bold"), PO_TEXT_BOLD );
-	B->setTextSize(18);									// Set the text size
-	B->textColor = poColor::black;						// Set the text color
+	poTextBox* B = new poTextBox(280, 120);
+	B->setText("This is an example of bold text aligned to the bottom right...");	// Set the text
+	B->setTextAlignment(PO_ALIGN_BOTTOM_RIGHT);			// Set the text alignment within the text box
+	B->setFont( poGetFont("Helvetica", "Bold") );		// Set the font to Helvetica Bold
+	B->setTextSize(22);									// Set the text size
+	B->textColor = poColor::blue;						// Set the text color
 	B->doLayout();										// Always call doLayout() after you make any change
 	B->drawBounds = true;								// Show the bounds of the text box
 	B->position.set(445, 185, 0);

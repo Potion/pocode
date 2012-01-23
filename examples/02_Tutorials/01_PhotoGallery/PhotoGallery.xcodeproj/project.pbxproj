@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4176487B14CE1D4600E7BFB7 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4176487A14CE1D4600E7BFB7 /* AppConfig.cpp */; };
 		41E6D2AB14859218004BC657 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D2AA14859218004BC657 /* Debug.xcconfig */; };
 		41E6D2AD14859218004BC657 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D2AC14859218004BC657 /* Release.xcconfig */; };
 		41E6D2B014859218004BC657 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D2AF14859218004BC657 /* AppDelegate.mm */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4176487A14CE1D4600E7BFB7 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41E6D2A514859218004BC657 /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6D2AA14859218004BC657 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		41E6D2AC14859218004BC657 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				41E6D2BE14859218004BC657 /* PhotoGalleryApp.h */,
 				41E6D2BF14859218004BC657 /* PhotoGalleryApp.cpp */,
+				4176487A14CE1D4600E7BFB7 /* AppConfig.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				41E6D2B414859218004BC657 /* main.m in Sources */,
 				41E6D2BC14859218004BC657 /* poOpenGLView.mm in Sources */,
 				41E6D2C014859218004BC657 /* PhotoGalleryApp.cpp in Sources */,
+				4176487B14CE1D4600E7BFB7 /* AppConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

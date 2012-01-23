@@ -1,10 +1,8 @@
+/////////////////////////////////////////
 //
-//  Coin.cpp
-//  MoneyMaking
+// pocode : Money Making
 //
-//  Created by filippo on 11/30/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+/////////////////////////////////////////
 
 #include "Coin.h"
 

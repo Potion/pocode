@@ -4,17 +4,16 @@
 //
 /////////////////////////////////////////
 
-
+#include "PhotoGalleryApp.h"
 #include "poApplication.h"
-#include "XMLApp.h"
 
 poObject *createObjectForID(uint uid) {
-	return new XMLApp();
+	return new PhotoGalleryApp();
 }
 
 void setupApplication() {
 	lookUpAndSetPath("resources");
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "XML", 100, 100, 800, 600);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "PhotoGallery", 100, 100, 800, 600);
 }
 
 void cleanupApplication() {

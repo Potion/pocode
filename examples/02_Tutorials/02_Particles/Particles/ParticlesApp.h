@@ -1,6 +1,8 @@
-/*	Created by Potion on 12/1/11.
- *	Copyright 2011 Potion Design. All rights reserved.
- */
+/////////////////////////////////////////
+//
+// pocode : Particles
+//
+/////////////////////////////////////////
 
 #include "poObject.h"
 

@@ -1,5 +1,5 @@
 <xml>
-    <A fontFamily="Courier" textSize="20" colorR="0.8" colorG="0.6" colorB="0">Hello, my name is Node A!</A>
+    <A fontFamily="Helvetica" textSize="20" colorR="0.8" colorG="0.6" colorB="0">Hello, my name is Node A!</A>
 	<B>
 		<rectangle>40</rectangle>
 		<rectangle>80</rectangle>

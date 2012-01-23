@@ -1,18 +1,12 @@
+/////////////////////////////////////////
+//
+// pocode : Photo Gallery
+//
+/////////////////////////////////////////
+
 #include "PhotoGalleryApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-
-poObject *createObjectForID(uint uid) {
-	return new PhotoGalleryApp();
-}
-
-void setupApplication() {
-	lookUpAndSetPath("resources");
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "PhotoGallery", 100, 100, 800, 600);
-}
-
-void cleanupApplication() {
-}
 
 PhotoGalleryApp::PhotoGalleryApp() {
 	
@@ -62,7 +56,7 @@ void PhotoGalleryApp::eventHandler(poEvent *event) {
 	
 	if (event->message == "photo_clicked") {
 		
-		if (event->source == selectedPhoto)
+		if (event->source == selectedPhoto || event->source->positionTween.isRunning())
 			return;
 		
 		if(selectedPhoto != NULL) {

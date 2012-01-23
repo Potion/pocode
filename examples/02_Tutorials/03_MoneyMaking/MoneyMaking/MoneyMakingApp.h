@@ -1,6 +1,8 @@
-/*	Created by filippo on 11/30/11.
- *	Copyright 2011 __MyCompanyName__. All rights reserved.
- */
+/////////////////////////////////////////
+//
+// pocode : Money Making
+//
+/////////////////////////////////////////
 
 #include "poObject.h"
 #include "poTextBox.h"

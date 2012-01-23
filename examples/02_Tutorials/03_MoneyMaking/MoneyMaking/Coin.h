@@ -1,10 +1,8 @@
+/////////////////////////////////////////
 //
-//  Coin.h
-//  MoneyMaking
+// pocode : Money Making
 //
-//  Created by filippo on 11/30/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+/////////////////////////////////////////
 
 #ifndef MoneyMaking_Coin_h
 #define MoneyMaking_Coin_h

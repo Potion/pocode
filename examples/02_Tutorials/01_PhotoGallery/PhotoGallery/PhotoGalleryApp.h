@@ -1,6 +1,8 @@
-/*	Created by filippo on 11/29/11.
- *	Copyright 2011 __MyCompanyName__. All rights reserved.
- */
+/////////////////////////////////////////
+//
+// pocode : Photo Gallery
+//
+/////////////////////////////////////////
 
 #include "poObject.h"
 #include "poImageShape.h"

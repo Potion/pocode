@@ -1,10 +1,8 @@
+/////////////////////////////////////////
 //
-//  AppConfig.cpp
-//  MoneyMaking
+// pocode application configuration
 //
-//  Created by filippo on 1/12/12.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
-//
+/////////////////////////////////////////
 
 #include "poApplication.h"
 #include "MoneyMakingApp.h"
