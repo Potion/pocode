@@ -77,8 +77,8 @@ PointsApp::PointsApp() {
 	// C. poPoints: * and / ///////////////////////
 	
 	poPoint C = poPoint(40, 60, 0);								// Define poPoint C
-	poPoint mult = C * 2;										// Define a poPoint as A * B
-	poPoint div = C / 2;										// Define a poPoint as A / B
+	poPoint mult = C * 2;										// Define a poPoint as C * 2
+	poPoint div = C / 2;										// Define a poPoint as C / 2
 	
 	poObject* holderC = new poObject();							// Offset everything to the white rectangle
 	holderC->position.set(538, 166, 0);
