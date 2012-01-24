@@ -21,7 +21,7 @@ void ___PROJECTNAMEASIDENTIFIER___App::update() {
 	
 }
 
-// UPDATE. Called once per frame. Draw objects here.
+// DRAW. Called once per frame. Draw objects here.
 void ___PROJECTNAMEASIDENTIFIER___App::draw() {
 	
 }
