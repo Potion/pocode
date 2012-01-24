@@ -206,10 +206,13 @@ void poEventCenter::processMouseEvents( poEvent &Event ) {
     if ( Event.type == PO_MOUSE_DOWN_EVENT ) {
   
         // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
-        Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
+        
         poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
         if ( callback )
+        {
+            Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
             notifyOneListener( callback, Event );
+        }
         
         // set lastDragID for object to receive PO_MOUSE_DRAG_INSIDE_EVENT
         poEventCallback* drag_callback = findTopObjectUnderPoint( PO_MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
@@ -236,45 +239,73 @@ void poEventCenter::processMouseEvents( poEvent &Event ) {
     // handles PO_MOUSE_MOVE_EVENT, PO_MOUSE_OVER_EVENT, PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
     else if ( Event.type == PO_MOUSE_MOVE_EVENT ) {
 
-		// enter and leave have to be done together
-		std::vector<poEventCallback*> enterLeave = events[PO_MOUSE_ENTER_EVENT];
-		enterLeave.insert(enterLeave.end(), events[PO_MOUSE_LEAVE_EVENT].begin(), events[PO_MOUSE_LEAVE_EVENT].end());
-		
-		for(int i=0; i<enterLeave.size(); i++) {
-			poEventCallback *callback = enterLeave[i];
-
-			if(objectIsAvailableForEvents(callback->event.source)) {
-				poObject *obj = callback->event.source;
-				bool isInside = obj->pointInside(Event.globalPosition, true);
-
-				if(isInside && obj->eventMemory->lastInsideTouchID < 0) {
-					if(callback->event.type == PO_MOUSE_ENTER_EVENT) {
-						notifyOneListener(callback, Event);
-					}
-					obj->eventMemory->lastInsideTouchID = 1;
-				}
-				else if(!isInside && obj->eventMemory->lastInsideTouchID >= 0) {
-					obj->eventMemory->lastInsideTouchID = -2;
-				}
-				
-				// this is an ugly hack to make leave events work in the case where
-				// an object has both enter and leave events
-				if(callback->event.type == PO_MOUSE_LEAVE_EVENT && obj->eventMemory->lastInsideTouchID == -2) {
-					notifyOneListener(callback, Event);
-					obj->eventMemory->lastInsideTouchID = -1;
-				}
-			}
-		}
-		
-		std::vector<poEventCallback*> over = events[PO_MOUSE_OVER_EVENT];
-		for(int i=0; i<over.size(); i++) {
-			poObject *obj = over[i]->event.source;
-			if(obj->eventMemory->lastInsideTouchID >= 0) {
-				notifyOneListener(over[i], Event);
-				// we only want to notify the top-most, and they're already sorted
-				break;
-			}
-		}
+        // move over events
+        poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_OVER_EVENT, Event.globalPosition );
+        if ( callback )
+        {
+            Event.type = PO_MOUSE_OVER_EVENT;
+            notifyOneListener( callback, Event );
+            Event.type = PO_MOUSE_MOVE_EVENT;
+        }
+        
+        // lastInsideTouchID states
+        // -1 = last touch outside (initialized to this)
+        // -2 = last touch outside, this touch inside, will be reset to -1
+        //  1 = last touch inside
+        
+        // enter events
+        std::vector<poEventCallback*> &enter_event_vec = events[PO_MOUSE_ENTER_EVENT];
+        for( int i=0; i<enter_event_vec.size(); i++ ) {
+            poEventCallback* callback = enter_event_vec[i];
+            poObject* obj = callback->event.source;
+            
+            if( ! objectIsAvailableForEvents(obj) )
+                continue;
+            
+            bool isInside = obj->pointInside(Event.globalPosition, true);
+            
+            // if inside now and not inside last frame, then trigger enter event
+            if(isInside && obj->eventMemory->lastInsideTouchID < 0) 
+            {
+                notifyOneListener(callback, Event);
+                obj->eventMemory->lastInsideTouchID = -2;       // -2 will become positive 1 in for loop after leave event
+            }
+            if (!isInside && obj->eventMemory->lastInsideTouchID > 0)
+                obj->eventMemory->lastInsideTouchID = 2;       // 2 will become  -1 in for loop after leave event
+        }
+        
+        // leave events
+        std::vector<poEventCallback*> &leave_event_vec = events[PO_MOUSE_LEAVE_EVENT];
+        for( int i=0; i<leave_event_vec.size(); i++ ) {
+            poEventCallback* callback = leave_event_vec[i];
+            poObject* obj = callback->event.source;
+            
+            if( ! objectIsAvailableForEvents(obj) )
+                continue;
+            
+            bool isInside = obj->pointInside(Event.globalPosition, true);
+            
+            // if not inside now and was inside last frame, then trigger leave event
+            if( !isInside && obj->eventMemory->lastInsideTouchID > 0 ) 
+            {
+                notifyOneListener(callback, Event);
+                obj->eventMemory->lastInsideTouchID = -1;
+            }
+            if ( isInside && obj->eventMemory->lastInsideTouchID < 0 )
+                obj->eventMemory->lastInsideTouchID = 1;
+        }
+        
+        // go back and fix states for enter events
+        for( int i=0; i<enter_event_vec.size(); i++ )
+        {
+            poEventCallback* callback = enter_event_vec[i];
+            poObject* obj = callback->event.source;
+            // for all enter events, switch lastInsideTouchID from -2 to to 1, and  2 to -1
+            if ( obj->eventMemory->lastInsideTouchID == -2 )
+                obj->eventMemory->lastInsideTouchID = 1;
+            if ( obj->eventMemory->lastInsideTouchID == 2 )
+                obj->eventMemory->lastInsideTouchID = -1;
+        }		
     }
 	
     // handles PO_MOUSE_DRAG_EVERYWHERE_EVENT and PO_MOUSE_DRAG_EVENT

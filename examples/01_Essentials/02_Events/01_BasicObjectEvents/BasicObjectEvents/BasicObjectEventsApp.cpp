@@ -63,7 +63,6 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	D->position.set(640, 204, 0);
 	addChild(D);
 	
-//	D->addEvent(PO_MOUSE_ENTER_EVENT, this);	// INTERNAL!!! we need ENTER if we want OVER
 	D->addEvent(PO_MOUSE_OVER_EVENT, this);				// Add a "mouse over" event to shape D
 	
 	
