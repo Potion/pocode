@@ -66,7 +66,6 @@ MoneyMakingApp::MoneyMakingApp() {
 	
 	poImageShape* pig = new poImageShape("pig.png");
 	pig->position.set(355, 150, 0);
-//	pig->alpha = 0.5;
 	addChild(pig);
 	
 	currentCount = 0.f;

@@ -18,11 +18,6 @@ SimpleDrawingApp::SimpleDrawingApp() {
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
-	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
-//    BG->alpha = 0.5;
-//	addChild( BG );
-	
 	bgTex = new poTexture("bg.jpg");					// Define a texture for the background
 	rectTex = new poTexture("pear.jpg");				// Define a texture for the rectangle in B
 	polygonTex = new poTexture("orange.jpg");			// Define a texture for the polygon in C

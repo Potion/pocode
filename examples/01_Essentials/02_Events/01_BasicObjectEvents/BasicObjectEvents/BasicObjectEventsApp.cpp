@@ -23,7 +23,7 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	
 	// A NOTE ON OBJECT EVENTS ///////////////////////
-	// Object events happen within the bounds of a shape
+	// Object events happen within the bounds of an object
 	
 	
 	// A. PO_MOUSE_DOWN_INSIDE_EVENT ///////////////////////

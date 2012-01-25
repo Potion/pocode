@@ -54,7 +54,7 @@ void Coin::eventHandler( poEvent* event ) {
 	
 	if( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
 		
-		dragOffset.set( event->localPosition.x, event->localPosition.y, 0);
+		dragOffset = event->localPosition;
 		dragOffset += coinImage->offset;
 	}
 	else if( event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
