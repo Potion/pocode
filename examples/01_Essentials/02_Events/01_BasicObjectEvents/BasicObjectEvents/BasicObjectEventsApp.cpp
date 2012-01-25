@@ -87,20 +87,16 @@ void BasicObjectEventsApp::update() {
 void BasicObjectEventsApp::eventHandler(poEvent *event) {
 	
 	if(event->type == PO_MOUSE_DOWN_INSIDE_EVENT) {		// Verify if you get an event of type mouse down inside
-		
-		A->fillColor = poColor::blue;					// Change the color of rectangle A
+            A->fillColor = poColor::blue;					// Change the color of rectangle A
 	}
 	else if(event->type == PO_MOUSE_ENTER_EVENT) {		// Verify if you get an event of type mouse enter
-		
-		B->fillColor = poColor::blue;					// Change the color of rectangle B
+            B->fillColor = poColor::blue;					// Change the color of rectangle B
 	}
 	else if(event->type == PO_MOUSE_LEAVE_EVENT) {		// Verify if you get an event of type mouse leave
-		
-		C->fillColor = poColor::blue;					// Change the color of rectangle C
+            C->fillColor = poColor::blue;					// Change the color of rectangle C
 	}
 	else if(event->type == PO_MOUSE_OVER_EVENT) {		// Verify if you get an event of type mouse over
-		
-		D->fillColor = poColor::blue;					// Change the color of rectangle D
+            D->fillColor = poColor::blue;					// Change the color of rectangle D
 	}
 	else if(event->type == PO_KEY_DOWN_EVENT) {			// Verify if you get an event of type key down
 		
