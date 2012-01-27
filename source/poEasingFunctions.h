@@ -383,19 +383,89 @@ inline bool backInOutFunc(float *v, float bv, float ev,
 // -------------- Additional Tweens: Bounce --------------
 // e1: 
 // e2: 
-inline bool bounceInFunc()
+inline bool bounceInFunc(float *v, float bv, float ev, 
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	return 0;
+	float t2 = (t - b) / d;
+	
+	if (t2 < (1/2.75)) {
+		*v = ev * (7.5625 * t2 * t2);
+	} 
+	else if (t2 < (2/2.75)) {
+		*v = ev * (7.5625 * (t2-(1.5/2.75)) * (t2-(1.5/2.75)) + .75);
+	}
+	else if (t2 < (2.5/2.75)) {
+		*v = ev * (7.5625 * (t2-(2.25/2.75)) * (t2-(2.25/2.75)) + .9375);
+	}
+	else {
+		*v = ev * (7.5625 * (t2-(2.625/2.75)) * (t2-(2.625/2.75)) + .984375);
+	}
+		
+	return (t-b) >= d;
 }
 
-inline bool bounceOutFunc()
+inline bool bounceOutFunc(float *v, float bv, float ev, 
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	return 0;
+	float t2 = (t - b) / d;
+	t2--;
+	
+	if (t2 < (1/2.75)) {
+		*v = ev * (1 - (7.5625 * t2 * t2));
+	} 
+	else if (t2 < (2/2.75)) {
+		*v = ev * (1 - (7.5625 * (t2-(1.5/2.75)) * (t2-(1.5/2.75)) + .75));
+	}
+	else if (t2 < (2.5/2.75)) {
+		*v = ev * (1 - (7.5625 * (t2-(2.25/2.75)) * (t2-(2.25/2.75)) + .9375));
+	}
+	else {
+		*v = ev * (1 - (7.5625 * (t2-(2.625/2.75)) * (t2-(2.625/2.75)) + .984375));
+	}
+		
+	return (t-b) >= d;
 }
 
-inline bool bounceInOutFunc()
+inline bool bounceInOutFunc(float *v, float bv, float ev, 
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	return 0;
+	float t2 = (t - b) / d * 2.f;
+	
+	if (t2 < 1){
+		if (t2 < (1/2.75)) {
+			*v = ev * (7.5625 * t2 * t2) + .5f;
+		} 
+		else if (t2 < (2/2.75)) {
+			*v = ev * (7.5625 * (t2-(1.5/2.75)) * (t2-(1.5/2.75)) + .75) + .5f;
+		}
+		else if (t2 < (2.5/2.75)) {
+			*v = ev * (7.5625 * (t2-(2.25/2.75)) * (t2-(2.25/2.75)) + .9375) + .5f;
+		}
+		else {
+			*v = ev * (7.5625 * (t2-(2.625/2.75)) * (t2-(2.625/2.75)) + .984375) + .5f;
+		}
+	}
+	else{
+		t2--;
+
+		if (t2 < (1/2.75)) {
+			*v = ev * (7.5625 * t2 * t2);
+		} 
+		else if (t2 < (2/2.75)) {
+			*v = ev * (7.5625 * (t2-(1.5/2.75)) * (t2-(1.5/2.75)) + .75) + .5f;
+		}
+		else if (t2 < (2.5/2.75)) {
+			*v = ev * (7.5625 * (t2-(2.25/2.75)) * (t2-(2.25/2.75)) + .9375) + .5f;
+		}
+		else {
+			*v = ev * (7.5625 * (t2-(2.625/2.75)) * (t2-(2.625/2.75)) + .984375) + .5f;
+		}
+	}
+	
+	return (t-b) >= d;
 }
 
 // -------------- Additional Tweens: Elastic --------------
@@ -430,12 +500,64 @@ inline bool elasticInFunc(float *v, float bv, float ev,
 	return (t-b) >= d;
 }
 
-inline bool elasticOutFunc()
+inline bool elasticOutFunc(float *v, float bv, float ev, 
+						  float t, float b, float e, float d,
+						  float e1, float e2)
 {
-	return 0;
+	float t2 = (t - b) / d;
+	
+	if ((t-b) <= 0) {
+		*v = 0;
+	} 
+	if (t2 >= 1) {
+		*v = 1;
+	}
+	if (e2 == 0) {
+		e2 = d * .3f;	//default period
+	} 
+	
+	float decay;
+	
+	if (e1 < 1) { 
+		e1 = 1; 
+		decay = e2 / 4.f; 
+	} else {
+		decay= e2 / M_2PI * ::asin(1/e1);
+	}
+	*v = (e1 * powf(2.f, 10*(-t2)) * ::sin((((t2-1)*d-decay)*M_2PI/e2) + 1));
+	
+	return (t-b) >= d;
 }
 
-inline bool elasticInOutFunc()
-{
-	return 0;	
-}
+inline bool elasticInOutFunc(float *v, float bv, float ev, 
+							  float t, float b, float e, float d,
+							  float e1, float e2)
+	{
+		float t2 = (t - b) / d * 2.f;
+
+		if ((t-b) <= 0) {
+			*v = 0;
+		} 
+		if (t2 >= 2) {
+			*v = 1;
+		}
+		if (e2 == 0) {
+			e2 = d * .3f * 1.5f;	//default period
+		} 
+
+		float decay;
+
+		if (e1 < 1) { 
+			e1 = 1; 
+			decay = e2 / 4.f; 
+		} else {
+			decay= e2 / M_2PI * ::asin(1/e1);
+		}
+		
+		if (t2 < 1)
+			*v = -.5f * (e1 * powf(2.f, 10*(t2-1)) * ::sin(((t2-1)*d-decay)*M_2PI/e2));
+		else
+			*v = .5f * (e1 * powf(2.f, -10*(t2-1)) * ::sin(((t2-1)*d-decay)*M_2PI/e2)) + 1;			
+
+		return (t-b) >= d;
+	}
