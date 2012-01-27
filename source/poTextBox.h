@@ -109,6 +109,13 @@ public:
 	void                setTabWidth(int tw);
 	int                 getTabWidth() const;
 
+/////////////////////////////////////////////////////
+//
+//	poTextBox rich text is UNDER DEVELOPMENT
+//	Check again in future releases of pocode
+//
+/////////////////////////////////////////////////////
+	
     // The richText mode enables specifc text settings within the text. For example, setting
     // the color of a single world or line of text. By default, richText mode is off.
     bool                isRichText() const;

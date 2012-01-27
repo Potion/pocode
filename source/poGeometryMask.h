@@ -43,6 +43,13 @@ private:
     bool            inverse;
 };
 
+/////////////////////////////////////////////////////
+//
+//	poImageMask is UNDER DEVELOPMENT
+//	Check again in future releases of pocode
+//
+/////////////////////////////////////////////////////
+
 /*
 // CLASS NOTES
 //
