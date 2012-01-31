@@ -193,6 +193,11 @@ poXMLNode &poXMLNode::removeChild(const std::string &name) {
 	return *this;
 }
 
+poXMLNode &poXMLNode::removeChild(const poXMLNode &node) {
+	this->node.remove_child(node.node);
+	return *this;
+}
+
 poXMLNode poXMLNode::getChild(uint idx) {
 	if(idx > getNumChildren())
 		return poXMLNode();
