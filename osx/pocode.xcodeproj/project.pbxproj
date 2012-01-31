@@ -831,6 +831,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				OTHER_CFLAGS = "";
 			};
 			name = Release;
@@ -839,6 +840,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_CFLAGS = "";
 				SDKROOT = iphoneos5.0;
