@@ -58,7 +58,6 @@ void poFileLoader::getFile(std::string url, std::string filename) {
     FILE * file = (FILE *)fopen(filename.c_str(),"w+");
     if(!file){
         perror("File Open:");
-        exit(0);
     }
     CURL *handle = curl_easy_init();
     curl_easy_setopt(handle,CURLOPT_URL,url.c_str()); /*Using the http protocol*/
