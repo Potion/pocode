@@ -88,7 +88,7 @@ public:
     
 	// default will not take delay into account when repeating
 	poTweenBase&        setDelay(float delay, bool delayOnRepeat=false);
-	poTweenBase&        setExtraValues(float e1, float e2);
+	poTweenBase&        setExtraValues(float e1, float e2=0.0f);
 	
 	poTweenBase&        start();
 	poTweenBase&        stop(bool jumpToEnd=false);
