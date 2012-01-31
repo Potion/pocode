@@ -125,7 +125,7 @@ poSqlite3Result poSqlite3::query(std::string query) {
                     
                     switch(colType) {
                         case SQLITE_INTEGER:
-                            dict.set(colName, sqlite3_column_int(statement, col));
+                            dict.set(colName, (int)sqlite3_column_int(statement, col));
                             break;
                         case SQLITE_FLOAT:
                             dict.set(colName, (float)sqlite3_column_double(statement, col));
