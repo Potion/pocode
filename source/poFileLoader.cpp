@@ -60,6 +60,7 @@ void poFileLoader::getFile(std::string url, std::string filename) {
         perror("File Open:");
     }
     CURL *handle = curl_easy_init();
+    curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
     curl_easy_setopt(handle,CURLOPT_URL,url.c_str()); /*Using the http protocol*/
     curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
@@ -73,6 +74,7 @@ std::string poFileLoader::getFileAsString(std::string url) {
     std::string response;
     
     CURL *handle = curl_easy_init();
+    curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
     curl_easy_setopt(handle,CURLOPT_URL, url.c_str()); /*Using the http protocol*/
     curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
     curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
