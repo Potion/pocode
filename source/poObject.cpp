@@ -576,6 +576,7 @@ void poObject::updateTree() {
 }
 
 void poObject::_drawBounds() {
+	po::setStrokeWidth(1);
     po::setColor(poColor::red);
     po::drawStrokedRect(getBounds());
     po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));

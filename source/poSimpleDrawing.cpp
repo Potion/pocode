@@ -34,59 +34,8 @@
 #include <boost/foreach.hpp>
 #include <boost/assign/list_of.hpp>
 
-std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, 
-										int strokeWidth, 
-										bool close, 
-										poStrokePlacementProperty place, 
-										poStrokeJoinProperty join, 
-										poStrokeCapProperty cap) 
-{
-    std::vector<poPoint> stroke;
-
-	std::vector<poExtrudedLineSeg> segments;
-	poPoint p1, p2, p3, p4, tmp;
-	
-	for(uint i=0; i<points.size()-1; i++) {
-		p1 = points[i];
-		p2 = points[i+1];
-		segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
-	}
-	
-	if(close) {
-		segments.push_back(poExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
-		makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
-	}	
-	else {
-		// add the first cap
-		stroke.push_back(segments[0].p2);
-		stroke.push_back(segments[0].p1);
-	}
-	
-	// generate middle points
-	for(uint i=0; i<segments.size()-1; i++) {
-		makeStrokeForJoint(stroke, segments[i], segments[i+1], join, strokeWidth);
-	}
-	
-	if(close) {
-		makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
-	}
-	else {
-		stroke.push_back(segments.back().p4);
-		stroke.push_back(segments.back().p3);
-	}
-	
-	return stroke;
-}
-
-std::vector<poPoint> po::generateOval(float xRad, float yRad, uint resolution) {
-	std::vector<poPoint> response;
-
-	for(uint i=0; i<resolution; i++) {
-		float phase = i / float(resolution);
-		response.push_back(poPoint(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
-	}
-	
-	return response;
+void po::setColor(float R, float G, float B, float A) {
+	setColor(poColor(R,G,B,A));
 }
 
 void po::setColor(poColor color) {
@@ -95,6 +44,10 @@ void po::setColor(poColor color) {
 
 void po::setColor(poColor color, float alpha) {
 	poOpenGLState::get()->color = poColor(color, alpha);
+}
+
+void po::setStrokeWidth(int strokeWidth) {
+	if(strokeWidth >= 1) glLineWidth(strokeWidth);
 }
 
 void po::drawLine(poPoint a, poPoint b) {
@@ -113,6 +66,30 @@ void po::drawLine(poPoint a, poPoint b) {
 	poBasicRenderer::get()->setFromState();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
 	glDrawArrays(GL_LINES, 0, 2);
+}
+
+void po::drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
+	if(ptSize > 0)
+		font->setPointSize(ptSize);
+	
+	font->setGlyph(' ');
+	float spacer = font->getGlyphAdvance().x * tracking;
+	
+	poBitmapFont *bmpFont = poGetBitmapFont(font, ptSize);
+	
+	std::string::const_iterator ch = str.begin();
+	while(ch != str.end()) {
+		uint codepoint = utf8::next(ch, str.end());
+		
+		font->setGlyph(codepoint);
+		poPoint adv = font->getGlyphAdvance();
+		poPoint org = round(pos+font->getGlyphBearing());
+		org.y += font->getAscender();
+		
+		bmpFont->drawGlyph( codepoint, org );
+		
+		pos.x += adv.x * tracking;
+	}
 }
 
 namespace {
@@ -284,26 +261,57 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
 }
 
-void po::drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
-	if(ptSize > 0)
-		font->setPointSize(ptSize);
+std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, 
+										int strokeWidth, 
+										bool close, 
+										poStrokePlacementProperty place, 
+										poStrokeJoinProperty join, 
+										poStrokeCapProperty cap) 
+{
+    std::vector<poPoint> stroke;
 	
-	font->setGlyph(' ');
-	float spacer = font->getGlyphAdvance().x * tracking;
+	std::vector<poExtrudedLineSeg> segments;
+	poPoint p1, p2, p3, p4, tmp;
 	
-	poBitmapFont *bmpFont = poGetBitmapFont(font, ptSize);
-	
-	std::string::const_iterator ch = str.begin();
-	while(ch != str.end()) {
-		uint codepoint = utf8::next(ch, str.end());
-
-		font->setGlyph(codepoint);
-		poPoint adv = font->getGlyphAdvance();
-		poPoint org = round(pos+font->getGlyphBearing());
-		org.y += font->getAscender();
-		
-		bmpFont->drawGlyph( codepoint, org );
-		
-		pos.x += adv.x * tracking;
+	for(uint i=0; i<points.size()-1; i++) {
+		p1 = points[i];
+		p2 = points[i+1];
+		segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
 	}
+	
+	if(close) {
+		segments.push_back(poExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
+		makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
+	}	
+	else {
+		// add the first cap
+		stroke.push_back(segments[0].p2);
+		stroke.push_back(segments[0].p1);
+	}
+	
+	// generate middle points
+	for(uint i=0; i<segments.size()-1; i++) {
+		makeStrokeForJoint(stroke, segments[i], segments[i+1], join, strokeWidth);
+	}
+	
+	if(close) {
+		makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
+	}
+	else {
+		stroke.push_back(segments.back().p4);
+		stroke.push_back(segments.back().p3);
+	}
+	
+	return stroke;
+}
+
+std::vector<poPoint> po::generateOval(float xRad, float yRad, uint resolution) {
+	std::vector<poPoint> response;
+	
+	for(uint i=0; i<resolution; i++) {
+		float phase = (i / float(resolution)) * M_2PI;
+		response.push_back(poPoint(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
+	}
+	
+	return response;
 }
