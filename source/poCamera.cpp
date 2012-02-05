@@ -245,11 +245,13 @@ void poOrthoCamera::setProjection() {
 }
 
 
-
+// perspective camera
 poPerspectiveCamera::poPerspectiveCamera(float fov, float nearClip, float farClip)
 :	fov(fov)
 ,	nearClip(nearClip)
 ,	farClip(farClip)
+,   doDepthTesting(true)
+,   doBackfaceCulling(true)
 {}
 
 poObjectModifier *poPerspectiveCamera::copy() {
@@ -320,8 +322,8 @@ void poPerspectiveCamera::setModelview() {
 
 void poPerspectiveCamera::saveAndUpdateGLSettings()
 {
-    glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+    glEnable(doDepthTesting);
+	glEnable(doBackfaceCulling);
 }
 
 

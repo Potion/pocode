@@ -174,6 +174,9 @@ public:
     // the Z axis.
     void                    setupFor2DOnZPlane();
 	
+    bool                    doDepthTesting;
+    bool                    doBackfaceCulling;
+    
 protected:
 	void					clone(poPerspectiveCamera *cam);
 	
@@ -181,7 +184,7 @@ protected:
 	virtual void            setProjection();
 	virtual void            setModelview();
     virtual void            saveAndUpdateGLSettings();
-
+    
 private:
 	float                   fov, nearClip, farClip;
 	poPoint                 lookAtPos, cameraPos;
