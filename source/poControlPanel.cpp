@@ -84,6 +84,27 @@ poControlPanel::poControlPanel( string _label, string _filename )
     hideText->setText( "hide" );
 	hideText->doLayout();  
     hide->addChild( hideText );
+    
+    bar->moveChildToBack(box);
+}
+
+
+void poControlPanel::addKnob( string _ID, float min, float max, poObject* obj  )
+{
+    string prop = _ID;
+    float propVal; 
+    
+    if ( settings.has( prop )) 
+    {
+        propVal = settings.getFloat(prop);
+    } else 
+    {
+        propVal = 0.0f;
+        settings.set( prop, propVal );
+    }
+    poKnob* K = new poKnob( _ID, propVal, min, max, obj );
+    K->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+    container->addChild( K );
 }
 
 void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj  )
@@ -99,10 +120,12 @@ void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj
         propVal = 0.0f;
         settings.set( prop, propVal );
     }
-    poSliderF* S = new poSliderF( _ID, propVal, min, max, obj );
+    poSliderF* S = new poSliderF( _ID, propVal, min, max, "" , obj );
     S->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( S );
 }
+
+
 
 void poControlPanel::addSliderI( string _ID, int min, int max, poObject* obj  )
 {
@@ -144,6 +167,14 @@ void poControlPanel::addToggle( string _ID, poObject* obj )
     
 }
 
+void poControlPanel::addMessage( string _ID, poObject* obj )
+{
+    string prop = _ID;    
+    poMessage* M = new poMessage( _ID, obj );
+    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+    container->addChild( M );
+}
+
 void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObject* obj )
 {
     
@@ -163,6 +194,48 @@ void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObj
     container->addChild( P );
 }
 
+void poControlPanel::addColorSlider( string _ID, bool RGB ,poObject* obj )
+{
+    
+    string prop = _ID;
+    poColor propVal;
+    
+    if ( settings.has(prop) ) 
+    {
+        propVal = settings.getColor(prop);
+    } 
+    else 
+    {
+        propVal = poColor(0,0,0,0);
+        settings.set( prop, propVal );
+    }
+    
+    poColorSlider* P = new poColorSlider( _ID, propVal, RGB, obj );
+    P->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+    container->addChild( P );
+
+}
+
+void poControlPanel::addRadio( string _ID, vector<string> names, poObject* obj )
+{
+    string prop = _ID;
+    int propVal;
+    
+    if ( settings.has(prop) ) {
+        propVal = settings.getInt(prop);
+    } 
+    else
+    {
+        propVal = 0;
+        settings.set( prop,propVal );
+    }
+    
+    poRadio* R = new poRadio( _ID, propVal, names, obj );
+    R->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+    container->addChild( R );
+}
+
+
 void poControlPanel::addInputTextBox( string _ID,poObject* obj )
 {
     
@@ -172,12 +245,9 @@ void poControlPanel::addInputTextBox( string _ID,poObject* obj )
     if ( settings.has( prop )) {
                 
         string temp = settings.getString( prop );
-//        cout << temp << endl;
         temp = temp.erase(temp.find_last_not_of("'")+1);
         temp = temp.erase(0,temp.find_first_not_of("'"));
-//        cout << temp << endl;
         propVal = temp;
-//        cout << propVal << endl;
 
     } else 
     {
@@ -253,7 +323,6 @@ void poControlPanel::eventHandler(poEvent *event)
     }
 }
 
-
 void poControlPanel::saveSettings() {    
     
     settings.write( label+".xml" );
@@ -263,7 +332,6 @@ void poControlPanel::readSettings()
 {    
     settings.read( label+".xml" );
 }
-
 bool poControlPanel::getBool( string s ) {    
     poControl* C = (poControl*) container->getChild(s);
 //    cout << "prop name is: " << s << endl;
@@ -284,6 +352,7 @@ int poControlPanel::getInt( string s ) {
         return C->valI;
     }
 }
+
 float poControlPanel::getFloat( string s ) {
     poControl* C = (poControl*) container->getChild(s);
     if ( C != NULL) 
@@ -292,6 +361,7 @@ float poControlPanel::getFloat( string s ) {
         return C->valF;
     }
 }
+
 string poControlPanel::getString( string s ) {
     poControl* C = (poControl*) container->getChild(s);
     if ( C != NULL) 
@@ -305,6 +375,7 @@ string poControlPanel::getString( string s ) {
         return temp;
     }
 }
+
 poPoint poControlPanel::getPoint( string s ) {
 	poControl* C = (poControl*) container->getChild(s);
     if ( C != NULL) 
@@ -313,6 +384,7 @@ poPoint poControlPanel::getPoint( string s ) {
         return C->valP;
     }
 }
+
 poColor poControlPanel::getColor( string s) {
     poControl* C = (poControl*) container->getChild(s);
     if ( C != NULL) 
@@ -321,5 +393,8 @@ poColor poControlPanel::getColor( string s) {
         return C->valC;
     }
 }
+
+
+
 
 
