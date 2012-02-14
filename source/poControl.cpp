@@ -873,18 +873,18 @@ void poKnob::eventHandler(poEvent *event)
         //angle to mouse
         float ang = atan2( pos.y, pos.x ) * 180/3.14159;
         ang = 180+ang;
-        valF = ang;
-    
-        sliderKnob->rotation = valF; 
-        poDictionary D;
-        
+		
+        sliderKnob->rotation = ang;
+		
+		valF = poMapf(0.f, 360.f, ang, min, max);
+		
         char valString [256];
         sprintf( valString, "%.2lf", valF );
         shapeData->setText( valString );
         shapeData->doLayout();  
         
+		poDictionary D;
         D.set("value", valF);
-        
         
         if ( listener == NULL ) 
         {

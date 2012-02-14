@@ -27,6 +27,7 @@ poControlPanel::poControlPanel( string _label, string _filename )
     filename = _filename;    
     
     addEvent(PO_MOUSE_UP_EVENT, this);
+	
     bar = new poRectShape(240,20);
     bar->position = pos;
     bar->fillColor = poColor( 1,1,1,.2 );
@@ -37,14 +38,12 @@ poControlPanel::poControlPanel( string _label, string _filename )
     save = new poRectShape(50,20);
     save->fillColor = poColor( 1,1,1,.2 );
     save->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-    save->addEvent(PO_MOUSE_UP_EVENT, this);
     save->position = poPoint( bar->getWidth()-save->getWidth() ,0 );
     bar->addChild( save );
     
     hide = new poRectShape(50,20);
     hide->fillColor = poColor( 1,1,1,.2 );
     hide->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-    hide->addEvent(PO_MOUSE_UP_EVENT, this);
     hide->position = poPoint( bar->getWidth()-(save->getWidth()*2 + 2) ,0 );
     bar->addChild( hide );
     
@@ -269,7 +268,6 @@ void poControlPanel::autoResize()
 
 void poControlPanel::eventHandler(poEvent *event) 
 {
-    
     if ( event->source == bar ) 
     {
         if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
@@ -282,10 +280,6 @@ void poControlPanel::eventHandler(poEvent *event)
             bar->position = event->globalPosition - dragOffset;
             settings.set( label , bar->position );
         }
-        
-        else if ( event->type == PO_MOUSE_UP_EVENT && isDragged ) {
-            isDragged = false;
-        }
     }
     
     if ( event->source == save ) 
@@ -294,12 +288,8 @@ void poControlPanel::eventHandler(poEvent *event)
             saveSettings();
             save->fillColor = poColor( 1,0,0,.2 );
         }
-        
-        else if ( event->type == PO_MOUSE_UP_EVENT ) {
-            save->fillColor = poColor( 1,1,1,.2 );
-        }
     }
-
+	
     if ( event->source == hide ) 
     {
         if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
@@ -316,11 +306,13 @@ void poControlPanel::eventHandler(poEvent *event)
                 hideText->doLayout(); 
             }
         }
-        
-        else if ( event->type == PO_MOUSE_UP_EVENT ) {
-            hide->fillColor = poColor( 1,1,1,.2 );
-        }
     }
+	
+	if ( event->type == PO_MOUSE_UP_EVENT ) {
+		if(isDragged) isDragged = false;
+		if(save->fillColor != poColor( 1,1,1,.2 )) save->fillColor = poColor( 1,1,1,.2 );
+		if(hide->fillColor != poColor( 1,1,1,.2 )) hide->fillColor = poColor( 1,1,1,.2 );
+	}
 }
 
 void poControlPanel::saveSettings() {    
@@ -330,7 +322,8 @@ void poControlPanel::saveSettings() {
 
 void poControlPanel::readSettings() 
 {    
-    settings.read( label+".xml" );
+    FILE* p = fopen((label+".xml").c_str() , "r");
+    if(p) settings.read( label+".xml" );
 }
 bool poControlPanel::getBool( string s ) {    
     poControl* C = (poControl*) container->getChild(s);
