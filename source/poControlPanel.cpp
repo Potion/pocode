@@ -21,10 +21,10 @@
 #include "poControlPanel.h"
 
 #define MARGIN 10
+#define SPACING 5
 
 poControlPanel::poControlPanel( string _label, string _filename )
 {
-    
     label = _label;
     
     readSettings();
@@ -57,10 +57,15 @@ poControlPanel::poControlPanel( string _label, string _filename )
     hide->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     hide->position = poPoint( bar->getWidth()-(save->getWidth()*2 + 2) ,0 );
     bar->addChild( hide );
-    
+	
     container = new poObject();
-    container->position = poPoint( 0,bar->getBounds().height + padding/10 );
+    container->position = poPoint( MARGIN, bar->getBounds().height + MARGIN );
     bar->addChild( container );
+	
+	containerLayout = new poLayout(PO_VERTICAL_DOWN);
+	containerLayout->setSpacing(MARGIN);
+	containerLayout->setRefreshEveryFrame(false);
+	container->addModifier(containerLayout);
     
     box = new poRectShape( bar->getWidth(),400 );
     box->fillColor = poColor( 1,1,1,.2 );
@@ -96,6 +101,8 @@ poControlPanel::poControlPanel( string _label, string _filename )
     hide->addChild( hideText );
     
     bar->moveChildToBack(box);
+	
+	isResized = false;
 }
 
 
@@ -113,7 +120,7 @@ void poControlPanel::addKnob( string _ID, float min, float max, poObject* obj  )
         settings.set( prop, propVal );
     }
     poKnob* K = new poKnob( _ID, propVal, min, max, obj );
-    K->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    K->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( K );
 }
 
@@ -131,7 +138,7 @@ void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj
         settings.set( prop, propVal );
     }
     poSliderF* S = new poSliderF( _ID, propVal, min, max, "" , obj );
-    S->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    S->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( S );
 }
 
@@ -153,7 +160,7 @@ void poControlPanel::addSliderI( string _ID, int min, int max, poObject* obj  )
 //    cout << "val is set to: " << propVal << endl;
     
     poSliderI* S = new poSliderI( _ID, propVal, min, max, obj );
-    S->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    S->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( S );
 }
 
@@ -172,7 +179,7 @@ void poControlPanel::addToggle( string _ID, poObject* obj )
     }
     
     poToggleBox* T = new poToggleBox( _ID, propVal, obj );
-    T->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    T->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( T );
     
 }
@@ -181,7 +188,7 @@ void poControlPanel::addMessage( string _ID, poObject* obj )
 {
     string prop = _ID;    
     poMessage* M = new poMessage( _ID, obj );
-    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( M );
 }
 
@@ -200,7 +207,7 @@ void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObj
     }
     
     poPointSlider* P = new poPointSlider( _ID, propVal, min, max, obj );
-    P->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    P->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( P );
 }
 
@@ -221,7 +228,7 @@ void poControlPanel::addColorSlider( string _ID, bool RGB ,poObject* obj )
     }
     
     poColorSlider* P = new poColorSlider( _ID, propVal, RGB, obj );
-    P->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    P->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( P );
 
 }
@@ -241,7 +248,7 @@ void poControlPanel::addRadio( string _ID, vector<string> names, poObject* obj )
     }
     
     poRadio* R = new poRadio( _ID, propVal, names, obj );
-    R->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    R->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( R );
 }
 
@@ -266,14 +273,20 @@ void poControlPanel::addInputTextBox( string _ID,poObject* obj )
     }
     
     poInputTextBox* T = new poInputTextBox( _ID, propVal, obj );
-    T->position = poPoint( MARGIN,container->getHeight()+MARGIN );
+//    T->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( T );
+}
+
+void poControlPanel::update() {
+	if(!isResized) autoResize();
 }
 
 void poControlPanel::autoResize()
 {
-    if ( box->getHeight() > 300) {
-        box->reshape( box->getWidth(),(container->getHeight()+50) );
+	containerLayout->refresh();
+	
+    if ( container->getBounds().height > 300) {
+        box->reshape( box->getWidth(),(container->position.y + container->getHeight() + MARGIN) );
     }
 }
 
@@ -323,6 +336,12 @@ void poControlPanel::eventHandler(poEvent *event)
 		if(isDragged) isDragged = false;
 		if(save->fillColor != poColor( 1,1,1,.2 )) save->fillColor = poColor( 1,1,1,.2 );
 		if(hide->fillColor != poColor( 1,1,1,.2 )) hide->fillColor = poColor( 1,1,1,.2 );
+	}
+}
+
+void poControlPanel::messageHandler(const std::string &msg, const poDictionary& dict) {
+	if( msg == "autoresize" ) {
+		autoResize();
 	}
 }
 

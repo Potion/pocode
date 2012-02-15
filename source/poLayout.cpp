@@ -36,6 +36,19 @@ void poLayout::setSpacing(float w, float h) {
 	spacing[SPACING_V] = h;
 }
 
+poOrientation poLayout::getOrientation() {
+	return layoutOrientation;
+}
+
+void poLayout::setOrientation(poOrientation orient) {
+	if(layoutOrientation != orient) layoutDone = false;
+	layoutOrientation = orient;
+}
+
+void poLayout::refresh() {
+	layoutDone = false;
+}
+
 bool poLayout::doesRefreshEveryFrame() {
 	return refreshEveryFrame;
 }
@@ -45,22 +58,39 @@ void poLayout::setRefreshEveryFrame( bool b ) {
 }
 
 void poLayout::doLayout( poObject* obj ) {
-	poPoint pos;
+	poPoint pos(0,0);
 	for(int i=0; i < obj->getNumChildren(); i++) {
 		
 		poObject* child = obj->getChild(i);
 		child->position = pos;
 		
-		if( layoutOrientation == PO_HORIZONTAL ){
+		if( layoutOrientation == PO_HORIZONTAL || 
+			layoutOrientation == PO_HORIZONTAL_RIGHT ||
+			layoutOrientation == PO_HORIZONTAL_LEFT ) {
+			
 			child->position.x -= child->offset.x;
-			pos.x += child->getBounds().width;
-			pos.x += spacing[SPACING_H];
+			float direction = 1.f;
+			if( layoutOrientation == PO_HORIZONTAL_LEFT ) {
+				child->position.x -= child->getBounds().width;
+				direction = -1.f;
+			}
+			pos.x += child->getBounds().width * direction;
+			pos.x += spacing[SPACING_H] * direction;
 		}
-		else if( layoutOrientation == PO_VERTICAL ) {
-			child->position.y -= child->offset.y;
-			pos.y += child->getBounds().height;
-			pos.y += spacing[SPACING_V];
-		}
+		else 
+			if(	layoutOrientation == PO_VERTICAL ||
+				layoutOrientation == PO_VERTICAL_DOWN ||
+				layoutOrientation == PO_VERTICAL_UP ) {
+				
+				child->position.y -= child->offset.y;
+				float direction = 1.f;
+				if( layoutOrientation == PO_VERTICAL_UP ) {
+					child->position.y -= child->getBounds().height;
+					direction = -1.f;
+				}
+				pos.y += child->getBounds().height * direction;
+				pos.y += spacing[SPACING_V] * direction;
+			}
 	}
 }
 

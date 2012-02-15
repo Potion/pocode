@@ -21,6 +21,14 @@
 
 #include "poObject.h"
 
+
+// CLASS NOTES
+// poLayout rearranges the children of a poObject to create a layout
+// It does that by changing the position of each child, not their alignment
+// Currently a poLayout can place objects in line horizontally or vertically.
+// Soon there will be the option to arrange objects on a grid.
+
+
 class poLayout : public poObjectModifier
 {
 public:
@@ -29,15 +37,20 @@ public:
 	void				setSpacing(float f);
 	void				setSpacing(float w, float h);
 	
+	poOrientation		getOrientation();
+	void				setOrientation(poOrientation orient);
+	
 	bool				doesRefreshEveryFrame();
 	void				setRefreshEveryFrame(bool b);
+	
+	void				refresh();
 	
 	virtual				~poLayout();
 	
 protected:
 	virtual void	doSetUp(poObject*);
 	
-	void			doLayout( poObject* obj );
+	void			doLayout(poObject*);
 	
 	poOrientation	layoutOrientation;
 	
@@ -47,6 +60,7 @@ protected:
 	};
 	float spacing[2];
 	
+private:
 	bool refreshEveryFrame;
 	bool layoutDone;
 };
