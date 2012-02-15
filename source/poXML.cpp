@@ -188,6 +188,11 @@ poXMLNode poXMLNode::addChild(const std::string &name) {
 	return poXMLNode(node.append_child(name.c_str()));
 }
 
+poXMLNode &poXMLNode::addChild(const poXMLNode &node) {
+	this->node.append_copy(node.node);
+	return *this;
+}
+
 poXMLNode &poXMLNode::removeChild(const std::string &name) {
 	node.remove_child(name.c_str());
 	return *this;
