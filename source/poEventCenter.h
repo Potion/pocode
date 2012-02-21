@@ -106,6 +106,7 @@ private:
     void    processMouseEvents( poEvent &Event );
     void	processTouchEvents( poEvent &Event );
     void	processKeyEvents( poEvent &Event );
+    void	processMotionEvent( poEvent &Event );
 
 	bool	objectIsAvailableForEvents(poObject *obj);
 	

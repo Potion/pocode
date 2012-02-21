@@ -47,7 +47,10 @@ enum {
 	PO_TOUCH_ENDED_INSIDE_EVENT,
 	PO_TOUCH_ENDED_OUTSIDE_EVENT,
 	PO_TOUCH_CANCELLED_EVENT,
-	
+    
+    PO_ACCELEROMETER_EVENT,
+	PO_GYROSCOPE_EVENT,
+    
 	PO_LAST_EVENT
 };
 
@@ -75,6 +78,7 @@ bool isCenterMouseDown(poEvent*);
 bool isMouseEvent(int type);
 bool isKeyEvent(int type);
 bool isTouchEvent(int type);
+bool isMotionEvent(int type);
 
 // PO_EVENT SPECIAL KEYS
 enum {
@@ -164,6 +168,9 @@ public:
 	// position is local to the receiver of the event.
     // globalPosition is the mouse or touch position relative to the screen.
 	poPoint         localPosition, globalPosition, previousPosition;
+    
+    //Accelerometer, gyro, etc
+    poPoint         motion;
 
 	// The keyCode is the raw key identifier, OS-defined.
 	int             keyCode;
@@ -178,7 +185,3 @@ public:
     // Touches have a tap count in iOS, useful for double/triple tap events
     int             tapCount;
 };
-
-
-
-

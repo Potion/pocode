@@ -362,7 +362,6 @@ void poWindow::trackTouch(interactionPoint *t) {
     trackedTouches.push_back(t);
 }
 
-
 interactionPoint *poWindow::getTouch(int uid) {
     for(uint i=0;i<trackedTouches.size(); i++) {
         if(trackedTouches[i]->uid == uid) {
@@ -372,10 +371,23 @@ interactionPoint *poWindow::getTouch(int uid) {
 	return NULL;
 }
 
-
 void poWindow::untrackTouch(int uid) {
     interactionPoint *t = getTouch(uid);
     t->bIsDead = true;
+}
+
+void poWindow::accelerometer(double x, double y, double z) {
+    poEvent event;
+	event.motion.set(x, y, z);
+	event.type = PO_ACCELEROMETER_EVENT;
+    received.push_back(event);
+}
+
+void poWindow::gyroscope(double x, double y, double z) {
+    poEvent event;
+	event.motion.set(x, y, z);
+	event.type = PO_GYROSCOPE_EVENT;
+    received.push_back(event);
 }
 
 void *poWindow::getWindowHandle() {

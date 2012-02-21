@@ -61,6 +61,11 @@ bool isTouchEvent(int type) {
             type == PO_TOUCH_CANCELLED_EVENT);
 }
 
+bool isMotionEvent(int type) {
+    return (type == PO_ACCELEROMETER_EVENT      ||
+            type == PO_GYROSCOPE_EVENT);
+}
+
 poEvent::poEvent()
 :	type(PO_LAST_EVENT)
 ,	source(NULL)

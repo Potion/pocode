@@ -41,6 +41,7 @@ void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	tolocal.keyCode				= global_event.keyCode;
 	tolocal.touchID				= global_event.touchID;
     tolocal.uniqueID			= global_event.uniqueID;
+    tolocal.motion              = global_event.motion;
 	
 	if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
 		// flip the coords so the local position can match the orientation of the global one
@@ -205,6 +206,10 @@ void poEventCenter::processEvents(std::deque<poEvent> &events) {
         
         else if(isKeyEvent(event.type)) {
 			processKeyEvents(event);
+        }
+        
+        else if(isMotionEvent(event.type)) {
+            processMotionEvent(event);
         }
         
         else {
@@ -396,6 +401,11 @@ void    poEventCenter::processTouchEvents( poEvent &Event ) {
 		}
 	}
 }
+
+void poEventCenter::processMotionEvent( poEvent &Event ) {
+    notifyAllListeners(Event);
+}
+
 
 void processEnterLeave(std::deque<poEventCallback*> &e) {
 	

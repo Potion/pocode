@@ -106,6 +106,9 @@ public:
 	void            touchMove(int x, int y, int uid, int tapCount );
 	void            touchEnd(int x, int y, int uid, int tapCount );
     void            touchCancelled(int x, int y, int uid, int tapCount );
+    
+    void            accelerometer(double x, double y, double z);
+    void            gyroscope(double x, double y, double z);
 	
 	// DRAW ORDER COUNTER
     // The draw order of every poObject in the scene graph is set based upon the drawOrderCounter.
