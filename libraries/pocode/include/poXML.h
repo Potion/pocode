@@ -122,6 +122,7 @@ public:
     // ADD and REMOVE CHILDREN
 	uint			getNumChildren() const;
 	poXMLNode		addChild(const std::string &name);
+	poXMLNode&		addChild(poXMLNode const &node);	
 	poXMLNode&		removeChild(const std::string &name);
 	poXMLNode&		removeChild(poXMLNode const &node);	
     
