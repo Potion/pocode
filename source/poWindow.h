@@ -87,6 +87,8 @@ public:
 	poObject*       getRootObject();
 	bool			isMouseMoveEnabled() const;
 	void			setMouseMoveEnabled(bool b);
+    
+    
 
     // EVENT RECEIVING METHODS
     // These methods are called by the platform-specific windowing system. On the Mac and iOS
@@ -107,8 +109,9 @@ public:
 	void            touchEnd(int x, int y, int uid, int tapCount );
     void            touchCancelled(int x, int y, int uid, int tapCount );
     
-    void            accelerometer(double x, double y, double z);
-    void            gyroscope(double x, double y, double z);
+    void            accelerometerEvent(double x, double y, double z);
+    void            gyroscopeEvent(double x, double y, double z);
+    void            rotationEvent();
 	
 	// DRAW ORDER COUNTER
     // The draw order of every poObject in the scene graph is set based upon the drawOrderCounter.
@@ -128,16 +131,7 @@ private:
     // once per frame by the processEvents method. Queuing the events allows for thread-safe operation.
 	void                    processEvents();
     
-//    void processInteractionEvent(poEvent event);
-//    void processMouseEvent(poEvent event, std::set<poObject*> &objsBeneath);
-//    void processTouchEvent(poEvent event, std::set<poObject*> &objsBeneath);
-//    void processKeyEvent(poEvent event);
-//    
-//    //Share Vars for event processing
-//    void setEnterLeave(std::set<poObject*> &objsBeneath, std::set<poObject*> &prevObjsBeneath, std::set<poObject*> &enter, std::set<poObject*> &leave);
-    
-    std::deque<poEvent>     received;    
-//    poObject                *key_receiver;
+    std::deque<poEvent>     received;
 	
     // WINDOW PROPERTIES (PRIVATE)
 	bool            closed;
@@ -147,19 +141,15 @@ private:
 	std::string     title;
 	
     // FRAME COUNTING and FRAME RATE
-	float          lastMark, lastFrame;
+	float           lastMark, lastFrame;
 	int             framecounter, totalFramecount;
 	float           framerate, lastElapsed;
 	
 	// GLOBAL MOUSE POSITION
 	poPoint         mousePos;
-	
 	bool			mouseMoveEnabled;
     
-//    //MOUSE INTERACTION POINT
-//    interactionPoint mouse;
-//    
-//    // TOUCH EVENTS
+    // TOUCH EVENTS
     std::vector<interactionPoint *> trackedTouches;
     void trackTouch(interactionPoint *t);
     interactionPoint * getTouch(int uid);

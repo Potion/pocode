@@ -40,10 +40,12 @@ enum poWindowType {
 // poOrientation
 #pragma mark - General Enums
 enum poOrientation {
-    PO_VERTICAL_UP = 0,
-    PO_VERTICAL_DOWN = 1<<1,
-    PO_HORIZONTAL_LEFT = 1<<2,
-    PO_HORIZONTAL_RIGHT = 1<<3,
+    PO_VERTICAL_UP      = 0x01,
+    PO_VERTICAL_DOWN    = 0x02,
+    PO_HORIZONTAL_LEFT  = 0x04,
+    PO_HORIZONTAL_RIGHT = 0x08,
+    
+    PO_UNKNOWN_ORIENTATION = 0x16,
     
 	PO_VERTICAL=PO_VERTICAL_UP | PO_VERTICAL_DOWN,
 	PO_HORIZONTAL=PO_HORIZONTAL_LEFT | PO_HORIZONTAL_RIGHT

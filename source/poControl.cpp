@@ -94,7 +94,7 @@ void poSliderF::eventHandler(poEvent *event) {
         float xMax = sliderWidth;
         float posX = event->globalPosition.x - dragOffset.x - sOffset.x;
         
-        posX = clamp( xMin, xMax, posX);
+        posX = poClamp( xMin, xMax, posX);
         valF =  sqrt( pow(posX/xMax,2) ); 
         
         float mappedVal = poMapf(0.0f,1, valF, min, max );;        
@@ -188,7 +188,7 @@ void poSliderI::eventHandler(poEvent *event) {
         float xMax = sliderWidth;
         float posX = event->globalPosition.x - dragOffset.x - sOffset.x;
         
-        posX = clamp( xMin, xMax, posX);
+        posX = poClamp( xMin, xMax, posX);
         
         valF =  sqrt( pow(posX/xMax,2) ); 
         float mappedVal = poMapf(0.0f,1, valF, min, max );;        
@@ -286,8 +286,8 @@ void poPointSlider::eventHandler(poEvent *event) {
         float yMin = 0;
         float yMax = sliderHeight+boxWidth/2;
  
-        pos.x = clamp( xMin, xMax, pos.x);
-        pos.y = clamp( yMin, yMax, pos.y);
+        pos.x = poClamp( xMin, xMax, pos.x);
+        pos.y = poClamp( yMin, yMax, pos.y);
 
         valP.x =  sqrt( pow( pos.x/xMax,2 ) ); 
         valP.y =  sqrt( pow( pos.y/yMax,2 ) ); 
@@ -773,7 +773,7 @@ void poColorSlider::messageHandler(const std::string &msg, const poDictionary& d
         if ( msg == ID+"_H" ) 
         {
             valC.R = dict.getFloat( "value" );
-            valC.R = clamp( 0.0001f, 0.9999f, valC.R);
+            valC.R = poClamp( 0.0001f, 0.9999f, valC.R);
         }
         
         if ( msg == ID+"_S" ) 

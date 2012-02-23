@@ -113,7 +113,7 @@ inline poPoint floor(poPoint p) {
 }
 
 template <typename T>
-inline T clamp(T min, T max, T val) {
+inline T poClamp(T min, T max, T val) {
 	return std::max(std::min(val, max), min);
 }
 

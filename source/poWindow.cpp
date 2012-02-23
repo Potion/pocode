@@ -376,17 +376,23 @@ void poWindow::untrackTouch(int uid) {
     t->bIsDead = true;
 }
 
-void poWindow::accelerometer(double x, double y, double z) {
+void poWindow::accelerometerEvent(double x, double y, double z) {
     poEvent event;
 	event.motion.set(x, y, z);
 	event.type = PO_ACCELEROMETER_EVENT;
     received.push_back(event);
 }
 
-void poWindow::gyroscope(double x, double y, double z) {
+void poWindow::gyroscopeEvent(double x, double y, double z) {
     poEvent event;
 	event.motion.set(x, y, z);
 	event.type = PO_GYROSCOPE_EVENT;
+    received.push_back(event);
+}
+
+void poWindow::rotationEvent() {
+    poEvent event;
+    event.type = PO_ROTATION_EVENT;
     received.push_back(event);
 }
 

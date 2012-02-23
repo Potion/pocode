@@ -63,7 +63,8 @@ bool isTouchEvent(int type) {
 
 bool isMotionEvent(int type) {
     return (type == PO_ACCELEROMETER_EVENT      ||
-            type == PO_GYROSCOPE_EVENT);
+            type == PO_GYROSCOPE_EVENT          ||
+            type == PO_ROTATION_EVENT);
 }
 
 poEvent::poEvent()

@@ -37,7 +37,7 @@
 // On the Mac and iOS, implementations are in AppDelegate.mm.
 int			applicationNumberWindows();
 poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
-poWindow*	applicationGetWindow(int index);
+poWindow*	applicationGetWindow(int index=0);
 std::string	applicationGetResourceDirectory();
 std::string applicationGetSupportDirectory();
 poWindow*	applicationCurrentWindow();
@@ -46,6 +46,15 @@ void		applicationMakeWindowFullscreen(poWindow*,bool);
 void		applicationMoveWindow(poWindow*,poPoint);
 void		applicationReshapeWindow(poWindow*,poRect);
 void        applicationQuit();
+
+//Accelerometer events currently only exist in iOS app delegate.
+#ifdef POTION_IOS
+    void poStartAccelerometer(float frequency);
+    void poStopAccelerometer();
+
+    poOrientation   poGetOrientation();
+    void            poSetAutoRotateOrientations(unsigned char orientations);
+#endif
 
 // These three functions should be defined in your application. They are not defined in poApplication.cpp.
 
@@ -80,6 +89,8 @@ poPoint		getWindowInvMousePosition();
 
 void		setWindowMouseMoveEnabled(bool b);
 bool		getWindowMouseMoveEnabled();
+
+
 
 
 

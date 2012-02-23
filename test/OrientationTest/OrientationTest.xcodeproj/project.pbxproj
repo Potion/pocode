@@ -1,0 +1,257 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA35E20314F42AF4009A636E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20214F42AF4009A636E /* AppDelegate.mm */; };
+		AA35E20514F42AF4009A636E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20414F42AF4009A636E /* main.m */; };
+		AA35E20814F42AF4009A636E /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20714F42AF4009A636E /* EAGLView.mm */; };
+		AA35E20B14F42AF4009A636E /* potionCodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20A14F42AF4009A636E /* potionCodeViewController.mm */; };
+		AA35E20D14F42AF4009A636E /* libbz2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA35E20C14F42AF4009A636E /* libbz2.1.0.dylib */; };
+		AA35E21314F42AF4009A636E /* pocodeCustom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA35E21214F42AF4009A636E /* pocodeCustom-Info.plist */; };
+		AA35E21714F42AF4009A636E /* OrientationTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA35E21614F42AF4009A636E /* OrientationTestApp.cpp */; };
+		AA35E21914F42AF4009A636E /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA35E21814F42AF4009A636E /* AppConfig.cpp */; };
+		AA35E22014F44C86009A636E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E21F14F44C86009A636E /* Default.png */; };
+		AA515EF414F55818004EAD00 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA515EF314F55817004EAD00 /* MainWindow.xib */; };
+		AA515EF614F558F6004EAD00 /* resource in Resources */ = {isa = PBXBuildFile; fileRef = AA515EF514F558F6004EAD00 /* resource */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA35E1FA14F42AF4009A636E /* pocodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA35E1FF14F42AF4009A636E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AA35E20014F42AF4009A636E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AA35E20114F42AF4009A636E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AA35E20214F42AF4009A636E /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AA35E20414F42AF4009A636E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AA35E20614F42AF4009A636E /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EAGLView.h; path = ../platform/EAGLView.h; sourceTree = "<group>"; };
+		AA35E20714F42AF4009A636E /* EAGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLView.mm; path = ../platform/EAGLView.mm; sourceTree = "<group>"; };
+		AA35E20914F42AF4009A636E /* potionCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = potionCodeViewController.h; path = ../platform/potionCodeViewController.h; sourceTree = "<group>"; };
+		AA35E20A14F42AF4009A636E /* potionCodeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = potionCodeViewController.mm; path = ../platform/potionCodeViewController.mm; sourceTree = "<group>"; };
+		AA35E20C14F42AF4009A636E /* libbz2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.1.0.dylib; path = ../platform/libbz2.1.0.dylib; sourceTree = "<group>"; };
+		AA35E21214F42AF4009A636E /* pocodeCustom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "pocodeCustom-Info.plist"; path = "../platform/pocodeCustom-Info.plist"; sourceTree = "<group>"; };
+		AA35E21514F42AF4009A636E /* OrientationTestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrientationTestApp.h; sourceTree = "<group>"; };
+		AA35E21614F42AF4009A636E /* OrientationTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OrientationTestApp.cpp; sourceTree = "<group>"; };
+		AA35E21814F42AF4009A636E /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AA35E21F14F44C86009A636E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		AA515EF314F55817004EAD00 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = platform/MainWindow.xib; sourceTree = SOURCE_ROOT; };
+		AA515EF514F558F6004EAD00 /* resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resource; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA35E1F714F42AF4009A636E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA35E20D14F42AF4009A636E /* libbz2.1.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA35E1EF14F42AF4009A636E = {
+			isa = PBXGroup;
+			children = (
+				AA515EF514F558F6004EAD00 /* resource */,
+				AA35E21F14F44C86009A636E /* Default.png */,
+				AA35E1FD14F42AF4009A636E /* OrientationTest */,
+				AA35E1FB14F42AF4009A636E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA35E1FB14F42AF4009A636E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA35E1FA14F42AF4009A636E /* pocodeApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA35E1FD14F42AF4009A636E /* OrientationTest */ = {
+			isa = PBXGroup;
+			children = (
+				AA35E1FE14F42AF4009A636E /* platform */,
+				AA35E21414F42AF4009A636E /* application */,
+			);
+			path = OrientationTest;
+			sourceTree = "<group>";
+		};
+		AA35E1FE14F42AF4009A636E /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AA515EF314F55817004EAD00 /* MainWindow.xib */,
+				AA35E1FF14F42AF4009A636E /* Debug.xcconfig */,
+				AA35E20014F42AF4009A636E /* Release.xcconfig */,
+				AA35E20114F42AF4009A636E /* AppDelegate.h */,
+				AA35E20214F42AF4009A636E /* AppDelegate.mm */,
+				AA35E20414F42AF4009A636E /* main.m */,
+				AA35E20614F42AF4009A636E /* EAGLView.h */,
+				AA35E20714F42AF4009A636E /* EAGLView.mm */,
+				AA35E20914F42AF4009A636E /* potionCodeViewController.h */,
+				AA35E20A14F42AF4009A636E /* potionCodeViewController.mm */,
+				AA35E20C14F42AF4009A636E /* libbz2.1.0.dylib */,
+				AA35E21214F42AF4009A636E /* pocodeCustom-Info.plist */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AA35E21414F42AF4009A636E /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AA35E21514F42AF4009A636E /* OrientationTestApp.h */,
+				AA35E21614F42AF4009A636E /* OrientationTestApp.cpp */,
+				AA35E21814F42AF4009A636E /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA35E1F914F42AF4009A636E /* OrientationTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA35E21C14F42AF4009A636E /* Build configuration list for PBXNativeTarget "OrientationTest" */;
+			buildPhases = (
+				AA35E1F614F42AF4009A636E /* Sources */,
+				AA35E1F714F42AF4009A636E /* Frameworks */,
+				AA35E1F814F42AF4009A636E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OrientationTest;
+			productName = OrientationTest;
+			productReference = AA35E1FA14F42AF4009A636E /* pocodeApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA35E1F114F42AF4009A636E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = Vargatron;
+			};
+			buildConfigurationList = AA35E1F414F42AF4009A636E /* Build configuration list for PBXProject "OrientationTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AA35E1EF14F42AF4009A636E;
+			productRefGroup = AA35E1FB14F42AF4009A636E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA35E1F914F42AF4009A636E /* OrientationTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA35E1F814F42AF4009A636E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA35E21314F42AF4009A636E /* pocodeCustom-Info.plist in Resources */,
+				AA35E22014F44C86009A636E /* Default.png in Resources */,
+				AA515EF414F55818004EAD00 /* MainWindow.xib in Resources */,
+				AA515EF614F558F6004EAD00 /* resource in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA35E1F614F42AF4009A636E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA35E20314F42AF4009A636E /* AppDelegate.mm in Sources */,
+				AA35E20514F42AF4009A636E /* main.m in Sources */,
+				AA35E20814F42AF4009A636E /* EAGLView.mm in Sources */,
+				AA35E20B14F42AF4009A636E /* potionCodeViewController.mm in Sources */,
+				AA35E21714F42AF4009A636E /* OrientationTestApp.cpp in Sources */,
+				AA35E21914F42AF4009A636E /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA35E21A14F42AF4009A636E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA35E1FF14F42AF4009A636E /* Debug.xcconfig */;
+			buildSettings = {
+				VALID_ARCHS = armv7;
+			};
+			name = Debug;
+		};
+		AA35E21B14F42AF4009A636E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA35E20014F42AF4009A636E /* Release.xcconfig */;
+			buildSettings = {
+				VALID_ARCHS = armv7;
+			};
+			name = Release;
+		};
+		AA35E21D14F42AF4009A636E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_THUMB_SUPPORT = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/platform\"",
+				);
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = armv7;
+			};
+			name = Debug;
+		};
+		AA35E21E14F42AF4009A636E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_THUMB_SUPPORT = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/platform\"",
+				);
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = armv7;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA35E1F414F42AF4009A636E /* Build configuration list for PBXProject "OrientationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA35E21A14F42AF4009A636E /* Debug */,
+				AA35E21B14F42AF4009A636E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA35E21C14F42AF4009A636E /* Build configuration list for PBXNativeTarget "OrientationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA35E21D14F42AF4009A636E /* Debug */,
+				AA35E21E14F42AF4009A636E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA35E1F114F42AF4009A636E /* Project object */;
+}
