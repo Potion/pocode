@@ -12,32 +12,30 @@
 OrientationTestApp::OrientationTestApp() {
 	addModifier(new poCamera2D(poColor::red));
     
-    poSetAutoRotateOrientations(PO_HORIZONTAL);
-    
     arrow = new poRectShape("resource/arrow-up.png");
     addChild(arrow);
+    centerArrow();
+    
     
     friction = 0.98;
     circle = new poOvalShape(50,50,100);
     circle->fillColor = poColor::grey;
     addChild(circle);
     
-    poSetAutoRotateOrientations(PO_VERTICAL);
     addEvent(PO_ROTATION_EVENT, this);
     
     poStartAccelerometer(10.0f);
     addEvent(PO_ACCELEROMETER_EVENT, this);
     
+    //Show Accel Info
     accelInfo = new poTextBox(150);
     accelInfo->setText("Info");
     accelInfo->setFont(poGetFont("resource/Arial.ttf"));
-    accelInfo->setTextSize(18);
+    accelInfo->setTextSize(16);
     accelInfo->textColor = poColor::white;
     accelInfo->useTextBoundsAsBounds(true);
     accelInfo->doLayout();
     addChild(accelInfo);
-    
-    centerArrow();
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -46,23 +44,33 @@ OrientationTestApp::~OrientationTestApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void OrientationTestApp::update() {
-    accelInfo->setText(poToString(accel));
-    accelInfo->doLayout();
-    accelInfo->position.set(getWindowWidth()/2 - accelInfo->getWidth()/2, getWindowHeight()-accelInfo->getHeight(), 0.0f);
     
-    //accel *= friction;
+    //Add Friction
+    accel *= friction;
+    
+    //Add acceleration to circle
     circle->position += accel;
     
-    circle->position.x  = poClamp(circle->getWidth()/2, getWindowWidth() - circle->getWidth()/2, circle->position.x);
-    circle->position.y  = poClamp(circle->getHeight()/2, getWindowHeight() - circle->getHeight()/2, circle->position.y);
+    //Clamp to screen edges
+    float minX = circle->getWidth()/2;
+    float maxX = getWindowWidth() - circle->getWidth()/2;
+    float minY = circle->getHeight()/2;
+    float maxY = getWindowHeight() - circle->getHeight()/2;
+    
+    circle->position.x  = poClamp(minX, maxX, circle->position.x);
+    circle->position.y  = poClamp(minY, maxY, circle->position.y);
+    
+    //If we're at the edge set accel to 0, z is always 0 since we're in 2D
+    if(circle->position.x == minX || circle->position.x == maxX) accel.x = 0;
+    if(circle->position.y == minY || circle->position.x == maxY) accel.y = 0;
     circle->position.z = 0.0f;
 }
 
 // DRAW. Called once per frame. Draw objects here.
 void OrientationTestApp::draw() {
-	
 }
 
+//Tween arrow to center after orientation change
 void OrientationTestApp::centerArrow() {
 	poPoint newPos(getWindowWidth()/2 - arrow->getWidth()/2,  getWindowHeight()/2 - arrow->getHeight()/2, 0);
     arrow->positionTween
@@ -75,7 +83,6 @@ void OrientationTestApp::centerArrow() {
 
 // EVENT HANDLER. Called when events happen. Respond to events here.
 void OrientationTestApp::eventHandler(poEvent *event) {
-    
     switch (event->type) {
         case PO_ROTATION_EVENT: {
             switch (poGetOrientation()) {
@@ -97,7 +104,13 @@ void OrientationTestApp::eventHandler(poEvent *event) {
             break;
         }
         case PO_ACCELEROMETER_EVENT:
-            accel = event->motion * 10;
+            //Add motion to accelerometer
+            accel += event->motion;
+            
+            //Update Accel info text
+            accelInfo->setText("Accelerometer:\nX: " + poToString(event->motion.x)  + "\nY: " + poToString(event->motion.y));
+            accelInfo->doLayout();
+            accelInfo->position.set(getWindowWidth()/2 - accelInfo->getWidth()/2, getWindowHeight()-accelInfo->getHeight(), 0.0f);
             break;
     }
 }

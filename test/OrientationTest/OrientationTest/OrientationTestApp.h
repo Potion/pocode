@@ -1,7 +1,7 @@
 /*	Created by Steve Varga on 2/21/12.
  *	Copyright 2012 Vargatron. All rights reserved.
  */
-
+#include "poApplication.h"
 #include "poObject.h"
 #include "poShapeBasics2D.h"
 #include "poTextBox.h"
@@ -27,6 +27,7 @@ public:
     
     poTextBox* accelInfo;
     
+    //Center the arrow to the screen orientation with transition
     void centerArrow();
 };
 

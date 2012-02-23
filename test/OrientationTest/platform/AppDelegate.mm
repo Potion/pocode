@@ -6,7 +6,6 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include <iostream>
 #import "AppDelegate.h"
 #import "EAGLView.h"
 #import "potionCodeViewController.h"
@@ -22,11 +21,11 @@
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     poOrientation poCodeOrientation = PO_UNKNOWN_ORIENTATION;
     switch (toInterfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            poCodeOrientation = PO_HORIZONTAL_LEFT;
-            break;
         case UIInterfaceOrientationLandscapeRight:
             poCodeOrientation = PO_HORIZONTAL_RIGHT;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            poCodeOrientation = PO_HORIZONTAL_LEFT;
             break;
         case UIInterfaceOrientationPortrait:
             poCodeOrientation = PO_VERTICAL_UP;
@@ -81,6 +80,7 @@
 @implementation AppDelegate
 
 @synthesize window, pocodeVC;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// initialize the time
 	poGetElapsedTime();
@@ -99,21 +99,22 @@
 	root.view = rootView;
 	[rootView release];
     
-    
     self.window.backgroundColor     = [UIColor blackColor];
 	self.window.rootViewController  = root;
     
 	[root release];
-    
-	[self performSelector:@selector(loadGLVC) withObject:nil afterDelay:0.1];
-    
+	
+    //Run init methods
     poAppOrientation = PO_VERTICAL_UP;
+    setupApplication();
+    
+    [self performSelector:@selector(loadGLVC) withObject:nil afterDelay:0.1];
 	
     return YES;
 }
 
 -(void)loadGLVC {
-	self.pocodeVC = [[potionCodeViewController alloc] init];
+    self.pocodeVC = [[potionCodeViewController alloc] init];
 	self.pocodeVC.appWindow->setWindowHandle(self.window);
 	[self.window.rootViewController.view insertSubview:self.pocodeVC.view belowSubview:fakeSplash];
     
@@ -228,8 +229,6 @@ void applicationReshapeWindow(poWindow* win, poRect r) {
 }
 
 
-
-
 //Accelerometer 
 void poStartAccelerometer(float frequency) {
     UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
@@ -257,9 +256,7 @@ void poSetAutoRotateOrientations(unsigned char orientations) {
     if(orientations & PO_VERTICAL_UP)      app->poSupportedOrientations.push_back(PO_VERTICAL_UP);
     if(orientations & PO_VERTICAL_DOWN)    app->poSupportedOrientations.push_back(PO_VERTICAL_DOWN);
     
-    if(orientations & PO_HORIZONTAL_LEFT)  app->poSupportedOrientations.push_back(PO_HORIZONTAL_LEFT);
     if(orientations & PO_HORIZONTAL_RIGHT) app->poSupportedOrientations.push_back(PO_HORIZONTAL_RIGHT);
-    
-    std::cout << app->poSupportedOrientations.size() << std::endl;
+    if(orientations & PO_HORIZONTAL_LEFT)  app->poSupportedOrientations.push_back(PO_HORIZONTAL_LEFT);
 }
 

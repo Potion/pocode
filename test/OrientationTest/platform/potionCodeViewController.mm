@@ -214,18 +214,17 @@ poObject *root = NULL;
 
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-    
     UIAccelerationValue x, y, z;
     switch (poGetOrientation()) {
         case PO_HORIZONTAL_LEFT:
-            x = acceleration.x;
-            y = acceleration.y;
+            x = acceleration.y;
+            y = acceleration.x;
             z = acceleration.z;
             break;
             
         case PO_HORIZONTAL_RIGHT:
-            x = acceleration.x;
-            y = acceleration.y;
+            x = -acceleration.y;
+            y = -acceleration.x;
             z = acceleration.z;
             break;
             
@@ -242,7 +241,7 @@ poObject *root = NULL;
             break;
     }
     
-    //std::cout << poGetOrientation() << std::endl;
+    //Send Event
     self.appWindow->accelerometerEvent(x, y, z);
     
     // Do something with the values.

@@ -23,7 +23,5 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) potionCodeViewController *pocodeVC;
-//@property (nonatomic, retain) poOrientation poAppOrientation;
-//@property (nonatomic, retain) std::vector<poOrientation> poSupportedOrientations;
 
 @end
