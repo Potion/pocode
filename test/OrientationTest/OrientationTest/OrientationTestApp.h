@@ -18,6 +18,8 @@ public:
     virtual void eventHandler(poEvent *event);
     virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
     
+    poRectShape* bg;
+    
     poRectShape* arrow;
     
     //Circle with accelerometer
@@ -29,5 +31,7 @@ public:
     
     //Center the arrow to the screen orientation with transition
     void centerArrow();
+    
+    bool bLockOrientation;
 };
 

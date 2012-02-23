@@ -12,10 +12,14 @@
 OrientationTestApp::OrientationTestApp() {
 	addModifier(new poCamera2D(poColor::red));
     
+    bg = new poRectShape(getWindowWidth(), getWindowHeight());
+    bg->fillColor.set255(255,0,0);
+    addChild(bg);
+    addEvent(PO_TOUCH_BEGAN_EVENT, this);
+    
     arrow = new poRectShape("resource/arrow-up.png");
     addChild(arrow);
     centerArrow();
-    
     
     friction = 0.98;
     circle = new poOvalShape(50,50,100);
@@ -36,6 +40,8 @@ OrientationTestApp::OrientationTestApp() {
     accelInfo->useTextBoundsAsBounds(true);
     accelInfo->doLayout();
     addChild(accelInfo);
+    
+    bLockOrientation = false;
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -84,7 +90,20 @@ void OrientationTestApp::centerArrow() {
 // EVENT HANDLER. Called when events happen. Respond to events here.
 void OrientationTestApp::eventHandler(poEvent *event) {
     switch (event->type) {
+        case PO_TOUCH_BEGAN_EVENT:
+            if(bLockOrientation) {
+                poSetAutoRotateOrientations(PO_VERTICAL | PO_HORIZONTAL);
+                bg->fillColor.set255(255,0,0);
+            } else {
+                poSetAutoRotateOrientations(poGetOrientation());
+                bg->fillColor.set255(155,0,0);
+            }
+            
+            bLockOrientation = !bLockOrientation;
+            break;
+            
         case PO_ROTATION_EVENT: {
+            bg->reshape(getWindowWidth(), getWindowHeight());
             switch (poGetOrientation()) {
                 case PO_HORIZONTAL_LEFT:
                     std::cout << "Left" << std::endl;
@@ -103,6 +122,7 @@ void OrientationTestApp::eventHandler(poEvent *event) {
             centerArrow();
             break;
         }
+            
         case PO_ACCELEROMETER_EVENT:
             //Add motion to accelerometer
             accel += event->motion;
