@@ -136,8 +136,10 @@ po::TextLayout::TextLayout()
 {}
 
 void po::TextLayout::layout() {
+    
 	prepareText();
 	doLayout();
+    
 }
 
 poRect po::TextLayout::getTextBounds() const {
@@ -196,6 +198,11 @@ void po::TextLayout::setFont(poFont *f, const std::string &weight) {
 }
 
 poFont* po::TextLayout::getFont(const std::string &weight) {
+    if(fonts.find(weight) == fonts.end()) {
+        poFont *defaultFont = poGetFont("/System/Library/Fonts/Courier.dfont","Regular",12); // Not supported on windows
+        return defaultFont;
+    }
+    
 	return fonts[weight];
 }
 
