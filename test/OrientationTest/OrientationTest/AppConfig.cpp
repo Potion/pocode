@@ -4,7 +4,6 @@
 //
 /////////////////////////////////////////
 
-#include <iostream>
 #include "poApplication.h"
 #include "OrientationTestApp.h"
 

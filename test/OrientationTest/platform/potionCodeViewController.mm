@@ -49,7 +49,6 @@ poObject *root = NULL;
 }
 
 - (void)loadView {
-    
 	eagl = [[EAGLView alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
 	self.view = eagl;
 	[eagl release];
@@ -73,22 +72,17 @@ poObject *root = NULL;
     self.displayLink = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [self startAnimation];
-    
     [super viewWillAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [self stopAnimation];
-    
     [super viewWillDisappear:animated];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
 	[super viewDidUnload];
     
     // Tear down context.
@@ -97,13 +91,11 @@ poObject *root = NULL;
 	self.context = nil;	
 }
 
-- (NSInteger)animationFrameInterval
-{
+- (NSInteger)animationFrameInterval {
     return animationFrameInterval;
 }
 
-- (void)setAnimationFrameInterval:(NSInteger)frameInterval
-{
+- (void)setAnimationFrameInterval:(NSInteger)frameInterval {
     /*
 	 Frame interval defines how many display frames must pass between each time the display link fires.
 	 The display link will only fire 30 times a second when the frame internal is two on a display that refreshes 60 times a second. The default frame interval setting of one will fire 60 times a second when the display refreshes at 60 times a second. A frame interval setting of less than one results in undefined behavior.
@@ -118,8 +110,7 @@ poObject *root = NULL;
     }
 }
 
-- (void)startAnimation
-{
+- (void)startAnimation {
     if (!animating) {
         CADisplayLink *aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(drawFrame)];
         [aDisplayLink setFrameInterval:animationFrameInterval];
@@ -130,8 +121,7 @@ poObject *root = NULL;
     }
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
     if (animating) {
         [self.displayLink invalidate];
         self.displayLink = nil;
@@ -139,8 +129,7 @@ poObject *root = NULL;
     }
 }
 
-- (void)drawFrame
-{
+- (void)drawFrame {
     [eagl setFramebuffer];
 	
     self.appWindow->update();
@@ -148,7 +137,6 @@ poObject *root = NULL;
 	
     [eagl presentFramebuffer];
 }
-
 
 -(void)eaglViewLayoutChanged:(NSNotification*)notice {
 	CGSize size = eagl.size;
@@ -190,15 +178,11 @@ poObject *root = NULL;
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:eagl];
-        //self.appWindow->touchBegin(touchPoint.x, touchPoint.y, touch.timestamp, touch.tapCount);
+        self.appWindow->touchCancelled(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
 }
 
-
-- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"Motion!");
-}
-
+//Motion Events
 - (void) rotationEvent {	
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     

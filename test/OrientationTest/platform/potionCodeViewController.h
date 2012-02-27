@@ -23,8 +23,6 @@
     BOOL animating;
     NSInteger animationFrameInterval;
     CADisplayLink *displayLink;
-    
-    poPoint smoothedMotion;
 }
 
 @property (nonatomic, readonly) EAGLView *eagl;

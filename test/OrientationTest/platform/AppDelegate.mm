@@ -101,7 +101,6 @@
     
     self.window.backgroundColor     = [UIColor blackColor];
 	self.window.rootViewController  = root;
-    
 	[root release];
 	
     //Run init methods
@@ -216,18 +215,17 @@ std::string applicationGetSupportDirectory() {
     return  dirStr + "/"; 
 }
 
-void applicationMakeWindowCurrent(poWindow* win) {
-}
+//Not implemented on iOS
+void applicationMakeWindowCurrent(poWindow* win) {}
+void applicationMakeWindowFullscreen(poWindow* win, bool value) {}
+void applicationMoveWindow(poWindow* win, poPoint p) {}
+void applicationReshapeWindow(poWindow* win, poRect r) {}
 
-void applicationMakeWindowFullscreen(poWindow* win, bool value) {
+//MultiTouch
+void poSetMultiTouchEnabled(bool isEnabled) {
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    app.pocodeVC.eagl.multipleTouchEnabled = isEnabled;
 }
-
-void applicationMoveWindow(poWindow* win, poPoint p) {
-}
-
-void applicationReshapeWindow(poWindow* win, poRect r) {
-}
-
 
 //Accelerometer 
 void poStartAccelerometer(float frequency) {
@@ -242,6 +240,7 @@ void poStopAccelerometer() {
     UIAccelerometer* theAccelerometer = [UIAccelerometer sharedAccelerometer];
     theAccelerometer.delegate = nil;
 }
+
 
 //Orientation
 poOrientation poGetOrientation() {
