@@ -31,8 +31,10 @@
 
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
-
+#include <iostream>
+using namespace std;
 #ifdef POTION_WIN32
+#
 
 #include "windows.h"
 
@@ -138,11 +140,11 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
             GetSystemWindowsDirectory( p,1024 );
             
             char ch[260];
-            LPCSTR defChar = " ";
+            LPCSTR DefChar = " ";
         
             WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,DefChar, NULL );
             string path(ch);
-            path = path+"\\Fonts\\arial.ttf"
+            path = path+"\\Fonts\\arial.ttf";
             url = path;
             reqUrlOrFamily = url;
         
