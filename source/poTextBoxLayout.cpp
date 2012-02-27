@@ -61,6 +61,7 @@ void po::TextBoxLayout::doLayout() {
 	lineLayoutProps props;
 	
 	poFont *fnt = getFont();
+    
     fnt->setPointSize(textSize);
     fnt->cacheGlyphMetrics();       // caches the first time font is used (presently, only works for single poFont size)
 	float spacer = 0;
