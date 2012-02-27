@@ -137,7 +137,7 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
         #elif defined POTION_WIN32
         
             wchar_t p[1024];
-            GetSystemWindowsDirectory( p,1024 );
+            GetSystemWindowsDirectoryW( p,1024 );
             
             char ch[260];
             LPCSTR DefChar = " ";
