@@ -7,34 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41E6D2691485828A004BC657 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D2681485828A004BC657 /* Debug.xcconfig */; };
-		41E6D26B1485828A004BC657 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D26A1485828A004BC657 /* Release.xcconfig */; };
-		41E6D26E1485828A004BC657 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D26D1485828A004BC657 /* AppDelegate.mm */; };
-		41E6D2701485828A004BC657 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D26F1485828A004BC657 /* en.strings */; };
-		41E6D2721485828A004BC657 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D2711485828A004BC657 /* main.m */; };
-		41E6D2741485828A004BC657 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D2731485828A004BC657 /* main.pch */; };
-		41E6D2771485828A004BC657 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E6D2761485828A004BC657 /* main.xib */; };
-		41E6D27A1485828A004BC657 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D2791485828A004BC657 /* poOpenGLView.mm */; };
 		41E6D27E1485828A004BC657 /* ParentsChildrenApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */; };
 		41E6D289148582A5004BC657 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D288148582A5004BC657 /* AppConfig.cpp */; };
+		AAC1FAC314FC193E00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAB914FC193E00222E53 /* AppDelegate.mm */; };
+		AAC1FAC414FC193E00222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABA14FC193E00222E53 /* Debug.xcconfig */; };
+		AAC1FAC514FC193E00222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABB14FC193E00222E53 /* en.strings */; };
+		AAC1FAC614FC193E00222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FABC14FC193E00222E53 /* main.m */; };
+		AAC1FAC714FC193E00222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABE14FC193E00222E53 /* main.plist */; };
+		AAC1FAC814FC193E00222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABF14FC193E00222E53 /* main.xib */; };
+		AAC1FAC914FC193E00222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */; };
+		AAC1FACA14FC193E00222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAC214FC193E00222E53 /* Release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41E6D2631485828A004BC657 /* ParentsChildren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParentsChildren.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41E6D2681485828A004BC657 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41E6D26A1485828A004BC657 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41E6D26C1485828A004BC657 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		41E6D26D1485828A004BC657 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		41E6D26F1485828A004BC657 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		41E6D2711485828A004BC657 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		41E6D2731485828A004BC657 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41E6D2751485828A004BC657 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		41E6D2761485828A004BC657 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41E6D2781485828A004BC657 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		41E6D2791485828A004BC657 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		41E6D27C1485828A004BC657 /* ParentsChildrenApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentsChildrenApp.h; sourceTree = "<group>"; };
 		41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParentsChildrenApp.cpp; sourceTree = "<group>"; };
 		41E6D288148582A5004BC657 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAC1FAB814FC193E00222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FAB914FC193E00222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FABA14FC193E00222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FABB14FC193E00222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FABC14FC193E00222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FABD14FC193E00222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FABE14FC193E00222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FABF14FC193E00222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FAC014FC193E00222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FAC214FC193E00222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,28 +67,10 @@
 		41E6D2661485828A004BC657 /* ParentsChildren */ = {
 			isa = PBXGroup;
 			children = (
-				41E6D2671485828A004BC657 /* platform */,
+				AAC1FAB714FC193E00222E53 /* platform_OSX */,
 				41E6D27B1485828A004BC657 /* application */,
 			);
 			path = ParentsChildren;
-			sourceTree = "<group>";
-		};
-		41E6D2671485828A004BC657 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				41E6D2681485828A004BC657 /* Debug.xcconfig */,
-				41E6D26A1485828A004BC657 /* Release.xcconfig */,
-				41E6D26C1485828A004BC657 /* AppDelegate.h */,
-				41E6D26D1485828A004BC657 /* AppDelegate.mm */,
-				41E6D26F1485828A004BC657 /* en.strings */,
-				41E6D2711485828A004BC657 /* main.m */,
-				41E6D2731485828A004BC657 /* main.pch */,
-				41E6D2751485828A004BC657 /* main.plist */,
-				41E6D2761485828A004BC657 /* main.xib */,
-				41E6D2781485828A004BC657 /* poOpenGLView.h */,
-				41E6D2791485828A004BC657 /* poOpenGLView.mm */,
-			);
-			name = platform;
 			sourceTree = "<group>";
 		};
 		41E6D27B1485828A004BC657 /* application */ = {
@@ -100,6 +82,24 @@
 			);
 			name = application;
 			sourceTree = "<group>";
+		};
+		AAC1FAB714FC193E00222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FAB814FC193E00222E53 /* AppDelegate.h */,
+				AAC1FAB914FC193E00222E53 /* AppDelegate.mm */,
+				AAC1FABA14FC193E00222E53 /* Debug.xcconfig */,
+				AAC1FABB14FC193E00222E53 /* en.strings */,
+				AAC1FABC14FC193E00222E53 /* main.m */,
+				AAC1FABD14FC193E00222E53 /* main.pch */,
+				AAC1FABE14FC193E00222E53 /* main.plist */,
+				AAC1FABF14FC193E00222E53 /* main.xib */,
+				AAC1FAC014FC193E00222E53 /* poOpenGLView.h */,
+				AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */,
+				AAC1FAC214FC193E00222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -148,11 +148,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E6D2691485828A004BC657 /* Debug.xcconfig in Resources */,
-				41E6D26B1485828A004BC657 /* Release.xcconfig in Resources */,
-				41E6D2701485828A004BC657 /* en.strings in Resources */,
-				41E6D2741485828A004BC657 /* main.pch in Resources */,
-				41E6D2771485828A004BC657 /* main.xib in Resources */,
+				AAC1FAC414FC193E00222E53 /* Debug.xcconfig in Resources */,
+				AAC1FAC514FC193E00222E53 /* en.strings in Resources */,
+				AAC1FAC714FC193E00222E53 /* main.plist in Resources */,
+				AAC1FAC814FC193E00222E53 /* main.xib in Resources */,
+				AAC1FACA14FC193E00222E53 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,11 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E6D26E1485828A004BC657 /* AppDelegate.mm in Sources */,
-				41E6D2721485828A004BC657 /* main.m in Sources */,
-				41E6D27A1485828A004BC657 /* poOpenGLView.mm in Sources */,
 				41E6D27E1485828A004BC657 /* ParentsChildrenApp.cpp in Sources */,
 				41E6D289148582A5004BC657 /* AppConfig.cpp in Sources */,
+				AAC1FAC314FC193E00222E53 /* AppDelegate.mm in Sources */,
+				AAC1FAC614FC193E00222E53 /* main.m in Sources */,
+				AAC1FAC914FC193E00222E53 /* poOpenGLView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,14 +176,14 @@
 /* Begin XCBuildConfiguration section */
 		41E6D27F1485828A004BC657 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41E6D2681485828A004BC657 /* Debug.xcconfig */;
+			baseConfigurationReference = AAC1FABA14FC193E00222E53 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		41E6D2801485828A004BC657 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41E6D26A1485828A004BC657 /* Release.xcconfig */;
+			baseConfigurationReference = AAC1FAC214FC193E00222E53 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -219,6 +219,7 @@
 				41E6D2831485828A004BC657 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

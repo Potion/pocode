@@ -7,34 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41DF29551483E3E500D55838 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF29541483E3E500D55838 /* Debug.xcconfig */; };
-		41DF29571483E3E500D55838 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF29561483E3E500D55838 /* Release.xcconfig */; };
-		41DF295A1483E3E500D55838 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29591483E3E500D55838 /* AppDelegate.mm */; };
-		41DF295C1483E3E500D55838 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41DF295B1483E3E500D55838 /* en.strings */; };
-		41DF295E1483E3E500D55838 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DF295D1483E3E500D55838 /* main.m */; };
-		41DF29601483E3E500D55838 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41DF295F1483E3E500D55838 /* main.pch */; };
-		41DF29631483E3E500D55838 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41DF29621483E3E500D55838 /* main.xib */; };
-		41DF29661483E3E500D55838 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29651483E3E500D55838 /* poOpenGLView.mm */; };
 		41DF296A1483E3E500D55838 /* SimpleDrawingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29691483E3E500D55838 /* SimpleDrawingApp.cpp */; };
 		41DF29791483E44700D55838 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29781483E44700D55838 /* AppConfig.cpp */; };
+		AA01CF8014FC16B90019C9C5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF7614FC16B90019C9C5 /* AppDelegate.mm */; };
+		AA01CF8114FC16B90019C9C5 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF7714FC16B90019C9C5 /* Debug.xcconfig */; };
+		AA01CF8214FC16B90019C9C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF7814FC16B90019C9C5 /* en.strings */; };
+		AA01CF8314FC16B90019C9C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF7914FC16B90019C9C5 /* main.m */; };
+		AA01CF8414FC16B90019C9C5 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF7B14FC16B90019C9C5 /* main.plist */; };
+		AA01CF8514FC16B90019C9C5 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF7C14FC16B90019C9C5 /* main.xib */; };
+		AA01CF8614FC16B90019C9C5 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF7E14FC16B90019C9C5 /* poOpenGLView.mm */; };
+		AA01CF8714FC16B90019C9C5 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF7F14FC16B90019C9C5 /* Release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41DF294F1483E3E500D55838 /* SimpleDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41DF29541483E3E500D55838 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41DF29561483E3E500D55838 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41DF29581483E3E500D55838 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		41DF29591483E3E500D55838 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		41DF295B1483E3E500D55838 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		41DF295D1483E3E500D55838 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		41DF295F1483E3E500D55838 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41DF29611483E3E500D55838 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		41DF29621483E3E500D55838 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41DF29641483E3E500D55838 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		41DF29651483E3E500D55838 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		41DF29681483E3E500D55838 /* SimpleDrawingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleDrawingApp.h; sourceTree = "<group>"; };
 		41DF29691483E3E500D55838 /* SimpleDrawingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleDrawingApp.cpp; sourceTree = "<group>"; };
 		41DF29781483E44700D55838 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AA01CF7514FC16B90019C9C5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AA01CF7614FC16B90019C9C5 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AA01CF7714FC16B90019C9C5 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AA01CF7814FC16B90019C9C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AA01CF7914FC16B90019C9C5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AA01CF7A14FC16B90019C9C5 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AA01CF7B14FC16B90019C9C5 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AA01CF7C14FC16B90019C9C5 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AA01CF7D14FC16B90019C9C5 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AA01CF7E14FC16B90019C9C5 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AA01CF7F14FC16B90019C9C5 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,28 +67,10 @@
 		41DF29521483E3E500D55838 /* SimpleDrawing */ = {
 			isa = PBXGroup;
 			children = (
-				41DF29531483E3E500D55838 /* platform */,
+				AA01CF7414FC16B90019C9C5 /* platform_OSX */,
 				41DF29671483E3E500D55838 /* application */,
 			);
 			path = SimpleDrawing;
-			sourceTree = "<group>";
-		};
-		41DF29531483E3E500D55838 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				41DF29541483E3E500D55838 /* Debug.xcconfig */,
-				41DF29561483E3E500D55838 /* Release.xcconfig */,
-				41DF29581483E3E500D55838 /* AppDelegate.h */,
-				41DF29591483E3E500D55838 /* AppDelegate.mm */,
-				41DF295B1483E3E500D55838 /* en.strings */,
-				41DF295D1483E3E500D55838 /* main.m */,
-				41DF295F1483E3E500D55838 /* main.pch */,
-				41DF29611483E3E500D55838 /* main.plist */,
-				41DF29621483E3E500D55838 /* main.xib */,
-				41DF29641483E3E500D55838 /* poOpenGLView.h */,
-				41DF29651483E3E500D55838 /* poOpenGLView.mm */,
-			);
-			name = platform;
 			sourceTree = "<group>";
 		};
 		41DF29671483E3E500D55838 /* application */ = {
@@ -100,6 +82,24 @@
 			);
 			name = application;
 			sourceTree = "<group>";
+		};
+		AA01CF7414FC16B90019C9C5 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AA01CF7514FC16B90019C9C5 /* AppDelegate.h */,
+				AA01CF7614FC16B90019C9C5 /* AppDelegate.mm */,
+				AA01CF7714FC16B90019C9C5 /* Debug.xcconfig */,
+				AA01CF7814FC16B90019C9C5 /* en.strings */,
+				AA01CF7914FC16B90019C9C5 /* main.m */,
+				AA01CF7A14FC16B90019C9C5 /* main.pch */,
+				AA01CF7B14FC16B90019C9C5 /* main.plist */,
+				AA01CF7C14FC16B90019C9C5 /* main.xib */,
+				AA01CF7D14FC16B90019C9C5 /* poOpenGLView.h */,
+				AA01CF7E14FC16B90019C9C5 /* poOpenGLView.mm */,
+				AA01CF7F14FC16B90019C9C5 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -148,11 +148,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41DF29551483E3E500D55838 /* Debug.xcconfig in Resources */,
-				41DF29571483E3E500D55838 /* Release.xcconfig in Resources */,
-				41DF295C1483E3E500D55838 /* en.strings in Resources */,
-				41DF29601483E3E500D55838 /* main.pch in Resources */,
-				41DF29631483E3E500D55838 /* main.xib in Resources */,
+				AA01CF8114FC16B90019C9C5 /* Debug.xcconfig in Resources */,
+				AA01CF8214FC16B90019C9C5 /* en.strings in Resources */,
+				AA01CF8414FC16B90019C9C5 /* main.plist in Resources */,
+				AA01CF8514FC16B90019C9C5 /* main.xib in Resources */,
+				AA01CF8714FC16B90019C9C5 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,11 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41DF295A1483E3E500D55838 /* AppDelegate.mm in Sources */,
-				41DF295E1483E3E500D55838 /* main.m in Sources */,
-				41DF29661483E3E500D55838 /* poOpenGLView.mm in Sources */,
 				41DF296A1483E3E500D55838 /* SimpleDrawingApp.cpp in Sources */,
 				41DF29791483E44700D55838 /* AppConfig.cpp in Sources */,
+				AA01CF8014FC16B90019C9C5 /* AppDelegate.mm in Sources */,
+				AA01CF8314FC16B90019C9C5 /* main.m in Sources */,
+				AA01CF8614FC16B90019C9C5 /* poOpenGLView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,14 +176,14 @@
 /* Begin XCBuildConfiguration section */
 		41DF296B1483E3E500D55838 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41DF29541483E3E500D55838 /* Debug.xcconfig */;
+			baseConfigurationReference = AA01CF7714FC16B90019C9C5 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		41DF296C1483E3E500D55838 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41DF29561483E3E500D55838 /* Release.xcconfig */;
+			baseConfigurationReference = AA01CF7714FC16B90019C9C5 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;

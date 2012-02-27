@@ -8,36 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		41A1D0E314C08EBB000A94E8 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A1D0E214C08EBB000A94E8 /* AppConfig.cpp */; };
-		41DF645C14882C4A003A5ED1 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF645B14882C4A003A5ED1 /* Debug.xcconfig */; };
-		41DF645E14882C4A003A5ED1 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41DF645D14882C4A003A5ED1 /* Release.xcconfig */; };
-		41DF646114882C4A003A5ED1 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41DF646014882C4A003A5ED1 /* AppDelegate.mm */; };
-		41DF646314882C4A003A5ED1 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41DF646214882C4A003A5ED1 /* en.strings */; };
-		41DF646514882C4A003A5ED1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DF646414882C4A003A5ED1 /* main.m */; };
-		41DF646714882C4A003A5ED1 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41DF646614882C4A003A5ED1 /* main.pch */; };
-		41DF646A14882C4A003A5ED1 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41DF646914882C4A003A5ED1 /* main.xib */; };
-		41DF646D14882C4A003A5ED1 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41DF646C14882C4A003A5ED1 /* poOpenGLView.mm */; };
 		41DF647114882C4A003A5ED1 /* ParticlesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF647014882C4A003A5ED1 /* ParticlesApp.cpp */; };
 		41DF647A14882CD8003A5ED1 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF647914882CD8003A5ED1 /* Particle.cpp */; };
+		AAC1FB8B14FC1B6B00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB8114FC1B6B00222E53 /* AppDelegate.mm */; };
+		AAC1FB8C14FC1B6B00222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB8214FC1B6B00222E53 /* Debug.xcconfig */; };
+		AAC1FB8D14FC1B6B00222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB8314FC1B6B00222E53 /* en.strings */; };
+		AAC1FB8E14FC1B6B00222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB8414FC1B6B00222E53 /* main.m */; };
+		AAC1FB8F14FC1B6B00222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB8614FC1B6B00222E53 /* main.plist */; };
+		AAC1FB9014FC1B6B00222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB8714FC1B6B00222E53 /* main.xib */; };
+		AAC1FB9114FC1B6B00222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB8914FC1B6B00222E53 /* poOpenGLView.mm */; };
+		AAC1FB9214FC1B6B00222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB8A14FC1B6B00222E53 /* Release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41A1D0E214C08EBB000A94E8 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41DF645614882C4A003A5ED1 /* Particles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particles.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41DF645B14882C4A003A5ED1 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41DF645D14882C4A003A5ED1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41DF645F14882C4A003A5ED1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		41DF646014882C4A003A5ED1 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		41DF646214882C4A003A5ED1 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		41DF646414882C4A003A5ED1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		41DF646614882C4A003A5ED1 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41DF646814882C4A003A5ED1 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		41DF646914882C4A003A5ED1 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41DF646B14882C4A003A5ED1 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		41DF646C14882C4A003A5ED1 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		41DF646F14882C4A003A5ED1 /* ParticlesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticlesApp.h; sourceTree = "<group>"; };
 		41DF647014882C4A003A5ED1 /* ParticlesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticlesApp.cpp; sourceTree = "<group>"; };
 		41DF647914882CD8003A5ED1 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		41DF647C14882D16003A5ED1 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
+		AAC1FB8014FC1B6B00222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FB8114FC1B6B00222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FB8214FC1B6B00222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FB8314FC1B6B00222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FB8414FC1B6B00222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FB8514FC1B6B00222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FB8614FC1B6B00222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FB8714FC1B6B00222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FB8814FC1B6B00222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FB8914FC1B6B00222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FB8A14FC1B6B00222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,28 +70,10 @@
 		41DF645914882C4A003A5ED1 /* Particles */ = {
 			isa = PBXGroup;
 			children = (
-				41DF645A14882C4A003A5ED1 /* platform */,
+				AAC1FB7F14FC1B6B00222E53 /* platform_OSX */,
 				41DF646E14882C4A003A5ED1 /* application */,
 			);
 			path = Particles;
-			sourceTree = "<group>";
-		};
-		41DF645A14882C4A003A5ED1 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				41DF645B14882C4A003A5ED1 /* Debug.xcconfig */,
-				41DF645D14882C4A003A5ED1 /* Release.xcconfig */,
-				41DF645F14882C4A003A5ED1 /* AppDelegate.h */,
-				41DF646014882C4A003A5ED1 /* AppDelegate.mm */,
-				41DF646214882C4A003A5ED1 /* en.strings */,
-				41DF646414882C4A003A5ED1 /* main.m */,
-				41DF646614882C4A003A5ED1 /* main.pch */,
-				41DF646814882C4A003A5ED1 /* main.plist */,
-				41DF646914882C4A003A5ED1 /* main.xib */,
-				41DF646B14882C4A003A5ED1 /* poOpenGLView.h */,
-				41DF646C14882C4A003A5ED1 /* poOpenGLView.mm */,
-			);
-			name = platform;
 			sourceTree = "<group>";
 		};
 		41DF646E14882C4A003A5ED1 /* application */ = {
@@ -105,6 +87,24 @@
 			);
 			name = application;
 			sourceTree = "<group>";
+		};
+		AAC1FB7F14FC1B6B00222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FB8014FC1B6B00222E53 /* AppDelegate.h */,
+				AAC1FB8114FC1B6B00222E53 /* AppDelegate.mm */,
+				AAC1FB8214FC1B6B00222E53 /* Debug.xcconfig */,
+				AAC1FB8314FC1B6B00222E53 /* en.strings */,
+				AAC1FB8414FC1B6B00222E53 /* main.m */,
+				AAC1FB8514FC1B6B00222E53 /* main.pch */,
+				AAC1FB8614FC1B6B00222E53 /* main.plist */,
+				AAC1FB8714FC1B6B00222E53 /* main.xib */,
+				AAC1FB8814FC1B6B00222E53 /* poOpenGLView.h */,
+				AAC1FB8914FC1B6B00222E53 /* poOpenGLView.mm */,
+				AAC1FB8A14FC1B6B00222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -153,11 +153,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41DF645C14882C4A003A5ED1 /* Debug.xcconfig in Resources */,
-				41DF645E14882C4A003A5ED1 /* Release.xcconfig in Resources */,
-				41DF646314882C4A003A5ED1 /* en.strings in Resources */,
-				41DF646714882C4A003A5ED1 /* main.pch in Resources */,
-				41DF646A14882C4A003A5ED1 /* main.xib in Resources */,
+				AAC1FB8C14FC1B6B00222E53 /* Debug.xcconfig in Resources */,
+				AAC1FB8D14FC1B6B00222E53 /* en.strings in Resources */,
+				AAC1FB8F14FC1B6B00222E53 /* main.plist in Resources */,
+				AAC1FB9014FC1B6B00222E53 /* main.xib in Resources */,
+				AAC1FB9214FC1B6B00222E53 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,12 +168,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41DF646114882C4A003A5ED1 /* AppDelegate.mm in Sources */,
-				41DF646514882C4A003A5ED1 /* main.m in Sources */,
-				41DF646D14882C4A003A5ED1 /* poOpenGLView.mm in Sources */,
 				41DF647114882C4A003A5ED1 /* ParticlesApp.cpp in Sources */,
 				41DF647A14882CD8003A5ED1 /* Particle.cpp in Sources */,
 				41A1D0E314C08EBB000A94E8 /* AppConfig.cpp in Sources */,
+				AAC1FB8B14FC1B6B00222E53 /* AppDelegate.mm in Sources */,
+				AAC1FB8E14FC1B6B00222E53 /* main.m in Sources */,
+				AAC1FB9114FC1B6B00222E53 /* poOpenGLView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,14 +182,14 @@
 /* Begin XCBuildConfiguration section */
 		41DF647214882C4A003A5ED1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41DF645B14882C4A003A5ED1 /* Debug.xcconfig */;
+			baseConfigurationReference = AAC1FB8214FC1B6B00222E53 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		41DF647314882C4A003A5ED1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41DF645D14882C4A003A5ED1 /* Release.xcconfig */;
+			baseConfigurationReference = AAC1FB8A14FC1B6B00222E53 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
