@@ -198,9 +198,31 @@ void po::TextLayout::setFont(poFont *f, const std::string &weight) {
 }
 
 poFont* po::TextLayout::getFont(const std::string &weight) {
-    if(fonts.find(weight) == fonts.end()) {
-        poFont *defaultFont = poGetFont("/System/Library/Fonts/Courier.dfont","Regular",12); // Not supported on windows
+    
+    if(fonts.find(weight) == fonts.end() || !hasFont(weight) ) {
+        
+        
+        std::string path;
+        
+        #ifdef POTION_MAC
+            path = "/System/Library/Fonts/Helvetica.dfont";      
+            
+        
+        #elif defined POTION_WIN32        
+            wchar_t p[1024];
+            GetSystemWindowsDirectory( p,1024 );
+            
+            char ch[260];
+            char defChar = " ";
+            
+            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,&DefChar, NULL );
+            string path(ch);
+            path = path+"\\Fonts\\arial.ttf"        
+        #endif
+        
+        poFont *defaultFont = poGetFont(path,"Regular",12); 
         return defaultFont;
+        
     }
     
 	return fonts[weight];

@@ -34,6 +34,8 @@
 
 #ifdef POTION_WIN32
 
+#include "windows.h"
+
 	bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
 		return false;
 	}
@@ -123,8 +125,30 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 	if(fs::exists(family_or_url))
 		url = family_or_url;
 	else if(!urlForFontFamilyName(family_or_url, style, url)) {
-		printf("poFont: can't find font (%s)\n", family_or_url.c_str());
-		return;
+        
+        #ifdef POTION_MAC
+            url = "/System/Library/Fonts/Helvetica.dfont";
+            reqUrlOrFamily = url;
+            //printf("PO_FONT: can't find font (%s)\n", family_or_url.c_str());
+            //return;
+            
+        #elif defined POTION_WIN32
+        
+            wchar_t p[1024];
+            GetSystemWindowsDirectory( p,1024 );
+            
+            char ch[260];
+            char defChar = " ";
+        
+            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,&DefChar, NULL );
+            string path(ch);
+            path = path+"\\Fonts\\arial.ttf"
+            url = path;
+            reqUrlOrFamily = url;
+        
+        #endif
+        
+        
 	}
 	
 	FT_Face tmp;
