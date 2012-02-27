@@ -49,6 +49,7 @@ void        applicationQuit();
 
 //Accelerometer events currently only exist in iOS app delegate.
 #ifdef POTION_IOS
+    void poSetMultiTouchEnabled(bool isEnabled);
     void poStartAccelerometer(float frequency);
     void poStopAccelerometer();
 
