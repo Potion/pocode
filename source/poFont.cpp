@@ -146,9 +146,7 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
             url = path;
             reqUrlOrFamily = url;
         
-        #endif
-        
-        
+        #endif        
 	}
 	
 	FT_Face tmp;
