@@ -129,7 +129,7 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
         #ifdef POTION_MAC
             url = "/System/Library/Fonts/Helvetica.dfont";
             reqUrlOrFamily = url;
-            //printf("PO_FONT: can't find font (%s)\n", family_or_url.c_str());
+            printf("PO_FONT: can't find font (%s)\n", family_or_url.c_str());
             //return;
             
         #elif defined POTION_WIN32
@@ -138,9 +138,9 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
             GetSystemWindowsDirectory( p,1024 );
             
             char ch[260];
-            char defChar = " ";
+            LPCSTR defChar = " ";
         
-            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,&DefChar, NULL );
+            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,DefChar, NULL );
             string path(ch);
             path = path+"\\Fonts\\arial.ttf"
             url = path;

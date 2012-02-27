@@ -210,14 +210,14 @@ poFont* po::TextLayout::getFont(const std::string &weight) {
         
         #elif defined POTION_WIN32        
             wchar_t p[1024];
-            GetSystemWindowsDirectory( p,1024 );
+            GetSystemWindowsDirectoryW( p,1024 );
             
             char ch[260];
-            char defChar = " ";
+            LPCSTR DefChar = " ";
             
-            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,&DefChar, NULL );
-            string path(ch);
-            path = path+"\\Fonts\\arial.ttf"        
+            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,DefChar, NULL );
+            std::string pathToSys(ch);
+            path = pathToSys+"\\Fonts\\arial.ttf";        
         #endif
         
         poFont *defaultFont = poGetFont(path,"Regular",12); 
