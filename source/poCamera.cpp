@@ -322,8 +322,8 @@ void poPerspectiveCamera::setModelview() {
 
 void poPerspectiveCamera::saveAndUpdateGLSettings()
 {
-    glEnable(doDepthTesting);
-	glEnable(doBackfaceCulling);
+	if(doDepthTesting) glEnable(GL_DEPTH_TEST);
+	if(doBackfaceCulling) glEnable(GL_CULL_FACE);
 }
 
 
