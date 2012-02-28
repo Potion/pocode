@@ -22,22 +22,20 @@
 #include "poHelpers.h"
 #include "poApplication.h"
 
-poControl::poControl( string _ID, poObject* _listener )
-{
+poControl::poControl( string _ID, poObject* _listener ) {
     ID = _ID;
     listener = _listener;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _valName ,poObject* _listener ) : poControl( _ID, _listener )
-{
+poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _valName ,poObject* _listener ) : poControl( _ID, _listener ) {
     
     valF = init;
     valName = _valName;
 
     char valString [256];
-    sprintf( valString, "%s%.2lf", valName.c_str() ,valF );
+    sprintf( valString, "%s%.2f", valName.c_str() ,valF );
     
     this->name = ID;
     min = _min;
@@ -97,33 +95,35 @@ void poSliderF::eventHandler(poEvent *event) {
         posX = poClamp( xMin, xMax, posX);
         valF =  sqrt( pow(posX/xMax,2) ); 
         
-        float mappedVal = poMapf(0.0f,1, valF, min, max );;        
-        
-        sliderKnob->position.x = sliderWidth*valF; 
-        poDictionary D;
-        
+        float mappedVal = poMapf(0.0f,1, valF, min, max );
+		
+        valF = mappedVal;
+		
+        sliderKnob->position.x = sliderWidth*valF;
+		
         char valString [256];
-        sprintf( valString, "%s%.2lf", valName.c_str(),mappedVal );
+        sprintf( valString, "%s%.2f", valName.c_str(), mappedVal );
         shapeData->setText( valString );
         shapeData->doLayout();  
+		
+		poDictionary D;
+        D.set("value", valF);
         
-        D.set("value", mappedVal);
-        valF = mappedVal;
-        
-        if ( listener == NULL ) 
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
         }
-            
         else
             listener->messageHandler( ID, D);
+		
+		D.set("control", this);
+		D.set("valueType", "float");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _listener ) : poControl( _ID, _listener )
-{
+poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _listener ) : poControl( _ID, _listener ) {
     
     valI = init;
     valF = (float)init;
@@ -143,7 +143,7 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     sliderKnob->fillColor = poColor(1,1,1,0.2);
     sliderKnob->strokeColor = poColor(0,0,0,0.2);
     sliderKnob->generateStroke(2); 
-    sliderKnob->position.x = SLIDER_WIDTH * valF/max; 
+    sliderKnob->position.x = poMapf(min, max, valF, 0, SLIDER_WIDTH);
     sliderKnob->addEvent( PO_MOUSE_DRAG_INSIDE_EVENT, this );
     sliderKnob->addEvent( PO_MOUSE_DOWN_INSIDE_EVENT, this );
     
@@ -191,9 +191,9 @@ void poSliderI::eventHandler(poEvent *event) {
         posX = poClamp( xMin, xMax, posX);
         
         valF =  sqrt( pow(posX/xMax,2) ); 
-        float mappedVal = poMapf(0.0f,1, valF, min, max );;        
+        float mappedVal = poMapf(0.0f,1, valF, min, max );
         
-        sliderKnob->position.x = sliderWidth*valF; 
+        sliderKnob->position.x = sliderWidth*valF;
         poDictionary D;
         
         char valString [256];
@@ -204,19 +204,21 @@ void poSliderI::eventHandler(poEvent *event) {
         D.set("value", (int)mappedVal );
         valI = (int)mappedVal;
 
-        if ( listener == NULL )
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
         }
         else
             listener->messageHandler( ID, D);
+		
+		D.set("control", this);
+		D.set("valueType", "int");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _max, poObject* _listener ) : poControl( _ID, _listener )
-{
+poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _max, poObject* _listener ) : poControl( _ID, _listener ) {
     
     valP = init;
     
@@ -270,8 +272,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
 
 void poPointSlider::eventHandler(poEvent *event) {
     
-    if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) 
-    {
+    if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
         poPoint P = event->globalPosition;
         P.y = getWindowHeight() - P.y;
         poPoint pos = sliderShape->globalToLocal( P );
@@ -308,19 +309,21 @@ void poPointSlider::eventHandler(poEvent *event) {
         D.set("value", mappedVal);
         valP = mappedVal;
         
-        if ( listener == NULL ) 
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D );
         }
         else
             listener->messageHandler( ID, D );
+		
+		D.set("control", this);
+		D.set("valueType", "point");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poToggleBox::poToggleBox( string _ID, bool init, poObject* _listener ) : poControl( _ID, _listener )
-{
+poToggleBox::poToggleBox( string _ID, bool init, poObject* _listener ) : poControl( _ID, _listener ) {
     
     valB = init;
     this->name = ID;
@@ -349,36 +352,33 @@ poToggleBox::poToggleBox( string _ID, bool init, poObject* _listener ) : poContr
 
 void poToggleBox::eventHandler(poEvent *event) {
  
-    if (event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) 
-    {
+    if (event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
         valB = !valB;
         toggleShape->fillColor = poColor((int)valB,0,0,(int)valB);
         
         poDictionary D;
         D.set("value", valB);
 
-        if ( listener == NULL )
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
-
         }
-        else
-        {
+        else {
             listener->messageHandler( ID, D);
         }
+		
+		D.set("control", this);
+		D.set("valueType", "bool");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listener ) : poControl( _ID,_listener )
-{
+poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listener ) : poControl( _ID,_listener ) {
     valI = init;
     this->name = ID;
     
-    for ( int i=0; i<names.size(); i++ )
-    {
-        
+    for ( int i=0; i<names.size(); i++ ) {
         bool thisVal;
         if ( valI == i ) thisVal = true; else thisVal = false; 
                 
@@ -401,22 +401,18 @@ poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listene
     addChild( shapeLabel );
 }
 
-void poRadio::eventHandler(poEvent *event)
-{    
+void poRadio::eventHandler(poEvent *event) {
 }
 
-void poRadio::messageHandler(const std::string &msg, const poDictionary& dict)
-{    
-    for ( int i=0 ; i<buttons.size(); i++) 
-    {
-        poToggleBox* T = buttons[i];            
-        if ( T->name == msg ) 
-        {
+void poRadio::messageHandler(const std::string &msg, const poDictionary& dict) {
+    for ( int i=0 ; i<buttons.size(); i++) {
+        poToggleBox* T = buttons[i];
+        if ( T->name == msg ) {
             T->valB = true;
             T->toggleShape->fillColor = poColor(1,0,0,1);
             valI = i;
-            
-        } else {
+        }
+		else {
             T->valB = false;
             T->toggleShape->fillColor = poColor(0,0,0,0);
         }
@@ -425,19 +421,19 @@ void poRadio::messageHandler(const std::string &msg, const poDictionary& dict)
     poDictionary D;
     D.set( "value",valI ); 
     
-    if ( listener == NULL )
-    {
+    if ( listener == NULL ) {
     }
     else
-    {
         listener->messageHandler( ID, D);
-    }
+	
+	D.set("control", this);
+	D.set("valueType", "int");
+	getParent()->messageHandler("update_settings", D);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) : poControl( _ID, _listener )
-{
+poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) : poControl( _ID, _listener ) {
     
     this->name = ID;
     string temp;
@@ -447,7 +443,7 @@ poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) :
     temp.erase(0,temp.find_first_not_of("'"));
     valS = temp;
         
-    back = new poRectShape( SLIDER_WIDTH+SLIDER_HEIGHT, SLIDER_HEIGHT );
+    back = new poRectShape( SLIDER_WIDTH+SLIDER_HEIGHT, 30 );
     back->fillColor = poColor(1,1,1,0.2);
 	back->generateStroke(1);
 	back->strokeColor = poColor(1,0,0,1);
@@ -465,7 +461,7 @@ poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) :
 	shapeData->setFont( poGetFont ("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText( valS );
-	shapeData->doLayout();  
+	shapeData->doLayout();
 
     textShape->addChild( shapeData );
     
@@ -492,8 +488,7 @@ void poInputTextBox::eventHandler(poEvent *event) {
 		back->strokeEnabled = isActive;
 	}
     
-    if (event->type == PO_KEY_DOWN_EVENT && isActive ) 
-    {
+    if (event->type == PO_KEY_DOWN_EVENT && isActive ) {
         string S;
         if ( event->keyChar != 127 && event->keyChar != 13 ) {
             S = event->keyChar;
@@ -516,14 +511,15 @@ void poInputTextBox::eventHandler(poEvent *event) {
         poDictionary D;
         D.set("value", valS);
         
-        if ( listener == NULL )
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
         }
         else
             listener->messageHandler( ID, D);
 		
-		getParent()->messageHandler("autoresize");
+		D.set("control", this);
+		D.set("valueType", "string");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
@@ -537,8 +533,7 @@ void poInputTextBox::resize() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _listener ) : poControl( _ID, _listener )
-{
+poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _listener ) : poControl( _ID, _listener ) {
     
     RGB = _RGB;
     valC = init;
@@ -548,14 +543,12 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
     int values = 4;
     this->position = poPoint(0,SPACER);
     
-    for ( int i=0; i<values ; i++ )
-    {
+    for ( int i=0; i<values ; i++ ) {
         float myValue;
         string color;
         
         
-        if( i==0 ) 
-        {
+        if( i==0 ) {
             myValue = valC.R;
             
             if (RGB) {
@@ -570,11 +563,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
                 sliders.push_back( S );
                 
             } 
-            
-            else 
-            
-            { 
-                
+            else {
                 color = ID+"_H";
                 poSliderF* S = new poSliderF( color, myValue, 0, 1, "H ", this );
                 S->sliderShape->fillColor = poColor(1,1,1,1);
@@ -587,8 +576,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
             }
         }
             
-        if( i==1 )
-        {
+        if( i==1 ) {
             myValue = valC.G;
             
             if (RGB) {
@@ -603,8 +591,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
                 
                 
             } 
-            else 
-            {
+            else {
                 color = ID+"_S";
                 poSliderF* S = new poSliderF( color, myValue, 0, 1,"S ", this );
                                 
@@ -617,12 +604,10 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
             }
         }
         
-        if( i==2 ) 
-        {
+        if( i==2 ) {
             myValue = valC.B;
 
-            if (RGB) 
-            {
+            if (RGB) {
                 color = ID+"_B";
                 poSliderF* S = new poSliderF( color, myValue, 0, 1,"B ", this );
                 S->sliderShape->fillColor = poColor(1,1,1,1);
@@ -632,8 +617,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
                 addChild( S );
                 sliders.push_back( S );
             } 
-            else 
-            {
+            else {
                 color = ID+"_V";
                 poSliderF* S = new poSliderF( color, myValue, 0, 1,"V ", this );
                 S->sliderShape->fillColor = poColor(1,1,1,1);
@@ -646,8 +630,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
         }
         
         
-        if( i==3 ) 
-        {
+        if( i==3 ) {
             myValue = valC.A;
             color = ID+"_A";
             poSliderF* S = new poSliderF( color, myValue, 0, 1,"A ", this );
@@ -684,14 +667,12 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
         
 }
 
-poTexture* poColorSlider::calcTex ( poColor input )
-{
+poTexture* poColorSlider::calcTex ( poColor input ) {
+	
     poImage* I = new poImage( SLIDER_WIDTH+SLIDER_HEIGHT,SLIDER_HEIGHT,4,NULL );
     
-    for ( int x=0 ; x<SLIDER_WIDTH+SLIDER_HEIGHT; x++) 
-    {
-        for ( int y=0 ; y<SLIDER_HEIGHT; y++) 
-        {
+    for ( int x=0 ; x<SLIDER_WIDTH+SLIDER_HEIGHT; x++) {
+        for ( int y=0 ; y<SLIDER_HEIGHT; y++) {
             float S,H,V,A,VAL;
             poColor C;
             VAL = (float)x/(float)(SLIDER_WIDTH+SLIDER_HEIGHT);
@@ -717,77 +698,63 @@ poTexture* poColorSlider::calcTex ( poColor input )
     return tex;
 }
 
-void poColorSlider::eventHandler(poEvent *event) 
-{
+void poColorSlider::eventHandler(poEvent *event) {
 }
 
 void poColorSlider::messageHandler(const std::string &msg, const poDictionary& dict) {
     
 //    cout << msg << endl;
     
-    if ( RGB ) 
-    {
-        if ( msg == ID+"_R" ) 
-        {
+    if ( RGB ) {
+        if ( msg == ID+"_R" ) {
             valC.R = dict.getFloat( "value" );
             poSliderF* sR = (poSliderF*) getChild( msg );
             sR->sliderShape->placeTexture( calcTex( poColor( 1,0,0 )) );
             //cout << sR->back->fillColor << endl;
         } 
         
-        else if ( msg == ID+"_G" )    
-        
-        {
+        else if ( msg == ID+"_G" ) {
             valC.G = dict.getFloat( "value" );
             poSliderF* sG = (poSliderF*) getChild( msg );
             sG->sliderShape->placeTexture( calcTex( poColor( 0,1,0 )) );
         }
         
-        else if ( msg == ID+"_B" )    
-        {
+        else if ( msg == ID+"_B" ) {
             valC.B = dict.getFloat( "value" );
             poSliderF* sB = (poSliderF*) getChild( msg );
             sB->sliderShape->placeTexture( calcTex( poColor( 0,0,1 )) );
         }
         
-        else if ( msg == ID+"_A" )
-        {
+        else if ( msg == ID+"_A" ) {
             valC.A = dict.getFloat( "value" );
         }
-         
-        
+		
         poSliderF* sA = (poSliderF*) getChild( ID+"_A" );
         sA->sliderShape->placeTexture( calcTex( poColor( 1,1,1,-1 )) );
         
         colorBox->fillColor = valC;
     }
-
-    if ( !RGB ) 
-    {
+	else {
         
         poSliderF* sH = (poSliderF*) getChild( ID+"_H" );
         poSliderF* sS = (poSliderF*) getChild( ID+"_S" );
         poSliderF* sV = (poSliderF*) getChild( ID+"_V" );
         poSliderF* sA = (poSliderF*) getChild( ID+"_V" );
         
-        if ( msg == ID+"_H" ) 
-        {
+        if ( msg == ID+"_H" ) {
             valC.R = dict.getFloat( "value" );
             valC.R = poClamp( 0.0001f, 0.9999f, valC.R);
         }
         
-        if ( msg == ID+"_S" ) 
-        {
+        if ( msg == ID+"_S" ) {
             valC.G = dict.getFloat( "value" );
         }
         
-        if ( msg == ID+"_V" ) 
-        {
+        if ( msg == ID+"_V" ) {
             valC.B = dict.getFloat( "value" );
         }
         
-        else if ( msg == ID+"_A" )
-        {
+        else if ( msg == ID+"_A" ) {
             valC.A = dict.getFloat( "value" );
         }
         
@@ -807,12 +774,15 @@ void poColorSlider::messageHandler(const std::string &msg, const poDictionary& d
         //getParent()->messageHandler( ID, D);
     else
         listener->messageHandler( ID, D);
+	
+	D.set("control", this);
+	D.set("valueType", "color");
+	getParent()->messageHandler("update_settings", D);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _listener ) : poControl( _ID, _listener )
-{
+poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _listener ) : poControl( _ID, _listener ) {
     
     valF = init;
     
@@ -860,10 +830,9 @@ poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _liste
     
 }
 
-void poKnob::eventHandler(poEvent *event) 
-{    
-    if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) 
-    {
+void poKnob::eventHandler(poEvent *event) {
+	
+    if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
         poPoint P = event->globalPosition;
         P.y = getWindowHeight() - P.y;
         poPoint pos = sliderShape->globalToLocal( P );
@@ -884,20 +853,21 @@ void poKnob::eventHandler(poEvent *event)
 		poDictionary D;
         D.set("value", valF);
         
-        if ( listener == NULL ) 
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
         }
-        
         else
             listener->messageHandler( ID, D);
+		
+		D.set("control", this);
+		D.set("valueType", "float");
+		getParent()->messageHandler("update_settings", D);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _listener )
-{
+poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _listener ) {
     
     this->name = ID;        
     addEvent( PO_MOUSE_DOWN_EVENT, this );
@@ -921,7 +891,6 @@ poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _liste
     poRectShape* space = new poRectShape( back->getWidth(), back->getHeight() );
     space->fillColor = poColor(0,0,0,0);
     addChild( space );
-    
 }
 
 void poMessage::eventHandler(poEvent *event) {
@@ -931,14 +900,10 @@ void poMessage::eventHandler(poEvent *event) {
         poDictionary D;
         D.set("value", ID);
         
-        if ( listener == NULL ) 
-        {
+        if ( listener == NULL ) {
             //getParent()->messageHandler( ID, D);
         }
-        
         else
             listener->messageHandler( ID, D);
     }
 }
-
-
