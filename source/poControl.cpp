@@ -30,16 +30,16 @@ poControl::poControl( string _ID, poObject* _listener ) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _valName ,poObject* _listener ) : poControl( _ID, _listener ) {
+	
+	this->name = ID;
+    min = _min;
+    max = _max;
     
-    valF = init;
+    valF = poClamp(min, max, init);
     valName = _valName;
 
     char valString [256];
-    sprintf( valString, "%s%.2f", valName.c_str() ,valF );
-    
-    this->name = ID;
-    min = _min;
-    max = _max;
+    sprintf( valString, "%s%.2f", valName.c_str(), valF );
     
     addEvent( PO_MOUSE_DOWN_EVENT, this );
     
@@ -49,7 +49,7 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     sliderKnob->fillColor = poColor(1,1,1,0.2);
     sliderKnob->strokeColor = poColor(0,0,0,0.2);
     sliderKnob->generateStroke(2);  
-    sliderKnob->position.x = SLIDER_WIDTH * valF/max; 
+    sliderKnob->position.x = poMapf(min, max, valF, 0, SLIDER_WIDTH);
     sliderKnob->addEvent( PO_MOUSE_DRAG_INSIDE_EVENT, this );
     sliderKnob->addEvent( PO_MOUSE_DOWN_INSIDE_EVENT, this );
     
@@ -59,7 +59,7 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     shapeData = new poTextBox( SLIDER_WIDTH,SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-	shapeData->setFont( poGetFont ("Courier") );
+	shapeData->setFont( poGetFont("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText(valString);
 	shapeData->doLayout();  
@@ -68,7 +68,7 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
@@ -97,14 +97,14 @@ void poSliderF::eventHandler(poEvent *event) {
         
         float mappedVal = poMapf(0.0f,1, valF, min, max );
 		
-        valF = mappedVal;
-		
         sliderKnob->position.x = sliderWidth*valF;
 		
         char valString [256];
         sprintf( valString, "%s%.2f", valName.c_str(), mappedVal );
         shapeData->setText( valString );
-        shapeData->doLayout();  
+        shapeData->doLayout();
+		
+		valF = mappedVal;
 		
 		poDictionary D;
         D.set("value", valF);
@@ -125,15 +125,16 @@ void poSliderF::eventHandler(poEvent *event) {
 
 poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _listener ) : poControl( _ID, _listener ) {
     
-    valI = init;
-    valF = (float)init;
+	this->name = ID;
+    min = _min;
+    max = _max;
+	
+	valI = poClamp(min, max, init);
+	printf("valI is %d", valI);
+    valF = (float)valI;
     
     char valString [256];
     sprintf( valString, "%i", valI );
-    
-    this->name = ID;
-    min = _min;
-    max = _max;
     
     addEvent( PO_MOUSE_DOWN_EVENT, this );
     
@@ -143,7 +144,7 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     sliderKnob->fillColor = poColor(1,1,1,0.2);
     sliderKnob->strokeColor = poColor(0,0,0,0.2);
     sliderKnob->generateStroke(2); 
-    sliderKnob->position.x = poMapf(min, max, valF, 0, SLIDER_WIDTH);
+    sliderKnob->position.x = poMapf(min, max, valI, 0, SLIDER_WIDTH);
     sliderKnob->addEvent( PO_MOUSE_DRAG_INSIDE_EVENT, this );
     sliderKnob->addEvent( PO_MOUSE_DOWN_INSIDE_EVENT, this );
     
@@ -153,7 +154,7 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     shapeData = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-	shapeData->setFont( poGetFont ("Courier") );
+	shapeData->setFont( poGetFont("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText(valName+valString);
 	shapeData->doLayout();  
@@ -162,12 +163,11 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
-    
 }
 
 void poSliderI::eventHandler(poEvent *event) {
@@ -219,16 +219,20 @@ void poSliderI::eventHandler(poEvent *event) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _max, poObject* _listener ) : poControl( _ID, _listener ) {
+	
+	this->name = ID;
+    min = _min;
+    max = _max;
+	
+	min.z = 0;
+	max.z = 0;
     
-    valP = init;
+    valP.x = poClamp(min.x, max.x, init.x);
+	valP.y = poClamp(min.y, max.y, init.y);
+	valP.z = 0;
     
     char valString [256];
     sprintf( valString, "%.2lf,%.2lf", valP.x,valP.y );
-    
-    this->name = ID;
-    
-    min = _min;
-    max = _max;
     
     addEvent( PO_MOUSE_DOWN_EVENT, this );
     
@@ -241,7 +245,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     sliderShape->fillColor = poColor(0,0,0,0);
     sliderPoint = new poRectShape( SLIDER_HEIGHT,SLIDER_HEIGHT );
     sliderPoint->position.x = valP.x/max.x * SLIDER_WIDTH; 
-    sliderPoint->position.y = valP.y/max.y * SLIDER_WIDTH; 
+    sliderPoint->position.y = valP.y/max.y * (SLIDER_WIDTH-SLIDER_HEIGHT); 
     sliderPoint->fillColor = poColor(1,0,0,0.5);
     sliderPoint->setAlignment(PO_ALIGN_CENTER_CENTER);
     sliderPoint->addEvent( PO_MOUSE_DRAG_INSIDE_EVENT, this );
@@ -253,7 +257,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     shapeData = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-	shapeData->setFont( poGetFont ("Courier") );
+	shapeData->setFont( poGetFont("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText( valString );
 	shapeData->doLayout();  
@@ -262,12 +266,11 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
-    
 }
 
 void poPointSlider::eventHandler(poEvent *event) {
@@ -342,12 +345,11 @@ poToggleBox::poToggleBox( string _ID, bool init, poObject* _listener ) : poContr
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_HEIGHT+SPACER*2,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
-    
 }
 
 void poToggleBox::eventHandler(poEvent *event) {
@@ -394,10 +396,10 @@ poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listene
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
-	shapeLabel->doLayout();  
+	shapeLabel->doLayout();
     addChild( shapeLabel );
 }
 
@@ -451,24 +453,20 @@ poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) :
 	back->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     addChild( back );
     
-    textShape = new poRectShape( SLIDER_WIDTH,30 );
-    textShape->fillColor = poColor(1,1,1,0);
-    addChild( textShape );
-    
     shapeData = new poTextBox( SLIDER_WIDTH,30 );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-	shapeData->setFont( poGetFont ("Courier") );
+	shapeData->setFont( poGetFont("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText( valS );
 	shapeData->doLayout();
 
-    textShape->addChild( shapeData );
+    addChild( shapeData );
     
     shapeLabel = new poTextBox();
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
@@ -524,11 +522,12 @@ void poInputTextBox::eventHandler(poEvent *event) {
 }
 
 void poInputTextBox::resize() {
-	poRect newSize( 0, 0, textShape->getWidth(), shapeData->getTextBounds().height );
+	poRect newSize( 0, 0, shapeData->getWidth(), shapeData->getTextBounds().height );
 	if(newSize.height < 30) newSize.height = 30;
-	textShape->reshape( newSize );
 	shapeData->reshape( newSize );
 	back->reshape( back->getWidth(), newSize.height );
+	back->generateStroke(1);
+	back->strokeEnabled = isActive;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -649,7 +648,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,3*SLIDER_HEIGHT,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
@@ -661,10 +660,8 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
     if (RGB) {
         colorBox->fillColor = valC;
     } else colorBox->fillColor.setHSV(valC.R, valC.G, valC.B);
-        
-    
+	
     addChild( colorBox );
-        
 }
 
 poTexture* poColorSlider::calcTex ( poColor input ) {
@@ -784,14 +781,14 @@ void poColorSlider::messageHandler(const std::string &msg, const poDictionary& d
 
 poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _listener ) : poControl( _ID, _listener ) {
     
-    valF = init;
+	this->name = ID;
+    min = _min;
+    max = _max;
+	
+    valF = poClamp(min, max, init);
     
     char valString [256];
     sprintf( valString, "%.2lf", valF );
-    
-    this->name = ID;
-    min = _min;
-    max = _max;
     
     addEvent( PO_MOUSE_DOWN_EVENT, this );
     
@@ -812,7 +809,7 @@ poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _liste
     shapeData = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(SLIDER_HEIGHT,SLIDER_HEIGHT*3,0);
-	shapeData->setFont( poGetFont ("Courier") );
+	shapeData->setFont( poGetFont("Courier") );
     shapeData->setTextSize(12);
     shapeData->setTextAlignment(PO_ALIGN_CENTER_CENTER);
     shapeData->setText(valString);
@@ -822,12 +819,11 @@ poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _liste
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
-    
 }
 
 void poKnob::eventHandler(poEvent *event) {
@@ -875,7 +871,7 @@ poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _liste
     shapeLabel = new poTextBox( SLIDER_HEIGHT,SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( SLIDER_WIDTH+SPACER*4,0,0);
-	shapeLabel->setFont( poGetFont ("Courier") );
+	shapeLabel->setFont( poGetFont("Courier") );
     shapeLabel->setPadding( SPACER );
     shapeLabel->setTextSize(12);
     shapeLabel->setText( ID );
