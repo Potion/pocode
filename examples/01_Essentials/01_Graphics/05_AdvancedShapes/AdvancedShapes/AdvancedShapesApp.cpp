@@ -73,7 +73,6 @@ AdvancedShapesApp::AdvancedShapesApp() {
 	poShape2D* C = new poShape2D();					// Create a poShape2D
 	
 	C->addPoint(0,0);								// Add a point to the shape C
-	
 	C->curveTo(poPoint(50,-50), poPoint(50,0));		// curveTo() allows you to define a curve when drawing a shape
 	C->curveTo(poPoint(0,0), poPoint(0,-50));		// Define an end point and control point to describe the curve
 	C->curveTo(poPoint(-50,-50), poPoint(0,-50));	// Alternatively define a curve sergment using 2 control points: 

@@ -23,8 +23,7 @@
 #define MARGIN 10
 #define SPACING 5
 
-poControlPanel::poControlPanel( string _label, string _filename )
-{
+poControlPanel::poControlPanel( string _label, string _filename ) {
     label = _label;
     
     readSettings();
@@ -103,19 +102,18 @@ poControlPanel::poControlPanel( string _label, string _filename )
     bar->moveChildToBack(box);
 	
 	isResized = false;
+	isDragged = false;
 }
 
 
-void poControlPanel::addKnob( string _ID, float min, float max, poObject* obj  )
-{
+void poControlPanel::addKnob( string _ID, float min, float max, poObject* obj ) {
     string prop = _ID;
     float propVal; 
     
-    if ( settings.has( prop )) 
-    {
+    if ( settings.has( prop )) {
         propVal = settings.getFloat(prop);
-    } else 
-    {
+    }
+	else {
         propVal = 0.0f;
         settings.set( prop, propVal );
     }
@@ -124,16 +122,14 @@ void poControlPanel::addKnob( string _ID, float min, float max, poObject* obj  )
     container->addChild( K );
 }
 
-void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj  )
-{
+void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj  ) {
     string prop = _ID;
     float propVal; 
     
-    if ( settings.has( prop )) 
-    {
+    if ( settings.has( prop )) {
         propVal = settings.getFloat(prop);
-    } else 
-    {
+    }
+	else {
         propVal = 0.0f;
         settings.set( prop, propVal );
     }
@@ -142,17 +138,14 @@ void poControlPanel::addSliderF( string _ID, float min, float max, poObject* obj
     container->addChild( S );
 }
 
-
-
-void poControlPanel::addSliderI( string _ID, int min, int max, poObject* obj  )
-{
-    
+void poControlPanel::addSliderI( string _ID, int min, int max, poObject* obj  ) {
     string prop = _ID;
     int propVal;
     
     if ( settings.has(prop) ) {
         propVal = settings.getInt(prop);
-    } else {
+    }
+	else {
         propVal = 0;
         settings.set( prop, propVal );
     }
@@ -164,16 +157,14 @@ void poControlPanel::addSliderI( string _ID, int min, int max, poObject* obj  )
     container->addChild( S );
 }
 
-void poControlPanel::addToggle( string _ID, poObject* obj )
-{
-    
+void poControlPanel::addToggle( string _ID, poObject* obj ) {
     string prop = _ID;
     bool propVal;
     
     if ( settings.has( prop)) {
         propVal = settings.getBool(prop);
-    } else 
-    {
+    }
+	else {
         propVal = true;
         settings.set( prop, propVal );
     }
@@ -181,20 +172,16 @@ void poControlPanel::addToggle( string _ID, poObject* obj )
     poToggleBox* T = new poToggleBox( _ID, propVal, obj );
 //    T->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( T );
-    
 }
 
-void poControlPanel::addMessage( string _ID, poObject* obj )
-{
-    string prop = _ID;    
+void poControlPanel::addMessage( string _ID, poObject* obj ) {
+    string prop = _ID;
     poMessage* M = new poMessage( _ID, obj );
 //    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );
     container->addChild( M );
 }
 
-void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObject* obj )
-{
-    
+void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObject* obj ) {
     string prop = _ID;
     poPoint propVal;
     
@@ -211,18 +198,14 @@ void poControlPanel::addPointSlider( string _ID, poPoint min, poPoint max ,poObj
     container->addChild( P );
 }
 
-void poControlPanel::addColorSlider( string _ID, bool RGB ,poObject* obj )
-{
-    
+void poControlPanel::addColorSlider( string _ID, bool RGB ,poObject* obj ) {
     string prop = _ID;
     poColor propVal;
     
-    if ( settings.has(prop) ) 
-    {
+    if ( settings.has(prop) ) {
         propVal = settings.getColor(prop);
-    } 
-    else 
-    {
+    }
+    else {
         propVal = poColor(0,0,0,0);
         settings.set( prop, propVal );
     }
@@ -233,16 +216,14 @@ void poControlPanel::addColorSlider( string _ID, bool RGB ,poObject* obj )
 
 }
 
-void poControlPanel::addRadio( string _ID, vector<string> names, poObject* obj )
-{
+void poControlPanel::addRadio( string _ID, vector<string> names, poObject* obj ) {
     string prop = _ID;
     int propVal;
     
     if ( settings.has(prop) ) {
         propVal = settings.getInt(prop);
     } 
-    else
-    {
+    else {
         propVal = 0;
         settings.set( prop,propVal );
     }
@@ -253,21 +234,18 @@ void poControlPanel::addRadio( string _ID, vector<string> names, poObject* obj )
 }
 
 
-void poControlPanel::addInputTextBox( string _ID,poObject* obj )
-{
-    
+void poControlPanel::addInputTextBox( string _ID,poObject* obj ) {
     string prop = _ID;
     string propVal;
     
-    if ( settings.has( prop )) {
-                
+    if ( settings.has( prop ) ) {
         string temp = settings.getString( prop );
         temp = temp.erase(temp.find_last_not_of("'")+1);
         temp = temp.erase(0,temp.find_first_not_of("'"));
         propVal = temp;
 
-    } else 
-    {
+    }
+	else {
         propVal = "something";
         settings.set( prop, propVal );
     }
@@ -290,32 +268,14 @@ void poControlPanel::autoResize()
     }
 }
 
-void poControlPanel::eventHandler(poEvent *event) 
-{
-    if ( event->source == bar ) 
-    {
-        if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
-            isDragged = true;
-            dragOffset = event->localPosition;
-            dragOffset += bar->offset;
-        }
-        
-        else if ( event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
-            bar->position = event->globalPosition - dragOffset;
-            settings.set( label , bar->position );
-        }
-    }
-    
-    if ( event->source == save ) 
-    {
+void poControlPanel::eventHandler(poEvent *event) {
+    if ( event->source == save ) {
         if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
             saveSettings();
             save->fillColor = poColor( 1,0,0,.2 );
         }
     }
-	
-    if ( event->source == hide ) 
-    {
+	else if ( event->source == hide ) {
         if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
             box->visible = ! box->visible;
             container->visible = ! container->visible;
@@ -331,6 +291,21 @@ void poControlPanel::eventHandler(poEvent *event)
             }
         }
     }
+	else if ( event->source == bar ) {
+		if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
+			isDragged = true;
+			dragOffset = event->localPosition;
+			dragOffset += bar->offset;
+		}
+		
+		else if ( event->type == PO_MOUSE_DRAG_INSIDE_EVENT && isDragged ) {
+			poRect winBounds(0,0,getWindowWidth(),getWindowHeight());
+			if(!winBounds.contains(event->globalPosition))
+				return;
+			bar->position = event->globalPosition - dragOffset;
+			settings.set( label , bar->position );
+		}
+	}
 	
 	if ( event->type == PO_MOUSE_UP_EVENT ) {
 		if(isDragged) isDragged = false;
@@ -340,84 +315,95 @@ void poControlPanel::eventHandler(poEvent *event)
 }
 
 void poControlPanel::messageHandler(const std::string &msg, const poDictionary& dict) {
-	if( msg == "autoresize" ) {
-		autoResize();
+	
+	if( msg == "update_settings" ) {
+		if( dict.has("control") ) {
+			poControl* C = (poControl*) dict.getPtr("control");
+			if ( C != NULL) {
+				bool isChild = false;
+				poObject* child = (poObject*) dict.getPtr("control");
+				for(int i=0; i < container->getNumChildren(); i++) {
+					if(child == container->getChild(i))
+						isChild = true;
+				}
+				if(!isChild) return;
+				
+				std::string valueType = dict.getString("valueType");
+				if( valueType == "bool" ) {
+					settings.set( C->ID, C->valB );
+				}
+				else if( valueType == "int" ) {
+					settings.set( C->ID, C->valI );
+				}
+				else if( valueType == "float" ) {
+					settings.set( C->ID, C->valF );
+				}
+				else if( valueType == "string" ) {
+					string temp = C->valS;
+					temp = temp.erase(temp.find_last_not_of("'")+1);
+					temp = temp.erase(0,temp.find_first_not_of("'"));
+					settings.set( C->ID, temp );
+				}
+				else if( valueType == "point" ) {
+					settings.set( C->ID, C->valP );
+				}
+				else if( valueType == "color" ) {
+					settings.set( C->ID, C->valC );
+				}
+					
+				autoResize();
+			}
+		}
 	}
 }
 
-void poControlPanel::saveSettings() {    
-    
+void poControlPanel::saveSettings() {
     settings.write( label+".xml" );
 }
 
-void poControlPanel::readSettings() 
-{    
+void poControlPanel::readSettings() {    
     FILE* p = fopen((label+".xml").c_str() , "r");
     if(p) settings.read( label+".xml" );
 }
+
 bool poControlPanel::getBool( string s ) {    
     poControl* C = (poControl*) container->getChild(s);
-//    cout << "prop name is: " << s << endl;
-//    cout << "container children is: " << container->getNumChildren() << endl;
-
-    if ( C != NULL) 
-    {
-        settings.set( s, C->valB );
+    if( C != NULL ) {
         return C->valB;
     }
 }
 
 int poControlPanel::getInt( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL) 
-    {
-        settings.set( s, C->valI );
+    if( C != NULL ) {
         return C->valI;
     }
 }
 
 float poControlPanel::getFloat( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL) 
-    {
-        settings.set( s, C->valF );
+    if( C != NULL ) {
         return C->valF;
     }
 }
 
 string poControlPanel::getString( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL) 
-    {
-        
-        string temp = C->valS;
-        temp = temp.erase(temp.find_last_not_of("'")+1);
-        temp = temp.erase(0,temp.find_first_not_of("'"));
-        settings.set( s, temp );
-//        cout << temp << endl;
-        return temp;
+    if( C != NULL ) {
+        return C->valS;
     }
 }
 
 poPoint poControlPanel::getPoint( string s ) {
 	poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL) 
-    {
-        settings.set( s, C->valP );
+    if( C != NULL ) {
         return C->valP;
     }
 }
 
 poColor poControlPanel::getColor( string s) {
     poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL) 
-    {
-        settings.set( s, C->valC );
+    if ( C != NULL ) {
         return C->valC;
     }
 }
-
-
-
-
-

@@ -98,7 +98,6 @@ public:
     poPoint	min,max;
 };
 
-
 class poToggleBox : public poControl {
 public:
     
@@ -119,7 +118,6 @@ public:
     poTextBox*   shapeLabel;
 };
 
-
 class poInputTextBox : public poControl {
 public:
     
@@ -129,7 +127,6 @@ public:
 	void			resize();
 
     poRectShape*	back;
-    poRectShape*	textShape;
     poTextBox*		shapeLabel;
     poTextBox*		shapeData;
     poTextBox*		inputBox;
@@ -151,7 +148,6 @@ public:
     poTextBox*          shapeLabel;
     bool                RGB;
 };
-
 
 class poKnob : public poControl {
 public:

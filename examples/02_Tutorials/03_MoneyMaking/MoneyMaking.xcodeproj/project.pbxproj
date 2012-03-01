@@ -7,37 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41A83052148681210046130F /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41A83051148681210046130F /* Debug.xcconfig */; };
-		41A83054148681210046130F /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41A83053148681210046130F /* Release.xcconfig */; };
-		41A83057148681210046130F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41A83056148681210046130F /* AppDelegate.mm */; };
-		41A83059148681210046130F /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41A83058148681210046130F /* en.strings */; };
-		41A8305B148681210046130F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A8305A148681210046130F /* main.m */; };
-		41A8305D148681210046130F /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41A8305C148681210046130F /* main.pch */; };
-		41A83060148681210046130F /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A8305F148681210046130F /* main.xib */; };
-		41A83063148681210046130F /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41A83062148681210046130F /* poOpenGLView.mm */; };
 		41A83067148681210046130F /* MoneyMakingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A83066148681210046130F /* MoneyMakingApp.cpp */; };
 		41A8306F1486855D0046130F /* Coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41A8306E1486855D0046130F /* Coin.cpp */; };
 		41EA514F14BF924B00058492 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41EA514E14BF924B00058492 /* AppConfig.cpp */; };
+		AAC1FBA414FC1BA400222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB9A14FC1BA400222E53 /* AppDelegate.mm */; };
+		AAC1FBA514FC1BA400222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB9B14FC1BA400222E53 /* Debug.xcconfig */; };
+		AAC1FBA614FC1BA400222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB9C14FC1BA400222E53 /* en.strings */; };
+		AAC1FBA714FC1BA400222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB9D14FC1BA400222E53 /* main.m */; };
+		AAC1FBA814FC1BA400222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB9F14FC1BA400222E53 /* main.plist */; };
+		AAC1FBA914FC1BA400222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FBA014FC1BA400222E53 /* main.xib */; };
+		AAC1FBAA14FC1BA400222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FBA214FC1BA400222E53 /* poOpenGLView.mm */; };
+		AAC1FBAB14FC1BA400222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FBA314FC1BA400222E53 /* Release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41A8304C148681210046130F /* MoneyMaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyMaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41A83051148681210046130F /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41A83053148681210046130F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41A83055148681210046130F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		41A83056148681210046130F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		41A83058148681210046130F /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		41A8305A148681210046130F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		41A8305C148681210046130F /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41A8305E148681210046130F /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		41A8305F148681210046130F /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41A83061148681210046130F /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		41A83062148681210046130F /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		41A83065148681210046130F /* MoneyMakingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyMakingApp.h; sourceTree = "<group>"; };
 		41A83066148681210046130F /* MoneyMakingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MoneyMakingApp.cpp; sourceTree = "<group>"; };
 		41A8306D148685510046130F /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		41A8306E1486855D0046130F /* Coin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coin.cpp; sourceTree = "<group>"; };
 		41EA514E14BF924B00058492 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAC1FB9914FC1BA400222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FB9A14FC1BA400222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FB9B14FC1BA400222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FB9C14FC1BA400222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FB9D14FC1BA400222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FB9E14FC1BA400222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FB9F14FC1BA400222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FBA014FC1BA400222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FBA114FC1BA400222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FBA214FC1BA400222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FBA314FC1BA400222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,28 +70,10 @@
 		41A8304F148681210046130F /* MoneyMaking */ = {
 			isa = PBXGroup;
 			children = (
-				41A83050148681210046130F /* platform */,
+				AAC1FB9814FC1BA400222E53 /* platform_OSX */,
 				41A83064148681210046130F /* application */,
 			);
 			path = MoneyMaking;
-			sourceTree = "<group>";
-		};
-		41A83050148681210046130F /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				41A83051148681210046130F /* Debug.xcconfig */,
-				41A83053148681210046130F /* Release.xcconfig */,
-				41A83055148681210046130F /* AppDelegate.h */,
-				41A83056148681210046130F /* AppDelegate.mm */,
-				41A83058148681210046130F /* en.strings */,
-				41A8305A148681210046130F /* main.m */,
-				41A8305C148681210046130F /* main.pch */,
-				41A8305E148681210046130F /* main.plist */,
-				41A8305F148681210046130F /* main.xib */,
-				41A83061148681210046130F /* poOpenGLView.h */,
-				41A83062148681210046130F /* poOpenGLView.mm */,
-			);
-			name = platform;
 			sourceTree = "<group>";
 		};
 		41A83064148681210046130F /* application */ = {
@@ -105,6 +87,24 @@
 			);
 			name = application;
 			sourceTree = "<group>";
+		};
+		AAC1FB9814FC1BA400222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FB9914FC1BA400222E53 /* AppDelegate.h */,
+				AAC1FB9A14FC1BA400222E53 /* AppDelegate.mm */,
+				AAC1FB9B14FC1BA400222E53 /* Debug.xcconfig */,
+				AAC1FB9C14FC1BA400222E53 /* en.strings */,
+				AAC1FB9D14FC1BA400222E53 /* main.m */,
+				AAC1FB9E14FC1BA400222E53 /* main.pch */,
+				AAC1FB9F14FC1BA400222E53 /* main.plist */,
+				AAC1FBA014FC1BA400222E53 /* main.xib */,
+				AAC1FBA114FC1BA400222E53 /* poOpenGLView.h */,
+				AAC1FBA214FC1BA400222E53 /* poOpenGLView.mm */,
+				AAC1FBA314FC1BA400222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -153,11 +153,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41A83052148681210046130F /* Debug.xcconfig in Resources */,
-				41A83054148681210046130F /* Release.xcconfig in Resources */,
-				41A83059148681210046130F /* en.strings in Resources */,
-				41A8305D148681210046130F /* main.pch in Resources */,
-				41A83060148681210046130F /* main.xib in Resources */,
+				AAC1FBA514FC1BA400222E53 /* Debug.xcconfig in Resources */,
+				AAC1FBA614FC1BA400222E53 /* en.strings in Resources */,
+				AAC1FBA814FC1BA400222E53 /* main.plist in Resources */,
+				AAC1FBA914FC1BA400222E53 /* main.xib in Resources */,
+				AAC1FBAB14FC1BA400222E53 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,12 +168,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41A83057148681210046130F /* AppDelegate.mm in Sources */,
-				41A8305B148681210046130F /* main.m in Sources */,
-				41A83063148681210046130F /* poOpenGLView.mm in Sources */,
 				41A83067148681210046130F /* MoneyMakingApp.cpp in Sources */,
 				41A8306F1486855D0046130F /* Coin.cpp in Sources */,
 				41EA514F14BF924B00058492 /* AppConfig.cpp in Sources */,
+				AAC1FBA414FC1BA400222E53 /* AppDelegate.mm in Sources */,
+				AAC1FBA714FC1BA400222E53 /* main.m in Sources */,
+				AAC1FBAA14FC1BA400222E53 /* poOpenGLView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,14 +182,14 @@
 /* Begin XCBuildConfiguration section */
 		41A83068148681210046130F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41A83051148681210046130F /* Debug.xcconfig */;
+			baseConfigurationReference = AAC1FB9B14FC1BA400222E53 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		41A83069148681210046130F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41A83053148681210046130F /* Release.xcconfig */;
+			baseConfigurationReference = AAC1FBA314FC1BA400222E53 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;

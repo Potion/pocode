@@ -37,8 +37,12 @@
 #include "poHelpers.h"
 #include "poDictionary.h"
 #include "poResourceStore.h"
+#include <iostream>
+using namespace std;
 
 #pragma mark - Layout Helper -
+
+
 
 struct image_data {
 	poImage *image;

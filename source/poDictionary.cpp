@@ -31,7 +31,7 @@ namespace {
 		item_printer(ostream &os) : out(os) {}
 		
 		void operator()(const int& i) const			{out << i;}
-		void operator()(const float& d) const		{out << setprecision(1) << std::fixed << d;}
+		void operator()(const float& d) const		{out << std::fixed << d;}
 		void operator()(const string& s) const		{out << "'" << s << "'";}
 		void operator()(const poPoint& p) const		{out << p;}
 		void operator()(const poColor& c) const		{out << c;}
@@ -43,7 +43,7 @@ namespace {
 		ostringstream ss;
 		
 		string operator()(int& i)			{ss << i; return ss.str();}
-		string operator()(float& d)		{ss << setprecision(1) << std::fixed << d; return ss.str();}
+		string operator()(float& d)			{ss << std::fixed << d; return ss.str();}
 		string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
 		string operator()(poPoint& p)		{ss << p; return ss.str();}
 		string operator()(poColor& c)		{ss << c; return ss.str();}
