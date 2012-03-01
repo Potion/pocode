@@ -13,7 +13,7 @@ poObject *createObjectForID(uint uid) {
 
 void setupApplication() {
     //Set Default orientations for app startup
-    poSetAutoRotateOrientations(PO_VERTICAL | PO_HORIZONTAL);
+    poSetAutoRotateOrientations(PO_HORIZONTAL | PO_VERTICAL);
 }
 
 void cleanupApplication() {

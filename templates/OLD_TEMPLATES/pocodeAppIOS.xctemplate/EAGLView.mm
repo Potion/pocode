@@ -29,11 +29,14 @@ EAGLView        *current_view = NULL;
 
 
 // You must implement this method
-+ (Class)layerClass {
++ (Class)layerClass
+{
     return [CAEAGLLayer class];
 }
 
-- (id) initWithCoder:(NSCoder *)aDecoder {
+//The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:.
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
 	if (self) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
@@ -44,24 +47,24 @@ EAGLView        *current_view = NULL;
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
         
-        //Enable multitouch by default
+        //Enable multitouch
         self.multipleTouchEnabled = YES;
-        
-        self.backgroundColor = [UIColor blackColor];
     }
 
     current_view = self;
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [self deleteFramebuffer];    
     [context release];
     
     [super dealloc];
 }
 
-- (void)setContext:(EAGLContext *)newContext {
+- (void)setContext:(EAGLContext *)newContext
+{
     current_view = self;
     if (context != newContext) {
         [self deleteFramebuffer];
@@ -73,7 +76,8 @@ EAGLView        *current_view = NULL;
     }
 }
 
-- (void)createFramebuffer {
+- (void)createFramebuffer
+{
 	
     if (context && !defaultFramebuffer) {
         [EAGLContext setCurrentContext:context];

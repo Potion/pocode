@@ -19,6 +19,8 @@
 
 static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_CHANGED_NOTIFICTATION";
 
+@class ViewControllerPhone;
+@class ViewControllerPad;
 @class EAGLContext;
 
 @interface EAGLView : UIView <MPMediaPickerControllerDelegate> {

@@ -17,17 +17,6 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackOpaque</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
+	<string>pocodeMainWindow</string>
 </dict>
 </plist>

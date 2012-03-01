@@ -7,12 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#include <vector>
+#include "poEnums.h"
 
 @class potionCodeViewController;
 
-@interface AppDelegate : NSObject <UIApplicationDelegate>
+@interface AppDelegate : NSObject <UIApplicationDelegate> {
+    @public
+        poOrientation               poAppOrientation;
+        std::vector<poOrientation>  poSupportedOrientations;
+
+        bool isReachableAtEnterBackground;
+        UIImageView *fakeSplash;
+}
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet potionCodeViewController *viewController;
+@property (nonatomic, retain) potionCodeViewController *pocodeVC;
+
+- (BOOL)getSplashImageName;
+- (BOOL)hasRetinaDisplay;
 
 @end

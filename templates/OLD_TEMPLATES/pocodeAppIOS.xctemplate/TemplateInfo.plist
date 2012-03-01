@@ -5,7 +5,7 @@
 	<key>Concrete</key>
 	<true/>
 	<key>Description</key>
-	<string>A basic iOS Project Template.</string>
+	<string>A basic iPad Project Template example.</string>
 	<key>Identifier</key>
 	<string>minimalProjectTemplateiPad</string>
 	<key>Kind</key>
@@ -88,12 +88,19 @@
 			<key>Path</key>
 			<string>libbz2.1.0.dylib</string>
 		</dict>
-		<key>../platform/MainWindow.xib</key>
+		<key>../platform/pocodeMainWindow.xib</key>
 		<dict>
 			<key>Group</key>
 			<string>platform</string>
 			<key>Path</key>
-			<string>MainWindow.xib</string>
+			<string>pocodeMainWindow.xib</string>
+		</dict>
+		<key>../platform/potionCodeViewController.xib</key>
+		<dict>
+			<key>Group</key>
+			<string>platform</string>
+			<key>Path</key>
+			<string>potionCodeViewController.xib</string>
 		</dict>
 		<key>../platform/pocodeCustom-Info.plist</key>
 		<dict>
@@ -125,47 +132,14 @@
 			<key>Path</key>
 			<string>AppConfig.cpp</string>
 		</dict>
-		<key>../Default-Landscape.png</key>
+		<key>TEST</key>
 		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>Default-Landscape.png</string>
-		</dict>
-		<key>../Default-Portrait.png</key>
-		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>Default-Portrait.png</string>
-		</dict>
-		<key>../Default@2x~iphone.png</key>
-		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>Default@2x~iphone.png</string>
-		</dict>
-		<key>../Default~iphone.png</key>
-		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>Default~iphone.png</string>
-		</dict>
-		<key>../DefaultiphoneLandscapeRight.png</key>
-		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>DefaultiphoneLandscapeRight.png</string>
-		</dict>
-		<key>../DefaultiphoneLandscapeRight@2x.png</key>
-		<dict>
-			<key>Group</key>
-			<string>launchImages</string>
-			<key>Path</key>
-			<string>DefaultiphoneLandscapeRight@2x.png</string>
+			<key>Beginning</key>
+			<string>HELLO</string>
+			<key>End</key>
+			<string>WORLD</string>
+			<key>PathType</key>
+			<string>Project</string>
 		</dict>
 	</dict>
 	<key>Nodes</key>
@@ -180,17 +154,12 @@
 		<string>../platform/potionCodeViewController.h</string>
 		<string>../platform/potionCodeViewController.mm</string>
 		<string>../platform/libbz2.1.0.dylib</string>
-		<string>../platform/MainWindow.xib</string>
+		<string>../platform/pocodeMainWindow.xib</string>
+		<string>../platform/potionCodeViewController.xib</string>
 		<string>../platform/pocodeCustom-Info.plist</string>
 		<string>___PROJECTNAMEASIDENTIFIER___App.h</string>
 		<string>___PROJECTNAMEASIDENTIFIER___App.cpp</string>
 		<string>AppConfig.cpp</string>
-		<string>../Default-Landscape.png</string>
-		<string>../Default-Portrait.png</string>
-		<string>../Default@2x~iphone.png</string>
-		<string>../Default~iphone.png</string>
-		<string>../DefaultiphoneLandscapeRight.png</string>
-		<string>../DefaultiphoneLandscapeRight@2x.png</string>
 	</array>
 	<key>Options</key>
 	<array>

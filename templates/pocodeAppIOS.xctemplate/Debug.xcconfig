@@ -18,7 +18,7 @@ PRODUCT_NAME = pocodeApp
 
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
-OTHER_LDFLAGS = /pocode/libraries/pocode/libpocode_ios_d.a $(THE_FRAMEWORKS)
+OTHER_LDFLAGS = /pocode/libraries/pocode/libpocode_iOS_d.a /pocode/libraries/pocode/libpocode_ios_simulator_d.a $(THE_FRAMEWORKS)
 
 HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_45_0 /pocode/libraries/FreeImage /pocode/libraries/FreeType /pocode/libraries/utf8 /pocode/libraries/libMikko /pocode/libraries
 

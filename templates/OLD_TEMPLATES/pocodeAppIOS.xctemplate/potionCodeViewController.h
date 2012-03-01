@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES2/gl.h>
@@ -17,26 +16,21 @@
 #include "poWindow.h"
 #import "EAGLView.h"
 
-@interface potionCodeViewController : UIViewController<UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIAccelerometerDelegate> {
+@interface potionCodeViewController : UIViewController<UIAlertViewDelegate> {
     EAGLContext *context;
-    
+     
     BOOL animating;
     NSInteger animationFrameInterval;
     CADisplayLink *displayLink;
-}
+} 
 
-@property (nonatomic, readonly) EAGLView *eagl;
+@property (nonatomic, assign) IBOutlet EAGLView *eagl;
 
 @property (nonatomic, readonly) poWindow *appWindow;
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic) NSInteger animationFrameInterval;
 
-
--(void)configureAccelerometer;
-
--(void)startAnimation;
--(void)stopAnimation;
-
--(void)rotationEvent;
+- (void)startAnimation;
+- (void)stopAnimation;
 
 @end

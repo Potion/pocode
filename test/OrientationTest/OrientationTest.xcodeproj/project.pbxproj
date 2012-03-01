@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA17B62F14FD6495001A38A2 /* DefaultiphoneLanscapeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = AA17B62D14FD6495001A38A2 /* DefaultiphoneLanscapeRight.png */; };
+		AA17B63014FD6495001A38A2 /* DefaultiphoneLanscapeRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA17B62E14FD6495001A38A2 /* DefaultiphoneLanscapeRight@2x.png */; };
+		AA2E616D14FC221A00F1859C /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2E616A14FC221A00F1859C /* Default-Portrait.png */; };
+		AA2E616E14FC221A00F1859C /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2E616B14FC221A00F1859C /* Default@2x~iphone.png */; };
+		AA2E616F14FC221A00F1859C /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2E616C14FC221A00F1859C /* Default~iphone.png */; };
+		AA2E617114FC230B00F1859C /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2E617014FC230B00F1859C /* Default-Landscape.png */; };
 		AA35E20314F42AF4009A636E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20214F42AF4009A636E /* AppDelegate.mm */; };
 		AA35E20514F42AF4009A636E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20414F42AF4009A636E /* main.m */; };
 		AA35E20814F42AF4009A636E /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA35E20714F42AF4009A636E /* EAGLView.mm */; };
@@ -15,12 +21,17 @@
 		AA35E21314F42AF4009A636E /* pocodeCustom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA35E21214F42AF4009A636E /* pocodeCustom-Info.plist */; };
 		AA35E21714F42AF4009A636E /* OrientationTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA35E21614F42AF4009A636E /* OrientationTestApp.cpp */; };
 		AA35E21914F42AF4009A636E /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA35E21814F42AF4009A636E /* AppConfig.cpp */; };
-		AA35E22014F44C86009A636E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E21F14F44C86009A636E /* Default.png */; };
 		AA515EF414F55818004EAD00 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA515EF314F55817004EAD00 /* MainWindow.xib */; };
 		AA515EF614F558F6004EAD00 /* resource in Resources */ = {isa = PBXBuildFile; fileRef = AA515EF514F558F6004EAD00 /* resource */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA17B62D14FD6495001A38A2 /* DefaultiphoneLanscapeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultiphoneLanscapeRight.png; sourceTree = "<group>"; };
+		AA17B62E14FD6495001A38A2 /* DefaultiphoneLanscapeRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DefaultiphoneLanscapeRight@2x.png"; sourceTree = "<group>"; };
+		AA2E616A14FC221A00F1859C /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		AA2E616B14FC221A00F1859C /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
+		AA2E616C14FC221A00F1859C /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
+		AA2E617014FC230B00F1859C /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		AA35E1FA14F42AF4009A636E /* pocodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA35E1FF14F42AF4009A636E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		AA35E20014F42AF4009A636E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -36,7 +47,6 @@
 		AA35E21514F42AF4009A636E /* OrientationTestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrientationTestApp.h; sourceTree = "<group>"; };
 		AA35E21614F42AF4009A636E /* OrientationTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OrientationTestApp.cpp; sourceTree = "<group>"; };
 		AA35E21814F42AF4009A636E /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
-		AA35E21F14F44C86009A636E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AA515EF314F55817004EAD00 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = platform/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		AA515EF514F558F6004EAD00 /* resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resource; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,11 +63,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA2E616914FC1C5F00F1859C /* LaunchImages */ = {
+			isa = PBXGroup;
+			children = (
+				AA17B62D14FD6495001A38A2 /* DefaultiphoneLanscapeRight.png */,
+				AA17B62E14FD6495001A38A2 /* DefaultiphoneLanscapeRight@2x.png */,
+				AA2E617014FC230B00F1859C /* Default-Landscape.png */,
+				AA2E616A14FC221A00F1859C /* Default-Portrait.png */,
+				AA2E616B14FC221A00F1859C /* Default@2x~iphone.png */,
+				AA2E616C14FC221A00F1859C /* Default~iphone.png */,
+			);
+			name = LaunchImages;
+			sourceTree = "<group>";
+		};
 		AA35E1EF14F42AF4009A636E = {
 			isa = PBXGroup;
 			children = (
+				AA2E616914FC1C5F00F1859C /* LaunchImages */,
 				AA515EF514F558F6004EAD00 /* resource */,
-				AA35E21F14F44C86009A636E /* Default.png */,
 				AA35E1FD14F42AF4009A636E /* OrientationTest */,
 				AA35E1FB14F42AF4009A636E /* Products */,
 			);
@@ -161,9 +184,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA35E21314F42AF4009A636E /* pocodeCustom-Info.plist in Resources */,
-				AA35E22014F44C86009A636E /* Default.png in Resources */,
 				AA515EF414F55818004EAD00 /* MainWindow.xib in Resources */,
 				AA515EF614F558F6004EAD00 /* resource in Resources */,
+				AA2E616D14FC221A00F1859C /* Default-Portrait.png in Resources */,
+				AA2E616E14FC221A00F1859C /* Default@2x~iphone.png in Resources */,
+				AA2E616F14FC221A00F1859C /* Default~iphone.png in Resources */,
+				AA2E617114FC230B00F1859C /* Default-Landscape.png in Resources */,
+				AA17B62F14FD6495001A38A2 /* DefaultiphoneLanscapeRight.png in Resources */,
+				AA17B63014FD6495001A38A2 /* DefaultiphoneLanscapeRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,7 +5,7 @@
 //  Created by Joshua Fisher on 9/21/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
-
+#include <iostream.h>
 #import "AppDelegate.h"
 #import "EAGLView.h"
 #import "potionCodeViewController.h"
@@ -19,27 +19,30 @@
 @implementation MyVC : UIViewController
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    
     poOrientation poCodeOrientation = PO_UNKNOWN_ORIENTATION;
     switch (toInterfaceOrientation) {
-        case UIInterfaceOrientationLandscapeRight:
-            poCodeOrientation = PO_HORIZONTAL_RIGHT;
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-            poCodeOrientation = PO_HORIZONTAL_LEFT;
-            break;
         case UIInterfaceOrientationPortrait:
             poCodeOrientation = PO_VERTICAL_UP;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
             poCodeOrientation = PO_VERTICAL_DOWN;
             break;
+        case UIInterfaceOrientationLandscapeRight:
+            poCodeOrientation = PO_HORIZONTAL_RIGHT;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            poCodeOrientation = PO_HORIZONTAL_LEFT;
+            break;
     }
     
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    //See if orientation is supported, if it is set it and return YES
     for(int i=0; i<app->poSupportedOrientations.size(); i++) {
         if(app->poSupportedOrientations[i] == poCodeOrientation) {
             app->poAppOrientation = poCodeOrientation;
             [app.pocodeVC rotationEvent];
+            
             return YES;
         }
     }
@@ -82,6 +85,10 @@
 @synthesize window, pocodeVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //Run init methods
+    poAppOrientation = PO_VERTICAL_UP;
+    setupApplication();
+    
 	// initialize the time
 	poGetElapsedTime();
 	
@@ -90,7 +97,39 @@
     
 	UIView *rootView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
-	UIImage *img = [UIImage imageNamed:@"Default.png"];
+    NSBundle* mainBundle = [NSBundle mainBundle];
+    
+    //Set Splash Screen
+    NSString *defaultImage;
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if(UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+            defaultImage = @"Default-Landscape.png";
+        } else {
+            defaultImage = @"Default-Portrait.png";
+        }
+    } else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        bool bVerticalSupported = false;
+        for(int i=0; i<poSupportedOrientations.size(); i++) {
+            if(poSupportedOrientations[i] == PO_VERTICAL_UP || poSupportedOrientations[i] == PO_VERTICAL_DOWN) {
+                bVerticalSupported = true; 
+                break;
+            }
+        }
+        if(!bVerticalSupported) {
+            defaultImage = @"DefaultiphoneLanscapeRight.png";
+            NSLog(@"Right Orientation");
+        } else {
+            defaultImage = @"Default~iphone.png";
+        }
+    }
+    
+    UIDeviceOrientation   orientation = [UIDevice currentDevice].orientation;
+    NSString   *nibName = UIDeviceOrientationIsLandscape(orientation) ? @"Landscape" : @"Portrait";
+    NSLog(@"orientation is %@",nibName);
+    
+	UIImage *img = [UIImage imageNamed:defaultImage];
 	fakeSplash = [[UIImageView alloc] initWithImage:img];
 	[rootView addSubview:fakeSplash];
 	[fakeSplash release]; 
@@ -102,15 +141,13 @@
     self.window.backgroundColor     = [UIColor blackColor];
 	self.window.rootViewController  = root;
 	[root release];
-	
-    //Run init methods
-    poAppOrientation = PO_VERTICAL_UP;
-    setupApplication();
     
     [self performSelector:@selector(loadGLVC) withObject:nil afterDelay:0.1];
 	
     return YES;
 }
+
+
 
 -(void)loadGLVC {
     self.pocodeVC = [[potionCodeViewController alloc] init];

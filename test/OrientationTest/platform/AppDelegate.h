@@ -16,12 +16,15 @@
     @public
         poOrientation               poAppOrientation;
         std::vector<poOrientation>  poSupportedOrientations;
-    @protected
+
         bool isReachableAtEnterBackground;
         UIImageView *fakeSplash;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) potionCodeViewController *pocodeVC;
+
+- (BOOL)getSplashImageName;
+- (BOOL)hasRetinaDisplay;
 
 @end
