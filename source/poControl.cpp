@@ -130,7 +130,6 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     max = _max;
 	
 	valI = poClamp(min, max, init);
-	printf("valI is %d", valI);
     valF = (float)valI;
     
     char valString [256];
@@ -232,7 +231,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
 	valP.z = 0;
     
     char valString [256];
-    sprintf( valString, "%.2lf,%.2lf", valP.x,valP.y );
+    sprintf( valString, "%.2lf,%.2lf", valP.x, valP.y );
     
     addEvent( PO_MOUSE_DOWN_EVENT, this );
     
@@ -244,8 +243,8 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     sliderShape->position = poPoint (SLIDER_HEIGHT/2,SLIDER_HEIGHT/2);
     sliderShape->fillColor = poColor(0,0,0,0);
     sliderPoint = new poRectShape( SLIDER_HEIGHT,SLIDER_HEIGHT );
-    sliderPoint->position.x = valP.x/max.x * SLIDER_WIDTH; 
-    sliderPoint->position.y = valP.y/max.y * (SLIDER_WIDTH-SLIDER_HEIGHT); 
+    sliderPoint->position.x = poMapf(min.x, max.x, valP.x, 0, sliderShape->getWidth()); 
+    sliderPoint->position.y = poMapf(min.y, max.y, valP.y, 0, sliderShape->getHeight()); 
     sliderPoint->fillColor = poColor(1,0,0,0.5);
     sliderPoint->setAlignment(PO_ALIGN_CENTER_CENTER);
     sliderPoint->addEvent( PO_MOUSE_DRAG_INSIDE_EVENT, this );
@@ -377,7 +376,8 @@ void poToggleBox::eventHandler(poEvent *event) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listener ) : poControl( _ID,_listener ) {
-    valI = init;
+    
+	valI = init;
     this->name = ID;
     
     for ( int i=0; i<names.size(); i++ ) {
@@ -407,30 +407,35 @@ void poRadio::eventHandler(poEvent *event) {
 }
 
 void poRadio::messageHandler(const std::string &msg, const poDictionary& dict) {
-    for ( int i=0 ; i<buttons.size(); i++) {
-        poToggleBox* T = buttons[i];
-        if ( T->name == msg ) {
-            T->valB = true;
-            T->toggleShape->fillColor = poColor(1,0,0,1);
-            valI = i;
-        }
-		else {
-            T->valB = false;
-            T->toggleShape->fillColor = poColor(0,0,0,0);
-        }
-    }
-    
-    poDictionary D;
-    D.set( "value",valI ); 
-    
-    if ( listener == NULL ) {
-    }
-    else
-        listener->messageHandler( ID, D);
 	
-	D.set("control", this);
-	D.set("valueType", "int");
-	getParent()->messageHandler("update_settings", D);
+	if(msg == "update_settings")
+		return;
+	else {
+		for(int i=0 ; i<buttons.size(); i++) {
+			poToggleBox* T = buttons[i];
+			if ( T->name == msg ) {
+				T->valB = true;
+				T->toggleShape->fillColor = poColor(1,0,0,1);
+				valI = i;
+			}
+			else {
+				T->valB = false;
+				T->toggleShape->fillColor = poColor(0,0,0,0);
+			}
+		}
+		
+		poDictionary D;
+		D.set( "value",valI ); 
+		
+		if ( listener == NULL ) {
+		}
+		else
+			listener->messageHandler( ID, D);
+		
+		D.set("control", this);
+		D.set("valueType", "int");
+		getParent()->messageHandler("update_settings", D);
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

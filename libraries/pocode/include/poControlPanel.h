@@ -42,7 +42,7 @@ static const std::string CUI_WINDOW_EVENT = "ui panel value changed";
 class poControlPanel : public poObject {
 
 public:
-    poControlPanel( string label, string _filename = "settings.xml" );
+    poControlPanel( string _label, poColor _color = poColor( 1,1,1,.2 ), string _filename = "settings.xml" );
     
 	virtual void update();
     virtual void eventHandler(poEvent *event);
@@ -68,6 +68,8 @@ public:
 	string              getString( string s);
 	poPoint				getPoint( string s);
 	poColor				getColor( string s);
+	
+	poColor		 panelColor;
 
     poObject*    container;
 	poLayout*	 containerLayout;
