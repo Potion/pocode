@@ -32,8 +32,6 @@
 @property (nonatomic) NSInteger animationFrameInterval;
 
 
--(void)configureAccelerometer;
-
 -(void)startAnimation;
 -(void)stopAnimation;
 

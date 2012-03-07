@@ -24,7 +24,7 @@ HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_
 
 USER_HEADER_SEARCH_PATHS = /pocode/libraries/pocode/include
 
-GCC_THUMB_SUPPORT = YES
+GCC_THUMB_SUPPORT = NO
 
 GCC_SYMBOLS_PRIVATE_EXTERN = YES
 
