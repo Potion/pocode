@@ -1,0 +1,238 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA51F0F11500057F009FDA0A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA51F0F01500057F009FDA0A /* AppDelegate.mm */; };
+		AA51F0F31500057F009FDA0A /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA51F0F21500057F009FDA0A /* en.strings */; };
+		AA51F0F51500057F009FDA0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA51F0F41500057F009FDA0A /* main.m */; };
+		AA51F0F71500057F009FDA0A /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = AA51F0F61500057F009FDA0A /* main.pch */; };
+		AA51F0FA1500057F009FDA0A /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA51F0F91500057F009FDA0A /* main.xib */; };
+		AA51F0FD1500057F009FDA0A /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA51F0FC1500057F009FDA0A /* poOpenGLView.mm */; };
+		AA51F1011500057F009FDA0A /* poMessageCenterExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */; };
+		AA51F1031500057F009FDA0A /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1021500057F009FDA0A /* AppConfig.cpp */; };
+		AA51F10B1500059C009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1091500059C009FDA0A /* poMessageCenter.cpp */; };
+		AA51F10E150010F7009FDA0A /* Square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F10C150010F7009FDA0A /* Square.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA51F0E81500057F009FDA0A /* poMessageCenterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poMessageCenterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA51F0ED1500057F009FDA0A /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AA51F0EE1500057F009FDA0A /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AA51F0EF1500057F009FDA0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AA51F0F01500057F009FDA0A /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AA51F0F21500057F009FDA0A /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		AA51F0F41500057F009FDA0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AA51F0F61500057F009FDA0A /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		AA51F0F81500057F009FDA0A /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		AA51F0F91500057F009FDA0A /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		AA51F0FB1500057F009FDA0A /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		AA51F0FC1500057F009FDA0A /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		AA51F0FF1500057F009FDA0A /* poMessageCenterExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poMessageCenterExampleApp.h; sourceTree = "<group>"; };
+		AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = poMessageCenterExampleApp.cpp; sourceTree = "<group>"; };
+		AA51F1021500057F009FDA0A /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AA51F1091500059C009FDA0A /* poMessageCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poMessageCenter.cpp; sourceTree = "<group>"; };
+		AA51F10A1500059C009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poMessageCenter.h; sourceTree = "<group>"; };
+		AA51F10C150010F7009FDA0A /* Square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Square.cpp; sourceTree = "<group>"; };
+		AA51F10D150010F7009FDA0A /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Square.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA51F0E51500057F009FDA0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA51F0DD1500057F009FDA0A = {
+			isa = PBXGroup;
+			children = (
+				AA51F0EB1500057F009FDA0A /* poMessageCenterExample */,
+				AA51F0E91500057F009FDA0A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA51F0E91500057F009FDA0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA51F0E81500057F009FDA0A /* poMessageCenterExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA51F0EB1500057F009FDA0A /* poMessageCenterExample */ = {
+			isa = PBXGroup;
+			children = (
+				AA51F0EC1500057F009FDA0A /* platform */,
+				AA51F0FE1500057F009FDA0A /* application */,
+			);
+			path = poMessageCenterExample;
+			sourceTree = "<group>";
+		};
+		AA51F0EC1500057F009FDA0A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AA51F0ED1500057F009FDA0A /* Debug.xcconfig */,
+				AA51F0EE1500057F009FDA0A /* Release.xcconfig */,
+				AA51F0EF1500057F009FDA0A /* AppDelegate.h */,
+				AA51F0F01500057F009FDA0A /* AppDelegate.mm */,
+				AA51F0F21500057F009FDA0A /* en.strings */,
+				AA51F0F41500057F009FDA0A /* main.m */,
+				AA51F0F61500057F009FDA0A /* main.pch */,
+				AA51F0F81500057F009FDA0A /* main.plist */,
+				AA51F0F91500057F009FDA0A /* main.xib */,
+				AA51F0FB1500057F009FDA0A /* poOpenGLView.h */,
+				AA51F0FC1500057F009FDA0A /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AA51F0FE1500057F009FDA0A /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AA51F1091500059C009FDA0A /* poMessageCenter.cpp */,
+				AA51F10A1500059C009FDA0A /* poMessageCenter.h */,
+				AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */,
+				AA51F0FF1500057F009FDA0A /* poMessageCenterExampleApp.h */,
+				AA51F1021500057F009FDA0A /* AppConfig.cpp */,
+				AA51F10C150010F7009FDA0A /* Square.cpp */,
+				AA51F10D150010F7009FDA0A /* Square.h */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA51F0E71500057F009FDA0A /* poMessageCenterExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA51F1061500057F009FDA0A /* Build configuration list for PBXNativeTarget "poMessageCenterExample" */;
+			buildPhases = (
+				AA51F0E41500057F009FDA0A /* Sources */,
+				AA51F0E51500057F009FDA0A /* Frameworks */,
+				AA51F0E61500057F009FDA0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = poMessageCenterExample;
+			productName = poMessageCenterExample;
+			productReference = AA51F0E81500057F009FDA0A /* poMessageCenterExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA51F0DF1500057F009FDA0A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = Vargatron;
+			};
+			buildConfigurationList = AA51F0E21500057F009FDA0A /* Build configuration list for PBXProject "poMessageCenterExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AA51F0DD1500057F009FDA0A;
+			productRefGroup = AA51F0E91500057F009FDA0A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA51F0E71500057F009FDA0A /* poMessageCenterExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA51F0E61500057F009FDA0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA51F0F31500057F009FDA0A /* en.strings in Resources */,
+				AA51F0F71500057F009FDA0A /* main.pch in Resources */,
+				AA51F0FA1500057F009FDA0A /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA51F0E41500057F009FDA0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA51F0F11500057F009FDA0A /* AppDelegate.mm in Sources */,
+				AA51F0F51500057F009FDA0A /* main.m in Sources */,
+				AA51F0FD1500057F009FDA0A /* poOpenGLView.mm in Sources */,
+				AA51F1011500057F009FDA0A /* poMessageCenterExampleApp.cpp in Sources */,
+				AA51F1031500057F009FDA0A /* AppConfig.cpp in Sources */,
+				AA51F10B1500059C009FDA0A /* poMessageCenter.cpp in Sources */,
+				AA51F10E150010F7009FDA0A /* Square.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA51F1041500057F009FDA0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA51F0ED1500057F009FDA0A /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AA51F1051500057F009FDA0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA51F0EE1500057F009FDA0A /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		AA51F1071500057F009FDA0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AA51F1081500057F009FDA0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA51F0E21500057F009FDA0A /* Build configuration list for PBXProject "poMessageCenterExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA51F1041500057F009FDA0A /* Debug */,
+				AA51F1051500057F009FDA0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA51F1061500057F009FDA0A /* Build configuration list for PBXNativeTarget "poMessageCenterExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA51F1071500057F009FDA0A /* Debug */,
+				AA51F1081500057F009FDA0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA51F0DF1500057F009FDA0A /* Project object */;
+}
