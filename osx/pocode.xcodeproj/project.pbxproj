@@ -82,6 +82,12 @@
 		AA2E615A14FC0B9700F1859C /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D8F33A144C986E0077F6DA /* poFBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615B14FC0B9700F1859C /* poImageShape.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FAE3A11476B86600A917EB /* poImageShape.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615C14FC0B9700F1859C /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = E87862C91492E303005CA612 /* common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
+		AA51F15015051F2E009FDA0A /* poMessageCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AA51F14E15051F2E009FDA0A /* poMessageCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA51F15215052093009FDA0A /* poMessageCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AA51F14E15051F2E009FDA0A /* poMessageCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AA51F14E15051F2E009FDA0A /* poMessageCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
+		AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
 		AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
@@ -251,6 +257,8 @@
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
 		AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_iOS_simulator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMessageCenter.cpp; path = ../source/poMessageCenter.cpp; sourceTree = "<group>"; };
+		AA51F14E15051F2E009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMessageCenter.h; path = ../source/poMessageCenter.h; sourceTree = "<group>"; };
 		AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.ios.xcconfig; sourceTree = "<group>"; };
 		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
@@ -525,6 +533,8 @@
 		E8E7558D13C6099A00A91EB8 /* application */ = {
 			isa = PBXGroup;
 			children = (
+				AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */,
+				AA51F14E15051F2E009FDA0A /* poMessageCenter.h */,
 				E8C7E71513913E3A00E6848E /* poApplication.h */,
 				E802C72013D5E3F100CBEB1C /* poApplication.cpp */,
 				E8C7E71713913E3A00E6848E /* poWindow.h */,
@@ -633,6 +643,7 @@
 				AA2E615A14FC0B9700F1859C /* poFBO.h in Headers */,
 				AA2E615B14FC0B9700F1859C /* poImageShape.h in Headers */,
 				AA2E615C14FC0B9700F1859C /* common.h in Headers */,
+				AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +701,7 @@
 				7CEA2FD214E03B8800DD6FF8 /* poControl.h in Headers */,
 				7CEA2FD714E03B8800DD6FF8 /* poControlPanel.h in Headers */,
 				41F2EDE114EB068600FE891A /* poLayout.h in Headers */,
+				AA51F15015051F2E009FDA0A /* poMessageCenter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +716,7 @@
 				E8D8F33C144C986E0077F6DA /* poFBO.h in Headers */,
 				E8FAE3A51476B86600A917EB /* poImageShape.h in Headers */,
 				E87862CB1492E303005CA612 /* common.h in Headers */,
+				AA51F15215052093009FDA0A /* poMessageCenter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,6 +869,7 @@
 				AA2E615114FC0B9700F1859C /* poControl.cpp in Sources */,
 				AA2E615214FC0B9700F1859C /* poControlPanel.cpp in Sources */,
 				AA2E615314FC0B9700F1859C /* poLayout.cpp in Sources */,
+				AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -909,6 +923,7 @@
 				7CEA2FCF14E03B8800DD6FF8 /* poControl.cpp in Sources */,
 				7CEA2FD414E03B8800DD6FF8 /* poControlPanel.cpp in Sources */,
 				41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */,
+				AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,6 +975,7 @@
 				7CEA2FD014E03B8800DD6FF8 /* poControl.cpp in Sources */,
 				7CEA2FD514E03B8800DD6FF8 /* poControlPanel.cpp in Sources */,
 				41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */,
+				AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
