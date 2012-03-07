@@ -24,12 +24,12 @@
 		41C9CBC7147450EB00C05303 /* Alignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C9CBE0147450EB00C05303 /* AlignmentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlignmentApp.h; sourceTree = "<group>"; };
 		41C9CBE1147450EB00C05303 /* AlignmentApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AlignmentApp.cpp; sourceTree = "<group>"; };
+		41CF09B414FFDB3300E5F71A /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.pch; path = platform_OSX/main.pch; sourceTree = SOURCE_ROOT; };
 		AAFDDC7514FC12210067F329 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = platform_OSX/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		AAFDDC7614FC12210067F329 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = platform_OSX/AppDelegate.mm; sourceTree = SOURCE_ROOT; };
 		AAFDDC7714FC12210067F329 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = platform_OSX/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		AAFDDC7814FC12210067F329 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en.strings; path = platform_OSX/en.strings; sourceTree = SOURCE_ROOT; };
 		AAFDDC7914FC12210067F329 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = platform_OSX/main.m; sourceTree = SOURCE_ROOT; };
-		AAFDDC7A14FC12210067F329 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.pch; path = platform_OSX/main.pch; sourceTree = SOURCE_ROOT; };
 		AAFDDC7B14FC12210067F329 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = main.plist; path = platform_OSX/main.plist; sourceTree = SOURCE_ROOT; };
 		AAFDDC7C14FC12210067F329 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = main.xib; path = platform_OSX/main.xib; sourceTree = SOURCE_ROOT; };
 		AAFDDC7D14FC12210067F329 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = platform_OSX/poOpenGLView.h; sourceTree = SOURCE_ROOT; };
@@ -82,7 +82,7 @@
 				AAFDDC7F14FC12210067F329 /* Release.xcconfig */,
 				AAFDDC7814FC12210067F329 /* en.strings */,
 				AAFDDC7914FC12210067F329 /* main.m */,
-				AAFDDC7A14FC12210067F329 /* main.pch */,
+				41CF09B414FFDB3300E5F71A /* main.pch */,
 				AAFDDC7B14FC12210067F329 /* main.plist */,
 				AAFDDC7C14FC12210067F329 /* main.xib */,
 				AAFDDC7D14FC12210067F329 /* poOpenGLView.h */,

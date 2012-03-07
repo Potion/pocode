@@ -21,12 +21,12 @@
 		41972C6514719B6D004AFE46 /* BasicShapes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicShapes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41972C7E14719B6D004AFE46 /* BasicShapesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicShapesApp.h; sourceTree = "<group>"; };
 		41972C7F14719B6D004AFE46 /* BasicShapesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicShapesApp.cpp; sourceTree = "<group>"; };
+		41CF09B314FFDB2100E5F71A /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		AAFDDC4914FC0A290067F329 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AAFDDC4A14FC0A290067F329 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		AAFDDC4B14FC0A290067F329 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		AAFDDC4C14FC0A290067F329 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
 		AAFDDC4D14FC0A290067F329 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AAFDDC4E14FC0A290067F329 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		AAFDDC4F14FC0A2A0067F329 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
 		AAFDDC5014FC0A2A0067F329 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
 		AAFDDC5114FC0A2A0067F329 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				AAFDDC4B14FC0A290067F329 /* Debug.xcconfig */,
 				AAFDDC4C14FC0A290067F329 /* en.strings */,
 				AAFDDC4D14FC0A290067F329 /* main.m */,
-				AAFDDC4E14FC0A290067F329 /* main.pch */,
+				41CF09B314FFDB2100E5F71A /* main.pch */,
 				AAFDDC4F14FC0A2A0067F329 /* main.plist */,
 				AAFDDC5014FC0A2A0067F329 /* main.xib */,
 				AAFDDC5114FC0A2A0067F329 /* poOpenGLView.h */,

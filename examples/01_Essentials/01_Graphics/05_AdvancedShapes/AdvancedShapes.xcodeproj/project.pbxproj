@@ -10,13 +10,10 @@
 		411EBCD814757C8B0004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCD714757C8B0004D98B /* AppConfig.cpp */; };
 		419AD6111472DCAB0090A731 /* AdvancedShapesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419AD6101472DCAB0090A731 /* AdvancedShapesApp.cpp */; };
 		AAC1FA6014FC173500222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FA5614FC173500222E53 /* AppDelegate.mm */; };
-		AAC1FA6114FC173500222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FA5714FC173500222E53 /* Debug.xcconfig */; };
 		AAC1FA6214FC173500222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FA5814FC173500222E53 /* en.strings */; };
 		AAC1FA6314FC173500222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FA5914FC173500222E53 /* main.m */; };
-		AAC1FA6414FC173500222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FA5B14FC173500222E53 /* main.plist */; };
 		AAC1FA6514FC173500222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FA5C14FC173500222E53 /* main.xib */; };
 		AAC1FA6614FC173500222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FA5E14FC173500222E53 /* poOpenGLView.mm */; };
-		AAC1FA6714FC173500222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FA5F14FC173500222E53 /* Release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +123,9 @@
 /* Begin PBXProject section */
 		419AD5ED1472DCAA0090A731 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 419AD5F01472DCAA0090A731 /* Build configuration list for PBXProject "AdvancedShapes" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -148,11 +148,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC1FA6114FC173500222E53 /* Debug.xcconfig in Resources */,
 				AAC1FA6214FC173500222E53 /* en.strings in Resources */,
-				AAC1FA6414FC173500222E53 /* main.plist in Resources */,
 				AAC1FA6514FC173500222E53 /* main.xib in Resources */,
-				AAC1FA6714FC173500222E53 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,12 +188,14 @@
 		419AD6151472DCAB0090A731 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 			};
 			name = Debug;
 		};
 		419AD6161472DCAB0090A731 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 			};
 			name = Release;
 		};
