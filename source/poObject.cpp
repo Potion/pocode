@@ -438,6 +438,8 @@ poObject& poObject::setAlignment(poAlignment align) {
 	// first calculate bounds
 	poRect bounds = getBounds();
 	
+	float offsetZ = offset.z;
+	
 	// then set offset based upon bounds and alignment
 	switch(align) {
 		case PO_ALIGN_TOP_LEFT:
@@ -461,6 +463,7 @@ poObject& poObject::setAlignment(poAlignment align) {
 	}
 	
 	offset = offset-bounds.getPosition();
+	offset.z = offsetZ;
 	
 	return *this;
 }

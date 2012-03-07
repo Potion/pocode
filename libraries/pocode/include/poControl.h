@@ -114,7 +114,7 @@ public:
     poRadio( string _ID, int init, vector<string> names ,poObject* _listener = NULL );
     virtual void eventHandler(poEvent *event);
     virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
-    vector <poToggleBox*> buttons;  
+    vector <poToggleBox*> buttons;
     poTextBox*   shapeLabel;
 };
 

@@ -23,7 +23,7 @@
 #define MARGIN 10
 #define SPACING 5
 
-poControlPanel::poControlPanel( string _label, string _filename ) {
+poControlPanel::poControlPanel( string _label, poColor _color, string _filename ) {
     label = _label;
     
     readSettings();
@@ -34,25 +34,27 @@ poControlPanel::poControlPanel( string _label, string _filename ) {
         pos = poPoint(0,0,0);
     
     float padding = 10;
-    filename = _filename;    
+    filename = _filename;
+	
+	panelColor = _color;
     
     addEvent(PO_MOUSE_UP_EVENT, this);
 	
     bar = new poRectShape(240,20);
     bar->position = pos;
-    bar->fillColor = poColor( 1,1,1,.2 );
+    bar->fillColor = panelColor;
     bar->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
 	bar->addEvent(PO_MOUSE_DRAG_INSIDE_EVENT, this);
     addChild( bar );
 
     save = new poRectShape(50,20);
-    save->fillColor = poColor( 1,1,1,.2 );
+    save->fillColor = panelColor;
     save->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     save->position = poPoint( bar->getWidth()-save->getWidth() ,0 );
     bar->addChild( save );
     
     hide = new poRectShape(50,20);
-    hide->fillColor = poColor( 1,1,1,.2 );
+    hide->fillColor = panelColor;
     hide->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
     hide->position = poPoint( bar->getWidth()-(save->getWidth()*2 + 2) ,0 );
     bar->addChild( hide );
@@ -67,7 +69,7 @@ poControlPanel::poControlPanel( string _label, string _filename ) {
 	container->addModifier(containerLayout);
     
     box = new poRectShape( bar->getWidth(),400 );
-    box->fillColor = poColor( 1,1,1,.2 );
+    box->fillColor = panelColor;
     bar->addChild( box );
     
     float sWidth = container->getBounds().width - padding;
