@@ -15,7 +15,6 @@
 		AA51F0FD1500057F009FDA0A /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA51F0FC1500057F009FDA0A /* poOpenGLView.mm */; };
 		AA51F1011500057F009FDA0A /* poMessageCenterExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */; };
 		AA51F1031500057F009FDA0A /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1021500057F009FDA0A /* AppConfig.cpp */; };
-		AA51F10B1500059C009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F1091500059C009FDA0A /* poMessageCenter.cpp */; };
 		AA51F10E150010F7009FDA0A /* Square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F10C150010F7009FDA0A /* Square.cpp */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +34,6 @@
 		AA51F0FF1500057F009FDA0A /* poMessageCenterExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poMessageCenterExampleApp.h; sourceTree = "<group>"; };
 		AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = poMessageCenterExampleApp.cpp; sourceTree = "<group>"; };
 		AA51F1021500057F009FDA0A /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
-		AA51F1091500059C009FDA0A /* poMessageCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poMessageCenter.cpp; sourceTree = "<group>"; };
-		AA51F10A1500059C009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poMessageCenter.h; sourceTree = "<group>"; };
 		AA51F10C150010F7009FDA0A /* Square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Square.cpp; sourceTree = "<group>"; };
 		AA51F10D150010F7009FDA0A /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Square.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,8 +95,6 @@
 		AA51F0FE1500057F009FDA0A /* application */ = {
 			isa = PBXGroup;
 			children = (
-				AA51F1091500059C009FDA0A /* poMessageCenter.cpp */,
-				AA51F10A1500059C009FDA0A /* poMessageCenter.h */,
 				AA51F1001500057F009FDA0A /* poMessageCenterExampleApp.cpp */,
 				AA51F0FF1500057F009FDA0A /* poMessageCenterExampleApp.h */,
 				AA51F1021500057F009FDA0A /* AppConfig.cpp */,
@@ -178,7 +173,6 @@
 				AA51F0FD1500057F009FDA0A /* poOpenGLView.mm in Sources */,
 				AA51F1011500057F009FDA0A /* poMessageCenterExampleApp.cpp in Sources */,
 				AA51F1031500057F009FDA0A /* AppConfig.cpp in Sources */,
-				AA51F10B1500059C009FDA0A /* poMessageCenter.cpp in Sources */,
 				AA51F10E150010F7009FDA0A /* Square.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +225,7 @@
 				AA51F1081500057F009FDA0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
