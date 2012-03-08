@@ -24,12 +24,12 @@
 		411EBDAA1475B8710004D98B /* XMLApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLApp.h; sourceTree = "<group>"; };
 		411EBDAB1475B8710004D98B /* XMLApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XMLApp.cpp; sourceTree = "<group>"; };
 		411EBDB21475B89B0004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		41CF0A0814FFE70000E5F71A /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		AAC1FB3514FC1A9E00222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AAC1FB3614FC1A9E00222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		AAC1FB3714FC1A9E00222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		AAC1FB3814FC1A9E00222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
 		AAC1FB3914FC1A9E00222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AAC1FB3A14FC1A9E00222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		AAC1FB3B14FC1A9E00222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
 		AAC1FB3C14FC1A9E00222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
 		AAC1FB3D14FC1A9E00222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 				AAC1FB3714FC1A9E00222E53 /* Debug.xcconfig */,
 				AAC1FB3814FC1A9E00222E53 /* en.strings */,
 				AAC1FB3914FC1A9E00222E53 /* main.m */,
-				AAC1FB3A14FC1A9E00222E53 /* main.pch */,
+				41CF0A0814FFE70000E5F71A /* main.pch */,
 				AAC1FB3B14FC1A9E00222E53 /* main.plist */,
 				AAC1FB3C14FC1A9E00222E53 /* main.xib */,
 				AAC1FB3D14FC1A9E00222E53 /* poOpenGLView.h */,
