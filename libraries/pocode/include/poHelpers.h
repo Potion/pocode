@@ -28,7 +28,7 @@
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
-#define BOOST_FILESYSTEM_3
+#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 

@@ -77,7 +77,6 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
     poTextBox* shapeData = new poTextBox( bar->getWidth(), bar->getHeight() );
 	shapeData->textColor = poColor::white;
     shapeData->position.set( padding,3,0 );
-	shapeData->setFont( poGetFont ("Courier") );
     shapeData->setTextSize(12);
     shapeData->setText( label );
 	shapeData->doLayout();  
@@ -86,7 +85,6 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
     poTextBox* saveText = new poTextBox( save->getWidth(), save->getHeight() );
 	saveText->textColor = poColor::white;
     saveText->position.set( padding,3,0 );
-	saveText->setFont( poGetFont ("Courier") );
     saveText->setTextSize(12);
     saveText->setText( "save" );
 	saveText->doLayout();  
@@ -95,10 +93,9 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
     hideText = new poTextBox( save->getWidth(), save->getHeight() );
 	hideText->textColor = poColor::white;
     hideText->position.set( padding,3,0 );
-	hideText->setFont( poGetFont ("Courier") );
     hideText->setTextSize(12);
     hideText->setText( "hide" );
-	hideText->doLayout();  
+	hideText->doLayout();
     hide->addChild( hideText );
     
     bar->moveChildToBack(box);

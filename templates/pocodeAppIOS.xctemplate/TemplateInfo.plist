@@ -167,6 +167,13 @@
 			<key>Path</key>
 			<string>DefaultiphoneLandscapeRight@2x.png</string>
 		</dict>
+		<key>../platform/OpenSans-Regular.ttf</key>
+		<dict>
+			<key>Group</key>
+			<string>platform</string>
+			<key>Path</key>
+			<string>OpenSans-Regular.ttf</string>
+		</dict>
 	</dict>
 	<key>Nodes</key>
 	<array>
@@ -191,6 +198,7 @@
 		<string>../Default~iphone.png</string>
 		<string>../DefaultiphoneLandscapeRight.png</string>
 		<string>../DefaultiphoneLandscapeRight@2x.png</string>
+		<string>../platform/OpenSans-Regular.ttf</string>
 	</array>
 	<key>Options</key>
 	<array>

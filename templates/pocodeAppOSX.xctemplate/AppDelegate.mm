@@ -237,6 +237,10 @@ void applicationReshapeWindow(poWindow* win, poRect r) {
 	[window setFrame:new_frame display:YES];
 }
 
+std::string applicationGetResourceDirectory() {
+	return [[[NSBundle mainBundle] resourcePath] UTF8String];
+}
+
 std::string applicationGetSupportDirectory() {
 	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:dir])

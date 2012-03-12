@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		415ECB77150EA170006B6ADB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 415ECB76150EA170006B6ADB /* OpenSans-Regular.ttf */; };
 		41D01CF714F842A1001C5963 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41D01CF614F842A1001C5963 /* Debug.xcconfig */; };
 		41D01CF914F842A1001C5963 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 41D01CF814F842A1001C5963 /* Release.xcconfig */; };
 		41D01CFC14F842A1001C5963 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41D01CFB14F842A1001C5963 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		415ECB76150EA170006B6ADB /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "platform/OpenSans-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		41D01CF114F842A1001C5963 /* ControlPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41D01CF614F842A1001C5963 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		41D01CF814F842A1001C5963 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				41D01D0414F842A1001C5963 /* main.xib */,
 				41D01D0614F842A1001C5963 /* poOpenGLView.h */,
 				41D01D0714F842A1001C5963 /* poOpenGLView.mm */,
+				415ECB76150EA170006B6ADB /* OpenSans-Regular.ttf */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				41D01CFE14F842A1001C5963 /* en.strings in Resources */,
 				41D01D0214F842A1001C5963 /* main.pch in Resources */,
 				41D01D0514F842A1001C5963 /* main.xib in Resources */,
+				415ECB77150EA170006B6ADB /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +223,7 @@
 				41D01D1314F842A1001C5963 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

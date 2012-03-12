@@ -68,6 +68,7 @@ class poFont : public poResource
 
 public:
 	static bool fontExists(const std::string &family_or_url);
+	static poFont *defaultFont();
 	
 	poFont();
 	poFont(const std::string &family_or_url, const std::string &style="");

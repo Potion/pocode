@@ -48,7 +48,9 @@ poTextBox::poTextBox()
 ,	cached(NULL)
 ,   fillEnabled(false)
 ,   strokeWidth(0)
-{}
+{
+	setFont(poFont::defaultFont());
+}
 
 poTextBox::poTextBox(int w) 
 :	poObject()
@@ -63,6 +65,7 @@ poTextBox::poTextBox(int w)
 ,   strokeWidth(0)
 {
     layout.size = poPoint( w,0 );
+	setFont(poFont::defaultFont());
 }
 
 poTextBox::poTextBox(int w, int h) 
@@ -78,6 +81,7 @@ poTextBox::poTextBox(int w, int h)
 ,   strokeWidth(0)
 {
     layout.size = poPoint( w,h );
+	setFont(poFont::defaultFont());
 }
 
 poObject* poTextBox::copy() {
@@ -93,7 +97,6 @@ void poTextBox::clone(poTextBox *tb) {
 	tb->layout = layout;
 	tb->cached = cached;
 	poObject::clone(tb);
-	
 }
 
 poTextBox::~poTextBox() {

@@ -28,6 +28,7 @@
 #include "poFont.h"
 #include "poShape2D.h"
 #include "poHelpers.h"
+#include "poApplication.h"
 
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
@@ -94,6 +95,10 @@ bool poFont::fontExists(const std::string &family) {
 	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
 }
 
+poFont *poFont::defaultFont() {
+	return poGetFont(applicationGetResourceDirectory()+"/OpenSans-Regular.ttf");
+}
+
 poFont::poFont()
 :	face(NULL)
 ,	size(0)
@@ -126,33 +131,11 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 	
 	if(fs::exists(family_or_url))
 		url = family_or_url;
-	else if(!urlForFontFamilyName(family_or_url, style, url)) {
-        
-        #ifdef POTION_MAC
-            url = "/System/Library/Fonts/Helvetica.dfont";
-            reqUrlOrFamily = url;
-            printf("PO_FONT: can't find font (%s)\n", family_or_url.c_str());
-            //return;
-            
-        #elif defined POTION_WIN32
-        
-            wchar_t p[1024];
-            GetSystemWindowsDirectoryW( p,1024 );
-            
-            char ch[260];
-            LPCSTR DefChar = " ";
-        
-            WideCharToMultiByte( CP_ACP,0,p,-1,ch,260,DefChar, NULL );
-            string path(ch);
-            path = path+"\\Fonts\\arial.ttf";
-            url = path;
-            reqUrlOrFamily = url;
-        
-        #endif        
-	}
+	else if(!urlForFontFamilyName(family_or_url, style, url))
+        return;
 	
 	FT_Face tmp;
-	FT_New_Face(lib, url.c_str(), 0, &tmp);
+	FT_Error err = FT_New_Face(lib, url.c_str(), 0, &tmp);
 	for(int i=1; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
 		FT_New_Face(lib, url.c_str(), i, &f);
