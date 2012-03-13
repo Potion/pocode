@@ -235,6 +235,9 @@ poWindow* applicationCurrentWindow() {
 	return app.pocodeVC.appWindow;
 }
 
+std::string applicationGetResourceDirectory() {
+	return [[[NSBundle mainBundle] resourcePath] UTF8String];
+}
 
 std::string applicationGetSupportDirectory() {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

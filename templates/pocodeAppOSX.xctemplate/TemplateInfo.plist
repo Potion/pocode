@@ -121,6 +121,13 @@
 			<key>PathType</key>
 			<string>Project</string>
 		</dict>
+		<key>../platform/OpenSans-Regular.ttf</key>
+		<dict>
+			<key>Group</key>
+			<string>platform</string>
+			<key>Path</key>
+			<string>OpenSans-Regular.ttf</string>
+		</dict>
 	</dict>
 	<key>Identifier</key>
 	<string>com.potiondesign.project</string>
@@ -142,6 +149,7 @@
 		<string>___PROJECTNAMEASIDENTIFIER___App.h</string>
 		<string>___PROJECTNAMEASIDENTIFIER___App.cpp</string>
 		<string>AppConfig.cpp</string>
+		<string>../platform/OpenSans-Regular.ttf</string>
 	</array>
 	<key>Options</key>
 	<array>
