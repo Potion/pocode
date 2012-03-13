@@ -167,6 +167,34 @@
 			<key>Path</key>
 			<string>DefaultiphoneLandscapeRight@2x.png</string>
 		</dict>
+		<key>../Icon.png</key>
+		<dict>
+			<key>Group</key>
+			<string>icons</string>
+			<key>Path</key>
+			<string>Icon.png</string>
+		</dict>
+		<key>../Icon@2x.png</key>
+		<dict>
+			<key>Group</key>
+			<string>icons</string>
+			<key>Path</key>
+			<string>Icon@2x.png</string>
+		</dict>
+		<key>../Icon-72.png</key>
+		<dict>
+			<key>Group</key>
+			<string>icons</string>
+			<key>Path</key>
+			<string>Icon-72.png</string>
+		</dict>
+		<key>../Icon-72@2x.png</key>
+		<dict>
+			<key>Group</key>
+			<string>icons</string>
+			<key>Path</key>
+			<string>Icon-72@2x.png</string>
+		</dict>
 	</dict>
 	<key>Nodes</key>
 	<array>
@@ -191,6 +219,10 @@
 		<string>../Default~iphone.png</string>
 		<string>../DefaultiphoneLandscapeRight.png</string>
 		<string>../DefaultiphoneLandscapeRight@2x.png</string>
+		<string>../Icon.png</string>
+		<string>../Icon@2x.png</string>
+		<string>../Icon-72.png</string>
+		<string>../Icon-72@2x.png</string>
 	</array>
 	<key>Options</key>
 	<array>
