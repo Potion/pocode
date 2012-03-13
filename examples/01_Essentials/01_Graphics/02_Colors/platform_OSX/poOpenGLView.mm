@@ -90,7 +90,6 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	[self stopAnimating];
 	
 	if(self.appWindow) {
-		delete self.appWindow;
 		self.appWindow = NULL;
 	}
 	
