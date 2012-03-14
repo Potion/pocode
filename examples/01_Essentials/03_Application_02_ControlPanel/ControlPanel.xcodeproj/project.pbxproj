@@ -1,0 +1,230 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41AB2E5F150FE67700FBEDE8 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */; };
+		41AB2E61150FE67700FBEDE8 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E60150FE67700FBEDE8 /* en.strings */; };
+		41AB2E63150FE67700FBEDE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E62150FE67700FBEDE8 /* main.m */; };
+		41AB2E65150FE67700FBEDE8 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E64150FE67700FBEDE8 /* main.pch */; };
+		41AB2E68150FE67700FBEDE8 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E67150FE67700FBEDE8 /* main.xib */; };
+		41AB2E6B150FE67700FBEDE8 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */; };
+		41AB2E6F150FE67700FBEDE8 /* ControlPanelApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */; };
+		41AB2E71150FE67700FBEDE8 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */; };
+		41AB2E73150FE67700FBEDE8 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41AB2E56150FE67700FBEDE8 /* ControlPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		41AB2E5D150FE67700FBEDE8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		41AB2E60150FE67700FBEDE8 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		41AB2E62150FE67700FBEDE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		41AB2E64150FE67700FBEDE8 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		41AB2E66150FE67700FBEDE8 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		41AB2E67150FE67700FBEDE8 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		41AB2E69150FE67700FBEDE8 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		41AB2E6D150FE67700FBEDE8 /* ControlPanelApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlPanelApp.h; sourceTree = "<group>"; };
+		41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControlPanelApp.cpp; sourceTree = "<group>"; };
+		41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41AB2E53150FE67700FBEDE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41AB2E4B150FE67700FBEDE8 = {
+			isa = PBXGroup;
+			children = (
+				41AB2E59150FE67700FBEDE8 /* ControlPanel */,
+				41AB2E57150FE67700FBEDE8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41AB2E57150FE67700FBEDE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41AB2E56150FE67700FBEDE8 /* ControlPanel.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41AB2E59150FE67700FBEDE8 /* ControlPanel */ = {
+			isa = PBXGroup;
+			children = (
+				41AB2E5A150FE67700FBEDE8 /* platform */,
+				41AB2E6C150FE67700FBEDE8 /* application */,
+			);
+			path = ControlPanel;
+			sourceTree = "<group>";
+		};
+		41AB2E5A150FE67700FBEDE8 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */,
+				41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */,
+				41AB2E5D150FE67700FBEDE8 /* AppDelegate.h */,
+				41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */,
+				41AB2E60150FE67700FBEDE8 /* en.strings */,
+				41AB2E62150FE67700FBEDE8 /* main.m */,
+				41AB2E64150FE67700FBEDE8 /* main.pch */,
+				41AB2E66150FE67700FBEDE8 /* main.plist */,
+				41AB2E67150FE67700FBEDE8 /* main.xib */,
+				41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */,
+				41AB2E69150FE67700FBEDE8 /* poOpenGLView.h */,
+				41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		41AB2E6C150FE67700FBEDE8 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41AB2E6D150FE67700FBEDE8 /* ControlPanelApp.h */,
+				41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */,
+				41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41AB2E55150FE67700FBEDE8 /* ControlPanel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41AB2E76150FE67700FBEDE8 /* Build configuration list for PBXNativeTarget "ControlPanel" */;
+			buildPhases = (
+				41AB2E52150FE67700FBEDE8 /* Sources */,
+				41AB2E53150FE67700FBEDE8 /* Frameworks */,
+				41AB2E54150FE67700FBEDE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ControlPanel;
+			productName = ControlPanel;
+			productReference = 41AB2E56150FE67700FBEDE8 /* ControlPanel.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41AB2E4D150FE67700FBEDE8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 41AB2E50150FE67700FBEDE8 /* Build configuration list for PBXProject "ControlPanel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41AB2E4B150FE67700FBEDE8;
+			productRefGroup = 41AB2E57150FE67700FBEDE8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41AB2E55150FE67700FBEDE8 /* ControlPanel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41AB2E54150FE67700FBEDE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41AB2E61150FE67700FBEDE8 /* en.strings in Resources */,
+				41AB2E65150FE67700FBEDE8 /* main.pch in Resources */,
+				41AB2E68150FE67700FBEDE8 /* main.xib in Resources */,
+				41AB2E73150FE67700FBEDE8 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41AB2E52150FE67700FBEDE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41AB2E5F150FE67700FBEDE8 /* AppDelegate.mm in Sources */,
+				41AB2E63150FE67700FBEDE8 /* main.m in Sources */,
+				41AB2E6B150FE67700FBEDE8 /* poOpenGLView.mm in Sources */,
+				41AB2E6F150FE67700FBEDE8 /* ControlPanelApp.cpp in Sources */,
+				41AB2E71150FE67700FBEDE8 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41AB2E74150FE67700FBEDE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41AB2E75150FE67700FBEDE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41AB2E77150FE67700FBEDE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41AB2E78150FE67700FBEDE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41AB2E50150FE67700FBEDE8 /* Build configuration list for PBXProject "ControlPanel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41AB2E74150FE67700FBEDE8 /* Debug */,
+				41AB2E75150FE67700FBEDE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41AB2E76150FE67700FBEDE8 /* Build configuration list for PBXNativeTarget "ControlPanel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41AB2E77150FE67700FBEDE8 /* Debug */,
+				41AB2E78150FE67700FBEDE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41AB2E4D150FE67700FBEDE8 /* Project object */;
+}

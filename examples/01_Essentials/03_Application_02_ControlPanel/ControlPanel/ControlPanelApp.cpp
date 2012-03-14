@@ -1,6 +1,8 @@
-/*	Created by filippo on 2/24/12.
- *	Copyright 2012 __MyCompanyName__. All rights reserved.
- */
+/////////////////////////////////////////
+//
+// pocode : Control Panel
+//
+/////////////////////////////////////////
 
 #include "ControlPanelApp.h"
 #include "poApplication.h"
@@ -37,34 +39,21 @@ ControlPanelApp::ControlPanelApp() {
 	control->addInputTextBox( "text",this );
 	control->addSliderI( "size",10,30, this );
 	
-	shape = new poOvalShape(40,40,3);
+	shapeOptions.push_back(3);
+	shapeOptions.push_back(4);
+	shapeOptions.push_back(5);
+	shapeOptions.push_back(6);
+	shapeOptions.push_back(8);
+	shapeOptions.push_back(40);
+	
+	int optionID = control->getInt("shape");
+	
+	shape = new poOvalShape(40,40, shapeOptions[optionID]);
 	shape->fillColor = control->getColor("color");
 	shape->position = control->getPoint("loc");
 	shape->scale.set(control->getFloat("scale"),control->getFloat("scale"),1);
 	shape->visible = control->getBool("visible");
 	shape->rotation = control->getInt("knob");
-	
-	int numberVectors;
-	int optionID = control->getInt("shape");
-	if(optionID == 0) {
-		numberVectors = 3;
-	}
-	else if(optionID == 1) {
-		numberVectors = 4;
-	}
-	else if(optionID == 2) {
-		numberVectors = 5;
-	}
-	else if(optionID == 3) {
-		numberVectors = 6;
-	}
-	else if(optionID == 4) {
-		numberVectors = 8;
-	}
-	else if(optionID == 5) {
-		numberVectors = 40;
-	}
-	shape->reshape(40,40,numberVectors);
 	
 	text = new poTextBox(450,295);
 	text->setText(control->getString("text"));
@@ -86,8 +75,7 @@ ControlPanelApp::~ControlPanelApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void ControlPanelApp::update() {
-//	poControl* C = (poControl*) control->container->getChild("alpha");
-//	printf("valF %f\n", C->valF);
+	
 }
 
 // DRAW. Called once per frame. Draw objects here.
@@ -124,27 +112,9 @@ void ControlPanelApp::messageHandler(const std::string &msg, const poDictionary&
 	}
 	
 	if ( msg == "shape" ) {
-		int numberVectors;
+		
 		int optionID = control->getInt("shape");
-		if(optionID == 0) {
-			numberVectors = 3;
-		}
-		else if(optionID == 1) {
-			numberVectors = 4;
-		}
-		else if(optionID == 2) {
-			numberVectors = 5;
-		}
-		else if(optionID == 3) {
-			numberVectors = 6;
-		}
-		else if(optionID == 4) {
-			numberVectors = 8;
-		}
-		else if(optionID == 5) {
-			numberVectors = 40;
-		}
-		shape->reshape(40,40,numberVectors);
+		shape->reshape(40,40, shapeOptions[optionID]);
 	}
 	
 	if ( msg == "text" ) {

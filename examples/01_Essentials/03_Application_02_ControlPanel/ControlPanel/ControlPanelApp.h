@@ -1,6 +1,8 @@
-/*	Created by filippo on 2/24/12.
- *	Copyright 2012 __MyCompanyName__. All rights reserved.
- */
+/////////////////////////////////////////
+//
+// pocode : Control Panel
+//
+/////////////////////////////////////////
 
 #include "poObject.h"
 #include "poShapeBasics2D.h"
@@ -19,6 +21,10 @@ public:
     virtual void eventHandler(poEvent *event);
 	
     virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+	
+	void makeShape(int optionID);
+	
+	std::vector<int> shapeOptions;
 	
 	poTextBox* text;
 	poOvalShape* shape;
