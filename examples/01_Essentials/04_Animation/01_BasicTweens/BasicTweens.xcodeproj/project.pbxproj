@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E99151132E3004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E98151132E3004DE10E /* OpenSans-Regular.ttf */; };
 		411EBCF114758FC50004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCF014758FC50004D98B /* AppConfig.cpp */; };
 		41C9CC2A147469C600C05303 /* BasicTweensApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41C9CC29147469C600C05303 /* BasicTweensApp.cpp */; };
 		AAC1FAF514FC19C600222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAEB14FC19C600222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E98151132E3004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		411EBCF014758FC50004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41C9CC0F147469C600C05303 /* BasicTweens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicTweens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C9CC28147469C600C05303 /* BasicTweensApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicTweensApp.h; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FAEF14FC19C600222E53 /* main.pch */,
 				AAC1FAF014FC19C600222E53 /* main.plist */,
 				AAC1FAF114FC19C600222E53 /* main.xib */,
+				41034E98151132E3004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FAF214FC19C600222E53 /* poOpenGLView.h */,
 				AAC1FAF314FC19C600222E53 /* poOpenGLView.mm */,
 				AAC1FAF414FC19C600222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FAF914FC19C600222E53 /* main.plist in Resources */,
 				AAC1FAFA14FC19C600222E53 /* main.xib in Resources */,
 				AAC1FAFC14FC19C600222E53 /* Release.xcconfig in Resources */,
+				41034E99151132E3004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

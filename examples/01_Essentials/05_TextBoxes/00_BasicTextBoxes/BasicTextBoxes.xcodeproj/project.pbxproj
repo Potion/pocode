@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034EA01511330C004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E9F1511330C004DE10E /* OpenSans-Regular.ttf */; };
 		411EBCE3147589D20004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCE2147589D20004D98B /* AppConfig.cpp */; };
 		413F21091473239D003FA300 /* BasicTextBoxesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 413F21081473239D003FA300 /* BasicTextBoxesApp.cpp */; };
 		AAC1FB0F14FC1A2E00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB0514FC1A2E00222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E9F1511330C004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		411EBCE2147589D20004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		413F20EE1473239D003FA300 /* BasicTextBoxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicTextBoxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		413F21071473239D003FA300 /* BasicTextBoxesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicTextBoxesApp.h; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FB0914FC1A2E00222E53 /* main.pch */,
 				AAC1FB0A14FC1A2E00222E53 /* main.plist */,
 				AAC1FB0B14FC1A2E00222E53 /* main.xib */,
+				41034E9F1511330C004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FB0C14FC1A2E00222E53 /* poOpenGLView.h */,
 				AAC1FB0D14FC1A2E00222E53 /* poOpenGLView.mm */,
 				AAC1FB0E14FC1A2E00222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FB1314FC1A2E00222E53 /* main.plist in Resources */,
 				AAC1FB1414FC1A2E00222E53 /* main.xib in Resources */,
 				AAC1FB1614FC1A2E00222E53 /* Release.xcconfig in Resources */,
+				41034EA01511330C004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

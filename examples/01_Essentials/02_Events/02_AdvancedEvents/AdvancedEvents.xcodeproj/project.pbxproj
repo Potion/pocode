@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E8015113170004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E7F15113170004DE10E /* OpenSans-Regular.ttf */; };
 		41B832701489711700085CE2 /* AdvancedEventsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B8326F1489711700085CE2 /* AdvancedEventsApp.cpp */; };
 		41B8327B1489713900085CE2 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B8327A1489713900085CE2 /* AppConfig.cpp */; };
 		AAC1FAAA14FC18DE00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAA014FC18DE00222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E7F15113170004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41B832551489711700085CE2 /* AdvancedEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B8326E1489711700085CE2 /* AdvancedEventsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedEventsApp.h; sourceTree = "<group>"; };
 		41B8326F1489711700085CE2 /* AdvancedEventsApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdvancedEventsApp.cpp; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FAA414FC18DE00222E53 /* main.pch */,
 				AAC1FAA514FC18DE00222E53 /* main.plist */,
 				AAC1FAA614FC18DE00222E53 /* main.xib */,
+				41034E7F15113170004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FAA714FC18DE00222E53 /* poOpenGLView.h */,
 				AAC1FAA814FC18DE00222E53 /* poOpenGLView.mm */,
 				AAC1FAA914FC18DE00222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FAAE14FC18DE00222E53 /* main.plist in Resources */,
 				AAC1FAAF14FC18DE00222E53 /* main.xib in Resources */,
 				AAC1FAB114FC18DE00222E53 /* Release.xcconfig in Resources */,
+				41034E8015113170004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

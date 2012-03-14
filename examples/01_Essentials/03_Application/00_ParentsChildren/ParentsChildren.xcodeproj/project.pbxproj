@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E871511326D004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E861511326D004DE10E /* OpenSans-Regular.ttf */; };
 		41E6D27E1485828A004BC657 /* ParentsChildrenApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */; };
 		41E6D289148582A5004BC657 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D288148582A5004BC657 /* AppConfig.cpp */; };
 		AAC1FAC314FC193E00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAB914FC193E00222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E861511326D004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41E6D2631485828A004BC657 /* ParentsChildren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParentsChildren.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6D27C1485828A004BC657 /* ParentsChildrenApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentsChildrenApp.h; sourceTree = "<group>"; };
 		41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParentsChildrenApp.cpp; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FABD14FC193E00222E53 /* main.pch */,
 				AAC1FABE14FC193E00222E53 /* main.plist */,
 				AAC1FABF14FC193E00222E53 /* main.xib */,
+				41034E861511326D004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FAC014FC193E00222E53 /* poOpenGLView.h */,
 				AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */,
 				AAC1FAC214FC193E00222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FAC714FC193E00222E53 /* main.plist in Resources */,
 				AAC1FAC814FC193E00222E53 /* main.xib in Resources */,
 				AAC1FACA14FC193E00222E53 /* Release.xcconfig in Resources */,
+				41034E871511326D004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

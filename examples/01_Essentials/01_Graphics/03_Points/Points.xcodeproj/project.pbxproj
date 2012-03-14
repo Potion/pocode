@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E5D15113002004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E5C15113002004DE10E /* OpenSans-Regular.ttf */; };
 		41BAFA8B147D8B4000E13148 /* PointsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41BAFA8A147D8B4000E13148 /* PointsApp.cpp */; };
 		41BAFA96147D8BC800E13148 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41BAFA95147D8BC800E13148 /* AppConfig.cpp */; };
 		AA01CF6714FC15C30019C9C5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF5D14FC15C30019C9C5 /* AppDelegate.mm */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E5C15113002004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41BAFA70147D8B4000E13148 /* Points.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Points.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BAFA89147D8B4000E13148 /* PointsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsApp.h; sourceTree = "<group>"; };
 		41BAFA8A147D8B4000E13148 /* PointsApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PointsApp.cpp; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				AA01CF6114FC15C30019C9C5 /* main.pch */,
 				AA01CF6214FC15C30019C9C5 /* main.plist */,
 				AA01CF6314FC15C30019C9C5 /* main.xib */,
+				41034E5C15113002004DE10E /* OpenSans-Regular.ttf */,
 				AA01CF6414FC15C30019C9C5 /* poOpenGLView.h */,
 				AA01CF6514FC15C30019C9C5 /* poOpenGLView.mm */,
 				AA01CF6614FC15C30019C9C5 /* Release.xcconfig */,
@@ -150,6 +153,7 @@
 				AA01CF6914FC15C30019C9C5 /* en.strings in Resources */,
 				AA01CF6B14FC15C30019C9C5 /* main.plist in Resources */,
 				AA01CF6C14FC15C30019C9C5 /* main.xib in Resources */,
+				41034E5D15113002004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

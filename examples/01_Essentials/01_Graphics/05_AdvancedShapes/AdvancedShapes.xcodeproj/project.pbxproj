@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E6B1511305F004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E6A1511305F004DE10E /* OpenSans-Regular.ttf */; };
 		411EBCD814757C8B0004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCD714757C8B0004D98B /* AppConfig.cpp */; };
 		419AD6111472DCAB0090A731 /* AdvancedShapesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419AD6101472DCAB0090A731 /* AdvancedShapesApp.cpp */; };
 		AAC1FA6014FC173500222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FA5614FC173500222E53 /* AppDelegate.mm */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E6A1511305F004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		411EBCD714757C8B0004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		419AD5F61472DCAA0090A731 /* AdvancedShapes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedShapes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419AD60F1472DCAB0090A731 /* AdvancedShapesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedShapesApp.h; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				AAC1FA5A14FC173500222E53 /* main.pch */,
 				AAC1FA5B14FC173500222E53 /* main.plist */,
 				AAC1FA5C14FC173500222E53 /* main.xib */,
+				41034E6A1511305F004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FA5D14FC173500222E53 /* poOpenGLView.h */,
 				AAC1FA5E14FC173500222E53 /* poOpenGLView.mm */,
 				AAC1FA5F14FC173500222E53 /* Release.xcconfig */,
@@ -150,6 +153,7 @@
 			files = (
 				AAC1FA6214FC173500222E53 /* en.strings in Resources */,
 				AAC1FA6514FC173500222E53 /* main.xib in Resources */,
+				41034E6B1511305F004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

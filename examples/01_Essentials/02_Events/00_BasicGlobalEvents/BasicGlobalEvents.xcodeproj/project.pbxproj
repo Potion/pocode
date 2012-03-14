@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E72151130F1004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E71151130F1004DE10E /* OpenSans-Regular.ttf */; };
 		411EBCC21475792C0004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCC11475792C0004D98B /* AppConfig.cpp */; };
 		419AD6841473190D0090A731 /* BasicGlobalEventsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419AD6831473190D0090A731 /* BasicGlobalEventsApp.cpp */; };
 		AAC1FA7814FC17E500222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FA6E14FC17E500222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E71151130F1004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		411EBCC11475792C0004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		419AD6691473190D0090A731 /* BasicGlobalEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicGlobalEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419AD6821473190D0090A731 /* BasicGlobalEventsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicGlobalEventsApp.h; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FA7214FC17E500222E53 /* main.pch */,
 				AAC1FA7314FC17E500222E53 /* main.plist */,
 				AAC1FA7414FC17E500222E53 /* main.xib */,
+				41034E71151130F1004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FA7514FC17E500222E53 /* poOpenGLView.h */,
 				AAC1FA7614FC17E500222E53 /* poOpenGLView.mm */,
 				AAC1FA7714FC17E500222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FA7C14FC17E500222E53 /* main.plist in Resources */,
 				AAC1FA7D14FC17E500222E53 /* main.xib in Resources */,
 				AAC1FA7F14FC17E500222E53 /* Release.xcconfig in Resources */,
+				41034E72151130F1004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

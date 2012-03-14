@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034EB51511338A004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034EB41511338A004DE10E /* OpenSans-Regular.ttf */; };
 		41DF642714881D86003A5ED1 /* DictionariesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF642614881D86003A5ED1 /* DictionariesApp.cpp */; };
 		41DF642E14881E16003A5ED1 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF642D14881E16003A5ED1 /* AppConfig.cpp */; };
 		AAC1FB5914FC1AD500222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB4F14FC1AD500222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034EB41511338A004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41DF640C14881D86003A5ED1 /* Dictionaries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dictionaries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DF642514881D86003A5ED1 /* DictionariesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionariesApp.h; sourceTree = "<group>"; };
 		41DF642614881D86003A5ED1 /* DictionariesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DictionariesApp.cpp; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FB5314FC1AD500222E53 /* main.pch */,
 				AAC1FB5414FC1AD500222E53 /* main.plist */,
 				AAC1FB5514FC1AD500222E53 /* main.xib */,
+				41034EB41511338A004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FB5614FC1AD500222E53 /* poOpenGLView.h */,
 				AAC1FB5714FC1AD500222E53 /* poOpenGLView.mm */,
 				AAC1FB5814FC1AD500222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FB5D14FC1AD500222E53 /* main.plist in Resources */,
 				AAC1FB5E14FC1AD500222E53 /* main.xib in Resources */,
 				AAC1FB6014FC1AD500222E53 /* Release.xcconfig in Resources */,
+				41034EB51511338A004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

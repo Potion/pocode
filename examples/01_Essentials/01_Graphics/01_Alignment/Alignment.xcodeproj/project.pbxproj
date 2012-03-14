@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E4F15112EA9004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E4E15112EA9004DE10E /* OpenSans-Regular.ttf */; };
 		411EBCD114757B750004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCD014757B750004D98B /* AppConfig.cpp */; };
 		41C9CBE2147450EB00C05303 /* AlignmentApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41C9CBE1147450EB00C05303 /* AlignmentApp.cpp */; };
 		AAFDDC8014FC12210067F329 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAFDDC7614FC12210067F329 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E4E15112EA9004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "platform_OSX/OpenSans-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		411EBCD014757B750004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41C9CBC7147450EB00C05303 /* Alignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C9CBE0147450EB00C05303 /* AlignmentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlignmentApp.h; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				41CF09B414FFDB3300E5F71A /* main.pch */,
 				AAFDDC7B14FC12210067F329 /* main.plist */,
 				AAFDDC7C14FC12210067F329 /* main.xib */,
+				41034E4E15112EA9004DE10E /* OpenSans-Regular.ttf */,
 				AAFDDC7D14FC12210067F329 /* poOpenGLView.h */,
 				AAFDDC7E14FC12210067F329 /* poOpenGLView.mm */,
 			);
@@ -153,6 +156,7 @@
 				AAFDDC8414FC12210067F329 /* main.plist in Resources */,
 				AAFDDC8514FC12210067F329 /* main.xib in Resources */,
 				AAFDDC8714FC12210067F329 /* Release.xcconfig in Resources */,
+				41034E4F15112EA9004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

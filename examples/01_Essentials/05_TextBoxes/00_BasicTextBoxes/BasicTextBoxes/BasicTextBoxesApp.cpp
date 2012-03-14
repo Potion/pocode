@@ -27,7 +27,6 @@ BasicTextBoxesApp::BasicTextBoxesApp() {
 	
 	poTextBox* A = new poTextBox(200, 120);				// Specify the width and height of the text box (optional)
 	A->setText("This is a plain text  example...");		// Set the text
-	A->setFont( poGetFont("Helvetica", "Regular") );	// Set the font, always
 														// You can create a new poFont by calling poGetFont("FontFamilyName", "FontStyle")
 														// Make sure the font is installed in your machine
 	A->setTextSize(18);									// Set the text size

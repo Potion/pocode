@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E6415113035004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E6315113035004DE10E /* OpenSans-Regular.ttf */; };
 		41DF296A1483E3E500D55838 /* SimpleDrawingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29691483E3E500D55838 /* SimpleDrawingApp.cpp */; };
 		41DF29791483E44700D55838 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF29781483E44700D55838 /* AppConfig.cpp */; };
 		AA01CF8014FC16B90019C9C5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF7614FC16B90019C9C5 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E6315113035004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41DF294F1483E3E500D55838 /* SimpleDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DF29681483E3E500D55838 /* SimpleDrawingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleDrawingApp.h; sourceTree = "<group>"; };
 		41DF29691483E3E500D55838 /* SimpleDrawingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleDrawingApp.cpp; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AA01CF7A14FC16B90019C9C5 /* main.pch */,
 				AA01CF7B14FC16B90019C9C5 /* main.plist */,
 				AA01CF7C14FC16B90019C9C5 /* main.xib */,
+				41034E6315113035004DE10E /* OpenSans-Regular.ttf */,
 				AA01CF7D14FC16B90019C9C5 /* poOpenGLView.h */,
 				AA01CF7E14FC16B90019C9C5 /* poOpenGLView.mm */,
 				AA01CF7F14FC16B90019C9C5 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AA01CF8414FC16B90019C9C5 /* main.plist in Resources */,
 				AA01CF8514FC16B90019C9C5 /* main.xib in Resources */,
 				AA01CF8714FC16B90019C9C5 /* Release.xcconfig in Resources */,
+				41034E6415113035004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

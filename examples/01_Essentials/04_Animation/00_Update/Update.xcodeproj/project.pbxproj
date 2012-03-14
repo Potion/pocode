@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41034E92151132A9004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E91151132A9004DE10E /* OpenSans-Regular.ttf */; };
 		41AEB2CB148415D700B24D33 /* UpdateApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AEB2CA148415D700B24D33 /* UpdateApp.cpp */; };
 		41AEB2D2148415FA00B24D33 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AEB2D1148415FA00B24D33 /* AppConfig.cpp */; };
 		AAC1FADC14FC198A00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAD214FC198A00222E53 /* AppDelegate.mm */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41034E91151132A9004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		41AEB2B0148415D700B24D33 /* Update.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Update.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41AEB2C9148415D700B24D33 /* UpdateApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateApp.h; sourceTree = "<group>"; };
 		41AEB2CA148415D700B24D33 /* UpdateApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UpdateApp.cpp; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AAC1FAD614FC198A00222E53 /* main.pch */,
 				AAC1FAD714FC198A00222E53 /* main.plist */,
 				AAC1FAD814FC198A00222E53 /* main.xib */,
+				41034E91151132A9004DE10E /* OpenSans-Regular.ttf */,
 				AAC1FAD914FC198A00222E53 /* poOpenGLView.h */,
 				AAC1FADA14FC198A00222E53 /* poOpenGLView.mm */,
 				AAC1FADB14FC198A00222E53 /* Release.xcconfig */,
@@ -153,6 +156,7 @@
 				AAC1FAE014FC198A00222E53 /* main.plist in Resources */,
 				AAC1FAE114FC198A00222E53 /* main.xib in Resources */,
 				AAC1FAE314FC198A00222E53 /* Release.xcconfig in Resources */,
+				41034E92151132A9004DE10E /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
