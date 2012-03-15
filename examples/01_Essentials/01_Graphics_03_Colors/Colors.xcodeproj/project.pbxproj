@@ -1,0 +1,233 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41034E5615112FBD004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E5515112FBD004DE10E /* OpenSans-Regular.ttf */; };
+		411EBD451475A3C20004D98B /* ColorsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBD441475A3C20004D98B /* ColorsApp.cpp */; };
+		411EBD541475A5580004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBD531475A5580004D98B /* AppConfig.cpp */; };
+		AA01CF4F14FC14870019C9C5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF4514FC14870019C9C5 /* AppDelegate.mm */; };
+		AA01CF5014FC14870019C9C5 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF4614FC14870019C9C5 /* Debug.xcconfig */; };
+		AA01CF5114FC14870019C9C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF4714FC14870019C9C5 /* en.strings */; };
+		AA01CF5214FC14870019C9C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF4814FC14870019C9C5 /* main.m */; };
+		AA01CF5314FC14870019C9C5 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF4A14FC14870019C9C5 /* main.plist */; };
+		AA01CF5414FC14870019C9C5 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF4B14FC14870019C9C5 /* main.xib */; };
+		AA01CF5514FC14870019C9C5 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA01CF4D14FC14870019C9C5 /* poOpenGLView.mm */; };
+		AA01CF5614FC14870019C9C5 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA01CF4E14FC14870019C9C5 /* Release.xcconfig */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41034E5515112FBD004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		411EBD2A1475A3C20004D98B /* Colors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colors.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		411EBD431475A3C20004D98B /* ColorsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorsApp.h; sourceTree = "<group>"; };
+		411EBD441475A3C20004D98B /* ColorsApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ColorsApp.cpp; sourceTree = "<group>"; };
+		411EBD531475A5580004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AA01CF4414FC14870019C9C5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AA01CF4514FC14870019C9C5 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AA01CF4614FC14870019C9C5 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AA01CF4714FC14870019C9C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AA01CF4814FC14870019C9C5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AA01CF4914FC14870019C9C5 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AA01CF4A14FC14870019C9C5 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AA01CF4B14FC14870019C9C5 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AA01CF4C14FC14870019C9C5 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AA01CF4D14FC14870019C9C5 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AA01CF4E14FC14870019C9C5 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		411EBD271475A3C20004D98B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		411EBD1F1475A3C20004D98B = {
+			isa = PBXGroup;
+			children = (
+				411EBD2D1475A3C20004D98B /* Colors */,
+				411EBD2B1475A3C20004D98B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		411EBD2B1475A3C20004D98B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				411EBD2A1475A3C20004D98B /* Colors.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		411EBD2D1475A3C20004D98B /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				AA01CF4314FC14870019C9C5 /* platform_OSX */,
+				411EBD421475A3C20004D98B /* application */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		411EBD421475A3C20004D98B /* application */ = {
+			isa = PBXGroup;
+			children = (
+				411EBD431475A3C20004D98B /* ColorsApp.h */,
+				411EBD441475A3C20004D98B /* ColorsApp.cpp */,
+				411EBD531475A5580004D98B /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		AA01CF4314FC14870019C9C5 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AA01CF4414FC14870019C9C5 /* AppDelegate.h */,
+				AA01CF4514FC14870019C9C5 /* AppDelegate.mm */,
+				AA01CF4614FC14870019C9C5 /* Debug.xcconfig */,
+				AA01CF4714FC14870019C9C5 /* en.strings */,
+				AA01CF4814FC14870019C9C5 /* main.m */,
+				AA01CF4914FC14870019C9C5 /* main.pch */,
+				AA01CF4A14FC14870019C9C5 /* main.plist */,
+				AA01CF4B14FC14870019C9C5 /* main.xib */,
+				41034E5515112FBD004DE10E /* OpenSans-Regular.ttf */,
+				AA01CF4C14FC14870019C9C5 /* poOpenGLView.h */,
+				AA01CF4D14FC14870019C9C5 /* poOpenGLView.mm */,
+				AA01CF4E14FC14870019C9C5 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		411EBD291475A3C20004D98B /* Colors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 411EBD481475A3C20004D98B /* Build configuration list for PBXNativeTarget "Colors" */;
+			buildPhases = (
+				411EBD261475A3C20004D98B /* Sources */,
+				411EBD271475A3C20004D98B /* Frameworks */,
+				411EBD281475A3C20004D98B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Colors;
+			productName = Colors;
+			productReference = 411EBD2A1475A3C20004D98B /* Colors.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		411EBD211475A3C20004D98B /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 411EBD241475A3C20004D98B /* Build configuration list for PBXProject "Colors" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 411EBD1F1475A3C20004D98B;
+			productRefGroup = 411EBD2B1475A3C20004D98B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				411EBD291475A3C20004D98B /* Colors */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		411EBD281475A3C20004D98B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA01CF5014FC14870019C9C5 /* Debug.xcconfig in Resources */,
+				AA01CF5114FC14870019C9C5 /* en.strings in Resources */,
+				AA01CF5314FC14870019C9C5 /* main.plist in Resources */,
+				AA01CF5414FC14870019C9C5 /* main.xib in Resources */,
+				AA01CF5614FC14870019C9C5 /* Release.xcconfig in Resources */,
+				41034E5615112FBD004DE10E /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		411EBD261475A3C20004D98B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				411EBD451475A3C20004D98B /* ColorsApp.cpp in Sources */,
+				411EBD541475A5580004D98B /* AppConfig.cpp in Sources */,
+				AA01CF4F14FC14870019C9C5 /* AppDelegate.mm in Sources */,
+				AA01CF5214FC14870019C9C5 /* main.m in Sources */,
+				AA01CF5514FC14870019C9C5 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		411EBD461475A3C20004D98B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA01CF4614FC14870019C9C5 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		411EBD471475A3C20004D98B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA01CF4E14FC14870019C9C5 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		411EBD491475A3C20004D98B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA01CF4614FC14870019C9C5 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		411EBD4A1475A3C20004D98B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA01CF4E14FC14870019C9C5 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		411EBD241475A3C20004D98B /* Build configuration list for PBXProject "Colors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				411EBD461475A3C20004D98B /* Debug */,
+				411EBD471475A3C20004D98B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		411EBD481475A3C20004D98B /* Build configuration list for PBXNativeTarget "Colors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				411EBD491475A3C20004D98B /* Debug */,
+				411EBD4A1475A3C20004D98B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 411EBD211475A3C20004D98B /* Project object */;
+}

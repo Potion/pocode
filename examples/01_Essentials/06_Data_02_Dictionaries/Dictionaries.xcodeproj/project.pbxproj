@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41034EB51511338A004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034EB41511338A004DE10E /* OpenSans-Regular.ttf */; };
+		41DF642714881D86003A5ED1 /* DictionariesApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF642614881D86003A5ED1 /* DictionariesApp.cpp */; };
+		41DF642E14881E16003A5ED1 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41DF642D14881E16003A5ED1 /* AppConfig.cpp */; };
+		AAC1FB5914FC1AD500222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB4F14FC1AD500222E53 /* AppDelegate.mm */; };
+		AAC1FB5A14FC1AD500222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB5014FC1AD500222E53 /* Debug.xcconfig */; };
+		AAC1FB5B14FC1AD500222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB5114FC1AD500222E53 /* en.strings */; };
+		AAC1FB5C14FC1AD500222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB5214FC1AD500222E53 /* main.m */; };
+		AAC1FB5D14FC1AD500222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB5414FC1AD500222E53 /* main.plist */; };
+		AAC1FB5E14FC1AD500222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB5514FC1AD500222E53 /* main.xib */; };
+		AAC1FB5F14FC1AD500222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FB5714FC1AD500222E53 /* poOpenGLView.mm */; };
+		AAC1FB6014FC1AD500222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FB5814FC1AD500222E53 /* Release.xcconfig */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41034EB41511338A004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		41DF640C14881D86003A5ED1 /* Dictionaries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dictionaries.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41DF642514881D86003A5ED1 /* DictionariesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionariesApp.h; sourceTree = "<group>"; };
+		41DF642614881D86003A5ED1 /* DictionariesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DictionariesApp.cpp; sourceTree = "<group>"; };
+		41DF642D14881E16003A5ED1 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAC1FB4E14FC1AD500222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FB4F14FC1AD500222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FB5014FC1AD500222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FB5114FC1AD500222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FB5214FC1AD500222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FB5314FC1AD500222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FB5414FC1AD500222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FB5514FC1AD500222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FB5614FC1AD500222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FB5714FC1AD500222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FB5814FC1AD500222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41DF640914881D86003A5ED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41DF640114881D86003A5ED1 = {
+			isa = PBXGroup;
+			children = (
+				41DF640F14881D86003A5ED1 /* Dictionaries */,
+				41DF640D14881D86003A5ED1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41DF640D14881D86003A5ED1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41DF640C14881D86003A5ED1 /* Dictionaries.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41DF640F14881D86003A5ED1 /* Dictionaries */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FB4D14FC1AD500222E53 /* platform_OSX */,
+				41DF642414881D86003A5ED1 /* application */,
+			);
+			path = Dictionaries;
+			sourceTree = "<group>";
+		};
+		41DF642414881D86003A5ED1 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41DF642514881D86003A5ED1 /* DictionariesApp.h */,
+				41DF642614881D86003A5ED1 /* DictionariesApp.cpp */,
+				41DF642D14881E16003A5ED1 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		AAC1FB4D14FC1AD500222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FB4E14FC1AD500222E53 /* AppDelegate.h */,
+				AAC1FB4F14FC1AD500222E53 /* AppDelegate.mm */,
+				AAC1FB5014FC1AD500222E53 /* Debug.xcconfig */,
+				AAC1FB5114FC1AD500222E53 /* en.strings */,
+				AAC1FB5214FC1AD500222E53 /* main.m */,
+				AAC1FB5314FC1AD500222E53 /* main.pch */,
+				AAC1FB5414FC1AD500222E53 /* main.plist */,
+				AAC1FB5514FC1AD500222E53 /* main.xib */,
+				41034EB41511338A004DE10E /* OpenSans-Regular.ttf */,
+				AAC1FB5614FC1AD500222E53 /* poOpenGLView.h */,
+				AAC1FB5714FC1AD500222E53 /* poOpenGLView.mm */,
+				AAC1FB5814FC1AD500222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41DF640B14881D86003A5ED1 /* Dictionaries */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41DF642A14881D86003A5ED1 /* Build configuration list for PBXNativeTarget "Dictionaries" */;
+			buildPhases = (
+				41DF640814881D86003A5ED1 /* Sources */,
+				41DF640914881D86003A5ED1 /* Frameworks */,
+				41DF640A14881D86003A5ED1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dictionaries;
+			productName = Dictionaries;
+			productReference = 41DF640C14881D86003A5ED1 /* Dictionaries.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41DF640314881D86003A5ED1 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 41DF640614881D86003A5ED1 /* Build configuration list for PBXProject "Dictionaries" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41DF640114881D86003A5ED1;
+			productRefGroup = 41DF640D14881D86003A5ED1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41DF640B14881D86003A5ED1 /* Dictionaries */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41DF640A14881D86003A5ED1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC1FB5A14FC1AD500222E53 /* Debug.xcconfig in Resources */,
+				AAC1FB5B14FC1AD500222E53 /* en.strings in Resources */,
+				AAC1FB5D14FC1AD500222E53 /* main.plist in Resources */,
+				AAC1FB5E14FC1AD500222E53 /* main.xib in Resources */,
+				AAC1FB6014FC1AD500222E53 /* Release.xcconfig in Resources */,
+				41034EB51511338A004DE10E /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41DF640814881D86003A5ED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DF642714881D86003A5ED1 /* DictionariesApp.cpp in Sources */,
+				41DF642E14881E16003A5ED1 /* AppConfig.cpp in Sources */,
+				AAC1FB5914FC1AD500222E53 /* AppDelegate.mm in Sources */,
+				AAC1FB5C14FC1AD500222E53 /* main.m in Sources */,
+				AAC1FB5F14FC1AD500222E53 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41DF642814881D86003A5ED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FB5014FC1AD500222E53 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41DF642914881D86003A5ED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FB5814FC1AD500222E53 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41DF642B14881D86003A5ED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41DF642C14881D86003A5ED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41DF640614881D86003A5ED1 /* Build configuration list for PBXProject "Dictionaries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41DF642814881D86003A5ED1 /* Debug */,
+				41DF642914881D86003A5ED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41DF642A14881D86003A5ED1 /* Build configuration list for PBXNativeTarget "Dictionaries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41DF642B14881D86003A5ED1 /* Debug */,
+				41DF642C14881D86003A5ED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41DF640314881D86003A5ED1 /* Project object */;
+}

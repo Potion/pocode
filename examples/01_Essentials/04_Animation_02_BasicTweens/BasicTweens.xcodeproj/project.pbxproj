@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41034E99151132E3004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E98151132E3004DE10E /* OpenSans-Regular.ttf */; };
+		411EBCF114758FC50004D98B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 411EBCF014758FC50004D98B /* AppConfig.cpp */; };
+		41C9CC2A147469C600C05303 /* BasicTweensApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41C9CC29147469C600C05303 /* BasicTweensApp.cpp */; };
+		AAC1FAF514FC19C600222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAEB14FC19C600222E53 /* AppDelegate.mm */; };
+		AAC1FAF614FC19C600222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAEC14FC19C600222E53 /* Debug.xcconfig */; };
+		AAC1FAF714FC19C600222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAED14FC19C600222E53 /* en.strings */; };
+		AAC1FAF814FC19C600222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAEE14FC19C600222E53 /* main.m */; };
+		AAC1FAF914FC19C600222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAF014FC19C600222E53 /* main.plist */; };
+		AAC1FAFA14FC19C600222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAF114FC19C600222E53 /* main.xib */; };
+		AAC1FAFB14FC19C600222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAF314FC19C600222E53 /* poOpenGLView.mm */; };
+		AAC1FAFC14FC19C600222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAF414FC19C600222E53 /* Release.xcconfig */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41034E98151132E3004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		411EBCF014758FC50004D98B /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		41C9CC0F147469C600C05303 /* BasicTweens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicTweens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41C9CC28147469C600C05303 /* BasicTweensApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicTweensApp.h; sourceTree = "<group>"; };
+		41C9CC29147469C600C05303 /* BasicTweensApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicTweensApp.cpp; sourceTree = "<group>"; };
+		AAC1FAEA14FC19C600222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FAEB14FC19C600222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FAEC14FC19C600222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FAED14FC19C600222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FAEE14FC19C600222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FAEF14FC19C600222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FAF014FC19C600222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FAF114FC19C600222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FAF214FC19C600222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FAF314FC19C600222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FAF414FC19C600222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41C9CC0C147469C600C05303 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41C9CC04147469C600C05303 = {
+			isa = PBXGroup;
+			children = (
+				41C9CC12147469C600C05303 /* BasicTweens */,
+				41C9CC10147469C600C05303 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41C9CC10147469C600C05303 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41C9CC0F147469C600C05303 /* BasicTweens.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41C9CC12147469C600C05303 /* BasicTweens */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FAE914FC19C600222E53 /* platform_OSX */,
+				41C9CC27147469C600C05303 /* application */,
+			);
+			path = BasicTweens;
+			sourceTree = "<group>";
+		};
+		41C9CC27147469C600C05303 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41C9CC28147469C600C05303 /* BasicTweensApp.h */,
+				41C9CC29147469C600C05303 /* BasicTweensApp.cpp */,
+				411EBCF014758FC50004D98B /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		AAC1FAE914FC19C600222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FAEA14FC19C600222E53 /* AppDelegate.h */,
+				AAC1FAEB14FC19C600222E53 /* AppDelegate.mm */,
+				AAC1FAEC14FC19C600222E53 /* Debug.xcconfig */,
+				AAC1FAED14FC19C600222E53 /* en.strings */,
+				AAC1FAEE14FC19C600222E53 /* main.m */,
+				AAC1FAEF14FC19C600222E53 /* main.pch */,
+				AAC1FAF014FC19C600222E53 /* main.plist */,
+				AAC1FAF114FC19C600222E53 /* main.xib */,
+				41034E98151132E3004DE10E /* OpenSans-Regular.ttf */,
+				AAC1FAF214FC19C600222E53 /* poOpenGLView.h */,
+				AAC1FAF314FC19C600222E53 /* poOpenGLView.mm */,
+				AAC1FAF414FC19C600222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41C9CC0E147469C600C05303 /* BasicTweens */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41C9CC2D147469C600C05303 /* Build configuration list for PBXNativeTarget "BasicTweens" */;
+			buildPhases = (
+				41C9CC0B147469C600C05303 /* Sources */,
+				41C9CC0C147469C600C05303 /* Frameworks */,
+				41C9CC0D147469C600C05303 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BasicTweens;
+			productName = BasicTweens;
+			productReference = 41C9CC0F147469C600C05303 /* BasicTweens.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41C9CC06147469C600C05303 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 41C9CC09147469C600C05303 /* Build configuration list for PBXProject "BasicTweens" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41C9CC04147469C600C05303;
+			productRefGroup = 41C9CC10147469C600C05303 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41C9CC0E147469C600C05303 /* BasicTweens */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41C9CC0D147469C600C05303 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC1FAF614FC19C600222E53 /* Debug.xcconfig in Resources */,
+				AAC1FAF714FC19C600222E53 /* en.strings in Resources */,
+				AAC1FAF914FC19C600222E53 /* main.plist in Resources */,
+				AAC1FAFA14FC19C600222E53 /* main.xib in Resources */,
+				AAC1FAFC14FC19C600222E53 /* Release.xcconfig in Resources */,
+				41034E99151132E3004DE10E /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41C9CC0B147469C600C05303 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41C9CC2A147469C600C05303 /* BasicTweensApp.cpp in Sources */,
+				411EBCF114758FC50004D98B /* AppConfig.cpp in Sources */,
+				AAC1FAF514FC19C600222E53 /* AppDelegate.mm in Sources */,
+				AAC1FAF814FC19C600222E53 /* main.m in Sources */,
+				AAC1FAFB14FC19C600222E53 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41C9CC2B147469C600C05303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FAEC14FC19C600222E53 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41C9CC2C147469C600C05303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FAF414FC19C600222E53 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41C9CC2E147469C600C05303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41C9CC2F147469C600C05303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41C9CC09147469C600C05303 /* Build configuration list for PBXProject "BasicTweens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41C9CC2B147469C600C05303 /* Debug */,
+				41C9CC2C147469C600C05303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41C9CC2D147469C600C05303 /* Build configuration list for PBXNativeTarget "BasicTweens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41C9CC2E147469C600C05303 /* Debug */,
+				41C9CC2F147469C600C05303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41C9CC06147469C600C05303 /* Project object */;
+}

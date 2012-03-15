@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41034E8015113170004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E7F15113170004DE10E /* OpenSans-Regular.ttf */; };
+		41B832701489711700085CE2 /* AdvancedEventsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B8326F1489711700085CE2 /* AdvancedEventsApp.cpp */; };
+		41B8327B1489713900085CE2 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41B8327A1489713900085CE2 /* AppConfig.cpp */; };
+		AAC1FAAA14FC18DE00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAA014FC18DE00222E53 /* AppDelegate.mm */; };
+		AAC1FAAB14FC18DE00222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAA114FC18DE00222E53 /* Debug.xcconfig */; };
+		AAC1FAAC14FC18DE00222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAA214FC18DE00222E53 /* en.strings */; };
+		AAC1FAAD14FC18DE00222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAA314FC18DE00222E53 /* main.m */; };
+		AAC1FAAE14FC18DE00222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAA514FC18DE00222E53 /* main.plist */; };
+		AAC1FAAF14FC18DE00222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAA614FC18DE00222E53 /* main.xib */; };
+		AAC1FAB014FC18DE00222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAA814FC18DE00222E53 /* poOpenGLView.mm */; };
+		AAC1FAB114FC18DE00222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAA914FC18DE00222E53 /* Release.xcconfig */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41034E7F15113170004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		41B832551489711700085CE2 /* AdvancedEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41B8326E1489711700085CE2 /* AdvancedEventsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedEventsApp.h; sourceTree = "<group>"; };
+		41B8326F1489711700085CE2 /* AdvancedEventsApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdvancedEventsApp.cpp; sourceTree = "<group>"; };
+		41B8327A1489713900085CE2 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAC1FA9F14FC18DE00222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FAA014FC18DE00222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FAA114FC18DE00222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FAA214FC18DE00222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FAA314FC18DE00222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FAA414FC18DE00222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FAA514FC18DE00222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FAA614FC18DE00222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FAA714FC18DE00222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FAA814FC18DE00222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FAA914FC18DE00222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41B832521489711700085CE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41B8324A1489711700085CE2 = {
+			isa = PBXGroup;
+			children = (
+				41B832581489711700085CE2 /* AdvancedEvents */,
+				41B832561489711700085CE2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41B832561489711700085CE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41B832551489711700085CE2 /* AdvancedEvents.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41B832581489711700085CE2 /* AdvancedEvents */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FA9E14FC18DE00222E53 /* platform_OSX */,
+				41B8326D1489711700085CE2 /* application */,
+			);
+			path = AdvancedEvents;
+			sourceTree = "<group>";
+		};
+		41B8326D1489711700085CE2 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41B8326E1489711700085CE2 /* AdvancedEventsApp.h */,
+				41B8326F1489711700085CE2 /* AdvancedEventsApp.cpp */,
+				41B8327A1489713900085CE2 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		AAC1FA9E14FC18DE00222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FA9F14FC18DE00222E53 /* AppDelegate.h */,
+				AAC1FAA014FC18DE00222E53 /* AppDelegate.mm */,
+				AAC1FAA114FC18DE00222E53 /* Debug.xcconfig */,
+				AAC1FAA214FC18DE00222E53 /* en.strings */,
+				AAC1FAA314FC18DE00222E53 /* main.m */,
+				AAC1FAA414FC18DE00222E53 /* main.pch */,
+				AAC1FAA514FC18DE00222E53 /* main.plist */,
+				AAC1FAA614FC18DE00222E53 /* main.xib */,
+				41034E7F15113170004DE10E /* OpenSans-Regular.ttf */,
+				AAC1FAA714FC18DE00222E53 /* poOpenGLView.h */,
+				AAC1FAA814FC18DE00222E53 /* poOpenGLView.mm */,
+				AAC1FAA914FC18DE00222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41B832541489711700085CE2 /* AdvancedEvents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41B832731489711700085CE2 /* Build configuration list for PBXNativeTarget "AdvancedEvents" */;
+			buildPhases = (
+				41B832511489711700085CE2 /* Sources */,
+				41B832521489711700085CE2 /* Frameworks */,
+				41B832531489711700085CE2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AdvancedEvents;
+			productName = AdvancedEvents;
+			productReference = 41B832551489711700085CE2 /* AdvancedEvents.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41B8324C1489711700085CE2 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 41B8324F1489711700085CE2 /* Build configuration list for PBXProject "AdvancedEvents" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41B8324A1489711700085CE2;
+			productRefGroup = 41B832561489711700085CE2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41B832541489711700085CE2 /* AdvancedEvents */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41B832531489711700085CE2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC1FAAB14FC18DE00222E53 /* Debug.xcconfig in Resources */,
+				AAC1FAAC14FC18DE00222E53 /* en.strings in Resources */,
+				AAC1FAAE14FC18DE00222E53 /* main.plist in Resources */,
+				AAC1FAAF14FC18DE00222E53 /* main.xib in Resources */,
+				AAC1FAB114FC18DE00222E53 /* Release.xcconfig in Resources */,
+				41034E8015113170004DE10E /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41B832511489711700085CE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41B832701489711700085CE2 /* AdvancedEventsApp.cpp in Sources */,
+				41B8327B1489713900085CE2 /* AppConfig.cpp in Sources */,
+				AAC1FAAA14FC18DE00222E53 /* AppDelegate.mm in Sources */,
+				AAC1FAAD14FC18DE00222E53 /* main.m in Sources */,
+				AAC1FAB014FC18DE00222E53 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41B832711489711700085CE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FAA114FC18DE00222E53 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41B832721489711700085CE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FAA114FC18DE00222E53 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41B832741489711700085CE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41B832751489711700085CE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41B8324F1489711700085CE2 /* Build configuration list for PBXProject "AdvancedEvents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B832711489711700085CE2 /* Debug */,
+				41B832721489711700085CE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41B832731489711700085CE2 /* Build configuration list for PBXNativeTarget "AdvancedEvents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B832741489711700085CE2 /* Debug */,
+				41B832751489711700085CE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41B8324C1489711700085CE2 /* Project object */;
+}

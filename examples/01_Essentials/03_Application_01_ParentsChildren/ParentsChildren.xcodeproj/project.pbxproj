@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41034E871511326D004DE10E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41034E861511326D004DE10E /* OpenSans-Regular.ttf */; };
+		41E6D27E1485828A004BC657 /* ParentsChildrenApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */; };
+		41E6D289148582A5004BC657 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E6D288148582A5004BC657 /* AppConfig.cpp */; };
+		AAC1FAC314FC193E00222E53 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAB914FC193E00222E53 /* AppDelegate.mm */; };
+		AAC1FAC414FC193E00222E53 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABA14FC193E00222E53 /* Debug.xcconfig */; };
+		AAC1FAC514FC193E00222E53 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABB14FC193E00222E53 /* en.strings */; };
+		AAC1FAC614FC193E00222E53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FABC14FC193E00222E53 /* main.m */; };
+		AAC1FAC714FC193E00222E53 /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABE14FC193E00222E53 /* main.plist */; };
+		AAC1FAC814FC193E00222E53 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FABF14FC193E00222E53 /* main.xib */; };
+		AAC1FAC914FC193E00222E53 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */; };
+		AAC1FACA14FC193E00222E53 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AAC1FAC214FC193E00222E53 /* Release.xcconfig */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41034E861511326D004DE10E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		41E6D2631485828A004BC657 /* ParentsChildren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParentsChildren.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41E6D27C1485828A004BC657 /* ParentsChildrenApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentsChildrenApp.h; sourceTree = "<group>"; };
+		41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParentsChildrenApp.cpp; sourceTree = "<group>"; };
+		41E6D288148582A5004BC657 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAC1FAB814FC193E00222E53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC1FAB914FC193E00222E53 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		AAC1FABA14FC193E00222E53 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AAC1FABB14FC193E00222E53 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		AAC1FABC14FC193E00222E53 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC1FABD14FC193E00222E53 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		AAC1FABE14FC193E00222E53 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		AAC1FABF14FC193E00222E53 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		AAC1FAC014FC193E00222E53 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		AAC1FAC214FC193E00222E53 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41E6D2601485828A004BC657 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41E6D2581485828A004BC657 = {
+			isa = PBXGroup;
+			children = (
+				41E6D2661485828A004BC657 /* ParentsChildren */,
+				41E6D2641485828A004BC657 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41E6D2641485828A004BC657 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D2631485828A004BC657 /* ParentsChildren.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41E6D2661485828A004BC657 /* ParentsChildren */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FAB714FC193E00222E53 /* platform_OSX */,
+				41E6D27B1485828A004BC657 /* application */,
+			);
+			path = ParentsChildren;
+			sourceTree = "<group>";
+		};
+		41E6D27B1485828A004BC657 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				41E6D27C1485828A004BC657 /* ParentsChildrenApp.h */,
+				41E6D27D1485828A004BC657 /* ParentsChildrenApp.cpp */,
+				41E6D288148582A5004BC657 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		AAC1FAB714FC193E00222E53 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1FAB814FC193E00222E53 /* AppDelegate.h */,
+				AAC1FAB914FC193E00222E53 /* AppDelegate.mm */,
+				AAC1FABA14FC193E00222E53 /* Debug.xcconfig */,
+				AAC1FABB14FC193E00222E53 /* en.strings */,
+				AAC1FABC14FC193E00222E53 /* main.m */,
+				AAC1FABD14FC193E00222E53 /* main.pch */,
+				AAC1FABE14FC193E00222E53 /* main.plist */,
+				AAC1FABF14FC193E00222E53 /* main.xib */,
+				41034E861511326D004DE10E /* OpenSans-Regular.ttf */,
+				AAC1FAC014FC193E00222E53 /* poOpenGLView.h */,
+				AAC1FAC114FC193E00222E53 /* poOpenGLView.mm */,
+				AAC1FAC214FC193E00222E53 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41E6D2621485828A004BC657 /* ParentsChildren */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41E6D2811485828A004BC657 /* Build configuration list for PBXNativeTarget "ParentsChildren" */;
+			buildPhases = (
+				41E6D25F1485828A004BC657 /* Sources */,
+				41E6D2601485828A004BC657 /* Frameworks */,
+				41E6D2611485828A004BC657 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ParentsChildren;
+			productName = ParentsChildren;
+			productReference = 41E6D2631485828A004BC657 /* ParentsChildren.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41E6D25A1485828A004BC657 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 41E6D25D1485828A004BC657 /* Build configuration list for PBXProject "ParentsChildren" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41E6D2581485828A004BC657;
+			productRefGroup = 41E6D2641485828A004BC657 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41E6D2621485828A004BC657 /* ParentsChildren */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41E6D2611485828A004BC657 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC1FAC414FC193E00222E53 /* Debug.xcconfig in Resources */,
+				AAC1FAC514FC193E00222E53 /* en.strings in Resources */,
+				AAC1FAC714FC193E00222E53 /* main.plist in Resources */,
+				AAC1FAC814FC193E00222E53 /* main.xib in Resources */,
+				AAC1FACA14FC193E00222E53 /* Release.xcconfig in Resources */,
+				41034E871511326D004DE10E /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41E6D25F1485828A004BC657 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41E6D27E1485828A004BC657 /* ParentsChildrenApp.cpp in Sources */,
+				41E6D289148582A5004BC657 /* AppConfig.cpp in Sources */,
+				AAC1FAC314FC193E00222E53 /* AppDelegate.mm in Sources */,
+				AAC1FAC614FC193E00222E53 /* main.m in Sources */,
+				AAC1FAC914FC193E00222E53 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41E6D27F1485828A004BC657 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FABA14FC193E00222E53 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41E6D2801485828A004BC657 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAC1FAC214FC193E00222E53 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		41E6D2821485828A004BC657 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		41E6D2831485828A004BC657 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41E6D25D1485828A004BC657 /* Build configuration list for PBXProject "ParentsChildren" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41E6D27F1485828A004BC657 /* Debug */,
+				41E6D2801485828A004BC657 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41E6D2811485828A004BC657 /* Build configuration list for PBXNativeTarget "ParentsChildren" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41E6D2821485828A004BC657 /* Debug */,
+				41E6D2831485828A004BC657 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41E6D25A1485828A004BC657 /* Project object */;
+}
