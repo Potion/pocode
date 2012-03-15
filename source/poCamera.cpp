@@ -72,13 +72,24 @@ void poCamera::doSetUp( poObject* obj ) {
 		stack->pushViewport(poRect(poPoint(),getWindowDimensions()));
 	}
 
-	if(clearsBG) {
-        glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
-        if ( glIsEnabled( GL_DEPTH_TEST ) )
-            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-        else
-            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
-    }
+    glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
+    
+    GLenum clear = 0;
+    if(clearsBG)
+        clear |= GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT;
+    if(glIsEnabled(GL_DEPTH_TEST))
+       clear |= GL_DEPTH_BUFFER_BIT;
+    
+    if(clear != 0)
+        glClear(clear);
+//       
+//	if(clearsBG) {
+//        glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
+//        if ( glIsEnabled( GL_DEPTH_TEST ) )
+//            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+//        else
+//            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
+//    }
 	
 	setProjection();
 	setModelview();
