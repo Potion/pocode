@@ -97,7 +97,9 @@ public:
     // to the parents coordinate system. 
     
     float				getWidth();
+    float               getScaledWidth();
     float				getHeight();
+    float               getScaledHeight();
     virtual poRect      getBounds();
     poRect				getFrame();
     poPoint             getTransformedPoint( poPoint P );
