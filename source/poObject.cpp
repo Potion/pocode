@@ -133,9 +133,16 @@ float poObject::getWidth() {
     return getBounds().width;
 }
 
+float poObject::getScaledWidth() {
+    return getBounds().width * scale.x;
+}
 
 float poObject::getHeight() {
        return getBounds().height;
+}
+
+float poObject::getScaledHeight() {
+    return getBounds().height * scale.y;
 }
 
 
