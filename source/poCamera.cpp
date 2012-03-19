@@ -294,9 +294,6 @@ void    poPerspectiveCamera::setupFor2DOnZPlane()
     
     cameraPos.set( 0,0,-new_z );
     lookAtPos.set( 0,0,0 );
-      
-//    nearClip = 0.10;
-//    farClip = new_z*10.0;
 }
  
 
