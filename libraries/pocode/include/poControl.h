@@ -165,10 +165,10 @@ public:
 };
 
 
-class poMessage : public poControl {
+class poButton : public poControl {
 public:
     
-    poMessage( string _ID, poObject* _listener = NULL );
+    poButton( string _ID, poObject* _listener = NULL );
     virtual void eventHandler(poEvent *event);
     
     poRectShape* back;
