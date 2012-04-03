@@ -122,7 +122,7 @@ float poPoint::getLengthSquared() const {
 }
 
 float poPoint::getDist(poPoint pt) {
-    return poDist(x,y, pt.x, pt.y);
+    return poDist(x, y, z, pt.x, pt.y, pt.z);
 }
 
 float poPoint::getDot(poPoint rhs) const {
