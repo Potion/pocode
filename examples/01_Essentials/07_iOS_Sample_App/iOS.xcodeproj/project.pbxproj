@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		412A3ECB1518E54F00B4C60D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 412A3ECA1518E54F00B4C60D /* AppDelegate.mm */; };
+		412A3ECD1518E54F00B4C60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 412A3ECC1518E54F00B4C60D /* main.m */; };
+		412A3ED01518E54F00B4C60D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 412A3ECF1518E54F00B4C60D /* EAGLView.mm */; };
+		412A3ED31518E54F00B4C60D /* potionCodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 412A3ED21518E54F00B4C60D /* potionCodeViewController.mm */; };
+		412A3ED51518E54F00B4C60D /* libbz2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 412A3ED41518E54F00B4C60D /* libbz2.1.0.dylib */; };
+		412A3ED71518E54F00B4C60D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 412A3ED61518E54F00B4C60D /* MainWindow.xib */; };
+		412A3ED91518E54F00B4C60D /* pocodeCustom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 412A3ED81518E54F00B4C60D /* pocodeCustom-Info.plist */; };
+		412A3EDD1518E54F00B4C60D /* iOSApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 412A3EDC1518E54F00B4C60D /* iOSApp.cpp */; };
+		412A3EDF1518E54F00B4C60D /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 412A3EDE1518E54F00B4C60D /* AppConfig.cpp */; };
+		412A3EE21518E54F00B4C60D /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EE11518E54F00B4C60D /* Default-Landscape.png */; };
+		412A3EE41518E54F00B4C60D /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EE31518E54F00B4C60D /* Default-Portrait.png */; };
+		412A3EE61518E54F00B4C60D /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EE51518E54F00B4C60D /* Default@2x~iphone.png */; };
+		412A3EE81518E54F00B4C60D /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EE71518E54F00B4C60D /* Default~iphone.png */; };
+		412A3EEA1518E54F00B4C60D /* DefaultiphoneLandscapeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EE91518E54F00B4C60D /* DefaultiphoneLandscapeRight.png */; };
+		412A3EEC1518E54F00B4C60D /* DefaultiphoneLandscapeRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EEB1518E54F00B4C60D /* DefaultiphoneLandscapeRight@2x.png */; };
+		412A3EEF1518E54F00B4C60D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EEE1518E54F00B4C60D /* Icon.png */; };
+		412A3EF11518E54F00B4C60D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EF01518E54F00B4C60D /* Icon@2x.png */; };
+		412A3EF31518E54F00B4C60D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EF21518E54F00B4C60D /* Icon-72.png */; };
+		412A3EF51518E54F00B4C60D /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EF41518E54F00B4C60D /* Icon-72@2x.png */; };
+		412A3EF71518E54F00B4C60D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412A3EF61518E54F00B4C60D /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		412A3EC21518E54F00B4C60D /* pocodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		412A3EC71518E54F00B4C60D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		412A3EC81518E54F00B4C60D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		412A3EC91518E54F00B4C60D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		412A3ECA1518E54F00B4C60D /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		412A3ECC1518E54F00B4C60D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		412A3ECE1518E54F00B4C60D /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EAGLView.h; path = ../platform/EAGLView.h; sourceTree = "<group>"; };
+		412A3ECF1518E54F00B4C60D /* EAGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLView.mm; path = ../platform/EAGLView.mm; sourceTree = "<group>"; };
+		412A3ED11518E54F00B4C60D /* potionCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = potionCodeViewController.h; path = ../platform/potionCodeViewController.h; sourceTree = "<group>"; };
+		412A3ED21518E54F00B4C60D /* potionCodeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = potionCodeViewController.mm; path = ../platform/potionCodeViewController.mm; sourceTree = "<group>"; };
+		412A3ED41518E54F00B4C60D /* libbz2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.1.0.dylib; path = ../platform/libbz2.1.0.dylib; sourceTree = "<group>"; };
+		412A3ED61518E54F00B4C60D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../platform/MainWindow.xib; sourceTree = "<group>"; };
+		412A3ED81518E54F00B4C60D /* pocodeCustom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "pocodeCustom-Info.plist"; path = "../platform/pocodeCustom-Info.plist"; sourceTree = "<group>"; };
+		412A3EDB1518E54F00B4C60D /* iOSApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSApp.h; sourceTree = "<group>"; };
+		412A3EDC1518E54F00B4C60D /* iOSApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iOSApp.cpp; sourceTree = "<group>"; };
+		412A3EDE1518E54F00B4C60D /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		412A3EE11518E54F00B4C60D /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape.png"; path = "../Default-Landscape.png"; sourceTree = "<group>"; };
+		412A3EE31518E54F00B4C60D /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait.png"; path = "../Default-Portrait.png"; sourceTree = "<group>"; };
+		412A3EE51518E54F00B4C60D /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x~iphone.png"; path = "../Default@2x~iphone.png"; sourceTree = "<group>"; };
+		412A3EE71518E54F00B4C60D /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~iphone.png"; path = "../Default~iphone.png"; sourceTree = "<group>"; };
+		412A3EE91518E54F00B4C60D /* DefaultiphoneLandscapeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultiphoneLandscapeRight.png; path = ../DefaultiphoneLandscapeRight.png; sourceTree = "<group>"; };
+		412A3EEB1518E54F00B4C60D /* DefaultiphoneLandscapeRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DefaultiphoneLandscapeRight@2x.png"; path = "../DefaultiphoneLandscapeRight@2x.png"; sourceTree = "<group>"; };
+		412A3EEE1518E54F00B4C60D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		412A3EF01518E54F00B4C60D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		412A3EF21518E54F00B4C60D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
+		412A3EF41518E54F00B4C60D /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
+		412A3EF61518E54F00B4C60D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		412A3EBF1518E54F00B4C60D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				412A3ED51518E54F00B4C60D /* libbz2.1.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		412A3EB71518E54F00B4C60D = {
+			isa = PBXGroup;
+			children = (
+				412A3EC51518E54F00B4C60D /* iOS */,
+				412A3EC31518E54F00B4C60D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		412A3EC31518E54F00B4C60D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EC21518E54F00B4C60D /* pocodeApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		412A3EC51518E54F00B4C60D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EC61518E54F00B4C60D /* platform */,
+				412A3EDA1518E54F00B4C60D /* application */,
+				412A3EE01518E54F00B4C60D /* launchImages */,
+				412A3EED1518E54F00B4C60D /* icons */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		412A3EC61518E54F00B4C60D /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EC71518E54F00B4C60D /* Debug.xcconfig */,
+				412A3EC81518E54F00B4C60D /* Release.xcconfig */,
+				412A3EC91518E54F00B4C60D /* AppDelegate.h */,
+				412A3ECA1518E54F00B4C60D /* AppDelegate.mm */,
+				412A3ECC1518E54F00B4C60D /* main.m */,
+				412A3ECE1518E54F00B4C60D /* EAGLView.h */,
+				412A3ECF1518E54F00B4C60D /* EAGLView.mm */,
+				412A3ED11518E54F00B4C60D /* potionCodeViewController.h */,
+				412A3ED21518E54F00B4C60D /* potionCodeViewController.mm */,
+				412A3ED41518E54F00B4C60D /* libbz2.1.0.dylib */,
+				412A3ED61518E54F00B4C60D /* MainWindow.xib */,
+				412A3ED81518E54F00B4C60D /* pocodeCustom-Info.plist */,
+				412A3EF61518E54F00B4C60D /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		412A3EDA1518E54F00B4C60D /* application */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EDB1518E54F00B4C60D /* iOSApp.h */,
+				412A3EDC1518E54F00B4C60D /* iOSApp.cpp */,
+				412A3EDE1518E54F00B4C60D /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+		412A3EE01518E54F00B4C60D /* launchImages */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EE11518E54F00B4C60D /* Default-Landscape.png */,
+				412A3EE31518E54F00B4C60D /* Default-Portrait.png */,
+				412A3EE51518E54F00B4C60D /* Default@2x~iphone.png */,
+				412A3EE71518E54F00B4C60D /* Default~iphone.png */,
+				412A3EE91518E54F00B4C60D /* DefaultiphoneLandscapeRight.png */,
+				412A3EEB1518E54F00B4C60D /* DefaultiphoneLandscapeRight@2x.png */,
+			);
+			name = launchImages;
+			sourceTree = "<group>";
+		};
+		412A3EED1518E54F00B4C60D /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				412A3EEE1518E54F00B4C60D /* Icon.png */,
+				412A3EF01518E54F00B4C60D /* Icon@2x.png */,
+				412A3EF21518E54F00B4C60D /* Icon-72.png */,
+				412A3EF41518E54F00B4C60D /* Icon-72@2x.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		412A3EC11518E54F00B4C60D /* iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 412A3EFA1518E54F00B4C60D /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildPhases = (
+				412A3EBE1518E54F00B4C60D /* Sources */,
+				412A3EBF1518E54F00B4C60D /* Frameworks */,
+				412A3EC01518E54F00B4C60D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOS;
+			productName = iOS;
+			productReference = 412A3EC21518E54F00B4C60D /* pocodeApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		412A3EB91518E54F00B4C60D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 412A3EBC1518E54F00B4C60D /* Build configuration list for PBXProject "iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 412A3EB71518E54F00B4C60D;
+			productRefGroup = 412A3EC31518E54F00B4C60D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				412A3EC11518E54F00B4C60D /* iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		412A3EC01518E54F00B4C60D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				412A3ED71518E54F00B4C60D /* MainWindow.xib in Resources */,
+				412A3ED91518E54F00B4C60D /* pocodeCustom-Info.plist in Resources */,
+				412A3EE21518E54F00B4C60D /* Default-Landscape.png in Resources */,
+				412A3EE41518E54F00B4C60D /* Default-Portrait.png in Resources */,
+				412A3EE61518E54F00B4C60D /* Default@2x~iphone.png in Resources */,
+				412A3EE81518E54F00B4C60D /* Default~iphone.png in Resources */,
+				412A3EEA1518E54F00B4C60D /* DefaultiphoneLandscapeRight.png in Resources */,
+				412A3EEC1518E54F00B4C60D /* DefaultiphoneLandscapeRight@2x.png in Resources */,
+				412A3EEF1518E54F00B4C60D /* Icon.png in Resources */,
+				412A3EF11518E54F00B4C60D /* Icon@2x.png in Resources */,
+				412A3EF31518E54F00B4C60D /* Icon-72.png in Resources */,
+				412A3EF51518E54F00B4C60D /* Icon-72@2x.png in Resources */,
+				412A3EF71518E54F00B4C60D /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		412A3EBE1518E54F00B4C60D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				412A3ECB1518E54F00B4C60D /* AppDelegate.mm in Sources */,
+				412A3ECD1518E54F00B4C60D /* main.m in Sources */,
+				412A3ED01518E54F00B4C60D /* EAGLView.mm in Sources */,
+				412A3ED31518E54F00B4C60D /* potionCodeViewController.mm in Sources */,
+				412A3EDD1518E54F00B4C60D /* iOSApp.cpp in Sources */,
+				412A3EDF1518E54F00B4C60D /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		412A3EF81518E54F00B4C60D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 412A3EC71518E54F00B4C60D /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		412A3EF91518E54F00B4C60D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 412A3EC81518E54F00B4C60D /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		412A3EFB1518E54F00B4C60D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/platform\"",
+				);
+			};
+			name = Debug;
+		};
+		412A3EFC1518E54F00B4C60D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/platform\"",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		412A3EBC1518E54F00B4C60D /* Build configuration list for PBXProject "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				412A3EF81518E54F00B4C60D /* Debug */,
+				412A3EF91518E54F00B4C60D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		412A3EFA1518E54F00B4C60D /* Build configuration list for PBXNativeTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				412A3EFB1518E54F00B4C60D /* Debug */,
+				412A3EFC1518E54F00B4C60D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 412A3EB91518E54F00B4C60D /* Project object */;
+}

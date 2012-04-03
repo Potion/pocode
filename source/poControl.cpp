@@ -855,7 +855,7 @@ void poKnob::eventHandler(poEvent *event) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _listener ) {
+poButton::poButton( string _ID, poObject* _listener ) : poControl( _ID, _listener ) {
     
     this->name = ID;        
     addEvent( PO_MOUSE_DOWN_EVENT, this );
@@ -880,7 +880,7 @@ poMessage::poMessage( string _ID, poObject* _listener ) : poControl( _ID, _liste
     addChild( space );
 }
 
-void poMessage::eventHandler(poEvent *event) {
+void poButton::eventHandler(poEvent *event) {
     
     if (event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
         
