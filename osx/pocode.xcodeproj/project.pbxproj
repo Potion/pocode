@@ -256,7 +256,7 @@
 		7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEventCenter.h; path = ../source/poEventCenter.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
-		AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libpocode_iOS_simulator.a; path = libpocode_iOS_simulator_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_iOS_simulator_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMessageCenter.cpp; path = ../source/poMessageCenter.cpp; sourceTree = "<group>"; };
 		AA51F14E15051F2E009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMessageCenter.h; path = ../source/poMessageCenter.h; sourceTree = "<group>"; };
 		AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.ios.xcconfig; sourceTree = "<group>"; };
@@ -283,7 +283,7 @@
 		E84CEC0814295525008B3E3E /* poBasicRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBasicRenderer.h; path = ../source/poBasicRenderer.h; sourceTree = "<group>"; };
 		E84CEC0B1429556B008B3E3E /* poOpenGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poOpenGLState.cpp; path = ../source/poOpenGLState.cpp; sourceTree = "<group>"; };
 		E84CEC0C1429556B008B3E3E /* poOpenGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poOpenGLState.h; path = ../source/poOpenGLState.h; sourceTree = "<group>"; };
-		E84CEC5C142A2F48008B3E3E /* libpocode_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libpocode_iOS.a; path = libpocode_iOS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_iOS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E851C27B1448DDCE0018FB34 /* poGeometryMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poGeometryMask.cpp; path = ../source/poGeometryMask.cpp; sourceTree = "<group>"; };
 		E851C27C1448DDCE0018FB34 /* poGeometryMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poGeometryMask.h; path = ../source/poGeometryMask.h; sourceTree = "<group>"; };
 		E85EE94A13731F9C0066679A /* poTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextBox.cpp; path = ../source/poTextBox.cpp; sourceTree = "<group>"; };
@@ -488,9 +488,9 @@
 			isa = PBXGroup;
 			children = (
 				E80625911396FEDA00615CCB /* libpocode.a */,
-				E84CEC5C142A2F48008B3E3E /* libpocode_iOS.a */,
+				E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */,
 				E8D8F309144C8DEA0077F6DA /* potionCode_reg */,
-				AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator.a */,
+				AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 			);
 			name = pocode_iOS_simulator;
 			productName = potionCode_iOS;
-			productReference = AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator.a */;
+			productReference = AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator_d.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		E80625901396FEDA00615CCB /* pocode_osx */ = {
@@ -771,7 +771,7 @@
 			);
 			name = pocode_iOS;
 			productName = potionCode_iOS;
-			productReference = E84CEC5C142A2F48008B3E3E /* libpocode_iOS.a */;
+			productReference = E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		E8D8F308144C8DEA0077F6DA /* pocode_reg */ = {
@@ -1005,6 +1005,7 @@
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "";
@@ -1022,13 +1023,13 @@
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
 				PRODUCT_NAME = pocode_iOS_simulator_d;
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphonesimulator;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = i386;
@@ -1067,6 +1068,7 @@
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
@@ -1082,7 +1084,7 @@
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;

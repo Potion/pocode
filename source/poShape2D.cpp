@@ -103,7 +103,6 @@ void poShape2D::draw() {
 
 
 poShape2D& poShape2D::addPoint(poPoint p) {
-
     points.push_back(p);
     setAlignment( getAlignment() );
 	return *this;

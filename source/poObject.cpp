@@ -542,8 +542,8 @@ void poObject::drawTree() {
 	stack->translate(offset);
 	
 	// grab the matrices we need for everything
-	matrices.dirty = true;
     matrices.camType = poCamera::getCurrentCameraType();
+	matrices.dirty = true;
 	matrices.capture();
 
 	// set up the modifiers ... cameras, etc
