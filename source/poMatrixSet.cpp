@@ -23,6 +23,7 @@
 
 poMatrixSet::poMatrixSet() 
 :	dirty(true)
+,   camType(PO_CAMERA_NONE)
 {}
 
 void poMatrixSet::capture() {

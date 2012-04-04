@@ -22,6 +22,8 @@
 #include "poWindow.h"
 #include "poApplication.h"
 
+#include "poCamera.h"
+
 #include "poOpenGLState.h"
 #include "poMatrixStack.h"
 
@@ -518,7 +520,7 @@ void poObject::drawTree() {
 	
 	if(parent)	trueAlpha = parent->trueAlpha * alpha;
 	else		trueAlpha = alpha;
-
+    
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	stack->pushModelview();
 	
@@ -541,6 +543,7 @@ void poObject::drawTree() {
 	
 	// grab the matrices we need for everything
 	matrices.dirty = true;
+    matrices.camType = poCamera::getCurrentCameraType();
 	matrices.capture();
 
 	// set up the modifiers ... cameras, etc

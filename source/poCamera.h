@@ -43,8 +43,6 @@
 // the OpenGL projection matrix.
 //
 
-enum cameraType { PO_CAMERA_NONE, PO_CAMERA_2D, PO_CAMERA_3D };
-
 class poCamera : public poObjectModifier {
 public:
 	poCamera();
@@ -68,7 +66,7 @@ public:
 	bool                isFixedSize() const;
 	poCamera*           setFixedSize(bool b, poPoint p=poPoint());
     
-    static cameraType   getCurrentCameraType() { return currentCameraType; };
+    static poCameraType   getCurrentCameraType() { return currentCameraType; };
 	
 protected:
 	void				clone(poCamera *cam);
@@ -87,7 +85,7 @@ protected:
 	poPoint             fixedSize;
 	bool                reset;
 
-    static cameraType   currentCameraType;
+    static poCameraType   currentCameraType;
     
 private:
     bool                clearsBG;

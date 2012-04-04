@@ -277,7 +277,7 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
 		return false;
 	
     // DO POINT INSIDE TEST FOR 2D
-    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    if ( matrices.camType == PO_CAMERA_2D )
     {
         if(localize) {
             point.y = getWindowHeight() - point.y;
@@ -301,7 +301,7 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
     }
 	
     // DO POINT INSIDE TEST FOR 3D
-    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    if ( matrices.camType == PO_CAMERA_3D )
     {
         if(localize) {
             point.y = getWindowHeight() - point.y;

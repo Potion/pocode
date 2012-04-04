@@ -30,7 +30,7 @@
 #include "poOpenGLState.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-cameraType   poCamera::currentCameraType = PO_CAMERA_NONE;
+poCameraType   poCamera::currentCameraType = PO_CAMERA_NONE;
 
 // camera base class
 poCamera::poCamera()

@@ -23,6 +23,7 @@
 #include "poRect.h"
 #include "poPoint.h"
 #include <glm/glm.hpp>
+#include "poEnums.h"
 
 struct poMatrixSet {
 				poMatrixSet();
@@ -34,6 +35,8 @@ struct poMatrixSet {
 	
 	glm::mat4	modelview, projection;
 	poRect		viewport;
+    
+    poCameraType  camType;
 	
 	bool		dirty;
 };
