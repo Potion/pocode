@@ -223,6 +223,9 @@ protected:
     float               trueAlpha;
 	void				clone(poObject* obj);
 	
+    
+	poMatrixSet         matrices;
+    
 private:
     
     // PRIVATE PROPERTIES
@@ -238,6 +241,5 @@ private:
     
 	uint                uid;
 	poAlignment         alignment;
-
-	poMatrixSet         matrices;
+    
 };

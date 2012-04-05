@@ -37,6 +37,13 @@ enum poWindowType {
 };
 
 
+#pragma mark - Camera Enums
+enum poCameraType { 
+    PO_CAMERA_NONE, 
+    PO_CAMERA_2D, 
+    PO_CAMERA_3D 
+};
+
 // poOrientation
 #pragma mark - General Enums
 enum poOrientation {
