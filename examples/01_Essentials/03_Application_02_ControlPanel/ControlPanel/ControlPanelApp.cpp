@@ -39,6 +39,7 @@ ControlPanelApp::ControlPanelApp() {
 																		// (it includes R,G,B and alpha sliders)
     control->addKnob( "knob",0.f, 360.f, this );						// Add a knob called "knob"
 																		// with values that go from 0 to 360
+	control->addButton( "rotate!", this );
 	
 	// To add a list of radio buttons we need to define first a list of button labels
 	std::vector<std::string> radioOptions;
@@ -46,7 +47,6 @@ ControlPanelApp::ControlPanelApp() {
 	radioOptions.push_back("quadrilateral");
 	radioOptions.push_back("pentagon");
 	radioOptions.push_back("hexagon");
-	radioOptions.push_back("octagon");
 	radioOptions.push_back("circle");
 	
 	// Now we can create the a list of radio buttons called "shape", by passing the list of strings that we created
@@ -58,11 +58,10 @@ ControlPanelApp::ControlPanelApp() {
 	shapeOptions.push_back(4);
 	shapeOptions.push_back(5);
 	shapeOptions.push_back(6);
-	shapeOptions.push_back(8);
 	shapeOptions.push_back(40);
 	
 	// Create an oval shape
-	shape = new poOvalShape(40,40, 40);
+	shape = new poOvalShape(40,40,40);
 	
 	// SAVED VALUES
 	// The control panel allows you to save the values in an XML file.
@@ -80,14 +79,14 @@ ControlPanelApp::ControlPanelApp() {
 														// The integer is the item ID in the vector list of options
 	shape->reshape(40,40, shapeOptions[optionID]);		// Reshape the oval shape based on the option
 	
-	control->addInputTextBox( "text",this );							// Add an input text box called "text"
-	control->addSliderI( "size",10,30, this );							// Add an integer slider called "size"
-																		// with values from 10 to 30
+	control->addInputTextBox( "text",this );					// Add an input text box called "text"
+	control->addSliderI( "textSize",10,30, this );				// Add an integer slider called "size"
+																// with values from 10 to 30
 	
 	text = new poTextBox(450,295);
 	text->setText(control->getString("text"));					// Get a string value from the control called "text"
 	text->setFont(poGetFont("Helvetica", "Bold"));
-	text->setTextSize(control->getInt("size"));					// Get a integer value from the control called "size"
+	text->setTextSize(control->getInt("textSize"));				// Get a integer value from the control called "size"
 	text->textColor = poColor::black;
 	text->setTextAlignment(PO_ALIGN_CENTER_CENTER);
 	text->doLayout();
@@ -146,9 +145,18 @@ void ControlPanelApp::messageHandler(const std::string &msg, const poDictionary&
 	}
 	
 	if ( msg == "shape" ) {
-		
 		int optionID = control->getInt("shape");
 		shape->reshape(40,40, shapeOptions[optionID]);
+	}
+	
+	if ( msg == "rotate!" ) {
+		float currentRotation = shape->rotation;
+		shape->rotation -= 360;
+		shape->rotationTween
+		.set(currentRotation)
+		.setTweenFunction(PO_TWEEN_LINEAR_FUNC)
+		.setDuration(1)
+		.start();
 	}
 	
 	if ( msg == "text" ) {
@@ -156,8 +164,8 @@ void ControlPanelApp::messageHandler(const std::string &msg, const poDictionary&
 		text->doLayout();
 	}
 	
-	if ( msg == "size" ) {
-        text->setTextSize(control->getInt("size"));
+	if ( msg == "textSize" ) {
+        text->setTextSize(control->getInt("textSize"));
 		text->doLayout();
     }
 }
