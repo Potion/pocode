@@ -1,6 +1,6 @@
 #include "poObjectTestApp.h"
 
-#include "poMask.h"
+//#include "poMask.h"
 #include "poCamera.h"
 #include "poApplication.h"
 #include "poShapeBasics2D.h"
@@ -20,20 +20,29 @@ poObjectTestApp::poObjectTestApp() {
 	addModifier(new poCamera2D());
 	
 	
-	poShape2D *shape;
+//	poShape2D *shape;
+//	
+//	for(int i=0; i<10; i++) {
+//		shape = addChild(new poRectShape(100,100));
+//		shape->fillColor = hashPointerForColor(shape);
+//		shape->alignment(PO_ALIGN_CENTER_CENTER);
+//		shape->position = randomPointInRect(getWindowBounds().inset(poPoint(50,50)));
+//		shape->addEvent(PO_MOUSE_UP_INSIDE_EVENT, this, (boost::format("obj%d")%i).str());
+//	}
+//	
+//	shape = new poOvalShape(800,800,140);
+//	shape->position = getWindowCenter();
+//	
+//	addModifier(new poGeometryMask(shape));
 	
-	for(int i=0; i<10; i++) {
-		shape = addChild(new poRectShape(100,100));
-		shape->fillColor = hashPointerForColor(shape);
-		shape->alignment(PO_ALIGN_CENTER_CENTER);
-		shape->position = randomPointInRect(getWindowBounds().inset(poPoint(50,50)));
-		shape->addEvent(PO_MOUSE_UP_INSIDE_EVENT, this, (boost::format("obj%d")%i).str());
+	poFont *font = getFont("Helvetica");
+	std::vector<std::string> encodings = font->getEncodings();
+	for(std::vector<std::string>::iterator iter = encodings.begin();
+		iter != encodings.end();
+		iter++)
+	{
+		printf("%s\n", iter->c_str());
 	}
-	
-	shape = new poOvalShape(800,800,140);
-	shape->position = getWindowCenter();
-	
-	addModifier(new poGeometryMask(shape));
 }
 
 poObjectTestApp::~poObjectTestApp() {
