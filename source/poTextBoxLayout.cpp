@@ -73,7 +73,7 @@ void po::TextBoxLayout::doLayout() {
 		// if we broke to a new line last pass reset the line height, etc
 		if(props.broke) {
 			fnt = getFont();
-			//fnt->setPointSize(textSize);      // this must be set before caching
+			fnt->setPointSize(textSize);      // this must be set before caching
 			fnt->setGlyph(' ');
 			
 			spacer = fnt->getGlyphAdvance().x;
@@ -94,47 +94,48 @@ void po::TextBoxLayout::doLayout() {
 		
 		// if we're parsing the fanciness
 		if(isRichText) {
-//			// get the dictionary for this position
-//			poDictionary dict = parsedText.attributes(props.glyphCount);
-//			// keep track of how many glyphs we have total
-//			props.glyphCount++;
-//			
-//			// check if the font has changed
-//			if(dict.has("font")) {
-//				// there's one in hte dictionary
-//				poFont* tmp = (poFont*)dict.getPtr("font");
-//				int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
-//				
-//				// and it isn't the same as last time
-//				if(tmp != fnt && fnt->getPointSize() != tmpSize) {
-//					fnt = tmp;
-//					fnt->setPointSize(tmpSize);
-//					font_changed = true;
-//				}
-//			}
-//			else {
-//				// there's nothing in the dictionary
-//				if(fnt != getFont()) {
-//					// and the current font isn't the default one
-//					fnt = getFont();
-//					fnt->setPointSize(textSize);
-//					font_changed = true;
-//				}
-//			}
-//			
-//			// do what we need to do when the font switches
-//			if(font_changed) {
-//				fnt->setGlyph(' ');
-//				spacer = fnt->getGlyphAdvance().x;
-//			}
-//			
-//			if(dict.has("tracking")) {
-//				tracking_tmp = dict.getDouble("tracking");
-//			}
-//			
-//			if(dict.has("leading")) {
-//				props.leading = dict.getDouble("leading");
-//			}
+			// get the dictionary for this position
+			poDictionary dict = parsedText.attributes(props.glyphCount);
+			// keep track of how many glyphs we have total
+			props.glyphCount++;
+			
+			// check if the font has changed
+			if(dict.has("font")) {
+				// there's one in hte dictionary
+				poFont* tmp = (poFont*)dict.getPtr("font");
+				int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
+				
+				// and it isn't the same as last time
+				if(tmp != fnt || fnt->getPointSize() != tmpSize) {
+					fnt = tmp;
+					fnt->setPointSize(tmpSize);
+					font_changed = true;
+				}
+			}
+			else {
+				// there's nothing in the dictionary
+				if(fnt != getFont()) {
+					// and the current font isn't the default one
+					fnt = getFont();
+					fnt->setPointSize(textSize);
+					font_changed = true;
+                    std::cout << "Changed" << std::endl;
+				}
+			}
+			
+			// do what we need to do when the font switches
+			if(font_changed) {
+				fnt->setGlyph(' ');
+				spacer = fnt->getGlyphAdvance().x;
+			}
+			
+			if(dict.has("tracking")) {
+				tracking_tmp = dict.getFloat("tracking");
+			}
+			
+			if(dict.has("leading")) {
+				props.leading = dict.getFloat("leading");
+			}
 		}
 		
 		// got to the next codepoint, could be é or § or some other unicode bs, er ... non-english glyph

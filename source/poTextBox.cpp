@@ -362,36 +362,36 @@ void poTextBox::draw() {
 	poBitmapFont *bitmapFont = poGetBitmapFont(getFont(), layout.textSize);
 	
     if ( layout.isRichText ) {
-        //		int count = 0;
-        //		for(int i=0; i<getNumLines(); i++) {
-        //			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
-        //				po::setColor(poColor(textColor, getAppliedAlpha()));
-        //				
-        //				poDictionary dict = layout.getTextPropsAtIndex(count);
-        //				count++;
-        //				
-        //				// see if the user wants anything special
-        //				if(dict.has("color"))
-        //					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
-        //				
-        //				// a new font, perhaps?
-        //				if(dict.has("font")) {
-        //					poFont theFont = (poFont*)dict.getPtr("font");
-        //					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
-        //					poBitmapFont* newFont = getBitmapFont(theFont, fontSize);
-        //					
-        //					if(newFont != bitmapFont) {
-        //						bitmapFont = newFont;
-        //					}
-        //				}
-        //				else if(bitmapFont != regFont) {
-        //					bitmapFont = regFont;
-        //				}
-        //				
-        //				// very well, now draw it
-        //				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
-        //			}
-        //		}
+		int count = 0;
+		for(int i=0; i<getNumLines(); i++) {
+			BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
+				po::setColor(poColor(textColor, getAppliedAlpha()));
+				
+				poDictionary dict = layout.getTextPropsAtIndex(count);
+				count++;
+				
+				// see if the user wants anything special
+				if(dict.has("color"))
+					po::setColor(poColor(dict.getColor("color"), getAppliedAlpha()));
+				
+				// a new font, perhaps?
+				if(dict.has("font")) {
+					poFont *theFont = (poFont*)dict.getPtr("font");
+					int fontSize = dict.has("fontSize") ? dict.getInt("fontSize") : layout.textSize;
+					poBitmapFont* newFont = poGetBitmapFont(theFont, fontSize);
+					
+					if(newFont != bitmapFont) {
+						bitmapFont = newFont;
+					}
+				}
+				else if(bitmapFont->getFont() != layout.getFont()) {
+					bitmapFont = poGetBitmapFont(layout.getFont(), layout.textSize);
+				}
+				
+				// very well, now draw it
+				bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+			}
+		}
     }
     else {
 		po::setColor( poColor(textColor, getAppliedAlpha()) );
