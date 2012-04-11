@@ -173,7 +173,7 @@ void poControlPanel::addToggle( string _ID, poObject* obj ) {
     container->addChild( T );
 }
 
-void poControlPanel::addMessage( string _ID, poObject* obj ) {
+void poControlPanel::addButton( string _ID, poObject* obj ) {
     string prop = _ID;
     poButton* M = new poButton( _ID, obj );
 //    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );

@@ -61,6 +61,9 @@ struct poFontGlyphMetrics
 
 typedef std::vector<poFontGlyphMetrics> glyphMetricsVector;
 
+// http://www.freetype.org/freetype2/docs/reference/ft2-base_interface.html#FT_Encoding
+unsigned long encodeTag(const char tag[4]);
+std::string decodeTag(unsigned long encoded);
 
 class poFont : public poResource
 {
@@ -71,7 +74,7 @@ public:
 	static poFont *defaultFont();
 	
 	poFont();
-	poFont(const std::string &family_or_url, const std::string &style="");
+	poFont(const std::string &family_or_url, const std::string &style="", unsigned long encoding=encodeTag("unic"));
 	virtual ~poFont();
 	
     // FONT LOADING
@@ -82,6 +85,8 @@ public:
 	std::string         getStyleName() const;
 	std::string         getUrl() const;
 	bool                hasKerning() const;
+	std::vector<std::string>
+						getEncodings() const;
 	
 	int                 getPointSize() const;
 	void                setPointSize(int size);

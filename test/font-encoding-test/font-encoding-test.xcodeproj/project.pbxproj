@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8B564991534F6140053A4C9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8B564981534F6140053A4C9 /* AppDelegate.mm */; };
+		E8B5649B1534F6140053A4C9 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8B5649A1534F6140053A4C9 /* en.strings */; };
+		E8B5649D1534F6140053A4C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B5649C1534F6140053A4C9 /* main.m */; };
+		E8B5649F1534F6140053A4C9 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E8B5649E1534F6140053A4C9 /* main.pch */; };
+		E8B564A21534F6140053A4C9 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8B564A11534F6140053A4C9 /* main.xib */; };
+		E8B564A51534F6140053A4C9 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8B564A41534F6140053A4C9 /* poOpenGLView.mm */; };
+		E8B564A91534F6140053A4C9 /* font_encoding_testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B564A81534F6140053A4C9 /* font_encoding_testApp.cpp */; };
+		E8B564AB1534F6140053A4C9 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B564AA1534F6140053A4C9 /* AppConfig.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E8B564901534F6140053A4C9 /* font-encoding-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "font-encoding-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8B564951534F6140053A4C9 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E8B564961534F6140053A4C9 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E8B564971534F6140053A4C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E8B564981534F6140053A4C9 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E8B5649A1534F6140053A4C9 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E8B5649C1534F6140053A4C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E8B5649E1534F6140053A4C9 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E8B564A01534F6140053A4C9 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E8B564A11534F6140053A4C9 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E8B564A31534F6140053A4C9 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E8B564A41534F6140053A4C9 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E8B564A71534F6140053A4C9 /* font_encoding_testApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = font_encoding_testApp.h; sourceTree = "<group>"; };
+		E8B564A81534F6140053A4C9 /* font_encoding_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = font_encoding_testApp.cpp; sourceTree = "<group>"; };
+		E8B564AA1534F6140053A4C9 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8B5648D1534F6140053A4C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8B564851534F6130053A4C9 = {
+			isa = PBXGroup;
+			children = (
+				E8B564931534F6140053A4C9 /* font-encoding-test */,
+				E8B564911534F6140053A4C9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8B564911534F6140053A4C9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8B564901534F6140053A4C9 /* font-encoding-test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8B564931534F6140053A4C9 /* font-encoding-test */ = {
+			isa = PBXGroup;
+			children = (
+				E8B564941534F6140053A4C9 /* platform */,
+				E8B564A61534F6140053A4C9 /* application */,
+			);
+			path = "font-encoding-test";
+			sourceTree = "<group>";
+		};
+		E8B564941534F6140053A4C9 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E8B564951534F6140053A4C9 /* Debug.xcconfig */,
+				E8B564961534F6140053A4C9 /* Release.xcconfig */,
+				E8B564971534F6140053A4C9 /* AppDelegate.h */,
+				E8B564981534F6140053A4C9 /* AppDelegate.mm */,
+				E8B5649A1534F6140053A4C9 /* en.strings */,
+				E8B5649C1534F6140053A4C9 /* main.m */,
+				E8B5649E1534F6140053A4C9 /* main.pch */,
+				E8B564A01534F6140053A4C9 /* main.plist */,
+				E8B564A11534F6140053A4C9 /* main.xib */,
+				E8B564A31534F6140053A4C9 /* poOpenGLView.h */,
+				E8B564A41534F6140053A4C9 /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E8B564A61534F6140053A4C9 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E8B564A71534F6140053A4C9 /* font_encoding_testApp.h */,
+				E8B564A81534F6140053A4C9 /* font_encoding_testApp.cpp */,
+				E8B564AA1534F6140053A4C9 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8B5648F1534F6140053A4C9 /* font-encoding-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8B564AE1534F6140053A4C9 /* Build configuration list for PBXNativeTarget "font-encoding-test" */;
+			buildPhases = (
+				E8B5648C1534F6140053A4C9 /* Sources */,
+				E8B5648D1534F6140053A4C9 /* Frameworks */,
+				E8B5648E1534F6140053A4C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "font-encoding-test";
+			productName = "font-encoding-test";
+			productReference = E8B564901534F6140053A4C9 /* font-encoding-test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8B564871534F6130053A4C9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = E8B5648A1534F6130053A4C9 /* Build configuration list for PBXProject "font-encoding-test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8B564851534F6130053A4C9;
+			productRefGroup = E8B564911534F6140053A4C9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8B5648F1534F6140053A4C9 /* font-encoding-test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8B5648E1534F6140053A4C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8B5649B1534F6140053A4C9 /* en.strings in Resources */,
+				E8B5649F1534F6140053A4C9 /* main.pch in Resources */,
+				E8B564A21534F6140053A4C9 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8B5648C1534F6140053A4C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8B564991534F6140053A4C9 /* AppDelegate.mm in Sources */,
+				E8B5649D1534F6140053A4C9 /* main.m in Sources */,
+				E8B564A51534F6140053A4C9 /* poOpenGLView.mm in Sources */,
+				E8B564A91534F6140053A4C9 /* font_encoding_testApp.cpp in Sources */,
+				E8B564AB1534F6140053A4C9 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E8B564AC1534F6140053A4C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8B564951534F6140053A4C9 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8B564AD1534F6140053A4C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8B564961534F6140053A4C9 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E8B564AF1534F6140053A4C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E8B564B01534F6140053A4C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8B5648A1534F6130053A4C9 /* Build configuration list for PBXProject "font-encoding-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8B564AC1534F6140053A4C9 /* Debug */,
+				E8B564AD1534F6140053A4C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8B564AE1534F6140053A4C9 /* Build configuration list for PBXNativeTarget "font-encoding-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8B564AF1534F6140053A4C9 /* Debug */,
+				E8B564B01534F6140053A4C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8B564871534F6130053A4C9 /* Project object */;
+}

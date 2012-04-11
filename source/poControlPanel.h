@@ -56,7 +56,7 @@ public:
     void addPointSlider( string _ID, poPoint min=poPoint(0,0), poPoint max=poPoint(1,1) ,poObject* obj=NULL );
     void addColorSlider( string _ID, bool RGB=true ,poObject* obj=NULL );
     void addRadio( string _ID , vector<string> names, poObject* obj=NULL );
-    void addMessage( string _ID , poObject* obj=NULL );
+    void addButton( string _ID , poObject* obj=NULL );
     void addToggle( string _ID, poObject* obj=NULL );
     void autoResize();
     void saveSettings();

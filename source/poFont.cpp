@@ -90,6 +90,24 @@ using namespace std;
 #endif
 FT_Library poFont::lib = NULL;
 
+unsigned long encodeTag(const char tag[4]) {
+	unsigned long rez = 0;
+	rez |= tag[0] << 24;
+	rez |= tag[1] << 16;
+	rez |= tag[2] << 8;
+	rez |= tag[3];
+	return rez;
+}
+
+std::string decodeTag(unsigned long encoded) {
+	char tag[4];
+	tag[0] = (encoded >> 24) & 0xFF;
+	tag[1] = (encoded >> 16) & 0xFF;
+	tag[2] = (encoded >> 8) & 0xFF;
+	tag[3] = encoded & 0xFF;
+	return std::string(tag, tag+4);
+}
+
 bool poFont::fontExists(const std::string &family) {
 	std::string url;
 	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
@@ -113,7 +131,7 @@ poFont::poFont()
 		FT_Init_FreeType(&lib);
 }
 
-poFont::poFont(const std::string &family_or_url, const std::string &style)
+poFont::poFont(const std::string &family_or_url, const std::string &style, unsigned long encoding)
 :	face(NULL)
 ,	size(0)
 ,	url("")
@@ -152,6 +170,7 @@ poFont::poFont(const std::string &family_or_url, const std::string &style)
 	
 	this->url = url;
 	this->face = tmp;
+	FT_Select_Charmap(this->face, (FT_Encoding)encoding);
 
 	setPointSize(12);
 	setGlyph(0);
@@ -177,6 +196,16 @@ std::string poFont::getUrl() const {
 }
 bool poFont::hasKerning() const {
 	return (face->face_flags & FT_FACE_FLAG_KERNING) != 0;
+}
+
+std::vector<std::string> poFont::getEncodings() const {
+	char tag[4];
+	std::vector<std::string> encodings;
+	for(int i=0; i<face->num_charmaps; i++) {
+		FT_CharMap cmap = face->charmaps[i];
+		encodings.push_back(decodeTag(cmap->encoding));
+	}
+	return encodings;
 }
 
 int poFont::getPointSize() const {
