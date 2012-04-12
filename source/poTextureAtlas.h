@@ -19,7 +19,6 @@
 
 #pragma once
 
-#include "common.h"
 #include "poRect.h"
 #include "poPoint.h"
 #include "poTexture.h"

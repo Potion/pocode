@@ -30,4 +30,5 @@ GCC_SYMBOLS_PRIVATE_EXTERN = YES
 
 THE_FRAMEWORKS = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText
 
-
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER	= platform/main.pch

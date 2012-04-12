@@ -17,7 +17,6 @@
  *
  */
 
-#include "common.h"
 #include "poColor.h"
 #include "poMath.h"
 #include "poHelpers.h"

@@ -30,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4104472015374B560028D3E2 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.pch; path = platform/main.pch; sourceTree = SOURCE_ROOT; };
 		412A3EC21518E54F00B4C60D /* pocodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		412A3EC71518E54F00B4C60D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
 		412A3EC81518E54F00B4C60D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 				412A3EC91518E54F00B4C60D /* AppDelegate.h */,
 				412A3ECA1518E54F00B4C60D /* AppDelegate.mm */,
 				412A3ECC1518E54F00B4C60D /* main.m */,
+				4104472015374B560028D3E2 /* main.pch */,
 				412A3ECE1518E54F00B4C60D /* EAGLView.h */,
 				412A3ECF1518E54F00B4C60D /* EAGLView.mm */,
 				412A3ED11518E54F00B4C60D /* potionCodeViewController.h */,
@@ -254,6 +256,7 @@
 		412A3EFB1518E54F00B4C60D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREFIX_HEADER = platform/main.pch;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/platform\"",
@@ -264,6 +267,7 @@
 		412A3EFC1518E54F00B4C60D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREFIX_HEADER = platform/main.pch;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/platform\"",

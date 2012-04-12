@@ -19,8 +19,6 @@
 
 #pragma once
 
-#include "common.h"
-
 #include "poTween.h"
 #include "poEventCenter.h"
 #include "poDictionary.h"

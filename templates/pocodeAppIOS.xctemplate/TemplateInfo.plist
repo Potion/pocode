@@ -49,6 +49,13 @@
 			<key>Path</key>
 			<string>main.m</string>
 		</dict>
+		<key>../platform/main.pch</key>
+		<dict>
+			<key>Group</key>
+			<string>platform</string>
+			<key>Path</key>
+			<string>main.pch</string>
+		</dict>
 		<key>../platform/EAGLView.h</key>
 		<dict>
 			<key>Group</key>
@@ -210,6 +217,7 @@
 		<string>../platform/AppDelegate.h</string>
 		<string>../platform/AppDelegate.mm</string>
 		<string>../platform/main.m</string>
+		<string>../platform/main.pch</string>
 		<string>../platform/EAGLView.h</string>
 		<string>../platform/EAGLView.mm</string>
 		<string>../platform/potionCodeViewController.h</string>

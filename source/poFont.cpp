@@ -34,17 +34,17 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 using namespace std;
+
 #ifdef POTION_WIN32
-#
 
-#include "windows.h"
+	#include "windows.h"
 
-	bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
-		return false;
-	}
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+			return false;
+		}
 
 #elif defined(POTION_APPLE)
-#include <CoreFoundation/CoreFoundation.h>
+	#include <CoreFoundation/CoreFoundation.h>
 
 	#if defined(POTION_MAC)
 		#include <ApplicationServices/ApplicationServices.h>
