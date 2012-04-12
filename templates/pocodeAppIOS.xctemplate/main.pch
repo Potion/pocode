@@ -26,6 +26,8 @@
 
 #ifdef __cplusplus 
 
+#include <glm/ext.hpp>
+
 #include <map>
 #include <set>
 #include <list>
