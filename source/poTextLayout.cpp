@@ -87,7 +87,7 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 		range_start = utf8strlen(data->string.str());
 
 		if(data->layout->hasFont(node.name())) {
-            range.dict.set("font", data->layout->getFont(node.name()));
+            range_dict.set("font", data->layout->getFont(node.name()));
 		}
 		
 		if(!strcmp("u", node.name())) {
