@@ -28,7 +28,7 @@
 #include "poCamera.h"
 #include "poApplication.h"
 #include "poOpenGLState.h"
-#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
 
 poCameraType   poCamera::currentCameraType = PO_CAMERA_NONE;
 
