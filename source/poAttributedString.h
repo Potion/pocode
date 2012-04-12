@@ -35,6 +35,8 @@ namespace po {
 	struct Range {
 		Range(int s, int e);
 		int start, end;
+		
+		friend std::ostream &operator<<(std::ostream &out, const Range& r) {out<<"{"<<r.start<<","<<r.end<<"}"; return out;}
 	};
 
 	class AttributedString {

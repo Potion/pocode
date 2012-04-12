@@ -43,73 +43,52 @@ using namespace std;
 #pragma mark - Layout Helper -
 
 
-
-struct image_data {
-	poImage *image;
-	poAlignment align;
-};
-
 struct parse_data {
-	parse_data(po::TextLayout *layout) : layout(layout) {}
+	parse_data(po::TextLayout *l) 
+	: layout(l)
+	{}
 	
 	po::TextLayout *layout;
 	po::AttributedString string;
-	
-	std::vector<image_data> images;
 };
 
-image_data parseImageNode(const pugi::xml_node &node) {
-	image_data img;
-	img.image = NULL;
-	img.align = PO_ALIGN_TOP_LEFT;
-	
-//	img.image = getImage(node.attribute("src").value());
-	if(img.image != NULL && img.image->isValid()) {
-		
-	}
-	else {
-		
-	}
-
-	return img;
-}
-
 void parseText(const pugi::xml_node &node, parse_data *data) {
+	using namespace std;
 	using namespace pugi;
 	
 	if(!node)
 		return;
 	
-	int range_start = 0;
-	poDictionary range_dict;
+	int start;
+	poDictionary dict;
 	
 	if(node.type() == node_element) {
-		range_start = utf8strlen(data->string.str());
+		start = utf8strlen(data->string.str());
 
 		if(data->layout->hasFont(node.name())) {
-            range_dict.set("font", data->layout->getFont(node.name()));
+            dict.set("font", data->layout->getFont(node.name()));
 		}
 		
 		if(!strcmp("u", node.name())) {
-			range_dict.set("u",true);
+			dict.set("u",true);
 		}
 		
-		if(!strcmp("img", node.name())) {
-			image_data img = parseImageNode(node);
-		}
+//		if(!strcmp("img", node.name())) {
+//			image_data img = parseImageNode(node);
+//		}
 
 		xml_attribute attrib = node.first_attribute();
 		while(attrib) {
 			if(!strcmp(attrib.name(),"tracking"))
-				range_dict.set("tracking", attrib.as_float());
+				dict.set("tracking", attrib.as_float());
 			else
 			if(!strcmp(attrib.name(),"leading"))
-				range_dict.set("leading", attrib.as_float());
+				dict.set("leading", attrib.as_float());
 			else 
 			if(!strcmp(attrib.name(),"color")) {
 				poColor c;
 				if(c.set(attrib.value())) {
-					range_dict.set("color", c);
+					dict.set("color", c);
 				}
 			}
 			
@@ -120,6 +99,7 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(node.type() == node_pcdata) {
 		data->string.append(node.value());
 	}
+	
 	xml_node child = node.first_child();
 	while(child) {
 		parseText(child, data);
@@ -127,9 +107,10 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	}
 	
 	if(node.type() == node_element) {
-		int range_end = utf8strlen(data->string.str());
-		data->string.append(po::Range(range_start,range_end), range_dict);
-		range_dict = poDictionary();
+		int end = utf8strlen(data->string.str());
+		data->string.append(po::Range(start,end), dict);
+		
+		cout<<"{"<<start<<","<<end<<"} "<<dict<<endl;
 	}
 }
 

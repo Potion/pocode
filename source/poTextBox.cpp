@@ -331,6 +331,8 @@ void poTextBox::generateCachedTexture() {
 
 
 void poTextBox::draw() {
+	using namespace std;
+	
 	if(cached && cached->isValid()) {
 		po::BlendState blend = po::BlendState::preMultipliedBlending();
 		

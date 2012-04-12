@@ -96,7 +96,6 @@ string poDictionaryItem::toString() {
 
 
 poDictionary::poDictionary() {
-	shared.reset(new DictionaryImpl());
 }
 poDictionary poDictionary::copy() {
 	poDictionary dict;
@@ -104,57 +103,57 @@ poDictionary poDictionary::copy() {
 		if(iter->second.getType() == PO_DICTIONARY_T)
 			dict.set(iter->first, iter->second.getDictionary().copy());
 		else {
-			dict.shared->items[iter->first] = iter->second;
+			dict.items[iter->first] = iter->second;
 		}
 	}
 	return dict;
 }
 bool poDictionary::getBool(const string &s) const {
-	return shared->items.at(s).getBool();
+	return items.at(s).getBool();
 }
 int poDictionary::getInt(const string &s) const {
-	return shared->items.at(s).getInt();
+	return items.at(s).getInt();
 }
 float poDictionary::getFloat(const string &s) const {
-	return shared->items.at(s).getFloat();
+	return items.at(s).getFloat();
 }
 string poDictionary::getString(const string &s) const {
-	return shared->items.at(s).getString();
+	return items.at(s).getString();
 }
 poPoint poDictionary::getPoint(const std::string &s) const {
-	return shared->items.at(s).getPoint();
+	return items.at(s).getPoint();
 }
 poColor poDictionary::getColor(const std::string &s) const {
-	return shared->items.at(s).getColor();
+	return items.at(s).getColor();
 }
 void* poDictionary::getPtr(const string &s) const {
-	return shared->items.at(s).getPtr();
+	return items.at(s).getPtr();
 }
 poDictionary poDictionary::getDictionary(const string &s) const {
-	return shared->items.at(s).getDictionary();
+	return items.at(s).getDictionary();
 }
 poDictionaryType poDictionary::getType(const string &s) const {
-	return shared->items.at(s).getType();
+	return items.at(s).getType();
 }
 poDictionaryItem poDictionary::get(const string &s) const {
-	return shared->items.at(s);
+	return items.at(s);
 }
 poDictionary& poDictionary::set(const string &s, const poDictionaryItem_t &di) {
-	shared->items[s] = di;
+	items[s] = di;
 	return *this;
 }
 poDictionary& poDictionary::append(const poDictionary &d) {
 	poDictionaryItemMap::const_iterator iter = d.begin();
 	for(; iter!=d.end(); ++iter) {
-		shared->items[iter->first] = iter->second;
+		items[iter->first] = iter->second;
 	}
 	return *this;
 }
 bool poDictionary::has(const string &s) const {
-	return shared->items.find(s) != shared->items.end();
+	return items.count(s) > 0;
 }
 size_t poDictionary::count() const {
-	return shared->items.size();
+	return items.size();
 }
 vector<string> poDictionary::keys() const {
 	vector<string> response;
@@ -165,7 +164,7 @@ vector<string> poDictionary::keys() const {
 }
 void poDictionary::write(poXMLNode node) {
 	node.setName("item");
-	for(poDictionaryItemMap::iterator iter=shared->items.begin(); iter!=shared->items.end(); ++iter) {
+	for(poDictionaryItemMap::iterator iter=items.begin(); iter!=items.end(); ++iter) {
 		poXMLNode item = node.addChild("item");
 		
 		item.setAttribute("name", iter->first);
@@ -234,8 +233,6 @@ void poDictionary::read(poXMLNode node) {
 	}
 }
 void poDictionary::read(const std::string &url) {
-	shared.reset(new DictionaryImpl);
-	
 	poXMLDocument doc(url);
 	if(doc.isValid()) {
 		poXMLNode item = doc.getRootNode().getFirstChild();
@@ -246,16 +243,16 @@ void poDictionary::read(const std::string &url) {
 	}
 }
 poDictionaryItemMap::iterator poDictionary::begin() {
-	return shared->items.begin();
+	return items.begin();
 }
 poDictionaryItemMap::iterator poDictionary::end() {
-	return shared->items.end();
+	return items.end();
 }
 poDictionaryItemMap::const_iterator poDictionary::begin() const {
-	return shared->items.begin();
+	return items.begin();
 }
 poDictionaryItemMap::const_iterator poDictionary::end() const {
-	return shared->items.end();
+	return items.end();
 }
 
 

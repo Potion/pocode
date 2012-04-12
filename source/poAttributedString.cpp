@@ -62,10 +62,16 @@ namespace po {
 	
 	// all the dictionaries that apply to a given point combined 
 	poDictionary AttributedString::attributes(int idx) {
+		using namespace std;
+		
 		// TODO verify this does what i want
 		DictionaryVec filtered;
 		// strip out any ranges that just don't apply
 		std::remove_copy_if(attribs.begin(), attribs.end(), back_inserter(filtered), OutsideRange(idx));
+		
+		for(int i=0; i<attribs.size(); i++) {
+			RangeDict &r = attribs[i];
+		}
 		
 		if(!filtered.empty()) {
 			// sort by distance to the current idx
@@ -80,8 +86,7 @@ namespace po {
 			std::sort(filtered.begin(), filtered.end(), RangeDictSorter(idx));
 			
 			poDictionary response = filtered.front().dict;
-			DictionaryVec::iterator i;
-			for(i=filtered.begin()+1; i!=filtered.end(); ++i) {
+			for(DictionaryVec::iterator i=filtered.begin()+1; i!=filtered.end(); ++i) {
 				response.append(i->dict);
 			}
 			return response;
