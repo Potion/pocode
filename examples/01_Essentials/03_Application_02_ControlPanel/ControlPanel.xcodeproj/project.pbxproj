@@ -7,38 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41AB2E5F150FE67700FBEDE8 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */; };
-		41AB2E61150FE67700FBEDE8 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E60150FE67700FBEDE8 /* en.strings */; };
-		41AB2E63150FE67700FBEDE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E62150FE67700FBEDE8 /* main.m */; };
-		41AB2E65150FE67700FBEDE8 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E64150FE67700FBEDE8 /* main.pch */; };
-		41AB2E68150FE67700FBEDE8 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E67150FE67700FBEDE8 /* main.xib */; };
-		41AB2E6B150FE67700FBEDE8 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */; };
-		41AB2E6F150FE67700FBEDE8 /* ControlPanelApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */; };
-		41AB2E71150FE67700FBEDE8 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */; };
-		41AB2E73150FE67700FBEDE8 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */; };
+		41044902153759180028D3E2 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41044901153759180028D3E2 /* AppDelegate.mm */; };
+		41044904153759180028D3E2 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41044903153759180028D3E2 /* en.strings */; };
+		41044906153759180028D3E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41044905153759180028D3E2 /* main.m */; };
+		41044908153759180028D3E2 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 41044907153759180028D3E2 /* main.pch */; };
+		4104490B153759180028D3E2 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4104490A153759180028D3E2 /* main.xib */; };
+		4104490E153759180028D3E2 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4104490D153759180028D3E2 /* poOpenGLView.mm */; };
+		41044912153759180028D3E2 /* ControlPanelApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41044911153759180028D3E2 /* ControlPanelApp.cpp */; };
+		41044914153759180028D3E2 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41044913153759180028D3E2 /* AppConfig.cpp */; };
+		41044916153759180028D3E2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41044915153759180028D3E2 /* OpenSans-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		41AB2E56150FE67700FBEDE8 /* ControlPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41AB2E5D150FE67700FBEDE8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
-		41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
-		41AB2E60150FE67700FBEDE8 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
-		41AB2E62150FE67700FBEDE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
-		41AB2E64150FE67700FBEDE8 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41AB2E66150FE67700FBEDE8 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
-		41AB2E67150FE67700FBEDE8 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41AB2E69150FE67700FBEDE8 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
-		41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		41AB2E6D150FE67700FBEDE8 /* ControlPanelApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlPanelApp.h; sourceTree = "<group>"; };
-		41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControlPanelApp.cpp; sourceTree = "<group>"; };
-		41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
-		41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		410448F9153759170028D3E2 /* ControlPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		410448FE153759180028D3E2 /* Debug.xcconfig */ = {isa = PBXFileReference; name = Debug.xcconfig; path = ../platform_OSX/Debug.xcconfig; sourceTree = "<group>"; };
+		410448FF153759180028D3E2 /* Release.xcconfig */ = {isa = PBXFileReference; name = Release.xcconfig; path = ../platform_OSX/Release.xcconfig; sourceTree = "<group>"; };
+		41044900153759180028D3E2 /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform_OSX/AppDelegate.h; sourceTree = "<group>"; };
+		41044901153759180028D3E2 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform_OSX/AppDelegate.mm; sourceTree = "<group>"; };
+		41044903153759180028D3E2 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform_OSX/en.strings; sourceTree = "<group>"; };
+		41044905153759180028D3E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform_OSX/main.m; sourceTree = "<group>"; };
+		41044907153759180028D3E2 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform_OSX/main.pch; sourceTree = "<group>"; };
+		41044909153759180028D3E2 /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform_OSX/main.plist; sourceTree = "<group>"; };
+		4104490A153759180028D3E2 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform_OSX/main.xib; sourceTree = "<group>"; };
+		4104490C153759180028D3E2 /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform_OSX/poOpenGLView.h; sourceTree = "<group>"; };
+		4104490D153759180028D3E2 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform_OSX/poOpenGLView.mm; sourceTree = "<group>"; };
+		41044910153759180028D3E2 /* ControlPanelApp.h */ = {isa = PBXFileReference; path = ControlPanelApp.h; sourceTree = "<group>"; };
+		41044911153759180028D3E2 /* ControlPanelApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControlPanelApp.cpp; sourceTree = "<group>"; };
+		41044913153759180028D3E2 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		41044915153759180028D3E2 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform_OSX/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		41AB2E53150FE67700FBEDE8 /* Frameworks */ = {
+		410448F6153759170028D3E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,56 +48,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		41AB2E4B150FE67700FBEDE8 = {
+		410448EE153759160028D3E2 = {
 			isa = PBXGroup;
 			children = (
-				41AB2E59150FE67700FBEDE8 /* ControlPanel */,
-				41AB2E57150FE67700FBEDE8 /* Products */,
+				410448FC153759170028D3E2 /* ControlPanel */,
+				410448FA153759170028D3E2 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		41AB2E57150FE67700FBEDE8 /* Products */ = {
+		410448FA153759170028D3E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				41AB2E56150FE67700FBEDE8 /* ControlPanel.app */,
+				410448F9153759170028D3E2 /* ControlPanel.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		41AB2E59150FE67700FBEDE8 /* ControlPanel */ = {
+		410448FC153759170028D3E2 /* ControlPanel */ = {
 			isa = PBXGroup;
 			children = (
-				41AB2E5A150FE67700FBEDE8 /* platform */,
-				41AB2E6C150FE67700FBEDE8 /* application */,
+				410448FD153759180028D3E2 /* platform_OSX */,
+				4104490F153759180028D3E2 /* application */,
 			);
 			path = ControlPanel;
 			sourceTree = "<group>";
 		};
-		41AB2E5A150FE67700FBEDE8 /* platform */ = {
+		410448FD153759180028D3E2 /* platform_OSX */ = {
 			isa = PBXGroup;
 			children = (
-				41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */,
-				41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */,
-				41AB2E5D150FE67700FBEDE8 /* AppDelegate.h */,
-				41AB2E5E150FE67700FBEDE8 /* AppDelegate.mm */,
-				41AB2E60150FE67700FBEDE8 /* en.strings */,
-				41AB2E62150FE67700FBEDE8 /* main.m */,
-				41AB2E64150FE67700FBEDE8 /* main.pch */,
-				41AB2E66150FE67700FBEDE8 /* main.plist */,
-				41AB2E67150FE67700FBEDE8 /* main.xib */,
-				41AB2E72150FE67700FBEDE8 /* OpenSans-Regular.ttf */,
-				41AB2E69150FE67700FBEDE8 /* poOpenGLView.h */,
-				41AB2E6A150FE67700FBEDE8 /* poOpenGLView.mm */,
+				410448FE153759180028D3E2 /* Debug.xcconfig */,
+				410448FF153759180028D3E2 /* Release.xcconfig */,
+				41044900153759180028D3E2 /* AppDelegate.h */,
+				41044901153759180028D3E2 /* AppDelegate.mm */,
+				41044903153759180028D3E2 /* en.strings */,
+				41044905153759180028D3E2 /* main.m */,
+				41044907153759180028D3E2 /* main.pch */,
+				41044909153759180028D3E2 /* main.plist */,
+				4104490A153759180028D3E2 /* main.xib */,
+				4104490C153759180028D3E2 /* poOpenGLView.h */,
+				4104490D153759180028D3E2 /* poOpenGLView.mm */,
+				41044915153759180028D3E2 /* OpenSans-Regular.ttf */,
 			);
-			name = platform;
+			name = platform_OSX;
 			sourceTree = "<group>";
 		};
-		41AB2E6C150FE67700FBEDE8 /* application */ = {
+		4104490F153759180028D3E2 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				41AB2E6D150FE67700FBEDE8 /* ControlPanelApp.h */,
-				41AB2E6E150FE67700FBEDE8 /* ControlPanelApp.cpp */,
-				41AB2E70150FE67700FBEDE8 /* AppConfig.cpp */,
+				41044910153759180028D3E2 /* ControlPanelApp.h */,
+				41044911153759180028D3E2 /* ControlPanelApp.cpp */,
+				41044913153759180028D3E2 /* AppConfig.cpp */,
 			);
 			name = application;
 			sourceTree = "<group>";
@@ -105,13 +105,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		41AB2E55150FE67700FBEDE8 /* ControlPanel */ = {
+		410448F8153759170028D3E2 /* ControlPanel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 41AB2E76150FE67700FBEDE8 /* Build configuration list for PBXNativeTarget "ControlPanel" */;
+			buildConfigurationList = 41044919153759180028D3E2 /* Build configuration list for PBXNativeTarget "ControlPanel" */;
 			buildPhases = (
-				41AB2E52150FE67700FBEDE8 /* Sources */,
-				41AB2E53150FE67700FBEDE8 /* Frameworks */,
-				41AB2E54150FE67700FBEDE8 /* Resources */,
+				410448F5153759170028D3E2 /* Sources */,
+				410448F6153759170028D3E2 /* Frameworks */,
+				410448F7153759170028D3E2 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -119,85 +119,85 @@
 			);
 			name = ControlPanel;
 			productName = ControlPanel;
-			productReference = 41AB2E56150FE67700FBEDE8 /* ControlPanel.app */;
+			productReference = 410448F9153759170028D3E2 /* ControlPanel.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		41AB2E4D150FE67700FBEDE8 /* Project object */ = {
+		410448F0153759160028D3E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 41AB2E50150FE67700FBEDE8 /* Build configuration list for PBXProject "ControlPanel" */;
+			buildConfigurationList = 410448F3153759160028D3E2 /* Build configuration list for PBXProject "ControlPanel" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 41AB2E4B150FE67700FBEDE8;
-			productRefGroup = 41AB2E57150FE67700FBEDE8 /* Products */;
+			mainGroup = 410448EE153759160028D3E2;
+			productRefGroup = 410448FA153759170028D3E2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				41AB2E55150FE67700FBEDE8 /* ControlPanel */,
+				410448F8153759170028D3E2 /* ControlPanel */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		41AB2E54150FE67700FBEDE8 /* Resources */ = {
+		410448F7153759170028D3E2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41AB2E61150FE67700FBEDE8 /* en.strings in Resources */,
-				41AB2E65150FE67700FBEDE8 /* main.pch in Resources */,
-				41AB2E68150FE67700FBEDE8 /* main.xib in Resources */,
-				41AB2E73150FE67700FBEDE8 /* OpenSans-Regular.ttf in Resources */,
+				41044904153759180028D3E2 /* en.strings in Resources */,
+				41044908153759180028D3E2 /* main.pch in Resources */,
+				4104490B153759180028D3E2 /* main.xib in Resources */,
+				41044916153759180028D3E2 /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		41AB2E52150FE67700FBEDE8 /* Sources */ = {
+		410448F5153759170028D3E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41AB2E5F150FE67700FBEDE8 /* AppDelegate.mm in Sources */,
-				41AB2E63150FE67700FBEDE8 /* main.m in Sources */,
-				41AB2E6B150FE67700FBEDE8 /* poOpenGLView.mm in Sources */,
-				41AB2E6F150FE67700FBEDE8 /* ControlPanelApp.cpp in Sources */,
-				41AB2E71150FE67700FBEDE8 /* AppConfig.cpp in Sources */,
+				41044902153759180028D3E2 /* AppDelegate.mm in Sources */,
+				41044906153759180028D3E2 /* main.m in Sources */,
+				4104490E153759180028D3E2 /* poOpenGLView.mm in Sources */,
+				41044912153759180028D3E2 /* ControlPanelApp.cpp in Sources */,
+				41044914153759180028D3E2 /* AppConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		41AB2E74150FE67700FBEDE8 /* Debug */ = {
+		41044917153759180028D3E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41AB2E5B150FE67700FBEDE8 /* Debug.xcconfig */;
+			baseConfigurationReference = 410448FE153759180028D3E2 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
-		41AB2E75150FE67700FBEDE8 /* Release */ = {
+		41044918153759180028D3E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41AB2E5C150FE67700FBEDE8 /* Release.xcconfig */;
+			baseConfigurationReference = 410448FF153759180028D3E2 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
-		41AB2E77150FE67700FBEDE8 /* Debug */ = {
+		4104491A153759180028D3E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
 			name = Debug;
 		};
-		41AB2E78150FE67700FBEDE8 /* Release */ = {
+		4104491B153759180028D3E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
@@ -206,25 +206,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		41AB2E50150FE67700FBEDE8 /* Build configuration list for PBXProject "ControlPanel" */ = {
+		410448F3153759160028D3E2 /* Build configuration list for PBXProject "ControlPanel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				41AB2E74150FE67700FBEDE8 /* Debug */,
-				41AB2E75150FE67700FBEDE8 /* Release */,
+				41044917153759180028D3E2 /* Debug */,
+				41044918153759180028D3E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		41AB2E76150FE67700FBEDE8 /* Build configuration list for PBXNativeTarget "ControlPanel" */ = {
+		41044919153759180028D3E2 /* Build configuration list for PBXNativeTarget "ControlPanel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				41AB2E77150FE67700FBEDE8 /* Debug */,
-				41AB2E78150FE67700FBEDE8 /* Release */,
+				4104491A153759180028D3E2 /* Debug */,
+				4104491B153759180028D3E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 41AB2E4D150FE67700FBEDE8 /* Project object */;
+	rootObject = 410448F0153759160028D3E2 /* Project object */;
 }
