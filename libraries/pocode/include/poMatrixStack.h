@@ -31,9 +31,9 @@
 #define GLM_PRECISION_MEDIUMP_INT 
 #define GLM_PRECISION_MEDIUMP_FLOAT
 
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/type_ptr.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
 
 #include <stack>
 

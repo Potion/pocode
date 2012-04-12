@@ -28,6 +28,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include <glm/ext.hpp>
+
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
 #include <boost/variant.hpp>
