@@ -24,7 +24,9 @@
 	#import <Foundation/Foundation.h>
 #endif
 
-#ifdef __cplusplus 
+#ifdef __cplusplus
+
+#include <glm/ext.hpp>
 
 #include <map>
 #include <set>
