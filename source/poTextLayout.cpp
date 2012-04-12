@@ -80,17 +80,18 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(!node)
 		return;
 	
-	po::RangeDict range;
+	int range_start = 0;
+	poDictionary range_dict;
 	
 	if(node.type() == node_element) {
-		range.range.start = utf8strlen(data->string.str());
+		range_start = utf8strlen(data->string.str());
 
 		// if(data->layout->hasFont(node.name())) {
 		// 	range.dict.setPtr("font", data->layout->font(node.name()));
 		// }
 		
 		if(!strcmp("u", node.name())) {
-			range.dict.set("u",true);
+			range_dict.set("u",true);
 		}
 		
 		if(!strcmp("img", node.name())) {
@@ -100,15 +101,15 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 		xml_attribute attrib = node.first_attribute();
 		while(attrib) {
 			if(!strcmp(attrib.name(),"tracking"))
-				range.dict.set("tracking", attrib.as_float());
+				range_dict.set("tracking", attrib.as_float());
 			else
 			if(!strcmp(attrib.name(),"leading"))
-				range.dict.set("leading", attrib.as_float());
+				range_dict.set("leading", attrib.as_float());
 			else 
 			if(!strcmp(attrib.name(),"color")) {
 				poColor c;
 				if(c.set(attrib.value())) {
-					range.dict.set("color", c);
+					range_dict.set("color", c);
 				}
 			}
 			
@@ -126,8 +127,9 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	}
 	
 	if(node.type() == node_element) {
-		range.range.end = utf8strlen(data->string.str());
-		data->string.append(range);
+		int range_end = utf8strlen(data->string.str());
+		data->string.append(po::Range(range_start,range_end), range_dict);
+		range_dict = poDictionary();
 	}
 }
 

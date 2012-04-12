@@ -33,33 +33,14 @@
 namespace po {
 	
 	struct Range {
+		Range(int s, int e);
 		int start, end;
 	};
-
-	struct RangeDict {
-		Range range;
-		poDictionary dict;
-	};
-
-	struct RangeDictSorter {
-		int idx;
-		RangeDictSorter(int idx);
-		bool operator()(const RangeDict &a, const RangeDict &b);
-	};
-
-	struct OutsideRange {
-		int idx;
-		OutsideRange(int idx);
-		bool operator()(const RangeDict &a);
-	};
-
-	typedef std::vector<RangeDict> DictionaryVec;
 
 	class AttributedString {
 	public:
 		AttributedString &append(const std::string &str);
 		AttributedString &append(Range r, const poDictionary &dict);
-		AttributedString &append(RangeDict r);
 		
 		// all the dictionaries that apply to a given point combined 
 		poDictionary attributes(int idx);
@@ -71,6 +52,23 @@ namespace po {
 		std::string::const_iterator end() const;
 		
 	private:
+		struct RangeDict {
+			RangeDict(Range r, const poDictionary &d);
+			Range range;
+			poDictionary dict;
+		};
+		struct RangeDictSorter {
+			int idx;
+			RangeDictSorter(int idx);
+			bool operator()(const RangeDict &a, const RangeDict &b);
+		};
+		struct OutsideRange {
+			int idx;
+			OutsideRange(int idx);
+			bool operator()(const RangeDict &a);
+		};
+		typedef std::vector<RangeDict> DictionaryVec;
+		
 		std::string string;
 		DictionaryVec attribs;
 	};
