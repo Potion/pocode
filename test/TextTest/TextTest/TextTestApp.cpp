@@ -31,16 +31,16 @@ TextTestApp::TextTestApp() {
 	con_bold = poGetFont("Helvetica Neue", "Condensed Bold");
 	huge = poGetFont("Helvetica Neue", "a");
 		
-//	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
-//						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
-//						"<a color='#ff0000'>aBp</a><span tracking='1.5'>cdefghi</span>jklm\n"
-//						"nopqr<bi color='#f0f000'>stuvwxyz</bi>\n"
-//						"<cb>1234567890</cb> Hello";
+	std::string text =	"<b>ABCD</b>EFGHIJKLM\n"
+						"NOPQR<i color='#00f0f0'>STUV</i>WXYZ\n"
+						"<a color='#ff0000'>aBp</a><span tracking='1.5'>cdefghi</span>jklm\n"
+						"nopqr<bi color='#f0f000'>stuvwxyz</bi>\n"
+						"<cb>1234567890</cb> Hello";
 
-	std::string text = "hello world, lets make sure the line doesn't break in the middle of the pepper";
+	//std::string text = "hello world, lets make sure the line doesn't break in the middle of the pepper";
 	
-	tb = (poTextBox*)addChild(new poTextBox(300));
-//	tb->setRichText(true);
+	tb = new poTextBox(300);
+	tb->setRichText(true);
 	tb->setAlignment(PO_ALIGN_BOTTOM_LEFT);
 	tb->setTextAlignment(PO_ALIGN_LEFT);
 	tb->position = getWindowCenter();
@@ -55,6 +55,8 @@ TextTestApp::TextTestApp() {
 	tb->setTextSize(12);
 	tb->textColor = poColor::white;
 	tb->doLayout();
+    
+    addChild(tb);
 	
 //	tb->drawBounds = PO_TEXT_BOX_STROKE_ALL;
 

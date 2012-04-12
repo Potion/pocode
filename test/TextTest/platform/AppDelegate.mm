@@ -237,6 +237,9 @@ void applicationReshapeWindow(poWindow* win, poRect r) {
 	[window setFrame:new_frame display:YES];
 }
 
+std::string applicationGetResourceDirectory() {
+}
+
 std::string applicationGetSupportDirectory() {
 	return "";
 }

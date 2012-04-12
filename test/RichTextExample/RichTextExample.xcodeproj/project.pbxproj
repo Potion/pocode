@@ -1,0 +1,226 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAB042C81534EB0900A9DC6B /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAB042C71534EB0900A9DC6B /* AppDelegate.mm */; };
+		AAB042CA1534EB0900A9DC6B /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAB042C91534EB0900A9DC6B /* en.strings */; };
+		AAB042CC1534EB0900A9DC6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB042CB1534EB0900A9DC6B /* main.m */; };
+		AAB042CE1534EB0900A9DC6B /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = AAB042CD1534EB0900A9DC6B /* main.pch */; };
+		AAB042D11534EB0900A9DC6B /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB042D01534EB0900A9DC6B /* main.xib */; };
+		AAB042D41534EB0900A9DC6B /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAB042D31534EB0900A9DC6B /* poOpenGLView.mm */; };
+		AAB042D81534EB0900A9DC6B /* RichTextExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB042D71534EB0900A9DC6B /* RichTextExampleApp.cpp */; };
+		AAB042DA1534EB0900A9DC6B /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB042D91534EB0900A9DC6B /* AppConfig.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAB042BF1534EB0900A9DC6B /* RichTextExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RichTextExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAB042C41534EB0900A9DC6B /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AAB042C51534EB0900A9DC6B /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AAB042C61534EB0900A9DC6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AAB042C71534EB0900A9DC6B /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AAB042C91534EB0900A9DC6B /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		AAB042CB1534EB0900A9DC6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AAB042CD1534EB0900A9DC6B /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		AAB042CF1534EB0900A9DC6B /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		AAB042D01534EB0900A9DC6B /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		AAB042D21534EB0900A9DC6B /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		AAB042D31534EB0900A9DC6B /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		AAB042D61534EB0900A9DC6B /* RichTextExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextExampleApp.h; sourceTree = "<group>"; };
+		AAB042D71534EB0900A9DC6B /* RichTextExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RichTextExampleApp.cpp; sourceTree = "<group>"; };
+		AAB042D91534EB0900A9DC6B /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAB042BC1534EB0900A9DC6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAB042B41534EB0900A9DC6B = {
+			isa = PBXGroup;
+			children = (
+				AAB042C21534EB0900A9DC6B /* RichTextExample */,
+				AAB042C01534EB0900A9DC6B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAB042C01534EB0900A9DC6B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAB042BF1534EB0900A9DC6B /* RichTextExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAB042C21534EB0900A9DC6B /* RichTextExample */ = {
+			isa = PBXGroup;
+			children = (
+				AAB042C31534EB0900A9DC6B /* platform */,
+				AAB042D51534EB0900A9DC6B /* application */,
+			);
+			path = RichTextExample;
+			sourceTree = "<group>";
+		};
+		AAB042C31534EB0900A9DC6B /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AAB042C41534EB0900A9DC6B /* Debug.xcconfig */,
+				AAB042C51534EB0900A9DC6B /* Release.xcconfig */,
+				AAB042C61534EB0900A9DC6B /* AppDelegate.h */,
+				AAB042C71534EB0900A9DC6B /* AppDelegate.mm */,
+				AAB042C91534EB0900A9DC6B /* en.strings */,
+				AAB042CB1534EB0900A9DC6B /* main.m */,
+				AAB042CD1534EB0900A9DC6B /* main.pch */,
+				AAB042CF1534EB0900A9DC6B /* main.plist */,
+				AAB042D01534EB0900A9DC6B /* main.xib */,
+				AAB042D21534EB0900A9DC6B /* poOpenGLView.h */,
+				AAB042D31534EB0900A9DC6B /* poOpenGLView.mm */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AAB042D51534EB0900A9DC6B /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AAB042D61534EB0900A9DC6B /* RichTextExampleApp.h */,
+				AAB042D71534EB0900A9DC6B /* RichTextExampleApp.cpp */,
+				AAB042D91534EB0900A9DC6B /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAB042BE1534EB0900A9DC6B /* RichTextExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAB042DD1534EB0900A9DC6B /* Build configuration list for PBXNativeTarget "RichTextExample" */;
+			buildPhases = (
+				AAB042BB1534EB0900A9DC6B /* Sources */,
+				AAB042BC1534EB0900A9DC6B /* Frameworks */,
+				AAB042BD1534EB0900A9DC6B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RichTextExample;
+			productName = RichTextExample;
+			productReference = AAB042BF1534EB0900A9DC6B /* RichTextExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAB042B61534EB0900A9DC6B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Vargatron;
+			};
+			buildConfigurationList = AAB042B91534EB0900A9DC6B /* Build configuration list for PBXProject "RichTextExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AAB042B41534EB0900A9DC6B;
+			productRefGroup = AAB042C01534EB0900A9DC6B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAB042BE1534EB0900A9DC6B /* RichTextExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAB042BD1534EB0900A9DC6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAB042CA1534EB0900A9DC6B /* en.strings in Resources */,
+				AAB042CE1534EB0900A9DC6B /* main.pch in Resources */,
+				AAB042D11534EB0900A9DC6B /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAB042BB1534EB0900A9DC6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAB042C81534EB0900A9DC6B /* AppDelegate.mm in Sources */,
+				AAB042CC1534EB0900A9DC6B /* main.m in Sources */,
+				AAB042D41534EB0900A9DC6B /* poOpenGLView.mm in Sources */,
+				AAB042D81534EB0900A9DC6B /* RichTextExampleApp.cpp in Sources */,
+				AAB042DA1534EB0900A9DC6B /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AAB042DB1534EB0900A9DC6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAB042C41534EB0900A9DC6B /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AAB042DC1534EB0900A9DC6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAB042C51534EB0900A9DC6B /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		AAB042DE1534EB0900A9DC6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AAB042DF1534EB0900A9DC6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAB042B91534EB0900A9DC6B /* Build configuration list for PBXProject "RichTextExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAB042DB1534EB0900A9DC6B /* Debug */,
+				AAB042DC1534EB0900A9DC6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAB042DD1534EB0900A9DC6B /* Build configuration list for PBXNativeTarget "RichTextExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAB042DE1534EB0900A9DC6B /* Debug */,
+				AAB042DF1534EB0900A9DC6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAB042B61534EB0900A9DC6B /* Project object */;
+}
