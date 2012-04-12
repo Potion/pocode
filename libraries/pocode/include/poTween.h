@@ -19,7 +19,6 @@
 
 #pragma once
 
-#include "common.h"
 #include "poEnums.h"
 #include "poPoint.h"
 #include "poDictionary.h"

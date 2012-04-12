@@ -27,8 +27,6 @@
 
 #pragma once 
 
-#include "common.h"
-
 #include <string>
 #include <vector>
 #include <pugixml.hpp>

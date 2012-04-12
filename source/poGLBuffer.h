@@ -19,8 +19,6 @@
 
 #pragma once
 
-#include "common.h"
-
 class poGLBufferConfig {
 public:
 	poGLBufferConfig();
