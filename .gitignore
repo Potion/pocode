@@ -37,7 +37,6 @@ profile
 *.[Oo]bj
 *.user
 *.aps
-*.pch
 *.vspscc
 *.vssscc
 *_i.c
