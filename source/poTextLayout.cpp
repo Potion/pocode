@@ -109,8 +109,6 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	if(node.type() == node_element) {
 		int end = utf8strlen(data->string.str());
 		data->string.append(po::Range(start,end), dict);
-		
-		cout<<"{"<<start<<","<<end<<"} "<<dict<<endl;
 	}
 }
 

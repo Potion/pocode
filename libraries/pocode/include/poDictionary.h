@@ -105,8 +105,5 @@ public:
 	poDictionaryItemMap::const_iterator end() const;
 	
 private:
-	struct DictionaryImpl {
-		poDictionaryItemMap items;
-	};
-	boost::shared_ptr<DictionaryImpl> shared;
+	poDictionaryItemMap items;
 };

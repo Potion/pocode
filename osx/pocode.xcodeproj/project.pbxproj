@@ -267,7 +267,7 @@
 		E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextureAtlas.cpp; path = ../source/poTextureAtlas.cpp; sourceTree = "<group>"; };
 		E802C75F13D76F9100CBEB1C /* poBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poBitmapFont.h; path = ../source/poBitmapFont.h; sourceTree = "<group>"; };
 		E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poBitmapFont.cpp; path = ../source/poBitmapFont.cpp; sourceTree = "<group>"; };
-		E80625911396FEDA00615CCB /* libpocode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libpocode.a; path = libpocode_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E80625911396FEDA00615CCB /* libpocode_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82CC343146DCA2A003718FE /* poPath_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poPath_test.cpp; path = regression/poPath_test.cpp; sourceTree = SOURCE_ROOT; };
 		E83092ED13D09C9100836802 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
 		E83095F0132FD0D600080C86 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 		E8B2D06C132E9CA7002BE3D9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E80625911396FEDA00615CCB /* libpocode.a */,
+				E80625911396FEDA00615CCB /* libpocode_d.a */,
 				E84CEC5C142A2F48008B3E3E /* libpocode_iOS_d.a */,
 				E8D8F309144C8DEA0077F6DA /* potionCode_reg */,
 				AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator_d.a */,
@@ -746,7 +746,7 @@
 			);
 			name = pocode_osx;
 			productName = potionLib;
-			productReference = E80625911396FEDA00615CCB /* libpocode.a */;
+			productReference = E80625911396FEDA00615CCB /* libpocode_d.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		E84CEC5B142A2F48008B3E3E /* pocode_iOS */ = {
