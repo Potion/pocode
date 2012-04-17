@@ -7,11 +7,10 @@
 #include "BasicObjectEventsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 BasicObjectEventsApp::BasicObjectEventsApp() {
 	
 	// Add a camera
@@ -69,21 +68,19 @@ BasicObjectEventsApp::BasicObjectEventsApp() {
 	addEvent(PO_KEY_DOWN_EVENT, this);					// Add a "key down" event to reset the color
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 BasicObjectEventsApp::~BasicObjectEventsApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void BasicObjectEventsApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void BasicObjectEventsApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void BasicObjectEventsApp::eventHandler(poEvent *event) {
 	
 	if(event->type == PO_MOUSE_DOWN_INSIDE_EVENT) {		// Verify if you get an event of type mouse down inside
@@ -110,8 +107,6 @@ void BasicObjectEventsApp::eventHandler(poEvent *event) {
 	}
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void BasicObjectEventsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

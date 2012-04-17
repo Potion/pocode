@@ -7,12 +7,11 @@
 #include "SimpleDrawingApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
-#include "poSimpleDrawing.h"
+
+#include "poSimpleDrawing.h"							// Include poImageShape.h to be able to use poSimpleDrawing
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 SimpleDrawingApp::SimpleDrawingApp() {
 	
 	// Add a camera
@@ -24,14 +23,15 @@ SimpleDrawingApp::SimpleDrawingApp() {
 }
 
 
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 SimpleDrawingApp::~SimpleDrawingApp() {
 }
 
+// UPDATE. Called once per frame. Animate objects here.
+void SimpleDrawingApp::update() {
+}
 
-// DRAW
-// Draw directly here. This is called to draw everything.
+// DRAW. Called once per frame. Draw objects here.
 void SimpleDrawingApp::draw() {
 	
 	// Show poCode lesson image in the background
@@ -116,20 +116,10 @@ void SimpleDrawingApp::draw() {
 	
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
-void SimpleDrawingApp::update() {
-}
-
-
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void SimpleDrawingApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void SimpleDrawingApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

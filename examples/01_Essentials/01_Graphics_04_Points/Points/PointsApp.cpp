@@ -7,13 +7,12 @@
 #include "PointsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"
-#include "poShapeBasics2D.h"
-#include "poTextBox.h"
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
+#include "poShapeBasics2D.h"						// Include poImageShape.h to be able to use poShapes
+#include "poTextBox.h"								// include poTextBox.h to be able to use poTextBox
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 PointsApp::PointsApp() {
 	
 	// Add a camera
@@ -103,25 +102,22 @@ PointsApp::PointsApp() {
 }
 
 
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 PointsApp::~PointsApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void PointsApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void PointsApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void PointsApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void PointsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

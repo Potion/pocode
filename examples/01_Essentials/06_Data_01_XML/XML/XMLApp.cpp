@@ -7,23 +7,19 @@
 #include "XMLApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
-#include "poTextBox.h"
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
+#include "poTextBox.h"								// include poTextBox.h to be able to use poTextBox
+#include "poShapeBasics2D.h"						// Include poShapeBasics2D.h to be able to use poShapes
 
-#include <boost/format.hpp>
-#include <boost/algorithm/string.hpp>
-#include <boost/algorithm/string/regex.hpp>
-using namespace boost;
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 XMLApp::XMLApp() {
 	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -131,26 +127,22 @@ XMLApp::XMLApp() {
 	}
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 XMLApp::~XMLApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void XMLApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void XMLApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void XMLApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void XMLApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }
