@@ -81,6 +81,13 @@ poImage* poImage::copy() {
 	return image;
 }
 
+void poImage::save(const std::string &loc) {
+	if(isValid()) {
+		FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(loc.c_str());
+		FreeImage_Save(fif, bitmap, loc.c_str());
+	}
+}
+
 bool poImage::isValid() const {
 	return bitmap != NULL;
 }
