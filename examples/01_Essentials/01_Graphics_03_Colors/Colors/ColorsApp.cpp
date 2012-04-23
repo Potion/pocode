@@ -7,8 +7,8 @@
 #include "ColorsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"
-#include "poShapeBasics2D.h"
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
+#include "poShapeBasics2D.h"						// Include poImageShape.h to be able to use poShapes
 
 
 // APP CONSTRUCTOR.
@@ -125,26 +125,22 @@ ColorsApp::ColorsApp() {
 	addChild(rectH);
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 ColorsApp::~ColorsApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void ColorsApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void ColorsApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void ColorsApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void ColorsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

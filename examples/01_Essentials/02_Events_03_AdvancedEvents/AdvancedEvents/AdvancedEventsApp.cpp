@@ -7,11 +7,10 @@
 #include "AdvancedEventsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poTextBox.h"
+#include "poTextBox.h"								// include poTextBox.h to be able to use poTextBox
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 AdvancedEventsApp::AdvancedEventsApp() {
 	
 	// Add a camera
@@ -96,15 +95,11 @@ AdvancedEventsApp::AdvancedEventsApp() {
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 AdvancedEventsApp::~AdvancedEventsApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void AdvancedEventsApp::update() {
 	
 	for(int i=0; i < B.size(); i++) {								// Check if one of the B rectangles is yellow
@@ -119,9 +114,11 @@ void AdvancedEventsApp::update() {
 	}
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void AdvancedEventsApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void AdvancedEventsApp::eventHandler(poEvent *event) {
 	
 	if( event->message == "event A" ) {						// Check if you receive a mouse press event
@@ -165,8 +162,6 @@ void AdvancedEventsApp::eventHandler(poEvent *event) {
 	}
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void AdvancedEventsApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

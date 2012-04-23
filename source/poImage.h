@@ -67,6 +67,7 @@ public:
 	~poImage();
 
 	poImage*			copy();
+	void				save(const std::string &loc);
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;

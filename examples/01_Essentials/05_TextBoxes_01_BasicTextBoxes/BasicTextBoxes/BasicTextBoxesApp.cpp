@@ -7,19 +7,18 @@
 #include "BasicTextBoxesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
-#include "poTextBox.h"										// include poTextBox.h to be able to use poTextBox
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
+#include "poTextBox.h"								// include poTextBox.h to be able to use poTextBox
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 BasicTextBoxesApp::BasicTextBoxesApp() {
 	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	 
 	
@@ -51,25 +50,22 @@ BasicTextBoxesApp::BasicTextBoxesApp() {
 	addChild( B );
 }
 
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 BasicTextBoxesApp::~BasicTextBoxesApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void BasicTextBoxesApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void BasicTextBoxesApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void BasicTextBoxesApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void BasicTextBoxesApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

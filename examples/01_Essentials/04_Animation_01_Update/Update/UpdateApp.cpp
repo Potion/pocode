@@ -8,18 +8,18 @@
 #include "UpdateApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
+#include "poShapeBasics2D.h"						// Include poImageShape.h to be able to use poShapes
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 UpdateApp::UpdateApp() {
 	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
-    poRectShape* BG = new poRectShape("bg.jpg");
+    poImageShape* BG = new poImageShape("bg.jpg");
    	addChild( BG );
 	
 	
@@ -67,17 +67,12 @@ UpdateApp::UpdateApp() {
     addChild(D);
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 UpdateApp::~UpdateApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void UpdateApp::update() {
-	
 	
 	// A. Update scale ///////////////////////
 	
@@ -90,7 +85,6 @@ void UpdateApp::update() {
 		A->scale += poPoint(0.1, 0.1, 0);				// Increase the x and y scale
 	else
 		A->scale -= poPoint(0.1, 0.1, 0);				// Decrease the x and y scale
-	
 	
 	
 	// B. Update position ///////////////////////
@@ -106,7 +100,6 @@ void UpdateApp::update() {
 		velocity.y *= -1;								// Invert the y value of the velocity vector
 	
 	
-	
 	// C. Update rotation ///////////////////////
 	
 	poTime currentTime = poGetCurrentTime();			// Get the current time (see the file poHelpers.h)
@@ -115,7 +108,6 @@ void UpdateApp::update() {
 	C->rotation = 360/60 * currentSecond;				// Set the rotation of the clock hand
 														// based on the current second
     
-	
     // D. Update text ///////////////////////
     
     char timeString[32];								// Create a string
@@ -128,14 +120,14 @@ void UpdateApp::update() {
     D->doLayout();										// Remember to call this to apply the changes
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void UpdateApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void UpdateApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void UpdateApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

@@ -7,12 +7,11 @@
 #include "ParentsChildrenApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poShapeBasics2D.h"
-#include "poImageShape.h"
+#include "poShapeBasics2D.h"								// include poTextBox.h to be able to use poShape
+#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 ParentsChildrenApp::ParentsChildrenApp() {
 	
 	// Add a camera
@@ -93,25 +92,22 @@ ParentsChildrenApp::ParentsChildrenApp() {
 	B->addChild(mouth);										// Add the mouth to the parent B
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 ParentsChildrenApp::~ParentsChildrenApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void ParentsChildrenApp::update() {
 }
 
-// EVENT HANDLER
-// Respond to user events here.
+// DRAW. Called once per frame. Draw objects here.
+void ParentsChildrenApp::draw() {
+}
+
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void ParentsChildrenApp::eventHandler(poEvent *event) {
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void ParentsChildrenApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }

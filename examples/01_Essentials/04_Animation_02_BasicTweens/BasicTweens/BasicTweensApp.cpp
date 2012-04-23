@@ -9,9 +9,9 @@
 #include "poCamera.h"
 
 
-// APP CONSTRUCTOR.
-// Create all objects here.
+// APP CONSTRUCTOR. Create all objects here.
 BasicTweensApp::BasicTweensApp() {
+	
 	// Add a camera
 	addModifier(new poCamera2D(poColor::black));
 	
@@ -92,21 +92,19 @@ BasicTweensApp::BasicTweensApp() {
 	addEvent(PO_KEY_DOWN_EVENT, this);
 }
 
-
-// APP DESTRUCTOR
-// Delete all objects here. (optional)
+// APP DESTRUCTOR. Delete all objects here.
 BasicTweensApp::~BasicTweensApp() {
 }
 
-
-// UPDATE
-// Animate objects here. This is called after every frame is drawn.
+// UPDATE. Called once per frame. Animate objects here.
 void BasicTweensApp::update() {
 }
 
+// DRAW. Called once per frame. Draw objects here.
+void BasicTweensApp::draw() {
+}
 
-// EVENT HANDLER
-// Respond to user events here.
+// EVENT HANDLER. Called when events happen. Respond to events here.
 void BasicTweensApp::eventHandler(poEvent *event) {
 	
 	if(event->keyChar == 'r') {									// If you press 'r'
@@ -130,8 +128,6 @@ void BasicTweensApp::eventHandler(poEvent *event) {
 	}
 }
 
-
-// MESSAGE HANDLER
-// Receive inter-object messages here.
+// MESSAGE HANDLER. Called from within the app. Use for message passing.
 void BasicTweensApp::messageHandler(const std::string &msg, const poDictionary& dict) {
 }
