@@ -119,6 +119,7 @@ poFont *poFont::defaultFont() {
 
 poFont::poFont()
 :	face(NULL)
+,   scaledFace(NULL)
 ,	size(0)
 ,	url("")
 ,	reqUrlOrFamily("")
@@ -133,6 +134,7 @@ poFont::poFont()
 
 poFont::poFont(const std::string &family_or_url, const std::string &style, unsigned long encoding)
 :	face(NULL)
+,   scaledFace(NULL)
 ,	size(0)
 ,	url("")
 ,	reqUrlOrFamily("")

@@ -39,12 +39,13 @@ void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath
 		objsBeneath.insert(obj);
 }
 
-poWindow::poWindow(const char *title, uint rootID, poRect b)
+poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
 :	title(title)
 ,	handle(NULL)
 ,	root(NULL)
 ,	rootID(rootID)
 ,	bounds(b)
+,   scale(s)
 //,   key_receiver(NULL)
 ,	fullscreen(false)
 ,	closed(false)
@@ -96,6 +97,10 @@ poRect poWindow::getFrame() const {
 
 poRect poWindow::getBounds() const {
 	return poRect(poPoint(0,0), bounds.getSize());
+}
+
+float poWindow::getScale() const {
+	return scale;
 }
 
 poPoint poWindow::getCenterPoint() const {

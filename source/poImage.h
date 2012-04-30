@@ -111,6 +111,7 @@ private:
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;
+    void                setUrl(const std::string url);
 	std::string         url;
     
     static int          totalAllocatedImageMemorySize;

@@ -51,7 +51,7 @@ typedef struct {
 
 class poWindow {
 public:
-	poWindow(const char *title, uint rootID, poRect bounds);
+	poWindow(const char *title, uint rootID, poRect bounds, float scale=1.0f);
 	~poWindow();
 
     // WINDOW MANAGEMENT
@@ -73,6 +73,7 @@ public:
 	float           getWidth() const;
 	float			getHeight() const;
 	poPoint         getDimensions() const;
+    float           getScale() const;
 	poRect          getFrame() const;
 	poRect          getBounds() const;
 	poPoint         getCenterPoint() const;
@@ -135,6 +136,7 @@ private:
     // WINDOW PROPERTIES (PRIVATE)
 	bool            closed;
 	poRect          bounds;
+    float           scale;
 	bool            fullscreen;
 	void            *handle;
 	std::string     title;

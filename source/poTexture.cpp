@@ -30,6 +30,7 @@
 #include "poHelpers.h"
 #include "poOpenGLState.h"
 #include "poGLBuffer.h"
+#include "poApplication.h"
 
 
 GLenum formatForChannels(uint channels) {
@@ -240,11 +241,11 @@ uint poTexture::getUid() const {
 }
 
 uint poTexture::getWidth() const {
-	return width;
+	return width/poGetScale();
 }
 
 uint poTexture::getHeight() const {
-	return height;
+	return height/poGetScale();
 }
 
 uint poTexture::getChannels() const {
@@ -256,7 +257,7 @@ uint poTexture::getBitsPerPixel() const {
 }
 
 size_t poTexture::getSizeInBytes() const {
-	return getWidth() * getHeight() * getBitsPerPixel();
+	return (getWidth() * poGetScale()) * (getHeight() * poGetScale()) * getBitsPerPixel();
 }
 
 poPoint poTexture::getDimensions() const {
@@ -302,9 +303,9 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
     totalAllocatedTextureMemorySize -= width*height*channels;
     totalAllocatedTextureMemorySize += w*h*channelsForFormat(c.format);
     
-	width = w;
-	height = h;
-	channels = channelsForFormat(c.format);
+	width       = w;
+	height      = h;
+	channels    = channelsForFormat(c.format);
 	config = c;
 	
 	poOpenGLState *ogl = poOpenGLState::get();

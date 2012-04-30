@@ -27,6 +27,7 @@
 
 #include "poImage.h"
 #include "poHelpers.h"
+#include "poApplication.h"
 #include <FreeImage.h>
 
 static void loadFreeImageIfNeeded() {
@@ -409,16 +410,19 @@ FIBITMAP *loadDIB(const std::string &url) {
 }
 
 void poImage::load(const std::string &url) {
-	FIBITMAP *bmp = loadDIB(url);
+    this->setUrl(url);
+    
+	FIBITMAP *bmp = loadDIB(this->url);
 	if(bmp) {
-		bitmap = bmp;
-		this->url = url;
+		bitmap      = bmp;
         totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 	}
 }
 
 void poImage::load(const std::string &url, uint c) {
-	FIBITMAP *bmp = loadDIB(url);
+    this->setUrl(url);
+    
+	FIBITMAP *bmp = loadDIB(this->url);
 	if(bmp) {
 		bitmap = bmp;
 		this->url = url;
@@ -443,6 +447,30 @@ void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
 	}
     
     totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
+}
+
+void poImage::setUrl(const std::string url) {
+    //See if we need a different scale
+    if(poGetScale() == 1.0f) {
+        this->url = url;
+    } else {
+        //If so, create scaled URL
+        fs::path p(url);
+        
+        std::string stem = p.stem().string();
+        stem += "@" + poToString(poGetScale()) + "x";
+        std::string extension = p.extension().string();
+        
+        fs::path newP(p.remove_filename().string() + "/" + stem + extension);
+        
+        //If file exists for this scale return it
+        if(fs::exists(newP)) {
+            this->url = newP.string();
+        } else {
+            //Otherwise return regular URL to handle
+            this->url = url;
+        }
+    }
 }
 
 std::ostream &operator<<(std::ostream &out, const poImage *img) {

@@ -52,6 +52,11 @@ poRect getWindowBounds() {
 	return window->getBounds();
 }
 
+float poGetScale() {
+	poWindow *window = applicationCurrentWindow();
+	return window->getScale();
+}
+
 
 poPoint getWindowCenter() {
 	poWindow *window = applicationCurrentWindow();

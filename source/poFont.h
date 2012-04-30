@@ -132,7 +132,7 @@ private:
 	std::string			url, reqUrlOrFamily, reqStyle;
 	int					size;
 	int					glyph, loadedGlyph;
-	FT_Face				face;
+	FT_Face				face, scaledFace;
 	static FT_Library   lib;
 };
 
