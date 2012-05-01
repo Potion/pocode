@@ -50,7 +50,7 @@ poPoint poMatrixSet::localToGlobal(poPoint pt) const {
 	using namespace glm;
 	
 	vec3 obj(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.x, viewport.y, viewport.width, viewport.height);
+	vec4 viewp(viewport.x, viewport.y, getWindowWidth(), getWindowHeight());
 	vec3 response = project(obj, modelview, projection, viewp);
 	return poPoint(response.x, response.y, response.z);
 }
