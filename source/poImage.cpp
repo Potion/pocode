@@ -43,11 +43,13 @@ int poImage::totalAllocatedImageMemorySize = 0;
 
 poImage::poImage()
 :	bitmap(NULL)
+,   scaledBitmapFound(false)
 ,	url("")
 {}
 
 poImage::poImage(const std::string &url)
 :	bitmap(NULL)
+,   scaledBitmapFound(false)
 ,	url("")
 {
 	load(url);
@@ -55,6 +57,7 @@ poImage::poImage(const std::string &url)
 
 poImage::poImage(const std::string &url, uint c) 
 :	bitmap(NULL)
+,   scaledBitmapFound(false)
 ,	url("")
 {
 	load(url, c);
@@ -62,6 +65,7 @@ poImage::poImage(const std::string &url, uint c)
 
 poImage::poImage(uint w, uint h, uint c, const ubyte *p) 
 :	bitmap(NULL)
+,   scaledBitmapFound(false)
 ,	url("")
 {
 	load(w, h, c, p);
@@ -95,6 +99,10 @@ bool poImage::isValid() const {
 
 bool poImage::hasAlpha() const {
 	return FreeImage_GetColorType(bitmap) == FIC_RGBALPHA;
+}
+
+bool poImage::isScaled() {
+    return scaledBitmapFound;
 }
 
 uint poImage::getWidth() const {
@@ -466,6 +474,7 @@ void poImage::setUrl(const std::string url) {
         //If file exists for this scale return it
         if(fs::exists(newP)) {
             this->url = newP.string();
+            scaledBitmapFound = true;
         } else {
             //Otherwise return regular URL to handle
             this->url = url;

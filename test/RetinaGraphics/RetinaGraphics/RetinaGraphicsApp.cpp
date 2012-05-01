@@ -11,37 +11,49 @@
 RetinaGraphicsApp::RetinaGraphicsApp() {
 	addModifier(new poCamera2D(poColor::black));
     
-    bg1 = new poRectShape(new poTexture("Resource/bg2.png"));
-    addChild(bg1);
+//    bg1 = new poRectShape(new poTexture("Resource/bg2.png"));
+//    addChild(bg1);
     
 //    bg2 = new poRectShape(new poTexture("Resource/bg2.png"));
 //    bg2->visible = false;
 //    addChild(bg2);
     
-    poRectShape *square = new poRectShape(100,100);
-    square->fillColor.set255(0, 0, 0);
-    
-    poOvalShape *circle = new poOvalShape(200, 200, 200);
-    circle->fillColor.set(0,0,0);
-    circle->position.x = 200;
-    
     poObject *shapes = new poObject();
-    shapes->addChild(square);
-    shapes->addChild(circle);
-    shapes->position.x = getWindowWidth()/2 - shapes->getWidth()/2;
+    
+    int nCols   = 3;
+    int nRows   = 3;
+    int size    = 200;
+    int spacing = 20;
+    for(int i=0; i<nCols; i++) {
+        for(int j=0; j<nRows; j++) {
+            poRectShape *thisRect = new poRectShape(size, size);
+            thisRect->name = "Rect";
+            thisRect->fillColor.set255(255, 255, 255);
+            
+            poTextBox *idText = new poTextBox(size);
+            idText->setTextAlignment(PO_ALIGN_CENTER_CENTER);
+            idText->setTextSize(36);
+            idText->textColor.set255(0, 0, 0);
+            idText->setText(poToString((nRows*i) + j));
+            idText->setFont(poGetFont("Resource/Arial.ttf"));
+            idText->doLayout();
+            
+            idText->position.y = thisRect->getHeight()/2;
+            
+            poObject *thisShape = new poObject();
+            thisShape->drawBounds = true;
+            thisShape->addEvent(PO_TOUCH_BEGAN_INSIDE_EVENT, this);
+            thisShape->addEvent(PO_TOUCH_ENDED_EVENT, this);
+            
+            thisShape->position.set(i*(size + spacing), j*(size + spacing), 0.0f);
+            thisShape->addChild(thisRect);
+            thisShape->addChild(idText);
+            shapes->addChild(thisShape);
+        }
+    }
+    
+    shapes->position.set(getWindowWidth()/2 - shapes->getWidth()/2, getWindowHeight()/2 - shapes->getHeight()/2, 0.0f);
     addChild(shapes);
-    
-    text = new poTextBox(300);
-    text->setFont(poGetFont("Resource/Arial.ttf"));
-    text->setText("Test Text!");
-    text->setTextSize(72);
-    text->textColor.set(0.0f, 0.0f, 0.f);
-    text->doLayout();
-    text->position.set(getWindowWidth()/2, getWindowHeight()/2, 0.0f);
-    addChild(text);
-    
-    addEvent(PO_TOUCH_BEGAN_EVENT, this);
-    addEvent(PO_TOUCH_MOVED_EVENT, this);
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -60,15 +72,17 @@ void RetinaGraphicsApp::draw() {
 
 // EVENT HANDLER. Called when events happen. Respond to events here.
 void RetinaGraphicsApp::eventHandler(poEvent *event) {
-//    if(event->type == PO_TOUCH_BEGAN_EVENT) {
-//        if(bg1->visible) {
-//            bg1->visible = false;
-//            bg2->visible = true;
-//        } else {
-//            bg1->visible = true;
-//            bg2->visible = false;
-//        }
-//    }
+    std::cout << "X:" << event->globalPosition.x << std::endl;
+    std::cout << "Y:" << event->globalPosition.y << std::endl;
+    switch (event->type) {
+        case PO_TOUCH_BEGAN_INSIDE_EVENT:
+            ((poRectShape*)event->source->getChild("Rect"))->fillColor.set255(255, 0, 0);
+            break;
+            
+        case PO_TOUCH_ENDED_EVENT:
+            ((poRectShape*)event->source->getChild("Rect"))->fillColor.set255(255, 255, 255);
+            break;
+    }
 }
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.

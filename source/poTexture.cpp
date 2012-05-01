@@ -149,11 +149,11 @@ poTextureConfig::poTextureConfig(GLenum format)
 int         poTexture::totalAllocatedTextureMemorySize = 0;
 
 poTexture::poTexture()
-:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {}
 
 poTexture::poTexture(const std::string &url, bool keepImage )
-:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {
 	poImage* img = new poImage(url);
 	load(img);
@@ -165,19 +165,19 @@ poTexture::poTexture(const std::string &url, bool keepImage )
 }
 
 poTexture::poTexture(poImage* img) 
-:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img)
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
 {
 	load(img);
 }
 
 poTexture::poTexture(poImage* img, const poTextureConfig &config)
-:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img)
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
 {
 	load(img, config);
 }
 
 poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config)
-:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL)
+:	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {
 	load(width, height, pixels, config);
 }
@@ -232,6 +232,10 @@ bool poTexture::isValid() const {
 	return uid > 0;
 }
 
+bool poTexture::isScaled() const {
+	return sourceIsScaled;
+}
+
 poTextureConfig poTexture::getConfig() const {
 	return config;
 }
@@ -241,11 +245,11 @@ uint poTexture::getUid() const {
 }
 
 uint poTexture::getWidth() const {
-	return width/poGetScale();
+	return isScaled() ? width/poGetScale() : width;
 }
 
 uint poTexture::getHeight() const {
-	return height/poGetScale();
+	return isScaled() ? height/poGetScale() : height;
 }
 
 uint poTexture::getChannels() const {
@@ -282,6 +286,7 @@ void poTexture::load(poImage* img) {
 		return;
 	}
 	
+    sourceIsScaled = img->isScaled();
 	load(img, poTextureConfig(formatForChannels(img->getChannels())));
 }
 
@@ -290,7 +295,8 @@ void poTexture::load(poImage* img, const poTextureConfig &config) {
 		loadDummyImage();
 		return;
 	}
-
+    
+    sourceIsScaled = img->isScaled();
 	load(img->getWidth(), img->getHeight(), img->getPixels(), config);
 }
 

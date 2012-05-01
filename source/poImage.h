@@ -78,6 +78,7 @@ public:
 	poPoint             getDimensions() const;
 	uint                getPitch() const;
 	uint                getStorageSize() const;
+    bool                isScaled();
 	
     // GET and SET PIXELS
 	ubyte const*		getPixels() const;
@@ -111,6 +112,7 @@ private:
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;
+    bool                scaledBitmapFound;
     void                setUrl(const std::string url);
 	std::string         url;
     

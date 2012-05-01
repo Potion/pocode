@@ -119,7 +119,6 @@ poFont *poFont::defaultFont() {
 
 poFont::poFont()
 :	face(NULL)
-,   scaledFace(NULL)
 ,	size(0)
 ,	url("")
 ,	reqUrlOrFamily("")
@@ -134,7 +133,6 @@ poFont::poFont()
 
 poFont::poFont(const std::string &family_or_url, const std::string &style, unsigned long encoding)
 :	face(NULL)
-,   scaledFace(NULL)
 ,	size(0)
 ,	url("")
 ,	reqUrlOrFamily("")
@@ -223,6 +221,7 @@ void poFont::setPointSize(int sz) {
     
     if ( cachedForSizeYet(size)==false )
         cacheGlyphMetrics();
+    
     currentCache = &cachedGlyphMetricsSet[size];
 }
 
@@ -300,6 +299,10 @@ poPoint poFont::getGlyphAdvance() {
 }
 
 poImage* poFont::getGlyphImage() {
+    
+    poPoint rez = deviceResolution();
+    FT_Set_Char_Size(face, size*poGetScale()*64, 0, rez.x, 0);
+    
     loadGlyph( glyph );
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 	const FT_Bitmap bitmap = face->glyph->bitmap;

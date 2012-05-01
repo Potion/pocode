@@ -16,7 +16,7 @@
  *	License along with pocode.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
+#include "poApplication.h"
 #include "poTextureAtlas.h"
 #include "poSimpleDrawing.h"
 #include "poImage.h"
@@ -95,6 +95,10 @@ void poTextureAtlas::drawUID(uint uid, poRect rect) {
 						 rect.y,
 						 rect.width * size.width,
 						 rect.height * size.height);
+        
+        placement.width    /= poGetScale();
+        placement.height   /= poGetScale();
+        
 		poRect coords = getCoordsForUID(uid);
 		po::drawTexturedRect(getTextureForPage(page), placement, coords);
 	}
