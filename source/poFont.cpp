@@ -216,7 +216,7 @@ void poFont::setPointSize(int sz) {
 	if(sz != size) {
 		size = sz;
 		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(face, size*64, 0, rez.x, 0);
+		FT_Set_Char_Size(face, size*poGetScale()*64, 0, rez.x, 0);
 	}
     
     if ( cachedForSizeYet(size)==false )
@@ -226,20 +226,20 @@ void poFont::setPointSize(int sz) {
 }
 
 float poFont::getLineHeight() const {
-	return face->size->metrics.height >> 6;
+	return (face->size->metrics.height >> 6)/poGetScale();
 }
 float poFont::getAscender() const {
-	return face->size->metrics.ascender >> 6;
+	return (face->size->metrics.ascender >> 6)/poGetScale();
 }
 float poFont::getDescender() const {
-	return face->size->metrics.descender >> 6;
+	return (face->size->metrics.descender >> 6)/poGetScale();
 }
 
 float poFont::getUnderlinePosition() const {
-	return face->underline_position >> 6;
+	return (face->underline_position >> 6)/poGetScale();
 }
 float poFont::getUnderlineThickness() const {
-	return face->underline_thickness >> 6;
+	return (face->underline_thickness >> 6)/poGetScale();
 }
 
 int poFont::getGlyph() const {
@@ -251,15 +251,14 @@ void poFont::setGlyph(int g) {
 }
 
 poRect poFont::getGlyphBounds() {
-    
     if ( currentCache != NULL && glyph < 128 )
         return (*currentCache)[ glyph ].glyphBounds;
                                 
     loadGlyph( glyph );
 	float x = 0;
 	float y = 0;
-	float w = face->glyph->metrics.width >> 6;
-	float h = face->glyph->metrics.height >> 6;
+	float w = (face->glyph->metrics.width    >> 6)/poGetScale();
+	float h = (face->glyph->metrics.height   >> 6)/poGetScale();
 	return poRect(x, y, w, h);
 }
 
@@ -277,7 +276,7 @@ float poFont::getGlyphDescender() {
     
     loadGlyph( glyph );
 	poRect r = getGlyphFrame();
-	return r.height + r.y;
+	return (r.height + r.y)/poGetScale();
 }
 
 poPoint poFont::getGlyphBearing()  {
@@ -285,8 +284,8 @@ poPoint poFont::getGlyphBearing()  {
         return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
-	return poPoint(face->glyph->metrics.horiBearingX >> 6,
-				   -(face->glyph->metrics.horiBearingY >> 6));
+	return poPoint((face->glyph->metrics.horiBearingX >> 6)/poGetScale(),
+				   -(face->glyph->metrics.horiBearingY >> 6)/poGetScale());
 }
 
 poPoint poFont::getGlyphAdvance() {
@@ -294,14 +293,12 @@ poPoint poFont::getGlyphAdvance() {
         return (*currentCache)[ glyph ].glyphAdvance;
     
     loadGlyph( glyph );
-	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
-				   face->glyph->metrics.vertAdvance >> 6);
+	return poPoint((face->glyph->metrics.horiAdvance >> 6)/poGetScale(), 
+				   (face->glyph->metrics.vertAdvance >> 6)/poGetScale());
 }
 
 poImage* poFont::getGlyphImage() {
-    
-    poPoint rez = deviceResolution();
-    FT_Set_Char_Size(face, size*poGetScale()*64, 0, rez.x, 0);
+    currentCache = &cachedGlyphMetricsSet[size];
     
     loadGlyph( glyph );
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
@@ -319,6 +316,7 @@ poImage* poFont::getGlyphImage() {
 	poImage *img = new poImage(w, h, 1, buffer);
 	
 	delete [] buffer;
+        
 	return img;
 }
 
@@ -333,7 +331,7 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	FT_Get_Kerning(face, 
 				   FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
 				   0, &kern);
-	return poPoint(kern.x, kern.y);
+	return poPoint(kern.x/poGetScale(), kern.y/poGetScale());
 }
 
 std::string poFont::toString() const {
@@ -385,11 +383,18 @@ void    poFont::cacheGlyphMetrics()
     {
         poFontGlyphMetrics& M = cachedGlyphMetricsSet[size][i];
         setGlyph(i);
-        M.glyphBounds = getGlyphBounds();
-        M.glyphFrame = getGlyphFrame();
-        M.glyphDescender = getGlyphDescender();
-        M.glyphBearing = getGlyphBearing();
-        M.glyphAdvance = getGlyphAdvance();
+        
+        M.glyphBounds       = getGlyphBounds();
+        M.glyphFrame        = getGlyphFrame();
+        M.glyphDescender    = getGlyphDescender();
+        M.glyphBearing      = getGlyphBearing();
+        M.glyphAdvance      = getGlyphAdvance();
+        
+//        M.glyphBounds       = poRect(getGlyphBounds().x, getGlyphBounds().y, getGlyphBounds().width/poGetScale(), getGlyphBounds().height/poGetScale());
+//        M.glyphFrame        = poRect(getGlyphFrame().x, getGlyphFrame().y, getGlyphFrame().width/poGetScale(), getGlyphFrame().height/poGetScale());
+//        M.glyphDescender    = getGlyphDescender()/poGetScale();
+//        M.glyphBearing      = getGlyphBearing()/poGetScale();
+//        M.glyphAdvance      = getGlyphAdvance()/poGetScale();
     }
 
     currentCache = &cachedGlyphMetricsSet[size];
