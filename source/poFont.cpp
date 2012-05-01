@@ -216,7 +216,7 @@ void poFont::setPointSize(int sz) {
 	if(sz != size) {
 		size = sz;
 		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(face, size*poGetScale()*64, 0, rez.x, 0);
+		FT_Set_Char_Size(face, (size*poGetScale())*64, 0, rez.x, 0);
 	}
     
     if ( cachedForSizeYet(size)==false )
@@ -229,10 +229,10 @@ float poFont::getLineHeight() const {
 	return (face->size->metrics.height >> 6)/poGetScale();
 }
 float poFont::getAscender() const {
-	return (face->size->metrics.ascender >> 6)/poGetScale();
+	return ceil((face->size->metrics.ascender >> 6)/poGetScale());
 }
 float poFont::getDescender() const {
-	return (face->size->metrics.descender >> 6)/poGetScale();
+	return floor((face->size->metrics.descender >> 6)/poGetScale());
 }
 
 float poFont::getUnderlinePosition() const {
@@ -262,6 +262,9 @@ poRect poFont::getGlyphBounds() {
 	return poRect(x, y, w, h);
 }
 
+
+//Get Glyph Frame & Get Glyph Bounds do not get scaling applied because
+//they use functions that are already scaling
 poRect poFont::getGlyphFrame() {
     if ( currentCache != NULL && glyph < 128 )
         return (*currentCache)[ glyph ].glyphFrame;
@@ -276,7 +279,7 @@ float poFont::getGlyphDescender() {
     
     loadGlyph( glyph );
 	poRect r = getGlyphFrame();
-	return (r.height + r.y)/poGetScale();
+	return (r.height + r.y);
 }
 
 poPoint poFont::getGlyphBearing()  {
@@ -284,8 +287,9 @@ poPoint poFont::getGlyphBearing()  {
         return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
-	return poPoint((face->glyph->metrics.horiBearingX >> 6)/poGetScale(),
-				   -(face->glyph->metrics.horiBearingY >> 6)/poGetScale());
+    int x = (face->glyph->metrics.horiBearingX >> 6)/poGetScale();
+    int y = -(face->glyph->metrics.horiBearingY >> 6)/poGetScale();
+	return poPoint(x, y);
 }
 
 poPoint poFont::getGlyphAdvance() {
@@ -389,12 +393,6 @@ void    poFont::cacheGlyphMetrics()
         M.glyphDescender    = getGlyphDescender();
         M.glyphBearing      = getGlyphBearing();
         M.glyphAdvance      = getGlyphAdvance();
-        
-//        M.glyphBounds       = poRect(getGlyphBounds().x, getGlyphBounds().y, getGlyphBounds().width/poGetScale(), getGlyphBounds().height/poGetScale());
-//        M.glyphFrame        = poRect(getGlyphFrame().x, getGlyphFrame().y, getGlyphFrame().width/poGetScale(), getGlyphFrame().height/poGetScale());
-//        M.glyphDescender    = getGlyphDescender()/poGetScale();
-//        M.glyphBearing      = getGlyphBearing()/poGetScale();
-//        M.glyphAdvance      = getGlyphAdvance()/poGetScale();
     }
 
     currentCache = &cachedGlyphMetricsSet[size];
