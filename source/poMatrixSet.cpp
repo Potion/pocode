@@ -19,6 +19,7 @@
 
 #include "poMatrixSet.h"
 #include "poOpenGLState.h"
+#include "poApplication.h"
 //#include <glm/gtc/matrix_transform.hpp>
 
 poMatrixSet::poMatrixSet() 
@@ -40,7 +41,7 @@ poPoint poMatrixSet::globalToLocal(poPoint pt) const {
 	using namespace glm;
 	
 	vec3 win(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.x, viewport.y, viewport.width, viewport.height);
+	vec4 viewp(viewport.x, viewport.y, getWindowWidth(), getWindowHeight());
 	vec3 response = unProject(win, modelview, projection, viewp);
 	return poPoint(response.x, response.y, response.z);
 }
