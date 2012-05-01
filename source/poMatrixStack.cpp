@@ -67,7 +67,7 @@ void poMatrixStack::popViewport() {
 	viewport.pop(); 
 
 	poRect vp = viewport.top();
-	glViewport(vp.x, vp.y, vp.width, vp.height);
+	glViewport(vp.x, vp.y, vp.width/poGetScale(), vp.height/poGetScale());
 }
 
 // get the current top
