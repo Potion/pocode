@@ -300,7 +300,7 @@ void poTextBox::generateCachedTexture() {
     poRect bounds = getBounds();
     bounds.include(getTextBounds());
     
-    poFBO *fbo = new poFBO(bounds.width, bounds.height, poFBOConfig());
+    poFBO *fbo = new poFBO(bounds.width * poGetScale(), bounds.height * poGetScale(), poFBOConfig());
     fbo->setUp(this);
     
     // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
@@ -317,7 +317,7 @@ void poTextBox::generateCachedTexture() {
     po::setColor(poColor::white);
     for(uint i=0; i<getNumLines(); i++) {
         BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-            bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+            bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition()); 
         }
     }
     
@@ -341,7 +341,7 @@ void poTextBox::draw() {
 		ogl->setBlend(blend);
 		
 		po::setColor(textColor, getAppliedAlpha());
-		po::drawTexturedRect(cached);
+		po::drawTexturedRect(cached, poRect(0,0,cached->getWidth()/poGetScale(), cached->getHeight()/poGetScale()));
 		
 		ogl->popBlendState();
 		return;

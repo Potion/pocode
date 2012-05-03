@@ -33,6 +33,7 @@
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
 #include <iostream>
+#include <freetype/ftbitmap.h>
 using namespace std;
 
 #ifdef POTION_WIN32
@@ -229,10 +230,10 @@ float poFont::getLineHeight() const {
 	return (face->size->metrics.height >> 6)/poGetScale();
 }
 float poFont::getAscender() const {
-	return ceil((face->size->metrics.ascender >> 6)/poGetScale());
+	return (face->size->metrics.ascender >> 6)/poGetScale();
 }
 float poFont::getDescender() const {
-	return floor((face->size->metrics.descender >> 6)/poGetScale());
+	return (face->size->metrics.descender >> 6)/poGetScale();
 }
 
 float poFont::getUnderlinePosition() const {
@@ -287,8 +288,9 @@ poPoint poFont::getGlyphBearing()  {
         return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
-    int x = (face->glyph->metrics.horiBearingX >> 6)/poGetScale();
-    int y = -(face->glyph->metrics.horiBearingY >> 6)/poGetScale();
+    float x = (face->glyph->metrics.horiBearingX >> 6)/poGetScale();
+    float y = -((face->glyph->metrics.horiBearingY >> 6)/poGetScale());
+
 	return poPoint(x, y);
 }
 
@@ -297,8 +299,9 @@ poPoint poFont::getGlyphAdvance() {
         return (*currentCache)[ glyph ].glyphAdvance;
     
     loadGlyph( glyph );
-	return poPoint((face->glyph->metrics.horiAdvance >> 6)/poGetScale(), 
-				   (face->glyph->metrics.vertAdvance >> 6)/poGetScale());
+    float x = (face->glyph->metrics.horiAdvance >> 6)/poGetScale();
+    float y = (face->glyph->metrics.vertAdvance >> 6)/poGetScale();
+	return poPoint(x, y);
 }
 
 poImage* poFont::getGlyphImage() {
@@ -306,10 +309,10 @@ poImage* poFont::getGlyphImage() {
     
     loadGlyph( glyph );
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-	const FT_Bitmap bitmap = face->glyph->bitmap;
+	FT_Bitmap bitmap = face->glyph->bitmap;
 	
-	uint w = bitmap.width+1;
-	uint h = bitmap.rows+1;
+	uint w = bitmap.width + 2;
+	uint h = bitmap.rows  + 2;
 
 	ubyte *buffer = new ubyte[w*h]();
 	
@@ -393,6 +396,8 @@ void    poFont::cacheGlyphMetrics()
         M.glyphDescender    = getGlyphDescender();
         M.glyphBearing      = getGlyphBearing();
         M.glyphAdvance      = getGlyphAdvance();
+        
+        std::cout << "Glyph " << i << ": " << M.glyphBearing.y << std::endl;
     }
 
     currentCache = &cachedGlyphMetricsSet[size];

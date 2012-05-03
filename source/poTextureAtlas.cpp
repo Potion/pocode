@@ -86,26 +86,26 @@ poTexture* poTextureAtlas::getTextureForUID(uint uid) {
 	return textures[getPageForUID(uid)];
 }
 
-void poTextureAtlas::drawUID(uint uid, poRect rect) {
+void poTextureAtlas::drawUID(uint uid, poRect rect, float scale) {
 	if(hasUID(uid)) {
 		uint page = getPageForUID(uid);
 		
 		poRect size = getSizeForUID(uid);
 		poRect placement(rect.x, 
 						 rect.y,
-						 rect.width * size.width,
+						 rect.width  * size.width,
 						 rect.height * size.height);
         
-        placement.width    /= poGetScale();
-        placement.height   /= poGetScale();
+        placement.width    /= scale;
+        placement.height   /= scale;
         
 		poRect coords = getCoordsForUID(uid);
 		po::drawTexturedRect(getTextureForPage(page), placement, coords);
 	}
 }
 
-void poTextureAtlas::drawUID(uint uid, poPoint p) {
-	drawUID(uid, poRect(p.x,p.y,1,1));
+void poTextureAtlas::drawUID(uint uid, poPoint p, float scale) {
+	drawUID(uid, poRect(p.x,p.y,1,1), scale);
 }
 
 void poTextureAtlas::debugDraw() {

@@ -139,9 +139,13 @@ poObject *root = NULL;
 }
 
 -(void)eaglViewLayoutChanged:(NSNotification*)notice {
-	//CGSize size = eagl.size;
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-	self.appWindow->resized(appFrame.size.width, appFrame.size.height);
+	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        self.appWindow->resized(appFrame.size.height, appFrame.size.width);
+    } else {
+        self.appWindow->resized(appFrame.size.width, appFrame.size.height);
+    }
 }
 
 - (poWindow*)appWindow {

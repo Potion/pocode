@@ -18,6 +18,7 @@
  */
 
 #include "poBitmapFont.h"
+#include "poApplication.h"
 
 
 poBitmapFont::poBitmapFont()
@@ -75,9 +76,10 @@ int poBitmapFont::getPointSize() const {
 }
 
 void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
+    
 	if(!atlas->hasUID(glyph))
 		cacheGlyph(glyph);
-	atlas->drawUID(glyph, at);
+	atlas->drawUID(glyph, at, poGetScale());
 }
 
 void poBitmapFont::cacheGlyph(int glyph) {

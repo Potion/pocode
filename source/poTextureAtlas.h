@@ -52,9 +52,9 @@ public:
 	// tho user can look at the pages for what it wants to draw and
 	// organize it so there are minimal texture switches
 	// size should be between 0..1, will scale
-	void            drawUID(uint uid, poRect r);
+	void            drawUID(uint uid, poRect r, float scale);
 	// this one will draw the subtex at its native size
-	void            drawUID(uint uid, poPoint p);
+	void            drawUID(uint uid, poPoint p, float scale);
 	
 	
 	// dump the pack to screen for debugging
