@@ -19,6 +19,13 @@ AdvancedTextBoxesApp::AdvancedTextBoxesApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
 	// Show poCode lesson image in the background
+    FILE* F = fopen("bg.jpg", "r");
+	if(!F) {
+		printf("RESOURCES NOT FOUND!\nPlease open the Xcode menu, click on 'Preferences' and select the 'Locations' tab. Click on 'Advanced' and make sure that the 'Legacy' option is checked. If it's not, check it and try running this example again.");
+		exit(0);
+	}
+	else fclose(F);
+	
     poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
