@@ -69,7 +69,8 @@ void poCamera::doSetUp( poObject* obj ) {
 	if(isFixedSize())
 		stack->pushViewport(poRect(poPoint(),fixedSize));
 	else {
-		stack->pushViewport(poRect(poPoint(),getWindowDimensions()));
+        
+		stack->pushViewport(poRect(poPoint(),getWindowDimensions()*poGetScale()));
 	}
 
     glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
@@ -184,7 +185,7 @@ void poCamera2D::clone(poCamera2D *cam) {
 void poCamera2D::setProjection() {
 	poMatrixStack *stack = &poOpenGLState::get()->matrix;
 	poRect viewp = stack->getViewport();
-	stack->pushProjection(glm::ortho(viewp.x, viewp.width + viewp.x, viewp.height + viewp.y, viewp.y));
+	stack->pushProjection(glm::ortho(viewp.x, viewp.width/poGetScale() + viewp.x, viewp.height/poGetScale() + viewp.y, viewp.y));
     
     poCamera::currentCameraType = PO_CAMERA_2D;
 }

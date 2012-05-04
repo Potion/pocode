@@ -88,6 +88,8 @@ float		getWindowLastFrameDuration();
 poPoint		getWindowMousePosition();
 poPoint		getWindowInvMousePosition();
 
+float       poGetScale();
+
 void		setWindowMouseMoveEnabled(bool b);
 bool		getWindowMouseMoveEnabled();
 

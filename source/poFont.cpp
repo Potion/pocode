@@ -33,6 +33,7 @@
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
 #include <iostream>
+#include <freetype/ftbitmap.h>
 using namespace std;
 
 #ifdef POTION_WIN32
@@ -216,29 +217,30 @@ void poFont::setPointSize(int sz) {
 	if(sz != size) {
 		size = sz;
 		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(face, size*64, 0, rez.x, 0);
+		FT_Set_Char_Size(face, (size*poGetScale())*64, 0, rez.x, 0);
 	}
     
     if ( cachedForSizeYet(size)==false )
         cacheGlyphMetrics();
+    
     currentCache = &cachedGlyphMetricsSet[size];
 }
 
 float poFont::getLineHeight() const {
-	return face->size->metrics.height >> 6;
+	return (face->size->metrics.height >> 6)/poGetScale();
 }
 float poFont::getAscender() const {
-	return face->size->metrics.ascender >> 6;
+	return (face->size->metrics.ascender >> 6)/poGetScale();
 }
 float poFont::getDescender() const {
-	return face->size->metrics.descender >> 6;
+	return (face->size->metrics.descender >> 6)/poGetScale();
 }
 
 float poFont::getUnderlinePosition() const {
-	return face->underline_position >> 6;
+	return (face->underline_position >> 6)/poGetScale();
 }
 float poFont::getUnderlineThickness() const {
-	return face->underline_thickness >> 6;
+	return (face->underline_thickness >> 6)/poGetScale();
 }
 
 int poFont::getGlyph() const {
@@ -250,18 +252,20 @@ void poFont::setGlyph(int g) {
 }
 
 poRect poFont::getGlyphBounds() {
-    
     if ( currentCache != NULL && glyph < 128 )
         return (*currentCache)[ glyph ].glyphBounds;
                                 
     loadGlyph( glyph );
 	float x = 0;
 	float y = 0;
-	float w = face->glyph->metrics.width >> 6;
-	float h = face->glyph->metrics.height >> 6;
+	float w = (face->glyph->metrics.width    >> 6)/poGetScale();
+	float h = (face->glyph->metrics.height   >> 6)/poGetScale();
 	return poRect(x, y, w, h);
 }
 
+
+//Get Glyph Frame & Get Glyph Bounds do not get scaling applied because
+//they use functions that are already scaling
 poRect poFont::getGlyphFrame() {
     if ( currentCache != NULL && glyph < 128 )
         return (*currentCache)[ glyph ].glyphFrame;
@@ -276,7 +280,7 @@ float poFont::getGlyphDescender() {
     
     loadGlyph( glyph );
 	poRect r = getGlyphFrame();
-	return r.height + r.y;
+	return (r.height + r.y);
 }
 
 poPoint poFont::getGlyphBearing()  {
@@ -284,8 +288,10 @@ poPoint poFont::getGlyphBearing()  {
         return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
-	return poPoint(face->glyph->metrics.horiBearingX >> 6,
-				   -(face->glyph->metrics.horiBearingY >> 6));
+    float x = (face->glyph->metrics.horiBearingX >> 6)/poGetScale();
+    float y = -((face->glyph->metrics.horiBearingY >> 6)/poGetScale());
+
+	return poPoint(x, y);
 }
 
 poPoint poFont::getGlyphAdvance() {
@@ -293,17 +299,20 @@ poPoint poFont::getGlyphAdvance() {
         return (*currentCache)[ glyph ].glyphAdvance;
     
     loadGlyph( glyph );
-	return poPoint(face->glyph->metrics.horiAdvance >> 6, 
-				   face->glyph->metrics.vertAdvance >> 6);
+    float x = (face->glyph->metrics.horiAdvance >> 6)/poGetScale();
+    float y = (face->glyph->metrics.vertAdvance >> 6)/poGetScale();
+	return poPoint(x, y);
 }
 
 poImage* poFont::getGlyphImage() {
+    currentCache = &cachedGlyphMetricsSet[size];
+    
     loadGlyph( glyph );
 	FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-	const FT_Bitmap bitmap = face->glyph->bitmap;
+	FT_Bitmap bitmap = face->glyph->bitmap;
 	
-	uint w = bitmap.width+1;
-	uint h = bitmap.rows+1;
+	uint w = bitmap.width + 2;
+	uint h = bitmap.rows  + 2;
 
 	ubyte *buffer = new ubyte[w*h]();
 	
@@ -314,6 +323,7 @@ poImage* poFont::getGlyphImage() {
 	poImage *img = new poImage(w, h, 1, buffer);
 	
 	delete [] buffer;
+        
 	return img;
 }
 
@@ -328,7 +338,7 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	FT_Get_Kerning(face, 
 				   FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
 				   0, &kern);
-	return poPoint(kern.x, kern.y);
+	return poPoint(kern.x/poGetScale(), kern.y/poGetScale());
 }
 
 std::string poFont::toString() const {
@@ -380,11 +390,14 @@ void    poFont::cacheGlyphMetrics()
     {
         poFontGlyphMetrics& M = cachedGlyphMetricsSet[size][i];
         setGlyph(i);
-        M.glyphBounds = getGlyphBounds();
-        M.glyphFrame = getGlyphFrame();
-        M.glyphDescender = getGlyphDescender();
-        M.glyphBearing = getGlyphBearing();
-        M.glyphAdvance = getGlyphAdvance();
+        
+        M.glyphBounds       = getGlyphBounds();
+        M.glyphFrame        = getGlyphFrame();
+        M.glyphDescender    = getGlyphDescender();
+        M.glyphBearing      = getGlyphBearing();
+        M.glyphAdvance      = getGlyphAdvance();
+        
+        std::cout << "Glyph " << i << ": " << M.glyphBearing.y << std::endl;
     }
 
     currentCache = &cachedGlyphMetricsSet[size];
