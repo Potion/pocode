@@ -244,7 +244,7 @@ void po::TextBoxLayout::breakLine(lineLayoutProps &props) {
 		
 		// and set up hte next line
 		props.line = TextLayoutLine();
-		props.line.bbox.y = start_y + props.maxLineHeight * props.leading;
+		props.line.bbox.y = start_y + round(props.maxLineHeight * props.leading); //Round lineheight * leading to push to whole pixel, otherwise blurry type
 	}
 	
 	props.broke = true;
