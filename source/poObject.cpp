@@ -328,25 +328,25 @@ std::vector<poObject*> poObject::getChildren(const std::string &name) {
 }
 
 void poObject::moveChildToFront(poObject* child) {
-	removeChild(child);
-	addChild(child);
+	if(removeChild(child))
+        addChild(child);
 }
 
 void poObject::moveChildToBack(poObject* child) {
-	removeChild(child);
-	addChild(child, 0);
+	if(removeChild(child))
+        addChild(child, 0);
 }
 
 void poObject::moveChildForward(poObject* child) {
 	int idx = getChildIndex(child);
-	removeChild(child);
-	addChild(child, std::min(idx+1, getNumChildren()));
+	if(removeChild(child))
+        addChild(child, std::min(idx+1, getNumChildren()));
 }
 
 void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
-	removeChild(child);
-	addChild(child, std::max(idx-1, 0));
+	if(removeChild(child))
+        addChild(child, std::max(idx-1, 0));
 }
 
 poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
