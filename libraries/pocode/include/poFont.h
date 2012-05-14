@@ -32,8 +32,11 @@
 #include "poImage.h"
 #include "poResourceStore.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#include <ft2build.h> 
+#include FT_FREETYPE_H 
+#include FT_BITMAP_H 
+#include FT_GLYPH_H 
+#include FT_IMAGE_H
 
 class poShape2D;
 
