@@ -73,6 +73,10 @@ public:
     void setVerbose(bool isVerbose);
     bool openDatabase(std::string url, bool bOverwrite = false);
     
+    
+    void beginTransaction();
+    void endTransaction();
+    
     poSqlite3Result query(std::string query);
     
     std::string escapeQuotes(std::string text);
