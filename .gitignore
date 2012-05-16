@@ -19,6 +19,7 @@ staging/
 xcuserdata/
 build/
 projects/
+libraries/pocode/*.a
 
 # Visual Studio
 

@@ -1083,7 +1083,7 @@
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
 				PRODUCT_NAME = pocode_iOS_d;
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				VALID_ARCHS = armv7;
 			};

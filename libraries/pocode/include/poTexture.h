@@ -79,6 +79,7 @@ public:
 	void				replace(const ubyte *pixels);
 	
 	bool                isValid() const;
+    bool                isScaled() const;
 	poTextureConfig		getConfig() const;
 	uint				getUid() const;
 	uint				getWidth() const;
@@ -107,6 +108,7 @@ private:
 	uint				uid, width, height, channels;
     
     poImage*            sourceImage;
+    bool                sourceIsScaled;
     
     static int          totalAllocatedTextureMemorySize;
 };

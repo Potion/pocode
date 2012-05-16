@@ -396,8 +396,6 @@ void    poFont::cacheGlyphMetrics()
         M.glyphDescender    = getGlyphDescender();
         M.glyphBearing      = getGlyphBearing();
         M.glyphAdvance      = getGlyphAdvance();
-        
-        std::cout << "Glyph " << i << ": " << M.glyphBearing.y << std::endl;
     }
 
     currentCache = &cachedGlyphMetricsSet[size];
