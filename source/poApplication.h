@@ -19,7 +19,6 @@
 
 #pragma once
 
-
 #include "poWindow.h"
 
 // FILE NOTES

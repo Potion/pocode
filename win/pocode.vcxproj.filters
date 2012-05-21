@@ -8,6 +8,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="libtess2">
+      <UniqueIdentifier>{bf6040cf-5bd6-4043-88e0-2c4781a9edc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\poApplication.h">
@@ -145,15 +148,34 @@
     <ClInclude Include="..\source\poXML.h">
       <Filter>pocode</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\common.h">
-      <Filter>pocode</Filter>
-    </ClInclude>
     <ClInclude Include="..\libraries\pugixml\pugixml.hpp">
       <Filter>pugixml</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\pugixml\pugiconfig.hpp">
       <Filter>pugixml</Filter>
     </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\bucketalloc.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\dict.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\geom.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\mesh.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\priorityq.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\sweep.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\libtess2\tess.h">
+      <Filter>libtess2</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
@@ -285,5 +307,27 @@
     <ClCompile Include="..\libraries\pugixml\pugixml.cpp">
       <Filter>pugixml</Filter>
     </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\bucketalloc.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\dict.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\geom.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\mesh.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\priorityq.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\sweep.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\libtess2\tess.c">
+      <Filter>libtess2</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
 </Project>
