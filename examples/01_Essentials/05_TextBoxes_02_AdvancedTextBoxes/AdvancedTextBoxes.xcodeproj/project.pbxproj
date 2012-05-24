@@ -20,18 +20,18 @@
 
 /* Begin PBXFileReference section */
 		41275B6A153DE1E3002155BE /* AdvancedTextBoxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedTextBoxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41275B6F153DE1E3002155BE /* Debug.xcconfig */ = {isa = PBXFileReference; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
-		41275B70153DE1E3002155BE /* Release.xcconfig */ = {isa = PBXFileReference; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
-		41275B71153DE1E3002155BE /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		41275B6F153DE1E3002155BE /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		41275B70153DE1E3002155BE /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		41275B71153DE1E3002155BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
 		41275B72153DE1E3002155BE /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
 		41275B74153DE1E3002155BE /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
 		41275B76153DE1E3002155BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
 		41275B78153DE1E3002155BE /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
-		41275B7A153DE1E3002155BE /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		41275B7A153DE1E3002155BE /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
 		41275B7B153DE1E3002155BE /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
-		41275B7D153DE1E3002155BE /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		41275B7D153DE1E3002155BE /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
 		41275B7E153DE1E3002155BE /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
-		41275B81153DE1E3002155BE /* AdvancedTextBoxesApp.h */ = {isa = PBXFileReference; path = AdvancedTextBoxesApp.h; sourceTree = "<group>"; };
+		41275B81153DE1E3002155BE /* AdvancedTextBoxesApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvancedTextBoxesApp.h; sourceTree = "<group>"; };
 		41275B82153DE1E3002155BE /* AdvancedTextBoxesApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdvancedTextBoxesApp.cpp; sourceTree = "<group>"; };
 		41275B84153DE1E3002155BE /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41275B86153DE1E3002155BE /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -222,6 +222,7 @@
 				41275B8C153DE1E3002155BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
