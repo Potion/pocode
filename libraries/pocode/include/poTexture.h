@@ -42,7 +42,7 @@ public:
 	poTextureConfig();
 	poTextureConfig(GLenum format);
 	
-	poTextureConfig &setFormat(GLenum f)			{ format = f; return *this; };
+	poTextureConfig &setFormat(GLenum f)			{ format = f; return *this; }
 	poTextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
 	poTextureConfig &setType(GLenum f)				{ type = f; return *this; }
 	poTextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
@@ -89,6 +89,14 @@ public:
 	size_t				getSizeInBytes() const;
 	poPoint				getDimensions() const;
 	poRect				getBounds() const;
+	
+	void				setFormat(GLenum f);
+	void				setInternalFormat(GLenum f);
+	void				setMagFilter(GLenum f);
+	void				setMinFilter(GLenum f);
+	void				setType(GLenum f);
+	void				setWrapS(GLenum f);
+	void				setWrapT(GLenum f);
     
     bool                hasSourceImage() { return (sourceImage != NULL); };
 	poColor             getSourceImagePixel(poPoint p);
@@ -103,10 +111,11 @@ private:
 	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
 	void				loadDummyImage();
 	void                unload();
+	void				configure();
 	
 	poTextureConfig     config;
 	uint				uid, width, height, channels;
-    
+	
     poImage*            sourceImage;
     bool                sourceIsScaled;
     
