@@ -20,18 +20,18 @@
 
 /* Begin PBXFileReference section */
 		410448F9153759170028D3E2 /* ControlPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		410448FE153759180028D3E2 /* Debug.xcconfig */ = {isa = PBXFileReference; name = Debug.xcconfig; path = ../platform_OSX/Debug.xcconfig; sourceTree = "<group>"; };
-		410448FF153759180028D3E2 /* Release.xcconfig */ = {isa = PBXFileReference; name = Release.xcconfig; path = ../platform_OSX/Release.xcconfig; sourceTree = "<group>"; };
-		41044900153759180028D3E2 /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = ../platform_OSX/AppDelegate.h; sourceTree = "<group>"; };
+		410448FE153759180028D3E2 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform_OSX/Debug.xcconfig; sourceTree = "<group>"; };
+		410448FF153759180028D3E2 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform_OSX/Release.xcconfig; sourceTree = "<group>"; };
+		41044900153759180028D3E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform_OSX/AppDelegate.h; sourceTree = "<group>"; };
 		41044901153759180028D3E2 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform_OSX/AppDelegate.mm; sourceTree = "<group>"; };
 		41044903153759180028D3E2 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform_OSX/en.strings; sourceTree = "<group>"; };
 		41044905153759180028D3E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform_OSX/main.m; sourceTree = "<group>"; };
 		41044907153759180028D3E2 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform_OSX/main.pch; sourceTree = "<group>"; };
-		41044909153759180028D3E2 /* main.plist */ = {isa = PBXFileReference; name = main.plist; path = ../platform_OSX/main.plist; sourceTree = "<group>"; };
+		41044909153759180028D3E2 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform_OSX/main.plist; sourceTree = "<group>"; };
 		4104490A153759180028D3E2 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform_OSX/main.xib; sourceTree = "<group>"; };
-		4104490C153759180028D3E2 /* poOpenGLView.h */ = {isa = PBXFileReference; name = poOpenGLView.h; path = ../platform_OSX/poOpenGLView.h; sourceTree = "<group>"; };
+		4104490C153759180028D3E2 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform_OSX/poOpenGLView.h; sourceTree = "<group>"; };
 		4104490D153759180028D3E2 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform_OSX/poOpenGLView.mm; sourceTree = "<group>"; };
-		41044910153759180028D3E2 /* ControlPanelApp.h */ = {isa = PBXFileReference; path = ControlPanelApp.h; sourceTree = "<group>"; };
+		41044910153759180028D3E2 /* ControlPanelApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlPanelApp.h; sourceTree = "<group>"; };
 		41044911153759180028D3E2 /* ControlPanelApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControlPanelApp.cpp; sourceTree = "<group>"; };
 		41044913153759180028D3E2 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		41044915153759180028D3E2 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform_OSX/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -222,6 +222,7 @@
 				4104491B153759180028D3E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

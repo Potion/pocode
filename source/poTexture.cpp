@@ -272,6 +272,41 @@ poRect poTexture::getBounds() const {
 	return poRect(0,0,width,height);
 }
 
+void poTexture::setFormat(GLenum f){
+	config.setFormat(f);
+	configure();
+}
+
+void poTexture::setInternalFormat(GLenum f){
+	config.setInternalFormat(f);
+	configure();
+}
+
+void poTexture::setMagFilter(GLenum f){
+	config.setMagFilter(f);
+	configure();
+}
+
+void poTexture::setMinFilter(GLenum f){
+	config.setMinFilter(f);
+	configure();
+}
+
+void poTexture::setType(GLenum f){
+	config.setType(f);
+	configure();
+}
+
+void poTexture::setWrapS(GLenum f){
+	config.setWrapS(f);
+	configure();
+}
+
+void poTexture::setWrapT(GLenum f){
+	config.setWrapT(f);
+	configure();
+}
+
 poColor poTexture::getSourceImagePixel(poPoint p)
 {
     if ( sourceImage == NULL )
@@ -386,6 +421,26 @@ void poTexture::loadDummyImage() {
 	width = height = 20;
 	channels = 3;
 	config = poTextureConfig(GL_RGB).setMinFilter(GL_NEAREST).setMagFilter(GL_NEAREST).setWrapS(GL_TEXTURE_WRAP_S).setWrapT(GL_TEXTURE_WRAP_T);
+}
+
+void poTexture::configure(){
+	
+	poOpenGLState *ogl = poOpenGLState::get();
+	ogl->pushTextureState();
+	glBindTexture(GL_TEXTURE_2D, uid);
+	
+	// set the filters we want
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+	
+	#ifndef OPENGL_ES
+		float trans[] = {0.f, 0.f, 0.f, 0.f};
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+	#endif
+	
+	ogl->popTextureState();
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
