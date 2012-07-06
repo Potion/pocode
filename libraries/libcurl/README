@@ -1,7 +1,20 @@
+------------------------------------------
 Building for OSX
+
+Build libssl
+export CFLAGS="-arch i386"
+export LDFLAGS="-arch i386"
+./config
+make
+lipo -info libssl.a
+cp libssl.a /pocode/libraries/libssl/osx/libssl.a
+
+
 Set arch to x86_64 if doing x64 build in future
 export CFLAGS="-arch i386"
-./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=i386-apple-darwin10
+LIBS=/pocode/libraries/libssl/osx/libssl.a
+#./configure --disable-shared --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=i386-apple-darwin10
+./configure --disable-shared --without-libssh2 --without-ca-bundle --with-ssl=/opt/local/lib/libssl.a --without-ldap --disable-ldap --host=i386-apple-darwin10
 make clean
 make
 ar rv libcurl.a lib/*.o
