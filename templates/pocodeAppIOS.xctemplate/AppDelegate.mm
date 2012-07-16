@@ -152,6 +152,7 @@
 -(void)loadGLVC {
     self.pocodeVC = [[potionCodeViewController alloc] init];
 	self.pocodeVC.appWindow->setWindowHandle(self.window);
+    self.pocodeVC.eagl.multipleTouchEnabled = YES;
 	[self.window.rootViewController.view insertSubview:self.pocodeVC.view belowSubview:fakeSplash];
     
 	[self.pocodeVC startAnimation];
