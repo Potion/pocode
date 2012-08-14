@@ -32,10 +32,21 @@
 #include "poImageShape.h"
 #include "poTextBox.h"
 
-#define TEXT_SIZE 12
-#define SLIDER_HEIGHT 15
-#define SLIDER_WIDTH 150
-#define SPACER 5
+#define PO_CONTROL_TEXT_SIZE 11
+#define PO_CONTROL_SLIDER_HEIGHT 15
+#define PO_CONTROL_SLIDER_WIDTH 150
+#define PO_CONTROL_SPACER 5
+
+enum poControlType {
+    PO_CONTROL_TYPE_FLOAT,
+    PO_CONTROL_TYPE_INT,
+    PO_CONTROL_TYPE_POINT,
+    PO_CONTROL_TYPE_COLOR,
+    PO_CONTROL_TYPE_BOOL,
+    PO_CONTROL_TYPE_TEXT_INPUT,
+    PO_CONTROL_TYPE_TEXT_OUTPUT,
+    PO_CONTROL_TYPE_MESSAGE
+};
 
 using namespace std;
 
@@ -45,6 +56,8 @@ public:
     poControl( string _ID, poObject* _listener = NULL );
     string ID;    
     poObject* listener;
+    
+    poControlType type;
     
     float       valF;
     int         valI;
@@ -132,6 +145,20 @@ public:
     poTextBox*		inputBox;
 	
 	bool			isActive;
+};
+
+class poOutputTextBox : public poControl {
+public:
+    
+    poOutputTextBox( string _ID, string init = "", poObject* _listener = NULL );
+	
+    void			resize();
+    
+    string          info;
+    poRectShape*	back;
+    poTextBox*		shapeLabel;
+    poTextBox*		shapeData;
+    poTextBox*		inputBox;
 };
 
 class poColorSlider : public poControl {

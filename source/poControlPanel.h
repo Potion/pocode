@@ -53,6 +53,7 @@ public:
     void addKnob( string _ID, float min=0, float max=1, poObject* obj=NULL );
     void addSliderI( string _ID, int min=0, int max=255, poObject* obj=NULL );
     void addInputTextBox( string _ID, poObject* obj=NULL );
+    void addOutputTextBox( string _ID, poObject* obj=NULL );
     void addPointSlider( string _ID, poPoint min=poPoint(0,0), poPoint max=poPoint(1,1) ,poObject* obj=NULL );
     void addColorSlider( string _ID, bool RGB=true ,poObject* obj=NULL );
     void addRadio( string _ID , vector<string> names, poObject* obj=NULL );
@@ -62,12 +63,16 @@ public:
     void saveSettings();
     void readSettings();
     
+    poControl*          getControl( string controlName );
+    
     bool                getBool( string s);
 	int					getInt( string s);
 	float				getFloat( string s);
 	string              getString( string s);
 	poPoint				getPoint( string s);
 	poColor				getColor( string s);
+    
+    void                setString( string s, string setString );
 	
 	poColor		 panelColor;
 

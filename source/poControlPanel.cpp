@@ -254,6 +254,26 @@ void poControlPanel::addInputTextBox( string _ID,poObject* obj ) {
     container->addChild( T );
 }
 
+void poControlPanel::addOutputTextBox( string _ID,poObject* obj ) {
+    string prop = _ID;
+    string propVal;
+    
+    if ( settings.has( prop ) )
+    {
+        string temp = settings.getString( prop );
+        temp = temp.erase(temp.find_last_not_of("'")+1);
+        temp = temp.erase(0,temp.find_first_not_of("'"));
+        propVal = temp;
+    }
+	else {
+        propVal = "test";
+        settings.set( prop, propVal );
+    }
+    
+    poOutputTextBox* T = new poOutputTextBox( _ID, propVal, obj );
+    container->addChild( T );
+}
+
 void poControlPanel::update() {
 	if(!isResized) autoResize();
 }
@@ -365,44 +385,114 @@ void poControlPanel::readSettings() {
     if(p) settings.read( label+".xml" );
 }
 
-bool poControlPanel::getBool( string s ) {    
-    poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valB;
+poControl* poControlPanel::getControl(string controlName) {
+    for(int i=0; i < container->getNumChildren(); i++) {
+        poControl* C = (poControl*) container->getChild(i);
+        if(C->name == controlName)
+            return C;
     }
+    return NULL;
+}
+
+bool poControlPanel::getBool( string s ) {
+    poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 1;
+    }
+    else if( C->type != PO_CONTROL_TYPE_BOOL )
+        std::cout << "poControl '" << s << "' does not store a boolean..." << std::endl;
+    
+    return C->valB;
 }
 
 int poControlPanel::getInt( string s ) {
-    poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valI;
+    poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 0;
     }
+    else if( C->type != PO_CONTROL_TYPE_INT )
+        std::cout << "poControl '" << s << "' does not store an integer..." << std::endl;
+    
+    return C->valI;
 }
 
 float poControlPanel::getFloat( string s ) {
-    poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valF;
+    poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 0.f;
     }
+    else if( C->type != PO_CONTROL_TYPE_FLOAT )
+        std::cout << "poControl '" << s << "' does not store a float..." << std::endl;
+    
+    return C->valF;
 }
 
 string poControlPanel::getString( string s ) {
-    poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valS;
+    poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return "";
     }
+    else if( C->type != PO_CONTROL_TYPE_TEXT_INPUT )
+        std::cout << "poControl '" << s << "' does not store a string..." << std::endl;
+    
+    return C->valS;
 }
 
 poPoint poControlPanel::getPoint( string s ) {
-	poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valP;
+	poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return poPoint(0,0,0);
     }
+    else if( C->type != PO_CONTROL_TYPE_POINT )
+        std::cout << "poControl '" << s << "' does not store a poPoint..." << std::endl;
+    
+    return C->valP;
 }
 
-poColor poControlPanel::getColor( string s) {
-    poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL ) {
-        return C->valC;
+poColor poControlPanel::getColor( string s ) {
+    poControl* C = getControl(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return poColor(0,0,0,0);
     }
+    else if( C->type != PO_CONTROL_TYPE_COLOR )
+        std::cout << "poControl '" << s << "' does not store a poColor..." << std::endl;
+    
+    return C->valC;
+}
+
+void poControlPanel::setString( string s, string setString ) {
+    poControl* controlChild = getControl(s);
+    if(controlChild == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't set its value..." << std::endl;
+        return;
+    }
+    else if( controlChild->type != PO_CONTROL_TYPE_TEXT_OUTPUT ) {
+        std::cout << "poControl '" << s << "' is not a text output..." << std::endl;
+        return;
+    }
+    poOutputTextBox* C = (poOutputTextBox*) container->getChild(s);
+    
+    C->valS = setString;
+    
+    C->shapeData->setText( C->valS );
+    C->shapeData->doLayout();
+    C->resize();
+    
+    poDictionary D;
+    D.set("value", setString);
+    
+    if ( C->listener == NULL ) {
+    }
+    else
+        C->listener->messageHandler( C->ID, D);
+    
+    D.set("control", C);
+    D.set("valueType", "string");
+    messageHandler("update_settings", D);
 }
