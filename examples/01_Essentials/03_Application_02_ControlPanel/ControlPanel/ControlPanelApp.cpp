@@ -27,9 +27,8 @@ ControlPanelApp::ControlPanelApp() {
     poImageShape* BG = new poImageShape("bg.jpg");
     addChild( BG );
 	
-	control = new poControlPanel( "controlPanel", poColor(0,0,0,0.6) );	// Create a control panel
-    // Give it a name and a
-    // background color
+	control = new poControlPanel( "controlPanel", poColor(0,0,0,0.6), 12 );	// Create a control panel
+    // Give it a name, background color (optional) and a text size (optional, default is 11)
 	
 	// CONTROLS
 	// Each control in the control panel has a name and a pointer to a listener poObject

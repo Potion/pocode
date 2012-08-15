@@ -64,6 +64,8 @@ public:
     poPoint     valP;
     poColor     valC;
     string      valS;
+    
+    static int  controlTextSize;
 };
 
 class poSliderF : public poControl {

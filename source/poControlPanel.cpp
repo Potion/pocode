@@ -23,7 +23,7 @@
 #define MARGIN 10
 #define SPACING 5
 
-poControlPanel::poControlPanel( string _label, poColor _color, string _filename ) {
+poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
     label = _label;
     
     readSettings();
@@ -34,9 +34,9 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
         pos = poPoint(0,0,0);
     
     float padding = 10;
-    filename = _filename;
 	
 	panelColor = _color;
+    poControl::controlTextSize = textSize;
     
     addEvent(PO_MOUSE_UP_EVENT, this);
 	

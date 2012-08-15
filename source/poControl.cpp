@@ -22,6 +22,8 @@
 #include "poHelpers.h"
 #include "poApplication.h"
 
+int poControl::controlTextSize = 12;
+
 poControl::poControl( string _ID, poObject* _listener ) {
     ID = _ID;
     listener = _listener;
@@ -61,7 +63,7 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     shapeData = new poTextBox( PO_CONTROL_SLIDER_WIDTH,PO_CONTROL_SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-    shapeData->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeData->setTextSize(controlTextSize);
     shapeData->setText(valString);
 	shapeData->doLayout();  
     addChild( shapeData );
@@ -69,7 +71,7 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -155,7 +157,7 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     shapeData = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-    shapeData->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeData->setTextSize(controlTextSize);
     shapeData->setText(valName+valString);
 	shapeData->doLayout();  
     addChild( shapeData );
@@ -163,7 +165,7 @@ poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _liste
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -258,7 +260,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     shapeData = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-    shapeData->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeData->setTextSize(controlTextSize);
     shapeData->setText( valString );
 	shapeData->doLayout();  
     addChild( shapeData );
@@ -266,7 +268,7 @@ poPointSlider::poPointSlider( string _ID, poPoint init, poPoint _min, poPoint _m
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -346,7 +348,7 @@ poToggleBox::poToggleBox( string _ID, bool init, poObject* _listener ) : poContr
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_HEIGHT+PO_CONTROL_SPACER*2,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -399,7 +401,7 @@ poRadio::poRadio( string _ID, int init, vector<string> names, poObject* _listene
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();
     addChild( shapeLabel );
@@ -465,7 +467,7 @@ poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) :
     shapeData = new poTextBox( PO_CONTROL_SLIDER_WIDTH,30 );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(0,0,0);
-    shapeData->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeData->setTextSize(controlTextSize);
     shapeData->setText( valS );
 	shapeData->doLayout();
 
@@ -474,7 +476,7 @@ poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) :
     shapeLabel = new poTextBox();
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -657,7 +659,7 @@ poColorSlider::poColorSlider( string _ID, poColor init, bool _RGB, poObject* _li
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,3*PO_CONTROL_SLIDER_HEIGHT,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -819,7 +821,7 @@ poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _liste
     shapeData = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeData->textColor = poColor::white;
     shapeData->position.set(PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT*3,0);
-    shapeData->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeData->setTextSize(controlTextSize);
     shapeData->setTextAlignment(PO_ALIGN_CENTER_CENTER);
     shapeData->setText(valString);
 	shapeData->doLayout();  
@@ -828,7 +830,7 @@ poKnob::poKnob( string _ID, float init, float _min, float _max, poObject* _liste
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
@@ -882,7 +884,7 @@ poButton::poButton( string _ID, poObject* _listener ) : poControl( _ID, _listene
 	shapeLabel->textColor = poColor::white;
     shapeLabel->position.set( 0,0,0);
     shapeLabel->setPadding( PO_CONTROL_SPACER );
-    shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
+    shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
 	shapeLabel->doLayout();  
     addChild( shapeLabel );
