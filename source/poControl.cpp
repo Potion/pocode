@@ -444,7 +444,7 @@ void poRadio::messageHandler(const std::string &msg, const poDictionary& dict) {
 
 poInputTextBox::poInputTextBox( string _ID, string init, poObject* _listener ) : poControl( _ID, _listener ) {
     
-    type = PO_CONTROL_TYPE_TEXT_INPUT;
+    type = PO_CONTROL_TYPE_TEXT;
     
     this->name = ID;
     string temp;
@@ -535,53 +535,6 @@ void poInputTextBox::resize() {
 	back->reshape( back->getWidth(), newSize.height );
 	back->generateStroke(1);
 	back->strokeEnabled = isActive;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-poOutputTextBox::poOutputTextBox( string _ID, string init, poObject* _listener ) : poControl( _ID, _listener ) {
-    
-    type = PO_CONTROL_TYPE_TEXT_OUTPUT;
-    
-    this->name = ID;
-    string temp;
-    temp = init;
-    
-    temp.erase(temp.find_last_not_of("'")+1);
-    temp.erase(0,temp.find_first_not_of("'"));
-    valS = temp;
-    
-    back = new poRectShape( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SLIDER_HEIGHT, 30 );
-    back->fillColor = poColor(1,1,1,0.2);
-	back->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-    addChild( back );
-    
-    shapeData = new poTextBox( PO_CONTROL_SLIDER_WIDTH,30 );
-	shapeData->textColor = poColor::white;
-    shapeData->position.set(0,0,0);
-    shapeData->setTextSize( PO_CONTROL_TEXT_SIZE );
-    shapeData->setText( valS );
-	shapeData->doLayout();
-    
-    addChild( shapeData );
-    
-    shapeLabel = new poTextBox();
-	shapeLabel->textColor = poColor::white;
-    shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
-    shapeLabel->setTextSize( PO_CONTROL_TEXT_SIZE );
-    shapeLabel->setText( ID );
-	shapeLabel->doLayout();
-    addChild( shapeLabel );
-    
-	resize();
-}
-
-void poOutputTextBox::resize()
-{
-	poRect newSize( 0, 0, shapeData->getWidth(), shapeData->getTextBounds().height );
-	if(newSize.height < 30) newSize.height = 30;
-	shapeData->reshape( newSize );
-	back->reshape( back->getWidth(), newSize.height );
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

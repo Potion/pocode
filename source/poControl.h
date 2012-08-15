@@ -43,8 +43,7 @@ enum poControlType {
     PO_CONTROL_TYPE_POINT,
     PO_CONTROL_TYPE_COLOR,
     PO_CONTROL_TYPE_BOOL,
-    PO_CONTROL_TYPE_TEXT_INPUT,
-    PO_CONTROL_TYPE_TEXT_OUTPUT,
+    PO_CONTROL_TYPE_TEXT,
     PO_CONTROL_TYPE_MESSAGE
 };
 
@@ -145,20 +144,6 @@ public:
     poTextBox*		inputBox;
 	
 	bool			isActive;
-};
-
-class poOutputTextBox : public poControl {
-public:
-    
-    poOutputTextBox( string _ID, string init = "", poObject* _listener = NULL );
-	
-    void			resize();
-    
-    string          info;
-    poRectShape*	back;
-    poTextBox*		shapeLabel;
-    poTextBox*		shapeData;
-    poTextBox*		inputBox;
 };
 
 class poColorSlider : public poControl {

@@ -254,26 +254,6 @@ void poControlPanel::addInputTextBox( string _ID,poObject* obj ) {
     container->addChild( T );
 }
 
-void poControlPanel::addOutputTextBox( string _ID,poObject* obj ) {
-    string prop = _ID;
-    string propVal;
-    
-    if ( settings.has( prop ) )
-    {
-        string temp = settings.getString( prop );
-        temp = temp.erase(temp.find_last_not_of("'")+1);
-        temp = temp.erase(0,temp.find_first_not_of("'"));
-        propVal = temp;
-    }
-	else {
-        propVal = "test";
-        settings.set( prop, propVal );
-    }
-    
-    poOutputTextBox* T = new poOutputTextBox( _ID, propVal, obj );
-    container->addChild( T );
-}
-
 void poControlPanel::update() {
 	if(!isResized) autoResize();
 }
@@ -436,7 +416,7 @@ string poControlPanel::getString( string s ) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return "";
     }
-    else if( C->type != PO_CONTROL_TYPE_TEXT_INPUT )
+    else if( C->type != PO_CONTROL_TYPE_TEXT )
         std::cout << "poControl '" << s << "' does not store a string..." << std::endl;
     
     return C->valS;
@@ -472,11 +452,11 @@ void poControlPanel::setString( string s, string setString ) {
         std::cout << "poControl '" << s << "' does not exist, can't set its value..." << std::endl;
         return;
     }
-    else if( controlChild->type != PO_CONTROL_TYPE_TEXT_OUTPUT ) {
+    else if( controlChild->type != PO_CONTROL_TYPE_TEXT ) {
         std::cout << "poControl '" << s << "' is not a text output..." << std::endl;
         return;
     }
-    poOutputTextBox* C = (poOutputTextBox*) container->getChild(s);
+    poInputTextBox* C = (poInputTextBox*) container->getChild(s);
     
     C->valS = setString;
     
