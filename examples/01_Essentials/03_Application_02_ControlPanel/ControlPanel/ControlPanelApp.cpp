@@ -28,8 +28,8 @@ ControlPanelApp::ControlPanelApp() {
     addChild( BG );
 	
 	control = new poControlPanel( "controlPanel", poColor(0,0,0,0.6) );	// Create a control panel
-																		// Give it a name and a
-																		// background color
+    // Give it a name and a
+    // background color
 	
 	// CONTROLS
 	// Each control in the control panel has a name and a pointer to a listener poObject
@@ -38,14 +38,14 @@ ControlPanelApp::ControlPanelApp() {
 	
     control->addToggle( "visible", this );								// Add a toggle button called "visible"
     control->addSliderF( "scale",0.5f, 5.f, this );						// Add a float slider called "scale" with
-																		// values that go from 0.5 to 5
+    // values that go from 0.5 to 5
 	
     control->addPointSlider( "loc", poPoint(50,172), poPoint(508,467), this ); // Add a poPoint slider called "loc"
-																		// and set the min and max poPoint values
+    // and set the min and max poPoint values
     control->addColorSlider( "color", true, this );						// Add a color slider called "color"
-																		// (it includes R,G,B and alpha sliders)
+    // (it includes R,G,B and alpha sliders)
     control->addKnob( "knob",0.f, 360.f, this );						// Add a knob called "knob"
-																		// with values that go from 0 to 360
+    // with values that go from 0 to 360
 	control->addButton( "rotate!", this );
 	
 	// To add a list of radio buttons we need to define first a list of button labels
@@ -53,7 +53,6 @@ ControlPanelApp::ControlPanelApp() {
 	radioOptions.push_back("triangle");
 	radioOptions.push_back("quadrilateral");
 	radioOptions.push_back("pentagon");
-	radioOptions.push_back("hexagon");
 	radioOptions.push_back("circle");
 	
 	// Now we can create the a list of radio buttons called "shape", by passing the list of strings that we created
@@ -64,7 +63,6 @@ ControlPanelApp::ControlPanelApp() {
 	shapeOptions.push_back(3);
 	shapeOptions.push_back(4);
 	shapeOptions.push_back(5);
-	shapeOptions.push_back(6);
 	shapeOptions.push_back(40);
 	
 	// Create an oval shape
@@ -77,18 +75,19 @@ ControlPanelApp::ControlPanelApp() {
 	
 	shape->fillColor = control->getColor("color");				// Get a poColor value from the control called "color"
 	shape->position = control->getPoint("loc");					// Get a poPoint value from the control called "loc"
-																// Get a float value from the control called "scale"
+    // Get a float value from the control called "scale"
 	shape->scale.set(control->getFloat("scale"),control->getFloat("scale"),1);
 	shape->visible = control->getBool("visible");				// Get a boolean from the control called "visible"
-	shape->rotation = control->getInt("knob");					// Get a float value from the control called "knob"
+	shape->rotation = control->getFloat("knob");                // Get a float value from the control called "knob"
 	
 	int optionID = control->getInt("shape");			// Get an integer value from the radio buttons called "shape"
-														// The integer is the item ID in the vector list of options
+    // The integer is the item ID in the vector list of options
 	shape->reshape(40,40, shapeOptions[optionID]);		// Reshape the oval shape based on the option
 	
-	control->addInputTextBox( "text",this );					// Add an input text box called "text"
-	control->addSliderI( "textSize",10,30, this );				// Add an integer slider called "size"
-																// with values from 10 to 30
+    control->addInputTextBox( "print", this );                  // Add an input text box called "print"
+	control->addInputTextBox( "text", this );					// Add an input text box called "text"
+	control->addSliderI( "textSize", 10, 30, this );			// Add an integer slider called "size"
+    // with values from 10 to 30
 	
 	text = new poTextBox(450,295);
 	text->setText(control->getString("text"));					// Get a string value from the control called "text"
@@ -103,6 +102,8 @@ ControlPanelApp::ControlPanelApp() {
 	addChild(shape);
 	addChild(text);
 	addChild(control);
+    
+    addEvent(PO_MOUSE_MOVE_EVENT, this);
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -111,7 +112,7 @@ ControlPanelApp::~ControlPanelApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void ControlPanelApp::update() {
-	
+    
 }
 
 // DRAW. Called once per frame. Draw objects here.
@@ -122,6 +123,17 @@ void ControlPanelApp::draw() {
 // EVENT HANDLER. Called when events happen. Respond to events here.
 void ControlPanelApp::eventHandler(poEvent *event) {
 	
+    if( event->type == PO_MOUSE_MOVE_EVENT ) {
+        char outputMessage[64];
+        if(event->globalPosition.x < 0 || event->globalPosition.x > getWindowWidth() ||
+           event->globalPosition.y < 0 || event->globalPosition.y > getWindowHeight()) {
+            sprintf(outputMessage, "The mouse is outside of the window!");
+        }
+        else {
+            sprintf(outputMessage, "The mouse is at %.0f, %.0f", event->globalPosition.x, event->globalPosition.y);
+        }
+        control->setString("print", outputMessage);        // set the string for the poInputTextBox called "print"
+    }
 }
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.
