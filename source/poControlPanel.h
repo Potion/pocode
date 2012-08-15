@@ -62,8 +62,6 @@ public:
     void saveSettings();
     void readSettings();
     
-    poControl*          getControl( string controlName );
-    
     bool                getBool( string s);
 	int					getInt( string s);
 	float				getFloat( string s);

@@ -365,17 +365,8 @@ void poControlPanel::readSettings() {
     if(p) settings.read( label+".xml" );
 }
 
-poControl* poControlPanel::getControl(string controlName) {
-    for(int i=0; i < container->getNumChildren(); i++) {
-        poControl* C = (poControl*) container->getChild(i);
-        if(C->name == controlName)
-            return C;
-    }
-    return NULL;
-}
-
 bool poControlPanel::getBool( string s ) {
-    poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return 1;
@@ -387,7 +378,7 @@ bool poControlPanel::getBool( string s ) {
 }
 
 int poControlPanel::getInt( string s ) {
-    poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return 0;
@@ -399,7 +390,7 @@ int poControlPanel::getInt( string s ) {
 }
 
 float poControlPanel::getFloat( string s ) {
-    poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return 0.f;
@@ -411,7 +402,7 @@ float poControlPanel::getFloat( string s ) {
 }
 
 string poControlPanel::getString( string s ) {
-    poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return "";
@@ -423,7 +414,7 @@ string poControlPanel::getString( string s ) {
 }
 
 poPoint poControlPanel::getPoint( string s ) {
-	poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return poPoint(0,0,0);
@@ -435,7 +426,7 @@ poPoint poControlPanel::getPoint( string s ) {
 }
 
 poColor poControlPanel::getColor( string s ) {
-    poControl* C = getControl(s);
+    poControl* C = (poControl*) container->getChild(s);
     if(C == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
         return poColor(0,0,0,0);
@@ -447,13 +438,13 @@ poColor poControlPanel::getColor( string s ) {
 }
 
 void poControlPanel::setString( string s, string setString ) {
-    poControl* controlChild = getControl(s);
+    poControl* controlChild = (poControl*) container->getChild(s);
     if(controlChild == NULL) {
         std::cout << "poControl '" << s << "' does not exist, can't set its value..." << std::endl;
         return;
     }
     else if( controlChild->type != PO_CONTROL_TYPE_TEXT ) {
-        std::cout << "poControl '" << s << "' is not a text output..." << std::endl;
+        std::cout << "poControl '" << s << "' is not a text input, can't setString..." << std::endl;
         return;
     }
     poInputTextBox* C = (poInputTextBox*) container->getChild(s);
