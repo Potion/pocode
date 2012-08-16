@@ -33,6 +33,12 @@ poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
     else
         pos = poPoint(0,0,0);
     
+    bool showHide;
+    if ( settings.has("showHide") )
+        showHide = settings.getInt("showHide");
+    else
+        showHide = true;
+    
     float padding = 10;
 	
 	panelColor = _color;
@@ -61,6 +67,7 @@ poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
 	
     container = new poObject();
     container->position = poPoint( MARGIN, bar->getBounds().height + MARGIN );
+    container->visible = showHide;
     bar->addChild( container );
 	
 	containerLayout = new poLayout(PO_VERTICAL_DOWN);
@@ -70,6 +77,7 @@ poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
     
     box = new poRectShape( bar->getWidth(),400 );
     box->fillColor = panelColor;
+    box->visible = showHide;
     bar->addChild( box );
     
     float sWidth = container->getBounds().width - padding;
@@ -90,11 +98,17 @@ poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
 	saveText->doLayout();  
     save->addChild( saveText );
     
+    string status;
+    if ( showHide )
+        status = "hide";
+    else
+        status = "show";
+    
     hideText = new poTextBox( save->getWidth(), save->getHeight() );
 	hideText->textColor = poColor::white;
     hideText->position.set( padding,3,0 );
     hideText->setTextSize(12);
-    hideText->setText( "hide" );
+    hideText->setText( status );
 	hideText->doLayout();
     hide->addChild( hideText );
     
@@ -279,6 +293,7 @@ void poControlPanel::eventHandler(poEvent *event) {
             box->visible = ! box->visible;
             container->visible = ! container->visible;
             hide->fillColor = poColor( 1,0,0,.2 );
+            settings.set( "showHide" , container->visible );
             
             if (!container->visible) {
                 hideText->setText( "show" );
