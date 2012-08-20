@@ -188,6 +188,14 @@ poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAli
 	return *this;
 }
 
+poShape2D&  poShape2D::setTextureCoords(const std::vector<poPoint> &texCrds )
+{
+    if ( texCrds.size() != points.size() )
+        printf("ERROR: mistmatch vector size in poShape2D::setTextureCoords\n");
+    texCoords = texCrds;
+    return* this;
+}
+
 poTexture* poShape2D::getTexture() {
     return texture;
 }
@@ -200,6 +208,18 @@ void poShape2D::removeTexture(bool andDelete) {
 }
 
 poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) {
+
+    for( int i=0; i<texCoords.size(); i++ )
+    {
+        texCoords[i].x += pt.x;
+        texCoords[i].y -= pt.y;
+        
+        texCoords[i].x *= scale.x;
+        texCoords[i].y *= scale.y;
+        
+        if ( rotate > 0.01 || rotate < -0.01 )
+            texCoords[i] = texCoords[i].getRotate2D(rotate);
+    }
 	return *this;
 }
 

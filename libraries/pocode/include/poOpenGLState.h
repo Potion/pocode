@@ -60,6 +60,7 @@ namespace po {
 	
 	struct TextureState {
 		TextureState();
+		TextureState(GLuint uid, bool masked=false);
 		TextureState(poTexture *tex);
 		
 		GLuint boundID;
@@ -105,6 +106,7 @@ namespace po {
 	
 	struct ShaderState {
 		ShaderState();
+		ShaderState(GLuint uid);
 		
 		GLuint bound_id;
 	};

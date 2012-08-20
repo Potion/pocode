@@ -23,7 +23,7 @@
 #define MARGIN 10
 #define SPACING 5
 
-poControlPanel::poControlPanel( string _label, poColor _color, string _filename ) {
+poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
     label = _label;
     
     readSettings();
@@ -33,10 +33,16 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
     else
         pos = poPoint(0,0,0);
     
+    bool showHide;
+    if ( settings.has("showHide") )
+        showHide = settings.getInt("showHide");
+    else
+        showHide = true;
+    
     float padding = 10;
-    filename = _filename;
 	
 	panelColor = _color;
+    poControl::controlTextSize = textSize;
     
     addEvent(PO_MOUSE_UP_EVENT, this);
 	
@@ -61,6 +67,7 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
 	
     container = new poObject();
     container->position = poPoint( MARGIN, bar->getBounds().height + MARGIN );
+    container->visible = showHide;
     bar->addChild( container );
 	
 	containerLayout = new poLayout(PO_VERTICAL_DOWN);
@@ -70,6 +77,7 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
     
     box = new poRectShape( bar->getWidth(),400 );
     box->fillColor = panelColor;
+    box->visible = showHide;
     bar->addChild( box );
     
     float sWidth = container->getBounds().width - padding;
@@ -90,11 +98,17 @@ poControlPanel::poControlPanel( string _label, poColor _color, string _filename 
 	saveText->doLayout();  
     save->addChild( saveText );
     
+    string status;
+    if ( showHide )
+        status = "hide";
+    else
+        status = "show";
+    
     hideText = new poTextBox( save->getWidth(), save->getHeight() );
 	hideText->textColor = poColor::white;
     hideText->position.set( padding,3,0 );
     hideText->setTextSize(12);
-    hideText->setText( "hide" );
+    hideText->setText( status );
 	hideText->doLayout();
     hide->addChild( hideText );
     
@@ -279,6 +293,7 @@ void poControlPanel::eventHandler(poEvent *event) {
             box->visible = ! box->visible;
             container->visible = ! container->visible;
             hide->fillColor = poColor( 1,0,0,.2 );
+            settings.set( "showHide" , container->visible );
             
             if (!container->visible) {
                 hideText->setText( "show" );
@@ -365,44 +380,105 @@ void poControlPanel::readSettings() {
     if(p) settings.read( label+".xml" );
 }
 
-bool poControlPanel::getBool( string s ) {    
+bool poControlPanel::getBool( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valB;
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 1;
     }
+    else if( C->type != PO_CONTROL_TYPE_BOOL )
+        std::cout << "poControl '" << s << "' does not store a boolean..." << std::endl;
+    
+    return C->valB;
 }
 
 int poControlPanel::getInt( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valI;
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 0;
     }
+    else if( C->type != PO_CONTROL_TYPE_INT )
+        std::cout << "poControl '" << s << "' does not store an integer..." << std::endl;
+    
+    return C->valI;
 }
 
 float poControlPanel::getFloat( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valF;
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return 0.f;
     }
+    else if( C->type != PO_CONTROL_TYPE_FLOAT )
+        std::cout << "poControl '" << s << "' does not store a float..." << std::endl;
+    
+    return C->valF;
 }
 
 string poControlPanel::getString( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valS;
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return "";
     }
+    else if( C->type != PO_CONTROL_TYPE_TEXT )
+        std::cout << "poControl '" << s << "' does not store a string..." << std::endl;
+    
+    return C->valS;
 }
 
 poPoint poControlPanel::getPoint( string s ) {
-	poControl* C = (poControl*) container->getChild(s);
-    if( C != NULL ) {
-        return C->valP;
+    poControl* C = (poControl*) container->getChild(s);
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return poPoint(0,0,0);
     }
+    else if( C->type != PO_CONTROL_TYPE_POINT )
+        std::cout << "poControl '" << s << "' does not store a poPoint..." << std::endl;
+    
+    return C->valP;
 }
 
-poColor poControlPanel::getColor( string s) {
+poColor poControlPanel::getColor( string s ) {
     poControl* C = (poControl*) container->getChild(s);
-    if ( C != NULL ) {
-        return C->valC;
+    if(C == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't get its value..." << std::endl;
+        return poColor(0,0,0,0);
     }
+    else if( C->type != PO_CONTROL_TYPE_COLOR )
+        std::cout << "poControl '" << s << "' does not store a poColor..." << std::endl;
+    
+    return C->valC;
+}
+
+void poControlPanel::setString( string s, string setString ) {
+    poControl* controlChild = (poControl*) container->getChild(s);
+    if(controlChild == NULL) {
+        std::cout << "poControl '" << s << "' does not exist, can't set its value..." << std::endl;
+        return;
+    }
+    else if( controlChild->type != PO_CONTROL_TYPE_TEXT ) {
+        std::cout << "poControl '" << s << "' is not a text input, can't setString..." << std::endl;
+        return;
+    }
+    poInputTextBox* C = (poInputTextBox*) container->getChild(s);
+    
+    C->valS = setString;
+    
+    C->shapeData->setText( C->valS );
+    C->shapeData->doLayout();
+    C->resize();
+    
+    poDictionary D;
+    D.set("value", setString);
+    
+    if ( C->listener == NULL ) {
+    }
+    else
+        C->listener->messageHandler( C->ID, D);
+    
+    D.set("control", C);
+    D.set("valueType", "string");
+    messageHandler("update_settings", D);
 }

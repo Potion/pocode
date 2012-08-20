@@ -312,6 +312,11 @@ po::TextureState::TextureState() {
 	isMask = false;
 }
 
+po::TextureState::TextureState(GLuint uid, bool masked) {
+	boundID = uid;
+	isMask = masked;
+}
+
 po::TextureState::TextureState(poTexture *tex) {
 	boundID = tex->getUid();
 	isMask = tex->getConfig().format == GL_ALPHA;
@@ -337,3 +342,6 @@ po::ShaderState::ShaderState()
 :	bound_id(0)
 {}
 
+po::ShaderState::ShaderState(GLuint uid)
+:	bound_id(uid)
+{}
