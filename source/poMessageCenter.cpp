@@ -63,7 +63,7 @@ void poMessageCenter::removeSubscriber(std::string msg, poObject* subscriber) {
 
 void poMessageCenter::removeAllSubscribers(std::string msg) {
     if(subscribers.find(msg) != subscribers.end()) {
-        subscribers[msg].empty();
+        subscribers[msg].clear();
         
         std::map<std::string, std::vector<poMessageSubscriber* > >::iterator it;
         it = subscribers.find(msg);
