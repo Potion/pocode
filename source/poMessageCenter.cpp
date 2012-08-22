@@ -43,8 +43,8 @@ void poMessageCenter::addSubscriber(std::string msg, poObject* subscriber, poObj
     subscribers[msg].push_back(new poMessageSubscriber());
     subscribers[msg].back()->sender       = sender;
     subscribers[msg].back()->subscriber   = subscriber;
-    
 }
+
 
 void poMessageCenter::removeSubscriber(std::string msg, poObject* subscriber) {
     if(subscribers.find(msg) != subscribers.end()) {
@@ -64,6 +64,10 @@ void poMessageCenter::removeSubscriber(std::string msg, poObject* subscriber) {
 void poMessageCenter::removeAllSubscribers(std::string msg) {
     if(subscribers.find(msg) != subscribers.end()) {
         subscribers[msg].empty();
+        
+        std::map<std::string, std::vector<poMessageSubscriber* > >::iterator it;
+        it = subscribers.find(msg);
+        subscribers.erase(it);
     }
 }
 
