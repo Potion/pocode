@@ -19,13 +19,7 @@ void poThreadCenterWorker::run() {
 }
 
 void poThreadCenterWorker::workerFunc() {
-    std::cout << "Thread is doing some work!" << std::endl;
-    sleep(2);
-    std::cout << "Thread still doing some work!" << std::endl;
-    sleep(2);
-    std::cout << "Thread almost done doing some work!" << std::endl;
-    sleep(2);
-    std::cout << "OK, the thread is done." << std::endl;
+    //Override this function for threaded functionality
 }
 
 poObject* poThreadCenterWorker::getWorkerNotify() {

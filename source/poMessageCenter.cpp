@@ -19,6 +19,8 @@ poMessageCenter::poMessageCenter() {
 poMessageCenter::~poMessageCenter() {
 }
 
+
+//------------------------------------------------------------------
 void poMessageCenter::update() {
     //Go through queue, broadcasting messages
     for(std::vector<poMessage*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
@@ -39,6 +41,8 @@ void poMessageCenter::update() {
     messageQueue.clear();
 }
 
+
+//------------------------------------------------------------------
 void poMessageCenter::addSubscriber(std::string msg, poObject* subscriber, poObject* sender) {
     subscribers[msg].push_back(new poMessageSubscriber());
     subscribers[msg].back()->sender       = sender;
@@ -46,6 +50,7 @@ void poMessageCenter::addSubscriber(std::string msg, poObject* subscriber, poObj
 }
 
 
+//------------------------------------------------------------------
 void poMessageCenter::removeSubscriber(std::string msg, poObject* subscriber) {
     if(subscribers.find(msg) != subscribers.end()) {
         if(!subscribers[msg].empty()) {
@@ -61,6 +66,8 @@ void poMessageCenter::removeSubscriber(std::string msg, poObject* subscriber) {
     }
 }
 
+
+//------------------------------------------------------------------
 void poMessageCenter::removeAllSubscribers(std::string msg) {
     if(subscribers.find(msg) != subscribers.end()) {
         subscribers[msg].clear();
@@ -71,6 +78,8 @@ void poMessageCenter::removeAllSubscribers(std::string msg) {
     }
 }
 
+
+//------------------------------------------------------------------
 void poMessageCenter::broadcastMessage(std::string msg, poObject* sender, const poDictionary& dict) {
     if(subscribers.find(msg) != subscribers.end()) {
         messageQueue.push_back(new poMessage());
