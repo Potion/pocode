@@ -44,51 +44,52 @@ typedef struct {
 //------------------------------------------------------------
 //poSqlite3Result
 class poSqlite3Result {
-public:
-    poSqlite3Result(std::string query, bool bVerbose=false);
-    ~poSqlite3Result();
-    
-    std::string query;
-    
-    std::vector <poSqlite3Column> columns;
-    std::string getColumnNames();
-    
-    int getNumRows();
-    poDictionary getRow(int rowNum);
-    
-    std::vector <poDictionary> rows;
+    public:
+        poSqlite3Result(std::string query, bool bVerbose=false);
+        ~poSqlite3Result();
+        
+        std::string query;
+        
+        std::vector <poSqlite3Column> columns;
+        std::string getColumnNames();
+        
+        int getNumRows();
+        poDictionary getRow(int rowNum);
+        
+        std::vector <poDictionary> rows;
 
-    std::string errorMessage;
-private:
-    bool bVerbose;
-    int nRows;
+        std::string errorMessage;
+    private:
+        bool bVerbose;
+        int nRows;
 };
 
 class poSqlite3 {
-public:
-    poSqlite3(bool bVerbose=false);
-	poSqlite3(std::string url, bool bVerbose=false);
-	virtual ~poSqlite3();
-    
-    void setVerbose(bool isVerbose);
-    bool openDatabase(std::string url, bool bOverwrite = false);
-    
-    
-    void beginTransaction();
-    void endTransaction();
-    
-    poSqlite3Result query(std::string query);
-    
-    std::string escapeQuotes(std::string text);
-    
-    void save();
-    void save(const char* url);
-    
-    void close();
-    
-    sqlite3 *db;
-private:
-    bool bLoaded;
-    bool bVerbose;
+    public:
+        poSqlite3(bool bVerbose=false);
+        poSqlite3(std::string url, bool bVerbose=false);
+        virtual ~poSqlite3();
+        
+        void setVerbose(bool isVerbose);
+        bool openDatabase(std::string url, bool bOverwrite = false);
+        
+        //Begin/End transaction helps batch execute many calls
+        //Great for speed improvements
+        void beginTransaction();
+        void endTransaction();
+        
+        poSqlite3Result query(std::string query);
+        
+        std::string escapeQuotes(std::string text);
+        
+        void save();
+        void save(const char* url);
+        
+        void close();
+        
+        sqlite3 *db;
+    private:
+        bool bLoaded;
+        bool bVerbose;
 };
 
