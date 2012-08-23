@@ -27,9 +27,9 @@
 
 #include "poShape3D.h"
 #include "poOpenGLState.h"
-#include "poBasicRenderer.h"
 #include "poCamera.h"
 #include "poApplication.h"
+#include "poTexture.h"
 
 #include <boost/foreach.hpp>
 
@@ -53,54 +53,41 @@ poShape3D::poShape3D()
 
 void poShape3D::draw()
 {
-    
-    // get openGL state
-    poOpenGLState *ogl = poOpenGLState::get();
-	ogl->setTexture(po::TextureState());
-
-    // get Vertex State
-    po::VertexState vert;
-    vert.enableAttrib(0).disableAttrib(1).disableAttrib(2).disableAttrib(3);
-    
-    // load vertex positions
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].position.x ); 
+	po::disableTexture();
+	
+	glEnableVertexAttribArray(0);
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].position.x );
     
     // load vertex texture coordinates (optional)
     if ( useVertexTextureCoords ) {
-        vert.enableAttrib(1);
-        ogl->setTexture(po::TextureState(texture));
-        glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x ); 
     }
 
     // load vertex colors (optional)
     if ( useVertexColors ) {
-        vert.enableAttrib(2);
-        glVertexAttribPointer( 2, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].textureCoords.x );
     }
 
     // load vertex normals (optional)
     if ( useVertexNormals ) {
-        vert.enableAttrib(1);
-        glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].normal.x );     
+		glEnableVertexAttribArray(1);
+        glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, sizeof(poVertex3D), &vertexList[0].normal.x );
     }
-    
-    ogl->setVertex(vert);
 
-
+	po::use3DShader();
+	po::updateActiveShader();
+	
     // draw triangle list (a list of vertex indices)
     if ( fillEnabled )
     {
-        ogl->color = fillColor;
-        poBasicRenderer::get()->setFromState();
+		po::setColor(fillColor);
         glDrawElements( GL_TRIANGLES, triangleList.size()*3, GL_UNSIGNED_INT, &triangleList[0].vertexIndexSet[0] );
     }
     
     // draw stroke
     if ( strokeWidth > 0 )
     {
-        ogl->color = strokeColor;
-        poBasicRenderer::get()->setFromState();
-        glLineWidth(strokeWidth);
+		po::setColor(strokeColor);
+		po::setLineWidth(strokeWidth);
+		
         // Draw each triangle separately. In theory, this could be done with glDrawElements, but it's not working.
         // Also, this draws edges that appear in two triangles twice.
         for( uint i=0; i<triangleList.size(); i++ )
@@ -110,8 +97,7 @@ void poShape3D::draw()
     // draw points
     if ( pointSize > 0 )
     {
-        ogl->color = pointColor;
-        poBasicRenderer::get()->setFromState();
+		po::setColor(pointColor);
         glPointSize(pointSize);
         glDrawArrays(GL_POINTS, 0, vertexList.size());
     }

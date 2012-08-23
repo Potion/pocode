@@ -25,7 +25,6 @@
 #include "poCamera.h"
 
 #include "poOpenGLState.h"
-#include "poBasicRenderer.h"
 
 #ifdef POTION_APPLE
 	#include "nanosvg.h"
@@ -92,7 +91,7 @@ void poShape2D::draw() {
 
 		if(useSimpleStroke) {
 			// use crappy OpenGL stroke
-			glLineWidth( strokeWidth );
+			po::setLineWidth( strokeWidth );
 			po::drawPoints(points, closed ? GL_LINE_LOOP : GL_LINE_STRIP);
 		}
 		else {

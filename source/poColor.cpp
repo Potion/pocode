@@ -105,6 +105,14 @@ poColor::poColor()
 ,   A(0.f)
 {}
 
+poColor::poColor(poColor c, float multAlpha)
+:	R(c.R)
+,	G(c.G)
+,	B(c.B)
+,	A(c.A*multAlpha)
+{}
+
+
 poColor::poColor(float r, float g, float b, float a)
 :	R(r)
 ,   G(g)
@@ -117,12 +125,22 @@ poColor::poColor(const poHSVColor &hsv) {
     set(col.R, col.G, col.B, col.A);
 }
 
-poColor::poColor(poColor c, float multAlpha)
+poColor::poColor(poColor const& c)
 :	R(c.R)
 ,	G(c.G)
 ,	B(c.B)
-,	A(c.A*multAlpha)
+,	A(c.A)
 {}
+
+poColor& poColor::operator=(poColor const& c) {
+	if(this != &c) {
+		R = c.R;
+		G = c.G;
+		B = c.B;
+		A = c.A;
+	}
+	return *this;
+}
 
 poColor& poColor::set(float r, float g, float b, float a) {
 	R = r; 

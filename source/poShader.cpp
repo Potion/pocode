@@ -134,22 +134,17 @@ void poShader::load(const std::string &name) {
 		uid = 0;
 	}
 	
-	fs::path current = currentPath();
-	lookUpAndSetPath("common");
-	
-	std::ifstream source((name + ".shader").c_str());
-	loadSource(source);
-	
-	setCurrentPath(current);
+	loadSource(name);
 }
 
-void poShader::loadSource(std::istream &src) {
+void poShader::loadSource(std::string const& src) {
 	using namespace std;
 	stringstream uniforms, varyings, vertex, fragment;
 	stringstream *target = &uniforms;
-	
+
+	std::istringstream ss(src);
 	std::string line;
-	while(getline(src, line)) {
+	while(getline(ss, line)) {
 		boost::algorithm::trim(line);
 		
 			 if(line == "[[uniforms]]")	target = &uniforms;
@@ -239,4 +234,27 @@ GLint poShader::uniformLocation(const char *name) {
 		return uniformLocations[name];
 	return -1;
 }
+
+void poShader::uniform(const char* name, int i) {
+	int l = uniformLocation(name);
+	if(l >= 0) glUniform1i(l, i);
+}
+void poShader::uniform(const char* name, float f) {
+	int l = uniformLocation(name);
+	if(l >= 0) glUniform1f(l, f);
+}
+void poShader::uniform(const char* name, poPoint v) {
+	int l = uniformLocation(name);
+	if(l >= 0) glUniform3fv(l, 1, &v.x);
+}
+void poShader::uniform(const char* name, poColor c) {
+	int l = uniformLocation(name);
+	if(l >= 0) glUniform4fv(l, 1, &c.R);
+}
+void poShader::uniform(const char* name, glm::mat4 m) {
+	int l = uniformLocation(name);
+	if(l >= 0) glUniformMatrix4fv(l, 1, GL_FALSE, &m[0][0]);
+}
+
+
 
