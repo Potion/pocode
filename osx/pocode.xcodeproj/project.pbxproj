@@ -10,7 +10,7 @@
 		032464F515E56E27009E5822 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032464F315E56E27009E5822 /* poMatrixSet.cpp */; };
 		032464F615E56E27009E5822 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032464F315E56E27009E5822 /* poMatrixSet.cpp */; };
 		032464F715E56E27009E5822 /* poMatrixSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032464F315E56E27009E5822 /* poMatrixSet.cpp */; };
-		032464F815E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
+		032464F815E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032464F915E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		03AC603B15E68B0800F6540B /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC602C15E68B0800F6540B /* bucketalloc.c */; };

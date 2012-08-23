@@ -135,6 +135,7 @@ poObject *poWindow::getRootObject() {
 		makeCurrent();
 		po::initGraphics();
 		po::enableAlphaBlending();
+		po::setViewport(poRect(0,0,bounds.width,bounds.height));
 		root = createObjectForID(rootID);
 	}
 	return root;

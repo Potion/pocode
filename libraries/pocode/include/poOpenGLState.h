@@ -35,32 +35,6 @@ class poObject;
 class poShader;
 
 namespace po {
-<<<<<<< Updated upstream
-	// http://www.opengl.org/sdk/docs/man/xhtml/glStencilOp.xml
-	// http://www.opengl.org/sdk/docs/man/xhtml/glStencilFunc.xml
-	struct StencilState {
-		StencilState();
-		
-		bool enabled;
-		// stencil operation
-		GLenum opFail;
-		GLenum opStencilDepthFail;
-		GLenum opStencilDepthPass;
-		// stencil func
-		GLenum func;
-		GLint funcRef;
-		GLuint funcMask;
-	};
-	
-	struct TextureState {
-		TextureState();
-		TextureState(poTexture *tex);
-		
-		GLuint boundID;
-		bool isMask;
-	};
-=======
->>>>>>> Stashed changes
 	
 	void initGraphics();
 
@@ -70,22 +44,6 @@ namespace po {
 	void defaultStencil();
 	void defaultBlending();
 	
-<<<<<<< Updated upstream
-	struct ShaderState {
-		ShaderState();
-		
-		GLuint bound_id;
-	};
-}
-
-class poOpenGLState {
-public:
-	po::StencilState stencil;
-	po::TextureState texture;
-	po::BlendState blend;
-	po::VertexState vertex;
-	po::ShaderState shader;
-=======
 	void setColor(poColor const& c);
 	void setColor(poColor const& c, float alpha);
 	poColor getColor();
@@ -93,7 +51,6 @@ public:
 	float getLineWidth();
 	void setPointSize(float sz);
 	float getPointSize();
->>>>>>> Stashed changes
 	
 	void disableStencil();
 	void setupStencilMask(bool clear=true);

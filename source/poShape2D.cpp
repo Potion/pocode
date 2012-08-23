@@ -23,14 +23,8 @@
 #include "poApplication.h"
 #include "poResourceStore.h"
 #include "poCamera.h"
-
+#include "nanosvg.h"
 #include "poOpenGLState.h"
-
-#ifdef POTION_APPLE
-	#include "nanosvg.h"
-#endif
-
-#include <boost/foreach.hpp>
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
@@ -97,7 +91,7 @@ void poShape2D::draw() {
 		else {
 			po::drawPoints(stroke, GL_TRIANGLE_STRIP);
 		}
-	}	
+	}
 }
 
 
