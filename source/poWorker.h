@@ -38,22 +38,3 @@ private:
     //Worker params/info
     poObject *notify;
 };
-
-
-//------------------------------------------------------------------
-//Image Loader Worker
-//Loads an image from disk and then returns a poImage,
-//Usefull when scrolling quickly/trying to load a lot of images from disk at once
-static const std::string ImageLoadingCompleteMessage    = "IMAGE_LOADING_COMPLETE_MESSAGE";
-static const std::string ImageLoadSuccessMessage        = "IMAGE_LOAD_SUCCESS_MESSAGE";
-static const std::string ImageLoadFailureMessage        = "IMAGE_LOAD_FAILURE_MESSAGE";
-
-class poImageLoaderWorker : public poWorker {
-    public:
-        poImageLoaderWorker(std::string url);
-        virtual ~poImageLoaderWorker();
-        
-        void workerFunc();
-    private:
-        std::string url;
-};

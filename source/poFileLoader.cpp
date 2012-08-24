@@ -44,10 +44,6 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 //------------------------------------------------------------------
 //File Loader
 #pragma mark poFileLoader
-poFileLoader::poFileLoader() {
-}
-
-poFileLoader::~poFileLoader() {}
 
 
 //------------------------------------------------------------------

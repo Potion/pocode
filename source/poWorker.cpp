@@ -41,37 +41,3 @@ void poWorker::workerFunc() {
 poObject* poWorker::getWorkerNotify() {
     return notify;
 }
-
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//Image Loader Worker
-#pragma mark poImageLoaderWorker
-poImageLoaderWorker::poImageLoaderWorker(std::string url) {
-    this->url = url;
-}
-
-poImageLoaderWorker::~poImageLoaderWorker() {
-}
-
-
-//------------------------------------------------------------------
-void poImageLoaderWorker::workerFunc() {
-    std::string status;
-    
-    //Load image, check for error
-    poImage*    image = new poImage(url);
-    if(!image->isValid()) {
-		delete image; image = NULL;
-        status = ImageLoadFailureMessage;
-	} else {
-        status = ImageLoadSuccessMessage;
-    }
-    
-    workerMessage = ImageLoadingCompleteMessage;
-    
-    //Set Dictionary
-    dict.set("status", status);
-    dict.set("image", image);
-    dict.set("url", url);
-}
