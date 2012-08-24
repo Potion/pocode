@@ -1071,6 +1071,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1125,6 +1126,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
