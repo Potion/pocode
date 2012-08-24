@@ -64,15 +64,15 @@ void poCamera::clone(poCamera *cam) {
 void poCamera::doSetUp( poObject* obj ) {
 	saveAndUpdateGLSettings();
 
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
+//	if(isFixedSize())
+//		po::setViewport(0, 0, fixedSize.x, fixedSize.y);
+//	else {
+//		poPoint win = getWindowDimensions() * poGetScale();
+//		po::setViewport(0, 0, win.x, win.y);
+//	}
 	
-	if(isFixedSize())
-		stack->pushViewport(poRect(poPoint(),fixedSize));
-	else {
-        
-		stack->pushViewport(poRect(poPoint(),getWindowDimensions()*poGetScale()));
-	}
-
+	po::setCamera(po::modelview());
+	
     glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
     
     GLenum clear = 0;
@@ -92,27 +92,21 @@ void poCamera::doSetUp( poObject* obj ) {
 //            glClear( GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
 //    }
 	
+	po::saveProjection();
+	
 	setProjection();
 	setModelview();
-    
-    stack->setCameraMatrix(stack->getModelview());
 }
 
 void poCamera::doSetDown( poObject* obj ) {
 	restoreGLSettings();
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	stack->popProjection();
-	stack->popModelview();
-	stack->popViewport();
+	po::restoreProjection();
 }
 
 void poCamera::setProjection() {
-	poOpenGLState::get()->matrix.pushProjection(glm::mat4());
 }
 
 void poCamera::setModelview() {
-	poOpenGLState::get()->matrix.pushModelview(glm::mat4());
 }
 
 void poCamera::saveAndUpdateGLSettings() {
@@ -183,10 +177,15 @@ void poCamera2D::clone(poCamera2D *cam) {
 }
 
 void poCamera2D::setProjection() {
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	poRect viewp = stack->getViewport();
-	stack->pushProjection(glm::ortho(viewp.x, viewp.width/poGetScale() + viewp.x, viewp.height/poGetScale() + viewp.y, viewp.y));
-    
+	float scale = poGetScale();
+	
+	if(isFixedSize())
+		po::setOrthoProjection(0, fixedSize.x / scale, fixedSize.y / scale, 0);
+	else {
+		float w = getWindowWidth();
+		float h = getWindowHeight();
+		po::setOrthoProjection(0, w / scale, h / scale, 0);
+	}
     poCamera::currentCameraType = PO_CAMERA_2D;
 }
 
@@ -252,7 +251,7 @@ poRect poOrthoCamera::get() const {
 }
 
 void poOrthoCamera::setProjection() {
-	poOpenGLState::get()->matrix.pushProjection(glm::ortho(x1,x2,y2,y1,nearClip,farClip));
+	po::setOrthoProjection(x1, x2, y2, y1, nearClip, farClip);
     poCamera::currentCameraType = PO_CAMERA_2D;
 }
 
@@ -287,7 +286,7 @@ poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {
 	return this;
 }
 
-void    poPerspectiveCamera::setupFor2DOnZPlane()
+void poPerspectiveCamera::setupFor2DOnZPlane()
 {
     float half_fov = deg2rad(fov/2.0); 
     float half_window_height = getWindowHeight() / 2.0;
@@ -311,22 +310,14 @@ void poPerspectiveCamera::doSetUp(poObject *obj) {
 }
 
 void poPerspectiveCamera::setProjection() {
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
     float aspect = getWindowAspect();
-	stack->pushProjection(glm::perspective(fov, aspect, nearClip, farClip));
+	po::setPerpsective(fov, aspect, nearClip, farClip);
     poCamera::currentCameraType = PO_CAMERA_3D;
 }
 
 void poPerspectiveCamera::setModelview() {
-	using namespace glm;
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	
-	vec3 eye(cameraPos.x, cameraPos.y, cameraPos.z);
-	vec3 center(lookAtPos.x, lookAtPos.y, lookAtPos.z);
-	vec3 up(0,1,0);
-	stack->pushModelview(glm::lookAt(eye,center,up));
-	stack->scale(poPoint(-1,-1,1));
+	po::lookAt(cameraPos, lookAtPos, poPoint(0,1,0));
+	po::scale(poPoint(-1,-1,1));
 }
 
 void poPerspectiveCamera::saveAndUpdateGLSettings()

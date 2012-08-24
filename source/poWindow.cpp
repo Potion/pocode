@@ -54,8 +54,7 @@ poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
 ,	lastMark(0.0)
 ,	framerate(0.f)
 ,	mouseMoveEnabled(true)
-{
-}
+{}
 
 poWindow::~poWindow() {
 	makeCurrent();
@@ -134,7 +133,9 @@ bool poWindow::isFullscreen() const {
 poObject *poWindow::getRootObject() {
 	if(!root) {
 		makeCurrent();
-		poOpenGLState::get()->setBlend(po::BlendState::preMultipliedBlending(),true);
+		po::initGraphics();
+		po::enableAlphaBlending();
+		po::setViewport(poRect(0,0,bounds.width,bounds.height));
 		root = createObjectForID(rootID);
 	}
 	return root;
@@ -266,6 +267,7 @@ void poWindow::resized(int w, int h) {
 
 
 void poWindow::resized(int x, int y, int w, int h) {
+	po::setViewport(0, 0, w, h);
 	bounds.set(x,y,w,h);
 //
 //	poEvent event;

@@ -23,15 +23,8 @@
 #include "poApplication.h"
 #include "poResourceStore.h"
 #include "poCamera.h"
-
+#include "nanosvg.h"
 #include "poOpenGLState.h"
-#include "poBasicRenderer.h"
-
-#ifdef POTION_APPLE
-	#include "nanosvg.h"
-#endif
-
-#include <boost/foreach.hpp>
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
@@ -92,13 +85,13 @@ void poShape2D::draw() {
 
 		if(useSimpleStroke) {
 			// use crappy OpenGL stroke
-			glLineWidth( strokeWidth );
+			po::setLineWidth( strokeWidth );
 			po::drawPoints(points, closed ? GL_LINE_LOOP : GL_LINE_STRIP);
 		}
 		else {
 			po::drawPoints(stroke, GL_TRIANGLE_STRIP);
 		}
-	}	
+	}
 }
 
 

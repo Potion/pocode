@@ -23,7 +23,6 @@
 #include "poEventCenter.h"
 #include "poDictionary.h"
 #include "poMatrixSet.h"
-#include "poMatrixStack.h"
 #include "poEnums.h"
 #include "poPoint.h"
 #include "poColor.h"
@@ -146,6 +145,7 @@ public:
     // globalToLocal and localToGlobal are useful in hitTesting and inter-object coordination.
     
     // HIT TESTING & COORDINATE TRANSFORMATIONS
+	void				applyTransformation();
 	virtual bool        pointInside(poPoint point, bool localize=false);
 	bool                pointInside(float x, float y, float z=0.f, bool localize=false);
 	poPoint             objectToLocal(poObject* obj, poPoint point) const;

@@ -237,7 +237,7 @@ void BinPacker::render(BinPacker::packRect *r) {
 }
 
 void BinPacker::render() {
-	poOpenGLState::get()->matrix.pushModelview();
+	po::saveModelviewThenIdentity();
 	
 	BOOST_FOREACH(pack_page *page, pages) {
 		po::setColor(poColor::white);
@@ -247,10 +247,10 @@ void BinPacker::render() {
 			render(rect);
 		}
 
-		poOpenGLState::get()->matrix.translate(poPoint(width, 0, 0));
+		po::translate(poPoint(width, 0, 0));
 	}
 	
-	poOpenGLState::get()->matrix.popModelview();
+	po::restoreModelview();
 }
 
 

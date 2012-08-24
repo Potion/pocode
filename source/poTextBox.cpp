@@ -304,13 +304,8 @@ void poTextBox::generateCachedTexture() {
     fbo->setUp(this);
     
     // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
-    po::BlendState blend;
-    blend.enabled = true;
-    blend.blendFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
-    
-    poOpenGLState *ogl = poOpenGLState::get();
-    ogl->pushBlendState();
-    ogl->setBlend(blend);
+	po::saveBlendState();
+	po::enableBlendWithFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
     
     poBitmapFont *bmp = poGetBitmapFont(getFont(), layout.textSize);
     
@@ -321,7 +316,7 @@ void poTextBox::generateCachedTexture() {
         }
     }
     
-    ogl->popBlendState();
+	po::restoreBlendState();
     
     fbo->setDown(this);
     //	cached = fbo->getColorTexture()->copy();
@@ -334,16 +329,13 @@ void poTextBox::draw() {
 	using namespace std;
 	
 	if(cached && cached->isValid()) {
-		po::BlendState blend = po::BlendState::preMultipliedBlending();
-		
-		poOpenGLState* ogl = poOpenGLState::get();
-		ogl->pushBlendState();
-		ogl->setBlend(blend);
+		po::saveBlendState();
+		po::enableAlphaBlending();
 		
 		po::setColor(textColor, getAppliedAlpha());
 		po::drawTexturedRect(cached, poRect(0,0,cached->getWidth()/poGetScale(), cached->getHeight()/poGetScale()));
 		
-		ogl->popBlendState();
+		po::restoreBlendState();
 		return;
 	}
 	
