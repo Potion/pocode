@@ -32,11 +32,11 @@
 //------------------------------------------------------------------
 //File Loader, uses CURL to save files or return as strings
 namespace poFileLoader {
-    static std::string getFile(std::string url, std::string filename="");
-    static void getFileAsync(std::string url, poObject* notify, std::string filename="");
+    std::string getFile(std::string url, std::string filename="");
+    void getFileAsync(std::string url, poObject* notify, std::string filename="");
     
-    static std::string getFileAsString(std::string url);
-    static void getFileAsStringAsync(std::string url, poObject* notify);
+    std::string getFileAsString(std::string url);
+    void getFileAsStringAsync(std::string url, poObject* notify);
 };
 
 

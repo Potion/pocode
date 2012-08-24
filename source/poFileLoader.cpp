@@ -45,6 +45,7 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 //File Loader
 #pragma mark poFileLoader
 namespace poFileLoader {
+
     //------------------------------------------------------------------
     std::string getFile(std::string url, std::string filename) {
         if(filename == "") {
@@ -95,7 +96,7 @@ namespace poFileLoader {
     void getFileAsStringAsync(std::string url, poObject* notify) {
         poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
     }
-}
+};
 
 //------------------------------------------------------------------
 //File Loader Worker
