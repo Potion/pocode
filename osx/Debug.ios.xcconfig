@@ -9,9 +9,9 @@ DEBUG_INFORMATION_FORMAT = dwarf
 COPY_PHASE_STRIP	= NO
 OTHER_LDFLAGS		= $(LIBRARIES_CMD) $(FRAMEWORKS_CMD)
 ALWAYS_SEARCH_USER_PATHS = NO
-LIBRARY_SEARCH_PATHS= $(BOOSTL) $(FREEIMAGE) $(FREETYPE) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL)
+LIBRARY_SEARCH_PATHS= $(BOOSTL) $(FREEIMAGE) $(FREETYPE) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL) $(SSL)
 
-HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL) $(LIBRARIES)
+HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL) $(SSL) $(LIBRARIES)
 USER_HEADER_SEARCH_PATHS = $(HEADERS)
 
 DSTROOT = /pocode/libraries/pocode
@@ -39,5 +39,7 @@ BZ2					= $(LIBRARIES)/bz2
 PUGIXML				= $(LIBRARIES)/pugixml
 CURL                = $(LIBRARIES)/libcurl/ios
 SQLITE				= /usr/lib/libsqlite3.0.dylib
-LIBRARIES_CMD		= -lboost_ios -lfreeimage_ios -lfreetype_ios -lMikko -lbz2 -lpugixml_ios_d -lcurl_ios $(SQLITE)
+CURL                = $(LIBRARIES)/libcurl/ios
+SSL                 = $(LIBRARIES)/libssl/ios
+LIBRARIES_CMD		= -lboost_ios -lfreeimage_ios -lfreetype_ios -lMikko -lbz2 -lpugixml_ios_d $(SQLITE) -lcurl_ios -lssl -lcrypto
 FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
