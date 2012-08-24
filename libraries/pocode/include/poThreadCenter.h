@@ -5,21 +5,21 @@
  */
 
 #include "poObject.h"
-#include "poThreadCenterWorker.h"
+#include "poWorker.h"
 
 #include <boost/asio.hpp>
 
 #include "boost/thread/locks.hpp"
-class poThreadCenterWorker;
+class poWorker;
 
 class poThreadCenter : public poObject {
 public:
 	static poThreadCenter* get();
     
 	void update();
-    void addItem(poThreadCenterWorker *worker, poObject *notify, std::string message = "", const poDictionary &dict = poDictionary());
+    void addItem(poWorker *worker, poObject *notify, std::string message = "", const poDictionary &dict = poDictionary());
     
-	void workerDone(poThreadCenterWorker *threadedObject);
+	void workerDone(poWorker *threadedObject);
 private:
 	poThreadCenter();
 	virtual ~poThreadCenter();
@@ -29,7 +29,7 @@ private:
 	boost::asio::io_service::work work;
     
     boost::mutex mtx;
-	std::list<poThreadCenterWorker *> completed;
+	std::list<poWorker *> completed;
     
     static poThreadCenter* pThreadCenter;
 };
