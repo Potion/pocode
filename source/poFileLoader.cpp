@@ -18,6 +18,7 @@
  */
 
 #include "poFileLoader.h"
+#include "poThreadCenter.h"
 
 
 #ifdef _WIN32
@@ -39,14 +40,18 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
     return size*count;
 }
 
+
+//------------------------------------------------------------------
+//File Loader
+#pragma mark poFileLoader
 poFileLoader::poFileLoader() {
 }
 
 poFileLoader::~poFileLoader() {}
 
 
-
-void poFileLoader::getFile(std::string url, std::string filename) {
+//------------------------------------------------------------------
+std::string poFileLoader::getFile(std::string url, std::string filename) {
     if(filename == "") {
         boost::char_separator<char> sep("/");
         boost::tokenizer< boost::char_separator<char> > tokens(url, sep);
@@ -68,8 +73,15 @@ void poFileLoader::getFile(std::string url, std::string filename) {
     curl_easy_cleanup(handle);
     
     fclose(file);
+    return filename;
 }
 
+//------------------------------------------------------------------
+void poFileLoader::getFileAsync(std::string url, poObject* notify, std::string filename) {
+    poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filename), notify);
+}
+
+//------------------------------------------------------------------
 std::string poFileLoader::getFileAsString(std::string url) {
     std::string response;
     
@@ -84,13 +96,49 @@ std::string poFileLoader::getFileAsString(std::string url) {
     return response;
 }
 
+//------------------------------------------------------------------
+void poFileLoader::getFileAsStringAsync(std::string url, poObject* notify) {
+    poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+}
 
 
-//void poFileLoader::update() {
-//}
-//
-//void poFileLoader::eventHandler(poEvent *event) {
-//}
-//
-//void poFileLoader::messageHandler(const std::string &msg, const poDictionary& dict) {
-//}
+//------------------------------------------------------------------
+//File Loader Worker
+#pragma mark poFileLoaderWorker
+poFileLoaderWorker::poFileLoaderWorker(std::string url, poFileLoaderMode mode, std::string filename) {
+    this->url       = url;
+    this->mode      = mode;
+    this->filename  = filename;
+}
+
+poFileLoaderWorker::~poFileLoaderWorker() {
+}
+
+
+//------------------------------------------------------------------
+void poFileLoaderWorker::workerFunc() {
+    switch(mode) {
+        case PO_FILE_LOADER_MODE_SAVE: {
+            //Save the file
+            std::string savedFileName = poFileLoader::getFile(url, filename);
+            
+            dict.set("mode", mode);
+            dict.set("url", url);
+            dict.set("filename", savedFileName);
+            break;
+        }
+            
+        case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
+            //Get File as string
+            std::string fileContents = poFileLoader::getFileAsString(url);
+            
+            //Set Dictionary with contents
+            dict.set("mode", mode);
+            dict.set("url", url);
+            dict.set("content", fileContents);
+            break;
+    }
+    
+    workerMessage = PoFileLoaderCompleteMessage;
+}
+

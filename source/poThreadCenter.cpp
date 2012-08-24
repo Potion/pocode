@@ -37,7 +37,7 @@ void poThreadCenter::update() {
     boost::lock_guard<boost::mutex> lock(mtx);
     
     while (!completed.empty()) {
-        double elapsedTime = poGetElapsedTime() - completed.front()->poThreadCenterWorkerStartTime;
+        double elapsedTime = poGetElapsedTime() - completed.front()->poWorkerStartTime;
         completed.front()->getWorkerNotify()->messageHandler(completed.front()->workerMessage, poDictionary()
                                                    .set("worker", completed.front())
                                                    .set("elapsed", (float)elapsedTime)
@@ -53,14 +53,14 @@ void poThreadCenter::update() {
 
 
 //------------------------------------------------------------------
-void threadCenterWorkerFunc(poThreadCenterWorker *worker) {
-    worker->poThreadCenterWorkerStartTime = poGetElapsedTime();
+void threadCenterWorkerFunc(poWorker *worker) {
+    worker->poWorkerStartTime = poGetElapsedTime();
     worker->run();
 }
 
 
 //------------------------------------------------------------------
-void poThreadCenter::addItem(poThreadCenterWorker *worker, poObject *notify, std::string message, const poDictionary &dict) {
+void poThreadCenter::addItem(poWorker *worker, poObject *notify, std::string message, const poDictionary &dict) {
     //Store everything we're passing in the worker
     worker->setWorkerParams(notify, message, dict);
     
@@ -70,7 +70,7 @@ void poThreadCenter::addItem(poThreadCenterWorker *worker, poObject *notify, std
 
 
 //------------------------------------------------------------------
-void poThreadCenter::workerDone(poThreadCenterWorker *worker) {
+void poThreadCenter::workerDone(poWorker *worker) {
     //Gotta lock b/c we're resizing the vector
     boost::lock_guard<boost::mutex> lock(mtx);
     
