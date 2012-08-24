@@ -44,59 +44,58 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 //------------------------------------------------------------------
 //File Loader
 #pragma mark poFileLoader
-
-
-//------------------------------------------------------------------
-std::string poFileLoader::getFile(std::string url, std::string filename) {
-    if(filename == "") {
-        boost::char_separator<char> sep("/");
-        boost::tokenizer< boost::char_separator<char> > tokens(url, sep);
-        BOOST_FOREACH(const std::string &t, tokens) {
-            filename = t;
+namespace poFileLoader {
+    //------------------------------------------------------------------
+    std::string getFile(std::string url, std::string filename) {
+        if(filename == "") {
+            boost::char_separator<char> sep("/");
+            boost::tokenizer< boost::char_separator<char> > tokens(url, sep);
+            BOOST_FOREACH(const std::string &t, tokens) {
+                filename = t;
+            }
         }
+        
+        FILE * file = (FILE *)fopen(filename.c_str(),"w+");
+        if(!file){
+            perror("File Open:");
+        }
+        CURL *handle = curl_easy_init();
+        curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
+        curl_easy_setopt(handle,CURLOPT_URL,url.c_str()); /*Using the http protocol*/
+        curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
+        curl_easy_perform(handle);
+        curl_easy_cleanup(handle);
+        
+        fclose(file);
+        return filename;
     }
-    
-    FILE * file = (FILE *)fopen(filename.c_str(),"w+");
-    if(!file){
-        perror("File Open:");
+
+    //------------------------------------------------------------------
+    void getFileAsync(std::string url, poObject* notify, std::string filename) {
+        poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filename), notify);
     }
-    CURL *handle = curl_easy_init();
-    curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-    curl_easy_setopt(handle,CURLOPT_URL,url.c_str()); /*Using the http protocol*/
-    curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
-    curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
-    curl_easy_perform(handle);
-    curl_easy_cleanup(handle);
-    
-    fclose(file);
-    return filename;
-}
 
-//------------------------------------------------------------------
-void poFileLoader::getFileAsync(std::string url, poObject* notify, std::string filename) {
-    poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filename), notify);
-}
+    //------------------------------------------------------------------
+    std::string getFileAsString(std::string url) {
+        std::string response;
+        
+        CURL *handle = curl_easy_init();
+        curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
+        curl_easy_setopt(handle,CURLOPT_URL, url.c_str()); /*Using the http protocol*/
+        curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
+        curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
+        curl_easy_perform(handle);
+        curl_easy_cleanup(handle);
+        
+        return response;
+    }
 
-//------------------------------------------------------------------
-std::string poFileLoader::getFileAsString(std::string url) {
-    std::string response;
-    
-    CURL *handle = curl_easy_init();
-    curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-    curl_easy_setopt(handle,CURLOPT_URL, url.c_str()); /*Using the http protocol*/
-    curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
-    curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
-    curl_easy_perform(handle);
-    curl_easy_cleanup(handle);
-    
-    return response;
+    //------------------------------------------------------------------
+    void getFileAsStringAsync(std::string url, poObject* notify) {
+        poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+    }
 }
-
-//------------------------------------------------------------------
-void poFileLoader::getFileAsStringAsync(std::string url, poObject* notify) {
-    poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
-}
-
 
 //------------------------------------------------------------------
 //File Loader Worker
