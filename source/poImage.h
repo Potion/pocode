@@ -118,12 +118,3 @@ private:
     
     static int          totalAllocatedImageMemorySize;
 };
-
-
-class poImageLoaderWorker {
-    
-}
-
-
-
-
