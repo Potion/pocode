@@ -103,6 +103,6 @@ namespace po {
 	poPoint globalToLocal(poPoint pt);
 	poPoint localToGlobal(poPoint pt);
 
-}
+};
 
 

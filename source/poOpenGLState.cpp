@@ -83,6 +83,7 @@ namespace {
 	"	}										\n";
 	
 	const char * shader_tex =
+    "   precision mediump sampler2D;            \n"
 	"	[[uniforms]]							\n"
 	"	uniform mat4 mvp;						\n"
 	"	uniform vec4 color;						\n"
@@ -175,8 +176,11 @@ namespace {
 			shaderTex2D.link();
 			
 			std::string src(shader_tex);
-			boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
-			boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
+            
+            #if !defined(TARGET_OS_IPHONE) && !defined (TARGET_IPHONE_SIMULATOR)
+                boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
+                boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
+            #endif
 			
 			shaderTexRect.loadSource(src);
 			shaderTexRect.compile();
@@ -192,8 +196,13 @@ namespace {
 			blend.push(BlendState());
 			shader.push(NULL);
 			
-			glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
-
+            //Need to use GL_MAX_SAMPLES_APPLE for iPhone
+            #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+                glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_fbo_samples);
+            #else
+                glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
+            #endif
+            
 			color.set(0,0,0,0);
 			lineWidth = 1.f;
 			pointSize = 1.f;
@@ -223,7 +232,7 @@ namespace {
 		ogl = new OpenGLState;
 	}
 	
-}
+};
 
 namespace po {
 	
@@ -262,7 +271,13 @@ namespace po {
 	
 	void setPointSize(float sz) {
 		ogl->pointSize = sz;
-		glPointSize(sz);
+        
+        #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+            //This needs to be recorded and set in shader
+            //I believe for iOS -Steve
+        #else
+            glPointSize(sz);
+        #endif
 	}
 	float getPointSize() {return ogl->pointSize; }
 
@@ -429,4 +444,4 @@ namespace po {
 		return poPoint(r.x, r.y, r.z);
 	}
 
-}
+};
