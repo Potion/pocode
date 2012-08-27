@@ -35,7 +35,6 @@ class poObject;
 class poShader;
 
 namespace po {
-	
 	void initGraphics();
 
 	int maxFBOSamples();
@@ -43,7 +42,7 @@ namespace po {
 	void defaultColorMask();
 	void defaultStencil();
 	void defaultBlending();
-    
+
 	void setColor(poColor const& c);
 	void setColor(poColor const& c, float alpha);
 	poColor getColor();
@@ -104,6 +103,6 @@ namespace po {
 	poPoint globalToLocal(poPoint pt);
 	poPoint localToGlobal(poPoint pt);
 
-}
+};
 
 
