@@ -57,6 +57,54 @@
 		AA16A44F15E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
 		AA16A45015E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
 		AA16A45115E6D5E300CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
+		AA16A46215E80AE300CAA1C6 /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; };
+		AA16A46315E80AE300CAA1C6 /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; };
+		AA16A46415E80AE800CAA1C6 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03AC605015E68BA500F6540B /* pugixml.cpp */; };
+		AA16A46515E80AE800CAA1C6 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03AC605015E68BA500F6540B /* pugixml.cpp */; };
+		AA16A46615E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC604F15E68BA500F6540B /* pugiconfig.hpp */; };
+		AA16A46715E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC604F15E68BA500F6540B /* pugiconfig.hpp */; };
+		AA16A46815E80AF800CAA1C6 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC602C15E68B0800F6540B /* bucketalloc.c */; };
+		AA16A46915E80AF800CAA1C6 /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC602D15E68B0800F6540B /* bucketalloc.h */; };
+		AA16A46A15E80AF800CAA1C6 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC602E15E68B0800F6540B /* dict.c */; };
+		AA16A46B15E80AF800CAA1C6 /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC602F15E68B0800F6540B /* dict.h */; };
+		AA16A46C15E80AF800CAA1C6 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603015E68B0800F6540B /* geom.c */; };
+		AA16A46D15E80AF800CAA1C6 /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603115E68B0800F6540B /* geom.h */; };
+		AA16A46E15E80AF800CAA1C6 /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603215E68B0800F6540B /* mesh.c */; };
+		AA16A46F15E80AF800CAA1C6 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603315E68B0800F6540B /* mesh.h */; };
+		AA16A47015E80AF800CAA1C6 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603415E68B0800F6540B /* priorityq.c */; };
+		AA16A47115E80AF800CAA1C6 /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603515E68B0800F6540B /* priorityq.h */; };
+		AA16A47215E80AF800CAA1C6 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603615E68B0800F6540B /* sweep.c */; };
+		AA16A47315E80AF800CAA1C6 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603715E68B0800F6540B /* sweep.h */; };
+		AA16A47415E80AF800CAA1C6 /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603815E68B0800F6540B /* tess.c */; };
+		AA16A47515E80AF800CAA1C6 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603915E68B0800F6540B /* tess.h */; };
+		AA16A47615E80AF800CAA1C6 /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603A15E68B0800F6540B /* tesselator.h */; };
+		AA16A47715E80AF900CAA1C6 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC602C15E68B0800F6540B /* bucketalloc.c */; };
+		AA16A47815E80AF900CAA1C6 /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC602D15E68B0800F6540B /* bucketalloc.h */; };
+		AA16A47915E80AF900CAA1C6 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC602E15E68B0800F6540B /* dict.c */; };
+		AA16A47A15E80AF900CAA1C6 /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC602F15E68B0800F6540B /* dict.h */; };
+		AA16A47B15E80AF900CAA1C6 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603015E68B0800F6540B /* geom.c */; };
+		AA16A47C15E80AF900CAA1C6 /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603115E68B0800F6540B /* geom.h */; };
+		AA16A47D15E80AF900CAA1C6 /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603215E68B0800F6540B /* mesh.c */; };
+		AA16A47E15E80AF900CAA1C6 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603315E68B0800F6540B /* mesh.h */; };
+		AA16A47F15E80AF900CAA1C6 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603415E68B0800F6540B /* priorityq.c */; };
+		AA16A48015E80AF900CAA1C6 /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603515E68B0800F6540B /* priorityq.h */; };
+		AA16A48115E80AF900CAA1C6 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603615E68B0800F6540B /* sweep.c */; };
+		AA16A48215E80AF900CAA1C6 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603715E68B0800F6540B /* sweep.h */; };
+		AA16A48315E80AF900CAA1C6 /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603815E68B0800F6540B /* tess.c */; };
+		AA16A48415E80AF900CAA1C6 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603915E68B0800F6540B /* tess.h */; };
+		AA16A48515E80AF900CAA1C6 /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603A15E68B0800F6540B /* tesselator.h */; };
+		AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
+		AA16A48715E80B1100CAA1C6 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
+		AA16A48815E80B1100CAA1C6 /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
+		AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
+		AA16A48A15E80B1100CAA1C6 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
+		AA16A48B15E80B1100CAA1C6 /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
+		AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
+		AA16A48D15E80B1700CAA1C6 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
+		AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
+		AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
+		AA16A49015E80B6900CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
+		AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		AA2E612914FC0B9700F1859C /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
 		AA2E612A14FC0B9700F1859C /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
 		AA2E612B14FC0B9700F1859C /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
@@ -713,6 +761,20 @@
 				AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */,
 				AAEF463F15E6D52C00EE2715 /* poWorker.h in Headers */,
 				032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */,
+				AA16A46315E80AE300CAA1C6 /* pugixml.hpp in Headers */,
+				AA16A46715E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */,
+				AA16A47815E80AF900CAA1C6 /* bucketalloc.h in Headers */,
+				AA16A47A15E80AF900CAA1C6 /* dict.h in Headers */,
+				AA16A47C15E80AF900CAA1C6 /* geom.h in Headers */,
+				AA16A47E15E80AF900CAA1C6 /* mesh.h in Headers */,
+				AA16A48015E80AF900CAA1C6 /* priorityq.h in Headers */,
+				AA16A48215E80AF900CAA1C6 /* sweep.h in Headers */,
+				AA16A48415E80AF900CAA1C6 /* tess.h in Headers */,
+				AA16A48515E80AF900CAA1C6 /* tesselator.h in Headers */,
+				AA16A48A15E80B1100CAA1C6 /* sqlite3.h in Headers */,
+				AA16A48B15E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
+				AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */,
+				AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +861,20 @@
 				AA51F15215052093009FDA0A /* poMessageCenter.h in Headers */,
 				AAEF463E15E6D52C00EE2715 /* poWorker.h in Headers */,
 				032464F915E56E27009E5822 /* poMatrixSet.h in Headers */,
+				AA16A46215E80AE300CAA1C6 /* pugixml.hpp in Headers */,
+				AA16A46615E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */,
+				AA16A46915E80AF800CAA1C6 /* bucketalloc.h in Headers */,
+				AA16A46B15E80AF800CAA1C6 /* dict.h in Headers */,
+				AA16A46D15E80AF800CAA1C6 /* geom.h in Headers */,
+				AA16A46F15E80AF800CAA1C6 /* mesh.h in Headers */,
+				AA16A47115E80AF800CAA1C6 /* priorityq.h in Headers */,
+				AA16A47315E80AF800CAA1C6 /* sweep.h in Headers */,
+				AA16A47515E80AF800CAA1C6 /* tess.h in Headers */,
+				AA16A47615E80AF800CAA1C6 /* tesselator.h in Headers */,
+				AA16A48715E80B1100CAA1C6 /* sqlite3.h in Headers */,
+				AA16A48815E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
+				AA16A48D15E80B1700CAA1C6 /* nanosvg.h in Headers */,
+				AA16A49015E80B6900CAA1C6 /* main.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +1028,16 @@
 				AAEF463C15E6D52C00EE2715 /* poWorker.cpp in Sources */,
 				AA16A45115E6D5E300CAA1C6 /* poFileLoader.cpp in Sources */,
 				032464F715E56E27009E5822 /* poMatrixSet.cpp in Sources */,
+				AA16A46515E80AE800CAA1C6 /* pugixml.cpp in Sources */,
+				AA16A47715E80AF900CAA1C6 /* bucketalloc.c in Sources */,
+				AA16A47915E80AF900CAA1C6 /* dict.c in Sources */,
+				AA16A47B15E80AF900CAA1C6 /* geom.c in Sources */,
+				AA16A47D15E80AF900CAA1C6 /* mesh.c in Sources */,
+				AA16A47F15E80AF900CAA1C6 /* priorityq.c in Sources */,
+				AA16A48115E80AF900CAA1C6 /* sweep.c in Sources */,
+				AA16A48315E80AF900CAA1C6 /* tess.c in Sources */,
+				AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */,
+				AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1154,16 @@
 				AAEF463B15E6D52C00EE2715 /* poWorker.cpp in Sources */,
 				AA16A45015E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */,
 				032464F615E56E27009E5822 /* poMatrixSet.cpp in Sources */,
+				AA16A46415E80AE800CAA1C6 /* pugixml.cpp in Sources */,
+				AA16A46815E80AF800CAA1C6 /* bucketalloc.c in Sources */,
+				AA16A46A15E80AF800CAA1C6 /* dict.c in Sources */,
+				AA16A46C15E80AF800CAA1C6 /* geom.c in Sources */,
+				AA16A46E15E80AF800CAA1C6 /* mesh.c in Sources */,
+				AA16A47015E80AF800CAA1C6 /* priorityq.c in Sources */,
+				AA16A47215E80AF800CAA1C6 /* sweep.c in Sources */,
+				AA16A47415E80AF800CAA1C6 /* tess.c in Sources */,
+				AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */,
+				AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

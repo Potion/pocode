@@ -1,6 +1,6 @@
 ARCHS		= $(ARCHS_UNIVERSAL_IPHONE_OS)
 VALID_ARCHS = armv7 i386
-IPHONEOS_DEPLOYMENT_TARGET   = 4.3
+IPHONEOS_DEPLOYMENT_TARGET   = 5.1
 SDKROOT	= iphoneos
 SUPPORTED_PLATFORMS = iphoneos iphonesimulator
 
@@ -8,9 +8,9 @@ DEBUG_INFORMATION_FORMAT = dwarf
 COPY_PHASE_STRIP	= NO
 OTHER_LDFLAGS		= $(LIBRARIES_CMD) $(FRAMEWORKS_CMD)
 ALWAYS_SEARCH_USER_PATHS = NO
-LIBRARY_SEARCH_PATHS= $(BOOSTL) $(FREEIMAGE) $(FREETYPE) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL) $(SSL)
+LIBRARY_SEARCH_PATHS= $(BOOSTL) $(FREEIMAGE) $(FREETYPE) $(BZ2) $(PUGIXML) $(CURL) $(SSL)
 
-HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(MIKKO) $(BZ2) $(PUGIXML) $(CURL) $(SSL) $(LIBRARIES)
+HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(BZ2) $(CURL) $(SSL) $(LIBRARIES)
 USER_HEADER_SEARCH_PATHS = $(HEADERS)
 
 GCC_OPTIMIZATION_LEVEL = s
@@ -27,11 +27,8 @@ BOOSTL				= $(BOOST)/stage/lib
 FREEIMAGE			= $(LIBRARIES)/FreeImage
 FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
-MIKKO				= $(LIBRARIES)/libMikko
 BZ2					= $(LIBRARIES)/bz2
-PUGIXML				= $(LIBRARIES)/pugixml
 CURL                = $(LIBRARIES)/libcurl/ios
 SSL                 = $(LIBRARIES)/libssl/ios
-SQLITE				= /usr/lib/libsqlite3.0.dylib
-LIBRARIES_CMD		= -lboost_ios -lfreeimage_ios -lfreetype_ios -lMikko -lbz2 -lpugixml_ios_d $(SQLITE) -lcurl_ios -lssl -lcrypto
-FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
+LIBRARIES_CMD		= -lboost_ios -lfreeimage_ios -lfreetype_ios -lbz2 -lcurl_ios -lssl -lcrypto
+FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGLES -framework CoreVideo -framework QTKit
