@@ -13,31 +13,6 @@
 #include <boost/assign.hpp>
 #include <QuickTime/QuickTime.h>
 
-const char * vid_shader =
-"	[[uniforms]]							\n"
-"	uniform mat4 mvp;						\n"
-"	uniform sampler2DRect tex;				\n"
-
-"	[[varyings]]							\n"
-"	varying vec2 texCoord;					\n"
-
-"	[[vertex]]								\n"
-"	attribute vec2 position;				\n"
-"	attribute vec2 textureCoordinates;		\n"
-
-"	void main() {							\n"
-"		texCoord = textureCoordinates;		\n"
-"		gl_Position = mvp * vec4(position,0.0,1.0);\n"
-"	}										\n"
-
-"	[[fragment]]							\n"
-"	void main() {							\n"
-"		vec4 texColor = texture2DRect(tex, texCoord);\n"
-"		gl_FragColor = texColor;			\n"
-"	}										\n";
-
-static poShader *sh = NULL;
-
 poVideoPlayer::poVideoPlayer()
 :	movie(NULL)
 ,	context(NULL)
@@ -67,15 +42,6 @@ poVideoPlayer::~poVideoPlayer() {
 }
 
 bool poVideoPlayer::load(const fs::path &uri) {
-	if(!sh) {
-		std::istringstream vid(vid_shader);
-
-		sh = new poShader;
-		sh->loadSource(vid);
-		sh->compile();
-		sh->link();
-	}
-	
 	cleanup();
 	
 	bool yes = true;
@@ -234,7 +200,7 @@ void poVideoPlayer::update() {
 				
 			OSStatus err = QTVisualContextCopyImageForTime(context, kCFAllocatorDefault, NULL, &texture);
 			if(err == noErr && texture) {
-//					CVOpenGLTextureGetCleanTexCoords(texture, 
+//					CVOpenGLTextureGetCleanTexCoords(texture,
 //													 &tex_info.coords[0].x, 
 //													 &tex_info.coords[1].x, 
 //													 &tex_info.coords[2].x, 
@@ -254,48 +220,45 @@ void poVideoPlayer::draw() {
 	draw(poRect(poPoint(0,0), dimensions()));
 }
 
-void poVideoPlayer::draw(poRect r) {
+void poVideoPlayer::draw(poRect rect) {
 	using namespace std;
 	using namespace boost::assign;
 	
 	if(texture) {
 		GLuint target = CVOpenGLTextureGetTarget(texture);
 		GLuint name = CVOpenGLTextureGetName(texture);
-		
+ 
 		float ll[2], lr[2], ul[2], ur[2];
 		CVOpenGLTextureGetCleanTexCoords(texture, ll, lr, ur, ul);
-
-		poOpenGLState *ogl = poOpenGLState::get();
-
-		ogl->pushShaderState();
-		glUseProgram(sh->getUid());
 		
-		ogl->pushTextureState();
-		glBindTexture(target, name);
+        po::useTexture(name, false, target);
+        
+        po::useTexRectShader();
+        po::updateActiveShader();
 		
-		glUniformMatrix4fv(sh->uniformLocation("mvp"), 1, GL_FALSE, glm::value_ptr(ogl->matrix.transformation()));
-		
-		float x1 = r.x;
-		float x2 = r.x + r.width;
-		float y1 = r.y;
-		float y2 = r.y + r.height;
-		
-		vector<float> points;
-		points += x1, y1, x2, y1, x2, y2, x1, y2;
-		
-		vector<float> coords;
-		coords += ul[0], ul[1], ur[0], ur[1], lr[0], lr[1], ll[0], ll[1];
+		//glUniformMatrix4fv(sh->uniformLocation("mvp"), 1, GL_FALSE, glm::value_ptr(po::modelviewProjection()));
+		        
+        GLfloat quad[4*3] = {
+            rect.x,  rect.y, 0,
+            rect.x+rect.width, rect.y, 0,
+            rect.x+rect.width, rect.y+rect.height, 0,
+            rect.x,  rect.y+rect.height, 0,
+        };
+        
+        GLfloat tcoords[4*2] = {
+            ul[0], ul[1],
+            ur[0], ur[1],
+            lr[0], lr[1],
+            ll[0], ll[1]
+        };
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, &points[0]);
-
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, &coords[0]);
-		
-		glDrawArrays(GL_QUADS, 0, 4);
-		
-		ogl->popShaderState();
-		ogl->popTextureState();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
+        glDrawArrays(GL_QUADS, 0, 4);
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
 	}
 }
 

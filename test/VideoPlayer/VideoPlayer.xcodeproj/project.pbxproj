@@ -204,12 +204,14 @@
 		039597C015D315B70067378A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
 		039597C115D315B70067378A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -232,6 +234,7 @@
 				039597C115D315B70067378A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
