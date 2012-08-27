@@ -83,7 +83,10 @@ namespace {
 	"	}										\n";
 	
 	const char * shader_tex =
-    "   precision mediump sampler2D;            \n"
+    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+        "   precision mediump sampler2D;            \n"
+        "   precision mediump sampler2D;            \n"
+    #endif
 	"	[[uniforms]]							\n"
 	"	uniform mat4 mvp;						\n"
 	"	uniform vec4 color;						\n"
@@ -177,10 +180,8 @@ namespace {
 			
 			std::string src(shader_tex);
             
-            #if !defined(TARGET_OS_IPHONE) && !defined (TARGET_IPHONE_SIMULATOR)
-                boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
-                boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
-            #endif
+            boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
+            boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
 			
 			shaderTexRect.loadSource(src);
 			shaderTexRect.compile();
@@ -231,7 +232,6 @@ namespace {
 	void init_graphics() {
 		ogl = new OpenGLState;
 	}
-	
 };
 
 namespace po {
