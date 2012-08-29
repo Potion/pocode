@@ -26,7 +26,6 @@
 
 #include "poObject.h"
 #include "poThreadCenter.h"
-#include "poWorker.h"
 #include <string>
 
 //------------------------------------------------------------------

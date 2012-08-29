@@ -77,3 +77,39 @@ void poThreadCenter::workerDone(poWorker *worker) {
     //Add to queue, don't notify from here because it is in the thread!
     completed.push_back(worker);
 }
+
+
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//Base Worker Class
+#pragma mark poWorker
+poWorker::poWorker() {
+    workerAutoDelete = true;
+}
+
+poWorker::~poWorker() {
+}
+
+//------------------------------------------------------------------
+void poWorker::setWorkerParams(poObject *notify, std::string message, const poDictionary &dict) {
+    this->notify = notify;
+    this->workerMessage = message;
+    this->dict.append(dict);
+}
+
+//------------------------------------------------------------------
+void poWorker::run() {
+    workerFunc();
+    poThreadCenter::get()->workerDone(this);
+}
+
+//------------------------------------------------------------------
+void poWorker::workerFunc() {
+    //Override this function for threaded functionality
+}
+
+//------------------------------------------------------------------
+poObject* poWorker::getWorkerNotify() {
+    return notify;
+}

@@ -5,13 +5,14 @@
  */
 
 #include "poObject.h"
-#include "poWorker.h"
 
 #include <boost/asio.hpp>
 
 #include "boost/thread/locks.hpp"
+
 class poWorker;
 
+//Thread Center
 class poThreadCenter : public poObject {
 public:
 	static poThreadCenter* get();
@@ -32,4 +33,32 @@ private:
 	std::list<poWorker *> completed;
     
     static poThreadCenter* pThreadCenter;
+};
+
+
+//------------------------------------------------------------------
+//Base Class for all workers
+class poWorker : public poObject {
+public:
+	poWorker();
+	virtual ~poWorker();
+	
+    virtual void workerFunc();
+    virtual void setWorkerParams(poObject *notify, std::string message, const poDictionary &dict);
+    
+    void run();
+    
+    poObject*   getWorkerNotify();
+    std::string getWorkerMessage();
+    
+    bool workerShouldBeDeleted();
+    
+    poDictionary dict;
+    float poWorkerStartTime;
+    
+    bool workerAutoDelete;
+    std::string workerMessage;
+private:
+    //Worker params/info
+    poObject *notify;
 };
