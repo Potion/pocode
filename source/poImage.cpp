@@ -324,6 +324,10 @@ void poImage::flip(poOrientation dir) {
 		FreeImage_FlipHorizontal(bitmap);
 }
 
+void poImage::invert() {
+    FreeImage_Invert(bitmap);
+}
+
 void poImage::fill(poColor c) {
 	unsigned char color[4] = {c.R*255, c.G*255, c.B*255, c.A*255};
 	FreeImage_FillBackground(bitmap, color);
