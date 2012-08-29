@@ -162,12 +162,6 @@
 		AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF456D15E564D700EE2715 /* poThreadCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
 		AAEF457B15E56AEE00EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
-		AAEF463A15E6D52C00EE2715 /* poWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF463815E6D52B00EE2715 /* poWorker.cpp */; };
-		AAEF463B15E6D52C00EE2715 /* poWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF463815E6D52B00EE2715 /* poWorker.cpp */; };
-		AAEF463C15E6D52C00EE2715 /* poWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF463815E6D52B00EE2715 /* poWorker.cpp */; };
-		AAEF463D15E6D52C00EE2715 /* poWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF463915E6D52C00EE2715 /* poWorker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AAEF463E15E6D52C00EE2715 /* poWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF463915E6D52C00EE2715 /* poWorker.h */; };
-		AAEF463F15E6D52C00EE2715 /* poWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF463915E6D52C00EE2715 /* poWorker.h */; };
 		E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
 		E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F4B231426A6DB00D647A7 /* poSqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75F13D76F9100CBEB1C /* poBitmapFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -343,8 +337,6 @@
 		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
 		AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poThreadCenter.cpp; path = ../source/poThreadCenter.cpp; sourceTree = "<group>"; };
 		AAEF456D15E564D700EE2715 /* poThreadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poThreadCenter.h; path = ../source/poThreadCenter.h; sourceTree = "<group>"; };
-		AAEF463815E6D52B00EE2715 /* poWorker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poWorker.cpp; path = ../source/poWorker.cpp; sourceTree = "<group>"; };
-		AAEF463915E6D52C00EE2715 /* poWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poWorker.h; path = ../source/poWorker.h; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
 		E43F4B231426A6DB00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite3.h; path = ../source/poSqlite3.h; sourceTree = "<group>"; };
 		E494686D14679A7F009D3AFC /* poFileLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFileLoader.cpp; path = ../source/poFileLoader.cpp; sourceTree = "<group>"; };
@@ -645,8 +637,6 @@
 		E8E7558D13C6099A00A91EB8 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				AAEF463815E6D52B00EE2715 /* poWorker.cpp */,
-				AAEF463915E6D52C00EE2715 /* poWorker.h */,
 				AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */,
 				AAEF456D15E564D700EE2715 /* poThreadCenter.h */,
 				E8C7E71513913E3A00E6848E /* poApplication.h */,
@@ -759,7 +749,6 @@
 				AA2E615A14FC0B9700F1859C /* poFBO.h in Headers */,
 				AA2E615B14FC0B9700F1859C /* poImageShape.h in Headers */,
 				AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */,
-				AAEF463F15E6D52C00EE2715 /* poWorker.h in Headers */,
 				032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */,
 				AA16A46315E80AE300CAA1C6 /* pugixml.hpp in Headers */,
 				AA16A46715E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */,
@@ -829,7 +818,6 @@
 				41F2EDE114EB068600FE891A /* poLayout.h in Headers */,
 				AA51F15015051F2E009FDA0A /* poMessageCenter.h in Headers */,
 				AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */,
-				AAEF463D15E6D52C00EE2715 /* poWorker.h in Headers */,
 				AA16A44C15E6D5D500CAA1C6 /* poFileLoader.h in Headers */,
 				032464F815E56E27009E5822 /* poMatrixSet.h in Headers */,
 				03AC603C15E68B0800F6540B /* bucketalloc.h in Headers */,
@@ -859,7 +847,6 @@
 				E8D8F33C144C986E0077F6DA /* poFBO.h in Headers */,
 				E8FAE3A51476B86600A917EB /* poImageShape.h in Headers */,
 				AA51F15215052093009FDA0A /* poMessageCenter.h in Headers */,
-				AAEF463E15E6D52C00EE2715 /* poWorker.h in Headers */,
 				032464F915E56E27009E5822 /* poMatrixSet.h in Headers */,
 				AA16A46215E80AE300CAA1C6 /* pugixml.hpp in Headers */,
 				AA16A46615E80AEC00CAA1C6 /* pugiconfig.hpp in Headers */,
@@ -1025,7 +1012,6 @@
 				AA2E615314FC0B9700F1859C /* poLayout.cpp in Sources */,
 				AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457B15E56AEE00EE2715 /* poThreadCenter.cpp in Sources */,
-				AAEF463C15E6D52C00EE2715 /* poWorker.cpp in Sources */,
 				AA16A45115E6D5E300CAA1C6 /* poFileLoader.cpp in Sources */,
 				032464F715E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				AA16A46515E80AE800CAA1C6 /* pugixml.cpp in Sources */,
@@ -1089,7 +1075,6 @@
 				41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */,
 				AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457015E564D700EE2715 /* poThreadCenter.cpp in Sources */,
-				AAEF463A15E6D52C00EE2715 /* poWorker.cpp in Sources */,
 				AA16A44F15E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */,
 				032464F515E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				03AC603B15E68B0800F6540B /* bucketalloc.c in Sources */,
@@ -1151,7 +1136,6 @@
 				41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */,
 				AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */,
-				AAEF463B15E6D52C00EE2715 /* poWorker.cpp in Sources */,
 				AA16A45015E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */,
 				032464F615E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				AA16A46415E80AE800CAA1C6 /* pugixml.cpp in Sources */,
