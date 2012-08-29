@@ -92,6 +92,7 @@ public:
 	void                blur(int kernel_size, float sigma, int stepMultiplier=1);
 	void                flip(poOrientation dir);
 	void				fill(poColor c);
+    void                invert();
 	void                clear();
 
     // IMAGE RESIZING
