@@ -1,0 +1,236 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAEF461215E6AD1600EE2715 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEF461115E6AD1600EE2715 /* AppDelegate.mm */; };
+		AAEF461415E6AD1600EE2715 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAEF461315E6AD1600EE2715 /* en.strings */; };
+		AAEF461615E6AD1600EE2715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF461515E6AD1600EE2715 /* main.m */; };
+		AAEF461815E6AD1600EE2715 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = AAEF461715E6AD1600EE2715 /* main.pch */; };
+		AAEF461B15E6AD1600EE2715 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEF461A15E6AD1600EE2715 /* main.xib */; };
+		AAEF461E15E6AD1600EE2715 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEF461D15E6AD1600EE2715 /* poOpenGLView.mm */; };
+		AAEF462215E6AD1600EE2715 /* poNetworkLoaderApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF462115E6AD1600EE2715 /* poNetworkLoaderApp.cpp */; };
+		AAEF462415E6AD1600EE2715 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF462315E6AD1600EE2715 /* AppConfig.cpp */; };
+		AAEF462615E6AD1600EE2715 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAEF462515E6AD1600EE2715 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAEF460915E6AD1600EE2715 /* poNetworkLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poNetworkLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAEF460E15E6AD1600EE2715 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AAEF460F15E6AD1600EE2715 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AAEF461015E6AD1600EE2715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AAEF461115E6AD1600EE2715 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AAEF461315E6AD1600EE2715 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		AAEF461515E6AD1600EE2715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AAEF461715E6AD1600EE2715 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		AAEF461915E6AD1600EE2715 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		AAEF461A15E6AD1600EE2715 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		AAEF461C15E6AD1600EE2715 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		AAEF461D15E6AD1600EE2715 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		AAEF462015E6AD1600EE2715 /* poNetworkLoaderApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poNetworkLoaderApp.h; sourceTree = "<group>"; };
+		AAEF462115E6AD1600EE2715 /* poNetworkLoaderApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = poNetworkLoaderApp.cpp; sourceTree = "<group>"; };
+		AAEF462315E6AD1600EE2715 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAEF462515E6AD1600EE2715 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		AAEF463215E6B00500EE2715 /* poNetworkLoaderConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poNetworkLoaderConstants.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAEF460615E6AD1600EE2715 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAEF45FE15E6AD1600EE2715 = {
+			isa = PBXGroup;
+			children = (
+				AAEF460C15E6AD1600EE2715 /* poNetworkLoader */,
+				AAEF460A15E6AD1600EE2715 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAEF460A15E6AD1600EE2715 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF460915E6AD1600EE2715 /* poNetworkLoader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAEF460C15E6AD1600EE2715 /* poNetworkLoader */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF460D15E6AD1600EE2715 /* platform */,
+				AAEF461F15E6AD1600EE2715 /* application */,
+			);
+			path = poNetworkLoader;
+			sourceTree = "<group>";
+		};
+		AAEF460D15E6AD1600EE2715 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF460E15E6AD1600EE2715 /* Debug.xcconfig */,
+				AAEF460F15E6AD1600EE2715 /* Release.xcconfig */,
+				AAEF461015E6AD1600EE2715 /* AppDelegate.h */,
+				AAEF461115E6AD1600EE2715 /* AppDelegate.mm */,
+				AAEF461315E6AD1600EE2715 /* en.strings */,
+				AAEF461515E6AD1600EE2715 /* main.m */,
+				AAEF461715E6AD1600EE2715 /* main.pch */,
+				AAEF461915E6AD1600EE2715 /* main.plist */,
+				AAEF461A15E6AD1600EE2715 /* main.xib */,
+				AAEF461C15E6AD1600EE2715 /* poOpenGLView.h */,
+				AAEF461D15E6AD1600EE2715 /* poOpenGLView.mm */,
+				AAEF462515E6AD1600EE2715 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AAEF461F15E6AD1600EE2715 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF462015E6AD1600EE2715 /* poNetworkLoaderApp.h */,
+				AAEF462115E6AD1600EE2715 /* poNetworkLoaderApp.cpp */,
+				AAEF462315E6AD1600EE2715 /* AppConfig.cpp */,
+				AAEF463215E6B00500EE2715 /* poNetworkLoaderConstants.h */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAEF460815E6AD1600EE2715 /* poNetworkLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAEF462915E6AD1600EE2715 /* Build configuration list for PBXNativeTarget "poNetworkLoader" */;
+			buildPhases = (
+				AAEF460515E6AD1600EE2715 /* Sources */,
+				AAEF460615E6AD1600EE2715 /* Frameworks */,
+				AAEF460715E6AD1600EE2715 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = poNetworkLoader;
+			productName = poNetworkLoader;
+			productReference = AAEF460915E6AD1600EE2715 /* poNetworkLoader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAEF460015E6AD1600EE2715 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = AAEF460315E6AD1600EE2715 /* Build configuration list for PBXProject "poNetworkLoader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AAEF45FE15E6AD1600EE2715;
+			productRefGroup = AAEF460A15E6AD1600EE2715 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAEF460815E6AD1600EE2715 /* poNetworkLoader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAEF460715E6AD1600EE2715 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAEF461415E6AD1600EE2715 /* en.strings in Resources */,
+				AAEF461815E6AD1600EE2715 /* main.pch in Resources */,
+				AAEF461B15E6AD1600EE2715 /* main.xib in Resources */,
+				AAEF462615E6AD1600EE2715 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAEF460515E6AD1600EE2715 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAEF461215E6AD1600EE2715 /* AppDelegate.mm in Sources */,
+				AAEF461615E6AD1600EE2715 /* main.m in Sources */,
+				AAEF461E15E6AD1600EE2715 /* poOpenGLView.mm in Sources */,
+				AAEF462215E6AD1600EE2715 /* poNetworkLoaderApp.cpp in Sources */,
+				AAEF462415E6AD1600EE2715 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AAEF462715E6AD1600EE2715 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAEF460E15E6AD1600EE2715 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AAEF462815E6AD1600EE2715 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAEF460F15E6AD1600EE2715 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		AAEF462A15E6AD1600EE2715 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+			};
+			name = Debug;
+		};
+		AAEF462B15E6AD1600EE2715 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAEF460315E6AD1600EE2715 /* Build configuration list for PBXProject "poNetworkLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAEF462715E6AD1600EE2715 /* Debug */,
+				AAEF462815E6AD1600EE2715 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAEF462915E6AD1600EE2715 /* Build configuration list for PBXNativeTarget "poNetworkLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAEF462A15E6AD1600EE2715 /* Debug */,
+				AAEF462B15E6AD1600EE2715 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAEF460015E6AD1600EE2715 /* Project object */;
+}

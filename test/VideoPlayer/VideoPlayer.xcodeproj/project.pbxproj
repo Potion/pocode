@@ -1,0 +1,242 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		039597A815D315B70067378A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 039597A715D315B70067378A /* AppDelegate.mm */; };
+		039597AA15D315B70067378A /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 039597A915D315B70067378A /* en.strings */; };
+		039597AC15D315B70067378A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 039597AB15D315B70067378A /* main.m */; };
+		039597AE15D315B70067378A /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 039597AD15D315B70067378A /* main.pch */; };
+		039597B115D315B70067378A /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 039597B015D315B70067378A /* main.xib */; };
+		039597B415D315B70067378A /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 039597B315D315B70067378A /* poOpenGLView.mm */; };
+		039597B815D315B70067378A /* VideoPlayerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039597B715D315B70067378A /* VideoPlayerApp.cpp */; };
+		039597BA15D315B70067378A /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039597B915D315B70067378A /* AppConfig.cpp */; };
+		039597BC15D315B70067378A /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 039597BB15D315B70067378A /* OpenSans-Regular.ttf */; };
+		039597C415D315DA0067378A /* poVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039597C215D315DA0067378A /* poVideo.cpp */; };
+		039597C615D316F20067378A /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039597C515D316F20067378A /* QuickTime.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0395979F15D315B70067378A /* VideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		039597A415D315B70067378A /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		039597A515D315B70067378A /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		039597A615D315B70067378A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		039597A715D315B70067378A /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		039597A915D315B70067378A /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		039597AB15D315B70067378A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		039597AD15D315B70067378A /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		039597AF15D315B70067378A /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		039597B015D315B70067378A /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		039597B215D315B70067378A /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		039597B315D315B70067378A /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		039597B615D315B70067378A /* VideoPlayerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayerApp.h; sourceTree = "<group>"; };
+		039597B715D315B70067378A /* VideoPlayerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoPlayerApp.cpp; sourceTree = "<group>"; };
+		039597B915D315B70067378A /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		039597BB15D315B70067378A /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		039597C215D315DA0067378A /* poVideo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = poVideo.cpp; sourceTree = "<group>"; };
+		039597C315D315DA0067378A /* poVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poVideo.h; sourceTree = "<group>"; };
+		039597C515D316F20067378A /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0395979C15D315B70067378A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				039597C615D316F20067378A /* QuickTime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0395979415D315B70067378A = {
+			isa = PBXGroup;
+			children = (
+				039597C515D316F20067378A /* QuickTime.framework */,
+				039597A215D315B70067378A /* VideoPlayer */,
+				039597A015D315B70067378A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		039597A015D315B70067378A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0395979F15D315B70067378A /* VideoPlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		039597A215D315B70067378A /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				039597A315D315B70067378A /* platform */,
+				039597B515D315B70067378A /* application */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		039597A315D315B70067378A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				039597A415D315B70067378A /* Debug.xcconfig */,
+				039597A515D315B70067378A /* Release.xcconfig */,
+				039597A615D315B70067378A /* AppDelegate.h */,
+				039597A715D315B70067378A /* AppDelegate.mm */,
+				039597A915D315B70067378A /* en.strings */,
+				039597AB15D315B70067378A /* main.m */,
+				039597AD15D315B70067378A /* main.pch */,
+				039597AF15D315B70067378A /* main.plist */,
+				039597B015D315B70067378A /* main.xib */,
+				039597B215D315B70067378A /* poOpenGLView.h */,
+				039597B315D315B70067378A /* poOpenGLView.mm */,
+				039597BB15D315B70067378A /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		039597B515D315B70067378A /* application */ = {
+			isa = PBXGroup;
+			children = (
+				039597C315D315DA0067378A /* poVideo.h */,
+				039597C215D315DA0067378A /* poVideo.cpp */,
+				039597B615D315B70067378A /* VideoPlayerApp.h */,
+				039597B715D315B70067378A /* VideoPlayerApp.cpp */,
+				039597B915D315B70067378A /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0395979E15D315B70067378A /* VideoPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 039597BF15D315B70067378A /* Build configuration list for PBXNativeTarget "VideoPlayer" */;
+			buildPhases = (
+				0395979B15D315B70067378A /* Sources */,
+				0395979C15D315B70067378A /* Frameworks */,
+				0395979D15D315B70067378A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VideoPlayer;
+			productName = VideoPlayer;
+			productReference = 0395979F15D315B70067378A /* VideoPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0395979615D315B70067378A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 0395979915D315B70067378A /* Build configuration list for PBXProject "VideoPlayer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0395979415D315B70067378A;
+			productRefGroup = 039597A015D315B70067378A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0395979E15D315B70067378A /* VideoPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0395979D15D315B70067378A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				039597AA15D315B70067378A /* en.strings in Resources */,
+				039597AE15D315B70067378A /* main.pch in Resources */,
+				039597B115D315B70067378A /* main.xib in Resources */,
+				039597BC15D315B70067378A /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0395979B15D315B70067378A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				039597A815D315B70067378A /* AppDelegate.mm in Sources */,
+				039597AC15D315B70067378A /* main.m in Sources */,
+				039597B415D315B70067378A /* poOpenGLView.mm in Sources */,
+				039597B815D315B70067378A /* VideoPlayerApp.cpp in Sources */,
+				039597BA15D315B70067378A /* AppConfig.cpp in Sources */,
+				039597C415D315DA0067378A /* poVideo.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		039597BD15D315B70067378A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 039597A415D315B70067378A /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		039597BE15D315B70067378A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 039597A515D315B70067378A /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		039597C015D315B70067378A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = macosx10.7;
+			};
+			name = Debug;
+		};
+		039597C115D315B70067378A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = macosx10.7;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0395979915D315B70067378A /* Build configuration list for PBXProject "VideoPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				039597BD15D315B70067378A /* Debug */,
+				039597BE15D315B70067378A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		039597BF15D315B70067378A /* Build configuration list for PBXNativeTarget "VideoPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				039597C015D315B70067378A /* Debug */,
+				039597C115D315B70067378A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0395979615D315B70067378A /* Project object */;
+}

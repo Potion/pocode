@@ -21,7 +21,6 @@
 #include "poSimpleDrawing.h"
 #include "poImage.h"
 #include "poHelpers.h"
-#include "poBasicRenderer.h"
 #include "poOpenGLState.h"
 
 #include <boost/foreach.hpp>

@@ -118,7 +118,3 @@ private:
     
     static int          totalAllocatedImageMemorySize;
 };
-
-
-
-

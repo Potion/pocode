@@ -25,18 +25,38 @@
  */
 
 #include "poObject.h"
-
+#include "poThreadCenter.h"
+#include "poWorker.h"
 #include <string>
 
-class poFileLoader {
-public:
-	poFileLoader();
-	~poFileLoader();
+//------------------------------------------------------------------
+//File Loader, uses CURL to save files or return as strings
+namespace poFileLoader {
+    std::string getFile(std::string url, std::string filename="");
+    void getFileAsync(std::string url, poObject* notify, std::string filename="");
     
-    void getFile(std::string url, std::string filename="");
     std::string getFileAsString(std::string url);
-	
-//	virtual void update();
-//	virtual void eventHandler(poEvent *event);
-//	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+    void getFileAsStringAsync(std::string url, poObject* notify);
+};
+
+
+//------------------------------------------------------------------
+//File Loader Worker
+//For async operations
+enum poFileLoaderMode {
+    PO_FILE_LOADER_MODE_SAVE,
+    PO_FILE_LOADER_MODE_RETURN_AS_STRING
+};
+
+static const std::string PoFileLoaderCompleteMessage    = "PO_FILE_LOADER_COMPLETE_MESSAGE";
+
+class poFileLoaderWorker  : public poWorker {
+public:
+    poFileLoaderWorker(std::string url, poFileLoaderMode mode=PO_FILE_LOADER_MODE_RETURN_AS_STRING, std::string filename="");
+    ~poFileLoaderWorker();
+    
+    void workerFunc();
+private:
+    std::string url, filename;
+    poFileLoaderMode mode;
 };

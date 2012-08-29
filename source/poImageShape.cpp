@@ -20,6 +20,7 @@
 #include "poImageShape.h"
 #include "poSimpleDrawing.h"
 #include "poCamera.h"
+#include "poOpenGLState.h"
 
 poImageShape::poImageShape()
 :	tex(NULL)

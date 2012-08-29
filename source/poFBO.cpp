@@ -28,7 +28,6 @@
 #include "poFBO.h"
 #include "poTexture.h"
 #include "poOpenGLState.h"
-#include "poBasicRenderer.h"
 
 #include <boost/foreach.hpp>
 
@@ -94,6 +93,10 @@ bool poFBO::isValid() const {
 	return !framebuffers.empty() && framebuffers[0] > 0 && !colorbuffers.empty();
 }
 
+poCamera* poFBO::getCamera() const {
+	return cam;
+}
+
 void poFBO::setCamera(poCamera *camera) {
 	delete cam;
 	cam = (poCamera*)camera->copy();
@@ -130,7 +133,9 @@ poTexture *poFBO::getDepthTexture() const {
 }
 
 void poFBO::doSetUp(poObject* obj) {
-	poOpenGLState::get()->pushTextureState();
+	po::saveTextureState();
+	po::saveViewport();
+	po::setViewport(0,0,width,height);
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 	cam->setUp(obj);
 }
@@ -155,11 +160,12 @@ void poFBO::doSetDown(poObject* obj) {
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	poOpenGLState::get()->popTextureState();
+	po::restoreTextureState();
+	po::restoreViewport();
 }
 
 void poFBO::setup() {
-	int maxSamples =  poOpenGLState::get()->maxFBOSamples();
+	int maxSamples =  po::maxFBOSamples();
 
 	if(config.numMultisamples && maxSamples) {
 		if(config.numMultisamples > maxSamples)

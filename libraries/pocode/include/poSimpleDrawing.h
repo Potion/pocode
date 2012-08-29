@@ -42,14 +42,6 @@
 
 namespace po {
     
-	// Set the color of the shapes or strokes that are drawn after this method call
-	void setColor(float R, float G, float B, float A);
-    void setColor(poColor color);
-	void setColor(poColor color, float alpha);
-	
-	// Set the stroke width of the strokes that are drawn after this method call ( must be at least 1 )
-	void setStrokeWidth(int strokeWidth);
-	
 	// Draw a line
 	void drawLine(poPoint a, poPoint b);
 	

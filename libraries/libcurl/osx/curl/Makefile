@@ -33,7 +33,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-apple-darwin11.2.0
+build_triplet = x86_64-apple-darwin11.4.0
 host_triplet = i386-apple-darwin10
 subdir = include/curl
 DIST_COMMON = $(pkginclude_HEADERS) $(srcdir)/Makefile.am \
@@ -48,13 +48,13 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/curl-compilers.m4 \
 	$(top_srcdir)/m4/curl-system.m4 $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/xc-translit.m4 $(top_srcdir)/acinclude.m4 \
+	$(top_srcdir)/m4/xc-translit.m4 \
+	$(top_srcdir)/m4/zz50-xc-ovr.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = $(top_builddir)/lib/curl_config.h \
-	$(top_builddir)/src/curl_config.h curlbuild.h
+CONFIG_HEADER = $(top_builddir)/lib/curl_config.h curlbuild.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -71,16 +71,16 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 pkgincludedir = $(includedir)/curl
-ACLOCAL = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run aclocal-1.9
+ACLOCAL = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run tar
+AMTAR = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run tar
 AR = /usr/bin/ar
 AS = as
-AUTOCONF = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run autoconf
-AUTOHEADER = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run autoheader
-AUTOMAKE = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run automake-1.9
-AWK = gawk
+AUTOCONF = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run autoconf
+AUTOHEADER = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run autoheader
+AUTOMAKE = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run automake-1.9
+AWK = awk
 BUILD_LIBHOSTNAME_FALSE = 
 BUILD_LIBHOSTNAME_TRUE = #
 BUILD_UNITTESTS_FALSE = 
@@ -88,14 +88,15 @@ BUILD_UNITTESTS_TRUE = #
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -arch i386 -g0 -O2 -Wno-system-headers
-CONFIGURE_OPTIONS = " '--disable-shared' '--without-ssl' '--without-libssh2' '--without-ca-bundle' '--without-ldap' '--disable-ldap' '--host=i386-apple-darwin10' 'host_alias=i386-apple-darwin10' 'CFLAGS=-arch i386'"
+CFLAG_CURL_SYMBOL_HIDING = -fvisibility=hidden
+CONFIGURE_OPTIONS = " '--disable-shared' '--without-libssh2' '--without-ca-bundle' '--without-ldap' '--disable-ldap' '--host=i386-apple-darwin10' 'host_alias=i386-apple-darwin10' 'CFLAGS=-arch i386'"
 CPP = gcc -E
-CPPFLAGS = 
+CPPFLAGS = -I/opt/local/include
 CROSSCOMPILING_FALSE = 
 CROSSCOMPILING_TRUE = #
 CURLDEBUG_FALSE = 
 CURLDEBUG_TRUE = #
-CURLVERSION = 7.22.0
+CURLVERSION = 7.26.0
 CURL_CA_BUNDLE = 
 CURL_CFLAG_EXTRAS = 
 CURL_DISABLE_DICT = 
@@ -118,6 +119,10 @@ CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = dlltool
+DOING_CURL_SYMBOL_HIDING_FALSE = #
+DOING_CURL_SYMBOL_HIDING_TRUE = 
+DOING_NATIVE_WINDOWS_FALSE = 
+DOING_NATIVE_WINDOWS_TRUE = #
 DSYMUTIL = dsymutil
 DUMPBIN = :
 ECHO_C = \c
@@ -133,8 +138,8 @@ HAVE_LDAP_SSL =
 HAVE_LIBZ = 1
 HAVE_LIBZ_FALSE = #
 HAVE_LIBZ_TRUE = 
-HAVE_PK11_CREATEGENERICOBJECT = 
-HAVE_SSLEAY_SRP = 
+HAVE_NSS_INITCONTEXT = 
+HAVE_SSLEAY_SRP = 1
 IDN_ENABLED = 
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -143,8 +148,8 @@ INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 IPV6_ENABLED = 1
 KRB4_ENABLED = 
 LD = /usr/llvm-gcc-4.2/libexec/gcc/i686-apple-darwin11/4.2.1/ld
-LDFLAGS = 
-LIBCURL_LIBS = -lz
+LDFLAGS = -L/opt/local/lib
+LIBCURL_LIBS = -lssl -lcrypto -lssl -lcrypto -lz
 LIBOBJS = 
 LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
@@ -154,7 +159,7 @@ LTLIBOBJS =
 MAINT = #
 MAINTAINER_MODE_FALSE = 
 MAINTAINER_MODE_TRUE = #
-MAKEINFO = ${SHELL} "/Users/vtron/Downloads/curl-7.22.0/missing" --run makeinfo
+MAKEINFO = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run makeinfo
 MANIFEST_TOOL = :
 MANOPT = -man
 MIMPURE_FALSE = 
@@ -175,14 +180,14 @@ PACKAGE_STRING = curl -
 PACKAGE_TARNAME = curl
 PACKAGE_URL = 
 PACKAGE_VERSION = -
-PATH = /opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/PalmPDK/bin:/opt/PalmSDK/0.1/bin/
+PATH = /opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
 PATH_SEPARATOR = :
 PERL = /opt/local/bin/perl
 PKGADD_NAME = cURL - a client that groks URLs
 PKGADD_PKG = HAXXcurl
 PKGADD_VENDOR = curl.haxx.se
-PKGCONFIG = 
-RANDOM_FILE = 
+PKGCONFIG = no
+RANDOM_FILE = /dev/urandom
 RANLIB = ranlib
 REQUIRE_LIB_DEPS = yes
 SED = /usr/bin/sed
@@ -190,19 +195,22 @@ SET_MAKE =
 SHELL = /bin/sh
 SONAME_BUMP_FALSE = 
 SONAME_BUMP_TRUE = #
-SSL_ENABLED = 
-STATICLIB_FALSE = 
-STATICLIB_TRUE = #
+SSL_ENABLED = 1
 STRIP = strip
-SUPPORT_FEATURES = IPv6 libz
-SUPPORT_PROTOCOLS = DICT FILE FTP GOPHER HTTP IMAP POP3 RTSP SMTP TELNET TFTP
+SUPPORT_FEATURES = SSL IPv6 libz NTLM NTLM_WB TLS-SRP
+SUPPORT_PROTOCOLS = DICT FILE FTP FTPS GOPHER HTTP HTTPS IMAP IMAPS POP3 POP3S RTSP SMTP SMTPS TELNET TFTP
 TEST_SERVER_LIBS = 
 USE_ARES = 
 USE_AXTLS = 
+USE_CPPFLAG_BUILDING_LIBCURL_FALSE = 
+USE_CPPFLAG_BUILDING_LIBCURL_TRUE = #
+USE_CPPFLAG_CURL_STATICLIB_FALSE = 
+USE_CPPFLAG_CURL_STATICLIB_TRUE = #
 USE_CYASSL = 
 USE_EMBEDDED_ARES_FALSE = 
 USE_EMBEDDED_ARES_TRUE = #
 USE_GNUTLS = 
+USE_GNUTLS_NETTLE = 
 USE_LIBRTMP = 
 USE_LIBSSH2 = 
 USE_MANUAL_FALSE = #
@@ -210,10 +218,13 @@ USE_MANUAL_TRUE =
 USE_NSS = 
 USE_OPENLDAP = 
 USE_POLARSSL = 
-USE_SSLEAY = 
+USE_SSLEAY = 1
 USE_WINDOWS_SSPI = 
 VERSION = -
-VERSIONNUM = 071600
+VERSIONED_FLAVOUR = 
+VERSIONED_SYMBOLS_FALSE = 
+VERSIONED_SYMBOLS_TRUE = #
+VERSIONNUM = 071a00
 ac_ct_AR = 
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = link -dump
@@ -225,10 +236,10 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-apple-darwin11.2.0
+build = x86_64-apple-darwin11.4.0
 build_alias = 
 build_cpu = x86_64
-build_os = darwin11.2.0
+build_os = darwin11.4.0
 build_vendor = apple
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
@@ -243,7 +254,7 @@ host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = /Users/vtron/Downloads/curl-7.22.0/install-sh
+install_sh = /Users/steve/Downloads/curl-7.26.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 libext = a
@@ -338,22 +349,22 @@ $(top_srcdir)/configure: # $(am__configure_deps)
 $(ACLOCAL_M4): # $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-curlbuild.h: stamp-h3
+curlbuild.h: stamp-h2
 	@if test ! -f $@; then \
-	  rm -f stamp-h3; \
-	  $(MAKE) stamp-h3; \
+	  rm -f stamp-h2; \
+	  $(MAKE) stamp-h2; \
 	else :; fi
 
-stamp-h3: $(srcdir)/curlbuild.h.in $(top_builddir)/config.status
-	@rm -f stamp-h3
+stamp-h2: $(srcdir)/curlbuild.h.in $(top_builddir)/config.status
+	@rm -f stamp-h2
 	cd $(top_builddir) && $(SHELL) ./config.status include/curl/curlbuild.h
 $(srcdir)/curlbuild.h.in: # $(am__configure_deps) 
 	cd $(top_srcdir) && $(AUTOHEADER)
-	rm -f stamp-h3
+	rm -f stamp-h2
 	touch $@
 
 distclean-hdr:
-	-rm -f curlbuild.h stamp-h3
+	-rm -f curlbuild.h stamp-h2
 
 mostlyclean-libtool:
 	-rm -f *.lo

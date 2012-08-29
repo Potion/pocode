@@ -1,0 +1,235 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAEF459615E5973D00EE2715 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEF459515E5973D00EE2715 /* AppDelegate.mm */; };
+		AAEF459815E5973D00EE2715 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAEF459715E5973D00EE2715 /* en.strings */; };
+		AAEF459A15E5973D00EE2715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF459915E5973D00EE2715 /* main.m */; };
+		AAEF459C15E5973D00EE2715 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = AAEF459B15E5973D00EE2715 /* main.pch */; };
+		AAEF459F15E5973D00EE2715 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEF459E15E5973D00EE2715 /* main.xib */; };
+		AAEF45A215E5973D00EE2715 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEF45A115E5973D00EE2715 /* poOpenGLView.mm */; };
+		AAEF45A615E5973D00EE2715 /* poThreadCenterExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF45A515E5973D00EE2715 /* poThreadCenterExampleApp.cpp */; };
+		AAEF45A815E5973D00EE2715 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF45A715E5973D00EE2715 /* AppConfig.cpp */; };
+		AAEF45AA15E5973D00EE2715 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAEF45A915E5973D00EE2715 /* OpenSans-Regular.ttf */; };
+		AAEF45B215E5978400EE2715 /* BasicWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF45B015E5978400EE2715 /* BasicWorker.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAEF458D15E5973D00EE2715 /* poThreadCenterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poThreadCenterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAEF459215E5973D00EE2715 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AAEF459315E5973D00EE2715 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AAEF459415E5973D00EE2715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AAEF459515E5973D00EE2715 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AAEF459715E5973D00EE2715 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		AAEF459915E5973D00EE2715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AAEF459B15E5973D00EE2715 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		AAEF459D15E5973D00EE2715 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		AAEF459E15E5973D00EE2715 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		AAEF45A015E5973D00EE2715 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		AAEF45A115E5973D00EE2715 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		AAEF45A415E5973D00EE2715 /* poThreadCenterExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poThreadCenterExampleApp.h; sourceTree = "<group>"; };
+		AAEF45A515E5973D00EE2715 /* poThreadCenterExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = poThreadCenterExampleApp.cpp; sourceTree = "<group>"; };
+		AAEF45A715E5973D00EE2715 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AAEF45A915E5973D00EE2715 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		AAEF45B015E5978400EE2715 /* BasicWorker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicWorker.cpp; sourceTree = "<group>"; };
+		AAEF45B115E5978400EE2715 /* BasicWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicWorker.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAEF458A15E5973C00EE2715 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAEF458215E5973C00EE2715 = {
+			isa = PBXGroup;
+			children = (
+				AAEF459015E5973D00EE2715 /* poThreadCenterExample */,
+				AAEF458E15E5973D00EE2715 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAEF458E15E5973D00EE2715 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF458D15E5973D00EE2715 /* poThreadCenterExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAEF459015E5973D00EE2715 /* poThreadCenterExample */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF459115E5973D00EE2715 /* platform */,
+				AAEF45A315E5973D00EE2715 /* application */,
+			);
+			path = poThreadCenterExample;
+			sourceTree = "<group>";
+		};
+		AAEF459115E5973D00EE2715 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF459215E5973D00EE2715 /* Debug.xcconfig */,
+				AAEF459315E5973D00EE2715 /* Release.xcconfig */,
+				AAEF459415E5973D00EE2715 /* AppDelegate.h */,
+				AAEF459515E5973D00EE2715 /* AppDelegate.mm */,
+				AAEF459715E5973D00EE2715 /* en.strings */,
+				AAEF459915E5973D00EE2715 /* main.m */,
+				AAEF459B15E5973D00EE2715 /* main.pch */,
+				AAEF459D15E5973D00EE2715 /* main.plist */,
+				AAEF459E15E5973D00EE2715 /* main.xib */,
+				AAEF45A015E5973D00EE2715 /* poOpenGLView.h */,
+				AAEF45A115E5973D00EE2715 /* poOpenGLView.mm */,
+				AAEF45A915E5973D00EE2715 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AAEF45A315E5973D00EE2715 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF45A415E5973D00EE2715 /* poThreadCenterExampleApp.h */,
+				AAEF45A515E5973D00EE2715 /* poThreadCenterExampleApp.cpp */,
+				AAEF45A715E5973D00EE2715 /* AppConfig.cpp */,
+				AAEF45B015E5978400EE2715 /* BasicWorker.cpp */,
+				AAEF45B115E5978400EE2715 /* BasicWorker.h */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAEF458C15E5973C00EE2715 /* poThreadCenterExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAEF45AD15E5973D00EE2715 /* Build configuration list for PBXNativeTarget "poThreadCenterExample" */;
+			buildPhases = (
+				AAEF458915E5973C00EE2715 /* Sources */,
+				AAEF458A15E5973C00EE2715 /* Frameworks */,
+				AAEF458B15E5973C00EE2715 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = poThreadCenterExample;
+			productName = poThreadCenterExample;
+			productReference = AAEF458D15E5973D00EE2715 /* poThreadCenterExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAEF458415E5973C00EE2715 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = AAEF458715E5973C00EE2715 /* Build configuration list for PBXProject "poThreadCenterExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AAEF458215E5973C00EE2715;
+			productRefGroup = AAEF458E15E5973D00EE2715 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAEF458C15E5973C00EE2715 /* poThreadCenterExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAEF458B15E5973C00EE2715 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAEF459815E5973D00EE2715 /* en.strings in Resources */,
+				AAEF459C15E5973D00EE2715 /* main.pch in Resources */,
+				AAEF459F15E5973D00EE2715 /* main.xib in Resources */,
+				AAEF45AA15E5973D00EE2715 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAEF458915E5973C00EE2715 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAEF459615E5973D00EE2715 /* AppDelegate.mm in Sources */,
+				AAEF459A15E5973D00EE2715 /* main.m in Sources */,
+				AAEF45A215E5973D00EE2715 /* poOpenGLView.mm in Sources */,
+				AAEF45A615E5973D00EE2715 /* poThreadCenterExampleApp.cpp in Sources */,
+				AAEF45A815E5973D00EE2715 /* AppConfig.cpp in Sources */,
+				AAEF45B215E5978400EE2715 /* BasicWorker.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AAEF45AB15E5973D00EE2715 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAEF459215E5973D00EE2715 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AAEF45AC15E5973D00EE2715 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAEF459315E5973D00EE2715 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		AAEF45AE15E5973D00EE2715 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AAEF45AF15E5973D00EE2715 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAEF458715E5973C00EE2715 /* Build configuration list for PBXProject "poThreadCenterExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAEF45AB15E5973D00EE2715 /* Debug */,
+				AAEF45AC15E5973D00EE2715 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAEF45AD15E5973D00EE2715 /* Build configuration list for PBXNativeTarget "poThreadCenterExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAEF45AE15E5973D00EE2715 /* Debug */,
+				AAEF45AF15E5973D00EE2715 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAEF458415E5973C00EE2715 /* Project object */;
+}

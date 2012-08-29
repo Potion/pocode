@@ -20,42 +20,34 @@
 #include "poMatrixSet.h"
 #include "poOpenGLState.h"
 #include "poApplication.h"
-//#include <glm/gtc/matrix_transform.hpp>
+
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 poMatrixSet::poMatrixSet() 
-:	dirty(true)
-,   camType(PO_CAMERA_NONE)
+:   camType(PO_CAMERA_NONE)
 {}
 
 void poMatrixSet::capture() {
-	if(dirty) {
-		poOpenGLState *ogl = poOpenGLState::get();
-		projection = ogl->matrix.getProjection();
-		modelview = ogl->matrix.getModelview();
-		viewport = ogl->matrix.getViewport();
-		dirty = false;
-	}
+	projection = po::projection();
+	modelview = po::modelview();
+	viewport = po::viewport();
 }
 
 poPoint poMatrixSet::globalToLocal(poPoint pt) const {
-	using namespace glm;
-	
-	vec3 win(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.x, viewport.y, getWindowWidth(), getWindowHeight());
-	vec3 response = unProject(win, modelview, projection, viewp);
-	return poPoint(response.x, response.y, response.z);
+	glm::vec3 p(pt.x, pt.y, pt.z);
+	glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
+	glm::vec3 r = glm::unProject(p, modelview, projection, vp);
+	return poPoint(r.x, r.y, r.z);
 }
 
 poPoint poMatrixSet::localToGlobal(poPoint pt) const {
-	using namespace glm;
-	
-	vec3 obj(pt.x, pt.y, pt.z);
-	vec4 viewp(viewport.x, viewport.y, getWindowWidth(), getWindowHeight());
-	vec3 response = project(obj, modelview, projection, viewp);
-	return poPoint(response.x, response.y, response.z);
+	glm::vec3 p(pt.x, pt.y, pt.z);
+	glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
+	glm::vec3 r = glm::project(p, modelview, projection, vp);
+	return poPoint(r.x, r.y, r.z);
 }
 
 poPoint poMatrixSet::localToGlobal2(poPoint pt) const {
-	using namespace glm;
-	return value_ptr(inverse(modelview) * vec4(pt.x, pt.y, pt.z,1.f));
+	return glm::value_ptr(glm::inverse(modelview) * glm::vec4(pt.x,pt.y,pt.z,1.f));
 }

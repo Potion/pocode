@@ -146,7 +146,7 @@ poTextureConfig::poTextureConfig(GLenum format)
 	#endif
 {}
 
-int         poTexture::totalAllocatedTextureMemorySize = 0;
+int poTexture::totalAllocatedTextureMemorySize = 0;
 
 poTexture::poTexture()
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
@@ -197,6 +197,8 @@ poTexture* poTexture::copy() {
 	#warning call poFBO::copyColorTexture to copy out of an FBO\n
 		return NULL;
 	#else
+		po::saveTextureState();
+	
 		glBindTexture(GL_TEXTURE_2D, uid);
 		
 		#ifndef OPENGL_ES
@@ -211,7 +213,8 @@ poTexture* poTexture::copy() {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+	
+		po::restoreTextureState();
 		return tex;
 	#endif
 }
@@ -221,11 +224,12 @@ void poTexture::replace(poImage* image) {
 }
 
 void poTexture::replace(const ubyte *pixels) {
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
-	ogl->setTexture(po::TextureState(this));
+	po::saveTextureState();
+	
+	glBindTexture(GL_TEXTURE_2D, uid);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, GL_UNSIGNED_BYTE, pixels);
-	ogl->popTextureState();
+	
+	po::restoreTextureState();
 }
 
 bool poTexture::isValid() const {
@@ -272,6 +276,41 @@ poRect poTexture::getBounds() const {
 	return poRect(0,0,width,height);
 }
 
+void poTexture::setFormat(GLenum f){
+	config.setFormat(f);
+	configure();
+}
+
+void poTexture::setInternalFormat(GLenum f){
+	config.setInternalFormat(f);
+	configure();
+}
+
+void poTexture::setMagFilter(GLenum f){
+	config.setMagFilter(f);
+	configure();
+}
+
+void poTexture::setMinFilter(GLenum f){
+	config.setMinFilter(f);
+	configure();
+}
+
+void poTexture::setType(GLenum f){
+	config.setType(f);
+	configure();
+}
+
+void poTexture::setWrapS(GLenum f){
+	config.setWrapS(f);
+	configure();
+}
+
+void poTexture::setWrapT(GLenum f){
+	config.setWrapT(f);
+	configure();
+}
+
 poColor poTexture::getSourceImagePixel(poPoint p)
 {
     if ( sourceImage == NULL )
@@ -314,8 +353,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 	channels    = channelsForFormat(c.format);
 	config = c;
 	
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
+	po::saveTextureState();
 	
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
@@ -343,7 +381,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 				 config.type, 
 				 p);
 	
-	ogl->popTextureState();
+	po::restoreTextureState();
 }
 
 void poTexture::loadDummyImage() {
@@ -360,8 +398,7 @@ void poTexture::loadDummyImage() {
 			}
 		}
 		
-		poOpenGLState *ogl = poOpenGLState::get();
-		ogl->pushTextureState();
+		po::saveTextureState();
 		
 		glGenTextures(1, &dummy);
 		glBindTexture(GL_TEXTURE_2D, dummy);
@@ -379,13 +416,32 @@ void poTexture::loadDummyImage() {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 20, 20, 0, GL_RGB, GL_UNSIGNED_BYTE, pix);
 		delete [] pix;
 		
-		ogl->popTextureState();
+		po::restoreTextureState();
 	}
 	
 	uid = dummy;
 	width = height = 20;
 	channels = 3;
 	config = poTextureConfig(GL_RGB).setMinFilter(GL_NEAREST).setMagFilter(GL_NEAREST).setWrapS(GL_TEXTURE_WRAP_S).setWrapT(GL_TEXTURE_WRAP_T);
+}
+
+void poTexture::configure(){
+	po::saveTextureState();
+
+	glBindTexture(GL_TEXTURE_2D, uid);
+	
+	// set the filters we want
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
+	
+	#ifndef OPENGL_ES
+		float trans[] = {0.f, 0.f, 0.f, 0.f};
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+	#endif
+	
+	po::restoreTextureState();
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);

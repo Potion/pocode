@@ -22,15 +22,14 @@
 #include "poWindow.h"
 #include "poApplication.h"
 
-#include "poCamera.h"
-
 #include "poOpenGLState.h"
-#include "poMatrixStack.h"
-
 #include "poSimpleDrawing.h"
+
+#include "poCamera.h"
 
 #include <iostream>
 #include <boost/foreach.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 static uint PO_OBJECT_UID = 0;
 
@@ -328,25 +327,25 @@ std::vector<poObject*> poObject::getChildren(const std::string &name) {
 }
 
 void poObject::moveChildToFront(poObject* child) {
-	removeChild(child);
-	addChild(child);
+	if(removeChild(child))
+        addChild(child);
 }
 
 void poObject::moveChildToBack(poObject* child) {
-	removeChild(child);
-	addChild(child, 0);
+	if(removeChild(child))
+        addChild(child, 0);
 }
 
 void poObject::moveChildForward(poObject* child) {
 	int idx = getChildIndex(child);
-	removeChild(child);
-	addChild(child, std::min(idx+1, getNumChildren()));
+	if(removeChild(child))
+        addChild(child, std::min(idx+1, getNumChildren()));
 }
 
 void poObject::moveChildBackward(poObject* child) {
 	int idx = getChildIndex(child);
-	removeChild(child);
-	addChild(child, std::max(idx-1, 0));
+	if(removeChild(child))
+        addChild(child, std::max(idx-1, 0));
 }
 
 poObjectModifier* poObject::addModifier(poObjectModifier* mod) {
@@ -394,6 +393,24 @@ void poObject::removeAllModifiers(bool and_delete) {
 
 int poObject::getNumModifiers() const {
 	return modifiers.size();
+}
+
+void poObject::applyTransformation() {
+	switch(matrixOrder) {
+		case PO_MATRIX_ORDER_TRS:
+			po::translate(position);
+			po::rotate(rotation, rotationAxis);
+			po::scale(scale);
+			break;
+			
+		case PO_MATRIX_ORDER_RST:
+			po::rotate(rotation, rotationAxis);
+			po::scale(scale);
+			po::translate(position);
+			break;
+	}
+	
+	po::translate(offset);
 }
 
 bool poObject::pointInside(poPoint point, bool localize) {
@@ -498,7 +515,6 @@ int             poObject::getSizeInMemory() {
     return sizeof(poObject);
 }
 
-
 bool poObject::isVisible() {
     poObject *thisParent = getParent();
     while(thisParent) {
@@ -521,29 +537,14 @@ void poObject::drawTree() {
 	if(parent)	trueAlpha = parent->trueAlpha * alpha;
 	else		trueAlpha = alpha;
     
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	stack->pushModelview();
+	po::saveModelview();
+
+	applyTransformation();
 	
-	switch(matrixOrder) {
-		case PO_MATRIX_ORDER_TRS:
-			stack->translate(position);
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			break;
-			
-		case PO_MATRIX_ORDER_RST:
-			stack->rotate(rotation, rotationAxis);
-			stack->scale(scale);
-			stack->translate(position);
-			break;
-	}
-	
-	// center our object around its offset
-	stack->translate(offset);
+	po::saveModelview();
 	
 	// grab the matrices we need for everything
     matrices.camType = poCamera::getCurrentCameraType();
-	matrices.dirty = true;
 	matrices.capture();
 
 	// set up the modifiers ... cameras, etc
@@ -555,8 +556,8 @@ void poObject::drawTree() {
     if(drawBounds) 
 		_drawBounds();
     
-	// go back to centered around the origin
-	stack->translate(-offset);
+	// go back to uncentered for children
+	po::restoreModelview();
 	
 	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
@@ -565,7 +566,7 @@ void poObject::drawTree() {
 	
 	// then recenter around offset
 	// some modifiers might need the objects complete transform
-	stack->translate(offset);
+	po::translate(offset);
 
 	// let modifiers clean up
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
@@ -573,7 +574,7 @@ void poObject::drawTree() {
     }
 	
 	// and restore parent's matrix
-	stack->popModelview();
+	po::restoreModelview();
 }
 
 void poObject::updateTree() {
@@ -589,7 +590,7 @@ void poObject::updateTree() {
 }
 
 void poObject::_drawBounds() {
-	po::setStrokeWidth(1);
+	po::setLineWidth(1);
     po::setColor(poColor::red);
     po::drawStrokedRect(getBounds());
     po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));

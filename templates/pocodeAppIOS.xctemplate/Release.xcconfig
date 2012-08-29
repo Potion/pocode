@@ -20,7 +20,7 @@ INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
 OTHER_LDFLAGS = /pocode/libraries/pocode/libpocode_iOS.a /pocode/libraries/pocode/libpocode_ios_simulator.a $(THE_FRAMEWORKS)
 
-HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_45_0 /pocode/libraries/FreeImage /pocode/libraries/FreeType /pocode/libraries/utf8 /pocode/libraries/libMikko /pocode/libraries
+HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_49_0 /pocode/libraries/FreeImage /pocode/libraries/FreeType /pocode/libraries/utf8 /pocode/libraries/libMikko /pocode/libraries
 
 USER_HEADER_SEARCH_PATHS = /pocode/libraries/pocode/include
 
