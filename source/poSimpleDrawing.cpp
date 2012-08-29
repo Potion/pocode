@@ -151,7 +151,7 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 		coords.x, coords.y,
 	};
 	
-	useTexture(tex->getUid(), !(tex->getChannels()%2));
+	useTexture(tex->getUid(), !(tex->getChannels()==3));
 	
 	useTex2DShader();
 	updateActiveShader();
