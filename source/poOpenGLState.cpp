@@ -204,7 +204,7 @@ namespace {
                 glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
             #endif
             
-			color.set(1.0,1.0,1.0,1.0);
+			color.set(0.0,0.0,0.0,1.0);
 			lineWidth = 1.f;
 			pointSize = 1.f;
 		}

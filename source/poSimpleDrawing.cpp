@@ -151,7 +151,7 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 		coords.x, coords.y,
 	};
 	
-	useTexture(tex->getUid(), !(tex->getChannels()==3));
+	useTexture(tex->getUid(), (tex->getChannels()%2));
 	
 	useTex2DShader();
 	updateActiveShader();
@@ -224,7 +224,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	useTexture(tex->getUid(), !(tex->getChannels()%2));
+	useTexture(tex->getUid(), (tex->getChannels()%2));
 	
 	useTex2DShader();
 	updateActiveShader();
@@ -239,7 +239,7 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const st
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	useTexture(tex->getUid(), !(tex->getChannels()%2));
+	useTexture(tex->getUid(),  (tex->getChannels()%2));
 	
 	useTex2DShader();
 	updateActiveShader();
