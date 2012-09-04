@@ -29,6 +29,7 @@
 
 
 #include "poShape3D.h"
+#include "poTexture.h"
 
 class poMesh3D : public poShape3D
 {

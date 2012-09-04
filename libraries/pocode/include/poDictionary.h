@@ -22,8 +22,6 @@
 
 #include "poColor.h"
 #include "poPoint.h"
-#include "poFont.h"
-#include "poImage.h"
 #include "poXML.h"
 
 #include <boost/variant.hpp>

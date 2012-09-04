@@ -1203,6 +1203,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B9A1138B0FE10024BC8C /* Release.osx.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 			};
 			name = Release;
 		};
@@ -1222,6 +1223,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug.osx.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 			};
 			name = Debug;
 		};

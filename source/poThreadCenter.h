@@ -4,16 +4,17 @@
  *	Copyright 2011 Potion Design. All rights reserved.
  */
 
-#include "poObject.h"
+
 
 #include <boost/asio.hpp>
-
 #include "boost/thread/locks.hpp"
+
+#include "poObject.h"
 
 class poWorker;
 
 //Thread Center
-class poThreadCenter : public poObject {
+class poThreadCenter {
 public:
 	static poThreadCenter* get();
     
@@ -21,6 +22,7 @@ public:
     void addItem(poWorker *worker, poObject *notify, std::string message = "", const poDictionary &dict = poDictionary());
     
 	void workerDone(poWorker *threadedObject);
+    
 private:
 	poThreadCenter();
 	virtual ~poThreadCenter();
@@ -34,7 +36,6 @@ private:
     
     static poThreadCenter* pThreadCenter;
 };
-
 
 //------------------------------------------------------------------
 //Base Class for all workers

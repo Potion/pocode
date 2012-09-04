@@ -26,6 +26,8 @@
 
 #include "poObject.h"
 #include "poApplication.h"
+#include "poImage.h"
+#include "poTexture.h"
 
 class poImageShape : public poObject
 {

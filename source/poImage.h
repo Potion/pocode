@@ -30,6 +30,7 @@
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
+#include "poThreadCenter.h"
 
 #include <string>
 #include <ostream>
@@ -119,3 +120,10 @@ private:
     
     static int          totalAllocatedImageMemorySize;
 };
+
+class poImageLoaderWorker : public poWorker {
+    poImageLoaderWorker();
+    ~poImageLoaderWorker();
+};
+
+
