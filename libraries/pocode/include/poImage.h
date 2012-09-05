@@ -121,9 +121,19 @@ private:
     static int          totalAllocatedImageMemorySize;
 };
 
+
+static const std::string ImageLoadingCompleteMessage    = "IMAGE_LOADING_COMPLETE_MESSAGE";
+static const std::string ImageLoadSuccessMessage        = "IMAGE_LOAD_SUCCESS_MESSAGE";
+static const std::string ImageLoadFailureMessage        = "IMAGE_LOAD_FAILURE_MESSAGE";
+
 class poImageLoaderWorker : public poWorker {
-    poImageLoaderWorker();
-    ~poImageLoaderWorker();
+public:
+	poImageLoaderWorker(std::string url);
+	virtual ~poImageLoaderWorker();
+	
+	void workerFunc();
+private:
+    std::string url;
 };
 
 

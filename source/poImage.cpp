@@ -55,12 +55,12 @@ poImage::poImage(const std::string &url)
 	load(url);
 }
 
-poImage::poImage(const std::string &url, uint c) 
+poImage::poImage(const std::string &url, uint c)
 :	bitmap(NULL)
 ,   scaledBitmapFound(false)
 ,	url("")
 {
-	load(url, c);
+	load(url);
 }
 
 poImage::poImage(uint w, uint h, uint c, const ubyte *p) 
@@ -531,3 +531,33 @@ std::ostream &operator<<(std::ostream &out, const poImage *img) {
 //			str.c_str());
 //	fclose(f);
 //}
+
+
+
+poImageLoaderWorker::poImageLoaderWorker(std::string url) {
+    this->url = url;
+}
+
+poImageLoaderWorker::~poImageLoaderWorker() {
+}
+
+
+void poImageLoaderWorker::workerFunc() {
+    std::string status;
+    
+    //Load image, check for error
+    poImage*    image = new poImage(url);
+    if(!image->isValid()) {
+		delete image; image = NULL;
+        status = ImageLoadFailureMessage;
+	} else {
+        status = ImageLoadSuccessMessage;
+    }
+    
+    workerMessage = ImageLoadingCompleteMessage;
+    
+    //Set Dictionary
+    dict.set("status", status);
+    dict.set("image", image);
+    dict.set("url", url);
+}

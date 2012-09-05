@@ -103,14 +103,14 @@ public:
 	void                resizeHeight(float h);
 	void                resize(float w, float h);
 	
-	// IMAGE URL, COULD BE ""
+	// IMAGE URL, COULD BE "" IF NOTHING LOADED
 	std::string         getUrl() const;
     
     static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
     
 private:
 	void                load(const std::string &url);
-	void                load(const std::string &url, uint c);
+	void                load(const std::string &url, uint numChannels);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;
@@ -121,9 +121,19 @@ private:
     static int          totalAllocatedImageMemorySize;
 };
 
+
+static const std::string ImageLoadingCompleteMessage    = "IMAGE_LOADING_COMPLETE_MESSAGE";
+static const std::string ImageLoadSuccessMessage        = "IMAGE_LOAD_SUCCESS_MESSAGE";
+static const std::string ImageLoadFailureMessage        = "IMAGE_LOAD_FAILURE_MESSAGE";
+
 class poImageLoaderWorker : public poWorker {
-    poImageLoaderWorker();
-    ~poImageLoaderWorker();
+public:
+	poImageLoaderWorker(std::string url);
+	virtual ~poImageLoaderWorker();
+	
+	void workerFunc();
+private:
+    std::string url;
 };
 
 
