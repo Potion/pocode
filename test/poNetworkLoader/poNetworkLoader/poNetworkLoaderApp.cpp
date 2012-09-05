@@ -21,6 +21,8 @@ poNetworkLoaderApp::poNetworkLoaderApp() {
     addChild(p);
     
     p->position.set(getWindowWidth()/2, getWindowHeight()/2, 1.0f);
+    
+
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -29,7 +31,6 @@ poNetworkLoaderApp::~poNetworkLoaderApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void poNetworkLoaderApp::update() {
-    poThreadCenter::get()->update();
     
     float newScale = 1 + sin(poGetElapsedTime());
     p->scale.set(newScale, newScale, newScale);

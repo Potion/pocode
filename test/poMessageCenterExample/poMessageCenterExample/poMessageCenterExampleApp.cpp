@@ -25,7 +25,6 @@ poMessageCenterExampleApp::~poMessageCenterExampleApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void poMessageCenterExampleApp::update() {
-    poMessageCenter::get()->update();
     
     
 }
@@ -37,7 +36,7 @@ void poMessageCenterExampleApp::draw() {
 
 // EVENT HANDLER. Called when events happen. Respond to events here.
 void poMessageCenterExampleApp::eventHandler(poEvent *event) {
-    poMessageCenter::get()->broadcastMessage(ToggleSquareMessage, this);
+    poMessageCenter::broadcastMessage(ToggleSquareMessage, this);
 }
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.

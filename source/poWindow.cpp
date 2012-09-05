@@ -20,6 +20,9 @@
 #include "poObject.h"
 #include "poWindow.h"
 
+#include "poThreadCenter.h"
+#include "poMessageCenter.h"
+
 #include "poHelpers.h"
 #include "poOpenGLState.h"
 #include "poApplication.h"
@@ -54,7 +57,8 @@ poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
 ,	lastMark(0.0)
 ,	framerate(0.f)
 ,	mouseMoveEnabled(true)
-{}
+{
+}
 
 poWindow::~poWindow() {
 	makeCurrent();
@@ -182,7 +186,12 @@ void poWindow::update() {
 		poEventCenter::get()->processEvents(received);
 	}
 	received.clear();
-
+    
+    //Update internal classes
+    poMessageCenter::update();
+    poThreadCenter::update();
+    
+    
 	// tell everyone who cares they should update 
 	updateSignal();
 	

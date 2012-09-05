@@ -74,7 +74,7 @@ namespace poFileLoader {
 
     //------------------------------------------------------------------
     void getFileAsync(std::string url, poObject* notify, std::string filename) {
-        poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filename), notify);
+        poThreadCenter::addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filename), notify);
     }
 
     //------------------------------------------------------------------
@@ -94,7 +94,7 @@ namespace poFileLoader {
 
     //------------------------------------------------------------------
     void getFileAsStringAsync(std::string url, poObject* notify) {
-        poThreadCenter::get()->addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+        poThreadCenter::addItem(new poFileLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
     }
 };
 

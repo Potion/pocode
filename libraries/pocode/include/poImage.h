@@ -103,14 +103,14 @@ public:
 	void                resizeHeight(float h);
 	void                resize(float w, float h);
 	
-	// IMAGE URL, COULD BE ""
+	// IMAGE URL, COULD BE "" IF NOTHING LOADED
 	std::string         getUrl() const;
     
     static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
     
 private:
 	void                load(const std::string &url);
-	void                load(const std::string &url, uint c);
+	void                load(const std::string &url, uint numChannels);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;

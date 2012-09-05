@@ -4,38 +4,23 @@
  *	Copyright 2011 Potion Design. All rights reserved.
  */
 
-
-
-#include <boost/asio.hpp>
-#include "boost/thread/locks.hpp"
-
 #include "poObject.h"
 
 class poWorker;
 
 //Thread Center
-class poThreadCenter {
-public:
-	static poThreadCenter* get();
+namespace poThreadCenter {
+    void init();
+    void shutdown();
     
 	void update();
+    
     void addItem(poWorker *worker, poObject *notify, std::string message = "", const poDictionary &dict = poDictionary());
-    
 	void workerDone(poWorker *threadedObject);
-    
-private:
-	poThreadCenter();
-	virtual ~poThreadCenter();
-    
-	boost::thread_group threads;
-	boost::asio::io_service service;
-	boost::asio::io_service::work work;
-    
-    boost::mutex mtx;
-	std::list<poWorker *> completed;
-    
-    static poThreadCenter* pThreadCenter;
 };
+
+
+
 
 //------------------------------------------------------------------
 //Base Class for all workers
