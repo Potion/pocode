@@ -219,6 +219,7 @@
 				AAB042DF1534EB0900A9DC6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
