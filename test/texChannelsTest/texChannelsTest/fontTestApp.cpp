@@ -19,6 +19,7 @@ fontTestApp::fontTestApp() {
 	poTextBox *tb = new poTextBox(300);
 	tb->setText("hello world");
 	tb->setFont(poGetFont("/System/Library/Fonts/Helvetica.dfont", "Regular"));
+	tb->textColor = poColor::yellow;
 	tb->setTextSize(30);
 	tb->doLayout();
 	addChild(tb);

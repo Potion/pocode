@@ -249,7 +249,9 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	useTexture(tex->getUid(), (tex->getChannels()==1));
+	int c = tex->getChannels();
+	bool has_alpha = c > 0 && c != 3;
+	useTexture(tex->getUid(), has_alpha);
 	
 	useTex2DShader();
 	updateActiveShader();
@@ -264,7 +266,9 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const st
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	useTexture(tex->getUid(),  (tex->getChannels()==1));
+	int c = tex->getChannels();
+	bool has_alpha = c > 0 && c != 3;
+	useTexture(tex->getUid(), has_alpha);
 	
 	useTex2DShader();
 	updateActiveShader();
