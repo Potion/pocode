@@ -114,3 +114,28 @@ bool pointInRect3D( poPoint P, poMatrixSet& M, poRect R )
         return true;
     return false;
 }
+
+poPoint projectOntoLine(poPoint p, poPoint a, poPoint b) {
+	const float l2 = (a-b).getLengthSquared();
+	const float t = (p-a).getDot(b-a) / l2;
+	return a + t * (b - a);
+}
+
+// http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+float distanceToLine(poPoint p, poPoint a, poPoint b) {
+	const float l2 = (a-b).getLengthSquared();
+	if(l2 == 0.f)
+		// a == b
+		return p.getDist(a);
+	
+	const float t = (p-a).getDot(b-a) / l2;
+	if(t < 0.f)
+		// beyond a
+		return p.getDist(a);
+	else if(t > 1.f)
+		// beyond b
+		return p.getDist(b);
+	
+	const poPoint projection = a + t * (b - a);
+	return p.getDist(projection);
+}
