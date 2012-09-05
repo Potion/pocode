@@ -56,6 +56,8 @@ namespace po {
 	void drawFilledRect(float x, float y, float w, float h);
 	void drawFilledRect(poRect rect);
 	
+	void drawFilledCircle(float x, float y, float rad);
+	
 	// Draw a rectangle with a texture placed on it
 	// By default, the texture will be placed within the rectangle at actual size. This means that
     // the texture image may extend beyond the bounds of the shape or may not be large enough

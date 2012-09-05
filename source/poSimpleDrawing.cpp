@@ -118,6 +118,29 @@ void po::drawFilledRect(poRect rect) {
 	drawFilledRect(rect.x, rect.y, rect.width, rect.height);
 }
 
+void po::drawFilledCircle(float x, float y, float rad) {
+	int segs = 10.f * sqrtf(rad);
+	float theta = 2.f * M_PI / (float)segs;
+	float tan_t = tanf(theta);
+	float cos_t = cosf(theta);
+
+	float x1 = rad;
+	float y1 = 0.f;
+
+	std::vector<poPoint> pt;
+	for(int i=0; i<segs; ++i) {
+		pt.push_back(poPoint(x1+x, y1+y));
+
+		float tx = -y1;
+		float ty = x1;
+
+		x1 = (x1 + tx * tan_t) * cos_t;
+		y1 = (y1 + ty * tan_t) * cos_t;
+	}
+	
+	drawPoints(pt, GL_TRIANGLE_FAN);
+}
+
 void po::drawTexturedRect(poTexture *tex) {
 	drawTexturedRect(tex, poRect(0,0,tex->getWidth(),tex->getHeight()), poRect(0,0,1,1));
 }
@@ -137,7 +160,7 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, p
 }
 
 void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
-	GLfloat quad[4*3] = { 
+	GLfloat quad[4*3] = {
 		rect.x,  rect.y, 0, 
 		rect.x+rect.width, rect.y, 0, 
 		rect.x+rect.width, rect.y+rect.height, 0,
@@ -151,7 +174,9 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 		coords.x, coords.y,
 	};
 	
-	useTexture(tex->getUid(), (tex->getChannels()==1));
+	int c = tex->getChannels();
+	bool has_alpha = c > 0 && c != 3;
+	useTexture(tex->getUid(), has_alpha);
 	
 	useTex2DShader();
 	updateActiveShader();
