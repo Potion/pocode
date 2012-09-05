@@ -99,6 +99,7 @@ protected:
 class poOvalShape : public poShape2D {
 public:
     poOvalShape();
+	poOvalShape( float radius );
     poOvalShape( float _width, float _height, int numPoints );
 	
 	virtual poObject *copy();
