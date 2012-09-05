@@ -110,6 +110,11 @@ poOvalShape::poOvalShape() {
     construct( 100,100,30 );
 }
 
+poOvalShape::poOvalShape(float rad) {
+	int segs = 10.f * sqrtf(rad);
+	construct(rad, rad, segs);
+}
+
 poOvalShape::poOvalShape( float _width, float _height, int nPoints ) {
     construct( _width, _height, nPoints );
 }
