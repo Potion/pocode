@@ -1,0 +1,236 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03A3E4F015F7D14100921CFD /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A3E4E115F7D14100921CFD /* AppDelegate.mm */; };
+		03A3E4F115F7D14100921CFD /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4E215F7D14100921CFD /* Debug.xcconfig */; };
+		03A3E4F215F7D14100921CFD /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4E315F7D14100921CFD /* en.strings */; };
+		03A3E4F315F7D14100921CFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A3E4E415F7D14100921CFD /* main.m */; };
+		03A3E4F415F7D14100921CFD /* main.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4E615F7D14100921CFD /* main.plist */; };
+		03A3E4F515F7D14100921CFD /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4E715F7D14100921CFD /* main.xib */; };
+		03A3E4F615F7D14100921CFD /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4E815F7D14100921CFD /* OpenSans-Regular.ttf */; };
+		03A3E4F715F7D14100921CFD /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A3E4EA15F7D14100921CFD /* poOpenGLView.mm */; };
+		03A3E4F815F7D14100921CFD /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 03A3E4EB15F7D14100921CFD /* Release.xcconfig */; };
+		03A3E4F915F7D14100921CFD /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A3E4ED15F7D14100921CFD /* AppConfig.cpp */; };
+		03A3E4FA15F7D14100921CFD /* fontTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A3E4EE15F7D14100921CFD /* fontTestApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03A3E4A815F7CBE600921CFD /* texChannelsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = texChannelsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03A3E4E015F7D14100921CFD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		03A3E4E115F7D14100921CFD /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		03A3E4E215F7D14100921CFD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		03A3E4E315F7D14100921CFD /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		03A3E4E415F7D14100921CFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		03A3E4E515F7D14100921CFD /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		03A3E4E615F7D14100921CFD /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		03A3E4E715F7D14100921CFD /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		03A3E4E815F7D14100921CFD /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		03A3E4E915F7D14100921CFD /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		03A3E4EA15F7D14100921CFD /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		03A3E4EB15F7D14100921CFD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		03A3E4ED15F7D14100921CFD /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		03A3E4EE15F7D14100921CFD /* fontTestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fontTestApp.cpp; sourceTree = "<group>"; };
+		03A3E4EF15F7D14100921CFD /* fontTestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontTestApp.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03A3E4A515F7CBE600921CFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03A3E49D15F7CBE600921CFD = {
+			isa = PBXGroup;
+			children = (
+				03A3E4DE15F7D12E00921CFD /* texChannelsTest */,
+				03A3E4A915F7CBE600921CFD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		03A3E4A915F7CBE600921CFD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03A3E4A815F7CBE600921CFD /* texChannelsTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03A3E4DE15F7D12E00921CFD /* texChannelsTest */ = {
+			isa = PBXGroup;
+			children = (
+				03A3E4DF15F7D14100921CFD /* platform */,
+				03A3E4EC15F7D14100921CFD /* texChannelsTest */,
+			);
+			name = texChannelsTest;
+			sourceTree = "<group>";
+		};
+		03A3E4DF15F7D14100921CFD /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				03A3E4E015F7D14100921CFD /* AppDelegate.h */,
+				03A3E4E115F7D14100921CFD /* AppDelegate.mm */,
+				03A3E4E215F7D14100921CFD /* Debug.xcconfig */,
+				03A3E4EB15F7D14100921CFD /* Release.xcconfig */,
+				03A3E4E315F7D14100921CFD /* en.strings */,
+				03A3E4E415F7D14100921CFD /* main.m */,
+				03A3E4E515F7D14100921CFD /* main.pch */,
+				03A3E4E615F7D14100921CFD /* main.plist */,
+				03A3E4E715F7D14100921CFD /* main.xib */,
+				03A3E4E815F7D14100921CFD /* OpenSans-Regular.ttf */,
+				03A3E4E915F7D14100921CFD /* poOpenGLView.h */,
+				03A3E4EA15F7D14100921CFD /* poOpenGLView.mm */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		03A3E4EC15F7D14100921CFD /* texChannelsTest */ = {
+			isa = PBXGroup;
+			children = (
+				03A3E4ED15F7D14100921CFD /* AppConfig.cpp */,
+				03A3E4EE15F7D14100921CFD /* fontTestApp.cpp */,
+				03A3E4EF15F7D14100921CFD /* fontTestApp.h */,
+			);
+			path = texChannelsTest;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03A3E4A715F7CBE600921CFD /* texChannelsTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03A3E4C815F7CBE600921CFD /* Build configuration list for PBXNativeTarget "texChannelsTest" */;
+			buildPhases = (
+				03A3E4A415F7CBE600921CFD /* Sources */,
+				03A3E4A515F7CBE600921CFD /* Frameworks */,
+				03A3E4A615F7CBE600921CFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = texChannelsTest;
+			productName = fontTest;
+			productReference = 03A3E4A815F7CBE600921CFD /* texChannelsTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03A3E49F15F7CBE600921CFD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 03A3E4A215F7CBE600921CFD /* Build configuration list for PBXProject "texChannelsTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 03A3E49D15F7CBE600921CFD;
+			productRefGroup = 03A3E4A915F7CBE600921CFD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03A3E4A715F7CBE600921CFD /* texChannelsTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		03A3E4A615F7CBE600921CFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03A3E4F115F7D14100921CFD /* Debug.xcconfig in Resources */,
+				03A3E4F215F7D14100921CFD /* en.strings in Resources */,
+				03A3E4F415F7D14100921CFD /* main.plist in Resources */,
+				03A3E4F515F7D14100921CFD /* main.xib in Resources */,
+				03A3E4F615F7D14100921CFD /* OpenSans-Regular.ttf in Resources */,
+				03A3E4F815F7D14100921CFD /* Release.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03A3E4A415F7CBE600921CFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03A3E4F015F7D14100921CFD /* AppDelegate.mm in Sources */,
+				03A3E4F315F7D14100921CFD /* main.m in Sources */,
+				03A3E4F715F7D14100921CFD /* poOpenGLView.mm in Sources */,
+				03A3E4F915F7D14100921CFD /* AppConfig.cpp in Sources */,
+				03A3E4FA15F7D14100921CFD /* fontTestApp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		03A3E4C615F7CBE600921CFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A3E4E215F7D14100921CFD /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		03A3E4C715F7CBE600921CFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A3E4EB15F7D14100921CFD /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		03A3E4C915F7CBE600921CFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = texChannelsTest;
+			};
+			name = Debug;
+		};
+		03A3E4CA15F7CBE600921CFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = texChannelsTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03A3E4A215F7CBE600921CFD /* Build configuration list for PBXProject "texChannelsTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03A3E4C615F7CBE600921CFD /* Debug */,
+				03A3E4C715F7CBE600921CFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03A3E4C815F7CBE600921CFD /* Build configuration list for PBXNativeTarget "texChannelsTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03A3E4C915F7CBE600921CFD /* Debug */,
+				03A3E4CA15F7CBE600921CFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 03A3E49F15F7CBE600921CFD /* Project object */;
+}
