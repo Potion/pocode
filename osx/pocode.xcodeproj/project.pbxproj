@@ -107,6 +107,8 @@
 		AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
 		AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = AA2A69DE15F9001B002C5919 /* poFileLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA2A69E615F95CD6002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
+		AA2A69E715F95CD6002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
 		AA2E612914FC0B9700F1859C /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
 		AA2E612A14FC0B9700F1859C /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
 		AA2E612B14FC0B9700F1859C /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
@@ -1023,6 +1025,7 @@
 				AA16A48315E80AF900CAA1C6 /* tess.c in Sources */,
 				AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */,
+				AA2A69E715F95CD6002C5919 /* poFileLocation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1148,6 +1151,7 @@
 				AA16A47415E80AF800CAA1C6 /* tess.c in Sources */,
 				AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */,
+				AA2A69E615F95CD6002C5919 /* poFileLocation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
