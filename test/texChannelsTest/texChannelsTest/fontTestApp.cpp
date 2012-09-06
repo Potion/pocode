@@ -16,6 +16,7 @@ fontTestApp::fontTestApp() {
 	addChild(new poRectShape("test1.png"));
 	addChild(new poRectShape("test2.png"));
 	
+	
 	poTextBox *tb = new poTextBox(300);
 	tb->setText("hello world");
 	tb->setFont(poGetFont("/System/Library/Fonts/Helvetica.dfont", "Regular"));

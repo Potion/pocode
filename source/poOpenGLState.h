@@ -73,6 +73,7 @@ namespace po {
 	void use3DShader();
 	void useTex2DShader();
 	void useTexRectShader();
+	void useTex2DMaskShader();
 	void updateActiveShader();
 	void saveShaderState();
 	void restoreShaderState();

@@ -174,11 +174,13 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 		coords.x, coords.y,
 	};
 	
-	int c = tex->getChannels();
-	bool has_alpha = c > 0 && c != 3;
-	useTexture(tex->getUid(), has_alpha);
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
-	useTex2DShader();
+	if(tex->getConfig().internalFormat == GL_ALPHA)
+		useTex2DMaskShader();
+	else
+		useTex2DShader();
+	
 	updateActiveShader();
 	
 	glEnableVertexAttribArray(0);
@@ -249,9 +251,7 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	int c = tex->getChannels();
-	bool has_alpha = c > 0 && c != 3;
-	useTexture(tex->getUid(), has_alpha);
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
 	useTex2DShader();
 	updateActiveShader();
@@ -266,9 +266,7 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const st
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	int c = tex->getChannels();
-	bool has_alpha = c > 0 && c != 3;
-	useTexture(tex->getUid(), has_alpha);
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
 	useTex2DShader();
 	updateActiveShader();

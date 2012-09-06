@@ -103,6 +103,7 @@ public:
     poImage*            getSourceImage() { return sourceImage; };
     
     static int          getTotalAllocatedTextureMemorySize() { return totalAllocatedTextureMemorySize; };
+	bool				hasAlpha() { return channels > 0 && channels != 3; }
     
 private:
 	void                load(poImage* img);

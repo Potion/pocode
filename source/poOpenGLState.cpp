@@ -91,7 +91,6 @@ namespace {
 	"	uniform mat4 mvp;						\n"
 	"	uniform vec4 color;						\n"
 	"	uniform sampler2D tex;					\n"
-	"	uniform int isAlphaMask;				\n"
 	
 	"	[[varyings]]							\n"
 	"	varying vec2 texCoord;					\n"
@@ -109,10 +108,34 @@ namespace {
 	"	void main() {							\n"
 	"		vec4 texColor = texture2D(tex, texCoord);\n"
 	"		gl_FragColor = texColor * color;	\n"
+	"	}										\n";
+
+	const char * shader_tex_mask =
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	"   precision mediump sampler2D;            \n"
+	"   precision mediump sampler2D;            \n"
+#endif
+	"	[[uniforms]]							\n"
+	"	uniform mat4 mvp;						\n"
+	"	uniform vec4 color;						\n"
+	"	uniform sampler2D tex;					\n"
 	
-	"		if(bool(isAlphaMask)) {				\n"
-	"			gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;\n"
-	"		}									\n"
+	"	[[varyings]]							\n"
+	"	varying vec2 texCoord;					\n"
+	
+	"	[[vertex]]								\n"
+	"	attribute vec4 position;				\n"
+	"	attribute vec2 textureCoordinates;		\n"
+	
+	"	void main() {							\n"
+	"		texCoord = textureCoordinates;		\n"
+	"		gl_Position = mvp * position;		\n"
+	"	}										\n"
+	
+	"	[[fragment]]							\n"
+	"	void main() {							\n"
+	"		vec4 texColor = texture2D(tex, texCoord);\n"
+	"		gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;	\n"
 	"	}										\n";
 
 	using namespace glm;
@@ -189,6 +212,12 @@ namespace {
 			glBindAttribLocation(shaderTexRect.getUid(), 1, "textureCoordinates");
 			shaderTexRect.link();
 			
+			shaderTex2DMask.loadSource(shader_tex_mask);
+			shaderTex2DMask.compile();
+			glBindAttribLocation(shaderTex2DMask.getUid(), 0, "position");
+			glBindAttribLocation(shaderTex2DMask.getUid(), 1, "textureCoordinates");
+			shaderTex2DMask.link();
+			
 			viewport.push(vec4(0,0,0,0));
 			projection.push(mat4(1.f));
 			modelview.push(mat4(1.f));
@@ -204,7 +233,7 @@ namespace {
                 glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
             #endif
             
-			color.set(0.0,0.0,0.0,1.0);
+			color.set(1.0,1.0,1.0,1.0);
 			lineWidth = 1.f;
 			pointSize = 1.f;
 		}
@@ -224,7 +253,7 @@ namespace {
 		std::stack<BlendState> blend;
 		std::stack<poShader*> shader;
 		
-		poShader shader2D, shader3D, shaderTex2D, shaderTexRect;
+		poShader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
 	};
 	
 	OpenGLState *ogl = NULL;
@@ -366,6 +395,7 @@ namespace po {
 		useShader(&ogl->shader3D);
 	}
 	void useTex2DShader() { useShader(&ogl->shaderTex2D); }
+	void useTex2DMaskShader() { useShader(&ogl->shaderTex2DMask); }
 	void useTexRectShader() { useShader(&ogl->shaderTexRect); }
 	void updateActiveShader() {
 		poShader *sh = ogl->shader.top();
