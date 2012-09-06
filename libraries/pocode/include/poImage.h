@@ -30,6 +30,7 @@
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
+#include "poFileLocation.h"
 #include "poThreadCenter.h"
 
 #include <string>
@@ -66,6 +67,9 @@ public:
 	poImage(const std::string &url, uint numChannels);
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
 	~poImage();
+    
+    static void getImageAsync(poURL url, poObject *callback);
+    static void getImageAsyncFromNetwork(poURL url, poObject *notify, const poFilePath &savePath=poFilePath());
 
 	poImage*			copy();
 	void				save(const std::string &loc);
@@ -122,18 +126,22 @@ private:
 };
 
 
-static const std::string ImageLoadingCompleteMessage    = "IMAGE_LOADING_COMPLETE_MESSAGE";
-static const std::string ImageLoadSuccessMessage        = "IMAGE_LOAD_SUCCESS_MESSAGE";
-static const std::string ImageLoadFailureMessage        = "IMAGE_LOAD_FAILURE_MESSAGE";
+static const std::string poImageLoaderCompleteMessage    = "PO_IMAGE_LOADER_COMPLETE_MESSAGE";
+static const std::string poImageLoaderSuccessMessage     = "PO_IMAGE_LOADER_SUCCESS_MESSAGE";
+static const std::string poImageLoaderFailureMessage     = "PO_IMAGE_LOADER_FAILURE_MESSAGE";
 
+
+//------------------------------------------------------------------
+//poImageLoaderWorker
 class poImageLoaderWorker : public poWorker {
 public:
-	poImageLoaderWorker(std::string url);
+	poImageLoaderWorker(poURL url, bool loadFromNetwork = false, const poFilePath &savePath = poFilePath("null"));
 	virtual ~poImageLoaderWorker();
 	
 	void workerFunc();
 private:
-    std::string url;
+    bool loadFromNetwork;
+    poURL url;
+    poFilePath savePath;
 };
-
 

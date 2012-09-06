@@ -27,6 +27,7 @@
 
 #include "poImage.h"
 #include "poHelpers.h"
+#include "poURLLoader.h"
 #include "poApplication.h"
 #include <FreeImage.h>
 
@@ -75,6 +76,15 @@ poImage::~poImage() {
     totalAllocatedImageMemorySize -= FreeImage_GetDIBSize(bitmap);
 	FreeImage_Unload(bitmap);
 	bitmap = NULL;
+}
+
+
+void poImage::getImageAsync(poURL url, poObject *callback) {
+    poThreadCenter::addItem(new poImageLoaderWorker(url), callback);
+}
+
+void poImage::getImageAsyncFromNetwork(poURL url, poObject *notify, const poFilePath &savePath){
+    poThreadCenter::addItem(new poImageLoaderWorker(url, true, savePath), notify);
 }
 
 poImage* poImage::copy() {
@@ -533,31 +543,44 @@ std::ostream &operator<<(std::ostream &out, const poImage *img) {
 //}
 
 
-
-poImageLoaderWorker::poImageLoaderWorker(std::string url) {
-    this->url = url;
-}
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//poImageLoaderWorker
+#pragma mark poImageLoaderWorker
+poImageLoaderWorker::poImageLoaderWorker(poURL url, bool loadFromNetwork, const poFilePath &savePath)
+:   url(url),
+    loadFromNetwork(loadFromNetwork),
+    savePath(savePath)
+{}
 
 poImageLoaderWorker::~poImageLoaderWorker() {
 }
 
 
 void poImageLoaderWorker::workerFunc() {
+    //First check if we need to pull this image
+    //from a remote url
+    //If so, do it!
+    if(loadFromNetwork) {
+        savePath = poURLLoader::getFile(url, savePath);
+    }
+    
+    //Try to load the image (should be local now regardless)
     std::string status;
     
     //Load image, check for error
-    poImage*    image = new poImage(url);
+    poImage*    image = new poImage(savePath.asString());
     if(!image->isValid()) {
 		delete image; image = NULL;
-        status = ImageLoadFailureMessage;
+        status = poImageLoaderFailureMessage;
 	} else {
-        status = ImageLoadSuccessMessage;
+        status = poImageLoaderSuccessMessage;
     }
     
-    workerMessage = ImageLoadingCompleteMessage;
+    workerMessage = poImageLoaderCompleteMessage;
     
     //Set Dictionary
     dict.set("status", status);
     dict.set("image", image);
-    dict.set("url", url);
+    dict.set("url", url.asString());
 }

@@ -53,10 +53,10 @@
 		7FBB4E3A144B02BD0006A2A9 /* poEventCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB4E37144B02BC0006A2A9 /* poEventCenter.cpp */; };
 		7FBB4E3B144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FBB4E3C144B02BD0006A2A9 /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA16A44C15E6D5D500CAA1C6 /* poFileLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E494686E14679A7F009D3AFC /* poFileLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA16A44F15E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
-		AA16A45015E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
-		AA16A45115E6D5E300CAA1C6 /* poFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poFileLoader.cpp */; };
+		AA16A44C15E6D5D500CAA1C6 /* poURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E494686E14679A7F009D3AFC /* poURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA16A44F15E6D5E200CAA1C6 /* poURLLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poURLLoader.cpp */; };
+		AA16A45015E6D5E200CAA1C6 /* poURLLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poURLLoader.cpp */; };
+		AA16A45115E6D5E300CAA1C6 /* poURLLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E494686D14679A7F009D3AFC /* poURLLoader.cpp */; };
 		AA16A46215E80AE300CAA1C6 /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; };
 		AA16A46315E80AE300CAA1C6 /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; };
 		AA16A46415E80AE800CAA1C6 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03AC605015E68BA500F6540B /* pugixml.cpp */; };
@@ -105,6 +105,8 @@
 		AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
 		AA16A49015E80B6900CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
+		AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
+		AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = AA2A69DE15F9001B002C5919 /* poFileLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E612914FC0B9700F1859C /* poObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C1132E9F78002BE3D9 /* poObject.cpp */; };
 		AA2E612A14FC0B9700F1859C /* poShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C7132E9F78002BE3D9 /* poShape2D.cpp */; };
 		AA2E612B14FC0B9700F1859C /* poShapeBasics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */; };
@@ -330,6 +332,8 @@
 		7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poEventCenter.h; path = ../source/poEventCenter.h; sourceTree = "<group>"; };
 		AA09790A138593A800BBA07F /* poShapeBasics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics2D.cpp; path = ../source/poShapeBasics2D.cpp; sourceTree = "<group>"; };
 		AA09790B138593A800BBA07F /* poShapeBasics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poShapeBasics2D.h; path = ../source/poShapeBasics2D.h; sourceTree = "<group>"; };
+		AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poFileLocation.cpp; sourceTree = "<group>"; };
+		AA2A69DE15F9001B002C5919 /* poFileLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poFileLocation.h; sourceTree = "<group>"; };
 		AA2E616014FC0B9700F1859C /* libpocode_iOS_simulator_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpocode_iOS_simulator_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMessageCenter.cpp; path = ../source/poMessageCenter.cpp; sourceTree = "<group>"; };
 		AA51F14E15051F2E009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMessageCenter.h; path = ../source/poMessageCenter.h; sourceTree = "<group>"; };
@@ -339,8 +343,8 @@
 		AAEF456D15E564D700EE2715 /* poThreadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poThreadCenter.h; path = ../source/poThreadCenter.h; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
 		E43F4B231426A6DB00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite3.h; path = ../source/poSqlite3.h; sourceTree = "<group>"; };
-		E494686D14679A7F009D3AFC /* poFileLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFileLoader.cpp; path = ../source/poFileLoader.cpp; sourceTree = "<group>"; };
-		E494686E14679A7F009D3AFC /* poFileLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFileLoader.h; path = ../source/poFileLoader.h; sourceTree = "<group>"; };
+		E494686D14679A7F009D3AFC /* poURLLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poURLLoader.cpp; path = ../source/poURLLoader.cpp; sourceTree = "<group>"; };
+		E494686E14679A7F009D3AFC /* poURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poURLLoader.h; path = ../source/poURLLoader.h; sourceTree = "<group>"; };
 		E802C72013D5E3F100CBEB1C /* poApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poApplication.cpp; path = ../source/poApplication.cpp; sourceTree = "<group>"; };
 		E802C75A13D7683900CBEB1C /* poTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poTextureAtlas.h; path = ../source/poTextureAtlas.h; sourceTree = "<group>"; };
 		E802C75C13D7687700CBEB1C /* poTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poTextureAtlas.cpp; path = ../source/poTextureAtlas.cpp; sourceTree = "<group>"; };
@@ -514,15 +518,6 @@
 			path = ../libraries/nanosvg;
 			sourceTree = "<group>";
 		};
-		7F59A5E51409D42A0070E84A /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				E8CAA4CD1444E35A00A7D3D5 /* poResourceStore.h */,
-				E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */,
-			);
-			name = resources;
-			sourceTree = "<group>";
-		};
 		7F9E4BBD140AE78B00548BDB /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,13 +554,21 @@
 			name = common;
 			sourceTree = "<group>";
 		};
-		E494686B14679A00009D3AFC /* network */ = {
+		E494686B14679A00009D3AFC /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				E494686E14679A7F009D3AFC /* poFileLoader.h */,
-				E494686D14679A7F009D3AFC /* poFileLoader.cpp */,
+				E8CAA4CD1444E35A00A7D3D5 /* poResourceStore.h */,
+				E8CAA4BF1444DE9E00A7D3D5 /* poResourceStore.cpp */,
+				E8FB2407133A996C00111A69 /* poFont.h */,
+				E8FB2406133A996C00111A69 /* poFont.cpp */,
+				E87E18821368615B00DB6934 /* poImage.h */,
+				E87E18811368615A00DB6934 /* poImage.cpp */,
+				AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */,
+				AA2A69DE15F9001B002C5919 /* poFileLocation.h */,
+				E494686E14679A7F009D3AFC /* poURLLoader.h */,
+				E494686D14679A7F009D3AFC /* poURLLoader.cpp */,
 			);
-			name = network;
+			name = resource;
 			sourceTree = "<group>";
 		};
 		E84CECBF142ADCEF008B3E3E /* opengl */ = {
@@ -623,10 +626,9 @@
 				7F9E4BBF140AE8B300548BDB /* common */,
 				E8E7558D13C6099A00A91EB8 /* application */,
 				E8E7559113C60A1F00A91EB8 /* animation */,
-				7F59A5E51409D42A0070E84A /* resources */,
 				E8E7558F13C609C600A91EB8 /* graphics */,
 				7F9E4BBD140AE78B00548BDB /* data */,
-				E494686B14679A00009D3AFC /* network */,
+				E494686B14679A00009D3AFC /* resource */,
 				7F9E4BBE140AE86100548BDB /* math */,
 				E84CECBF142ADCEF008B3E3E /* opengl */,
 				E8E7559413C60AF900A91EB8 /* helpers */,
@@ -660,10 +662,6 @@
 				E830965A13315F2D00080C86 /* poSimpleDrawing.cpp */,
 				E8B2D0B6132E9F78002BE3D9 /* poColor.h */,
 				E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */,
-				E87E18821368615B00DB6934 /* poImage.h */,
-				E87E18811368615A00DB6934 /* poImage.cpp */,
-				E8FB2407133A996C00111A69 /* poFont.h */,
-				E8FB2406133A996C00111A69 /* poFont.cpp */,
 				E802C75F13D76F9100CBEB1C /* poBitmapFont.h */,
 				E802C76013D76FEC00CBEB1C /* poBitmapFont.cpp */,
 				E87E18771367696800DB6934 /* poTexture.h */,
@@ -818,7 +816,7 @@
 				41F2EDE114EB068600FE891A /* poLayout.h in Headers */,
 				AA51F15015051F2E009FDA0A /* poMessageCenter.h in Headers */,
 				AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */,
-				AA16A44C15E6D5D500CAA1C6 /* poFileLoader.h in Headers */,
+				AA16A44C15E6D5D500CAA1C6 /* poURLLoader.h in Headers */,
 				032464F815E56E27009E5822 /* poMatrixSet.h in Headers */,
 				03AC603C15E68B0800F6540B /* bucketalloc.h in Headers */,
 				03AC603E15E68B0800F6540B /* dict.h in Headers */,
@@ -833,6 +831,7 @@
 				03ACAAB115E68D1100F6540B /* sqlite3.h in Headers */,
 				03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */,
 				03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */,
+				AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1012,7 +1011,7 @@
 				AA2E615314FC0B9700F1859C /* poLayout.cpp in Sources */,
 				AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457B15E56AEE00EE2715 /* poThreadCenter.cpp in Sources */,
-				AA16A45115E6D5E300CAA1C6 /* poFileLoader.cpp in Sources */,
+				AA16A45115E6D5E300CAA1C6 /* poURLLoader.cpp in Sources */,
 				032464F715E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				AA16A46515E80AE800CAA1C6 /* pugixml.cpp in Sources */,
 				AA16A47715E80AF900CAA1C6 /* bucketalloc.c in Sources */,
@@ -1075,7 +1074,7 @@
 				41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */,
 				AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457015E564D700EE2715 /* poThreadCenter.cpp in Sources */,
-				AA16A44F15E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */,
+				AA16A44F15E6D5E200CAA1C6 /* poURLLoader.cpp in Sources */,
 				032464F515E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				03AC603B15E68B0800F6540B /* bucketalloc.c in Sources */,
 				03AC603D15E68B0800F6540B /* dict.c in Sources */,
@@ -1087,6 +1086,7 @@
 				03AC605915E68BA500F6540B /* pugixml.cpp in Sources */,
 				03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */,
 				03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */,
+				AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,7 +1136,7 @@
 				41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */,
 				AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */,
-				AA16A45015E6D5E200CAA1C6 /* poFileLoader.cpp in Sources */,
+				AA16A45015E6D5E200CAA1C6 /* poURLLoader.cpp in Sources */,
 				032464F615E56E27009E5822 /* poMatrixSet.cpp in Sources */,
 				AA16A46415E80AE800CAA1C6 /* pugixml.cpp in Sources */,
 				AA16A46815E80AF800CAA1C6 /* bucketalloc.c in Sources */,

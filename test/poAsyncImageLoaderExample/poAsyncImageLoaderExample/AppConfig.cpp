@@ -13,7 +13,7 @@ poObject *createObjectForID(uint uid) {
 }
 
 void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "poAsyncImageLoaderExample", 100, 100, 1024, 768);
+	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "poAsyncImageLoaderExample", 2050, 100, 1024, 768);
 }
 
 void cleanupApplication() {

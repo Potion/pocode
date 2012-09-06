@@ -5,7 +5,7 @@
 #include "poNetworkLoaderApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poFileLoader.h"
+#include "poURLLoader.h"
 
 #include "poThreadCenter.h"
 
@@ -14,8 +14,8 @@
 poNetworkLoaderApp::poNetworkLoaderApp() {
 	addModifier(new poCamera2D(poColor::black));
     
-    poFileLoader::getFileAsync("http://www.vargatron.com/", this);
-    poFileLoader::getFileAsStringAsync("http://www.vargatron.com", this);
+    poURLLoader::getFileAsync(poURL("http://www.vargatron.com/"), this);
+    //poURLLoader::getFileAsStringAsync(poURL("http://www.vargatron.com"), this);
     
     p = new poOvalShape(50, 50, 100);
     addChild(p);
@@ -48,10 +48,10 @@ void poNetworkLoaderApp::eventHandler(poEvent *event) {
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.
 void poNetworkLoaderApp::messageHandler(const std::string &msg, const poDictionary& dict) {
-    if(msg == PoFileLoaderCompleteMessage) {
+    if(msg == poURLLoaderCompleteMessage) {
         switch (dict.getInt("mode")) {
             case PO_FILE_LOADER_MODE_SAVE:
-                std::cout << "Saved file as " << dict.getString("filename") << std::endl;
+                std::cout << "Saved file as " << dict.getString("savePath") << std::endl;
                 break;
                 
             case PO_FILE_LOADER_MODE_RETURN_AS_STRING:

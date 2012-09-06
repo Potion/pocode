@@ -7,14 +7,12 @@
 
 #include "poObject.h"
 namespace poMessageCenter {
-    
+    void update();
+
     void addSubscriber(std::string msg, poObject* subscriber, poObject* sender=NULL);
+    
     void removeSubscriber(std::string msg, poObject* subscriber);
     void removeAllSubscribers(std::string msg);
     
     void broadcastMessage(std::string msg, poObject* sender=NULL, const poDictionary& dict=poDictionary());
-    
-	void update();
-    
-    
 };
