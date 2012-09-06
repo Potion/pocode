@@ -556,7 +556,7 @@ poImageLoaderWorker::poImageLoaderWorker(poFilePath filePath)
 poImageLoaderWorker::poImageLoaderWorker(poURL url, const poFilePath &savePath)
 : url(url)
 , loadFromNetwork(true)
-, filePath(filePath)
+, filePath(savePath)
 {}
 
 poImageLoaderWorker::~poImageLoaderWorker() {
