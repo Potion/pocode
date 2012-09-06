@@ -68,8 +68,8 @@ public:
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
 	~poImage();
     
-    static void getImageAsync(poURL url, poObject *callback);
-    static void getImageAsyncFromNetwork(poURL url, poObject *notify, const poFilePath &savePath=poFilePath());
+    static void getImageAsync(poFilePath url, poObject *notify);
+    static void getImageAsync(poURL url, poObject *notify, const poFilePath &savePath=poFilePath());
 
 	poImage*			copy();
 	void				save(const std::string &loc);
@@ -135,13 +135,14 @@ static const std::string poImageLoaderFailureMessage     = "PO_IMAGE_LOADER_FAIL
 //poImageLoaderWorker
 class poImageLoaderWorker : public poWorker {
 public:
-	poImageLoaderWorker(poURL url, bool loadFromNetwork = false, const poFilePath &savePath = poFilePath("null"));
+	poImageLoaderWorker(poFilePath filePath);
+	poImageLoaderWorker(poURL url, const poFilePath &savePath = poFilePath("null"));
 	virtual ~poImageLoaderWorker();
 	
 	void workerFunc();
 private:
     bool loadFromNetwork;
     poURL url;
-    poFilePath savePath;
+    poFilePath filePath;
 };
 
