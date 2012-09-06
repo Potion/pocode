@@ -89,8 +89,14 @@ poPoint		getWindowInvMousePosition();
 
 float       poGetScale();
 
-void		setWindowMouseMoveEnabled(bool b);
-bool		getWindowMouseMoveEnabled();
+#if defined(POTION_MAC) || defined(POTION_WIN32) || defined(POTION_LINUX)
+    void		setWindowMouseMoveEnabled(bool b);
+    bool		getWindowMouseMoveEnabled();
+    void        poShowCursor();
+    void        poHideCursor();
+#endif
+
+
 
 
 
