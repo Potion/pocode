@@ -58,6 +58,6 @@ public:
     void workerFunc();
 private:
     poURL url;
-    poFilePath savePath;
+    poFilePath filePath;
     poURLLoaderMode mode;
 };

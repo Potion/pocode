@@ -79,12 +79,12 @@ poImage::~poImage() {
 }
 
 
-void poImage::getImageAsync(poURL url, poObject *callback) {
-    poThreadCenter::addItem(new poImageLoaderWorker(url), callback);
+void poImage::getImageAsync(poFilePath filePath, poObject *notify) {
+    poThreadCenter::addItem(new poImageLoaderWorker(filePath), notify);
 }
 
-void poImage::getImageAsyncFromNetwork(poURL url, poObject *notify, const poFilePath &savePath){
-    poThreadCenter::addItem(new poImageLoaderWorker(url, true, savePath), notify);
+void poImage::getImageAsync(poURL url, poObject *notify, const poFilePath &savePath){
+    poThreadCenter::addItem(new poImageLoaderWorker(url, savePath), notify);
 }
 
 poImage* poImage::copy() {
@@ -547,10 +547,16 @@ std::ostream &operator<<(std::ostream &out, const poImage *img) {
 //------------------------------------------------------------------
 //poImageLoaderWorker
 #pragma mark poImageLoaderWorker
-poImageLoaderWorker::poImageLoaderWorker(poURL url, bool loadFromNetwork, const poFilePath &savePath)
-:   url(url),
-    loadFromNetwork(loadFromNetwork),
-    savePath(savePath)
+
+poImageLoaderWorker::poImageLoaderWorker(poFilePath filePath)
+: loadFromNetwork(false)
+, filePath(filePath)
+{}
+
+poImageLoaderWorker::poImageLoaderWorker(poURL url, const poFilePath &savePath)
+: url(url)
+, loadFromNetwork(true)
+, filePath(filePath)
 {}
 
 poImageLoaderWorker::~poImageLoaderWorker() {
@@ -562,14 +568,14 @@ void poImageLoaderWorker::workerFunc() {
     //from a remote url
     //If so, do it!
     if(loadFromNetwork) {
-        savePath = poURLLoader::getFile(url, savePath);
+        filePath = poURLLoader::getFile(url, filePath);
     }
     
     //Try to load the image (should be local now regardless)
     std::string status;
     
     //Load image, check for error
-    poImage*    image = new poImage(savePath.asString());
+    poImage*    image = new poImage(filePath.asString());
     if(!image->isValid()) {
 		delete image; image = NULL;
         status = poImageLoaderFailureMessage;
@@ -583,4 +589,5 @@ void poImageLoaderWorker::workerFunc() {
     dict.set("status", status);
     dict.set("image", image);
     dict.set("url", url.asString());
+    dict.set("filePath", filePath.asString());
 }

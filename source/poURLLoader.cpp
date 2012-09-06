@@ -109,7 +109,7 @@ namespace poURLLoader {
 poURLLoaderWorker::poURLLoaderWorker(poURL url, poURLLoaderMode mode, const poFilePath &savePath)
 : url(url)
 , mode(mode)
-, savePath(savePath)
+, filePath(savePath)
 {};
 
 poURLLoaderWorker::~poURLLoaderWorker() {
@@ -122,11 +122,11 @@ void poURLLoaderWorker::workerFunc() {
         case PO_FILE_LOADER_MODE_SAVE: {
             //Save the file
             //if the save path is "" we get back the name of the file, otherwise the savepath is passed around
-            savePath = poURLLoader::getFile(url, savePath);
+            filePath = poURLLoader::getFile(url, filePath);
             
             dict.set("mode", mode);
             dict.set("url", url.asString());
-            dict.set("savePath", savePath.asString());
+            dict.set("filePath", filePath.asString());
             break;
         }
             
