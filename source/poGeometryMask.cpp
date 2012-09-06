@@ -65,19 +65,21 @@ bool poGeometryMask::pointInside(poPoint p) {
 
 void poGeometryMask::doSetUp(poObject *obj) {
     if(shape) {
+		if(clearsStencil)
+			glClear(GL_STENCIL_BUFFER_BIT);
+
 		po::setupStencilMask(clearsStencil);
+
 		po::saveModelviewThenIdentity();
 		shape->applyTransformation();
 		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
-		po::restoreModelview();
+		
 		po::useStencilMask(inverse);
 	}
 }
 
 void poGeometryMask::doSetDown(poObject *obj) {
-	if(shape) {
-		po::disableStencil();
-	}
+	po::disableStencil();
 }
 
 /*

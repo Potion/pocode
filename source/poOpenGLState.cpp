@@ -285,18 +285,20 @@ namespace po {
 		glDisable(GL_STENCIL_TEST);
 	}
 	void setupStencilMask(bool c) {
+		if(c)
+			glClear(GL_STENCIL_BUFFER_BIT);
+		
 		defaultStencil();
-		if(c) glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0);
-		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+		glStencilFunc(GL_KEEP, 1, 1);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 	}
 	void useStencilMask(bool inv) {
 		defaultStencil();
 		glEnable(GL_STENCIL_TEST);
 		glStencilFunc(GL_EQUAL, inv ? 0 : 1, 1);
-		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	}
 
