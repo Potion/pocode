@@ -20,9 +20,9 @@ poAsyncImageLoaderExampleApp::poAsyncImageLoaderExampleApp() {
     addChild(imageHolder);
     
     poURL url("http://www.imgbase.info/images/safe-wallpapers/photography/miscellaneous/19757_miscellaneous_delirium_beer.jpg");
-    poImage::getImageAsyncFromNetwork(url, this, poFilePath("beer.jpg"));
+    poImage::getImageAsync(url, this, poFilePath("beer.jpg"));
     
-    //poImage::getImageAsync("beer.jpg", this);
+    //poImage::getImageAsync(poFilePath("beer.jpg"), this);
     
 }
 

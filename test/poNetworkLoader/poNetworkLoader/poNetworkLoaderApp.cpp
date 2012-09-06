@@ -14,7 +14,7 @@
 poNetworkLoaderApp::poNetworkLoaderApp() {
 	addModifier(new poCamera2D(poColor::black));
     
-    poURLLoader::getFileAsync(poURL("http://www.vargatron.com/"), this);
+    poURLLoader::getFileAsync(poURL("http://www.vargatron.com/"), this, poFilePath("site.html"));
     //poURLLoader::getFileAsStringAsync(poURL("http://www.vargatron.com"), this);
     
     p = new poOvalShape(50, 50, 100);
@@ -51,7 +51,7 @@ void poNetworkLoaderApp::messageHandler(const std::string &msg, const poDictiona
     if(msg == poURLLoaderCompleteMessage) {
         switch (dict.getInt("mode")) {
             case PO_FILE_LOADER_MODE_SAVE:
-                std::cout << "Saved file as " << dict.getString("savePath") << std::endl;
+                std::cout << "Saved file as " << dict.getString("filePath") << std::endl;
                 break;
                 
             case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
