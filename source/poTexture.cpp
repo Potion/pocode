@@ -152,10 +152,10 @@ poTexture::poTexture()
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {}
 
-poTexture::poTexture(const std::string &url, bool keepImage )
+poTexture::poTexture(const poFilePath &filePath, bool keepImage )
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {
-	poImage* img = new poImage(url);
+	poImage* img = new poImage(filePath);
 	load(img);
     
     if ( keepImage )

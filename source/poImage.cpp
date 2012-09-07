@@ -376,8 +376,8 @@ void poImage::resize(float w, float h) {
 	bitmap = img;
 }
 
-std::string poImage::getUrl() const {
-	return url;
+poFilePath poImage::getFilePath() const {
+	return filePath;
 }
 
 void poImage::clear() {
@@ -486,7 +486,7 @@ void poImage::setFilePath(const poFilePath &filePath) {
 }
 
 std::ostream &operator<<(std::ostream &out, const poImage *img) {
-	return out << "image('" << img->getUrl() << "')";
+	return out << "image('" << img->getFilePath().asString() << "')";
 }
 
 //void writeImageToCHeader(const std::string &str, poImage *img) {

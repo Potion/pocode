@@ -86,14 +86,14 @@ poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string
 	return bmpFont;
 }
 
-poTexture *poGetTexture(const std::string &url, bool keepImage, int group) {
+poTexture *poGetTexture(const poFilePath &filePath, bool keepImage, int group) {
 	poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForTexture(url);
+	poResourceLocator lookup = store->locatorForTexture(filePath);
 	poResource *found = store->findResource(lookup);
 	if(found)
 		return (poTexture*)found;
 	
-	poTexture *tex = new poTexture(url,keepImage);
+	poTexture *tex = new poTexture(filePath,keepImage);
 	store->addResource(lookup, tex);
 	return tex;
 }

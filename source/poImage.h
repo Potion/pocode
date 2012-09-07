@@ -108,7 +108,7 @@ public:
 	void                resize(float w, float h);
 	
 	// IMAGE URL, COULD BE "" IF NOTHING LOADED
-	std::string         getUrl() const;
+	poFilePath         getFilePath() const;
     
     static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
     
