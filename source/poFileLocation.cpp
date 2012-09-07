@@ -7,6 +7,7 @@
 //
 
 #include "poFileLocation.h"
+#include "poHelpers.h"
 
 //------------------------------------------------------------------
 //poFilePath
@@ -40,6 +41,22 @@ bool poFilePath::exists() const {
     return fs::exists(filepath);
 }
 
+//------------------------------------------------------------------
+poFilePath poFilePath::getScaled(float scale) const {
+    //Add @scale x to item, see if it exists
+    std::string stem = filepath.stem().string();
+    stem += "@" + poToString(poToString(scale) + "x");
+    std::string extension = filepath.extension().string();
+    
+    fs::path base(this->asString());
+    poFilePath p(base.remove_filename().string() + "/" + stem + extension);
+    
+    if(!p.exists()) {
+        p.set(this->asString());
+    }
+    
+    return p;
+}
 
 
 //------------------------------------------------------------------

@@ -45,29 +45,25 @@ int poImage::totalAllocatedImageMemorySize = 0;
 poImage::poImage()
 :	bitmap(NULL)
 ,   scaledBitmapFound(false)
-,	url("")
 {}
 
-poImage::poImage(const std::string &url)
+poImage::poImage(const poFilePath &filePath)
 :	bitmap(NULL)
 ,   scaledBitmapFound(false)
-,	url("")
 {
-	load(url);
+	load(filePath);
 }
 
-poImage::poImage(const std::string &url, uint c)
+poImage::poImage(const poFilePath &filePath, uint c)
 :	bitmap(NULL)
 ,   scaledBitmapFound(false)
-,	url("")
 {
-	load(url);
+	load(filePath);
 }
 
 poImage::poImage(uint w, uint h, uint c, const ubyte *p) 
 :	bitmap(NULL)
 ,   scaledBitmapFound(false)
-,	url("")
 {
 	load(w, h, c, p);
 }
@@ -91,15 +87,15 @@ poImage* poImage::copy() {
 	poImage* image = new poImage;
 	if(isValid()) {
 		image->bitmap = FreeImage_Clone(bitmap);
-		image->url = url;
+		image->filePath = filePath;
 	}
 	return image;
 }
 
-void poImage::save(const std::string &loc) {
+void poImage::save(const poFilePath &filePath) {
 	if(isValid()) {
-		FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(loc.c_str());
-		FreeImage_Save(fif, bitmap, loc.c_str());
+		FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(filePath.asString().c_str());
+		FreeImage_Save(fif, bitmap, filePath.asString().c_str());
 	}
 }
 
@@ -389,29 +385,29 @@ void poImage::clear() {
 	FreeImage_FillBackground(bitmap, &color[0]);
 }
 
-FIBITMAP *loadDIB(const std::string &url) {
+FIBITMAP *loadDIB(const poFilePath &filePath) {
 	// figure out if the file exists
-	if(!fs::exists(url)) {
-		printf("poImage: image file not found (%s)\n", url.c_str());
+	if(!filePath.exists()) {
+		printf("poImage: image file not found (%s)\n", filePath.asString().c_str());
 		return NULL;
 	}
 	
 	loadFreeImageIfNeeded();
 
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
-	fif = FreeImage_GetFileType(url.c_str());
+	fif = FreeImage_GetFileType(filePath.asString().c_str());
 //	if(fif == FIF_UNKNOWN)
 //		fif = FreeImage_GetFIFFromFilename(url.c_str());
 	if(fif == FIF_UNKNOWN) {
-		printf("poImage: image isn't a supported file type (%s)\n", url.c_str());
+		printf("poImage: image isn't a supported file type (%s)\n", filePath.asString().c_str());
 		return NULL;
 	}
 	
 	FIBITMAP *dib = NULL;
 	if(FreeImage_FIFSupportsReading(fif))
-		dib = FreeImage_Load(fif, url.c_str());
+		dib = FreeImage_Load(fif, filePath.asString().c_str());
 	if(!dib) {
-		printf("poImage: image file not found (%s)\n", url.c_str());
+		printf("poImage: image file not found (%s)\n", filePath.asString().c_str());
 		return NULL;
 	}
 
@@ -431,23 +427,23 @@ FIBITMAP *loadDIB(const std::string &url) {
 	return dib;
 }
 
-void poImage::load(const std::string &url) {
-    this->setUrl(url);
+void poImage::load(const poFilePath &filePath) {
+    this->setFilePath(filePath);
     
-	FIBITMAP *bmp = loadDIB(this->url);
+	FIBITMAP *bmp = loadDIB(this->filePath);
 	if(bmp) {
 		bitmap      = bmp;
         totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 	}
 }
 
-void poImage::load(const std::string &url, uint c) {
-    this->setUrl(url);
+void poImage::load(const poFilePath &filePath, uint c) {
+    this->setFilePath(filePath);
     
-	FIBITMAP *bmp = loadDIB(this->url);
+	FIBITMAP *bmp = loadDIB(this->filePath);
 	if(bmp) {
 		bitmap = bmp;
-		this->url = url;
+		this->setFilePath(filePath);
 		setNumChannels(c);
         totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 	}
@@ -471,27 +467,20 @@ void poImage::load(uint w, uint h, uint c, const ubyte *pix) {
     totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);
 }
 
-void poImage::setUrl(const std::string url) {
+void poImage::setFilePath(const poFilePath &filePath) {
     //See if we need a different scale
     if(poGetScale() == 1.0f) {
-        this->url = url;
+        this->filePath = filePath;
+        scaledBitmapFound = false;
     } else {
-        //If so, create scaled URL
-        fs::path p(url);
+        poFilePath scaledPath = filePath.getScaled(poGetScale());
         
-        std::string stem = p.stem().string();
-        stem += "@" + poToString(poGetScale()) + "x";
-        std::string extension = p.extension().string();
-        
-        fs::path newP(p.remove_filename().string() + "/" + stem + extension);
-        
-        //If file exists for this scale return it
-        if(fs::exists(newP)) {
-            this->url = newP.string();
+        if(scaledPath.asString() != filePath.asString()) {
+            this->filePath = scaledPath;
             scaledBitmapFound = true;
         } else {
-            //Otherwise return regular URL to handle
-            this->url = url;
+            this->filePath = filePath;
+            scaledBitmapFound = false;
         }
     }
 }
@@ -575,7 +564,7 @@ void poImageLoaderWorker::workerFunc() {
     std::string status;
     
     //Load image, check for error
-    poImage*    image = new poImage(filePath.asString());
+    poImage*    image = new poImage(filePath);
     if(!image->isValid()) {
 		delete image; image = NULL;
         status = poImageLoaderFailureMessage;
