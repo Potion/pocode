@@ -68,6 +68,8 @@ typedef std::vector<poFontGlyphMetrics> glyphMetricsVector;
 unsigned long encodeTag(const char tag[4]);
 std::string decodeTag(unsigned long encoded);
 
+bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response);
+
 class poFont : public poResource
 {
 	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
@@ -77,7 +79,8 @@ public:
 	static poFont *defaultFont();
 	
 	poFont();
-	poFont(const std::string &family_or_url, const std::string &style="", unsigned long encoding=encodeTag("unic"));
+	poFont(const poFilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
+	poFont(const std::string &family, const std::string &style="", unsigned long encoding=encodeTag("unic"));
 	virtual ~poFont();
 	
     // FONT LOADING
@@ -86,7 +89,7 @@ public:
     // FONT PROPERTIES
 	std::string         getFamilyName() const;
 	std::string         getStyleName() const;
-	std::string         getUrl() const;
+	poFilePath          getFilePath() const;
 	bool                hasKerning() const;
 	std::vector<std::string>
 						getEncodings() const;
@@ -132,7 +135,8 @@ private:
     glyphMetricsVector                  *currentCache;
     std::map<int,glyphMetricsVector>    cachedGlyphMetricsSet;
     
-	std::string			url, reqUrlOrFamily, reqStyle;
+    poFilePath          filePath;
+	std::string			reqFamily, reqStyle;
 	int					size;
 	int					glyph, loadedGlyph;
 	FT_Face				face;

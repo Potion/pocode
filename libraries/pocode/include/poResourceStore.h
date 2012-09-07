@@ -37,12 +37,19 @@ class poBitmapFont;
 class poTexture;
 
 // simple helper functions to retreive the resources you want
-poFont *poGetFont(const std::string &url, int group=0);
-poFont *poGetFont(const std::string &url, const std::string &style, int group=0);
+poFont *poGetFont(const poFilePath &filePath, int group=0);
+poFont *poGetFont(const poFilePath &filePath, const std::string &style, int group=0);
+
+poFont *poGetSystemFont(const std::string &family, int group=0);
+poFont *poGetSystemFont(const std::string &family, const std::string &style, int group=0);
+
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=0);
-poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group=0);
-poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group=0);
+poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group=0);
+
+poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group=0);
+
 poTexture *poGetTexture(const std::string &url, bool keepImage=false, int group=0);
+
 void poDeleteResourceGroup(int group);
 void poDeleteResourceType(const std::type_info &type);
 
@@ -90,9 +97,9 @@ public:
 	static poResourceStore *get();
 	
 	// build a locator to find a resource of a given type
-	poResourceLocator locatorForFont(const std::string &url, const std::string &style="", int group=-1);
+	poResourceLocator locatorForFont(const poFilePath &filePath, const std::string &style="", int group=-1);
 	poResourceLocator locatorForBitmapFont(poFont* font, uint size, int group=-1);
-	poResourceLocator locatorForBitmapFont(const std::string &url, uint size, int group=-1);
+	poResourceLocator locatorForBitmapFont(const poFilePath &filePath, uint size, int group=-1);
 	poResourceLocator locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group=-1);
 	poResourceLocator locatorForTexture(const std::string &url, int group=-1);
 	// pull up a poResource* based on locator

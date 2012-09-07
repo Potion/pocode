@@ -19,6 +19,8 @@ public:
     void set(std::string path);
     bool isSet() const;
     
+    bool exists() const;
+    
     std::string asString() const;
 private:
     fs::path filepath;
