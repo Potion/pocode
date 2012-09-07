@@ -30,31 +30,51 @@
 #include "poResourceStore.h"
 #include <boost/functional/hash.hpp>
 
-poFont *poGetFont(const std::string &url, int group) {
-	return poGetFont(url, "", group);
+poFont *poGetFont(const poFilePath &filePath, int group) {
+	return poGetFont(filePath, "", group);
 }
 
-poFont *poGetFont(const std::string &url, const std::string &style, int group) {
+poFont *poGetFont(const poFilePath &filePath, const std::string &style, int group) {
 	poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForFont(url, style, group);
+	poResourceLocator lookup = store->locatorForFont(filePath, style, group);
 	poResource *found = store->findResource(lookup);
 	if(found)
 		return (poFont*)found;
 	
-	poFont *font = new poFont(url, style);
+	poFont *font = new poFont(filePath, style);
 	store->addResource(lookup, font);
 	return font;
 }
 
-poBitmapFont *poGetBitmapFont(const std::string &url, uint size, int group) {
-	return poGetBitmapFont(poGetFont(url,group), size, group);
+poFont *poGetSystemFont(const std::string &family, int group) {
+	return poGetSystemFont(family, "", group);
+}
+
+poFont *poGetSystemFont(const std::string &family, const std::string &style, int group) {
+    poFilePath path;
+    urlForFontFamilyName(family, style, path);
+    
+	return poGetFont(path, "", group);
+}
+
+
+poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group) {
+    poResourceStore *store = poResourceStore::get();
+	poResourceLocator lookup = store->locatorForBitmapFont(filePath, size, group);
+	poResource *found = store->findResource(lookup);
+	if(found)
+		return (poBitmapFont*)found;
+    
+	poBitmapFont* bmpFont = new poBitmapFont(filePath, size);
+	store->addResource(lookup, bmpFont);
+	return bmpFont;
 }
 
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group) {
-	return poGetBitmapFont(font->getRequestedFamilyName(), font->getRequestedStyleName(), size, group);
+	return poGetBitmapFont(font->getFilePath(), size, group);
 }
 
-poBitmapFont *poGetBitmapFont(const std::string &family, const std::string &style, uint size, int group) {
+poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group) {
 	poResourceStore *store = poResourceStore::get();
 	poResourceLocator lookup = store->locatorForBitmapFont(family, style, size, group);
 	poResource *found = store->findResource(lookup);
@@ -108,24 +128,27 @@ poResourceStore *poResourceStore::get() {
 poResourceStore::poResourceStore() {
 }
 
-poResourceLocator poResourceStore::locatorForFont(const std::string &url, const std::string &style, int group) {
+poResourceLocator poResourceStore::locatorForFont(const poFilePath &filePath, const std::string &style, int group) {
 	poResourceLocator lookup(0, group, typeid(poFont));
-	lookup.hash = string_hasher(url+style);
+	lookup.hash = string_hasher(filePath.asString() + style);
 	return lookup;
 }
 
-poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &url, uint size, int group) {
-	return locatorForBitmapFont(poGetFont(url,group), size, group);
+poResourceLocator poResourceStore::locatorForBitmapFont(const poFilePath &filePath, uint size, int group) {
+	return locatorForBitmapFont(poGetFont(filePath, group), size, group);
 }
+
 poResourceLocator poResourceStore::locatorForBitmapFont(poFont* font, uint size, int group) {
 	return locatorForBitmapFont(font->getFamilyName(), font->getStyleName(), size, group);
 }
-poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &url, const std::string &style, uint size, int group) {
+
+poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group) {
 	poResourceLocator lookup(0, group, typeid(poBitmapFont));
-	boost::hash_combine(lookup.hash, url+style);
+	boost::hash_combine(lookup.hash, family + style);
 	boost::hash_combine(lookup.hash, size);
 	return lookup;
 }
+
 poResourceLocator poResourceStore::locatorForTexture(const std::string &url, int group) {
 	poResourceLocator lookup(0, group, typeid(poTexture));
 	lookup.hash = string_hasher(url);

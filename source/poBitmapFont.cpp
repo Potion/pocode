@@ -35,16 +35,16 @@ poBitmapFont::poBitmapFont(poFont* font, int sz)
 	init();
 }
 
-poBitmapFont::poBitmapFont(const std::string &url, int sz)
-:	font(poGetFont(url))
+poBitmapFont::poBitmapFont(const poFilePath &filePath, int sz)
+:	font(poGetFont(filePath))
 ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
 ,	pointSize(sz)
 {
 	init();
 }
 
-poBitmapFont::poBitmapFont(const std::string &fam, const std::string &style, int sz)
-:	font(poGetFont(fam,style))
+poBitmapFont::poBitmapFont(const std::string &family, const std::string &style, int sz)
+:	font(poGetSystemFont(family,style))
 ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
 ,	pointSize(sz)
 {

@@ -35,6 +35,10 @@ std::string poFilePath::asString() const {
     return filepath.string();
 }
 
+//------------------------------------------------------------------
+bool poFilePath::exists() const {
+    return fs::exists(filepath);
+}
 
 
 
