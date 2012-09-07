@@ -44,7 +44,7 @@ poBitmapFont::poBitmapFont(const poFilePath &filePath, int sz)
 }
 
 poBitmapFont::poBitmapFont(const std::string &family, const std::string &style, int sz)
-:	font(poGetSystemFont(family,style))
+:	font(poGetFontByName(family,style))
 ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
 ,	pointSize(sz)
 {

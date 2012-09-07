@@ -40,8 +40,8 @@ class poTexture;
 poFont *poGetFont(const poFilePath &filePath, int group=0);
 poFont *poGetFont(const poFilePath &filePath, const std::string &style, int group=0);
 
-poFont *poGetSystemFont(const std::string &family, int group=0);
-poFont *poGetSystemFont(const std::string &family, const std::string &style, int group=0);
+poFont *poGetFontByName(const std::string &family, int group=0);
+poFont *poGetFontByName(const std::string &family, const std::string &style, int group=0);
 
 poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=0);
 poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group=0);

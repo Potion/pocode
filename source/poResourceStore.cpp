@@ -46,11 +46,11 @@ poFont *poGetFont(const poFilePath &filePath, const std::string &style, int grou
 	return font;
 }
 
-poFont *poGetSystemFont(const std::string &family, int group) {
-	return poGetSystemFont(family, "", group);
+poFont *poGetFontByName(const std::string &family, int group) {
+	return poGetFontByName(family, "", group);
 }
 
-poFont *poGetSystemFont(const std::string &family, const std::string &style, int group) {
+poFont *poGetFontByName(const std::string &family, const std::string &style, int group) {
     poFilePath path;
     urlForFontFamilyName(family, style, path);
     
