@@ -145,15 +145,26 @@ poFont::poFont(const poFilePath &filePath, const std::string &style, unsigned lo
 		FT_Init_FreeType(&lib);
 
 	reqStyle = style;
-	
-	if(!filePath.exists())
-        return;
+    
+	poFilePath location = filePath;
+    
+	if(!filePath.exists()) {
+        //Try to find the font locally
+        //Currently only works on OS X
+        poFilePath localFont;
+        if(urlForFontFamilyName(filePath.asString(), style, location)) {
+            //Its a font family!
+            reqFamily = filePath.asString();
+        } else {
+            return;
+        }
+    }
 	
 	FT_Face tmp;
-	FT_Error err = FT_New_Face(lib, filePath.asString().c_str(), 0, &tmp);
+	FT_Error err = FT_New_Face(lib, location.asString().c_str(), 0, &tmp);
 	for(int i=1; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
-		FT_New_Face(lib, filePath.asString().c_str(), i, &f);
+		FT_New_Face(lib, location.asString().c_str(), i, &f);
 		
 		if(style == f->style_name) {
 			FT_Done_Face(tmp);
@@ -170,51 +181,7 @@ poFont::poFont(const poFilePath &filePath, const std::string &style, unsigned lo
 
 	setPointSize(12);
 	setGlyph(0);
-    
-    std::cout << this->filePath.asString() << std::endl;
 }
-
-
-//Loads fonts from filesystem
-//Currently only implemented on OS X
-poFont::poFont(const std::string &family, const std::string &style, unsigned long encoding)
-:	face(NULL)
-,	size(0)
-,   reqFamily(family)
-,	reqStyle(style)
-,	glyph(0)
-,   loadedGlyph(0)
-,   currentCache(NULL)
-{
-	if(!lib)
-		FT_Init_FreeType(&lib);
-	
-	if(!urlForFontFamilyName(family, style, filePath))
-        return;
-	
-	FT_Face tmp;
-	FT_Error err = FT_New_Face(lib, filePath.asString().c_str(), 0, &tmp);
-	for(int i=1; i<tmp->num_faces; i++) {
-		FT_Face f = NULL;
-		FT_New_Face(lib, filePath.asString().c_str(), i, &f);
-		
-		if(style == f->style_name) {
-			FT_Done_Face(tmp);
-			tmp = f;
-			break;
-		}
-		else {
-			FT_Done_Face(f);
-		}
-	}
-	
-	this->face = tmp;
-	FT_Select_Charmap(this->face, (FT_Encoding)encoding);
-    
-	setPointSize(12);
-	setGlyph(0);
-}
-
 
 
 
