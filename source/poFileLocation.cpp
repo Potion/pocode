@@ -16,7 +16,11 @@ poFilePath::poFilePath() {}
 
 poFilePath::~poFilePath() {}
 
-poFilePath::poFilePath(std::string filepath) {
+poFilePath::poFilePath(const char *filepath) {
+    set(filepath);
+}
+
+poFilePath::poFilePath(const std::string &filepath) {
     set(filepath);
 }
 
