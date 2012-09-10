@@ -44,8 +44,8 @@ poRectShape::poRectShape(poTexture *tex, poTextureFitOption fit, poAlignment ali
 	placeTexture(tex, fit, align);
 }
 
-poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
-	poTexture *tex = poGetTexture(str);
+poRectShape::poRectShape(const poFilePath &filePath, poTextureFitOption fit, poAlignment align) {
+	poTexture *tex = poGetTexture(filePath);
 	if(tex && tex->isValid()) {
 		construct(tex->getWidth(), tex->getHeight(), 0);
 		placeTexture(tex, fit, align);

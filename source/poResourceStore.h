@@ -48,7 +48,7 @@ poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group=0
 
 poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group=0);
 
-poTexture *poGetTexture(const std::string &url, bool keepImage=false, int group=0);
+poTexture *poGetTexture(const poFilePath &filePath, bool keepImage=false, int group=0);
 
 void poDeleteResourceGroup(int group);
 void poDeleteResourceType(const std::type_info &type);
@@ -101,7 +101,8 @@ public:
 	poResourceLocator locatorForBitmapFont(poFont* font, uint size, int group=-1);
 	poResourceLocator locatorForBitmapFont(const poFilePath &filePath, uint size, int group=-1);
 	poResourceLocator locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group=-1);
-	poResourceLocator locatorForTexture(const std::string &url, int group=-1);
+    
+	poResourceLocator locatorForTexture(const poFilePath &filePath, int group=-1);
 	// pull up a poResource* based on locator
 	poResource *findResource(poResourceLocator locator);
 	// add any old poResource* subclass you'd like

@@ -22,6 +22,8 @@ public:
     bool exists() const;
     
     std::string asString() const;
+    
+    poFilePath getScaled(float scale) const;
 private:
     fs::path filepath;
 };

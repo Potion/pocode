@@ -67,7 +67,7 @@ public:
 class poTexture : public poResource {
 public:
 	poTexture();
-	poTexture(const std::string &url, bool keepImage=false );
+	poTexture(const poFilePath &filePath, bool keepImage=false );
 	poTexture(poImage* img);
 	poTexture(poImage* img, const poTextureConfig &config);
 	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);

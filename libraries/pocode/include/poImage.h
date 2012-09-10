@@ -63,8 +63,8 @@ class poImage {
 
 public:
 	poImage();
-	poImage(const std::string &url);
-	poImage(const std::string &url, uint numChannels);
+	poImage(const poFilePath &filePath);
+	poImage(const poFilePath &filePath, uint numChannels);
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
 	~poImage();
     
@@ -72,7 +72,7 @@ public:
     static void getImageAsync(poURL url, poObject *notify, const poFilePath &savePath=poFilePath());
 
 	poImage*			copy();
-	void				save(const std::string &loc);
+	void				save(const poFilePath &filePath);
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;
@@ -108,19 +108,19 @@ public:
 	void                resize(float w, float h);
 	
 	// IMAGE URL, COULD BE "" IF NOTHING LOADED
-	std::string         getUrl() const;
+	poFilePath         getFilePath() const;
     
     static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
     
 private:
-	void                load(const std::string &url);
-	void                load(const std::string &url, uint numChannels);
+	void                load(const poFilePath &filePath);
+	void                load(const poFilePath &filePath, uint numChannels);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;
     bool                scaledBitmapFound;
-    void                setUrl(const std::string url);
-	std::string         url;
+    void                setFilePath(const poFilePath &filePath);
+	poFilePath          filePath;
     
     static int          totalAllocatedImageMemorySize;
 };

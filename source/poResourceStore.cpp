@@ -149,9 +149,9 @@ poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &famil
 	return lookup;
 }
 
-poResourceLocator poResourceStore::locatorForTexture(const std::string &url, int group) {
+poResourceLocator poResourceStore::locatorForTexture(const poFilePath &filePath, int group) {
 	poResourceLocator lookup(0, group, typeid(poTexture));
-	lookup.hash = string_hasher(url);
+	lookup.hash = string_hasher(filePath.asString());
 	return lookup;
 }
 
