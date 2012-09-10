@@ -13,7 +13,8 @@
 class poFilePath {
 public:
     poFilePath();
-    explicit poFilePath(std::string path);
+    poFilePath(const char* filePath);
+    poFilePath(const std::string &filepath);
     ~poFilePath();
     
     void set(std::string path);
