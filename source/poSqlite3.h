@@ -66,7 +66,7 @@ class poSqlite3Result {
 
 class poSqlite3 {
     public:
-        poSqlite3(bool bVerbose=false);
+        poSqlite3();
         poSqlite3(std::string url, bool bVerbose=false);
         virtual ~poSqlite3();
         

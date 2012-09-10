@@ -23,14 +23,13 @@
 
 #pragma mark - poSqlite3 -
 
-poSqlite3::poSqlite3(bool bVerbose) {
-    this->bVerbose = bVerbose;
+poSqlite3::poSqlite3()
+: bVerbose(false) {
 }
 
 
-poSqlite3::poSqlite3(std::string url, bool bVerbose) {
-    this->bVerbose = bVerbose;
-    
+poSqlite3::poSqlite3(std::string url, bool bVerbose)
+: bVerbose(bVerbose) {
     openDatabase(url);
 }
 
@@ -39,23 +38,32 @@ poSqlite3::~poSqlite3() {
     close();
 }
 
+
 //------------------------------------------------------------------
 bool poSqlite3::openDatabase(std::string url, bool bOverwrite) {
     int error = sqlite3_open(url.c_str(), &db);
     
     if(error) {
         if(bVerbose) std::cout << sqlite3_errmsg(db) << std::endl;
+        bLoaded = false;
         return false; 
+    } else {
+        if(bVerbose) std::cout << "Successfully opened database " << url << std::endl;
     }
+    
+    
     
     //If We're overwriting this whole db, just drop all tables
     if(bOverwrite) {
+        if(bVerbose) std::cout << "Overwriting previous DB" << std::endl;
+        
         poSqlite3Result dropCommands = query("SELECT name FROM sqlite_master WHERE type = 'table';)");
         
         for(int i=0; i<dropCommands.getNumRows(); i++) {
             query("DROP TABLE " + dropCommands.rows[i].getString("name"));
         }
     }
+    
     
     bLoaded = true;
     return true;
@@ -194,6 +202,8 @@ std::string poSqlite3::escapeQuotes(std::string text) {
 
 
 //------------------------------------------------------------------
+//------------------------------------------------------------------
+//SQLite3 Result Object
 #pragma mark - poSqlite3Result -
 
 poSqlite3Result::poSqlite3Result(std::string query, bool bVerbose) {
@@ -202,14 +212,16 @@ poSqlite3Result::poSqlite3Result(std::string query, bool bVerbose) {
     this->bVerbose  = bVerbose;
 }
 
+
 poSqlite3Result::~poSqlite3Result() {
     
 }
 
 
 //------------------------------------------------------------------
-int poSqlite3Result::getNumRows() { return rows.size(); }
-
+int poSqlite3Result::getNumRows() {
+    return rows.size();
+}
 
 
 //------------------------------------------------------------------
