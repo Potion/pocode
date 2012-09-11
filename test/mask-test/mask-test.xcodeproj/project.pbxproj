@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0343992115FF873100CB5DD3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0343992015FF873100CB5DD3 /* AppDelegate.mm */; };
+		0343992315FF873100CB5DD3 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0343992215FF873100CB5DD3 /* en.strings */; };
+		0343992515FF873100CB5DD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0343992415FF873100CB5DD3 /* main.m */; };
+		0343992715FF873100CB5DD3 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 0343992615FF873100CB5DD3 /* main.pch */; };
+		0343992A15FF873100CB5DD3 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0343992915FF873100CB5DD3 /* main.xib */; };
+		0343992D15FF873100CB5DD3 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0343992C15FF873100CB5DD3 /* poOpenGLView.mm */; };
+		0343993115FF873100CB5DD3 /* mask_testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0343993015FF873100CB5DD3 /* mask_testApp.cpp */; };
+		0343993315FF873100CB5DD3 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0343993215FF873100CB5DD3 /* AppConfig.cpp */; };
+		0343993515FF873100CB5DD3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0343993415FF873100CB5DD3 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0343991815FF873100CB5DD3 /* mask-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0343991D15FF873100CB5DD3 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		0343991E15FF873100CB5DD3 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		0343991F15FF873100CB5DD3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		0343992015FF873100CB5DD3 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		0343992215FF873100CB5DD3 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		0343992415FF873100CB5DD3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		0343992615FF873100CB5DD3 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		0343992815FF873100CB5DD3 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		0343992915FF873100CB5DD3 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		0343992B15FF873100CB5DD3 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		0343992C15FF873100CB5DD3 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		0343992F15FF873100CB5DD3 /* mask_testApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mask_testApp.h; sourceTree = "<group>"; };
+		0343993015FF873100CB5DD3 /* mask_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mask_testApp.cpp; sourceTree = "<group>"; };
+		0343993215FF873100CB5DD3 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		0343993415FF873100CB5DD3 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0343991515FF873100CB5DD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0343990D15FF873100CB5DD3 = {
+			isa = PBXGroup;
+			children = (
+				0343991B15FF873100CB5DD3 /* mask-test */,
+				0343991915FF873100CB5DD3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0343991915FF873100CB5DD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0343991815FF873100CB5DD3 /* mask-test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0343991B15FF873100CB5DD3 /* mask-test */ = {
+			isa = PBXGroup;
+			children = (
+				0343991C15FF873100CB5DD3 /* platform */,
+				0343992E15FF873100CB5DD3 /* application */,
+			);
+			path = "mask-test";
+			sourceTree = "<group>";
+		};
+		0343991C15FF873100CB5DD3 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				0343991D15FF873100CB5DD3 /* Debug.xcconfig */,
+				0343991E15FF873100CB5DD3 /* Release.xcconfig */,
+				0343991F15FF873100CB5DD3 /* AppDelegate.h */,
+				0343992015FF873100CB5DD3 /* AppDelegate.mm */,
+				0343992215FF873100CB5DD3 /* en.strings */,
+				0343992415FF873100CB5DD3 /* main.m */,
+				0343992615FF873100CB5DD3 /* main.pch */,
+				0343992815FF873100CB5DD3 /* main.plist */,
+				0343992915FF873100CB5DD3 /* main.xib */,
+				0343992B15FF873100CB5DD3 /* poOpenGLView.h */,
+				0343992C15FF873100CB5DD3 /* poOpenGLView.mm */,
+				0343993415FF873100CB5DD3 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		0343992E15FF873100CB5DD3 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				0343992F15FF873100CB5DD3 /* mask_testApp.h */,
+				0343993015FF873100CB5DD3 /* mask_testApp.cpp */,
+				0343993215FF873100CB5DD3 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0343991715FF873100CB5DD3 /* mask-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0343993815FF873100CB5DD3 /* Build configuration list for PBXNativeTarget "mask-test" */;
+			buildPhases = (
+				0343991415FF873100CB5DD3 /* Sources */,
+				0343991515FF873100CB5DD3 /* Frameworks */,
+				0343991615FF873100CB5DD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "mask-test";
+			productName = "mask-test";
+			productReference = 0343991815FF873100CB5DD3 /* mask-test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0343990F15FF873100CB5DD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 0343991215FF873100CB5DD3 /* Build configuration list for PBXProject "mask-test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0343990D15FF873100CB5DD3;
+			productRefGroup = 0343991915FF873100CB5DD3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0343991715FF873100CB5DD3 /* mask-test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0343991615FF873100CB5DD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0343992315FF873100CB5DD3 /* en.strings in Resources */,
+				0343992715FF873100CB5DD3 /* main.pch in Resources */,
+				0343992A15FF873100CB5DD3 /* main.xib in Resources */,
+				0343993515FF873100CB5DD3 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0343991415FF873100CB5DD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0343992115FF873100CB5DD3 /* AppDelegate.mm in Sources */,
+				0343992515FF873100CB5DD3 /* main.m in Sources */,
+				0343992D15FF873100CB5DD3 /* poOpenGLView.mm in Sources */,
+				0343993115FF873100CB5DD3 /* mask_testApp.cpp in Sources */,
+				0343993315FF873100CB5DD3 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0343993615FF873100CB5DD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0343991D15FF873100CB5DD3 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0343993715FF873100CB5DD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0343991E15FF873100CB5DD3 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0343993915FF873100CB5DD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0343993A15FF873100CB5DD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0343991215FF873100CB5DD3 /* Build configuration list for PBXProject "mask-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0343993615FF873100CB5DD3 /* Debug */,
+				0343993715FF873100CB5DD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0343993815FF873100CB5DD3 /* Build configuration list for PBXNativeTarget "mask-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0343993915FF873100CB5DD3 /* Debug */,
+				0343993A15FF873100CB5DD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0343990F15FF873100CB5DD3 /* Project object */;
+}

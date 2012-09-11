@@ -66,7 +66,8 @@ bool poGeometryMask::pointInside(poPoint p) {
 void poGeometryMask::doSetUp(poObject *obj) {
     if(shape) {
 		po::setupStencilMask(clearsStencil);
-		po::saveModelviewThenIdentity();
+		po::saveModelview();
+//		po::saveModelviewThenIdentity();
 		shape->applyTransformation();
 		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
 		po::restoreModelview();
