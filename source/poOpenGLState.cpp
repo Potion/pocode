@@ -85,7 +85,6 @@ namespace {
 	const char * shader_tex =
     #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         "   precision mediump sampler2D;            \n"
-        "   precision mediump sampler2D;            \n"
     #endif
 	"	[[uniforms]]							\n"
 	"	uniform mat4 mvp;						\n"
@@ -112,7 +111,6 @@ namespace {
 
 	const char * shader_tex_mask =
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	"   precision mediump sampler2D;            \n"
 	"   precision mediump sampler2D;            \n"
 #endif
 	"	[[uniforms]]							\n"
