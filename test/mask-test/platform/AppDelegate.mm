@@ -32,8 +32,6 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	// and  setup the application
 	self.currentWindow = nil;
 	setupApplication();
-	
-	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {

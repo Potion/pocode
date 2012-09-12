@@ -9,6 +9,7 @@
 #include "poCamera.h"
 
 #include "poSimpleDrawing.h"							// Include poImageShape.h to be able to use poSimpleDrawing
+#include "poOpenGLState.h"
 
 
 // APP CONSTRUCTOR. Create all objects here.
