@@ -1,6 +1,6 @@
 //
 //  poOpenGLView.m
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 5/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.
@@ -90,7 +90,6 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 	[self stopAnimating];
 	
 	if(self.appWindow) {
-		delete self.appWindow;
 		self.appWindow = NULL;
 	}
 	
