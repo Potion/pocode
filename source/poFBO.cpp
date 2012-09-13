@@ -121,9 +121,12 @@ poTexture *poFBO::getColorTextureCopy(uint idx) {
 	poTexture *col = colorbuffers[idx];
 	poTexture *tex = new poTexture(col->getWidth(), col->getHeight(), NULL, col->getConfig());
 	
+	po::saveTextureState();
+	glBindTexture(GL_TEXTURE_2D, tex->getUid());
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, col->getWidth(), col->getHeight());
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	po::restoreTextureState();
 	
 	return tex;
 }

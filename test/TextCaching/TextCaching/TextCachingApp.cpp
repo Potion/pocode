@@ -1,10 +1,8 @@
-#include "Helpers.h"
 #include "poCamera.h"
 #include "poTextBox.h"
 #include "poApplication.h"
 #include "TextCachingApp.h"
 #include "poShapeBasics2D.h"
-#include "poResourceLoader.h"
 
 poObject *createObjectForID(uint uid) {
 	return new TextCachingApp();
@@ -24,27 +22,18 @@ TextCachingApp::TextCachingApp() {
 	for(int i=0; i<10; i++) 
 		ss << "I will not, ever again. ";
 	
-//	poShape2D *shp = addChild(new poRectShape(200,200));
-//	shp->fillColor = poColor::orange;
-//	shp->rotation_tween.set(360).setRepeat(PO_TWEEN_REPEAT_REGULAR).setDuration(10).setTweenFunction(linearFunc).start();
-//	shp->alignment(PO_ALIGN_CENTER_CENTER);
-//	shp->generateStroke(10);
-//	shp->strokeColor = poColor::red;
-//	shp->position = getWindowCenter();
-	
-	poTextBox *tb = addChild(new poTextBox(500,300));
-	tb->font(getFont("Helvetica","Regular"));
+	poTextBox *tb = (poTextBox*)addChild(new poTextBox(500,300));
+	tb->setFont(poGetFont("Helvetica","Regular"));
 	tb->position.set(50,200,0);
 	tb->textColor = poColor::white;
-	tb->text(ss.str());
-	tb->textSize(20);
-	tb->tracking(.5f);
-	tb->layout();
-	
-	tb = addChild((poTextBox*)tb->copy());
-	tb->cacheToTexture(false);
-	tb->layout();
-	tb->position.y += tb->textBounds().height + 10;
+	tb->setText(ss.str());
+	tb->setTextSize(20);
+	tb->doLayout();
+
+	tb = (poTextBox*)addChild((poTextBox*)tb->copy());
+	tb->setCacheToTexture(true);
+	tb->doLayout();
+	tb->position.y += tb->getTextBounds().height + 10;
 }
 
 TextCachingApp::~TextCachingApp() {}
