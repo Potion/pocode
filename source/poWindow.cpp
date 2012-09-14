@@ -66,12 +66,12 @@ poWindow::~poWindow() {
 }
 
 void poWindow::moveTo(poPoint p) {
-	applicationMoveWindow(this, p);
+	po::applicationMoveWindow(this, p);
 }
 
 void poWindow::setFullscreen(bool b) {
 	fullscreen = b;
-	applicationMakeWindowFullscreen(this, b);
+	po::applicationMakeWindowFullscreen(this, b);
 }
 
 float poWindow::getX() const {
@@ -140,7 +140,7 @@ poObject *poWindow::getRootObject() {
 		po::initGraphics();
 		po::enableAlphaBlending();
 		po::setViewport(poRect(0,0,bounds.width,bounds.height));
-		root = createObjectForID(rootID);
+		root = po::createObjectForID(rootID);
 	}
 	return root;
 }
@@ -158,7 +158,7 @@ void poWindow::setMouseMoveEnabled(bool b) {
 }
 
 void poWindow::makeCurrent() {
-	applicationMakeWindowCurrent(this);
+	po::applicationMakeWindowCurrent(this);
 }
 
 void poWindow::draw() {
@@ -168,7 +168,7 @@ void poWindow::draw() {
 }
 
 void poWindow::update() {
-	float now = poGetElapsedTime();
+	float now = po::getElapsedTime();
 	
 	totalFramecount++;
 	framecounter++;

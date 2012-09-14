@@ -313,7 +313,7 @@ void poControlPanel::eventHandler(poEvent *event) {
 		}
 		
 		else if ( event->type == PO_MOUSE_DRAG_INSIDE_EVENT && isDragged ) {
-			poRect winBounds(0,0,getWindowWidth(),getWindowHeight());
+			poRect winBounds(0,0,po::getWindowWidth(),po::getWindowHeight());
 			if(!winBounds.contains(event->globalPosition))
 				return;
 			bar->position = event->globalPosition - dragOffset;

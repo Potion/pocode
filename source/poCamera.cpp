@@ -177,13 +177,13 @@ void poCamera2D::clone(poCamera2D *cam) {
 }
 
 void poCamera2D::setProjection() {
-	float scale = poGetScale();
+	float scale = po::getScale();
 	
 	if(isFixedSize())
 		po::setOrthoProjection(0, fixedSize.x / scale, fixedSize.y / scale, 0);
 	else {
-		float w = getWindowWidth();
-		float h = getWindowHeight();
+		float w = po::getWindowWidth();
+		float h = po::getWindowHeight();
 		po::setOrthoProjection(0, w / scale, h / scale, 0);
 	}
     poCamera::currentCameraType = PO_CAMERA_2D;
@@ -289,7 +289,7 @@ poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {
 void poPerspectiveCamera::setupFor2DOnZPlane()
 {
     float half_fov = deg2rad(fov/2.0); 
-    float half_window_height = getWindowHeight() / 2.0;
+    float half_window_height = po::getWindowHeight() / 2.0;
     float new_z = half_window_height / tan(half_fov); 
     
     cameraPos.set( 0,0,-new_z );
@@ -310,7 +310,7 @@ void poPerspectiveCamera::doSetUp(poObject *obj) {
 }
 
 void poPerspectiveCamera::setProjection() {
-    float aspect = getWindowAspect();
+    float aspect = po::getWindowAspect();
 	po::setPerpsective(fov, aspect, nearClip, farClip);
     poCamera::currentCameraType = PO_CAMERA_3D;
 }

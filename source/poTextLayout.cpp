@@ -63,7 +63,7 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	poDictionary dict;
 	
 	if(node.type() == node_element) {
-		start = utf8strlen(data->string.str());
+		start = po::utf8strlen(data->string.str());
 
 		if(data->layout->hasFont(node.name())) {
             dict.set("font", data->layout->getFont(node.name()));
@@ -107,7 +107,7 @@ void parseText(const pugi::xml_node &node, parse_data *data) {
 	}
 	
 	if(node.type() == node_element) {
-		int end = utf8strlen(data->string.str());
+		int end = po::utf8strlen(data->string.str());
 		data->string.append(po::Range(start,end), dict);
 	}
 }

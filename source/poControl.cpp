@@ -278,7 +278,7 @@ void poPointSlider::eventHandler(poEvent *event) {
     
     if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
         poPoint P = event->globalPosition;
-        P.y = getWindowHeight() - P.y;
+        P.y = po::getWindowHeight() - P.y;
         poPoint pos = sliderShape->globalToLocal( P );
         sliderPoint->position = pos; 
               
@@ -840,7 +840,7 @@ void poKnob::eventHandler(poEvent *event) {
 	
     if (event->type == PO_MOUSE_DRAG_INSIDE_EVENT ) {
         poPoint P = event->globalPosition;
-        P.y = getWindowHeight() - P.y;
+        P.y = po::getWindowHeight() - P.y;
         poPoint pos = sliderShape->globalToLocal( P );
         
         //angle to mouse

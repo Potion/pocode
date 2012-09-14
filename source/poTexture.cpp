@@ -249,11 +249,11 @@ uint poTexture::getUid() const {
 }
 
 uint poTexture::getWidth() const {
-	return isScaled() ? width/poGetScale() : width;
+	return isScaled() ? width/po::getScale() : width;
 }
 
 uint poTexture::getHeight() const {
-	return isScaled() ? height/poGetScale() : height;
+	return isScaled() ? height/po::getScale() : height;
 }
 
 uint poTexture::getChannels() const {
@@ -265,7 +265,7 @@ uint poTexture::getBitsPerPixel() const {
 }
 
 size_t poTexture::getSizeInBytes() const {
-	return (getWidth() * poGetScale()) * (getHeight() * poGetScale()) * getBitsPerPixel();
+	return (getWidth() * po::getScale()) * (getHeight() * po::getScale()) * getBitsPerPixel();
 }
 
 poPoint poTexture::getDimensions() const {
@@ -510,7 +510,7 @@ void textureFitNone(poRect rect, poTexture *tex, poAlignment align, std::vector<
 		coords[i].set(s,t,0.f);
 	}
 	
-	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;
@@ -535,7 +535,7 @@ void textureFitHorizontal(poRect rect, poTexture *tex, poAlignment align, std::v
 		coords[i].set(s,t,0.f);
 	}
 	
-	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;
@@ -559,7 +559,7 @@ void textureFitVertical(poRect rect, poTexture *tex, poAlignment align, std::vec
 		coords[i].set(s,t,0.f);
 	}
 	
-	poPoint offset = alignInRect(max, poRect(0,0,1,1), align);
+	poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
 	
 	for(uint i=0; i<coords.size(); i++) {
 		coords[i].y = max.y - coords[i].y;

@@ -77,7 +77,7 @@ class poResource {
 public:
 	virtual ~poResource()		{}
 
-	void resourceMarkUsed()		{timestamp = poGetElapsedTime();}
+	void resourceMarkUsed()		{timestamp = po::getElapsedTime();}
 	float resourceLastUsed()	{return timestamp;}
 	
 private:

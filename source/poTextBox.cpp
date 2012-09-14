@@ -300,7 +300,7 @@ void poTextBox::generateCachedTexture() {
     poRect bounds = getBounds();
     bounds.include(getTextBounds());
     
-    poFBO *fbo = new poFBO(bounds.width * poGetScale(), bounds.height * poGetScale(), poFBOConfig());
+    poFBO *fbo = new poFBO(bounds.width * po::getScale(), bounds.height * po::getScale(), poFBOConfig());
     fbo->setUp(this);
     
     // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
@@ -333,7 +333,7 @@ void poTextBox::draw() {
 		po::enableAlphaBlending();
 		
 		po::setColor(textColor, getAppliedAlpha());
-		po::drawTexturedRect(cached, poRect(0,0,cached->getWidth()/poGetScale(), cached->getHeight()/poGetScale()));
+		po::drawTexturedRect(cached, poRect(0,0,cached->getWidth()/po::getScale(), cached->getHeight()/po::getScale()));
 		
 		po::restoreBlendState();
 		return;
@@ -435,7 +435,7 @@ bool poTextBox::pointInside(poPoint p, bool localize)
 		return false;
 	
     if(localize) {
-        p.y = getWindowHeight() - p.y;
+        p.y = po::getWindowHeight() - p.y;
         p = globalToLocal(p);
     }
         

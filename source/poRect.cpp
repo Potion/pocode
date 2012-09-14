@@ -24,6 +24,49 @@
 
 using namespace std;
 
+//General functions
+namespace po {
+    poPoint alignInRect(poPoint max, poRect rect, poAlignment align) {
+        poPoint offset;
+        switch(align) {
+            case PO_ALIGN_TOP_LEFT:
+                offset.set(0.f, max.y - 1.f, 0.f);
+                break;
+            case PO_ALIGN_TOP_CENTER:
+                offset.set((max.x - 1.f)/2.f, max.y - 1.f, 0.f);
+                break;
+            case PO_ALIGN_TOP_RIGHT:
+                offset.set(max.x - 1.f, max.y - 1.f, 0.f);
+                break;
+            case PO_ALIGN_CENTER_LEFT:
+                offset.set(0.f, (max.y - 1.f)/2.f, 0.f);
+                break;
+            case PO_ALIGN_CENTER_CENTER:
+                offset.set((max.x - 1.f)/2.f, (max.y - 1.f)/2.f, 0.f);
+                break;
+            case PO_ALIGN_CENTER_RIGHT:
+                offset.set(max.x - 1.f, (max.y - 1.f)/2.f, 0.f);
+                break;
+            case PO_ALIGN_BOTTOM_LEFT:
+                offset.set(0.f, 0.f, 0.f);
+                break;
+            case PO_ALIGN_BOTTOM_CENTER:
+                offset.set((max.x - 1.f)/2.f, 0.f, 0.f);
+                break;
+            case PO_ALIGN_BOTTOM_RIGHT:
+                offset.set(max.x - 1.f, 0.f, 0.f);
+                break;
+            case PO_ALIGN_NONE:
+                break;
+        }
+        return offset;
+    }
+}
+
+
+//------------------------------------------------------------------
+//poRect
+#pragma mark poRect
 poRect::poRect() 
 :	x(0)
 ,	y(0)

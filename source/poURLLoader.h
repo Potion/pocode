@@ -35,8 +35,8 @@ namespace poURLLoader {
     poFilePath getFile(poURL url, const poFilePath &savePath=poFilePath());
     void getFileAsync(poURL url, poObject* notify, const poFilePath &savePath=poFilePath());
     
-    std::string getFileAsString(poURL url);
-    void getFileAsStringAsync(poURL url, poObject* notify);
+    std::string getFiletoString(poURL url);
+    void getFiletoStringAsync(poURL url, poObject* notify);
 };
 
 

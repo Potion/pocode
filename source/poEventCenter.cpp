@@ -45,7 +45,7 @@ void localizeEvent(poEvent &global_event, poEvent &tolocal) {
 	
 	if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
 		// flip the coords so the local position can match the orientation of the global one
-		poPoint pt = tolocal.source->globalToLocal(poPoint(tolocal.globalPosition.x, getWindowHeight()-tolocal.globalPosition.y));
+		poPoint pt = tolocal.source->globalToLocal(poPoint(tolocal.globalPosition.x, po::getWindowHeight()-tolocal.globalPosition.y));
 		tolocal.localPosition = pt;
         tolocal.localPosition.z = 0; // z = 1 out of globalToLocal math
 	}

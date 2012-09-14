@@ -79,7 +79,7 @@ void poBitmapFont::drawGlyph(int glyph, const poPoint &at) {
     
 	if(!atlas->hasUID(glyph))
 		cacheGlyph(glyph);
-	atlas->drawUID(glyph, at, poGetScale());
+	atlas->drawUID(glyph, at, po::getScale());
 }
 
 void poBitmapFont::cacheGlyph(int glyph) {

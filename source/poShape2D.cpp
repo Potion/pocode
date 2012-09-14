@@ -116,7 +116,7 @@ poShape2D& poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
 		addPoint(poPoint(0,0,0));
 	}
 	
-	std::vector<poPoint> pts = quadTo(points.back(), pt, control, resolution);
+	std::vector<poPoint> pts = po::quadTo(points.back(), pt, control, resolution);
 	addPoints(pts);
 	return *this;
 }
@@ -125,7 +125,7 @@ poShape2D& poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, in
 	if(points.empty())
 		addPoint(poPoint(0,0,0));
 	
-	std::vector<poPoint> pts = cubeTo(points.back(), pt, control1, control2, resolution);
+	std::vector<poPoint> pts = po::cubeTo(points.back(), pt, control1, control2, resolution);
 	addPoints(pts);
 	return *this;
 }
@@ -292,7 +292,7 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
     if ( matrices.camType == PO_CAMERA_2D )
     {
         if(localize) {
-            point.y = getWindowHeight() - point.y;
+            point.y = po::getWindowHeight() - point.y;
             point = globalToLocal(point);
         }
         
@@ -316,7 +316,7 @@ bool poShape2D::pointInside(poPoint point, bool localize ) {
     if ( matrices.camType == PO_CAMERA_3D )
     {
         if(localize) {
-            point.y = getWindowHeight() - point.y;
+            point.y = po::getWindowHeight() - point.y;
         }
         
         // test point inside for given drawstyle
@@ -390,7 +390,7 @@ void poShape2D::read(poXMLNode node) {
 	strokeWidth = node.getChild("stroke_width").getInnerInt();
 
 	std::string pstr = node.getChild("points").getInnerString();
-	std::string str = base64_decode(pstr);
+	std::string str = po::base64_decode(pstr);
 	
 	points.resize(str.size() / sizeof(poPoint));
 	memcpy(&points[0],str.c_str(),str.size());
@@ -424,7 +424,7 @@ void poShape2D::write(poXMLNode &node) {
 
 	int points_sz = sizeof(poPoint)*points.size();
 	const unsigned char *points_ptr = (const unsigned char*)&points[0];
-	node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
+	node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(po::base64_encode(points_ptr, points_sz).c_str());
 		
 //	if(texture && texture->image() && texture->image()->isValid()) {
 //		poXMLNode tex = node.addChild("texture");
@@ -448,13 +448,13 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 #ifdef POTION_APPLE
 
 	if(!fs::exists(svg)) {
-		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
+        po::log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
 		return response;
 	}
 	
 	SVGPath *result = svgParseFromFile(svg.string().c_str());
 	if(!result) {
-		log("poShape2D: invalid svg file (%s)", svg.string().c_str());
+        po::log("poShape2D: invalid svg file (%s)", svg.string().c_str());
 		return response;
 	}
 	

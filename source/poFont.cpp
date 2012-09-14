@@ -36,7 +36,7 @@
 #include <freetype/ftbitmap.h>
 using namespace std;
 
-#ifdef POTION_WIN32
+#ifdef POTION_WINDOWS
 
 	#include "windows.h"
 
@@ -115,7 +115,7 @@ bool poFont::fontExists(const std::string &family) {
 }
 
 poFont *poFont::defaultFont() {
-	return poGetFont(poFilePath(applicationGetResourceDirectory()+"/OpenSans-Regular.ttf"));
+	return poGetFont(poFilePath(po::applicationGetResourceDirectory()+"/OpenSans-Regular.ttf"));
 }
 
 poFont::poFont()
@@ -152,19 +152,19 @@ poFont::poFont(const poFilePath &filePath, const std::string &style, unsigned lo
         //Try to find the font locally
         //Currently only works on OS X
         poFilePath localFont;
-        if(urlForFontFamilyName(filePath.asString(), style, location)) {
+        if(urlForFontFamilyName(filePath.toString(), style, location)) {
             //Its a font family!
-            reqFamily = filePath.asString();
+            reqFamily = filePath.toString();
         } else {
             return;
         }
     }
 	
 	FT_Face tmp;
-	FT_Error err = FT_New_Face(lib, location.asString().c_str(), 0, &tmp);
+	FT_Error err = FT_New_Face(lib, location.toString().c_str(), 0, &tmp);
 	for(int i=1; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
-		FT_New_Face(lib, location.asString().c_str(), i, &f);
+		FT_New_Face(lib, location.toString().c_str(), i, &f);
 		
 		if(style == f->style_name) {
 			FT_Done_Face(tmp);
@@ -227,8 +227,8 @@ int poFont::getPointSize() const {
 void poFont::setPointSize(int sz) {
 	if(sz != size) {
 		size = sz;
-		poPoint rez = deviceResolution();
-		FT_Set_Char_Size(face, (size*poGetScale())*64, 0, rez.x, 0);
+		poPoint rez = po::deviceResolution();
+		FT_Set_Char_Size(face, (size*po::getScale())*64, 0, rez.x, 0);
 	}
     
     if ( cachedForSizeYet(size)==false )
@@ -238,20 +238,20 @@ void poFont::setPointSize(int sz) {
 }
 
 float poFont::getLineHeight() const {
-	return (face->size->metrics.height >> 6)/poGetScale();
+	return (face->size->metrics.height >> 6)/po::getScale();
 }
 float poFont::getAscender() const {
-	return (face->size->metrics.ascender >> 6)/poGetScale();
+	return (face->size->metrics.ascender >> 6)/po::getScale();
 }
 float poFont::getDescender() const {
-	return (face->size->metrics.descender >> 6)/poGetScale();
+	return (face->size->metrics.descender >> 6)/po::getScale() ;
 }
 
 float poFont::getUnderlinePosition() const {
-	return (face->underline_position >> 6)/poGetScale();
+	return (face->underline_position >> 6)/po::getScale();
 }
 float poFont::getUnderlineThickness() const {
-	return (face->underline_thickness >> 6)/poGetScale();
+	return (face->underline_thickness >> 6)/po::getScale();
 }
 
 int poFont::getGlyph() const {
@@ -269,8 +269,8 @@ poRect poFont::getGlyphBounds() {
     loadGlyph( glyph );
 	float x = 0;
 	float y = 0;
-	float w = (face->glyph->metrics.width    >> 6)/poGetScale();
-	float h = (face->glyph->metrics.height   >> 6)/poGetScale();
+	float w = (face->glyph->metrics.width    >> 6)/po::getScale();
+	float h = (face->glyph->metrics.height   >> 6)/po::getScale();
 	return poRect(x, y, w, h);
 }
 
@@ -299,8 +299,8 @@ poPoint poFont::getGlyphBearing()  {
         return (*currentCache)[ glyph ].glyphBearing;
     
     loadGlyph( glyph );
-    float x = (face->glyph->metrics.horiBearingX >> 6)/poGetScale();
-    float y = -((face->glyph->metrics.horiBearingY >> 6)/poGetScale());
+    float x = (face->glyph->metrics.horiBearingX >> 6)/po::getScale();
+    float y = -((face->glyph->metrics.horiBearingY >> 6)/po::getScale());
 
 	return poPoint(x, y);
 }
@@ -310,8 +310,8 @@ poPoint poFont::getGlyphAdvance() {
         return (*currentCache)[ glyph ].glyphAdvance;
     
     loadGlyph( glyph );
-    float x = (face->glyph->metrics.horiAdvance >> 6)/poGetScale();
-    float y = (face->glyph->metrics.vertAdvance >> 6)/poGetScale();
+    float x = (face->glyph->metrics.horiAdvance >> 6)/po::getScale();
+    float y = (face->glyph->metrics.vertAdvance >> 6)/po::getScale();
 	return poPoint(x, y);
 }
 
@@ -349,11 +349,11 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 	FT_Get_Kerning(face, 
 				   FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
 				   0, &kern);
-	return poPoint(kern.x/poGetScale(), kern.y/poGetScale());
+	return poPoint(kern.x/po::getScale(), kern.y/po::getScale());
 }
 
 std::string poFont::toString() const {
-	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%filePath.asString()).str();
+	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%filePath.toString()).str();
 }
 
 std::string poFont::getRequestedFamilyName() const {

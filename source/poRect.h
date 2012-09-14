@@ -19,7 +19,7 @@
 
 #pragma once
 
-
+#include "poEnums.h"
 #include "poPoint.h"
 
 #include <vector>
@@ -32,6 +32,12 @@
 // poRect is not a poObject and hence cannot be added to the scene graph. See poRectShape.
 // 
 // 
+
+class poRect;
+
+namespace po {
+    poPoint alignInRect(poPoint max, poRect rect, poAlignment align);
+}
 
 class poRect {
 public:

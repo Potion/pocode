@@ -130,7 +130,7 @@ poResourceStore::poResourceStore() {
 
 poResourceLocator poResourceStore::locatorForFont(const poFilePath &filePath, const std::string &style, int group) {
 	poResourceLocator lookup(0, group, typeid(poFont));
-	lookup.hash = string_hasher(filePath.asString() + style);
+	lookup.hash = string_hasher(filePath.toString() + style);
 	return lookup;
 }
 
@@ -151,7 +151,7 @@ poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &famil
 
 poResourceLocator poResourceStore::locatorForTexture(const poFilePath &filePath, int group) {
 	poResourceLocator lookup(0, group, typeid(poTexture));
-	lookup.hash = string_hasher(filePath.asString());
+	lookup.hash = string_hasher(filePath.toString());
 	return lookup;
 }
 

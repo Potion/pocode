@@ -48,23 +48,23 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 namespace poURLLoader {
     //------------------------------------------------------------------
     poFilePath getFile(poURL url, const poFilePath &savePath) {
-        poFilePath p(savePath.asString());
+        poFilePath p(savePath.toString());
         
         if(!savePath.isSet()) {
             boost::char_separator<char> sep("/");
-            boost::tokenizer< boost::char_separator<char> > tokens(url.asString(), sep);
+            boost::tokenizer< boost::char_separator<char> > tokens(url.toString(), sep);
             BOOST_FOREACH(const std::string &t, tokens) {
                 p.set(t);
             }
         }
         
-        FILE * file = (FILE *)fopen(p.asString().c_str(),"w+");
+        FILE * file = (FILE *)fopen(p.toString().c_str(),"w+");
         if(!file){
             perror("File Open:");
         }
         CURL *handle = curl_easy_init();
         curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-        curl_easy_setopt(handle,CURLOPT_URL,url.asString().c_str()); /*Using the http protocol*/
+        curl_easy_setopt(handle,CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
         curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
         curl_easy_perform(handle);
@@ -80,12 +80,12 @@ namespace poURLLoader {
     }
 
     //------------------------------------------------------------------
-    std::string getFileAsString(poURL url) {
+    std::string getFiletoString(poURL url) {
         std::string response;
         
         CURL *handle = curl_easy_init();
         curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-        curl_easy_setopt(handle,CURLOPT_URL, url.asString().c_str()); /*Using the http protocol*/
+        curl_easy_setopt(handle,CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
         curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
         curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
         curl_easy_perform(handle);
@@ -95,7 +95,7 @@ namespace poURLLoader {
     }
 
     //------------------------------------------------------------------
-    void getFileAsStringAsync(poURL url, poObject* notify) {
+    void getFiletoStringAsync(poURL url, poObject* notify) {
         poThreadCenter::addItem(new poURLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
     }
 };
@@ -125,18 +125,18 @@ void poURLLoaderWorker::workerFunc() {
             filePath = poURLLoader::getFile(url, filePath);
             
             dict.set("mode", mode);
-            dict.set("url", url.asString());
-            dict.set("filePath", filePath.asString());
+            dict.set("url", url.toString());
+            dict.set("filePath", filePath.toString());
             break;
         }
             
         case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
             //Get File as string
-            std::string fileContents = poURLLoader::getFileAsString(url);
+            std::string fileContents = poURLLoader::getFiletoString(url);
             
             //Set Dictionary with contents
             dict.set("mode", mode);
-            dict.set("url", url.asString());
+            dict.set("url", url.toString());
             dict.set("content", fileContents);
             break;
     }

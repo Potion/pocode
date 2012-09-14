@@ -236,7 +236,7 @@ bool poShape3D::pointInside(poPoint point, bool localize ) {
     if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
     {
         if(localize)
-            point.y = getWindowHeight() - point.y;
+            point.y = po::getWindowHeight() - point.y;
         
         for( uint i=0; i<triangleList.size(); i++ )
         {

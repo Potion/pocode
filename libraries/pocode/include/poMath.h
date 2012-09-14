@@ -147,6 +147,3 @@ bool pointInRect3D( poPoint P, poMatrixSet& M, poRect R );
 
 poPoint projectOntoLine(poPoint p, poPoint a, poPoint b);
 float distanceToLine(poPoint p, poPoint a, poPoint b);
-
-
-

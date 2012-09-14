@@ -299,7 +299,7 @@ bool poXMLDocument::read(const std::string &url) {
         return true;
     }
     
-    log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
+    po::log("poXML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
     return false;
 }
 
@@ -310,7 +310,7 @@ bool poXMLDocument::readStr(const std::string &str) {
         return true;
     }
     
-    log("poXML: parse error (error: %s)", result.description());
+    po::log("poXML: parse error (error: %s)", result.description());
     return false;
 }
 

@@ -45,7 +45,7 @@ namespace poThreadCenter {
         boost::lock_guard<boost::mutex> lock(mtx);
         
         while (!completed.empty()) {
-            double elapsedTime = poGetElapsedTime() - completed.front()->poWorkerStartTime;
+            double elapsedTime = po::getElapsedTime() - completed.front()->poWorkerStartTime;
             completed.front()->getWorkerNotify()->messageHandler(completed.front()->workerMessage, poDictionary()
                                                        .set("worker", completed.front())
                                                        .set("elapsed", (float)elapsedTime)
@@ -61,7 +61,7 @@ namespace poThreadCenter {
 
     //------------------------------------------------------------------
     void threadCenterWorkerFunc(poWorker *worker) {
-        worker->poWorkerStartTime = poGetElapsedTime();
+        worker->poWorkerStartTime = po::getElapsedTime();
         worker->run();
     }
     

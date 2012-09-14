@@ -34,69 +34,74 @@
 
 // These functions must be defined in the windowing system implementation. They are not in poApplication.cpp.
 // On the Mac and iOS, implementations are in AppDelegate.mm.
-int			applicationNumberWindows();
-poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
-poWindow*	applicationGetWindow(int index=0);
-std::string	applicationGetResourceDirectory();
-std::string applicationGetSupportDirectory();
-poWindow*	applicationCurrentWindow();
-void		applicationMakeWindowCurrent(poWindow*);
-void		applicationMakeWindowFullscreen(poWindow*,bool);
-void		applicationMoveWindow(poWindow*,poPoint);
-void		applicationReshapeWindow(poWindow*,poRect);
-void        applicationQuit();
 
-//Accelerometer events currently only exist in iOS app delegate.
-#ifdef POTION_IOS
-    void poSetMultiTouchEnabled(bool isEnabled);
-    void poStartAccelerometer(float frequency);
-    void poStopAccelerometer();
+namespace po {
+    int			applicationNumberWindows();
+    poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
+    poWindow*	applicationGetWindow(int index=0);
+    std::string	applicationGetResourceDirectory();
+    std::string applicationGetSupportDirectory();
+    poWindow*	applicationCurrentWindow();
+    void		applicationMakeWindowCurrent(poWindow*);
+    void		applicationMakeWindowFullscreen(poWindow*,bool);
+    void		applicationMoveWindow(poWindow*,poPoint);
+    void		applicationReshapeWindow(poWindow*,poRect);
+    void        applicationQuit();
 
-    poOrientation   poGetOrientation();
-    void            poSetAutoRotateOrientations(unsigned char orientations);
-#endif
+    // These three functions should be defined in your application. They are not defined in poApplication.cpp.
 
-// These three functions should be defined in your application. They are not defined in poApplication.cpp.
+    // This function should return a poObject, that is the root node of the scene graph.
+    // The UID is the same UID passed in per window as each window is created.
+    // This allows you to have multiple windows, each with their own scenge graph.
+    // All pocode example projects implement this function.
+    extern poObject*    createObjectForID(uint uid);
 
-// This function should return a poObject, that is the root node of the scene graph.
-// The UID is the same UID passed in per window as each window is created.
-// This allows you to have multiple windows, each with their own scenge graph.
-// All pocode example projects implement this function.
-extern poObject*    createObjectForID(uint uid);
+    // This function is where windows should be created. All pocode example projects implement this function.
+    extern void         setupApplication();
 
-// This function is where windows should be created. All pocode example projects implement this function.
-extern void         setupApplication();
-
-// This function is called when the application quits. All pocode example projects implement this function.
-extern void         cleanupApplication();
+    // This function is called when the application quits. All pocode example projects implement this function.
+    extern void         cleanupApplication();
 
 
-// These functions are defined in poApplication.cpp. The values returned are for the current top-most window.
-// All of these extract data from the poWindow class.
-float		getWindowWidth();
-float		getWindowHeight();
-poPoint		getWindowDimensions();
-float		getWindowAspect();
-poRect		getWindowFrame();
-poRect		getWindowBounds();
-poPoint		getWindowCenter();
-float		getWindowFramerate();
-int			getWindowFrameCount();
-float		getWindowLastFrameTime();
-float		getWindowLastFrameDuration();
-poPoint		getWindowMousePosition();
-poPoint		getWindowInvMousePosition();
+    // These functions are defined in poApplication.cpp. The values returned are for the current top-most window.
+    // All of these extract data from the poWindow class.
+    float		getWindowWidth();
+    float		getWindowHeight();
+    poPoint		getWindowDimensions();
+    float		getWindowAspect();
+    poRect		getWindowFrame();
+    poRect		getWindowBounds();
+    poPoint		getWindowCenter();
+    float		getWindowFramerate();
+    int			getWindowFrameCount();
+    float		getWindowLastFrameTime();
+    float		getWindowLastFrameDuration();
+    poPoint		getWindowMousePosition();
+    poPoint		getWindowInvMousePosition();
 
-float       poGetScale();
-
-#if defined(POTION_MAC) || defined(POTION_WIN32) || defined(POTION_LINUX)
-    void		setWindowMouseMoveEnabled(bool b);
-    bool		getWindowMouseMoveEnabled();
-    void        poShowCursor();
-    void        poHideCursor();
-#endif
+    float       getScale();
 
 
+    //Window + Mouse events only for desktop
+    #if defined(POTION_MAC) || defined(POTION_WINDOWS) || defined(POTION_LINUX)
+        void		setWindowMouseMoveEnabled(bool b);
+        bool		getWindowMouseMoveEnabled();
+        void        showCursor();
+        void        hideCursor();
+    #endif
+
+
+
+    //Accelerometer events currently only exist in iOS app delegate.
+    #ifdef POTION_IOS
+    void setMultiTouchEnabled(bool isEnabled);
+    void startAccelerometer(float frequency);
+    void stopAccelerometer();
+
+    poOrientation   getOrientation();
+    void            setAutoRotateOrientations(unsigned char orientations);
+    #endif
+}
 
 
 

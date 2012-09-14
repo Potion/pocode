@@ -430,7 +430,7 @@ bool poObject::pointInside(poPoint point, bool localize) {
     
     // if there are no children, check bounds rect
     if(localize) {
-        point.y = getWindowHeight() - point.y;
+        point.y = po::getWindowHeight() - point.y;
         point = globalToLocal(point);
     }
     return getBounds().contains(point);
@@ -532,7 +532,7 @@ void poObject::drawTree() {
 		return;
 	
 	// reset the drawing order for this object
-	drawOrder = applicationCurrentWindow()->getNextDrawOrder();
+	drawOrder = po::applicationCurrentWindow()->getNextDrawOrder();
 	
 	if(parent)	trueAlpha = parent->trueAlpha * alpha;
 	else		trueAlpha = alpha;

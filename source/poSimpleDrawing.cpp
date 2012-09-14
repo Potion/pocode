@@ -334,3 +334,77 @@ std::vector<poPoint> po::generateOval(float xRad, float yRad, uint resolution) {
 	
 	return response;
 }
+
+
+std::vector<poPoint> roundedRect(float width, float height, float rad) {
+    std::vector<poPoint> response;
+    std::vector<poPoint> tmp;
+    
+    poPoint P1( rad,rad );
+    poPoint P2( width-rad,rad );
+    poPoint P3( width-rad,height-rad );
+    poPoint P4( rad,height-rad );
+    
+    for( int i=180; i>=90; i-=10 )
+    {
+        float A = i;
+        poPoint P = P1 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=90; i>=0; i-=10 )
+    {
+        float A = i;
+        poPoint P = P2 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=0; i>=-90; i-=10 )
+    {
+        float A = i;
+        poPoint P = P3 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    for( int i=-90; i>=-180; i-=10 )
+    {
+        float A = i;
+        poPoint P = P4 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+        response.push_back( P );
+    }
+    
+    return response;
+}
+
+
+std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
+    std::vector<poPoint> response;
+    for(int i=0; i<resolution; i++) {
+        float t = i / float(resolution-1);
+        float invt = 1.f - t;
+        poPoint pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
+        response.push_back(pt);
+    }
+    return response;
+}
+
+
+std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
+    std::vector<poPoint> response;
+    for(int i=0; i<resolution; i++) {
+        float t = i / float(resolution-1);
+        float invt = 1.f - t;
+        poPoint pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
+        response.push_back(pt);
+    }
+    return response;
+}
+
+
+float curveLength(const std::vector<poPoint> &curve) {
+    float len = 0;
+    for(int i=0; i<curve.size()-1; i++) {
+        len += (curve[i+1] - curve[i]).getLength();
+    }
+    return len;
+}
