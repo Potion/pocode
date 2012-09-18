@@ -565,8 +565,8 @@
 				E8FB2406133A996C00111A69 /* poFont.cpp */,
 				E87E18821368615B00DB6934 /* poImage.h */,
 				E87E18811368615A00DB6934 /* poImage.cpp */,
-				AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */,
 				AA2A69DE15F9001B002C5919 /* poFileLocation.h */,
+				AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */,
 				E494686E14679A7F009D3AFC /* poURLLoader.h */,
 				E494686D14679A7F009D3AFC /* poURLLoader.cpp */,
 			);
