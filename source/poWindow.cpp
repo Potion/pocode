@@ -20,6 +20,9 @@
 #include "poObject.h"
 #include "poWindow.h"
 
+#include "poThreadCenter.h"
+#include "poMessageCenter.h"
+
 #include "poHelpers.h"
 #include "poOpenGLState.h"
 #include "poApplication.h"
@@ -134,7 +137,9 @@ bool poWindow::isFullscreen() const {
 poObject *poWindow::getRootObject() {
 	if(!root) {
 		makeCurrent();
-		poOpenGLState::get()->setBlend(po::BlendState::preMultipliedBlending(),true);
+		po::initGraphics();
+		po::enableAlphaBlending();
+		po::setViewport(poRect(0,0,bounds.width,bounds.height));
 		root = createObjectForID(rootID);
 	}
 	return root;
@@ -181,7 +186,12 @@ void poWindow::update() {
 		poEventCenter::get()->processEvents(received);
 	}
 	received.clear();
-
+    
+    //Update internal classes
+    poMessageCenter::update();
+    poThreadCenter::update();
+    
+    
 	// tell everyone who cares they should update 
 	updateSignal();
 	
@@ -266,6 +276,7 @@ void poWindow::resized(int w, int h) {
 
 
 void poWindow::resized(int x, int y, int w, int h) {
+	po::setViewport(0, 0, w, h);
 	bounds.set(x,y,w,h);
 //
 //	poEvent event;

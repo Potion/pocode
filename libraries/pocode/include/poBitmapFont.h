@@ -43,7 +43,7 @@ class poBitmapFont : public poResource {
 public:
 	poBitmapFont();
 	poBitmapFont(poFont* font, int pointSize);
-	poBitmapFont(const std::string &url, int pointSize);
+	poBitmapFont(const poFilePath &filePath, int pointSize);
 	poBitmapFont(const std::string &fam, const std::string &style, int pointSize);
 	virtual ~poBitmapFont();
 

@@ -65,42 +65,19 @@ bool poGeometryMask::pointInside(poPoint p) {
 
 void poGeometryMask::doSetUp(poObject *obj) {
     if(shape) {
-		if(clearsStencil)
-			glClear(GL_STENCIL_BUFFER_BIT);
-
-        poOpenGLState *ogl = poOpenGLState::get();
-		
-		ogl->pushStencilState();
-
-		po::StencilState state;
-		state.enabled = true;
-		state.func = GL_ALWAYS;
-		state.funcRef = 1;
-		state.funcMask = 1;
-		state.opFail = GL_KEEP;
-		state.opStencilDepthFail = GL_KEEP;
-		state.opStencilDepthPass = GL_REPLACE;
-		ogl->setStencil(state);
-		
-        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-		ogl->matrix.pushModelview();
-        applyObjTransform(shape);
+		po::setupStencilMask(clearsStencil);
+		po::saveModelview();
+//		po::saveModelviewThenIdentity();
+		shape->applyTransformation();
 		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
-		ogl->matrix.popModelview();
-        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
-        if(inverse)
-            state.funcRef = 0;
-        
-		state.func = GL_EQUAL;
-		ogl->setStencil(state);
+		po::restoreModelview();
+		po::useStencilMask(inverse);
 	}
 }
 
 void poGeometryMask::doSetDown(poObject *obj) {
-	if(shape != NULL) {
-		poOpenGLState *ogl = poOpenGLState::get();
-		ogl->popStencilState();
+	if(shape) {
+		po::disableStencil();
 	}
 }
 

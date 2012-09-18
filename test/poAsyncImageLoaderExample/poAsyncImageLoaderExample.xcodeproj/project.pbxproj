@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA2A69C315F7FA6C002C5919 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69C215F7FA6C002C5919 /* AppDelegate.mm */; };
+		AA2A69C515F7FA6C002C5919 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA2A69C415F7FA6C002C5919 /* en.strings */; };
+		AA2A69C715F7FA6C002C5919 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69C615F7FA6C002C5919 /* main.m */; };
+		AA2A69C915F7FA6C002C5919 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = AA2A69C815F7FA6C002C5919 /* main.pch */; };
+		AA2A69CC15F7FA6C002C5919 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2A69CB15F7FA6C002C5919 /* main.xib */; };
+		AA2A69CF15F7FA6C002C5919 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69CE15F7FA6C002C5919 /* poOpenGLView.mm */; };
+		AA2A69D315F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69D215F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.cpp */; };
+		AA2A69D515F7FA6C002C5919 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69D415F7FA6C002C5919 /* AppConfig.cpp */; };
+		AA2A69D715F7FA6C002C5919 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2A69D615F7FA6C002C5919 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA2A69BA15F7FA6C002C5919 /* poAsyncImageLoaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poAsyncImageLoaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2A69BF15F7FA6C002C5919 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		AA2A69C015F7FA6C002C5919 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		AA2A69C115F7FA6C002C5919 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		AA2A69C215F7FA6C002C5919 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		AA2A69C415F7FA6C002C5919 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		AA2A69C615F7FA6C002C5919 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		AA2A69C815F7FA6C002C5919 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		AA2A69CA15F7FA6C002C5919 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		AA2A69CB15F7FA6C002C5919 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		AA2A69CD15F7FA6C002C5919 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		AA2A69CE15F7FA6C002C5919 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		AA2A69D115F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = poAsyncImageLoaderExampleApp.h; sourceTree = "<group>"; };
+		AA2A69D215F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = poAsyncImageLoaderExampleApp.cpp; sourceTree = "<group>"; };
+		AA2A69D415F7FA6C002C5919 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		AA2A69D615F7FA6C002C5919 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA2A69B715F7FA6C002C5919 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA2A69AF15F7FA6C002C5919 = {
+			isa = PBXGroup;
+			children = (
+				AA2A69BD15F7FA6C002C5919 /* poAsyncImageLoaderExample */,
+				AA2A69BB15F7FA6C002C5919 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA2A69BB15F7FA6C002C5919 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA2A69BA15F7FA6C002C5919 /* poAsyncImageLoaderExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA2A69BD15F7FA6C002C5919 /* poAsyncImageLoaderExample */ = {
+			isa = PBXGroup;
+			children = (
+				AA2A69BE15F7FA6C002C5919 /* platform */,
+				AA2A69D015F7FA6C002C5919 /* application */,
+			);
+			path = poAsyncImageLoaderExample;
+			sourceTree = "<group>";
+		};
+		AA2A69BE15F7FA6C002C5919 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AA2A69BF15F7FA6C002C5919 /* Debug.xcconfig */,
+				AA2A69C015F7FA6C002C5919 /* Release.xcconfig */,
+				AA2A69C115F7FA6C002C5919 /* AppDelegate.h */,
+				AA2A69C215F7FA6C002C5919 /* AppDelegate.mm */,
+				AA2A69C415F7FA6C002C5919 /* en.strings */,
+				AA2A69C615F7FA6C002C5919 /* main.m */,
+				AA2A69C815F7FA6C002C5919 /* main.pch */,
+				AA2A69CA15F7FA6C002C5919 /* main.plist */,
+				AA2A69CB15F7FA6C002C5919 /* main.xib */,
+				AA2A69CD15F7FA6C002C5919 /* poOpenGLView.h */,
+				AA2A69CE15F7FA6C002C5919 /* poOpenGLView.mm */,
+				AA2A69D615F7FA6C002C5919 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AA2A69D015F7FA6C002C5919 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				AA2A69D115F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.h */,
+				AA2A69D215F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.cpp */,
+				AA2A69D415F7FA6C002C5919 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA2A69B915F7FA6C002C5919 /* poAsyncImageLoaderExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA2A69DA15F7FA6C002C5919 /* Build configuration list for PBXNativeTarget "poAsyncImageLoaderExample" */;
+			buildPhases = (
+				AA2A69B615F7FA6C002C5919 /* Sources */,
+				AA2A69B715F7FA6C002C5919 /* Frameworks */,
+				AA2A69B815F7FA6C002C5919 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = poAsyncImageLoaderExample;
+			productName = poAsyncImageLoaderExample;
+			productReference = AA2A69BA15F7FA6C002C5919 /* poAsyncImageLoaderExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA2A69B115F7FA6C002C5919 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = AA2A69B415F7FA6C002C5919 /* Build configuration list for PBXProject "poAsyncImageLoaderExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AA2A69AF15F7FA6C002C5919;
+			productRefGroup = AA2A69BB15F7FA6C002C5919 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA2A69B915F7FA6C002C5919 /* poAsyncImageLoaderExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA2A69B815F7FA6C002C5919 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2A69C515F7FA6C002C5919 /* en.strings in Resources */,
+				AA2A69C915F7FA6C002C5919 /* main.pch in Resources */,
+				AA2A69CC15F7FA6C002C5919 /* main.xib in Resources */,
+				AA2A69D715F7FA6C002C5919 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA2A69B615F7FA6C002C5919 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2A69C315F7FA6C002C5919 /* AppDelegate.mm in Sources */,
+				AA2A69C715F7FA6C002C5919 /* main.m in Sources */,
+				AA2A69CF15F7FA6C002C5919 /* poOpenGLView.mm in Sources */,
+				AA2A69D315F7FA6C002C5919 /* poAsyncImageLoaderExampleApp.cpp in Sources */,
+				AA2A69D515F7FA6C002C5919 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA2A69D815F7FA6C002C5919 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA2A69BF15F7FA6C002C5919 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AA2A69D915F7FA6C002C5919 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA2A69C015F7FA6C002C5919 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		AA2A69DB15F7FA6C002C5919 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AA2A69DC15F7FA6C002C5919 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA2A69B415F7FA6C002C5919 /* Build configuration list for PBXProject "poAsyncImageLoaderExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA2A69D815F7FA6C002C5919 /* Debug */,
+				AA2A69D915F7FA6C002C5919 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA2A69DA15F7FA6C002C5919 /* Build configuration list for PBXNativeTarget "poAsyncImageLoaderExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA2A69DB15F7FA6C002C5919 /* Debug */,
+				AA2A69DC15F7FA6C002C5919 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA2A69B115F7FA6C002C5919 /* Project object */;
+}

@@ -40,7 +40,7 @@ using namespace std;
 
 	#include "windows.h"
 
-		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
 			return false;
 		}
 
@@ -50,7 +50,7 @@ using namespace std;
 	#if defined(POTION_MAC)
 		#include <ApplicationServices/ApplicationServices.h>
 
-		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
 			CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 			
 			CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
@@ -76,13 +76,13 @@ using namespace std;
 			CFURLGetFileSystemRepresentation(url, true, path, 1024);
 			CFRelease(url);
 			
-			response = (char*)path;
+			response.set((char*)path);
 			return true;
 		}
 
 	#else
 
-		bool urlForFontFamilyName(const std::string &family, const std::string &style, std::string &response) {
+		bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
 			return false;
 		}
 
@@ -110,19 +110,17 @@ std::string decodeTag(unsigned long encoded) {
 }
 
 bool poFont::fontExists(const std::string &family) {
-	std::string url;
-	return 	fs::exists(family) || urlForFontFamilyName(family, "", url);
+	poFilePath filePath;
+	return 	fs::exists(family) || urlForFontFamilyName(family, "", filePath);
 }
 
 poFont *poFont::defaultFont() {
-	return poGetFont(applicationGetResourceDirectory()+"/OpenSans-Regular.ttf");
+	return poGetFont(poFilePath(applicationGetResourceDirectory()+"/OpenSans-Regular.ttf"));
 }
 
 poFont::poFont()
 :	face(NULL)
 ,	size(0)
-,	url("")
-,	reqUrlOrFamily("")
 ,	reqStyle("")
 ,	glyph(0)
 ,   loadedGlyph(0)
@@ -132,11 +130,12 @@ poFont::poFont()
 		FT_Init_FreeType(&lib);
 }
 
-poFont::poFont(const std::string &family_or_url, const std::string &style, unsigned long encoding)
+
+//Loads fonts from file
+poFont::poFont(const poFilePath &filePath, const std::string &style, unsigned long encoding)
 :	face(NULL)
 ,	size(0)
-,	url("")
-,	reqUrlOrFamily("")
+,	filePath(filePath)
 ,	reqStyle("")
 ,	glyph(0)
 ,   loadedGlyph(0)
@@ -145,19 +144,27 @@ poFont::poFont(const std::string &family_or_url, const std::string &style, unsig
 	if(!lib)
 		FT_Init_FreeType(&lib);
 
-	reqUrlOrFamily = family_or_url;
 	reqStyle = style;
-	
-	if(fs::exists(family_or_url))
-		url = family_or_url;
-	else if(!urlForFontFamilyName(family_or_url, style, url))
-        return;
+    
+	poFilePath location = filePath;
+    
+	if(!filePath.exists()) {
+        //Try to find the font locally
+        //Currently only works on OS X
+        poFilePath localFont;
+        if(urlForFontFamilyName(filePath.asString(), style, location)) {
+            //Its a font family!
+            reqFamily = filePath.asString();
+        } else {
+            return;
+        }
+    }
 	
 	FT_Face tmp;
-	FT_Error err = FT_New_Face(lib, url.c_str(), 0, &tmp);
+	FT_Error err = FT_New_Face(lib, location.asString().c_str(), 0, &tmp);
 	for(int i=1; i<tmp->num_faces; i++) {
 		FT_Face f = NULL;
-		FT_New_Face(lib, url.c_str(), i, &f);
+		FT_New_Face(lib, location.asString().c_str(), i, &f);
 		
 		if(style == f->style_name) {
 			FT_Done_Face(tmp);
@@ -169,13 +176,14 @@ poFont::poFont(const std::string &family_or_url, const std::string &style, unsig
 		}
 	}
 	
-	this->url = url;
 	this->face = tmp;
 	FT_Select_Charmap(this->face, (FT_Encoding)encoding);
 
 	setPointSize(12);
 	setGlyph(0);
 }
+
+
 
 poFont::~poFont() {
 	if(face)
@@ -189,12 +197,15 @@ bool poFont::isValid() const {
 std::string poFont::getFamilyName() const {
 	return face->family_name;
 }
+
 std::string poFont::getStyleName() const {
 	return face->style_name;
 }
-std::string poFont::getUrl() const {
-	return url;
+
+poFilePath poFont::getFilePath() const {
+	return filePath;
 }
+
 bool poFont::hasKerning() const {
 	return (face->face_flags & FT_FACE_FLAG_KERNING) != 0;
 }
@@ -342,11 +353,11 @@ poPoint poFont::kernGlyphs(int glyph1, int glyph2) const {
 }
 
 std::string poFont::toString() const {
-	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%url).str();
+	return (boost::format("font('%s','%s','%s')")%getFamilyName()%getStyleName()%filePath.asString()).str();
 }
 
 std::string poFont::getRequestedFamilyName() const {
-	return reqUrlOrFamily;
+	return reqFamily;
 }
 
 std::string poFont::getRequestedStyleName() const {

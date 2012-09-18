@@ -271,55 +271,6 @@ const char *currentTimeStr() {
 	return buffer;
 }
 
-void applyObjTransform(poObject *obj) {
-	poPoint trans = obj->position;
-	poPoint off = obj->offset;
-	float rotation = obj->rotation;
-	poPoint rot_axis = obj->rotationAxis;
-	poPoint scale = obj->scale;
-	
-	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-	
-	switch(obj->matrixOrder) {
-		case PO_MATRIX_ORDER_TRS:
-			stack->translate(trans);
-			stack->rotate(rotation, rot_axis);
-			stack->scale(scale);
-			break;
-			
-		case PO_MATRIX_ORDER_RST:
-			stack->rotate(rotation, rot_axis);
-			stack->scale(scale);
-			stack->translate(trans);
-			break;
-	}
-
-	stack->translate(off);
-}
-
-//void startMasking(poShape2D *mask) {
-//	poMatrixStack *stack = &poOpenGLState::get()->matrix;
-//	applyObjTransform(mask);
-//	
-//	glEnable(GL_STENCIL_TEST);
-//	
-////	glClear(GL_STENCIL_BUFFER_BIT);
-//	
-//	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-//	glStencilFunc(GL_ALWAYS, 1, 1);
-//	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-//	drawPoints(GL_TRIANGLE_FAN, mask->getPoints());
-//	
-//	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-//	glStencilFunc(GL_EQUAL, 1, 1);
-//	
-//	stack->pushModelview();
-//}
-//
-//void stopMasking() {
-//	glDisable(GL_STENCIL_TEST);
-//}
-//
 void log(const char *format, ...) {
 	static char buffer[SHRT_MAX];
 

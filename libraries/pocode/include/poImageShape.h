@@ -26,33 +26,54 @@
 
 #include "poObject.h"
 #include "poApplication.h"
+#include "poImage.h"
+#include "poTexture.h"
 
-class poImageShape : public poObject
-{
+// CLASS NOTES
+//
+// poImageShape is used for simple image loading and manipulation.
+// it is basically a more specific version of poRectShape
+// that has image-centric methods for convenience
+//
+
+
+class poImageShape : public poObject {
 public:
-	poImageShape();
-	poImageShape(poImage *img, bool keepImage=false);
-	poImageShape(const std::string &str, bool keepImage=false);
-	virtual ~poImageShape();
-	
-    void    reshapeToWidth( float W );
-    void    reshapeToHeight( float H );
-    void    reshapeToWidthAndHeight( float W, float H );
+    poImageShape();
+    poImageShape(std::string url, bool loadAsync = false);
+    poImageShape(poImage* image);
     
-	virtual void draw();
-	
-	bool doesAlphaTest() const;
-	void setAlphaTest(bool b);
-	
-	poImage *getImage() const;
-	void setImage(poImage* img);
-	
+    poImage *getImage();
     
-	bool                    pointInside(poPoint p, bool localize=false);
-	virtual poRect          getBounds();
+    void setImage(std::string url);
+    void setImage(poImage *image);
+    void setImageAsync(std::string url); //Load image asynchronously
+    
+    void clearImageData(); //Deletes the image data from the texture, lower memory cost
+    
+    void setShouldClearImage(bool shouldClearImage);
+    bool getShouldClearImage();
     
 private:
-	poTexture*  tex;
-	bool        alphaTest;
-    float       imageScale;
+    bool shouldKeepImage;
+    poTexture *tex;
+    
+//	poImageShape();
+//	poImageShape(poImage *img, bool keepImage=false);
+//	poImageShape(const std::string &str, bool keepImage=false);
+//	virtual ~poImageShape();
+//    
+//	virtual void draw();
+//	
+//	bool doesAlphaTest() const;
+//	void setAlphaTest(bool b);
+//	
+//	poImage *getImage() const;
+//	void setImage(poImage* img);
+//    
+//	bool                    pointInside(poPoint p, bool localize=false);
+//	virtual poRect          getBounds();
+//private:
+//	poTexture*  tex;
+//	bool        alphaTest;
 };

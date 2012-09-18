@@ -146,16 +146,16 @@ poTextureConfig::poTextureConfig(GLenum format)
 	#endif
 {}
 
-int         poTexture::totalAllocatedTextureMemorySize = 0;
+int poTexture::totalAllocatedTextureMemorySize = 0;
 
 poTexture::poTexture()
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {}
 
-poTexture::poTexture(const std::string &url, bool keepImage )
+poTexture::poTexture(const poFilePath &filePath, bool keepImage )
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {
-	poImage* img = new poImage(url);
+	poImage* img = new poImage(filePath);
 	load(img);
     
     if ( keepImage )
@@ -197,6 +197,8 @@ poTexture* poTexture::copy() {
 	#warning call poFBO::copyColorTexture to copy out of an FBO\n
 		return NULL;
 	#else
+		po::saveTextureState();
+	
 		glBindTexture(GL_TEXTURE_2D, uid);
 		
 		#ifndef OPENGL_ES
@@ -211,7 +213,8 @@ poTexture* poTexture::copy() {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, buffer.getUid());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, config.type, NULL);
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+	
+		po::restoreTextureState();
 		return tex;
 	#endif
 }
@@ -221,11 +224,12 @@ void poTexture::replace(poImage* image) {
 }
 
 void poTexture::replace(const ubyte *pixels) {
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
-	ogl->setTexture(po::TextureState(this));
+	po::saveTextureState();
+	
+	glBindTexture(GL_TEXTURE_2D, uid);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, config.format, GL_UNSIGNED_BYTE, pixels);
-	ogl->popTextureState();
+	
+	po::restoreTextureState();
 }
 
 bool poTexture::isValid() const {
@@ -349,8 +353,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 	channels    = channelsForFormat(c.format);
 	config = c;
 	
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
+	po::saveTextureState();
 	
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
@@ -378,7 +381,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 				 config.type, 
 				 p);
 	
-	ogl->popTextureState();
+	po::restoreTextureState();
 }
 
 void poTexture::loadDummyImage() {
@@ -395,8 +398,7 @@ void poTexture::loadDummyImage() {
 			}
 		}
 		
-		poOpenGLState *ogl = poOpenGLState::get();
-		ogl->pushTextureState();
+		po::saveTextureState();
 		
 		glGenTextures(1, &dummy);
 		glBindTexture(GL_TEXTURE_2D, dummy);
@@ -414,7 +416,7 @@ void poTexture::loadDummyImage() {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 20, 20, 0, GL_RGB, GL_UNSIGNED_BYTE, pix);
 		delete [] pix;
 		
-		ogl->popTextureState();
+		po::restoreTextureState();
 	}
 	
 	uid = dummy;
@@ -424,9 +426,8 @@ void poTexture::loadDummyImage() {
 }
 
 void poTexture::configure(){
-	
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->pushTextureState();
+	po::saveTextureState();
+
 	glBindTexture(GL_TEXTURE_2D, uid);
 	
 	// set the filters we want
@@ -440,7 +441,7 @@ void poTexture::configure(){
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
 	#endif
 	
-	ogl->popTextureState();
+	po::restoreTextureState();
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);

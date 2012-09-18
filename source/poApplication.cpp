@@ -57,7 +57,6 @@ float poGetScale() {
 	return window->getScale();
 }
 
-
 poPoint getWindowCenter() {
 	poWindow *window = applicationCurrentWindow();
 	return window->getCenterPoint();

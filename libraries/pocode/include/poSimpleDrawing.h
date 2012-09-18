@@ -42,14 +42,6 @@
 
 namespace po {
     
-	// Set the color of the shapes or strokes that are drawn after this method call
-	void setColor(float R, float G, float B, float A);
-    void setColor(poColor color);
-	void setColor(poColor color, float alpha);
-	
-	// Set the stroke width of the strokes that are drawn after this method call ( must be at least 1 )
-	void setStrokeWidth(int strokeWidth);
-	
 	// Draw a line
 	void drawLine(poPoint a, poPoint b);
 	
@@ -63,6 +55,8 @@ namespace po {
 	// Draw a filled rectangle
 	void drawFilledRect(float x, float y, float w, float h);
 	void drawFilledRect(poRect rect);
+	
+	void drawFilledCircle(float x, float y, float rad);
 	
 	// Draw a rectangle with a texture placed on it
 	// By default, the texture will be placed within the rectangle at actual size. This means that

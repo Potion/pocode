@@ -8,7 +8,7 @@ Square::Square() {
     shape->fillColor.set(1.0f, 1.0f, 1.0f);
     addChild(shape);
     
-    poMessageCenter::get()->addSubscriber(ToggleSquareMessage, this);
+    poMessageCenter::addSubscriber(ToggleSquareMessage, this);
 }
 
 Square::~Square() {

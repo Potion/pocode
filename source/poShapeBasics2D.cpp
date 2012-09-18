@@ -44,8 +44,8 @@ poRectShape::poRectShape(poTexture *tex, poTextureFitOption fit, poAlignment ali
 	placeTexture(tex, fit, align);
 }
 
-poRectShape::poRectShape(const std::string &str, poTextureFitOption fit, poAlignment align) {
-	poTexture *tex = poGetTexture(str);
+poRectShape::poRectShape(const poFilePath &filePath, poTextureFitOption fit, poAlignment align) {
+	poTexture *tex = poGetTexture(filePath);
 	if(tex && tex->isValid()) {
 		construct(tex->getWidth(), tex->getHeight(), 0);
 		placeTexture(tex, fit, align);
@@ -94,7 +94,7 @@ void poRectShape::construct( float w, float h, float rad ) {
 	radius = rad;
 	
 	if(rad > 0.f) {
-		addPoints(roundedRect(w,h,rad));
+ 		addPoints(roundedRect(w,h,rad));
 	}
     else {
 		addPoint( poPoint(0,0) );
@@ -108,6 +108,11 @@ void poRectShape::construct( float w, float h, float rad ) {
 
 poOvalShape::poOvalShape() {
     construct( 100,100,30 );
+}
+
+poOvalShape::poOvalShape(float rad) {
+	int segs = 10.f * sqrtf(rad);
+	construct(rad, rad, segs);
 }
 
 poOvalShape::poOvalShape( float _width, float _height, int nPoints ) {

@@ -35,6 +35,7 @@
 /////////////////////////////////////////////////////
 
 #include "poObject.h"
+#include "poTexture.h"
 
 class poVertex3D
 {

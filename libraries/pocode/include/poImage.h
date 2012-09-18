@@ -30,6 +30,8 @@
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
+#include "poFileLocation.h"
+#include "poThreadCenter.h"
 
 #include <string>
 #include <ostream>
@@ -61,13 +63,16 @@ class poImage {
 
 public:
 	poImage();
-	poImage(const std::string &url);
-	poImage(const std::string &url, uint numChannels);
+	poImage(const poFilePath &filePath);
+	poImage(const poFilePath &filePath, uint numChannels);
 	poImage(uint w, uint h, uint numChannels, const ubyte *pixels);
 	~poImage();
+    
+    static void getImageAsync(poFilePath url, poObject *notify);
+    static void getImageAsync(poURL url, poObject *notify, const poFilePath &savePath=poFilePath());
 
 	poImage*			copy();
-	void				save(const std::string &loc);
+	void				save(const poFilePath &filePath);
 	
     // IMAGE PROPERTIES
 	bool				isValid() const;
@@ -92,6 +97,7 @@ public:
 	void                blur(int kernel_size, float sigma, int stepMultiplier=1);
 	void                flip(poOrientation dir);
 	void				fill(poColor c);
+    void                invert();
 	void                clear();
 
     // IMAGE RESIZING
@@ -101,24 +107,42 @@ public:
 	void                resizeHeight(float h);
 	void                resize(float w, float h);
 	
-	// IMAGE URL, COULD BE ""
-	std::string         getUrl() const;
+	// IMAGE URL, COULD BE "" IF NOTHING LOADED
+	poFilePath         getFilePath() const;
     
     static int          getTotalAllocatedImageMemorySize() { return totalAllocatedImageMemorySize; };
     
 private:
-	void                load(const std::string &url);
-	void                load(const std::string &url, uint c);
+	void                load(const poFilePath &filePath);
+	void                load(const poFilePath &filePath, uint numChannels);
 	void                load(uint w, uint h, uint c, const ubyte *pix);
 	
 	FIBITMAP            *bitmap;
     bool                scaledBitmapFound;
-    void                setUrl(const std::string url);
-	std::string         url;
+    void                setFilePath(const poFilePath &filePath);
+	poFilePath          filePath;
     
     static int          totalAllocatedImageMemorySize;
 };
 
 
+static const std::string poImageLoaderCompleteMessage    = "PO_IMAGE_LOADER_COMPLETE_MESSAGE";
+static const std::string poImageLoaderSuccessMessage     = "PO_IMAGE_LOADER_SUCCESS_MESSAGE";
+static const std::string poImageLoaderFailureMessage     = "PO_IMAGE_LOADER_FAILURE_MESSAGE";
 
+
+//------------------------------------------------------------------
+//poImageLoaderWorker
+class poImageLoaderWorker : public poWorker {
+public:
+	poImageLoaderWorker(poFilePath filePath);
+	poImageLoaderWorker(poURL url, const poFilePath &savePath = poFilePath("null"));
+	virtual ~poImageLoaderWorker();
+	
+	void workerFunc();
+private:
+    bool loadFromNetwork;
+    poURL url;
+    poFilePath filePath;
+};
 

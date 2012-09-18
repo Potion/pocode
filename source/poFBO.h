@@ -52,6 +52,7 @@ public:
 	virtual poObjectModifier *copy();
 	
 	bool isValid() const;
+	poCamera* getCamera() const;
 	void setCamera(poCamera *cam);
 	void reset(uint w, uint h, const poFBOConfig &config);
 

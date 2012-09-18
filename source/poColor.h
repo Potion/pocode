@@ -44,12 +44,14 @@ public:
     // CONSTRUCTORS
     // Construct a default poColor (0,0,0,0).
 	poColor();
+	poColor(poColor const& c);
     // Constructs a new poColor with values between 0.0 and 1.0.
 	poColor(float r, float g, float b, float a=1.f);
     // Constructs a new poColor based upon an poHSVColor.
     poColor(const poHSVColor &hsv);
 	// Constructs a new color with alpha mulitplied by multAlpha.
 	poColor(poColor c, float multAlpha);
+	poColor& operator=(poColor const& c);
 	
     // SET COLOR
     // Set with values between 0.0 and 1.0.

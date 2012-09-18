@@ -145,3 +145,8 @@ bool pointInTriangle( poPoint &P, poPoint &A, poPoint &B, poPoint &C );
 bool pointInTriangle3D( poPoint P, poMatrixSet& M, poPoint A, poPoint B, poPoint C );
 bool pointInRect3D( poPoint P, poMatrixSet& M, poRect R );
 
+poPoint projectOntoLine(poPoint p, poPoint a, poPoint b);
+float distanceToLine(poPoint p, poPoint a, poPoint b);
+
+
+

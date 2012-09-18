@@ -23,7 +23,6 @@
 #include "poTexture.h"
 #include "poBitmapFont.h"
 #include "poOpenGLState.h"
-#include "poBasicRenderer.h"
 #include "poApplication.h"
 
 #include "poLineExtruder.h"
@@ -34,22 +33,6 @@
 #include <boost/foreach.hpp>
 #include <boost/assign/list_of.hpp>
 
-void po::setColor(float R, float G, float B, float A) {
-	setColor(poColor(R,G,B,A));
-}
-
-void po::setColor(poColor color) {
-	poOpenGLState::get()->color = color;
-}
-
-void po::setColor(poColor color, float alpha) {
-	poOpenGLState::get()->color = poColor(color, alpha);
-}
-
-void po::setStrokeWidth(int strokeWidth) {
-	if(strokeWidth >= 1) glLineWidth(strokeWidth);
-}
-
 void po::drawLine(poPoint a, poPoint b) {
 	a = floor(a) + poPoint(0.5f, 0.5f);
 	b = floor(b) + poPoint(0.5f, 0.5f);
@@ -59,13 +42,13 @@ void po::drawLine(poPoint a, poPoint b) {
 		b.x, b.y, b.z
 	};
 	
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->setTexture(po::TextureState());
-	ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
+	use2DShader();
+	updateActiveShader();
 	
-	poBasicRenderer::get()->setFromState();
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
 	glDrawArrays(GL_LINES, 0, 2);
+	glDisableVertexAttribArray(0);
 }
 
 void po::drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
@@ -109,13 +92,13 @@ namespace {
 		if(type == GL_LINE_STRIP || type == GL_LINE_LOOP)
 			std::swap(quad[7], quad[10]);
 		
-		poOpenGLState *ogl = poOpenGLState::get();
-		ogl->setTexture(po::TextureState());
-		ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
+		po::use2DShader();
+		po::updateActiveShader();
 		
-		poBasicRenderer::get()->setFromState();
+		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
 		glDrawArrays(type, 0, 4);
+		glDisableVertexAttribArray(0);
 	}
 }
 
@@ -133,6 +116,29 @@ void po::drawFilledRect(float x, float y, float w, float h) {
 
 void po::drawFilledRect(poRect rect) {
 	drawFilledRect(rect.x, rect.y, rect.width, rect.height);
+}
+
+void po::drawFilledCircle(float x, float y, float rad) {
+	int segs = 10.f * sqrtf(rad);
+	float theta = 2.f * M_PI / (float)segs;
+	float tan_t = tanf(theta);
+	float cos_t = cosf(theta);
+
+	float x1 = rad;
+	float y1 = 0.f;
+
+	std::vector<poPoint> pt;
+	for(int i=0; i<segs; ++i) {
+		pt.push_back(poPoint(x1+x, y1+y));
+
+		float tx = -y1;
+		float ty = x1;
+
+		x1 = (x1 + tx * tan_t) * cos_t;
+		y1 = (y1 + ty * tan_t) * cos_t;
+	}
+	
+	drawPoints(pt, GL_TRIANGLE_FAN);
 }
 
 void po::drawTexturedRect(poTexture *tex) {
@@ -154,7 +160,7 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, p
 }
 
 void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
-	GLfloat quad[4*3] = { 
+	GLfloat quad[4*3] = {
 		rect.x,  rect.y, 0, 
 		rect.x+rect.width, rect.y, 0, 
 		rect.x+rect.width, rect.y+rect.height, 0,
@@ -168,14 +174,22 @@ void po::drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
 		coords.x, coords.y,
 	};
 	
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->setTexture(po::TextureState(tex));
-	ogl->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
-	poBasicRenderer::get()->setFromState();
+	if(tex->getConfig().internalFormat == GL_ALPHA)
+		useTex2DMaskShader();
+	else
+		useTex2DShader();
+	
+	updateActiveShader();
+	
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, quad);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, tcoords);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
 
 void po::drawStrokedPolygon(const std::vector<poPoint> &points) {
@@ -217,48 +231,53 @@ void po::drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex,
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, GLenum type) {
-	poOpenGLState *ogl = poOpenGLState::get();
-	ogl->setTexture(po::TextureState());
-	ogl->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
+	use2DShader();
+	updateActiveShader();
 
-	poBasicRenderer::get()->setFromState();
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glDrawArrays(type, 0, points.size());
+	glDisableVertexAttribArray(0);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type) {
-	poOpenGLState *ogl = poOpenGLState::get();
-	
-	ogl->setTexture(po::TextureState());
-	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).disableAttrib(1));
+	use2DShader();
+	updateActiveShader();
 
-	poBasicRenderer::get()->setFromState();
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+	glDisableVertexAttribArray(0);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	poOpenGLState *ogl = poOpenGLState::get();
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
-	ogl->setTexture(po::TextureState(tex));
-	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
-	
-	poBasicRenderer::get()->setFromState();
+	useTex2DShader();
+	updateActiveShader();
+
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0]);
 	glDrawArrays(type, 0, points.size());
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
 
 void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
-	poOpenGLState *ogl = poOpenGLState::get();
+	useTexture(tex->getUid(), tex->hasAlpha());
 	
-	ogl->setTexture(po::TextureState(tex));
-	poOpenGLState::get()->setVertex(po::VertexState().enableAttrib(0).enableAttrib(1));
-	
-	poBasicRenderer::get()->setFromState();
+	useTex2DShader();
+	updateActiveShader();
+
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0]);
 	glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
 
 std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, 

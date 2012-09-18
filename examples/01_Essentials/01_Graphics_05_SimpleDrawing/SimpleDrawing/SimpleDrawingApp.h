@@ -6,6 +6,7 @@
 
 
 #include "poObject.h"
+#include "poTexture.h"
 
 class SimpleDrawingApp : public poObject {
 public:

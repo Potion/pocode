@@ -31,13 +31,18 @@
 #include <vector>
 #include <sstream>
 
+#include "poPoint.h"
+#include "poColor.h"
+
+#include <glm/glm.hpp>
+
 class poShader {
 public:
 	poShader();
 	~poShader();
 
-	void load(const std::string &name);
-	void loadSource(std::istream &src);
+	void load(std::string const& name);
+	void loadSource(std::string const& src);
 	bool compile();
 	bool link();
 	
@@ -48,6 +53,12 @@ public:
 	
 	std::vector<std::string> getAllUniforms();
 	GLint uniformLocation(const char *name);
+
+	void uniform(const char* name, int i);
+	void uniform(const char* name, float f);
+	void uniform(const char* name, poPoint v);
+	void uniform(const char* name, poColor c);
+	void uniform(const char* name, glm::mat4 m);
 	
 private:
 	GLuint uid;

@@ -80,6 +80,7 @@ public:
 	poShape2D&              placeTexture(poTexture *tex);
 	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit);
 	poShape2D&              placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
+    poShape2D&				setTextureCoords(const std::vector<poPoint> &texCrds );
     poTexture*              getTexture();
     void                    removeTexture(bool andDelete = false);
 	poShape2D&              transformTexture(poPoint pt, poPoint scale, float rotate);
