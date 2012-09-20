@@ -31,6 +31,7 @@
 #include <map>
 #include <typeinfo>
 #include "poHelpers.h"
+#include "poFileLocation.h"
 
 class poFont;
 class poBitmapFont;
