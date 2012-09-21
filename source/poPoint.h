@@ -54,6 +54,7 @@ public:
 	
     // POINT (VECTOR) OPERATIONS
 	poPoint&        normalize();
+	poPoint			normalized() const;
 	float           getLength() const;
 	float           getLengthSquared() const;
     float           getDist(poPoint pt);

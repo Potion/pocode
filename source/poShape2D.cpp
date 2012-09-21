@@ -40,6 +40,8 @@ poShape2D::poShape2D()
 //,	alphaTestTexture(false)
 {}
 
+poShape2D::~poShape2D() {}
+
 poObject* poShape2D::copy() {
 	poShape2D *shp = new poShape2D();
 	clone(shp);
@@ -137,6 +139,12 @@ const std::vector<poPoint> &poShape2D::getPoints() {
 poShape2D &poShape2D::setPoints(const std::vector<poPoint> &pts) {
 	clearPoints();
 	addPoints(pts);
+	return *this;
+}
+
+poShape2D &poShape2D::removeLastPoint() {
+	if(!points.empty())
+		points.pop_back();
 	return *this;
 }
 

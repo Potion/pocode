@@ -101,6 +101,7 @@ public:
     poOvalShape();
 	poOvalShape( float radius );
     poOvalShape( float _width, float _height, int numPoints );
+	virtual ~poOvalShape() {}
 	
 	virtual poObject *copy();
     
@@ -129,6 +130,7 @@ class poLineShape : public poShape2D {
 public:
     poLineShape();
     poLineShape( poPoint A, poPoint B );
+	virtual ~poLineShape() {}
     
     void    reshape( poPoint A, poPoint B );
     

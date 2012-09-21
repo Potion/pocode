@@ -113,6 +113,17 @@ poPoint &poPoint::normalize() {
 	return *this;
 }
 
+poPoint poPoint::normalized() const {
+	float len = getLength();
+	if(len == 0) return *this;
+	
+	poPoint r = *this;
+	r.x = x / len;
+	r.y = y / len;
+	r.z = z / len;
+	return r;
+}
+
 float poPoint::getLength() const {
 	return sqrtf(x*x + y*y + z*z);
 }
