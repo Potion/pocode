@@ -57,10 +57,11 @@ namespace poURLLoader {
                 p.set(t);
             }
         }
-        
+
         FILE * file = (FILE *)fopen(p.toString().c_str(),"w+");
         if(!file){
-            perror("File Open:");
+            perror("poURLLoader:: File Open:: ");
+            return;
         }
         CURL *handle = curl_easy_init();
         curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
@@ -80,7 +81,7 @@ namespace poURLLoader {
     }
 
     //------------------------------------------------------------------
-    std::string getFiletoString(poURL url) {
+    std::string getFileAsString(poURL url) {
         std::string response;
         
         CURL *handle = curl_easy_init();
@@ -95,7 +96,7 @@ namespace poURLLoader {
     }
 
     //------------------------------------------------------------------
-    void getFiletoStringAsync(poURL url, poObject* notify) {
+    void getFileAsStringAsync(poURL url, poObject* notify) {
         poThreadCenter::addItem(new poURLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
     }
 };
@@ -132,7 +133,7 @@ void poURLLoaderWorker::workerFunc() {
             
         case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
             //Get File as string
-            std::string fileContents = poURLLoader::getFiletoString(url);
+            std::string fileContents = poURLLoader::getFileAsString(url);
             
             //Set Dictionary with contents
             dict.set("mode", mode);
