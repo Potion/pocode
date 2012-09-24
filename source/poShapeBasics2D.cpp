@@ -28,6 +28,7 @@
 #include "poHelpers.h"
 #include "poShapeBasics2D.h"
 #include "poResourceStore.h"
+#include "poSimpleDrawing.h"
 
 #pragma mark poRectShape
 

@@ -25,6 +25,7 @@
 #include "poCamera.h"
 #include "nanosvg.h"
 #include "poOpenGLState.h"
+#include "poSimpleDrawing.h"
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
