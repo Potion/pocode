@@ -112,7 +112,7 @@ poFilePath::poFilePath(const fs::path &filePath) {
 
 //------------------------------------------------------------------
 void poFilePath::set(std::string path) {
-    this->filePath = fs::path(filePath);
+    this->filePath = fs::path(path);
 }
 
 
