@@ -23,7 +23,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	window_settings = [[NSMutableDictionary alloc] init];
 	
 	// initialize the time
-	poGetElapsedTime();
+	po::getElapsedTime();
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 	// make sure we have a context to share
@@ -31,7 +31,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 												shareContext:nil];
 	// and  setup the application
 	self.currentWindow = nil;
-	setupApplication();
+	po::setupApplication();
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
@@ -39,7 +39,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
-	cleanupApplication();
+	po::cleanupApplication();
 	[shared_context release];
 }
 
@@ -188,63 +188,64 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 
 @end
 
+namespace po {
+    void applicationQuit() {
+        AppDelegate *app = [NSApplication sharedApplication].delegate;
+        [app quit];
+    }
 
-void applicationQuit() {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	[app quit];
-}
+    poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
+        AppDelegate *app = [NSApplication sharedApplication].delegate;
+        return [app createWindow:root_id type:type frame:NSMakeRect(x,y,w,h) title:title];
+    }
 
-poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	return [app createWindow:root_id type:type frame:NSMakeRect(x,y,w,h) title:title];
-}
+    int applicationNumberWindows() {
+        return [NSApplication sharedApplication].windows.count;
+    }
 
-int applicationNumberWindows() {
-	return [NSApplication sharedApplication].windows.count;
-}
+    poWindow* applicationGetWindow(int index) {
+        NSWindow *window = [[NSApplication sharedApplication].windows objectAtIndex:index];
+        return ((poOpenGLView*)window.contentView).appWindow;
+    }
 
-poWindow* applicationGetWindow(int index) {
-	NSWindow *window = [[NSApplication sharedApplication].windows objectAtIndex:index];
-	return ((poOpenGLView*)window.contentView).appWindow;
-}
+    poWindow* applicationCurrentWindow() {
+        AppDelegate *app = [NSApplication sharedApplication].delegate;
+        return app.currentWindow;
+    }
 
-poWindow* applicationCurrentWindow() {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	return app.currentWindow;
-}
+    void applicationMakeWindowCurrent(poWindow* win) {
+        AppDelegate *app = [NSApplication sharedApplication].delegate;
+        app.currentWindow = win;
+    }
 
-void applicationMakeWindowCurrent(poWindow* win) {
-	AppDelegate *app = [NSApplication sharedApplication].delegate;
-	app.currentWindow = win;
-}
+    void applicationMakeWindowFullscreen(poWindow* win, bool value) {
+        if(win->isFullscreen() != value) {
+            AppDelegate *app = [NSApplication sharedApplication].delegate;
+            [app fullscreenWindow:win value:value];
+        }
+    }
 
-void applicationMakeWindowFullscreen(poWindow* win, bool value) {
-	if(win->isFullscreen() != value) {
-		AppDelegate *app = [NSApplication sharedApplication].delegate;
-		[app fullscreenWindow:win value:value];
-	}
-}
+    void applicationMoveWindow(poWindow* win, poPoint p) {
+        NSWindow *window = (NSWindow*)win->getWindowHandle();
+        [window setFrameOrigin:NSMakePoint(p.x, p.y)];
+    }
 
-void applicationMoveWindow(poWindow* win, poPoint p) {
-	NSWindow *window = (NSWindow*)win->getWindowHandle();
-	[window setFrameOrigin:NSMakePoint(p.x, p.y)];
-}
+    void applicationReshapeWindow(poWindow* win, poRect r) {
+        NSWindow *window = (NSWindow*)win->getWindowHandle();
+        NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width, r.height);
+        NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
+        [window setFrame:new_frame display:YES];
+    }
 
-void applicationReshapeWindow(poWindow* win, poRect r) {
-	NSWindow *window = (NSWindow*)win->getWindowHandle();
-	NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width, r.height);
-	NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];
-	[window setFrame:new_frame display:YES];
-}
+    std::string applicationGetResourceDirectory() {
+        return [[[NSBundle mainBundle] resourcePath] UTF8String];
+    }
 
-std::string applicationGetResourceDirectory() {
-	return [[[NSBundle mainBundle] resourcePath] UTF8String];
-}
-
-std::string applicationGetSupportDirectory() {
-	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
-		[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
-	return [dir UTF8String];
+    std::string applicationGetSupportDirectory() {
+        NSString *dir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:dir])
+            [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+        return [dir UTF8String];
+    }
 }
 

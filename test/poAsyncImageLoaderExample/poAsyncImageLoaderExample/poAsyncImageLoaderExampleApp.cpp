@@ -7,6 +7,7 @@
 #include "poCamera.h"
 
 #include "poImage.h"
+#include "poURLLoader.h"
 
 
 // APP CONSTRUCTOR. Create all objects here.
@@ -20,7 +21,9 @@ poAsyncImageLoaderExampleApp::poAsyncImageLoaderExampleApp() {
     addChild(imageHolder);
     
     poURL url("http://www.imgbase.info/images/safe-wallpapers/photography/miscellaneous/19757_miscellaneous_delirium_beer.jpg");
-    poImage::getImageAsync(url, this, poFilePath("beer.jpg"));
+    //poImage::getImageAsync(url, this, poFilePath("beer.jpg"));
+    
+    poURLLoader::getFile(url);
     
     //poImage::getImageAsync(poFilePath("beer.jpg"), this);
     
@@ -33,8 +36,8 @@ poAsyncImageLoaderExampleApp::~poAsyncImageLoaderExampleApp() {
 // UPDATE. Called once per frame. Animate objects here.
 void poAsyncImageLoaderExampleApp::update() {
     imageHolder->rotation++;
-	imageHolder->position.set(getWindowWidth()/2,
-                              getWindowHeight()/2,
+	imageHolder->position.set(po::getWindowWidth()/2,
+                              po::getWindowHeight()/2,
                               1.0);
 }
 

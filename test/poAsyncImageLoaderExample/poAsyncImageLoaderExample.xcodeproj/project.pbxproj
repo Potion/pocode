@@ -222,6 +222,7 @@
 				AA2A69DC15F7FA6C002C5919 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
