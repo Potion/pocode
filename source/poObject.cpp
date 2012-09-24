@@ -110,6 +110,8 @@ poObject::poObject(int width, int height, const std::string &name)
 poObject::~poObject() {
     poEventCenter::get()->removeAllEvents(this);
 	removeAllChildren(true);
+	if(parent)
+		parent->removeChild(this);
 	if(eventMemory)
 		delete eventMemory;
 }

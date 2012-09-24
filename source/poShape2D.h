@@ -45,6 +45,7 @@
 class poShape2D : public poObject {
 public:
 	poShape2D();
+	virtual ~poShape2D();
 	virtual poObject*		copy();
 
     // DRAWING
@@ -63,6 +64,7 @@ public:
 	poShape2D&				curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
 	
 	poShape2D&				setPoints(const std::vector<poPoint> &points);
+	poShape2D&				removeLastPoint();
 	poShape2D&				clearPoints();
 
 	size_t                  getNumPoints() const;

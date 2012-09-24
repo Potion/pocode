@@ -49,12 +49,6 @@ enum poControlType {
 
 using namespace std;
 
-/*	Dictionary that gets passed to the messageHandler contains these things
- *
- *	value		: current value of the control
- *	valueType	: string describing the value type
- *	control		: pointer to the control
- */
 class poControl : public poObject {
 public:
     

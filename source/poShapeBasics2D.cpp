@@ -174,8 +174,8 @@ poLineShape::poLineShape( poPoint A, poPoint B ) {
 }
 
 void    poLineShape::reshape( poPoint A, poPoint B ) {
-    setPoint( 0, A );
-    setPoint( 1, B );
+	clearPoints();
+	construct(A,B);
 }
 
 void    poLineShape::construct( poPoint A, poPoint B ) {
