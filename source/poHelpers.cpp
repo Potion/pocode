@@ -310,7 +310,7 @@ namespace po {
     //------------------------------------------------------------------
     //String Manipulation
     #pragma mark String Manipulation
-    std::string poToUpperCase(std::string s) {
+    std::string toUpperCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             s[i] = toupper(s[i]);
         }
@@ -318,7 +318,7 @@ namespace po {
         return s;
     }
 
-    std::string poToLowerCase(std::string s) {
+    std::string toLowerCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             s[i] = tolower(s[i]);
         }
@@ -326,7 +326,7 @@ namespace po {
         return s;
     }
 
-    std::string poToTitleCase(std::string s) {
+    std::string toTitleCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             if(i==0 || s[i-1] == ' ') {
                 s[i] = toupper(s[i]);
@@ -336,7 +336,7 @@ namespace po {
         return s;
     }
 
-    int poToInt(std::string s) {
+    int toInt(std::string s) {
         return atoi(s.c_str());
     }
 }
