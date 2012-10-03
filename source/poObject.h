@@ -151,6 +151,7 @@ public:
 	poPoint             objectToLocal(poObject* obj, poPoint point) const;
 	poPoint             globalToLocal(poPoint point) const;
 	poPoint             localToGlobal(poPoint point) const;
+	float				getDistance(poObject* o) const;
     
     // OBJECT ALIGNMENT & BOUNDS CALCULATION
 	poAlignment         getAlignment() const;

@@ -57,7 +57,7 @@ public:
 	poPoint			normalized() const;
 	float           getLength() const;
 	float           getLengthSquared() const;
-    float           getDist(poPoint pt);
+    float           getDist(poPoint pt) const;
 	float           getDot(poPoint rhs) const;
 	poPoint         getCross(poPoint rhs) const;
 	poPoint         getNormal2D() const;

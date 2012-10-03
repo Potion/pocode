@@ -80,7 +80,6 @@ public:
 	
 	poFont();
 	poFont(const poFilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
-	poFont(const std::string &family, const std::string &style="", unsigned long encoding=encodeTag("unic"));
 	virtual ~poFont();
 	
     // FONT LOADING

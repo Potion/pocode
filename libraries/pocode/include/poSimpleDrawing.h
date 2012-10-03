@@ -39,6 +39,7 @@
 //		po::drawStrokedRect(0,0,100,100);
 // 
 
+#include "poOpenGLState.h"
 
 namespace po {
     

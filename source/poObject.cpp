@@ -455,6 +455,10 @@ poPoint poObject::objectToLocal(poObject* obj, poPoint point) const {
 	return globalToLocal(point);
 }
 
+float poObject::getDistance(poObject* o) const {
+	return position.getDist(o->position);
+}
+
 poAlignment poObject::getAlignment() const {return alignment;}
 
 poObject& poObject::setAlignment(poAlignment align) {

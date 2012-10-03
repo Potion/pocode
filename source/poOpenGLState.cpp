@@ -282,6 +282,10 @@ namespace po {
 		glStencilFunc(GL_ALWAYS, 0, 0);
 	}
 	
+	void setColor(float r, float g, float b, float a) {
+		setColor(poColor(r,g,b,a));
+	}
+
 	void setColor(poColor const& c) {
 		ogl->color = c;
 	}

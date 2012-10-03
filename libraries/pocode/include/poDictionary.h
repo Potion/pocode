@@ -37,7 +37,8 @@ enum poDictionaryType {
 	PO_POINT_T,
 	PO_COLOR_T,
 	PO_VOID_PTR_T,
-	PO_DICTIONARY_T
+	PO_DICTIONARY_T,
+	PO_DICTIONARY_NONE_T
 };
 
 class poDictionaryItem {
@@ -71,19 +72,20 @@ class poDictionary {
 	
 public:
 	poDictionary();
+	poDictionary(std::string const k, poDictionaryItem_t const& v);
 	poDictionary		copy();
 	
-	bool				getBool(const std::string &s) const;
-	int					getInt(const std::string &s) const;
-	float				getFloat(const std::string &s) const;
-	std::string			getString(const std::string &s) const;
-	poPoint				getPoint(const std::string &s) const;
-	poColor				getColor(const std::string &s) const;
-	void*				getPtr(const std::string &s) const;
-	poDictionary		getDictionary(const std::string &s) const;
-	poDictionaryType	getType(const std::string &s) const;
+	bool				getBool(const std::string &s, bool def=false) const;
+	int					getInt(const std::string &s, int def=0) const;
+	float				getFloat(const std::string &s, float def=0.f) const;
+	std::string			getString(const std::string &s, std::string const& def="") const;
+	poPoint				getPoint(const std::string &s, poPoint def=poPoint()) const;
+	poColor				getColor(const std::string &s, poColor def=poColor::transparent) const;
+	void*				getPtr(const std::string &s, void* def=NULL) const;
+	poDictionary		getDictionary(const std::string &s, poDictionary def=poDictionary()) const;
+	poDictionaryType	getType(const std::string &s, poDictionaryType def=PO_DICTIONARY_NONE_T) const;
 	
-	poDictionaryItem	get(const std::string &s) const;
+	poDictionaryItem	get(const std::string &s, poDictionaryItem def=poDictionaryItem()) const;
 	poDictionary&		set(const std::string &s, const poDictionaryItem_t &di);
 	poDictionary&		append(const poDictionary &d);
 	
