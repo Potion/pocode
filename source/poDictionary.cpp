@@ -97,6 +97,9 @@ string poDictionaryItem::toString() {
 
 poDictionary::poDictionary() {
 }
+poDictionary::poDictionary(std::string const k, poDictionaryItem_t const& v) {
+	set(k,v);
+}
 poDictionary poDictionary::copy() {
 	poDictionary dict;
 	for(poDictionaryItemMap::iterator iter=begin(); iter!=end(); ++iter) {
@@ -108,35 +111,58 @@ poDictionary poDictionary::copy() {
 	}
 	return dict;
 }
-bool poDictionary::getBool(const string &s) const {
-	return items.at(s).getBool();
+bool poDictionary::getBool(const string &s, bool d) const {
+	try {
+		return items.at(s).getBool();
+	}
+	catch(...) {
+		return d;
+	}
 }
-int poDictionary::getInt(const string &s) const {
-	return items.at(s).getInt();
+int poDictionary::getInt(const string &s, int d) const {
+	try {
+		return items.at(s).getInt();
+	} catch(...) {return d;}
 }
-float poDictionary::getFloat(const string &s) const {
-	return items.at(s).getFloat();
+float poDictionary::getFloat(const string &s, float d) const {
+	try {
+		return items.at(s).getFloat();
+	} catch(...) {return d;}
 }
-string poDictionary::getString(const string &s) const {
-	return items.at(s).getString();
+string poDictionary::getString(const string &s, string const& d) const {
+	try {
+		return items.at(s).getString();
+	} catch(...) {return d;}
 }
-poPoint poDictionary::getPoint(const std::string &s) const {
-	return items.at(s).getPoint();
+poPoint poDictionary::getPoint(const std::string &s, poPoint d) const {
+	try {
+		return items.at(s).getPoint();
+	} catch(...) {return d;}
 }
-poColor poDictionary::getColor(const std::string &s) const {
-	return items.at(s).getColor();
+poColor poDictionary::getColor(const std::string &s, poColor d) const {
+	try {
+		return items.at(s).getColor();
+	} catch(...) {return d;}
 }
-void* poDictionary::getPtr(const string &s) const {
-	return items.at(s).getPtr();
+void* poDictionary::getPtr(const string &s, void* d) const {
+	try {
+		return items.at(s).getPtr();
+	} catch(...) {return d;}
 }
-poDictionary poDictionary::getDictionary(const string &s) const {
-	return items.at(s).getDictionary();
+poDictionary poDictionary::getDictionary(const string &s, poDictionary d) const {
+	try {
+		return items.at(s).getDictionary();
+	} catch(...) {return d;}
 }
-poDictionaryType poDictionary::getType(const string &s) const {
-	return items.at(s).getType();
+poDictionaryType poDictionary::getType(const string &s, poDictionaryType d) const {
+	try {
+		return items.at(s).getType();
+	} catch(...) {return d;}
 }
-poDictionaryItem poDictionary::get(const string &s) const {
-	return items.at(s);
+poDictionaryItem poDictionary::get(const string &s, poDictionaryItem d) const {
+	try {
+		return items.at(s);
+	} catch(...) {return d;}
 }
 poDictionary& poDictionary::set(const string &s, const poDictionaryItem_t &di) {
 	items[s] = di;

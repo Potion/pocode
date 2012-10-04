@@ -70,10 +70,12 @@ poSliderF::poSliderF( string _ID, float init, float _min, float _max, string _va
     
     shapeLabel = new poTextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 	shapeLabel->textColor = poColor::white;
-    shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+	shapeLabel->setLeading(.6);
+	shapeLabel->setTextAlignment(PO_ALIGN_CENTER_LEFT);
+    shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER,0,0);
     shapeLabel->setTextSize(controlTextSize);
     shapeLabel->setText( ID );
-	shapeLabel->doLayout();  
+	shapeLabel->doLayout();
     addChild( shapeLabel );
 }
 

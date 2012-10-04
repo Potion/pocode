@@ -43,6 +43,7 @@ namespace po {
 	void defaultStencil();
 	void defaultBlending();
 
+	void setColor(float, float, float, float);
 	void setColor(poColor const& c);
 	void setColor(poColor const& c, float alpha);
 	poColor getColor();

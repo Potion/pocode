@@ -35,5 +35,5 @@ BZ2					= $(LIBRARIES)/bz2
 SQLITE				= /usr/lib/libsqlite3.0.dylib
 CURL                = $(LIBRARIES)/libcurl/osx
 SSL                 = $(LIBRARIES)/libssl/osx
-LIBRARIES_CMD		= -lboost -lfreeimage -lfreetype -lbz2 -lssl -lcrypto
+LIBRARIES_CMD		= -lboost -lfreeimage -lfreetype -lbz2 -lssl -lcrypto -lcurl
 FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
