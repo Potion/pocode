@@ -62,35 +62,39 @@ void poLayout::doLayout( poObject* obj ) {
 	for(int i=0; i < obj->getNumChildren(); i++) {
 		
 		poObject* child = obj->getChild(i);
-		child->position = pos;
-		
-		if( layoutOrientation == PO_HORIZONTAL || 
-			layoutOrientation == PO_HORIZONTAL_RIGHT ||
-			layoutOrientation == PO_HORIZONTAL_LEFT ) {
-			
-			child->position.x -= child->offset.x;
-			float direction = 1.f;
-			if( layoutOrientation == PO_HORIZONTAL_LEFT ) {
-				child->position.x -= child->getBounds().width;
-				direction = -1.f;
-			}
-			pos.x += child->getBounds().width * direction;
-			pos.x += spacing[SPACING_H] * direction;
-		}
-		else 
-			if(	layoutOrientation == PO_VERTICAL ||
-				layoutOrientation == PO_VERTICAL_DOWN ||
-				layoutOrientation == PO_VERTICAL_UP ) {
-				
-				child->position.y -= child->offset.y;
-				float direction = 1.f;
-				if( layoutOrientation == PO_VERTICAL_UP ) {
-					child->position.y -= child->getBounds().height;
-					direction = -1.f;
-				}
-				pos.y += child->getBounds().height * direction;
-				pos.y += spacing[SPACING_V] * direction;
-			}
+        
+        if(child->visible) {
+            child->position = pos;
+            
+            if( layoutOrientation == PO_HORIZONTAL || 
+                layoutOrientation == PO_HORIZONTAL_RIGHT ||
+                layoutOrientation == PO_HORIZONTAL_LEFT ) {
+                
+                child->position.x -= child->offset.x;
+                float direction = 1.f;
+                if( layoutOrientation == PO_HORIZONTAL_LEFT ) {
+                    child->position.x -= child->getScaledWidth();
+                    direction = -1.f;
+                }
+                pos.x += child->getScaledWidth() * direction;
+                pos.x += spacing[SPACING_H] * direction;
+            }
+            else {
+                if(	layoutOrientation == PO_VERTICAL ||
+                    layoutOrientation == PO_VERTICAL_DOWN ||
+                    layoutOrientation == PO_VERTICAL_UP ) {
+                    
+                    child->position.y -= child->offset.y;
+                    float direction = 1.f;
+                    if( layoutOrientation == PO_VERTICAL_UP ) {
+                        child->position.y -= child->getScaledHeight();
+                        direction = -1.f;
+                    }
+                    pos.y += child->getScaledHeight() * direction;
+                    pos.y += spacing[SPACING_V] * direction;
+                }
+            }
+        }
 	}
 }
 
