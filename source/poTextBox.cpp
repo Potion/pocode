@@ -91,6 +91,10 @@ poObject* poTextBox::copy() {
 }
 
 void poTextBox::clone(poTextBox *tb) {
+	tb->fillColor = fillColor;
+	tb->fillEnabled = fillEnabled;
+	tb->strokeColor = strokeColor;
+	tb->strokeWidth = strokeWidth;
 	tb->textColor = textColor;
 	tb->useTextBounds = useTextBounds;
 	tb->cacheToTexture = cacheToTexture;

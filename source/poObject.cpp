@@ -670,12 +670,12 @@ void poObject::clone(poObject *obj) {
 	obj->visible = visible;
 	obj->drawBounds = drawBounds;
 	obj->matrixOrder = matrixOrder;
-	obj->positionTween = positionTween;
-	obj->scaleTween = scaleTween;
-	obj->offsetTween = offsetTween;
-	obj->alphaTween = alphaTween;
-	obj->rotationTween = rotationTween;
 	obj->alignment = alignment;
+//	obj->positionTween = positionTween;
+//	obj->scaleTween = scaleTween;
+//	obj->offsetTween = offsetTween;
+//	obj->alphaTween = alphaTween;
+//	obj->rotationTween = rotationTween;
 	
 	for(int i=0; i<getNumChildren(); i++) {
 		obj->children.push_back(children[i]->copy());
@@ -685,7 +685,7 @@ void poObject::clone(poObject *obj) {
 		obj->modifiers.push_back(modifiers[i]->copy());
 	}
 	
-	poEventCenter::get()->copyEventsFromObject(this, obj);
+//	poEventCenter::get()->copyEventsFromObject(this, obj);
 }
 
 

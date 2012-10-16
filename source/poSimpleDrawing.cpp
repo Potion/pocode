@@ -280,6 +280,16 @@ void po::drawPoints(const std::vector<poPoint> &points, const std::vector<unsign
 	glDisableVertexAttribArray(1);
 }
 
+void po::drawPoints(poPoint* pt, int count, GLenum type) {
+	use2DShader();
+	updateActiveShader();
+	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &pt[0].x);
+	glDrawArrays(type, 0, count);
+	glDisableVertexAttribArray(0);
+}
+
 std::vector<poPoint> po::generateStroke(std::vector<poPoint> &points, 
 										int strokeWidth, 
 										bool close, 
