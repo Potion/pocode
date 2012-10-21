@@ -107,10 +107,10 @@ enum {
 	// also need to check the modifier flags
 	// for arrows, numeric mask and function mask should both be set
 	// these numbers are the keyCode
-	PO_ARROW_UP = 126,
-	PO_ARROW_DOWN = 125,
-	PO_ARROW_LEFT = 123,
-	PO_ARROW_RIGHT = 124,
+	PO_UP_ARROW = 126,
+	PO_DOWN_ARROW = 125,
+	PO_LEFT_ARROW = 123,
+	PO_RIGHT_ARROW = 124,
 	
 	PO_RETURN_KEY = 36,
 	
