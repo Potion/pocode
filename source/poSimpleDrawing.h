@@ -90,6 +90,7 @@ namespace po {
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
 	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(poPoint* pt, int count, GLenum type);
 	
 	// The "generateStroke" method creates a very high quality stroke.
     // This stroke is actually drawn as a very thin filled shape. 

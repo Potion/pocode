@@ -39,13 +39,23 @@
 
 class poImageShape : public poObject {
 public:
-    poImageShape();
-    poImageShape(std::string url, bool loadAsync = false);
-    poImageShape(poImage* image);
+	poImageShape();
+	poImageShape(poImage *img, bool keepImage=false);
+	poImageShape(const std::string &str, bool keepImage=false);
+	virtual ~poImageShape();
+	
+	virtual void draw();
+	
+//    poImageShape();
+//    poImageShape(std::string url, bool loadAsync = false);
+//    poImageShape(poImage* image);
     
-    poImage *getImage();
+	bool doesAlphaTest() const;
+	void setAlphaTest(bool b);
+	
+    poImage *getImage() const;
     
-    void setImage(std::string url);
+    void setImage(const std::string &str, bool keepImage=false);
     void setImage(poImage *image);
     void setImageAsync(std::string url); //Load image asynchronously
     
@@ -53,10 +63,14 @@ public:
     
     void setShouldClearImage(bool shouldClearImage);
     bool getShouldClearImage();
+	
+	bool                    pointInside(poPoint p, bool localize=false);
+	virtual poRect          getBounds();
     
 private:
     bool shouldKeepImage;
     poTexture *tex;
+	bool alphaTest;
     
 //	poImageShape();
 //	poImageShape(poImage *img, bool keepImage=false);

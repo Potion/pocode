@@ -69,6 +69,7 @@ public:
     /// WORK-HORSE METHODS
     // "draw" is only necessary if the class does its own OpenGL drawing, instead of using pocode shapes.
     virtual void        draw();
+	virtual void		drawAfter();
     
     // Draw the bounds if drawBounds is set.
     virtual void        _drawBounds();

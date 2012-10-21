@@ -205,6 +205,7 @@ void poWindow::mouseDown(int x, int y, int mod) {
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
+	event.timestamp = poGetElapsedTime();
 	
 	event.type = PO_MOUSE_DOWN_EVENT; 
 	received.push_back(event);
@@ -216,6 +217,7 @@ void poWindow::mouseUp(int x, int y, int mod) {
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
+	event.timestamp = poGetElapsedTime();
 
 	event.type = PO_MOUSE_UP_EVENT;
 	received.push_back(event);
@@ -230,7 +232,8 @@ void poWindow::mouseMove(int x, int y, int mod) {
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_MOUSE_MOVE_EVENT;
 	received.push_back(event);
 }
@@ -241,7 +244,8 @@ void poWindow::mouseDrag(int x, int y, int mod) {
 	poEvent event;
 	event.globalPosition.set(x, y, 0.f);
 	event.modifiers = mod;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_MOUSE_DRAG_EVENT;
 	received.push_back(event);
 }
@@ -254,7 +258,8 @@ void poWindow::keyDown(int key, int code, int mod) {
 	event.keyChar = key;
 	event.keyCode = code;
 	event.modifiers = mod;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_KEY_DOWN_EVENT;
 	received.push_back(event);
 }
@@ -264,7 +269,8 @@ void poWindow::keyUp(int key, int code, int mod) {
 	event.keyCode = code;
 	event.keyChar = key;
 	event.modifiers = mod;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_KEY_UP_EVENT;
 	received.push_back(event);
 }
@@ -300,7 +306,8 @@ void poWindow::touchBegin(int x, int y, int uid, int tapCount ) {
 	event.touchID   = t->id;
     event.uniqueID  = uid;
     event.tapCount  = tapCount;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_TOUCH_BEGAN_EVENT;
 	received.push_back(event);
 }
@@ -316,7 +323,8 @@ void poWindow::touchMove(int x, int y, int uid, int tapCount ) {
 	event.touchID   = t->id;
     event.uniqueID  = uid;
     event.tapCount  = tapCount;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_TOUCH_MOVED_EVENT;
 	received.push_back(event);
 }
@@ -332,7 +340,8 @@ void poWindow::touchEnd(int x, int y, int uid, int tapCount ) {
 	event.touchID   = t->id;
     event.uniqueID  = uid;
     event.tapCount = tapCount;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_TOUCH_ENDED_EVENT;
     received.push_back(event);
     
@@ -347,7 +356,8 @@ void poWindow::touchCancelled(int x, int y, int uid, int tapCount ) {
 	event.globalPosition.set(x, y, 0.f);
 	event.touchID = uid;
     event.tapCount = tapCount;
-	
+	event.timestamp = poGetElapsedTime();
+
 	event.type = PO_TOUCH_CANCELLED_EVENT;
 	received.push_back(event);
     
@@ -396,6 +406,7 @@ void poWindow::accelerometerEvent(double x, double y, double z) {
     poEvent event;
 	event.motion.set(x, y, z);
 	event.type = PO_ACCELEROMETER_EVENT;
+	event.timestamp = poGetElapsedTime();
     received.push_back(event);
 }
 
@@ -403,12 +414,14 @@ void poWindow::gyroscopeEvent(double x, double y, double z) {
     poEvent event;
 	event.motion.set(x, y, z);
 	event.type = PO_GYROSCOPE_EVENT;
-    received.push_back(event);
+ 	event.timestamp = poGetElapsedTime();
+   received.push_back(event);
 }
 
 void poWindow::rotationEvent() {
     poEvent event;
     event.type = PO_ROTATION_EVENT;
+	event.timestamp = poGetElapsedTime();
     received.push_back(event);
 }
 
