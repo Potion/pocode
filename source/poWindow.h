@@ -119,6 +119,7 @@ public:
 	int             getNextDrawOrder();
 	
 	SigConn			addUpdate(const boost::function<void()> &func);
+	void			setBlockAllEvent(bool b);
 
 private:
     
@@ -160,6 +161,7 @@ private:
     int drawOrderCounter;
 	
 	boost::signals2::signal<void()> updateSignal;
+	bool block_all_events;
 };
 
 
