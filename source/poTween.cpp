@@ -59,7 +59,7 @@ void poTweenBase::update() {
 		if(updateTweenWithTime(time, beginTime, endTime, duration, extra1, extra2)) {
 			setValueToEnd();
 			
-			bool repeat_ok = repeatCount < 0 || repeatCounter < repeatCount;
+			bool repeat_ok = repeatCount < 0 || repeatCounter < (repeatCount-1);
 			repeatCounter++;
 			
 			if(repeatType & PO_TWEEN_REPEAT_REGULAR && repeat_ok) {

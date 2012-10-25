@@ -357,7 +357,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 	
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
-	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);

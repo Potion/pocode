@@ -123,6 +123,7 @@ poObject *poObject::copy() {
 }
 
 void poObject::draw() {}
+void poObject::drawAfter() {}
 
 void poObject::update() {}
 void poObject::eventHandler(poEvent *event) {}
@@ -549,15 +550,15 @@ void poObject::drawTree() {
 	
 	po::saveModelview();
 	
-	// grab the matrices we need for everything
-    matrices.camType = poCamera::getCurrentCameraType();
-	matrices.capture();
-
 	// set up the modifiers ... cameras, etc
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
         mod->setUp( this );
     }
-	
+
+	// grab the matrices we need for everything
+    matrices.camType = poCamera::getCurrentCameraType();
+	matrices.capture();
+
 	draw();
     if(drawBounds) 
 		_drawBounds();
@@ -573,6 +574,8 @@ void poObject::drawTree() {
 	// then recenter around offset
 	// some modifiers might need the objects complete transform
 	po::translate(offset);
+	
+	drawAfter();
 
 	// let modifiers clean up
     BOOST_FOREACH(poObjectModifier* mod, modifiers) {
@@ -670,12 +673,12 @@ void poObject::clone(poObject *obj) {
 	obj->visible = visible;
 	obj->drawBounds = drawBounds;
 	obj->matrixOrder = matrixOrder;
-	obj->positionTween = positionTween;
-	obj->scaleTween = scaleTween;
-	obj->offsetTween = offsetTween;
-	obj->alphaTween = alphaTween;
-	obj->rotationTween = rotationTween;
 	obj->alignment = alignment;
+//	obj->positionTween = positionTween;
+//	obj->scaleTween = scaleTween;
+//	obj->offsetTween = offsetTween;
+//	obj->alphaTween = alphaTween;
+//	obj->rotationTween = rotationTween;
 	
 	for(int i=0; i<getNumChildren(); i++) {
 		obj->children.push_back(children[i]->copy());
@@ -685,7 +688,7 @@ void poObject::clone(poObject *obj) {
 		obj->modifiers.push_back(modifiers[i]->copy());
 	}
 	
-	poEventCenter::get()->copyEventsFromObject(this, obj);
+//	poEventCenter::get()->copyEventsFromObject(this, obj);
 }
 
 
