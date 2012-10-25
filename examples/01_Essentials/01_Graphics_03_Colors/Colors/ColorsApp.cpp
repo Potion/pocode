@@ -7,7 +7,6 @@
 #include "ColorsApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 #include "poShapeBasics2D.h"						// Include poImageShape.h to be able to use poShapes
 
 
@@ -26,7 +25,7 @@ ColorsApp::ColorsApp() {
 	}
 	else fclose(Ff);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	

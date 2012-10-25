@@ -7,7 +7,6 @@
 #include "DictionariesApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 
 
 // APP CONSTRUCTOR. Create all objects here.
@@ -24,7 +23,7 @@ DictionariesApp::DictionariesApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -38,7 +37,6 @@ DictionariesApp::DictionariesApp() {
 	A.set("textPosition", poPoint(60, 180));					// Set a poPoint value called "textPosition"
 	
 	poTextBox* text = new poTextBox(300, 130);
-	text->setFont( poGetFont("Helvetica", "Regular") );
 	text->setText( A.getString("text") );						// Get the value of the string "text" in A
 	text->textColor = A.getColor("textColor");					// Get the value of the poColor "textColor" in A
 	text->setTextSize( A.getInt("textSize") );					// Get the value of the integer "textSize" in A

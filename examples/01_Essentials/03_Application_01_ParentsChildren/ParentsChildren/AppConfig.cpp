@@ -7,6 +7,7 @@
 
 #include "poApplication.h"
 #include "ParentsChildrenApp.h"
+#include "poHelpers.h"
 
 poObject *createObjectForID(uint uid) {
 	return new ParentsChildrenApp();

@@ -8,7 +8,6 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poShapeBasics2D.h"				// Include poShapeBasics2D.h to be able to use poShapes
-#include "poImageShape.h"					// Include poImageShape.h to be able to use poImageShapes
 
  
 // APP CONSTRUCTOR. Create all objects here.
@@ -25,7 +24,7 @@ BasicShapesApp::BasicShapesApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
     
@@ -63,8 +62,8 @@ BasicShapesApp::BasicShapesApp() {
 	
     // D. poRectShape ///////////////////////
 	
-	poImageShape* D;
-	D = new poImageShape( "apple.jpg" );	// Set the image url
+	poRectShape* D;
+	D = new poRectShape( "apple.jpg" );	// Set the image url
     D->scale.set(0.5, 0.5, 1);				// Scale the object in 3 dimensions (x, y, z)
     D->position.set(615, 190, 0);			// Set the position (x, y, z)
     addChild( D );							// Add the object, so it gets drawn on the screen
