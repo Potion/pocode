@@ -386,6 +386,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 				 config.type, 
 				 p);
 	
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	po::restoreTextureState();
 }
 
