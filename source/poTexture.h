@@ -70,7 +70,7 @@ public:
 	poTexture(const poFilePath &filePath, bool keepImage=false );
 	poTexture(poImage* img);
 	poTexture(poImage* img, const poTextureConfig &config);
-	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
+	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config, uint stride=0);
 	~poTexture();
 	
 	poTexture*			copy();
@@ -108,8 +108,8 @@ public:
 private:
 	void                load(poImage* img);
 	void                load(poImage* img, const poTextureConfig &config);
-	void				load(uint width, uint height, int channels, const ubyte *pixels);
-	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config);
+	void				load(uint width, uint height, int channels, const ubyte *pixels, uint stride=0);
+	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config, uint stride=0);
 	void				loadDummyImage();
 	void                unload();
 	void				configure();
