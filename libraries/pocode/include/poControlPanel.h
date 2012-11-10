@@ -70,6 +70,10 @@ public:
 	poColor				getColor( string s);
     
     void                setString( string s, string setString );
+	void				setBool( string s, bool val );
+	void				setInt( string s, int val );
+	void				setFloat( string s, float val );
+	void				setPoint( string s, poPoint val );
 	
 	poColor		 panelColor;
 
