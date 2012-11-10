@@ -482,3 +482,26 @@ void poControlPanel::setString( string s, string setString ) {
     D.set("valueType", "string");
     messageHandler("update_settings", D);
 }
+
+void poControlPanel::setBool(string s, bool val) {
+	poToggleBox* C = (poToggleBox*) container->getChild(s);
+	C->valB = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setInt(string s, int val) {
+	poSliderI* C = (poSliderI*) container->getChild(s);
+	C->valI = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setFloat(string s, float val) {
+	poSliderF* C = (poSliderF*) container->getChild(s);
+	C->valF = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setPoint( string s, poPoint val ) {
+	poControl* C = (poControl*) container->getChild(s);
+	C->valP = val;
+}
