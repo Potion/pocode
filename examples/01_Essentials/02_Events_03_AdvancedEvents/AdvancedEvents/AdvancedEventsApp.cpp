@@ -24,7 +24,7 @@ AdvancedEventsApp::AdvancedEventsApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	

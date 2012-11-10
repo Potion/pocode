@@ -90,7 +90,7 @@ public:
     
     int winWidth, winHeight;
     bool isDragged;
-    poPoint dragOffset;
+    poPoint prevPoint;
     float r,g,b,a;
     
     poDictionary settings;

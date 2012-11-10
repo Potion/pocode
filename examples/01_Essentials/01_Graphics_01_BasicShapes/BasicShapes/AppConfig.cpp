@@ -7,6 +7,7 @@
 
 #include "poApplication.h"
 #include "BasicShapesApp.h"
+#include "poHelpers.h"
 
 poObject *createObjectForID(uint uid) {
 	return new BasicShapesApp();

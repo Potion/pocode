@@ -57,8 +57,8 @@ poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
 ,	lastMark(0.0)
 ,	framerate(0.f)
 ,	mouseMoveEnabled(true)
-{
-}
+,	block_all_events(false)
+{}
 
 poWindow::~poWindow() {
 	makeCurrent();
@@ -182,7 +182,7 @@ void poWindow::update() {
 	lastFrame = now;
 
 	// handle events
-	if(handle && !received.empty()) {
+	if(handle && !received.empty() && !block_all_events) {
 		poEventCenter::get()->processEvents(received);
 	}
 	received.clear();
@@ -439,6 +439,10 @@ int poWindow::getNextDrawOrder() {
 
 SigConn poWindow::addUpdate(const boost::function<void()> &func) {
 	return updateSignal.connect(func);
+}
+
+void poWindow::setBlockAllEvent(bool b) {
+	block_all_events = b;
 }
 
 

@@ -176,10 +176,10 @@ poTexture::poTexture(poImage* img, const poTextureConfig &config)
 	load(img, config);
 }
 
-poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config)
+poTexture::poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config, uint stride)
 :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
 {
-	load(width, height, pixels, config);
+	load(width, height, pixels, config, stride);
 }
 
 poTexture::~poTexture() {
@@ -336,15 +336,14 @@ void poTexture::load(poImage* img, const poTextureConfig &config) {
 	}
     
     sourceIsScaled = img->isScaled();
-	load(img->getWidth(), img->getHeight(), img->getPixels(), config);
+	load(img->getWidth(), img->getHeight(), img->getPixels(), config, img->getPitch());
 }
 
-void poTexture::load(uint width, uint height, int channels, const ubyte *pixels) {
-	load(width, height, pixels, poTextureConfig(formatForChannels(channels)));
+void poTexture::load(uint width, uint height, int channels, const ubyte *pixels, uint stride) {
+	load(width, height, pixels, poTextureConfig(formatForChannels(channels)), stride);
 }
 
-void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
-    
+void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, uint stride) {
     totalAllocatedTextureMemorySize -= width*height*channels;
     totalAllocatedTextureMemorySize += w*h*channelsForFormat(c.format);
     
@@ -358,6 +357,12 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	if(stride) {
+		if(stride != width*height*channels) {
+			int elements = stride / channels;
+			glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
+		}
+	}
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
@@ -381,6 +386,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c) {
 				 config.type, 
 				 p);
 	
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	po::restoreTextureState();
 }
 
