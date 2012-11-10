@@ -127,9 +127,7 @@ void poSliderF::eventHandler(poEvent *event) {
 
 void poSliderF::setValue(float val) {
 	
-	poPoint sOffset = sliderShape->localToGlobal( poPoint(0,0) );
 	float sliderWidth = sliderShape->getWidth() - PO_CONTROL_SLIDER_HEIGHT;
-	float knobWidth = sliderKnob->getWidth();
 	float xMin = 0;
 	float xMax = sliderWidth;
 	
@@ -137,6 +135,11 @@ void poSliderF::setValue(float val) {
 	valF =  mappedVal;
 	
 	sliderKnob->position.x = sliderWidth*valF;
+	
+	char valString [32];
+	sprintf( valString, "%.2f", val );
+	shapeData->setText( valString );
+	shapeData->doLayout();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,9 +238,7 @@ void poSliderI::eventHandler(poEvent *event) {
 
 void poSliderI::setValue(int val) {
 	
-	poPoint sOffset = sliderShape->localToGlobal( poPoint(0,0) );
 	float sliderWidth = sliderShape->getWidth() - PO_CONTROL_SLIDER_HEIGHT;
-	float knobWidth = sliderKnob->getWidth();
 	float xMin = 0;
 	float xMax = sliderWidth;
 		
@@ -245,6 +246,11 @@ void poSliderI::setValue(int val) {
 	valF =  mappedVal;
 	
 	sliderKnob->position.x = sliderWidth*valF;
+	
+	char valString [32];
+	sprintf( valString, "%i", val );
+	shapeData->setText( valString );
+	shapeData->doLayout();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
