@@ -60,39 +60,35 @@
 #ifndef HEADER_PQUEUE_H
 #define HEADER_PQUEUE_H
 
-#include <AvailabilityMacros.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <openssl/pq_compat.h>
 
 typedef struct _pqueue *pqueue;
 
 typedef struct _pitem
 	{
-	PQ_64BIT priority;
+	unsigned char priority[8]; /* 64-bit value in big-endian encoding */
 	void *data;
 	struct _pitem *next;
 	} pitem;
 
 typedef struct _pitem *piterator;
 
-pitem *pitem_new(PQ_64BIT priority, void *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void   pitem_free(pitem *item) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+pitem *pitem_new(unsigned char *prio64be, void *data);
+void   pitem_free(pitem *item);
 
-pqueue pqueue_new(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void   pqueue_free(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+pqueue pqueue_new(void);
+void   pqueue_free(pqueue pq);
 
-pitem *pqueue_insert(pqueue pq, pitem *item) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-pitem *pqueue_peek(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-pitem *pqueue_pop(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-pitem *pqueue_find(pqueue pq, PQ_64BIT priority) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-pitem *pqueue_iterator(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-pitem *pqueue_next(piterator *iter) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+pitem *pqueue_insert(pqueue pq, pitem *item);
+pitem *pqueue_peek(pqueue pq);
+pitem *pqueue_pop(pqueue pq);
+pitem *pqueue_find(pqueue pq, unsigned char *prio64be);
+pitem *pqueue_iterator(pqueue pq);
+pitem *pqueue_next(piterator *iter);
 
-void   pqueue_print(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int    pqueue_size(pqueue pq) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void   pqueue_print(pqueue pq);
+int    pqueue_size(pqueue pq);
 
 #endif /* ! HEADER_PQUEUE_H */

@@ -33,8 +33,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-apple-darwin11.4.0
-host_triplet = i386-apple-darwin10
+build_triplet = x86_64-apple-darwin12.2.0
+host_triplet = x86_64-apple-darwin12.2.0
 subdir = include/curl
 DIST_COMMON = $(pkginclude_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/curlbuild.h.in
@@ -71,32 +71,33 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 pkgincludedir = $(includedir)/curl
-ACLOCAL = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run aclocal-1.9
+ACLOCAL = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run tar
+AMTAR = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run tar
 AR = /usr/bin/ar
 AS = as
-AUTOCONF = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run autoconf
-AUTOHEADER = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run autoheader
-AUTOMAKE = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run automake-1.9
+AUTOCONF = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run autoconf
+AUTOHEADER = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run autoheader
+AUTOMAKE = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run automake-1.9
 AWK = awk
-BUILD_LIBHOSTNAME_FALSE = 
-BUILD_LIBHOSTNAME_TRUE = #
+BUILD_LIBHOSTNAME_FALSE = #
+BUILD_LIBHOSTNAME_TRUE = 
 BUILD_UNITTESTS_FALSE = 
 BUILD_UNITTESTS_TRUE = #
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -arch i386 -g0 -O2 -Wno-system-headers
+CFLAGS = -g0 -O2 -Wno-system-headers
 CFLAG_CURL_SYMBOL_HIDING = -fvisibility=hidden
-CONFIGURE_OPTIONS = " '--disable-shared' '--without-libssh2' '--without-ca-bundle' '--without-ldap' '--disable-ldap' '--host=i386-apple-darwin10' 'host_alias=i386-apple-darwin10' 'CFLAGS=-arch i386'"
+CONFIGURE_OPTIONS = ""
 CPP = gcc -E
-CPPFLAGS = -I/opt/local/include
+CPPFLAGS = 
+CPPFLAG_CURL_STATICLIB = 
 CROSSCOMPILING_FALSE = 
 CROSSCOMPILING_TRUE = #
 CURLDEBUG_FALSE = 
 CURLDEBUG_TRUE = #
-CURLVERSION = 7.26.0
+CURLVERSION = 7.28.0
 CURL_CA_BUNDLE = 
 CURL_CFLAG_EXTRAS = 
 CURL_DISABLE_DICT = 
@@ -105,8 +106,8 @@ CURL_DISABLE_FTP =
 CURL_DISABLE_GOPHER = 
 CURL_DISABLE_HTTP = 
 CURL_DISABLE_IMAP = 
-CURL_DISABLE_LDAP = 1
-CURL_DISABLE_LDAPS = 1
+CURL_DISABLE_LDAP = 
+CURL_DISABLE_LDAPS = 
 CURL_DISABLE_POP3 = 
 CURL_DISABLE_PROXY = 
 CURL_DISABLE_RTSP = 
@@ -124,22 +125,22 @@ DOING_CURL_SYMBOL_HIDING_TRUE =
 DOING_NATIVE_WINDOWS_FALSE = 
 DOING_NATIVE_WINDOWS_TRUE = #
 DSYMUTIL = dsymutil
-DUMPBIN = :
+DUMPBIN = 
 ECHO_C = \c
 ECHO_N = 
 ECHO_T = 
 EGREP = /usr/bin/grep -E
-ENABLE_SHARED = no
+ENABLE_SHARED = yes
 EXEEXT = 
 FGREP = /usr/bin/grep -F
 GREP = /usr/bin/grep
 HAVE_GNUTLS_SRP = 
-HAVE_LDAP_SSL = 
+HAVE_LDAP_SSL = 1
 HAVE_LIBZ = 1
 HAVE_LIBZ_FALSE = #
 HAVE_LIBZ_TRUE = 
 HAVE_NSS_INITCONTEXT = 
-HAVE_SSLEAY_SRP = 1
+HAVE_SSLEAY_SRP = 
 IDN_ENABLED = 
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -148,8 +149,11 @@ INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 IPV6_ENABLED = 1
 KRB4_ENABLED = 
 LD = /usr/llvm-gcc-4.2/libexec/gcc/i686-apple-darwin11/4.2.1/ld
-LDFLAGS = -L/opt/local/lib
-LIBCURL_LIBS = -lssl -lcrypto -lssl -lcrypto -lz
+LDFLAGS = 
+LIBCURL_LIBS = -lssl -lcrypto -lldap -lssl -lcrypto -lz -lz -lrtmp
+LIBMETALINK_CFLAGS = 
+LIBMETALINK_LDFLAGS = 
+LIBMETALINK_LIBS = 
 LIBOBJS = 
 LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
@@ -159,12 +163,12 @@ LTLIBOBJS =
 MAINT = #
 MAINTAINER_MODE_FALSE = 
 MAINTAINER_MODE_TRUE = #
-MAKEINFO = ${SHELL} "/Users/steve/Downloads/curl-7.26.0/missing" --run makeinfo
+MAKEINFO = ${SHELL} "/Users/ilan/Downloads/curl-7.28.0/missing" --run makeinfo
 MANIFEST_TOOL = :
 MANOPT = -man
 MIMPURE_FALSE = 
 MIMPURE_TRUE = #
-NM = nm
+NM = /usr/bin/nm
 NMEDIT = nmedit
 NO_UNDEFINED_FALSE = 
 NO_UNDEFINED_TRUE = #
@@ -180,9 +184,9 @@ PACKAGE_STRING = curl -
 PACKAGE_TARNAME = curl
 PACKAGE_URL = 
 PACKAGE_VERSION = -
-PATH = /opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+PATH = /usr/local/heroku/bin:/opt/local/bin:/opt/local/sbin:/Applications/Postgres.app/Contents/MacOS/bin:/usr/local/ActivePerl-5.14/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 PATH_SEPARATOR = :
-PERL = /opt/local/bin/perl
+PERL = /usr/local/ActivePerl-5.14/bin/perl
 PKGADD_NAME = cURL - a client that groks URLs
 PKGADD_PKG = HAXXcurl
 PKGADD_VENDOR = curl.haxx.se
@@ -197,8 +201,8 @@ SONAME_BUMP_FALSE =
 SONAME_BUMP_TRUE = #
 SSL_ENABLED = 1
 STRIP = strip
-SUPPORT_FEATURES = SSL IPv6 libz NTLM NTLM_WB TLS-SRP
-SUPPORT_PROTOCOLS = DICT FILE FTP FTPS GOPHER HTTP HTTPS IMAP IMAPS POP3 POP3S RTSP SMTP SMTPS TELNET TFTP
+SUPPORT_FEATURES = SSL IPv6 libz NTLM NTLM_WB
+SUPPORT_PROTOCOLS = DICT FILE FTP FTPS GOPHER HTTP HTTPS IMAP IMAPS LDAP LDAPS POP3 POP3S RTMP RTSP SMTP SMTPS TELNET TFTP
 TEST_SERVER_LIBS = 
 USE_ARES = 
 USE_AXTLS = 
@@ -207,27 +211,29 @@ USE_CPPFLAG_BUILDING_LIBCURL_TRUE = #
 USE_CPPFLAG_CURL_STATICLIB_FALSE = 
 USE_CPPFLAG_CURL_STATICLIB_TRUE = #
 USE_CYASSL = 
+USE_DARWINSSL = 
 USE_EMBEDDED_ARES_FALSE = 
 USE_EMBEDDED_ARES_TRUE = #
 USE_GNUTLS = 
 USE_GNUTLS_NETTLE = 
-USE_LIBRTMP = 
+USE_LIBRTMP = 1
 USE_LIBSSH2 = 
 USE_MANUAL_FALSE = #
 USE_MANUAL_TRUE = 
 USE_NSS = 
 USE_OPENLDAP = 
 USE_POLARSSL = 
+USE_SCHANNEL = 
 USE_SSLEAY = 1
 USE_WINDOWS_SSPI = 
 VERSION = -
 VERSIONED_FLAVOUR = 
 VERSIONED_SYMBOLS_FALSE = 
 VERSIONED_SYMBOLS_TRUE = #
-VERSIONNUM = 071a00
+VERSIONNUM = 071c00
 ac_ct_AR = 
 ac_ct_CC = gcc
-ac_ct_DUMPBIN = link -dump
+ac_ct_DUMPBIN = 
 am__fastdepCC_FALSE = #
 am__fastdepCC_TRUE = 
 am__include = include
@@ -236,25 +242,25 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-apple-darwin11.4.0
+build = x86_64-apple-darwin12.2.0
 build_alias = 
 build_cpu = x86_64
-build_os = darwin11.4.0
+build_os = darwin12.2.0
 build_vendor = apple
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i386-apple-darwin10
-host_alias = i386-apple-darwin10
-host_cpu = i386
-host_os = darwin10
+host = x86_64-apple-darwin12.2.0
+host_alias = 
+host_cpu = x86_64
+host_os = darwin12.2.0
 host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = /Users/steve/Downloads/curl-7.26.0/install-sh
+install_sh = /Users/ilan/Downloads/curl-7.28.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 libext = a
@@ -328,9 +334,9 @@ $(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  include/curl/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  include/curl/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  include/curl/Makefile
+	  $(AUTOMAKE) --foreign  include/curl/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -562,7 +568,7 @@ uninstall-am: uninstall-info-am uninstall-pkgincludeHEADERS
 
 
 checksrc:
-	@/opt/local/bin/perl $(top_srcdir)/lib/checksrc.pl -Wcurlbuild.h -D$(top_srcdir)/include/curl $(pkginclude_HEADERS) $(EXTRA_DIST)
+	@/usr/local/ActivePerl-5.14/bin/perl $(top_srcdir)/lib/checksrc.pl -Wcurlbuild.h -D$(top_srcdir)/include/curl $(pkginclude_HEADERS) $(EXTRA_DIST)
 
 # for debug builds, we scan the sources on all regular make invokes
 #all-local: checksrc

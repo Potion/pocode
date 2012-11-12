@@ -91,8 +91,6 @@
 #ifndef HEADER_DES_H
 #define HEADER_DES_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/e_os2.h>	/* OPENSSL_EXTERN, OPENSSL_NO_DES, DES_LONG */
 
 #ifdef OPENSSL_NO_DES
@@ -334,75 +332,75 @@ typedef struct _ossl_old_des_ks_struct
 #define des_rw_mode DES_rw_mode
 #endif
 
-const char *_ossl_old_des_options(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *_ossl_old_des_options(void);
 void _ossl_old_des_ecb3_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,
 	_ossl_old_des_key_schedule ks1,_ossl_old_des_key_schedule ks2,
-	_ossl_old_des_key_schedule ks3, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks3, int enc);
 DES_LONG _ossl_old_des_cbc_cksum(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,
-	long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec);
 void _ossl_old_des_cbc_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,long length,
-	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc);
 void _ossl_old_des_ncbc_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,long length,
-	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc);
 void _ossl_old_des_xcbc_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,long length,
 	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,
-	_ossl_old_des_cblock *inw,_ossl_old_des_cblock *outw,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_cblock *inw,_ossl_old_des_cblock *outw,int enc);
 void _ossl_old_des_cfb_encrypt(unsigned char *in,unsigned char *out,int numbits,
-	long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc);
 void _ossl_old_des_ecb_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,
-	_ossl_old_des_key_schedule ks,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_encrypt(DES_LONG *data,_ossl_old_des_key_schedule ks, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_encrypt2(DES_LONG *data,_ossl_old_des_key_schedule ks, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks,int enc);
+void _ossl_old_des_encrypt(DES_LONG *data,_ossl_old_des_key_schedule ks, int enc);
+void _ossl_old_des_encrypt2(DES_LONG *data,_ossl_old_des_key_schedule ks, int enc);
 void _ossl_old_des_encrypt3(DES_LONG *data, _ossl_old_des_key_schedule ks1,
-	_ossl_old_des_key_schedule ks2, _ossl_old_des_key_schedule ks3) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks2, _ossl_old_des_key_schedule ks3);
 void _ossl_old_des_decrypt3(DES_LONG *data, _ossl_old_des_key_schedule ks1,
-	_ossl_old_des_key_schedule ks2, _ossl_old_des_key_schedule ks3) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks2, _ossl_old_des_key_schedule ks3);
 void _ossl_old_des_ede3_cbc_encrypt(_ossl_old_des_cblock *input, _ossl_old_des_cblock *output, 
 	long length, _ossl_old_des_key_schedule ks1, _ossl_old_des_key_schedule ks2, 
-	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int enc);
 void _ossl_old_des_ede3_cfb64_encrypt(unsigned char *in, unsigned char *out,
 	long length, _ossl_old_des_key_schedule ks1, _ossl_old_des_key_schedule ks2,
-	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int *num, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int *num, int enc);
 void _ossl_old_des_ede3_ofb64_encrypt(unsigned char *in, unsigned char *out,
 	long length, _ossl_old_des_key_schedule ks1, _ossl_old_des_key_schedule ks2,
-	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int *num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule ks3, _ossl_old_des_cblock *ivec, int *num);
 #if 0
 void _ossl_old_des_xwhite_in2out(_ossl_old_des_cblock (*des_key), _ossl_old_des_cblock (*in_white),
 	_ossl_old_des_cblock (*out_white));
 #endif
 
 int _ossl_old_des_enc_read(int fd,char *buf,int len,_ossl_old_des_key_schedule sched,
-	_ossl_old_des_cblock *iv) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_cblock *iv);
 int _ossl_old_des_enc_write(int fd,char *buf,int len,_ossl_old_des_key_schedule sched,
-	_ossl_old_des_cblock *iv) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *_ossl_old_des_fcrypt(const char *buf,const char *salt, char *ret) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *_ossl_old_des_crypt(const char *buf,const char *salt) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_cblock *iv);
+char *_ossl_old_des_fcrypt(const char *buf,const char *salt, char *ret);
+char *_ossl_old_des_crypt(const char *buf,const char *salt);
 #if !defined(PERL5) && !defined(NeXT)
-char *_ossl_old_crypt(const char *buf,const char *salt) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+char *_ossl_old_crypt(const char *buf,const char *salt);
 #endif
 void _ossl_old_des_ofb_encrypt(unsigned char *in,unsigned char *out,
-	int numbits,long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	int numbits,long length,_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec);
 void _ossl_old_des_pcbc_encrypt(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,long length,
-	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule schedule,_ossl_old_des_cblock *ivec,int enc);
 DES_LONG _ossl_old_des_quad_cksum(_ossl_old_des_cblock *input,_ossl_old_des_cblock *output,
-	long length,int out_count,_ossl_old_des_cblock *seed) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_random_seed(_ossl_old_des_cblock key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_random_key(_ossl_old_des_cblock ret) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int _ossl_old_des_read_password(_ossl_old_des_cblock *key,const char *prompt,int verify) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	long length,int out_count,_ossl_old_des_cblock *seed);
+void _ossl_old_des_random_seed(_ossl_old_des_cblock key);
+void _ossl_old_des_random_key(_ossl_old_des_cblock ret);
+int _ossl_old_des_read_password(_ossl_old_des_cblock *key,const char *prompt,int verify);
 int _ossl_old_des_read_2passwords(_ossl_old_des_cblock *key1,_ossl_old_des_cblock *key2,
-	const char *prompt,int verify) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_set_odd_parity(_ossl_old_des_cblock *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int _ossl_old_des_is_weak_key(_ossl_old_des_cblock *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int _ossl_old_des_set_key(_ossl_old_des_cblock *key,_ossl_old_des_key_schedule schedule) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int _ossl_old_des_key_sched(_ossl_old_des_cblock *key,_ossl_old_des_key_schedule schedule) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_string_to_key(char *str,_ossl_old_des_cblock *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _ossl_old_des_string_to_2keys(char *str,_ossl_old_des_cblock *key1,_ossl_old_des_cblock *key2) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const char *prompt,int verify);
+void _ossl_old_des_set_odd_parity(_ossl_old_des_cblock *key);
+int _ossl_old_des_is_weak_key(_ossl_old_des_cblock *key);
+int _ossl_old_des_set_key(_ossl_old_des_cblock *key,_ossl_old_des_key_schedule schedule);
+int _ossl_old_des_key_sched(_ossl_old_des_cblock *key,_ossl_old_des_key_schedule schedule);
+void _ossl_old_des_string_to_key(char *str,_ossl_old_des_cblock *key);
+void _ossl_old_des_string_to_2keys(char *str,_ossl_old_des_cblock *key1,_ossl_old_des_cblock *key2);
 void _ossl_old_des_cfb64_encrypt(unsigned char *in, unsigned char *out, long length,
-	_ossl_old_des_key_schedule schedule, _ossl_old_des_cblock *ivec, int *num, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule schedule, _ossl_old_des_cblock *ivec, int *num, int enc);
 void _ossl_old_des_ofb64_encrypt(unsigned char *in, unsigned char *out, long length,
-	_ossl_old_des_key_schedule schedule, _ossl_old_des_cblock *ivec, int *num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	_ossl_old_des_key_schedule schedule, _ossl_old_des_cblock *ivec, int *num);
 
-void _ossl_096_des_random_seed(des_cblock *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void _ossl_096_des_random_seed(des_cblock *key);
 
 /* The following definitions provide compatibility with the MIT Kerberos
  * library. The _ossl_old_des_key_schedule structure is not binary compatible. */

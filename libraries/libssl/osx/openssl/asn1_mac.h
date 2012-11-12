@@ -59,8 +59,6 @@
 #ifndef HEADER_ASN1_MAC_H
 #define HEADER_ASN1_MAC_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/asn1.h>
 
 #ifdef  __cplusplus
@@ -153,6 +151,13 @@ err:\
 		== (V_ASN1_UNIVERSAL|(type)))) \
 		{ \
 		M_ASN1_D2I_get(b,func); \
+		}
+
+#define M_ASN1_D2I_get_int_opt(b,func,type) \
+	if ((c.slen != 0) && ((M_ASN1_next & (~V_ASN1_CONSTRUCTED)) \
+		== (V_ASN1_UNIVERSAL|(type)))) \
+		{ \
+		M_ASN1_D2I_get_int(b,func); \
 		}
 
 #define M_ASN1_D2I_get_imp(b,func, type) \
@@ -564,8 +569,8 @@ err:\
 #define M_ASN1_I2D_finish()	*pp=p; \
 				return(r);
 
-int asn1_GetSequence(ASN1_const_CTX *c, long *length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void asn1_add_error(const unsigned char *address,int offset) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int asn1_GetSequence(ASN1_const_CTX *c, long *length);
+void asn1_add_error(const unsigned char *address,int offset);
 #ifdef  __cplusplus
 }
 #endif

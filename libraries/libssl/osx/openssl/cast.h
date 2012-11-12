@@ -59,8 +59,6 @@
 #ifndef HEADER_CAST_H
 #define HEADER_CAST_H
 
-#include <AvailabilityMacros.h>
-
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -74,7 +72,7 @@ extern "C" {
 #define CAST_ENCRYPT	1
 #define CAST_DECRYPT	0
 
-#define CAST_LONG unsigned long
+#define CAST_LONG unsigned int
 
 #define CAST_BLOCK	8
 #define CAST_KEY_LENGTH	16
@@ -86,21 +84,21 @@ typedef struct cast_key_st
 	} CAST_KEY;
 
 #ifdef OPENSSL_FIPS 
-void private_CAST_set_key(CAST_KEY *key, int len, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void private_CAST_set_key(CAST_KEY *key, int len, const unsigned char *data);
 #endif
-void CAST_set_key(CAST_KEY *key, int len, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void CAST_set_key(CAST_KEY *key, int len, const unsigned char *data);
 void CAST_ecb_encrypt(const unsigned char *in, unsigned char *out, const CAST_KEY *key,
-		      int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CAST_encrypt(CAST_LONG *data, const CAST_KEY *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CAST_decrypt(CAST_LONG *data, const CAST_KEY *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		      int enc);
+void CAST_encrypt(CAST_LONG *data, const CAST_KEY *key);
+void CAST_decrypt(CAST_LONG *data, const CAST_KEY *key);
 void CAST_cbc_encrypt(const unsigned char *in, unsigned char *out, long length,
-		      const CAST_KEY *ks, unsigned char *iv, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		      const CAST_KEY *ks, unsigned char *iv, int enc);
 void CAST_cfb64_encrypt(const unsigned char *in, unsigned char *out,
 			long length, const CAST_KEY *schedule, unsigned char *ivec,
-			int *num, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			int *num, int enc);
 void CAST_ofb64_encrypt(const unsigned char *in, unsigned char *out, 
 			long length, const CAST_KEY *schedule, unsigned char *ivec,
-			int *num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			int *num);
 
 #ifdef  __cplusplus
 }

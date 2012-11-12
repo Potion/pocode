@@ -1,4 +1,4 @@
-ARCHS				= i386
+ARCHS				= x86_64
 ONLY_ACTIVE_ARCH	= YES
 SDKROOT				= macosx
 DEBUG_INFORMATION_FORMAT = dwarf
@@ -27,7 +27,7 @@ GCC_SYMBOLS_PRIVATE_EXTERN = YES
 
 HEADERS				= /pocode/source
 LIBRARIES			= /pocode/libraries
-BOOST				= $(LIBRARIES)/Boost/boost_1_49_0
+BOOST				= $(LIBRARIES)/Boost/boost_1_52_0
 BOOSTL				= $(BOOST)/stage/lib
 FREEIMAGE			= $(LIBRARIES)/FreeImage
 FREETYPE			= $(LIBRARIES)/FreeType
@@ -35,5 +35,5 @@ UTF8				= $(LIBRARIES)/utf8
 BZ2					= $(LIBRARIES)/bz2
 CURL                = $(LIBRARIES)/libcurl/osx
 SSL                 = $(LIBRARIES)/libssl/osx
-LIBRARIES_CMD		= -lboost -lfreeimage -lfreetype  -lbz2 -lcurl -lssl -lcrypto
-FRAMEWORKS_CMD		= -framework Foundation -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo
+LIBRARIES_CMD		= -lboost_filesystem -lboost_regex -lboost_system -lboost_thread -lfreeimage -lfreetype  -lbz2 -lcurl -lssl -lcrypto
+FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo

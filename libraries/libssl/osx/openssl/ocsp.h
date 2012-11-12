@@ -64,8 +64,7 @@
 #ifndef HEADER_OCSP_H
 #define HEADER_OCSP_H
 
-#include <AvailabilityMacros.h>
-
+#include <openssl/ossl_typ.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 #include <openssl/safestack.h>
@@ -396,144 +395,140 @@ typedef struct ocsp_service_locator_st
 #define ASN1_BIT_STRING_digest(data,type,md,len) \
 	ASN1_item_digest(ASN1_ITEM_rptr(ASN1_BIT_STRING),type,data,md,len)
 
-#define OCSP_CERTID_dup(cid) ASN1_dup_of(OCSP_CERTID,i2d_OCSP_CERTID,d2i_OCSP_CERTID,cid)
-
 #define OCSP_CERTSTATUS_dup(cs)\
                 (OCSP_CERTSTATUS*)ASN1_dup((int(*)())i2d_OCSP_CERTSTATUS,\
 		(char *(*)())d2i_OCSP_CERTSTATUS,(char *)(cs))
 
-OCSP_RESPONSE *OCSP_sendreq_bio(BIO *b, char *path, OCSP_REQUEST *req) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_REQ_CTX *OCSP_sendreq_new(BIO *io, char *path, OCSP_REQUEST *req,
-								int maxline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OCSP_REQ_CTX *rctx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+OCSP_CERTID *OCSP_CERTID_dup(OCSP_CERTID *id);
 
-OCSP_CERTID *OCSP_cert_to_id(const EVP_MD *dgst, X509 *subject, X509 *issuer) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+OCSP_RESPONSE *OCSP_sendreq_bio(BIO *b, char *path, OCSP_REQUEST *req);
+OCSP_REQ_CTX *OCSP_sendreq_new(BIO *io, char *path, OCSP_REQUEST *req,
+								int maxline);
+int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OCSP_REQ_CTX *rctx);
+void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx);
+int OCSP_REQ_CTX_set1_req(OCSP_REQ_CTX *rctx, OCSP_REQUEST *req);
+int OCSP_REQ_CTX_add1_header(OCSP_REQ_CTX *rctx,
+		const char *name, const char *value);
+
+OCSP_CERTID *OCSP_cert_to_id(const EVP_MD *dgst, X509 *subject, X509 *issuer);
 
 OCSP_CERTID *OCSP_cert_id_new(const EVP_MD *dgst, 
 			      X509_NAME *issuerName, 
 			      ASN1_BIT_STRING* issuerKey, 
-			      ASN1_INTEGER *serialNumber) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			      ASN1_INTEGER *serialNumber);
 
-OCSP_ONEREQ *OCSP_request_add0_id(OCSP_REQUEST *req, OCSP_CERTID *cid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+OCSP_ONEREQ *OCSP_request_add0_id(OCSP_REQUEST *req, OCSP_CERTID *cid);
 
-int OCSP_request_add1_nonce(OCSP_REQUEST *req, unsigned char *val, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_basic_add1_nonce(OCSP_BASICRESP *resp, unsigned char *val, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *bs) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_copy_nonce(OCSP_BASICRESP *resp, OCSP_REQUEST *req) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_request_add1_nonce(OCSP_REQUEST *req, unsigned char *val, int len);
+int OCSP_basic_add1_nonce(OCSP_BASICRESP *resp, unsigned char *val, int len);
+int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *bs);
+int OCSP_copy_nonce(OCSP_BASICRESP *resp, OCSP_REQUEST *req);
 
-int OCSP_request_set1_name(OCSP_REQUEST *req, X509_NAME *nm) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_request_add1_cert(OCSP_REQUEST *req, X509 *cert) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_request_set1_name(OCSP_REQUEST *req, X509_NAME *nm);
+int OCSP_request_add1_cert(OCSP_REQUEST *req, X509 *cert);
 
 int OCSP_request_sign(OCSP_REQUEST   *req,
 		      X509           *signer,
 		      EVP_PKEY       *key,
 		      const EVP_MD   *dgst,
 		      STACK_OF(X509) *certs,
-		      unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		      unsigned long flags);
 
-int OCSP_response_status(OCSP_RESPONSE *resp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_BASICRESP *OCSP_response_get1_basic(OCSP_RESPONSE *resp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_response_status(OCSP_RESPONSE *resp);
+OCSP_BASICRESP *OCSP_response_get1_basic(OCSP_RESPONSE *resp);
 
-int OCSP_resp_count(OCSP_BASICRESP *bs) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_SINGLERESP *OCSP_resp_get0(OCSP_BASICRESP *bs, int idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_resp_find(OCSP_BASICRESP *bs, OCSP_CERTID *id, int last) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_resp_count(OCSP_BASICRESP *bs);
+OCSP_SINGLERESP *OCSP_resp_get0(OCSP_BASICRESP *bs, int idx);
+int OCSP_resp_find(OCSP_BASICRESP *bs, OCSP_CERTID *id, int last);
 int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
 				ASN1_GENERALIZEDTIME **revtime,
 				ASN1_GENERALIZEDTIME **thisupd,
-				ASN1_GENERALIZEDTIME **nextupd) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				ASN1_GENERALIZEDTIME **nextupd);
 int OCSP_resp_find_status(OCSP_BASICRESP *bs, OCSP_CERTID *id, int *status,
 				int *reason,
 				ASN1_GENERALIZEDTIME **revtime,
 				ASN1_GENERALIZEDTIME **thisupd,
-				ASN1_GENERALIZEDTIME **nextupd) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				ASN1_GENERALIZEDTIME **nextupd);
 int OCSP_check_validity(ASN1_GENERALIZEDTIME *thisupd,
 			ASN1_GENERALIZEDTIME *nextupd,
-			long sec, long maxsec) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long sec, long maxsec);
 
-int OCSP_request_verify(OCSP_REQUEST *req, STACK_OF(X509) *certs, X509_STORE *store, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_request_verify(OCSP_REQUEST *req, STACK_OF(X509) *certs, X509_STORE *store, unsigned long flags);
 
-int OCSP_parse_url(char *url, char **phost, char **pport, char **ppath, int *pssl) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_parse_url(char *url, char **phost, char **pport, char **ppath, int *pssl);
 
-int OCSP_id_issuer_cmp(OCSP_CERTID *a, OCSP_CERTID *b) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_id_issuer_cmp(OCSP_CERTID *a, OCSP_CERTID *b);
+int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b);
 
-int OCSP_request_onereq_count(OCSP_REQUEST *req) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_CERTID *OCSP_onereq_get0_id(OCSP_ONEREQ *one) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_request_onereq_count(OCSP_REQUEST *req);
+OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);
+OCSP_CERTID *OCSP_onereq_get0_id(OCSP_ONEREQ *one);
 int OCSP_id_get0_info(ASN1_OCTET_STRING **piNameHash, ASN1_OBJECT **pmd,
 			ASN1_OCTET_STRING **pikeyHash,
-			ASN1_INTEGER **pserial, OCSP_CERTID *cid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_request_is_signed(OCSP_REQUEST *req) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-OCSP_RESPONSE *OCSP_response_create(int status, OCSP_BASICRESP *bs) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			ASN1_INTEGER **pserial, OCSP_CERTID *cid);
+int OCSP_request_is_signed(OCSP_REQUEST *req);
+OCSP_RESPONSE *OCSP_response_create(int status, OCSP_BASICRESP *bs);
 OCSP_SINGLERESP *OCSP_basic_add1_status(OCSP_BASICRESP *rsp,
 						OCSP_CERTID *cid,
 						int status, int reason,
 						ASN1_TIME *revtime,
-					ASN1_TIME *thisupd, ASN1_TIME *nextupd) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_basic_add1_cert(OCSP_BASICRESP *resp, X509 *cert) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+					ASN1_TIME *thisupd, ASN1_TIME *nextupd);
+int OCSP_basic_add1_cert(OCSP_BASICRESP *resp, X509 *cert);
 int OCSP_basic_sign(OCSP_BASICRESP *brsp, 
 			X509 *signer, EVP_PKEY *key, const EVP_MD *dgst,
-			STACK_OF(X509) *certs, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			STACK_OF(X509) *certs, unsigned long flags);
 
-ASN1_STRING *ASN1_STRING_encode(ASN1_STRING *s, i2d_of_void *i2d,
-				void *data, STACK_OF(ASN1_OBJECT) *sk) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-#define ASN1_STRING_encode_of(type,s,i2d,data,sk) \
-	ASN1_STRING_encode(s, CHECKED_I2D_OF(type, i2d), data, sk)
+X509_EXTENSION *OCSP_crlID_new(char *url, long *n, char *tim);
 
-X509_EXTENSION *OCSP_crlID_new(char *url, long *n, char *tim) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+X509_EXTENSION *OCSP_accept_responses_new(char **oids);
 
-X509_EXTENSION *OCSP_crlID_new(char *url, long *n, char *tim) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+X509_EXTENSION *OCSP_archive_cutoff_new(char* tim);
 
-X509_EXTENSION *OCSP_accept_responses_new(char **oids) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+X509_EXTENSION *OCSP_url_svcloc_new(X509_NAME* issuer, char **urls);
 
-X509_EXTENSION *OCSP_archive_cutoff_new(char* tim) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-
-X509_EXTENSION *OCSP_url_svcloc_new(X509_NAME* issuer, char **urls) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-
-int OCSP_REQUEST_get_ext_count(OCSP_REQUEST *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_REQUEST_get_ext_by_NID(OCSP_REQUEST *x, int nid, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_REQUEST_get_ext_by_OBJ(OCSP_REQUEST *x, ASN1_OBJECT *obj, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_REQUEST_get_ext_by_critical(OCSP_REQUEST *x, int crit, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_REQUEST_get_ext(OCSP_REQUEST *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_REQUEST_delete_ext(OCSP_REQUEST *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *OCSP_REQUEST_get1_ext_d2i(OCSP_REQUEST *x, int nid, int *crit, int *idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_REQUEST_get_ext_count(OCSP_REQUEST *x);
+int OCSP_REQUEST_get_ext_by_NID(OCSP_REQUEST *x, int nid, int lastpos);
+int OCSP_REQUEST_get_ext_by_OBJ(OCSP_REQUEST *x, ASN1_OBJECT *obj, int lastpos);
+int OCSP_REQUEST_get_ext_by_critical(OCSP_REQUEST *x, int crit, int lastpos);
+X509_EXTENSION *OCSP_REQUEST_get_ext(OCSP_REQUEST *x, int loc);
+X509_EXTENSION *OCSP_REQUEST_delete_ext(OCSP_REQUEST *x, int loc);
+void *OCSP_REQUEST_get1_ext_d2i(OCSP_REQUEST *x, int nid, int *crit, int *idx);
 int OCSP_REQUEST_add1_ext_i2d(OCSP_REQUEST *x, int nid, void *value, int crit,
-							unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_REQUEST_add_ext(OCSP_REQUEST *x, X509_EXTENSION *ex, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+							unsigned long flags);
+int OCSP_REQUEST_add_ext(OCSP_REQUEST *x, X509_EXTENSION *ex, int loc);
 
-int OCSP_ONEREQ_get_ext_count(OCSP_ONEREQ *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_ONEREQ_get_ext_by_NID(OCSP_ONEREQ *x, int nid, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_ONEREQ_get_ext_by_OBJ(OCSP_ONEREQ *x, ASN1_OBJECT *obj, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_ONEREQ_get_ext_by_critical(OCSP_ONEREQ *x, int crit, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_ONEREQ_get_ext(OCSP_ONEREQ *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_ONEREQ_delete_ext(OCSP_ONEREQ *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *OCSP_ONEREQ_get1_ext_d2i(OCSP_ONEREQ *x, int nid, int *crit, int *idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_ONEREQ_get_ext_count(OCSP_ONEREQ *x);
+int OCSP_ONEREQ_get_ext_by_NID(OCSP_ONEREQ *x, int nid, int lastpos);
+int OCSP_ONEREQ_get_ext_by_OBJ(OCSP_ONEREQ *x, ASN1_OBJECT *obj, int lastpos);
+int OCSP_ONEREQ_get_ext_by_critical(OCSP_ONEREQ *x, int crit, int lastpos);
+X509_EXTENSION *OCSP_ONEREQ_get_ext(OCSP_ONEREQ *x, int loc);
+X509_EXTENSION *OCSP_ONEREQ_delete_ext(OCSP_ONEREQ *x, int loc);
+void *OCSP_ONEREQ_get1_ext_d2i(OCSP_ONEREQ *x, int nid, int *crit, int *idx);
 int OCSP_ONEREQ_add1_ext_i2d(OCSP_ONEREQ *x, int nid, void *value, int crit,
-							unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_ONEREQ_add_ext(OCSP_ONEREQ *x, X509_EXTENSION *ex, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+							unsigned long flags);
+int OCSP_ONEREQ_add_ext(OCSP_ONEREQ *x, X509_EXTENSION *ex, int loc);
 
-int OCSP_BASICRESP_get_ext_count(OCSP_BASICRESP *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_BASICRESP_get_ext_by_NID(OCSP_BASICRESP *x, int nid, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_BASICRESP_get_ext_by_OBJ(OCSP_BASICRESP *x, ASN1_OBJECT *obj, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_BASICRESP_get_ext_by_critical(OCSP_BASICRESP *x, int crit, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_BASICRESP_get_ext(OCSP_BASICRESP *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_BASICRESP_delete_ext(OCSP_BASICRESP *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *OCSP_BASICRESP_get1_ext_d2i(OCSP_BASICRESP *x, int nid, int *crit, int *idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_BASICRESP_get_ext_count(OCSP_BASICRESP *x);
+int OCSP_BASICRESP_get_ext_by_NID(OCSP_BASICRESP *x, int nid, int lastpos);
+int OCSP_BASICRESP_get_ext_by_OBJ(OCSP_BASICRESP *x, ASN1_OBJECT *obj, int lastpos);
+int OCSP_BASICRESP_get_ext_by_critical(OCSP_BASICRESP *x, int crit, int lastpos);
+X509_EXTENSION *OCSP_BASICRESP_get_ext(OCSP_BASICRESP *x, int loc);
+X509_EXTENSION *OCSP_BASICRESP_delete_ext(OCSP_BASICRESP *x, int loc);
+void *OCSP_BASICRESP_get1_ext_d2i(OCSP_BASICRESP *x, int nid, int *crit, int *idx);
 int OCSP_BASICRESP_add1_ext_i2d(OCSP_BASICRESP *x, int nid, void *value, int crit,
-							unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_BASICRESP_add_ext(OCSP_BASICRESP *x, X509_EXTENSION *ex, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+							unsigned long flags);
+int OCSP_BASICRESP_add_ext(OCSP_BASICRESP *x, X509_EXTENSION *ex, int loc);
 
-int OCSP_SINGLERESP_get_ext_count(OCSP_SINGLERESP *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_SINGLERESP_get_ext_by_NID(OCSP_SINGLERESP *x, int nid, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_SINGLERESP_get_ext_by_OBJ(OCSP_SINGLERESP *x, ASN1_OBJECT *obj, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_SINGLERESP_get_ext_by_critical(OCSP_SINGLERESP *x, int crit, int lastpos) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_SINGLERESP_get_ext(OCSP_SINGLERESP *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-X509_EXTENSION *OCSP_SINGLERESP_delete_ext(OCSP_SINGLERESP *x, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *OCSP_SINGLERESP_get1_ext_d2i(OCSP_SINGLERESP *x, int nid, int *crit, int *idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_SINGLERESP_get_ext_count(OCSP_SINGLERESP *x);
+int OCSP_SINGLERESP_get_ext_by_NID(OCSP_SINGLERESP *x, int nid, int lastpos);
+int OCSP_SINGLERESP_get_ext_by_OBJ(OCSP_SINGLERESP *x, ASN1_OBJECT *obj, int lastpos);
+int OCSP_SINGLERESP_get_ext_by_critical(OCSP_SINGLERESP *x, int crit, int lastpos);
+X509_EXTENSION *OCSP_SINGLERESP_get_ext(OCSP_SINGLERESP *x, int loc);
+X509_EXTENSION *OCSP_SINGLERESP_delete_ext(OCSP_SINGLERESP *x, int loc);
+void *OCSP_SINGLERESP_get1_ext_d2i(OCSP_SINGLERESP *x, int nid, int *crit, int *idx);
 int OCSP_SINGLERESP_add1_ext_i2d(OCSP_SINGLERESP *x, int nid, void *value, int crit,
-							unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_SINGLERESP_add_ext(OCSP_SINGLERESP *x, X509_EXTENSION *ex, int loc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+							unsigned long flags);
+int OCSP_SINGLERESP_add_ext(OCSP_SINGLERESP *x, X509_EXTENSION *ex, int loc);
 
 DECLARE_ASN1_FUNCTIONS(OCSP_SINGLERESP)
 DECLARE_ASN1_FUNCTIONS(OCSP_CERTSTATUS)
@@ -551,21 +546,21 @@ DECLARE_ASN1_FUNCTIONS(OCSP_REQINFO)
 DECLARE_ASN1_FUNCTIONS(OCSP_CRLID)
 DECLARE_ASN1_FUNCTIONS(OCSP_SERVICELOC)
 
-char *OCSP_response_status_str(long s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *OCSP_cert_status_str(long s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *OCSP_crl_reason_str(long s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *OCSP_response_status_str(long s);
+const char *OCSP_cert_status_str(long s);
+const char *OCSP_crl_reason_str(long s);
 
-int OCSP_REQUEST_print(BIO *bp, OCSP_REQUEST* a, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OCSP_RESPONSE_print(BIO *bp, OCSP_RESPONSE* o, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OCSP_REQUEST_print(BIO *bp, OCSP_REQUEST* a, unsigned long flags);
+int OCSP_RESPONSE_print(BIO *bp, OCSP_RESPONSE* o, unsigned long flags);
 
 int OCSP_basic_verify(OCSP_BASICRESP *bs, STACK_OF(X509) *certs,
-				X509_STORE *st, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				X509_STORE *st, unsigned long flags);
 
 /* BEGIN ERROR CODES */
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_OCSP_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_OCSP_strings(void);
 
 /* Error codes for the OCSP functions. */
 
@@ -586,7 +581,8 @@ void ERR_load_OCSP_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define OCSP_F_OCSP_REQUEST_VERIFY			 116
 #define OCSP_F_OCSP_RESPONSE_GET1_BASIC			 111
 #define OCSP_F_OCSP_SENDREQ_BIO				 112
-#define OCSP_F_PARSE_HTTP_LINE1				 117
+#define OCSP_F_OCSP_SENDREQ_NBIO			 117
+#define OCSP_F_PARSE_HTTP_LINE1				 118
 #define OCSP_F_REQUEST_VERIFY				 113
 
 /* Reason codes. */

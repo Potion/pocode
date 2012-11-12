@@ -26,8 +26,6 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef VECTORIZE2_VEC
-
 #define VECTORIZE2_VEC(func) \
     template <typename T> \
     GLM_FUNC_QUALIFIER detail::tvec2<T> func( \
@@ -159,5 +157,3 @@
 	VECTORIZE2_VEC_VEC(func) \
 	VECTORIZE3_VEC_VEC(func) \
 	VECTORIZE4_VEC_VEC(func)
-
-#endif

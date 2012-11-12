@@ -64,8 +64,6 @@
 #ifndef HEADER_ENGINE_H
 #define HEADER_ENGINE_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/opensslconf.h>
 
 #ifdef OPENSSL_NO_ENGINE
@@ -90,15 +88,14 @@
 #include <openssl/ecdsa.h>
 #endif
 #include <openssl/rand.h>
-#include <openssl/store.h>
 #include <openssl/ui.h>
 #include <openssl/err.h>
 #endif
 
-#include <openssl/x509.h>
-
 #include <openssl/ossl_typ.h>
 #include <openssl/symhacks.h>
+
+#include <openssl/x509.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -115,6 +112,8 @@ extern "C" {
 #define ENGINE_METHOD_CIPHERS		(unsigned int)0x0040
 #define ENGINE_METHOD_DIGESTS		(unsigned int)0x0080
 #define ENGINE_METHOD_STORE		(unsigned int)0x0100
+#define ENGINE_METHOD_PKEY_METHS	(unsigned int)0x0200
+#define ENGINE_METHOD_PKEY_ASN1_METHS	(unsigned int)0x0400
 /* Obvious all-or-nothing cases. */
 #define ENGINE_METHOD_ALL		(unsigned int)0xFFFF
 #define ENGINE_METHOD_NONE		(unsigned int)0x0000
@@ -141,6 +140,13 @@ extern "C" {
  * Normally, ENGINEs don't declare this flag so ENGINE_by_id() just increments
  * the existing ENGINE's structural reference count. */
 #define ENGINE_FLAGS_BY_ID_COPY		(int)0x0004
+
+/* This flag if for an ENGINE that does not want its methods registered as 
+ * part of ENGINE_register_all_complete() for example if the methods are
+ * not usable as default methods.
+ */
+
+#define ENGINE_FLAGS_NO_REGISTER_ALL	(int)0x0008
 
 /* ENGINEs can support their own command types, and these flags are used in
  * ENGINE_CTRL_GET_CMD_FLAGS to indicate to the caller what kind of input each
@@ -299,7 +305,8 @@ typedef int (*ENGINE_SSL_CLIENT_CERT_PTR)(ENGINE *, SSL *ssl,
  * parameter is non-NULL it is set to the size of the returned array. */
 typedef int (*ENGINE_CIPHERS_PTR)(ENGINE *, const EVP_CIPHER **, const int **, int);
 typedef int (*ENGINE_DIGESTS_PTR)(ENGINE *, const EVP_MD **, const int **, int);
-
+typedef int (*ENGINE_PKEY_METHS_PTR)(ENGINE *, EVP_PKEY_METHOD **, const int **, int);
+typedef int (*ENGINE_PKEY_ASN1_METHS_PTR)(ENGINE *, EVP_PKEY_ASN1_METHOD **, const int **, int);
 /* STRUCTURE functions ... all of these functions deal with pointers to ENGINE
  * structures where the pointers have a "structural reference". This means that
  * their reference is to allowed access to the structure but it does not imply
@@ -311,46 +318,47 @@ typedef int (*ENGINE_DIGESTS_PTR)(ENGINE *, const EVP_MD **, const int **, int);
  * is NULL). */
 
 /* Get the first/last "ENGINE" type available. */
-ENGINE *ENGINE_get_first(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_last(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_get_first(void);
+ENGINE *ENGINE_get_last(void);
 /* Iterate to the next/previous "ENGINE" type (NULL = end of the list). */
-ENGINE *ENGINE_get_next(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_prev(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_get_next(ENGINE *e);
+ENGINE *ENGINE_get_prev(ENGINE *e);
 /* Add another "ENGINE" type into the array. */
-int ENGINE_add(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_add(ENGINE *e);
 /* Remove an existing "ENGINE" type from the array. */
-int ENGINE_remove(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_remove(ENGINE *e);
 /* Retrieve an engine from the list by its unique "id" value. */
-ENGINE *ENGINE_by_id(const char *id) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_by_id(const char *id);
 /* Add all the built-in engines. */
-void ENGINE_load_openssl(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_dynamic(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ENGINE_load_openssl(void);
+void ENGINE_load_dynamic(void);
 #ifndef OPENSSL_NO_STATIC_ENGINE
-void ENGINE_load_4758cca(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_aep(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_atalla(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_chil(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_cswift(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ENGINE_load_4758cca(void);
+void ENGINE_load_aep(void);
+void ENGINE_load_atalla(void);
+void ENGINE_load_chil(void);
+void ENGINE_load_cswift(void);
+void ENGINE_load_nuron(void);
+void ENGINE_load_sureware(void);
+void ENGINE_load_ubsec(void);
+void ENGINE_load_padlock(void);
+void ENGINE_load_capi(void);
 #ifndef OPENSSL_NO_GMP
-void ENGINE_load_gmp(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ENGINE_load_gmp(void);
 #endif
-void ENGINE_load_nuron(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_sureware(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_ubsec(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-#endif
-void ENGINE_load_cryptodev(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_padlock(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_load_builtin_engines(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-#ifdef OPENSSL_SYS_WIN32
-#ifndef OPENSSL_NO_CAPIENG
-void ENGINE_load_capi(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+#ifndef OPENSSL_NO_GOST
+void ENGINE_load_gost(void);
 #endif
 #endif
+void ENGINE_load_cryptodev(void);
+void ENGINE_load_rsax(void);
+void ENGINE_load_rdrand(void);
+void ENGINE_load_builtin_engines(void);
 
 /* Get and set global flags (ENGINE_TABLE_FLAG_***) for the implementation
  * "registry" handling. */
-unsigned int ENGINE_get_table_flags(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_set_table_flags(unsigned int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+unsigned int ENGINE_get_table_flags(void);
+void ENGINE_set_table_flags(unsigned int flags);
 
 /* Manage registration of ENGINEs per "table". For each type, there are 3
  * functions;
@@ -360,48 +368,56 @@ void ENGINE_set_table_flags(unsigned int flags) DEPRECATED_IN_MAC_OS_X_VERSION_1
  * Cleanup is automatically registered from each table when required, so
  * ENGINE_cleanup() will reverse any "register" operations. */
 
-int ENGINE_register_RSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_RSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_RSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_RSA(ENGINE *e);
+void ENGINE_unregister_RSA(ENGINE *e);
+void ENGINE_register_all_RSA(void);
 
-int ENGINE_register_DSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_DSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_DSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_DSA(ENGINE *e);
+void ENGINE_unregister_DSA(ENGINE *e);
+void ENGINE_register_all_DSA(void);
 
-int ENGINE_register_ECDH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_ECDH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_ECDH(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_ECDH(ENGINE *e);
+void ENGINE_unregister_ECDH(ENGINE *e);
+void ENGINE_register_all_ECDH(void);
 
-int ENGINE_register_ECDSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_ECDSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_ECDSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_ECDSA(ENGINE *e);
+void ENGINE_unregister_ECDSA(ENGINE *e);
+void ENGINE_register_all_ECDSA(void);
 
-int ENGINE_register_DH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_DH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_DH(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_DH(ENGINE *e);
+void ENGINE_unregister_DH(ENGINE *e);
+void ENGINE_register_all_DH(void);
 
-int ENGINE_register_RAND(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_RAND(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_RAND(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_RAND(ENGINE *e);
+void ENGINE_unregister_RAND(ENGINE *e);
+void ENGINE_register_all_RAND(void);
 
-int ENGINE_register_STORE(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_STORE(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_STORE(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_STORE(ENGINE *e);
+void ENGINE_unregister_STORE(ENGINE *e);
+void ENGINE_register_all_STORE(void);
 
-int ENGINE_register_ciphers(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_ciphers(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_ciphers(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_ciphers(ENGINE *e);
+void ENGINE_unregister_ciphers(ENGINE *e);
+void ENGINE_register_all_ciphers(void);
 
-int ENGINE_register_digests(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_unregister_digests(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ENGINE_register_all_digests(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_digests(ENGINE *e);
+void ENGINE_unregister_digests(ENGINE *e);
+void ENGINE_register_all_digests(void);
+
+int ENGINE_register_pkey_meths(ENGINE *e);
+void ENGINE_unregister_pkey_meths(ENGINE *e);
+void ENGINE_register_all_pkey_meths(void);
+
+int ENGINE_register_pkey_asn1_meths(ENGINE *e);
+void ENGINE_unregister_pkey_asn1_meths(ENGINE *e);
+void ENGINE_register_all_pkey_asn1_meths(void);
 
 /* These functions register all support from the above categories. Note, use of
  * these functions can result in static linkage of code your application may not
  * need. If you only need a subset of functionality, consider using more
  * selective initialisation. */
-int ENGINE_register_complete(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_register_all_complete(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_register_complete(ENGINE *e);
+int ENGINE_register_all_complete(void);
 
 /* Send parametrised control commands to the engine. The possibilities to send
  * down an integer, a pointer to data or a function pointer are provided. Any of
@@ -410,20 +426,20 @@ int ENGINE_register_all_complete(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_L
  * reference to an engine, but many control commands may require the engine be
  * functional. The caller should be aware of trying commands that require an
  * operational ENGINE, and only use functional references in such situations. */
-int ENGINE_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f)(void)) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f)(void));
 
 /* This function tests if an ENGINE-specific command is usable as a "setting".
  * Eg. in an application's config file that gets processed through
  * ENGINE_ctrl_cmd_string(). If this returns zero, it is not available to
  * ENGINE_ctrl_cmd_string(), only ENGINE_ctrl(). */
-int ENGINE_cmd_is_executable(ENGINE *e, int cmd) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_cmd_is_executable(ENGINE *e, int cmd);
 
 /* This function works like ENGINE_ctrl() with the exception of taking a
  * command name instead of a command number, and can handle optional commands.
  * See the comment on ENGINE_ctrl_cmd_string() for an explanation on how to
  * use the cmd_name and cmd_optional. */
 int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,
-        long i, void *p, void (*f)(void), int cmd_optional) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+        long i, void *p, void (*f)(void), int cmd_optional);
 
 /* This function passes a command-name and argument to an ENGINE. The cmd_name
  * is converted to a command number and the control command is called using
@@ -445,7 +461,7 @@ int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,
  * compliant ENGINE-based applications can work consistently with the same
  * configuration for the same ENGINE-enabled devices, across applications. */
 int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,
-				int cmd_optional) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				int cmd_optional);
 
 /* These functions are useful for manufacturing new ENGINE structures. They
  * don't address reference counting at all - one uses them to populate an ENGINE
@@ -453,68 +469,78 @@ int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,
  * directly or adding it to the builtin ENGINE list in OpenSSL. These are also
  * here so that the ENGINE structure doesn't have to be exposed and break binary
  * compatibility! */
-ENGINE *ENGINE_new(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_free(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_up_ref(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_id(ENGINE *e, const char *id) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_name(ENGINE *e, const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_RSA(ENGINE *e, const RSA_METHOD *rsa_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_DSA(ENGINE *e, const DSA_METHOD *dsa_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_ECDH(ENGINE *e, const ECDH_METHOD *ecdh_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_ECDSA(ENGINE *e, const ECDSA_METHOD *ecdsa_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_DH(ENGINE *e, const DH_METHOD *dh_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_RAND(ENGINE *e, const RAND_METHOD *rand_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_STORE(ENGINE *e, const STORE_METHOD *store_meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR destroy_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_init_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR init_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR finish_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_ctrl_function(ENGINE *e, ENGINE_CTRL_FUNC_PTR ctrl_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpriv_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpub_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_new(void);
+int ENGINE_free(ENGINE *e);
+int ENGINE_up_ref(ENGINE *e);
+int ENGINE_set_id(ENGINE *e, const char *id);
+int ENGINE_set_name(ENGINE *e, const char *name);
+int ENGINE_set_RSA(ENGINE *e, const RSA_METHOD *rsa_meth);
+int ENGINE_set_DSA(ENGINE *e, const DSA_METHOD *dsa_meth);
+int ENGINE_set_ECDH(ENGINE *e, const ECDH_METHOD *ecdh_meth);
+int ENGINE_set_ECDSA(ENGINE *e, const ECDSA_METHOD *ecdsa_meth);
+int ENGINE_set_DH(ENGINE *e, const DH_METHOD *dh_meth);
+int ENGINE_set_RAND(ENGINE *e, const RAND_METHOD *rand_meth);
+int ENGINE_set_STORE(ENGINE *e, const STORE_METHOD *store_meth);
+int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR destroy_f);
+int ENGINE_set_init_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR init_f);
+int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR finish_f);
+int ENGINE_set_ctrl_function(ENGINE *e, ENGINE_CTRL_FUNC_PTR ctrl_f);
+int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpriv_f);
+int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpub_f);
 int ENGINE_set_load_ssl_client_cert_function(ENGINE *e,
-				ENGINE_SSL_CLIENT_CERT_PTR loadssl_f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_ciphers(ENGINE *e, ENGINE_CIPHERS_PTR f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_digests(ENGINE *e, ENGINE_DIGESTS_PTR f) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_flags(ENGINE *e, int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_cmd_defns(ENGINE *e, const ENGINE_CMD_DEFN *defns) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				ENGINE_SSL_CLIENT_CERT_PTR loadssl_f);
+int ENGINE_set_ciphers(ENGINE *e, ENGINE_CIPHERS_PTR f);
+int ENGINE_set_digests(ENGINE *e, ENGINE_DIGESTS_PTR f);
+int ENGINE_set_pkey_meths(ENGINE *e, ENGINE_PKEY_METHS_PTR f);
+int ENGINE_set_pkey_asn1_meths(ENGINE *e, ENGINE_PKEY_ASN1_METHS_PTR f);
+int ENGINE_set_flags(ENGINE *e, int flags);
+int ENGINE_set_cmd_defns(ENGINE *e, const ENGINE_CMD_DEFN *defns);
 /* These functions allow control over any per-structure ENGINE data. */
 int ENGINE_get_ex_new_index(long argl, void *argp, CRYPTO_EX_new *new_func,
-		CRYPTO_EX_dup *dup_func, CRYPTO_EX_free *free_func) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_ex_data(ENGINE *e, int idx, void *arg) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *ENGINE_get_ex_data(const ENGINE *e, int idx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		CRYPTO_EX_dup *dup_func, CRYPTO_EX_free *free_func);
+int ENGINE_set_ex_data(ENGINE *e, int idx, void *arg);
+void *ENGINE_get_ex_data(const ENGINE *e, int idx);
 
 /* This function cleans up anything that needs it. Eg. the ENGINE_add() function
  * automatically ensures the list cleanup function is registered to be called
  * from ENGINE_cleanup(). Similarly, all ENGINE_register_*** functions ensure
  * ENGINE_cleanup() will clean up after them. */
-void ENGINE_cleanup(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ENGINE_cleanup(void);
 
 /* These return values from within the ENGINE structure. These can be useful
  * with functional references as well as structural references - it depends
  * which you obtained. Using the result for functional purposes if you only
  * obtained a structural reference may be problematic! */
-const char *ENGINE_get_id(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *ENGINE_get_name(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const RSA_METHOD *ENGINE_get_RSA(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const DSA_METHOD *ENGINE_get_DSA(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const ECDH_METHOD *ENGINE_get_ECDH(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const ECDSA_METHOD *ENGINE_get_ECDSA(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const DH_METHOD *ENGINE_get_DH(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const RAND_METHOD *ENGINE_get_RAND(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const STORE_METHOD *ENGINE_get_STORE(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_GEN_INT_FUNC_PTR ENGINE_get_destroy_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_GEN_INT_FUNC_PTR ENGINE_get_init_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_GEN_INT_FUNC_PTR ENGINE_get_finish_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_CTRL_FUNC_PTR ENGINE_get_ctrl_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_LOAD_KEY_PTR ENGINE_get_load_privkey_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_LOAD_KEY_PTR ENGINE_get_load_pubkey_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_SSL_CLIENT_CERT_PTR ENGINE_get_ssl_client_cert_function(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_CIPHERS_PTR ENGINE_get_ciphers(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE_DIGESTS_PTR ENGINE_get_digests(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const EVP_CIPHER *ENGINE_get_cipher(ENGINE *e, int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const EVP_MD *ENGINE_get_digest(ENGINE *e, int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const ENGINE_CMD_DEFN *ENGINE_get_cmd_defns(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_get_flags(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *ENGINE_get_id(const ENGINE *e);
+const char *ENGINE_get_name(const ENGINE *e);
+const RSA_METHOD *ENGINE_get_RSA(const ENGINE *e);
+const DSA_METHOD *ENGINE_get_DSA(const ENGINE *e);
+const ECDH_METHOD *ENGINE_get_ECDH(const ENGINE *e);
+const ECDSA_METHOD *ENGINE_get_ECDSA(const ENGINE *e);
+const DH_METHOD *ENGINE_get_DH(const ENGINE *e);
+const RAND_METHOD *ENGINE_get_RAND(const ENGINE *e);
+const STORE_METHOD *ENGINE_get_STORE(const ENGINE *e);
+ENGINE_GEN_INT_FUNC_PTR ENGINE_get_destroy_function(const ENGINE *e);
+ENGINE_GEN_INT_FUNC_PTR ENGINE_get_init_function(const ENGINE *e);
+ENGINE_GEN_INT_FUNC_PTR ENGINE_get_finish_function(const ENGINE *e);
+ENGINE_CTRL_FUNC_PTR ENGINE_get_ctrl_function(const ENGINE *e);
+ENGINE_LOAD_KEY_PTR ENGINE_get_load_privkey_function(const ENGINE *e);
+ENGINE_LOAD_KEY_PTR ENGINE_get_load_pubkey_function(const ENGINE *e);
+ENGINE_SSL_CLIENT_CERT_PTR ENGINE_get_ssl_client_cert_function(const ENGINE *e);
+ENGINE_CIPHERS_PTR ENGINE_get_ciphers(const ENGINE *e);
+ENGINE_DIGESTS_PTR ENGINE_get_digests(const ENGINE *e);
+ENGINE_PKEY_METHS_PTR ENGINE_get_pkey_meths(const ENGINE *e);
+ENGINE_PKEY_ASN1_METHS_PTR ENGINE_get_pkey_asn1_meths(const ENGINE *e);
+const EVP_CIPHER *ENGINE_get_cipher(ENGINE *e, int nid);
+const EVP_MD *ENGINE_get_digest(ENGINE *e, int nid);
+const EVP_PKEY_METHOD *ENGINE_get_pkey_meth(ENGINE *e, int nid);
+const EVP_PKEY_ASN1_METHOD *ENGINE_get_pkey_asn1_meth(ENGINE *e, int nid);
+const EVP_PKEY_ASN1_METHOD *ENGINE_get_pkey_asn1_meth_str(ENGINE *e,
+					const char *str, int len);
+const EVP_PKEY_ASN1_METHOD *ENGINE_pkey_asn1_find_str(ENGINE **pe,
+					const char *str, int len);
+const ENGINE_CMD_DEFN *ENGINE_get_cmd_defns(const ENGINE *e);
+int ENGINE_get_flags(const ENGINE *e);
 
 /* FUNCTIONAL functions. These functions deal with ENGINE structures
  * that have (or will) be initialised for use. Broadly speaking, the
@@ -531,63 +557,67 @@ int ENGINE_get_flags(const ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LA
 /* Initialise a engine type for use (or up its reference count if it's
  * already in use). This will fail if the engine is not currently
  * operational and cannot initialise. */
-int ENGINE_init(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_init(ENGINE *e);
 /* Free a functional reference to a engine type. This does not require
  * a corresponding call to ENGINE_free as it also releases a structural
  * reference. */
-int ENGINE_finish(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_finish(ENGINE *e);
 
 /* The following functions handle keys that are stored in some secondary
  * location, handled by the engine.  The storage may be on a card or
  * whatever. */
 EVP_PKEY *ENGINE_load_private_key(ENGINE *e, const char *key_id,
-	UI_METHOD *ui_method, void *callback_data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	UI_METHOD *ui_method, void *callback_data);
 EVP_PKEY *ENGINE_load_public_key(ENGINE *e, const char *key_id,
-	UI_METHOD *ui_method, void *callback_data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	UI_METHOD *ui_method, void *callback_data);
 int ENGINE_load_ssl_client_cert(ENGINE *e, SSL *s,
 	STACK_OF(X509_NAME) *ca_dn, X509 **pcert, EVP_PKEY **ppkey,
 	STACK_OF(X509) **pother,
-	UI_METHOD *ui_method, void *callback_data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	UI_METHOD *ui_method, void *callback_data);
 
 /* This returns a pointer for the current ENGINE structure that
  * is (by default) performing any RSA operations. The value returned
  * is an incremented reference, so it should be free'd (ENGINE_finish)
  * before it is discarded. */
-ENGINE *ENGINE_get_default_RSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_get_default_RSA(void);
 /* Same for the other "methods" */
-ENGINE *ENGINE_get_default_DSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_default_ECDH(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_default_ECDSA(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_default_DH(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_default_RAND(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_get_default_DSA(void);
+ENGINE *ENGINE_get_default_ECDH(void);
+ENGINE *ENGINE_get_default_ECDSA(void);
+ENGINE *ENGINE_get_default_DH(void);
+ENGINE *ENGINE_get_default_RAND(void);
 /* These functions can be used to get a functional reference to perform
  * ciphering or digesting corresponding to "nid". */
-ENGINE *ENGINE_get_cipher_engine(int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ENGINE *ENGINE_get_digest_engine(int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ENGINE *ENGINE_get_cipher_engine(int nid);
+ENGINE *ENGINE_get_digest_engine(int nid);
+ENGINE *ENGINE_get_pkey_meth_engine(int nid);
+ENGINE *ENGINE_get_pkey_asn1_meth_engine(int nid);
 
 /* This sets a new default ENGINE structure for performing RSA
  * operations. If the result is non-zero (success) then the ENGINE
  * structure will have had its reference count up'd so the caller
  * should still free their own reference 'e'. */
-int ENGINE_set_default_RSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_string(ENGINE *e, const char *def_list) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_set_default_RSA(ENGINE *e);
+int ENGINE_set_default_string(ENGINE *e, const char *def_list);
 /* Same for the other "methods" */
-int ENGINE_set_default_DSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_ECDH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_ECDSA(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_DH(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_RAND(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_ciphers(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ENGINE_set_default_digests(ENGINE *e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_set_default_DSA(ENGINE *e);
+int ENGINE_set_default_ECDH(ENGINE *e);
+int ENGINE_set_default_ECDSA(ENGINE *e);
+int ENGINE_set_default_DH(ENGINE *e);
+int ENGINE_set_default_RAND(ENGINE *e);
+int ENGINE_set_default_ciphers(ENGINE *e);
+int ENGINE_set_default_digests(ENGINE *e);
+int ENGINE_set_default_pkey_meths(ENGINE *e);
+int ENGINE_set_default_pkey_asn1_meths(ENGINE *e);
 
 /* The combination "set" - the flags are bitwise "OR"d from the
  * ENGINE_METHOD_*** defines above. As with the "ENGINE_register_complete()"
  * function, this function can result in unnecessary static linkage. If your
  * application requires only specific functionality, consider using more
  * selective functions. */
-int ENGINE_set_default(ENGINE *e, unsigned int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ENGINE_set_default(ENGINE *e, unsigned int flags);
 
-void ENGINE_add_conf_module(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ENGINE_add_conf_module(void);
 
 /* Deprecated functions ... */
 /* int ENGINE_clear_defaults(void); */
@@ -656,6 +686,7 @@ typedef struct st_dynamic_fns {
  * can be fully instantiated with IMPLEMENT_DYNAMIC_CHECK_FN(). */
 typedef unsigned long (*dynamic_v_check_fn)(unsigned long ossl_version);
 #define IMPLEMENT_DYNAMIC_CHECK_FN() \
+	OPENSSL_EXPORT unsigned long v_check(unsigned long v); \
 	OPENSSL_EXPORT unsigned long v_check(unsigned long v) { \
 		if(v >= OSSL_DYNAMIC_OLDEST) return OSSL_DYNAMIC_VERSION; \
 		return 0; }
@@ -678,6 +709,8 @@ typedef unsigned long (*dynamic_v_check_fn)(unsigned long ossl_version);
 typedef int (*dynamic_bind_engine)(ENGINE *e, const char *id,
 				const dynamic_fns *fns);
 #define IMPLEMENT_DYNAMIC_BIND_FN(fn) \
+	OPENSSL_EXPORT \
+	int bind_engine(ENGINE *e, const char *id, const dynamic_fns *fns); \
 	OPENSSL_EXPORT \
 	int bind_engine(ENGINE *e, const char *id, const dynamic_fns *fns) { \
 		if(ENGINE_get_static_state() == fns->static_state) goto skip_cbs; \
@@ -705,9 +738,9 @@ typedef int (*dynamic_bind_engine)(ENGINE *e, const char *id,
  * detect this is to have a function that returns a pointer to some static data
  * and let the loading application and loaded ENGINE compare their respective
  * values. */
-void *ENGINE_get_static_state(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ENGINE_get_static_state(void);
 
-#if defined(__OpenBSD__) || defined(__FreeBSD__)
+#if defined(__OpenBSD__) || defined(__FreeBSD__) || defined(HAVE_CRYPTODEV)
 void ENGINE_setup_bsd_cryptodev(void);
 #endif
 
@@ -715,7 +748,7 @@ void ENGINE_setup_bsd_cryptodev(void);
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_ENGINE_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_ENGINE_strings(void);
 
 /* Error codes for the ENGINE functions. */
 
@@ -736,13 +769,15 @@ void ERR_load_ENGINE_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER
 #define ENGINE_F_ENGINE_GET_DEFAULT_TYPE		 177
 #define ENGINE_F_ENGINE_GET_DIGEST			 186
 #define ENGINE_F_ENGINE_GET_NEXT			 115
+#define ENGINE_F_ENGINE_GET_PKEY_ASN1_METH		 193
+#define ENGINE_F_ENGINE_GET_PKEY_METH			 192
 #define ENGINE_F_ENGINE_GET_PREV			 116
 #define ENGINE_F_ENGINE_INIT				 119
 #define ENGINE_F_ENGINE_LIST_ADD			 120
 #define ENGINE_F_ENGINE_LIST_REMOVE			 121
 #define ENGINE_F_ENGINE_LOAD_PRIVATE_KEY		 150
 #define ENGINE_F_ENGINE_LOAD_PUBLIC_KEY			 151
-#define ENGINE_F_ENGINE_LOAD_SSL_CLIENT_CERT		 192
+#define ENGINE_F_ENGINE_LOAD_SSL_CLIENT_CERT		 194
 #define ENGINE_F_ENGINE_NEW				 122
 #define ENGINE_F_ENGINE_REMOVE				 123
 #define ENGINE_F_ENGINE_SET_DEFAULT_STRING		 189
@@ -771,7 +806,7 @@ void ERR_load_ENGINE_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER
 #define ENGINE_R_DSO_FAILURE				 104
 #define ENGINE_R_DSO_NOT_FOUND				 132
 #define ENGINE_R_ENGINES_SECTION_ERROR			 148
-#define ENGINE_R_ENGINE_CONFIGURATION_ERROR		 101
+#define ENGINE_R_ENGINE_CONFIGURATION_ERROR		 102
 #define ENGINE_R_ENGINE_IS_NOT_IN_LIST			 105
 #define ENGINE_R_ENGINE_SECTION_ERROR			 149
 #define ENGINE_R_FAILED_LOADING_PRIVATE_KEY		 128
@@ -798,6 +833,7 @@ void ERR_load_ENGINE_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER
 #define ENGINE_R_RSA_NOT_IMPLEMENTED			 141
 #define ENGINE_R_UNIMPLEMENTED_CIPHER			 146
 #define ENGINE_R_UNIMPLEMENTED_DIGEST			 147
+#define ENGINE_R_UNIMPLEMENTED_PUBLIC_KEY_METHOD	 101
 #define ENGINE_R_VERSION_INCOMPATIBILITY		 145
 
 #ifdef  __cplusplus

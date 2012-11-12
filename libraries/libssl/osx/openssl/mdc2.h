@@ -59,8 +59,6 @@
 #ifndef HEADER_MDC2_H
 #define HEADER_MDC2_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/des.h>
 
 #ifdef  __cplusplus
@@ -82,14 +80,15 @@ typedef struct mdc2_ctx_st
 	int pad_type; /* either 1 or 2, default 1 */
 	} MDC2_CTX;
 
+
 #ifdef OPENSSL_FIPS
-int private_MDC2_Init(MDC2_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int private_MDC2_Init(MDC2_CTX *c);
 #endif
-int MDC2_Init(MDC2_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int MDC2_Update(MDC2_CTX *c, const unsigned char *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int MDC2_Final(unsigned char *md, MDC2_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int MDC2_Init(MDC2_CTX *c);
+int MDC2_Update(MDC2_CTX *c, const unsigned char *data, size_t len);
+int MDC2_Final(unsigned char *md, MDC2_CTX *c);
 unsigned char *MDC2(const unsigned char *d, size_t n,
-	unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	unsigned char *md);
 
 #ifdef  __cplusplus
 }

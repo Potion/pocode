@@ -59,8 +59,6 @@
 #ifndef HEADER_SHA_H
 #define HEADER_SHA_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/e_os2.h>
 #include <stddef.h>
 
@@ -83,7 +81,7 @@ extern "C" {
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
 
-#if defined(OPENSSL_SYS_WIN16) || defined(__LP32__)
+#if defined(__LP32__)
 #define SHA_LONG unsigned long
 #elif defined(OPENSSL_SYS_CRAY) || defined(__ILP64__)
 #define SHA_LONG unsigned long
@@ -109,20 +107,23 @@ typedef struct SHAstate_st
 
 #ifndef OPENSSL_NO_SHA0
 #ifdef OPENSSL_FIPS
-int private_SHA_Init(SHA_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int private_SHA_Init(SHA_CTX *c);
 #endif
-int SHA_Init(SHA_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA_Update(SHA_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA_Final(unsigned char *md, SHA_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA(const unsigned char *d, size_t n, unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void SHA_Transform(SHA_CTX *c, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int SHA_Init(SHA_CTX *c);
+int SHA_Update(SHA_CTX *c, const void *data, size_t len);
+int SHA_Final(unsigned char *md, SHA_CTX *c);
+unsigned char *SHA(const unsigned char *d, size_t n, unsigned char *md);
+void SHA_Transform(SHA_CTX *c, const unsigned char *data);
 #endif
 #ifndef OPENSSL_NO_SHA1
-int SHA1_Init(SHA_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA1_Update(SHA_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA1_Final(unsigned char *md, SHA_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA1(const unsigned char *d, size_t n, unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void SHA1_Transform(SHA_CTX *c, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+#ifdef OPENSSL_FIPS
+int private_SHA1_Init(SHA_CTX *c);
+#endif
+int SHA1_Init(SHA_CTX *c);
+int SHA1_Update(SHA_CTX *c, const void *data, size_t len);
+int SHA1_Final(unsigned char *md, SHA_CTX *c);
+unsigned char *SHA1(const unsigned char *d, size_t n, unsigned char *md);
+void SHA1_Transform(SHA_CTX *c, const unsigned char *data);
 #endif
 
 #define SHA256_CBLOCK	(SHA_LBLOCK*4)	/* SHA-256 treats input data as a
@@ -140,15 +141,19 @@ typedef struct SHA256state_st
 	} SHA256_CTX;
 
 #ifndef OPENSSL_NO_SHA256
-int SHA224_Init(SHA256_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA224_Update(SHA256_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA224_Final(unsigned char *md, SHA256_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA224(const unsigned char *d, size_t n,unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA256_Init(SHA256_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA256_Update(SHA256_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA256_Final(unsigned char *md, SHA256_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA256(const unsigned char *d, size_t n,unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void SHA256_Transform(SHA256_CTX *c, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+#ifdef OPENSSL_FIPS
+int private_SHA224_Init(SHA256_CTX *c);
+int private_SHA256_Init(SHA256_CTX *c);
+#endif
+int SHA224_Init(SHA256_CTX *c);
+int SHA224_Update(SHA256_CTX *c, const void *data, size_t len);
+int SHA224_Final(unsigned char *md, SHA256_CTX *c);
+unsigned char *SHA224(const unsigned char *d, size_t n,unsigned char *md);
+int SHA256_Init(SHA256_CTX *c);
+int SHA256_Update(SHA256_CTX *c, const void *data, size_t len);
+int SHA256_Final(unsigned char *md, SHA256_CTX *c);
+unsigned char *SHA256(const unsigned char *d, size_t n,unsigned char *md);
+void SHA256_Transform(SHA256_CTX *c, const unsigned char *data);
 #endif
 
 #define SHA384_DIGEST_LENGTH	48
@@ -187,15 +192,19 @@ typedef struct SHA512state_st
 #endif
 
 #ifndef OPENSSL_NO_SHA512
-int SHA384_Init(SHA512_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA384_Update(SHA512_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA384_Final(unsigned char *md, SHA512_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA384(const unsigned char *d, size_t n,unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA512_Init(SHA512_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA512_Update(SHA512_CTX *c, const void *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int SHA512_Final(unsigned char *md, SHA512_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *SHA512(const unsigned char *d, size_t n,unsigned char *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void SHA512_Transform(SHA512_CTX *c, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+#ifdef OPENSSL_FIPS
+int private_SHA384_Init(SHA512_CTX *c);
+int private_SHA512_Init(SHA512_CTX *c);
+#endif
+int SHA384_Init(SHA512_CTX *c);
+int SHA384_Update(SHA512_CTX *c, const void *data, size_t len);
+int SHA384_Final(unsigned char *md, SHA512_CTX *c);
+unsigned char *SHA384(const unsigned char *d, size_t n,unsigned char *md);
+int SHA512_Init(SHA512_CTX *c);
+int SHA512_Update(SHA512_CTX *c, const void *data, size_t len);
+int SHA512_Final(unsigned char *md, SHA512_CTX *c);
+unsigned char *SHA512(const unsigned char *d, size_t n,unsigned char *md);
+void SHA512_Transform(SHA512_CTX *c, const unsigned char *data);
 #endif
 
 #ifdef  __cplusplus

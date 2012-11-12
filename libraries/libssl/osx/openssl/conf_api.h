@@ -59,8 +59,6 @@
 #ifndef  HEADER_CONF_API_H
 #define HEADER_CONF_API_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/lhash.h>
 #include <openssl/conf.h>
 
@@ -69,20 +67,20 @@ extern "C" {
 #endif
 
 /* Up until OpenSSL 0.9.5a, this was new_section */
-CONF_VALUE *_CONF_new_section(CONF *conf, const char *section) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+CONF_VALUE *_CONF_new_section(CONF *conf, const char *section);
 /* Up until OpenSSL 0.9.5a, this was get_section */
-CONF_VALUE *_CONF_get_section(const CONF *conf, const char *section) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+CONF_VALUE *_CONF_get_section(const CONF *conf, const char *section);
 /* Up until OpenSSL 0.9.5a, this was CONF_get_section */
 STACK_OF(CONF_VALUE) *_CONF_get_section_values(const CONF *conf,
-					       const char *section) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+					       const char *section);
 
-int _CONF_add_string(CONF *conf, CONF_VALUE *section, CONF_VALUE *value) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int _CONF_add_string(CONF *conf, CONF_VALUE *section, CONF_VALUE *value);
 char *_CONF_get_string(const CONF *conf, const char *section,
-		       const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-long _CONF_get_number(const CONF *conf, const char *section, const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		       const char *name);
+long _CONF_get_number(const CONF *conf, const char *section, const char *name);
 
-int _CONF_new_data(CONF *conf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void _CONF_free_data(CONF *conf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int _CONF_new_data(CONF *conf);
+void _CONF_free_data(CONF *conf);
 
 #ifdef  __cplusplus
 }

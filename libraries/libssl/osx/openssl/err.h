@@ -55,11 +55,62 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.]
  */
+/* ====================================================================
+ * Copyright (c) 1998-2006 The OpenSSL Project.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer. 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. All advertising materials mentioning features or use of this
+ *    software must display the following acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
+ *
+ * 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
+ *    endorse or promote products derived from this software without
+ *    prior written permission. For written permission, please contact
+ *    openssl-core@openssl.org.
+ *
+ * 5. Products derived from this software may not be called "OpenSSL"
+ *    nor may "OpenSSL" appear in their names without prior written
+ *    permission of the OpenSSL Project.
+ *
+ * 6. Redistributions of any form whatsoever must retain the following
+ *    acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit (http://www.openssl.org/)"
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
+ * EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
+ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * ====================================================================
+ *
+ * This product includes cryptographic software written by Eric Young
+ * (eay@cryptsoft.com).  This product includes software written by Tim
+ * Hudson (tjh@cryptsoft.com).
+ *
+ */
 
 #ifndef HEADER_ERR_H
 #define HEADER_ERR_H
-
-#include <AvailabilityMacros.h>
 
 #include <openssl/e_os2.h>
 
@@ -96,7 +147,7 @@ extern "C" {
 #define ERR_NUM_ERRORS	16
 typedef struct err_state_st
 	{
-	unsigned long pid;
+	CRYPTO_THREADID tid;
 	int err_flags[ERR_NUM_ERRORS];
 	unsigned long err_buffer[ERR_NUM_ERRORS];
 	char *err_data[ERR_NUM_ERRORS];
@@ -144,7 +195,9 @@ typedef struct err_state_st
 #define ERR_LIB_STORE           44
 #define ERR_LIB_FIPS		45
 #define ERR_LIB_CMS		46
-#define ERR_LIB_JPAKE		47
+#define ERR_LIB_TS		47
+#define ERR_LIB_HMAC		48
+#define ERR_LIB_JPAKE		49
 
 #define ERR_LIB_USER		128
 
@@ -178,6 +231,8 @@ typedef struct err_state_st
 #define STOREerr(f,r) ERR_PUT_error(ERR_LIB_STORE,(f),(r),__FILE__,__LINE__)
 #define FIPSerr(f,r) ERR_PUT_error(ERR_LIB_FIPS,(f),(r),__FILE__,__LINE__)
 #define CMSerr(f,r) ERR_PUT_error(ERR_LIB_CMS,(f),(r),__FILE__,__LINE__)
+#define TSerr(f,r) ERR_PUT_error(ERR_LIB_TS,(f),(r),__FILE__,__LINE__)
+#define HMACerr(f,r) ERR_PUT_error(ERR_LIB_HMAC,(f),(r),__FILE__,__LINE__)
 #define JPAKEerr(f,r) ERR_PUT_error(ERR_LIB_JPAKE,(f),(r),__FILE__,__LINE__)
 
 /* Borland C seems too stupid to be able to shift and do longs in
@@ -234,6 +289,7 @@ typedef struct err_state_st
 #define ERR_R_ECDSA_LIB ERR_LIB_ECDSA	 /* 42 */
 #define ERR_R_ECDH_LIB  ERR_LIB_ECDH	 /* 43 */
 #define ERR_R_STORE_LIB ERR_LIB_STORE    /* 44 */
+#define ERR_R_TS_LIB	ERR_LIB_TS       /* 45 */
 
 #define ERR_R_NESTED_ASN1_ERROR			58
 #define ERR_R_BAD_ASN1_OBJECT_HEADER		59
@@ -260,70 +316,68 @@ typedef struct ERR_string_data_st
 	const char *string;
 	} ERR_STRING_DATA;
 
-void ERR_put_error(int lib, int func,int reason,const char *file,int line) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_set_error_data(char *data,int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_put_error(int lib, int func,int reason,const char *file,int line);
+void ERR_set_error_data(char *data,int flags);
 
-unsigned long ERR_get_error(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ERR_get_error_line(const char **file,int *line) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+unsigned long ERR_get_error(void);
+unsigned long ERR_get_error_line(const char **file,int *line);
 unsigned long ERR_get_error_line_data(const char **file,int *line,
-				      const char **data, int *flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ERR_peek_error(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ERR_peek_error_line(const char **file,int *line) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				      const char **data, int *flags);
+unsigned long ERR_peek_error(void);
+unsigned long ERR_peek_error_line(const char **file,int *line);
 unsigned long ERR_peek_error_line_data(const char **file,int *line,
-				       const char **data,int *flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ERR_peek_last_error(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ERR_peek_last_error_line(const char **file,int *line) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				       const char **data,int *flags);
+unsigned long ERR_peek_last_error(void);
+unsigned long ERR_peek_last_error_line(const char **file,int *line);
 unsigned long ERR_peek_last_error_line_data(const char **file,int *line,
-				       const char **data,int *flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_clear_error(void ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *ERR_error_string(unsigned long e,char *buf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_error_string_n(unsigned long e, char *buf, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *ERR_lib_error_string(unsigned long e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *ERR_func_error_string(unsigned long e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *ERR_reason_error_string(unsigned long e) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				       const char **data,int *flags);
+void ERR_clear_error(void );
+char *ERR_error_string(unsigned long e,char *buf);
+void ERR_error_string_n(unsigned long e, char *buf, size_t len);
+const char *ERR_lib_error_string(unsigned long e);
+const char *ERR_func_error_string(unsigned long e);
+const char *ERR_reason_error_string(unsigned long e);
 void ERR_print_errors_cb(int (*cb)(const char *str, size_t len, void *u),
-			 void *u) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			 void *u);
 #ifndef OPENSSL_NO_FP_API
-void ERR_print_errors_fp(FILE *fp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_print_errors_fp(FILE *fp);
 #endif
 #ifndef OPENSSL_NO_BIO
-void ERR_print_errors(BIO *bp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_add_error_data(int num, ...) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_print_errors(BIO *bp);
 #endif
-void ERR_load_strings(int lib,ERR_STRING_DATA str[]) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_unload_strings(int lib,ERR_STRING_DATA str[]) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_load_ERR_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_load_crypto_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_free_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_add_error_data(int num, ...);
+void ERR_add_error_vdata(int num, va_list args);
+void ERR_load_strings(int lib,ERR_STRING_DATA str[]);
+void ERR_unload_strings(int lib,ERR_STRING_DATA str[]);
+void ERR_load_ERR_strings(void);
+void ERR_load_crypto_strings(void);
+void ERR_free_strings(void);
 
-void ERR_remove_state(unsigned long pid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER; /* if zero we look it up */
-ERR_STATE *ERR_get_state(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_remove_thread_state(const CRYPTO_THREADID *tid);
+#ifndef OPENSSL_NO_DEPRECATED
+void ERR_remove_state(unsigned long pid); /* if zero we look it up */
+#endif
+ERR_STATE *ERR_get_state(void);
 
 #ifndef OPENSSL_NO_LHASH
-LHASH *ERR_get_string_table(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-LHASH *ERR_get_err_state_table(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ERR_release_err_state_table(LHASH **hash) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+LHASH_OF(ERR_STRING_DATA) *ERR_get_string_table(void);
+LHASH_OF(ERR_STATE) *ERR_get_err_state_table(void);
+void ERR_release_err_state_table(LHASH_OF(ERR_STATE) **hash);
 #endif
 
-int ERR_get_next_error_library(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ERR_get_next_error_library(void);
 
-int ERR_set_mark(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ERR_pop_to_mark(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-
-#ifdef OPENSSL_FIPS
-void int_ERR_set_state_func(ERR_STATE *(*get_func)(void),
-				void (*remove_func)(unsigned long pid)) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void int_ERR_lib_init(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-#endif
+int ERR_set_mark(void);
+int ERR_pop_to_mark(void);
 
 /* Already defined in ossl_typ.h */
 /* typedef struct st_ERR_FNS ERR_FNS; */
 /* An application can use this function and provide the return value to loaded
  * modules that should use the application's ERR state/functionality */
-const ERR_FNS *ERR_get_implementation(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const ERR_FNS *ERR_get_implementation(void);
 /* A loaded module should call this function prior to any ERR operations using
  * the application's "ERR_FNS". */
-int ERR_set_implementation(const ERR_FNS *fns) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ERR_set_implementation(const ERR_FNS *fns);
 
 #ifdef	__cplusplus
 }

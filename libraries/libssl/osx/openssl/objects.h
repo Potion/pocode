@@ -59,8 +59,6 @@
 #ifndef HEADER_OBJECTS_H
 #define HEADER_OBJECTS_H
 
-#include <AvailabilityMacros.h>
-
 #define USE_OBJ_MAC
 
 #ifdef USE_OBJ_MAC
@@ -989,46 +987,135 @@ typedef struct obj_name_st
 #define		OBJ_create_and_add_object(a,b,c) OBJ_create(a,b,c)
 
 
-int OBJ_NAME_init(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int OBJ_NAME_init(void);
 int OBJ_NAME_new_index(unsigned long (*hash_func)(const char *),
 		       int (*cmp_func)(const char *, const char *),
-		       void (*free_func)(const char *, int, const char *)) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *OBJ_NAME_get(const char *name,int type) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OBJ_NAME_add(const char *name,int type,const char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int OBJ_NAME_remove(const char *name,int type) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void OBJ_NAME_cleanup(int type) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER; /* -1 for everything */
+		       void (*free_func)(const char *, int, const char *));
+const char *OBJ_NAME_get(const char *name,int type);
+int OBJ_NAME_add(const char *name,int type,const char *data);
+int OBJ_NAME_remove(const char *name,int type);
+void OBJ_NAME_cleanup(int type); /* -1 for everything */
 void OBJ_NAME_do_all(int type,void (*fn)(const OBJ_NAME *,void *arg),
-		     void *arg) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		     void *arg);
 void OBJ_NAME_do_all_sorted(int type,void (*fn)(const OBJ_NAME *,void *arg),
-			    void *arg) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			    void *arg);
 
-ASN1_OBJECT *	OBJ_dup(const ASN1_OBJECT *o) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_OBJECT *	OBJ_nid2obj(int n) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *	OBJ_nid2ln(int n) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *	OBJ_nid2sn(int n) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_obj2nid(const ASN1_OBJECT *o) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_OBJECT *	OBJ_txt2obj(const char *s, int no_name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int	OBJ_obj2txt(char *buf, int buf_len, const ASN1_OBJECT *a, int no_name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_txt2nid(const char *s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_ln2nid(const char *s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_sn2nid(const char *s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_cmp(const ASN1_OBJECT *a,const ASN1_OBJECT *b) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *	OBJ_bsearch(const char *key,const char *base,int num,int size,
-	int (*cmp)(const void *, const void *)) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *	OBJ_bsearch_ex(const char *key,const char *base,int num,
-	int size, int (*cmp)(const void *, const void *), int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_OBJECT *	OBJ_dup(const ASN1_OBJECT *o);
+ASN1_OBJECT *	OBJ_nid2obj(int n);
+const char *	OBJ_nid2ln(int n);
+const char *	OBJ_nid2sn(int n);
+int		OBJ_obj2nid(const ASN1_OBJECT *o);
+ASN1_OBJECT *	OBJ_txt2obj(const char *s, int no_name);
+int	OBJ_obj2txt(char *buf, int buf_len, const ASN1_OBJECT *a, int no_name);
+int		OBJ_txt2nid(const char *s);
+int		OBJ_ln2nid(const char *s);
+int		OBJ_sn2nid(const char *s);
+int		OBJ_cmp(const ASN1_OBJECT *a,const ASN1_OBJECT *b);
+const void *	OBJ_bsearch_(const void *key,const void *base,int num,int size,
+			     int (*cmp)(const void *, const void *));
+const void *	OBJ_bsearch_ex_(const void *key,const void *base,int num,
+				int size,
+				int (*cmp)(const void *, const void *),
+				int flags);
 
-int		OBJ_new_nid(int num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_add_object(const ASN1_OBJECT *obj) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_create(const char *oid,const char *sn,const char *ln) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void		OBJ_cleanup(void ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		OBJ_create_objects(BIO *in) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+#define _DECLARE_OBJ_BSEARCH_CMP_FN(scope, type1, type2, nm)	\
+  static int nm##_cmp_BSEARCH_CMP_FN(const void *, const void *); \
+  static int nm##_cmp(type1 const *, type2 const *); \
+  scope type2 * OBJ_bsearch_##nm(type1 *key, type2 const *base, int num)
+
+#define DECLARE_OBJ_BSEARCH_CMP_FN(type1, type2, cmp)	\
+  _DECLARE_OBJ_BSEARCH_CMP_FN(static, type1, type2, cmp)
+#define DECLARE_OBJ_BSEARCH_GLOBAL_CMP_FN(type1, type2, nm)	\
+  type2 * OBJ_bsearch_##nm(type1 *key, type2 const *base, int num)
+
+/*
+ * Unsolved problem: if a type is actually a pointer type, like
+ * nid_triple is, then its impossible to get a const where you need
+ * it. Consider:
+ *
+ * typedef int nid_triple[3];
+ * const void *a_;
+ * const nid_triple const *a = a_;
+ *
+ * The assignement discards a const because what you really want is:
+ *
+ * const int const * const *a = a_;
+ *
+ * But if you do that, you lose the fact that a is an array of 3 ints,
+ * which breaks comparison functions.
+ *
+ * Thus we end up having to cast, sadly, or unpack the
+ * declarations. Or, as I finally did in this case, delcare nid_triple
+ * to be a struct, which it should have been in the first place.
+ *
+ * Ben, August 2008.
+ *
+ * Also, strictly speaking not all types need be const, but handling
+ * the non-constness means a lot of complication, and in practice
+ * comparison routines do always not touch their arguments.
+ */
+
+#define IMPLEMENT_OBJ_BSEARCH_CMP_FN(type1, type2, nm)	\
+  static int nm##_cmp_BSEARCH_CMP_FN(const void *a_, const void *b_)	\
+      { \
+      type1 const *a = a_; \
+      type2 const *b = b_; \
+      return nm##_cmp(a,b); \
+      } \
+  static type2 *OBJ_bsearch_##nm(type1 *key, type2 const *base, int num) \
+      { \
+      return (type2 *)OBJ_bsearch_(key, base, num, sizeof(type2), \
+					nm##_cmp_BSEARCH_CMP_FN); \
+      } \
+      extern void dummy_prototype(void)
+
+#define IMPLEMENT_OBJ_BSEARCH_GLOBAL_CMP_FN(type1, type2, nm)	\
+  static int nm##_cmp_BSEARCH_CMP_FN(const void *a_, const void *b_)	\
+      { \
+      type1 const *a = a_; \
+      type2 const *b = b_; \
+      return nm##_cmp(a,b); \
+      } \
+  type2 *OBJ_bsearch_##nm(type1 *key, type2 const *base, int num) \
+      { \
+      return (type2 *)OBJ_bsearch_(key, base, num, sizeof(type2), \
+					nm##_cmp_BSEARCH_CMP_FN); \
+      } \
+      extern void dummy_prototype(void)
+
+#define OBJ_bsearch(type1,key,type2,base,num,cmp)			       \
+  ((type2 *)OBJ_bsearch_(CHECKED_PTR_OF(type1,key),CHECKED_PTR_OF(type2,base), \
+			 num,sizeof(type2),				\
+			 ((void)CHECKED_PTR_OF(type1,cmp##_type_1),	\
+			  (void)CHECKED_PTR_OF(type2,cmp##_type_2),	\
+			  cmp##_BSEARCH_CMP_FN)))
+
+#define OBJ_bsearch_ex(type1,key,type2,base,num,cmp,flags)			\
+  ((type2 *)OBJ_bsearch_ex_(CHECKED_PTR_OF(type1,key),CHECKED_PTR_OF(type2,base), \
+			 num,sizeof(type2),				\
+			 ((void)CHECKED_PTR_OF(type1,cmp##_type_1),	\
+			  (void)type_2=CHECKED_PTR_OF(type2,cmp##_type_2), \
+			  cmp##_BSEARCH_CMP_FN)),flags)
+
+int		OBJ_new_nid(int num);
+int		OBJ_add_object(const ASN1_OBJECT *obj);
+int		OBJ_create(const char *oid,const char *sn,const char *ln);
+void		OBJ_cleanup(void );
+int		OBJ_create_objects(BIO *in);
+
+int OBJ_find_sigid_algs(int signid, int *pdig_nid, int *ppkey_nid);
+int OBJ_find_sigid_by_algs(int *psignid, int dig_nid, int pkey_nid);
+int OBJ_add_sigid(int signid, int dig_id, int pkey_id);
+void OBJ_sigid_free(void);
+
+extern int obj_cleanup_defer;
+void check_defer(int nid);
 
 /* BEGIN ERROR CODES */
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_OBJ_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_OBJ_strings(void);
 
 /* Error codes for the OBJ functions. */
 

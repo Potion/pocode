@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    User-selectable configuration macros (specification only).           */
 /*                                                                         */
-/*  Copyright 1996-2011 by                                                 */
+/*  Copyright 1996-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -201,6 +201,17 @@ FT_BEGIN_HEADER
   /*   Define this macro if you want to enable this `feature'.             */
   /*                                                                       */
 /* #define FT_CONFIG_OPTION_USE_BZIP2 */
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* Define to disable the use of file stream functions and types, FILE,   */
+  /* fopen() etc.  Enables the use of smaller system libraries on embedded */
+  /* systems that have multiple system libraries, some with or without     */
+  /* file stream support, in the cases where file stream support is not    */
+  /* necessary such as memory loading of font files.                       */
+  /*                                                                       */
+/* #define FT_CONFIG_OPTION_DISABLE_STREAM_SUPPORT */
 
 
   /*************************************************************************/
@@ -658,7 +669,7 @@ FT_BEGIN_HEADER
 
   /*************************************************************************/
   /*                                                                       */
-  /* T1_MAX_DICT_DEPTH is the maximal depth of nest dictionaries and       */
+  /* T1_MAX_DICT_DEPTH is the maximum depth of nest dictionaries and       */
   /* arrays in the Type 1 stream (see t1load.c).  A minimum of 4 is        */
   /* required.                                                             */
   /*                                                                       */

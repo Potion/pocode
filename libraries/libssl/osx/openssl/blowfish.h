@@ -59,8 +59,6 @@
 #ifndef HEADER_BLOWFISH_H
 #define HEADER_BLOWFISH_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/e_os2.h>
 
 #ifdef  __cplusplus
@@ -81,7 +79,7 @@ extern "C" {
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
 
-#if defined(OPENSSL_SYS_WIN16) || defined(__LP32__)
+#if defined(__LP32__)
 #define BF_LONG unsigned long
 #elif defined(OPENSSL_SYS_CRAY) || defined(__ILP64__)
 #define BF_LONG unsigned long
@@ -107,22 +105,22 @@ typedef struct bf_key_st
 	} BF_KEY;
 
 #ifdef OPENSSL_FIPS 
-void private_BF_set_key(BF_KEY *key, int len, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void private_BF_set_key(BF_KEY *key, int len, const unsigned char *data);
 #endif
-void BF_set_key(BF_KEY *key, int len, const unsigned char *data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void BF_set_key(BF_KEY *key, int len, const unsigned char *data);
 
-void BF_encrypt(BF_LONG *data,const BF_KEY *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void BF_decrypt(BF_LONG *data,const BF_KEY *key) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void BF_encrypt(BF_LONG *data,const BF_KEY *key);
+void BF_decrypt(BF_LONG *data,const BF_KEY *key);
 
 void BF_ecb_encrypt(const unsigned char *in, unsigned char *out,
-	const BF_KEY *key, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const BF_KEY *key, int enc);
 void BF_cbc_encrypt(const unsigned char *in, unsigned char *out, long length,
-	const BF_KEY *schedule, unsigned char *ivec, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const BF_KEY *schedule, unsigned char *ivec, int enc);
 void BF_cfb64_encrypt(const unsigned char *in, unsigned char *out, long length,
-	const BF_KEY *schedule, unsigned char *ivec, int *num, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const BF_KEY *schedule, unsigned char *ivec, int *num, int enc);
 void BF_ofb64_encrypt(const unsigned char *in, unsigned char *out, long length,
-	const BF_KEY *schedule, unsigned char *ivec, int *num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *BF_options(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const BF_KEY *schedule, unsigned char *ivec, int *num);
+const char *BF_options(void);
 
 #ifdef  __cplusplus
 }

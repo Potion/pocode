@@ -59,8 +59,6 @@
 #ifndef HEADER_DSO_H
 #define HEADER_DSO_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/crypto.h>
 
 #ifdef __cplusplus
@@ -172,6 +170,11 @@ typedef struct dso_meth_st
 	/* [De]Initialisation handlers. */
 	int (*init)(DSO *dso);
 	int (*finish)(DSO *dso);
+
+	/* Return pathname of the module containing location */
+	int (*pathbyaddr)(void *addr,char *path,int sz);
+	/* Perform global symbol lookup, i.e. among *all* modules */
+	void *(*globallookup)(const char *symname);
 	} DSO_METHOD;
 
 /**********************************************************************/
@@ -185,7 +188,7 @@ struct dso_st
 	 * for use in the dso_bind handler. All in all, let each
 	 * method control its own destiny. "Handles" and such go in
 	 * a STACK. */
-	STACK *meth_data;
+	STACK_OF(void) *meth_data;
 	int references;
 	int flags;
 	/* For use by applications etc ... use this for your bits'n'pieces,
@@ -215,23 +218,23 @@ struct dso_st
 	};
 
 
-DSO *	DSO_new(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-DSO *	DSO_new_method(DSO_METHOD *method) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int	DSO_free(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int	DSO_flags(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int	DSO_up_ref(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-long	DSO_ctrl(DSO *dso, int cmd, long larg, void *parg) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO *	DSO_new(void);
+DSO *	DSO_new_method(DSO_METHOD *method);
+int	DSO_free(DSO *dso);
+int	DSO_flags(DSO *dso);
+int	DSO_up_ref(DSO *dso);
+long	DSO_ctrl(DSO *dso, int cmd, long larg, void *parg);
 
 /* This function sets the DSO's name_converter callback. If it is non-NULL,
  * then it will be used instead of the associated DSO_METHOD's function. If
  * oldcb is non-NULL then it is set to the function pointer value being
  * replaced. Return value is non-zero for success. */
 int	DSO_set_name_converter(DSO *dso, DSO_NAME_CONVERTER_FUNC cb,
-				DSO_NAME_CONVERTER_FUNC *oldcb) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				DSO_NAME_CONVERTER_FUNC *oldcb);
 /* These functions can be used to get/set the platform-independant filename
  * used for a DSO. NB: set will fail if the DSO is already loaded. */
-const char *DSO_get_filename(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int	DSO_set_filename(DSO *dso, const char *filename) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *DSO_get_filename(DSO *dso);
+int	DSO_set_filename(DSO *dso, const char *filename);
 /* This function will invoke the DSO's name_converter callback to translate a
  * filename, or if the callback isn't set it will instead use the DSO_METHOD's
  * converter. If "filename" is NULL, the "filename" in the DSO itself will be
@@ -240,12 +243,12 @@ int	DSO_set_filename(DSO *dso, const char *filename) DEPRECATED_IN_MAC_OS_X_VERS
  * DSO_METHOD during the processing of a DSO_load() call, and is exposed so that
  * caller-created DSO_METHODs can do the same thing. A non-NULL return value
  * will need to be OPENSSL_free()'d. */
-char	*DSO_convert_filename(DSO *dso, const char *filename) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+char	*DSO_convert_filename(DSO *dso, const char *filename);
 /* This function will invoke the DSO's merger callback to merge two file
  * specifications, or if the callback isn't set it will instead use the
  * DSO_METHOD's merger.  A non-NULL return value will need to be
  * OPENSSL_free()'d. */
-char	*DSO_merge(DSO *dso, const char *filespec1, const char *filespec2) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+char	*DSO_merge(DSO *dso, const char *filespec1, const char *filespec2);
 /* If the DSO is currently loaded, this returns the filename that it was loaded
  * under, otherwise it returns NULL. So it is also useful as a test as to
  * whether the DSO is currently loaded. NB: This will not necessarily return
@@ -253,60 +256,89 @@ char	*DSO_merge(DSO *dso, const char *filespec1, const char *filespec2) DEPRECAT
  * DSO_METHOD's load function may have tried a variety of filenames (with
  * and/or without the aid of the converters) before settling on the one it
  * actually loaded. */
-const char *DSO_get_loaded_filename(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *DSO_get_loaded_filename(DSO *dso);
 
-void	DSO_set_default_method(DSO_METHOD *meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-DSO_METHOD *DSO_get_default_method(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-DSO_METHOD *DSO_get_method(DSO *dso) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-DSO_METHOD *DSO_set_method(DSO *dso, DSO_METHOD *meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void	DSO_set_default_method(DSO_METHOD *meth);
+DSO_METHOD *DSO_get_default_method(void);
+DSO_METHOD *DSO_get_method(DSO *dso);
+DSO_METHOD *DSO_set_method(DSO *dso, DSO_METHOD *meth);
 
 /* The all-singing all-dancing load function, you normally pass NULL
  * for the first and third parameters. Use DSO_up and DSO_free for
  * subsequent reference count handling. Any flags passed in will be set
  * in the constructed DSO after its init() function but before the
  * load operation. If 'dso' is non-NULL, 'flags' is ignored. */
-DSO *DSO_load(DSO *dso, const char *filename, DSO_METHOD *meth, int flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO *DSO_load(DSO *dso, const char *filename, DSO_METHOD *meth, int flags);
 
 /* This function binds to a variable inside a shared library. */
-void *DSO_bind_var(DSO *dso, const char *symname) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *DSO_bind_var(DSO *dso, const char *symname);
 
 /* This function binds to a function inside a shared library. */
-DSO_FUNC_TYPE DSO_bind_func(DSO *dso, const char *symname) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_FUNC_TYPE DSO_bind_func(DSO *dso, const char *symname);
 
 /* This method is the default, but will beg, borrow, or steal whatever
  * method should be the default on any particular platform (including
  * DSO_METH_null() if necessary). */
-DSO_METHOD *DSO_METHOD_openssl(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_openssl(void);
 
 /* This method is defined for all platforms - if a platform has no
  * DSO support then this will be the only method! */
-DSO_METHOD *DSO_METHOD_null(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_null(void);
 
 /* If DSO_DLFCN is defined, the standard dlfcn.h-style functions
  * (dlopen, dlclose, dlsym, etc) will be used and incorporated into
  * this method. If not, this method will return NULL. */
-DSO_METHOD *DSO_METHOD_dlfcn(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_dlfcn(void);
 
 /* If DSO_DL is defined, the standard dl.h-style functions (shl_load, 
  * shl_unload, shl_findsym, etc) will be used and incorporated into
  * this method. If not, this method will return NULL. */
-DSO_METHOD *DSO_METHOD_dl(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_dl(void);
 
 /* If WIN32 is defined, use DLLs. If not, return NULL. */
-DSO_METHOD *DSO_METHOD_win32(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_win32(void);
 
 /* If VMS is defined, use shared images. If not, return NULL. */
-DSO_METHOD *DSO_METHOD_vms(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DSO_METHOD *DSO_METHOD_vms(void);
+
+/* This function writes null-terminated pathname of DSO module
+ * containing 'addr' into 'sz' large caller-provided 'path' and
+ * returns the number of characters [including trailing zero]
+ * written to it. If 'sz' is 0 or negative, 'path' is ignored and
+ * required amount of charachers [including trailing zero] to
+ * accomodate pathname is returned. If 'addr' is NULL, then
+ * pathname of cryptolib itself is returned. Negative or zero
+ * return value denotes error.
+ */
+int DSO_pathbyaddr(void *addr,char *path,int sz);
+
+/* This function should be used with caution! It looks up symbols in
+ * *all* loaded modules and if module gets unloaded by somebody else
+ * attempt to dereference the pointer is doomed to have fatal
+ * consequences. Primary usage for this function is to probe *core*
+ * system functionality, e.g. check if getnameinfo(3) is available
+ * at run-time without bothering about OS-specific details such as
+ * libc.so.versioning or where does it actually reside: in libc
+ * itself or libsocket. */
+void *DSO_global_lookup(const char *name);
+
+/* If BeOS is defined, use shared images. If not, return NULL. */
+DSO_METHOD *DSO_METHOD_beos(void);
 
 /* BEGIN ERROR CODES */
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_DSO_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_DSO_strings(void);
 
 /* Error codes for the DSO functions. */
 
 /* Function codes. */
+#define DSO_F_BEOS_BIND_FUNC				 144
+#define DSO_F_BEOS_BIND_VAR				 145
+#define DSO_F_BEOS_LOAD					 146
+#define DSO_F_BEOS_NAME_CONVERTER			 147
+#define DSO_F_BEOS_UNLOAD				 148
 #define DSO_F_DLFCN_BIND_FUNC				 100
 #define DSO_F_DLFCN_BIND_VAR				 101
 #define DSO_F_DLFCN_LOAD				 102
@@ -326,22 +358,29 @@ void ERR_load_DSO_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define DSO_F_DSO_FREE					 111
 #define DSO_F_DSO_GET_FILENAME				 127
 #define DSO_F_DSO_GET_LOADED_FILENAME			 128
+#define DSO_F_DSO_GLOBAL_LOOKUP				 139
 #define DSO_F_DSO_LOAD					 112
 #define DSO_F_DSO_MERGE					 132
 #define DSO_F_DSO_NEW_METHOD				 113
+#define DSO_F_DSO_PATHBYADDR				 140
 #define DSO_F_DSO_SET_FILENAME				 129
 #define DSO_F_DSO_SET_NAME_CONVERTER			 122
 #define DSO_F_DSO_UP_REF				 114
+#define DSO_F_GLOBAL_LOOKUP_FUNC			 138
+#define DSO_F_PATHBYADDR				 137
 #define DSO_F_VMS_BIND_SYM				 115
 #define DSO_F_VMS_LOAD					 116
 #define DSO_F_VMS_MERGER				 133
 #define DSO_F_VMS_UNLOAD				 117
 #define DSO_F_WIN32_BIND_FUNC				 118
 #define DSO_F_WIN32_BIND_VAR				 119
+#define DSO_F_WIN32_GLOBALLOOKUP			 142
+#define DSO_F_WIN32_GLOBALLOOKUP_FUNC			 143
 #define DSO_F_WIN32_JOINER				 135
 #define DSO_F_WIN32_LOAD				 120
 #define DSO_F_WIN32_MERGER				 134
 #define DSO_F_WIN32_NAME_CONVERTER			 125
+#define DSO_F_WIN32_PATHBYADDR				 141
 #define DSO_F_WIN32_SPLITTER				 136
 #define DSO_F_WIN32_UNLOAD				 121
 

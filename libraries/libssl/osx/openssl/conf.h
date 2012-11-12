@@ -59,8 +59,6 @@
 #ifndef  HEADER_CONF_H
 #define HEADER_CONF_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/bio.h>
 #include <openssl/lhash.h>
 #include <openssl/stack.h>
@@ -81,8 +79,7 @@ typedef struct
 	} CONF_VALUE;
 
 DECLARE_STACK_OF(CONF_VALUE)
-DECLARE_STACK_OF(CONF_MODULE)
-DECLARE_STACK_OF(CONF_IMODULE)
+DECLARE_LHASH_OF(CONF_VALUE);
 
 struct conf_st;
 struct conf_method_st;
@@ -107,6 +104,9 @@ struct conf_method_st
 typedef struct conf_imodule_st CONF_IMODULE;
 typedef struct conf_module_st CONF_MODULE;
 
+DECLARE_STACK_OF(CONF_MODULE)
+DECLARE_STACK_OF(CONF_IMODULE)
+
 /* DSO module function typedefs */
 typedef int conf_init_func(CONF_IMODULE *md, const CONF *cnf);
 typedef void conf_finish_func(CONF_IMODULE *md);
@@ -118,22 +118,27 @@ typedef void conf_finish_func(CONF_IMODULE *md);
 #define CONF_MFLAGS_IGNORE_MISSING_FILE	0x10
 #define CONF_MFLAGS_DEFAULT_SECTION	0x20
 
-int CONF_set_default_method(CONF_METHOD *meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_set_nconf(CONF *conf,LHASH *hash) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-LHASH *CONF_load(LHASH *conf,const char *file,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int CONF_set_default_method(CONF_METHOD *meth);
+void CONF_set_nconf(CONF *conf,LHASH_OF(CONF_VALUE) *hash);
+LHASH_OF(CONF_VALUE) *CONF_load(LHASH_OF(CONF_VALUE) *conf,const char *file,
+				long *eline);
 #ifndef OPENSSL_NO_FP_API
-LHASH *CONF_load_fp(LHASH *conf, FILE *fp,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+LHASH_OF(CONF_VALUE) *CONF_load_fp(LHASH_OF(CONF_VALUE) *conf, FILE *fp,
+				   long *eline);
 #endif
-LHASH *CONF_load_bio(LHASH *conf, BIO *bp,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-STACK_OF(CONF_VALUE) *CONF_get_section(LHASH *conf,const char *section) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *CONF_get_string(LHASH *conf,const char *group,const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-long CONF_get_number(LHASH *conf,const char *group,const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_free(LHASH *conf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int CONF_dump_fp(LHASH *conf, FILE *out) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int CONF_dump_bio(LHASH *conf, BIO *out) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+LHASH_OF(CONF_VALUE) *CONF_load_bio(LHASH_OF(CONF_VALUE) *conf, BIO *bp,long *eline);
+STACK_OF(CONF_VALUE) *CONF_get_section(LHASH_OF(CONF_VALUE) *conf,
+				       const char *section);
+char *CONF_get_string(LHASH_OF(CONF_VALUE) *conf,const char *group,
+		      const char *name);
+long CONF_get_number(LHASH_OF(CONF_VALUE) *conf,const char *group,
+		     const char *name);
+void CONF_free(LHASH_OF(CONF_VALUE) *conf);
+int CONF_dump_fp(LHASH_OF(CONF_VALUE) *conf, FILE *out);
+int CONF_dump_bio(LHASH_OF(CONF_VALUE) *conf, BIO *out);
 
-void OPENSSL_config(const char *config_name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void OPENSSL_no_config(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void OPENSSL_config(const char *config_name);
+void OPENSSL_no_config(void);
 
 /* New conf code.  The semantics are different from the functions above.
    If that wasn't the case, the above functions would have been replaced */
@@ -142,33 +147,33 @@ struct conf_st
 	{
 	CONF_METHOD *meth;
 	void *meth_data;
-	LHASH *data;
+	LHASH_OF(CONF_VALUE) *data;
 	};
 
-CONF *NCONF_new(CONF_METHOD *meth) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-CONF_METHOD *NCONF_default(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-CONF_METHOD *NCONF_WIN32(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+CONF *NCONF_new(CONF_METHOD *meth);
+CONF_METHOD *NCONF_default(void);
+CONF_METHOD *NCONF_WIN32(void);
 #if 0 /* Just to give you an idea of what I have in mind */
 CONF_METHOD *NCONF_XML(void);
 #endif
-void NCONF_free(CONF *conf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void NCONF_free_data(CONF *conf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void NCONF_free(CONF *conf);
+void NCONF_free_data(CONF *conf);
 
-int NCONF_load(CONF *conf,const char *file,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int NCONF_load(CONF *conf,const char *file,long *eline);
 #ifndef OPENSSL_NO_FP_API
-int NCONF_load_fp(CONF *conf, FILE *fp,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int NCONF_load_fp(CONF *conf, FILE *fp,long *eline);
 #endif
-int NCONF_load_bio(CONF *conf, BIO *bp,long *eline) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,const char *section) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-char *NCONF_get_string(const CONF *conf,const char *group,const char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int NCONF_load_bio(CONF *conf, BIO *bp,long *eline);
+STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,const char *section);
+char *NCONF_get_string(const CONF *conf,const char *group,const char *name);
 int NCONF_get_number_e(const CONF *conf,const char *group,const char *name,
-		       long *result) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int NCONF_dump_fp(const CONF *conf, FILE *out) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int NCONF_dump_bio(const CONF *conf, BIO *out) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		       long *result);
+int NCONF_dump_fp(const CONF *conf, FILE *out);
+int NCONF_dump_bio(const CONF *conf, BIO *out);
 
 #if 0 /* The following function has no error checking,
 	 and should therefore be avoided */
-long NCONF_get_number(CONF *conf,char *group,char *name) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+long NCONF_get_number(CONF *conf,char *group,char *name);
 #else
 #define NCONF_get_number(c,g,n,r) NCONF_get_number_e(c,g,n,r)
 #endif
@@ -176,37 +181,37 @@ long NCONF_get_number(CONF *conf,char *group,char *name) DEPRECATED_IN_MAC_OS_X_
 /* Module functions */
 
 int CONF_modules_load(const CONF *cnf, const char *appname,
-		      unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		      unsigned long flags);
 int CONF_modules_load_file(const char *filename, const char *appname,
-			   unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_modules_unload(int all) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_modules_finish(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_modules_free(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			   unsigned long flags);
+void CONF_modules_unload(int all);
+void CONF_modules_finish(void);
+void CONF_modules_free(void);
 int CONF_module_add(const char *name, conf_init_func *ifunc,
-		    conf_finish_func *ffunc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		    conf_finish_func *ffunc);
 
-const char *CONF_imodule_get_name(const CONF_IMODULE *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-const char *CONF_imodule_get_value(const CONF_IMODULE *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *CONF_imodule_get_usr_data(const CONF_IMODULE *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_imodule_set_usr_data(CONF_IMODULE *md, void *usr_data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-CONF_MODULE *CONF_imodule_get_module(const CONF_IMODULE *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long CONF_imodule_get_flags(const CONF_IMODULE *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_imodule_set_flags(CONF_IMODULE *md, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *CONF_module_get_usr_data(CONF_MODULE *pmod) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void CONF_module_set_usr_data(CONF_MODULE *pmod, void *usr_data) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *CONF_imodule_get_name(const CONF_IMODULE *md);
+const char *CONF_imodule_get_value(const CONF_IMODULE *md);
+void *CONF_imodule_get_usr_data(const CONF_IMODULE *md);
+void CONF_imodule_set_usr_data(CONF_IMODULE *md, void *usr_data);
+CONF_MODULE *CONF_imodule_get_module(const CONF_IMODULE *md);
+unsigned long CONF_imodule_get_flags(const CONF_IMODULE *md);
+void CONF_imodule_set_flags(CONF_IMODULE *md, unsigned long flags);
+void *CONF_module_get_usr_data(CONF_MODULE *pmod);
+void CONF_module_set_usr_data(CONF_MODULE *pmod, void *usr_data);
 
-char *CONF_get1_default_config_file(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+char *CONF_get1_default_config_file(void);
 
 int CONF_parse_list(const char *list, int sep, int nospc,
-	int (*list_cb)(const char *elem, int len, void *usr), void *arg) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	int (*list_cb)(const char *elem, int len, void *usr), void *arg);
 
-void OPENSSL_load_builtin_modules(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void OPENSSL_load_builtin_modules(void);
 
 /* BEGIN ERROR CODES */
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_CONF_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_CONF_strings(void);
 
 /* Error codes for the CONF functions. */
 
@@ -216,6 +221,7 @@ void ERR_load_CONF_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define CONF_F_CONF_LOAD_BIO				 102
 #define CONF_F_CONF_LOAD_FP				 103
 #define CONF_F_CONF_MODULES_LOAD			 116
+#define CONF_F_CONF_PARSE_LIST				 119
 #define CONF_F_DEF_LOAD					 120
 #define CONF_F_DEF_LOAD_BIO				 121
 #define CONF_F_MODULE_INIT				 115
@@ -235,6 +241,7 @@ void ERR_load_CONF_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 /* Reason codes. */
 #define CONF_R_ERROR_LOADING_DSO			 110
+#define CONF_R_LIST_CANNOT_BE_NULL			 115
 #define CONF_R_MISSING_CLOSE_SQUARE_BRACKET		 100
 #define CONF_R_MISSING_EQUAL_SIGN			 101
 #define CONF_R_MISSING_FINISH_FUNCTION			 111

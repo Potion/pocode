@@ -59,8 +59,6 @@
 #ifndef HEADER_ASN1_H
 #define HEADER_ASN1_H
 
-#include <AvailabilityMacros.h>
-
 #include <time.h>
 #include <openssl/e_os2.h>
 #ifndef OPENSSL_NO_BIO
@@ -215,7 +213,7 @@ typedef struct asn1_object_st
 	const char *sn,*ln;
 	int nid;
 	int length;
-	unsigned char *data;
+	const unsigned char *data;	/* data remains const after init */
 	int flags;	/* Should we free this one */
 	} ASN1_OBJECT;
 
@@ -230,10 +228,14 @@ typedef struct asn1_object_st
  * complete and is a place holder for content when it had all been 
  * accessed. The flag will be reset when content has been written to it.
  */
-#define ASN1_STRING_FLAG_CONT 0x020 
 
+#define ASN1_STRING_FLAG_CONT 0x020 
+/* This flag is used by ASN1 code to indicate an ASN1_STRING is an MSTRING
+ * type.
+ */
+#define ASN1_STRING_FLAG_MSTRING 0x040 
 /* This is the base type that holds just about everything :-) */
-typedef struct asn1_string_st
+struct asn1_string_st
 	{
 	int length;
 	int type;
@@ -243,7 +245,7 @@ typedef struct asn1_string_st
 	 * input data has a non-zero 'unused bits' value, it will be
 	 * handled correctly */
 	long flags;
-	} ASN1_STRING;
+	};
 
 /* ASN1_ENCODING structure: this is used to save the received
  * encoding of an ASN1 type. This is useful to get round
@@ -291,7 +293,6 @@ DECLARE_STACK_OF(ASN1_STRING_TABLE)
  * see asn1t.h
  */
 typedef struct ASN1_TEMPLATE_st ASN1_TEMPLATE;
-typedef struct ASN1_ITEM_st ASN1_ITEM;
 typedef struct ASN1_TLC_st ASN1_TLC;
 /* This is just an opaque pointer */
 typedef struct ASN1_VALUE_st ASN1_VALUE;
@@ -332,6 +333,13 @@ typedef struct ASN1_VALUE_st ASN1_VALUE;
 	type *name##_new(void); \
 	void name##_free(type *a);
 
+#define DECLARE_ASN1_PRINT_FUNCTION(stname) \
+	DECLARE_ASN1_PRINT_FUNCTION_fname(stname, stname)
+
+#define DECLARE_ASN1_PRINT_FUNCTION_fname(stname, fname) \
+	int fname##_print_ctx(BIO *out, stname *x, int indent, \
+					 const ASN1_PCTX *pctx);
+
 #define D2I_OF(type) type *(*)(type **,const unsigned char **,long)
 #define I2D_OF(type) int (*)(type *,unsigned char **)
 #define I2D_OF_const(type) int (*)(const type *,unsigned char **)
@@ -346,8 +354,6 @@ typedef struct ASN1_VALUE_st ASN1_VALUE;
     ((void*) (1 ? p : (type*)0))
 #define CHECKED_PPTR_OF(type, p) \
     ((void**) (1 ? p : (type**)0))
-#define CHECKED_PTR_OF_TO_CHAR(type, p) \
-    ((char*) (1 ? p : (type*)0))
 
 #define TYPEDEF_D2I_OF(type) typedef type *d2i_of_##type(type **,const unsigned char **,long)
 #define TYPEDEF_I2D_OF(type) typedef int i2d_of_##type(type *,unsigned char **)
@@ -538,28 +544,23 @@ typedef struct asn1_type_st
 		 * contain the set or sequence bytes */
 		ASN1_STRING *		set;
 		ASN1_STRING *		sequence;
-		ASN1_VALUE  *		asn1_value;
+		ASN1_VALUE *		asn1_value;
 		} value;
 	} ASN1_TYPE;
 
 DECLARE_STACK_OF(ASN1_TYPE)
 DECLARE_ASN1_SET_OF(ASN1_TYPE)
 
-typedef struct asn1_method_st
-	{
-	i2d_of_void *i2d;
-	d2i_of_void *d2i;
-	void *(*create)(void);
-	void (*destroy)(void *);
-	} ASN1_METHOD;
+typedef STACK_OF(ASN1_TYPE) ASN1_SEQUENCE_ANY;
 
-/* This is used when parsing some Netscape objects */
-typedef struct asn1_header_st
+DECLARE_ASN1_ENCODE_FUNCTIONS_const(ASN1_SEQUENCE_ANY, ASN1_SEQUENCE_ANY)
+DECLARE_ASN1_ENCODE_FUNCTIONS_const(ASN1_SEQUENCE_ANY, ASN1_SET_ANY)
+
+typedef struct NETSCAPE_X509_st
 	{
 	ASN1_OCTET_STRING *header;
-	void *data;
-	ASN1_METHOD *meth;
-	} ASN1_HEADER;
+	X509 *cert;
+	} NETSCAPE_X509;
 
 /* This is used to contain a list of bit names */
 typedef struct BIT_STRING_BITNAME_st {
@@ -579,32 +580,34 @@ typedef struct BIT_STRING_BITNAME_st {
 		ASN1_STRING_type_new(V_ASN1_BIT_STRING)
 #define M_ASN1_BIT_STRING_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
 #define M_ASN1_BIT_STRING_dup(a) (ASN1_BIT_STRING *)\
-		ASN1_STRING_dup((ASN1_STRING *)a)
+		ASN1_STRING_dup((const ASN1_STRING *)a)
 #define M_ASN1_BIT_STRING_cmp(a,b) ASN1_STRING_cmp(\
-		(ASN1_STRING *)a,(ASN1_STRING *)b)
+		(const ASN1_STRING *)a,(const ASN1_STRING *)b)
 #define M_ASN1_BIT_STRING_set(a,b,c) ASN1_STRING_set((ASN1_STRING *)a,b,c)
 
 #define M_ASN1_INTEGER_new()	(ASN1_INTEGER *)\
 		ASN1_STRING_type_new(V_ASN1_INTEGER)
 #define M_ASN1_INTEGER_free(a)		ASN1_STRING_free((ASN1_STRING *)a)
-#define M_ASN1_INTEGER_dup(a) (ASN1_INTEGER *)ASN1_STRING_dup((ASN1_STRING *)a)
+#define M_ASN1_INTEGER_dup(a) (ASN1_INTEGER *)\
+		ASN1_STRING_dup((const ASN1_STRING *)a)
 #define M_ASN1_INTEGER_cmp(a,b)	ASN1_STRING_cmp(\
-		(ASN1_STRING *)a,(ASN1_STRING *)b)
+		(const ASN1_STRING *)a,(const ASN1_STRING *)b)
 
 #define M_ASN1_ENUMERATED_new()	(ASN1_ENUMERATED *)\
 		ASN1_STRING_type_new(V_ASN1_ENUMERATED)
 #define M_ASN1_ENUMERATED_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
-#define M_ASN1_ENUMERATED_dup(a) (ASN1_ENUMERATED *)ASN1_STRING_dup((ASN1_STRING *)a)
+#define M_ASN1_ENUMERATED_dup(a) (ASN1_ENUMERATED *)\
+		ASN1_STRING_dup((const ASN1_STRING *)a)
 #define M_ASN1_ENUMERATED_cmp(a,b)	ASN1_STRING_cmp(\
-		(ASN1_STRING *)a,(ASN1_STRING *)b)
+		(const ASN1_STRING *)a,(const ASN1_STRING *)b)
 
 #define M_ASN1_OCTET_STRING_new()	(ASN1_OCTET_STRING *)\
 		ASN1_STRING_type_new(V_ASN1_OCTET_STRING)
 #define M_ASN1_OCTET_STRING_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
 #define M_ASN1_OCTET_STRING_dup(a) (ASN1_OCTET_STRING *)\
-		ASN1_STRING_dup((ASN1_STRING *)a)
+		ASN1_STRING_dup((const ASN1_STRING *)a)
 #define M_ASN1_OCTET_STRING_cmp(a,b) ASN1_STRING_cmp(\
-		(ASN1_STRING *)a,(ASN1_STRING *)b)
+		(const ASN1_STRING *)a,(const ASN1_STRING *)b)
 #define M_ASN1_OCTET_STRING_set(a,b,c)	ASN1_STRING_set((ASN1_STRING *)a,b,c)
 #define M_ASN1_OCTET_STRING_print(a,b)	ASN1_STRING_print(a,(ASN1_STRING *)b)
 #define M_i2d_ASN1_OCTET_STRING(a,pp) \
@@ -688,7 +691,7 @@ typedef struct BIT_STRING_BITNAME_st {
 		ASN1_STRING_type_new(V_ASN1_IA5STRING)
 #define M_ASN1_IA5STRING_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
 #define M_ASN1_IA5STRING_dup(a)	\
-			(ASN1_IA5STRING *)ASN1_STRING_dup((ASN1_STRING *)a)
+		(ASN1_IA5STRING *)ASN1_STRING_dup((const ASN1_STRING *)a)
 #define M_i2d_ASN1_IA5STRING(a,pp) \
 		i2d_ASN1_bytes((ASN1_STRING *)a,pp,V_ASN1_IA5STRING,\
 			V_ASN1_UNIVERSAL)
@@ -699,18 +702,20 @@ typedef struct BIT_STRING_BITNAME_st {
 #define M_ASN1_UTCTIME_new()	(ASN1_UTCTIME *)\
 		ASN1_STRING_type_new(V_ASN1_UTCTIME)
 #define M_ASN1_UTCTIME_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
-#define M_ASN1_UTCTIME_dup(a) (ASN1_UTCTIME *)ASN1_STRING_dup((ASN1_STRING *)a)
+#define M_ASN1_UTCTIME_dup(a) (ASN1_UTCTIME *)\
+		ASN1_STRING_dup((const ASN1_STRING *)a)
 
 #define M_ASN1_GENERALIZEDTIME_new()	(ASN1_GENERALIZEDTIME *)\
 		ASN1_STRING_type_new(V_ASN1_GENERALIZEDTIME)
 #define M_ASN1_GENERALIZEDTIME_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
 #define M_ASN1_GENERALIZEDTIME_dup(a) (ASN1_GENERALIZEDTIME *)ASN1_STRING_dup(\
-	(ASN1_STRING *)a)
+	(const ASN1_STRING *)a)
 
 #define M_ASN1_TIME_new()	(ASN1_TIME *)\
 		ASN1_STRING_type_new(V_ASN1_UTCTIME)
 #define M_ASN1_TIME_free(a)	ASN1_STRING_free((ASN1_STRING *)a)
-#define M_ASN1_TIME_dup(a) (ASN1_TIME *)ASN1_STRING_dup((ASN1_STRING *)a)
+#define M_ASN1_TIME_dup(a) (ASN1_TIME *)\
+	ASN1_STRING_dup((const ASN1_STRING *)a)
 
 #define M_ASN1_GENERALSTRING_new()	(ASN1_GENERALSTRING *)\
 		ASN1_STRING_type_new(V_ASN1_GENERALSTRING)
@@ -768,84 +773,92 @@ typedef struct BIT_STRING_BITNAME_st {
 
 DECLARE_ASN1_FUNCTIONS_fname(ASN1_TYPE, ASN1_ANY, ASN1_TYPE)
 
-int ASN1_TYPE_get(ASN1_TYPE *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ASN1_TYPE_set(ASN1_TYPE *a, int type, void *value) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_TYPE_set1(ASN1_TYPE *a, int type, const void *value) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_TYPE_get(ASN1_TYPE *a);
+void ASN1_TYPE_set(ASN1_TYPE *a, int type, void *value);
+int ASN1_TYPE_set1(ASN1_TYPE *a, int type, const void *value);
+int            ASN1_TYPE_cmp(ASN1_TYPE *a, ASN1_TYPE *b);
 
-ASN1_OBJECT *	ASN1_OBJECT_new(void ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void		ASN1_OBJECT_free(ASN1_OBJECT *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		i2d_ASN1_OBJECT(ASN1_OBJECT *a,unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_OBJECT *	ASN1_OBJECT_new(void );
+void		ASN1_OBJECT_free(ASN1_OBJECT *a);
+int		i2d_ASN1_OBJECT(ASN1_OBJECT *a,unsigned char **pp);
 ASN1_OBJECT *	c2i_ASN1_OBJECT(ASN1_OBJECT **a,const unsigned char **pp,
-			long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long length);
 ASN1_OBJECT *	d2i_ASN1_OBJECT(ASN1_OBJECT **a,const unsigned char **pp,
-			long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long length);
 
 DECLARE_ASN1_ITEM(ASN1_OBJECT)
 
 DECLARE_STACK_OF(ASN1_OBJECT)
 DECLARE_ASN1_SET_OF(ASN1_OBJECT)
 
-ASN1_STRING *	ASN1_STRING_new(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void		ASN1_STRING_free(ASN1_STRING *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_STRING *	ASN1_STRING_dup(ASN1_STRING *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_STRING *	ASN1_STRING_type_new(int type ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int 		ASN1_STRING_cmp(ASN1_STRING *a, ASN1_STRING *b) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_STRING *	ASN1_STRING_new(void);
+void		ASN1_STRING_free(ASN1_STRING *a);
+int		ASN1_STRING_copy(ASN1_STRING *dst, const ASN1_STRING *str);
+ASN1_STRING *	ASN1_STRING_dup(const ASN1_STRING *a);
+ASN1_STRING *	ASN1_STRING_type_new(int type );
+int 		ASN1_STRING_cmp(const ASN1_STRING *a, const ASN1_STRING *b);
   /* Since this is used to store all sorts of things, via macros, for now, make
      its data void * */
-int 		ASN1_STRING_set(ASN1_STRING *str, const void *data, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void		ASN1_STRING_set0(ASN1_STRING *str, void *data, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_length(ASN1_STRING *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ASN1_STRING_length_set(ASN1_STRING *x, int n) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_type(ASN1_STRING *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char * ASN1_STRING_data(ASN1_STRING *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int 		ASN1_STRING_set(ASN1_STRING *str, const void *data, int len);
+void		ASN1_STRING_set0(ASN1_STRING *str, void *data, int len);
+int ASN1_STRING_length(const ASN1_STRING *x);
+void ASN1_STRING_length_set(ASN1_STRING *x, int n);
+int ASN1_STRING_type(ASN1_STRING *x);
+unsigned char * ASN1_STRING_data(ASN1_STRING *x);
 
 DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-int		i2c_ASN1_BIT_STRING(ASN1_BIT_STRING *a,unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int		i2c_ASN1_BIT_STRING(ASN1_BIT_STRING *a,unsigned char **pp);
 ASN1_BIT_STRING *c2i_ASN1_BIT_STRING(ASN1_BIT_STRING **a,const unsigned char **pp,
-			long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long length);
 int		ASN1_BIT_STRING_set(ASN1_BIT_STRING *a, unsigned char *d,
-			int length ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		ASN1_BIT_STRING_set_bit(ASN1_BIT_STRING *a, int n, int value) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int		ASN1_BIT_STRING_get_bit(ASN1_BIT_STRING *a, int n) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			int length );
+int		ASN1_BIT_STRING_set_bit(ASN1_BIT_STRING *a, int n, int value);
+int		ASN1_BIT_STRING_get_bit(ASN1_BIT_STRING *a, int n);
+int            ASN1_BIT_STRING_check(ASN1_BIT_STRING *a,
+                                     unsigned char *flags, int flags_len);
 
 #ifndef OPENSSL_NO_BIO
 int ASN1_BIT_STRING_name_print(BIO *out, ASN1_BIT_STRING *bs,
-				BIT_STRING_BITNAME *tbl, int indent) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				BIT_STRING_BITNAME *tbl, int indent);
 #endif
-int ASN1_BIT_STRING_num_asc(char *name, BIT_STRING_BITNAME *tbl) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_BIT_STRING_num_asc(char *name, BIT_STRING_BITNAME *tbl);
 int ASN1_BIT_STRING_set_asc(ASN1_BIT_STRING *bs, char *name, int value,
-				BIT_STRING_BITNAME *tbl) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				BIT_STRING_BITNAME *tbl);
 
-int		i2d_ASN1_BOOLEAN(int a,unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int 		d2i_ASN1_BOOLEAN(int *a,const unsigned char **pp,long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int		i2d_ASN1_BOOLEAN(int a,unsigned char **pp);
+int 		d2i_ASN1_BOOLEAN(int *a,const unsigned char **pp,long length);
 
 DECLARE_ASN1_FUNCTIONS(ASN1_INTEGER)
-int		i2c_ASN1_INTEGER(ASN1_INTEGER *a,unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int		i2c_ASN1_INTEGER(ASN1_INTEGER *a,unsigned char **pp);
 ASN1_INTEGER *c2i_ASN1_INTEGER(ASN1_INTEGER **a,const unsigned char **pp,
-			long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long length);
 ASN1_INTEGER *d2i_ASN1_UINTEGER(ASN1_INTEGER **a,const unsigned char **pp,
-			long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_INTEGER *	ASN1_INTEGER_dup(ASN1_INTEGER *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_INTEGER_cmp(ASN1_INTEGER *x, ASN1_INTEGER *y) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			long length);
+ASN1_INTEGER *	ASN1_INTEGER_dup(const ASN1_INTEGER *x);
+int ASN1_INTEGER_cmp(const ASN1_INTEGER *x, const ASN1_INTEGER *y);
 
 DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
 
-int ASN1_UTCTIME_check(ASN1_UTCTIME *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_UTCTIME *ASN1_UTCTIME_set(ASN1_UTCTIME *s,time_t t) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_UTCTIME_set_string(ASN1_UTCTIME *s, const char *str) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_UTCTIME_cmp_time_t(const ASN1_UTCTIME *s, time_t t) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_UTCTIME_check(ASN1_UTCTIME *a);
+ASN1_UTCTIME *ASN1_UTCTIME_set(ASN1_UTCTIME *s,time_t t);
+ASN1_UTCTIME *ASN1_UTCTIME_adj(ASN1_UTCTIME *s, time_t t,
+				int offset_day, long offset_sec);
+int ASN1_UTCTIME_set_string(ASN1_UTCTIME *s, const char *str);
+int ASN1_UTCTIME_cmp_time_t(const ASN1_UTCTIME *s, time_t t);
 #if 0
 time_t ASN1_UTCTIME_get(const ASN1_UTCTIME *s);
 #endif
 
-int ASN1_GENERALIZEDTIME_check(ASN1_GENERALIZEDTIME *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_GENERALIZEDTIME *ASN1_GENERALIZEDTIME_set(ASN1_GENERALIZEDTIME *s,time_t t) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_GENERALIZEDTIME_set_string(ASN1_GENERALIZEDTIME *s, const char *str) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_GENERALIZEDTIME_check(ASN1_GENERALIZEDTIME *a);
+ASN1_GENERALIZEDTIME *ASN1_GENERALIZEDTIME_set(ASN1_GENERALIZEDTIME *s,time_t t);
+ASN1_GENERALIZEDTIME *ASN1_GENERALIZEDTIME_adj(ASN1_GENERALIZEDTIME *s,
+	     time_t t, int offset_day, long offset_sec);
+int ASN1_GENERALIZEDTIME_set_string(ASN1_GENERALIZEDTIME *s, const char *str);
 
 DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
-ASN1_OCTET_STRING *	ASN1_OCTET_STRING_dup(ASN1_OCTET_STRING *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int 	ASN1_OCTET_STRING_cmp(ASN1_OCTET_STRING *a, ASN1_OCTET_STRING *b) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int 	ASN1_OCTET_STRING_set(ASN1_OCTET_STRING *str, const unsigned char *data, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_OCTET_STRING *	ASN1_OCTET_STRING_dup(const ASN1_OCTET_STRING *a);
+int 	ASN1_OCTET_STRING_cmp(const ASN1_OCTET_STRING *a, const ASN1_OCTET_STRING *b);
+int 	ASN1_OCTET_STRING_set(ASN1_OCTET_STRING *str, const unsigned char *data, int len);
 
 DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
 DECLARE_ASN1_FUNCTIONS(ASN1_UNIVERSALSTRING)
@@ -853,8 +866,8 @@ DECLARE_ASN1_FUNCTIONS(ASN1_UTF8STRING)
 DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
 DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
 
-int UTF8_getc(const unsigned char *str, int len, unsigned long *val) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int UTF8_putc(unsigned char *str, int len, unsigned long value) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int UTF8_getc(const unsigned char *str, int len, unsigned long *val);
+int UTF8_putc(unsigned char *str, int len, unsigned long value);
 
 DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
 
@@ -870,81 +883,87 @@ DECLARE_ASN1_FUNCTIONS(ASN1_TIME)
 
 DECLARE_ASN1_ITEM(ASN1_OCTET_STRING_NDEF)
 
-ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s,time_t t) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_TIME_check(ASN1_TIME *t) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s,time_t t);
+ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s,time_t t,
+				int offset_day, long offset_sec);
+int ASN1_TIME_check(ASN1_TIME *t);
+ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
+int ASN1_TIME_set_string(ASN1_TIME *s, const char *str);
 
-int i2d_ASN1_SET(STACK *a, unsigned char **pp,
-		 i2d_of_void *i2d, int ex_tag, int ex_class, int is_set) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-STACK *	d2i_ASN1_SET(STACK **a, const unsigned char **pp, long length,
-		     d2i_of_void *d2i, void (*free_func)(void *),
-		     int ex_tag, int ex_class) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int i2d_ASN1_SET(STACK_OF(OPENSSL_BLOCK) *a, unsigned char **pp,
+		 i2d_of_void *i2d, int ex_tag, int ex_class,
+		 int is_set);
+STACK_OF(OPENSSL_BLOCK) *d2i_ASN1_SET(STACK_OF(OPENSSL_BLOCK) **a,
+			      const unsigned char **pp,
+			      long length, d2i_of_void *d2i,
+			      void (*free_func)(OPENSSL_BLOCK), int ex_tag,
+			      int ex_class);
 
 #ifndef OPENSSL_NO_BIO
-int i2a_ASN1_INTEGER(BIO *bp, ASN1_INTEGER *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int a2i_ASN1_INTEGER(BIO *bp,ASN1_INTEGER *bs,char *buf,int size) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int i2a_ASN1_ENUMERATED(BIO *bp, ASN1_ENUMERATED *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int a2i_ASN1_ENUMERATED(BIO *bp,ASN1_ENUMERATED *bs,char *buf,int size) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int i2a_ASN1_OBJECT(BIO *bp,ASN1_OBJECT *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int a2i_ASN1_STRING(BIO *bp,ASN1_STRING *bs,char *buf,int size) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int i2a_ASN1_STRING(BIO *bp, ASN1_STRING *a, int type) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int i2a_ASN1_INTEGER(BIO *bp, ASN1_INTEGER *a);
+int a2i_ASN1_INTEGER(BIO *bp,ASN1_INTEGER *bs,char *buf,int size);
+int i2a_ASN1_ENUMERATED(BIO *bp, ASN1_ENUMERATED *a);
+int a2i_ASN1_ENUMERATED(BIO *bp,ASN1_ENUMERATED *bs,char *buf,int size);
+int i2a_ASN1_OBJECT(BIO *bp,ASN1_OBJECT *a);
+int a2i_ASN1_STRING(BIO *bp,ASN1_STRING *bs,char *buf,int size);
+int i2a_ASN1_STRING(BIO *bp, ASN1_STRING *a, int type);
 #endif
-int i2t_ASN1_OBJECT(char *buf,int buf_len,ASN1_OBJECT *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int i2t_ASN1_OBJECT(char *buf,int buf_len,ASN1_OBJECT *a);
 
-int a2d_ASN1_OBJECT(unsigned char *out,int olen, const char *buf, int num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int a2d_ASN1_OBJECT(unsigned char *out,int olen, const char *buf, int num);
 ASN1_OBJECT *ASN1_OBJECT_create(int nid, unsigned char *data,int len,
-	const char *sn, const char *ln) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	const char *sn, const char *ln);
 
-int ASN1_INTEGER_set(ASN1_INTEGER *a, long v) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-long ASN1_INTEGER_get(ASN1_INTEGER *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_INTEGER *BN_to_ASN1_INTEGER(BIGNUM *bn, ASN1_INTEGER *ai) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-BIGNUM *ASN1_INTEGER_to_BN(ASN1_INTEGER *ai,BIGNUM *bn) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_INTEGER_set(ASN1_INTEGER *a, long v);
+long ASN1_INTEGER_get(const ASN1_INTEGER *a);
+ASN1_INTEGER *BN_to_ASN1_INTEGER(const BIGNUM *bn, ASN1_INTEGER *ai);
+BIGNUM *ASN1_INTEGER_to_BN(const ASN1_INTEGER *ai,BIGNUM *bn);
 
-int ASN1_ENUMERATED_set(ASN1_ENUMERATED *a, long v) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-long ASN1_ENUMERATED_get(ASN1_ENUMERATED *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_ENUMERATED *BN_to_ASN1_ENUMERATED(BIGNUM *bn, ASN1_ENUMERATED *ai) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai,BIGNUM *bn) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_ENUMERATED_set(ASN1_ENUMERATED *a, long v);
+long ASN1_ENUMERATED_get(ASN1_ENUMERATED *a);
+ASN1_ENUMERATED *BN_to_ASN1_ENUMERATED(BIGNUM *bn, ASN1_ENUMERATED *ai);
+BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai,BIGNUM *bn);
 
 /* General */
 /* given a string, return the correct type, max is the maximum length */
-int ASN1_PRINTABLE_type(const unsigned char *s, int max) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_PRINTABLE_type(const unsigned char *s, int max);
 
-int i2d_ASN1_bytes(ASN1_STRING *a, unsigned char **pp, int tag, int xclass) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int i2d_ASN1_bytes(ASN1_STRING *a, unsigned char **pp, int tag, int xclass);
 ASN1_STRING *d2i_ASN1_bytes(ASN1_STRING **a, const unsigned char **pp,
-	long length, int Ptag, int Pclass) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ASN1_tag2bit(int tag) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	long length, int Ptag, int Pclass);
+unsigned long ASN1_tag2bit(int tag);
 /* type is one or more of the B_ASN1_ values. */
 ASN1_STRING *d2i_ASN1_type_bytes(ASN1_STRING **a,const unsigned char **pp,
-		long length,int type) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		long length,int type);
 
 /* PARSING */
-int asn1_Finish(ASN1_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int asn1_const_Finish(ASN1_const_CTX *c) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int asn1_Finish(ASN1_CTX *c);
+int asn1_const_Finish(ASN1_const_CTX *c);
 
 /* SPECIALS */
 int ASN1_get_object(const unsigned char **pp, long *plength, int *ptag,
-	int *pclass, long omax) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_check_infinite_end(unsigned char **p,long len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_const_check_infinite_end(const unsigned char **p,long len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	int *pclass, long omax);
+int ASN1_check_infinite_end(unsigned char **p,long len);
+int ASN1_const_check_infinite_end(const unsigned char **p,long len);
 void ASN1_put_object(unsigned char **pp, int constructed, int length,
-	int tag, int xclass) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_put_eoc(unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_object_size(int constructed, int length, int tag) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	int tag, int xclass);
+int ASN1_put_eoc(unsigned char **pp);
+int ASN1_object_size(int constructed, int length, int tag);
 
 /* Used to implement other functions */
-void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, char *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
 
 #define ASN1_dup_of(type,i2d,d2i,x) \
     ((type*)ASN1_dup(CHECKED_I2D_OF(type, i2d), \
 		     CHECKED_D2I_OF(type, d2i), \
-		     CHECKED_PTR_OF_TO_CHAR(type, x)))
+		     CHECKED_PTR_OF(type, x)))
 
 #define ASN1_dup_of_const(type,i2d,d2i,x) \
     ((type*)ASN1_dup(CHECKED_I2D_OF(const type, i2d), \
 		     CHECKED_D2I_OF(type, d2i), \
-		     CHECKED_PTR_OF_TO_CHAR(const type, x)))
+		     CHECKED_PTR_OF(const type, x)))
 
-void *ASN1_item_dup(const ASN1_ITEM *it, void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_item_dup(const ASN1_ITEM *it, void *x);
 
 /* ASN1 alloc/free macros for when a type is only used internally */
 
@@ -953,7 +972,7 @@ void *ASN1_item_dup(const ASN1_ITEM *it, void *x) DEPRECATED_IN_MAC_OS_X_VERSION
 		ASN1_item_free(CHECKED_PTR_OF(type, x), ASN1_ITEM_rptr(type))
 
 #ifndef OPENSSL_NO_FP_API
-void *ASN1_d2i_fp(void *(*xnew)(void), d2i_of_void *d2i, FILE *in, void **x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_d2i_fp(void *(*xnew)(void), d2i_of_void *d2i, FILE *in, void **x);
 
 #define ASN1_d2i_fp_of(type,xnew,d2i,in,x) \
     ((type*)ASN1_d2i_fp(CHECKED_NEW_OF(type, xnew), \
@@ -961,8 +980,8 @@ void *ASN1_d2i_fp(void *(*xnew)(void), d2i_of_void *d2i, FILE *in, void **x) DEP
 			in, \
 			CHECKED_PPTR_OF(type, x)))
 
-void *ASN1_item_d2i_fp(const ASN1_ITEM *it, FILE *in, void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_i2d_fp(i2d_of_void *i2d,FILE *out,void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_item_d2i_fp(const ASN1_ITEM *it, FILE *in, void *x);
+int ASN1_i2d_fp(i2d_of_void *i2d,FILE *out,void *x);
 
 #define ASN1_i2d_fp_of(type,i2d,out,x) \
     (ASN1_i2d_fp(CHECKED_I2D_OF(type, i2d), \
@@ -974,14 +993,14 @@ int ASN1_i2d_fp(i2d_of_void *i2d,FILE *out,void *x) DEPRECATED_IN_MAC_OS_X_VERSI
 		 out, \
 		 CHECKED_PTR_OF(const type, x)))
 
-int ASN1_item_i2d_fp(const ASN1_ITEM *it, FILE *out, void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_print_ex_fp(FILE *fp, ASN1_STRING *str, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_item_i2d_fp(const ASN1_ITEM *it, FILE *out, void *x);
+int ASN1_STRING_print_ex_fp(FILE *fp, ASN1_STRING *str, unsigned long flags);
 #endif
 
-int ASN1_STRING_to_UTF8(unsigned char **out, ASN1_STRING *in) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_STRING_to_UTF8(unsigned char **out, ASN1_STRING *in);
 
 #ifndef OPENSSL_NO_BIO
-void *ASN1_d2i_bio(void *(*xnew)(void), d2i_of_void *d2i, BIO *in, void **x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_d2i_bio(void *(*xnew)(void), d2i_of_void *d2i, BIO *in, void **x);
 
 #define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
     ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
@@ -989,8 +1008,8 @@ void *ASN1_d2i_bio(void *(*xnew)(void), d2i_of_void *d2i, BIO *in, void **x) DEP
 			  in, \
 			  CHECKED_PPTR_OF(type, x)))
 
-void *ASN1_item_d2i_bio(const ASN1_ITEM *it, BIO *in, void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_i2d_bio(i2d_of_void *i2d,BIO *out, unsigned char *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void *ASN1_item_d2i_bio(const ASN1_ITEM *it, BIO *in, void *x);
+int ASN1_i2d_bio(i2d_of_void *i2d,BIO *out, unsigned char *x);
 
 #define ASN1_i2d_bio_of(type,i2d,out,x) \
     (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
@@ -1002,100 +1021,137 @@ int ASN1_i2d_bio(i2d_of_void *i2d,BIO *out, unsigned char *x) DEPRECATED_IN_MAC_
 		  out, \
 		  CHECKED_PTR_OF(const type, x)))
 
-int ASN1_item_i2d_bio(const ASN1_ITEM *it, BIO *out, void *x) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_UTCTIME_print(BIO *fp,ASN1_UTCTIME *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_GENERALIZEDTIME_print(BIO *fp,ASN1_GENERALIZEDTIME *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_TIME_print(BIO *fp,ASN1_TIME *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_print(BIO *bp,ASN1_STRING *v) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_print_ex(BIO *out, ASN1_STRING *str, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_parse(BIO *bp,const unsigned char *pp,long len,int indent) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_parse_dump(BIO *bp,const unsigned char *pp,long len,int indent,int dump) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_item_i2d_bio(const ASN1_ITEM *it, BIO *out, void *x);
+int ASN1_UTCTIME_print(BIO *fp, const ASN1_UTCTIME *a);
+int ASN1_GENERALIZEDTIME_print(BIO *fp, const ASN1_GENERALIZEDTIME *a);
+int ASN1_TIME_print(BIO *fp, const ASN1_TIME *a);
+int ASN1_STRING_print(BIO *bp, const ASN1_STRING *v);
+int ASN1_STRING_print_ex(BIO *out, ASN1_STRING *str, unsigned long flags);
+int ASN1_bn_print(BIO *bp, const char *number, const BIGNUM *num,
+				unsigned char *buf, int off);
+int ASN1_parse(BIO *bp,const unsigned char *pp,long len,int indent);
+int ASN1_parse_dump(BIO *bp,const unsigned char *pp,long len,int indent,int dump);
 #endif
-const char *ASN1_tag2str(int tag) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+const char *ASN1_tag2str(int tag);
 
-/* Used to load and write netscape format cert/key */
-int i2d_ASN1_HEADER(ASN1_HEADER *a,unsigned char **pp) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_HEADER *d2i_ASN1_HEADER(ASN1_HEADER **a,const unsigned char **pp, long length) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_HEADER *ASN1_HEADER_new(void ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ASN1_HEADER_free(ASN1_HEADER *a) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+/* Used to load and write netscape format cert */
 
-int ASN1_UNIVERSALSTRING_to_string(ASN1_UNIVERSALSTRING *s) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+DECLARE_ASN1_FUNCTIONS(NETSCAPE_X509)
 
-/* Not used that much at this point, except for the first two */
-ASN1_METHOD *X509_asn1_meth(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_METHOD *RSAPrivateKey_asn1_meth(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_METHOD *ASN1_IA5STRING_asn1_meth(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_METHOD *ASN1_BIT_STRING_asn1_meth(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int ASN1_UNIVERSALSTRING_to_string(ASN1_UNIVERSALSTRING *s);
 
 int ASN1_TYPE_set_octetstring(ASN1_TYPE *a,
-	unsigned char *data, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	unsigned char *data, int len);
 int ASN1_TYPE_get_octetstring(ASN1_TYPE *a,
-	unsigned char *data, int max_len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	unsigned char *data, int max_len);
 int ASN1_TYPE_set_int_octetstring(ASN1_TYPE *a, long num,
-	unsigned char *data, int len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	unsigned char *data, int len);
 int ASN1_TYPE_get_int_octetstring(ASN1_TYPE *a,long *num,
-	unsigned char *data, int max_len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+	unsigned char *data, int max_len);
 
-STACK *ASN1_seq_unpack(const unsigned char *buf, int len,
-		       d2i_of_void *d2i, void (*free_func)(void *)) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned char *ASN1_seq_pack(STACK *safes, i2d_of_void *i2d,
-			     unsigned char **buf, int *len ) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *ASN1_unpack_string(ASN1_STRING *oct, d2i_of_void *d2i) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void *ASN1_item_unpack(ASN1_STRING *oct, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+STACK_OF(OPENSSL_BLOCK) *ASN1_seq_unpack(const unsigned char *buf, int len,
+				 d2i_of_void *d2i, void (*free_func)(OPENSSL_BLOCK));
+unsigned char *ASN1_seq_pack(STACK_OF(OPENSSL_BLOCK) *safes, i2d_of_void *i2d,
+			     unsigned char **buf, int *len );
+void *ASN1_unpack_string(ASN1_STRING *oct, d2i_of_void *d2i);
+void *ASN1_item_unpack(ASN1_STRING *oct, const ASN1_ITEM *it);
 ASN1_STRING *ASN1_pack_string(void *obj, i2d_of_void *i2d,
-			      ASN1_OCTET_STRING **oct) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+			      ASN1_OCTET_STRING **oct);
 
 #define ASN1_pack_string_of(type,obj,i2d,oct) \
     (ASN1_pack_string(CHECKED_PTR_OF(type, obj), \
 		      CHECKED_I2D_OF(type, i2d), \
 		      oct))
 
-ASN1_STRING *ASN1_item_pack(void *obj, const ASN1_ITEM *it, ASN1_OCTET_STRING **oct) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_STRING *ASN1_item_pack(void *obj, const ASN1_ITEM *it, ASN1_OCTET_STRING **oct);
 
-void ASN1_STRING_set_default_mask(unsigned long mask) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_set_default_mask_asc(const char *p) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-unsigned long ASN1_STRING_get_default_mask(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ASN1_STRING_set_default_mask(unsigned long mask);
+int ASN1_STRING_set_default_mask_asc(const char *p);
+unsigned long ASN1_STRING_get_default_mask(void);
 int ASN1_mbstring_copy(ASN1_STRING **out, const unsigned char *in, int len,
-					int inform, unsigned long mask) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+					int inform, unsigned long mask);
 int ASN1_mbstring_ncopy(ASN1_STRING **out, const unsigned char *in, int len,
 					int inform, unsigned long mask, 
-					long minsize, long maxsize) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+					long minsize, long maxsize);
 
 ASN1_STRING *ASN1_STRING_set_by_NID(ASN1_STRING **out, 
-		const unsigned char *in, int inlen, int inform, int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_STRING_TABLE_add(int, long, long, unsigned long, unsigned long) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ASN1_STRING_TABLE_cleanup(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		const unsigned char *in, int inlen, int inform, int nid);
+ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid);
+int ASN1_STRING_TABLE_add(int, long, long, unsigned long, unsigned long);
+void ASN1_STRING_TABLE_cleanup(void);
 
 /* ASN1 template functions */
 
 /* Old API compatible functions */
-ASN1_VALUE *ASN1_item_new(const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void ASN1_item_free(ASN1_VALUE *val, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_VALUE * ASN1_item_d2i(ASN1_VALUE **val, const unsigned char **in, long len, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_item_i2d(ASN1_VALUE *val, unsigned char **out, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-int ASN1_item_ndef_i2d(ASN1_VALUE *val, unsigned char **out, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_VALUE *ASN1_item_new(const ASN1_ITEM *it);
+void ASN1_item_free(ASN1_VALUE *val, const ASN1_ITEM *it);
+ASN1_VALUE * ASN1_item_d2i(ASN1_VALUE **val, const unsigned char **in, long len, const ASN1_ITEM *it);
+int ASN1_item_i2d(ASN1_VALUE *val, unsigned char **out, const ASN1_ITEM *it);
+int ASN1_item_ndef_i2d(ASN1_VALUE *val, unsigned char **out, const ASN1_ITEM *it);
 
-void ASN1_add_oid_module(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ASN1_add_oid_module(void);
 
-ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf);
+ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);
 
-typedef int asn1_output_data_fn(BIO *out, BIO *data, ASN1_VALUE *val, int flags,
-					const ASN1_ITEM *it);
+/* ASN1 Print flags */
 
-int int_smime_write_ASN1(BIO *bio, ASN1_VALUE *val, BIO *data, int flags,
+/* Indicate missing OPTIONAL fields */
+#define ASN1_PCTX_FLAGS_SHOW_ABSENT		0x001	
+/* Mark start and end of SEQUENCE */
+#define ASN1_PCTX_FLAGS_SHOW_SEQUENCE		0x002
+/* Mark start and end of SEQUENCE/SET OF */
+#define ASN1_PCTX_FLAGS_SHOW_SSOF		0x004
+/* Show the ASN1 type of primitives */
+#define ASN1_PCTX_FLAGS_SHOW_TYPE		0x008
+/* Don't show ASN1 type of ANY */
+#define ASN1_PCTX_FLAGS_NO_ANY_TYPE		0x010
+/* Don't show ASN1 type of MSTRINGs */
+#define ASN1_PCTX_FLAGS_NO_MSTRING_TYPE		0x020
+/* Don't show field names in SEQUENCE */
+#define ASN1_PCTX_FLAGS_NO_FIELD_NAME		0x040
+/* Show structure names of each SEQUENCE field */
+#define ASN1_PCTX_FLAGS_SHOW_FIELD_STRUCT_NAME	0x080
+/* Don't show structure name even at top level */
+#define ASN1_PCTX_FLAGS_NO_STRUCT_NAME		0x100
+
+int ASN1_item_print(BIO *out, ASN1_VALUE *ifld, int indent,
+				const ASN1_ITEM *it, const ASN1_PCTX *pctx);
+ASN1_PCTX *ASN1_PCTX_new(void);
+void ASN1_PCTX_free(ASN1_PCTX *p);
+unsigned long ASN1_PCTX_get_flags(ASN1_PCTX *p);
+void ASN1_PCTX_set_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_nm_flags(ASN1_PCTX *p);
+void ASN1_PCTX_set_nm_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_cert_flags(ASN1_PCTX *p);
+void ASN1_PCTX_set_cert_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_oid_flags(ASN1_PCTX *p);
+void ASN1_PCTX_set_oid_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_str_flags(ASN1_PCTX *p);
+void ASN1_PCTX_set_str_flags(ASN1_PCTX *p, unsigned long flags);
+
+BIO_METHOD *BIO_f_asn1(void);
+
+BIO *BIO_new_NDEF(BIO *out, ASN1_VALUE *val, const ASN1_ITEM *it);
+
+int i2d_ASN1_bio_stream(BIO *out, ASN1_VALUE *val, BIO *in, int flags,
+				const ASN1_ITEM *it);
+int PEM_write_bio_ASN1_stream(BIO *out, ASN1_VALUE *val, BIO *in, int flags,
+				const char *hdr,
+				const ASN1_ITEM *it);
+int SMIME_write_ASN1(BIO *bio, ASN1_VALUE *val, BIO *data, int flags,
 				int ctype_nid, int econt_nid,
 				STACK_OF(X509_ALGOR) *mdalgs,
-				asn1_output_data_fn *data_fn,
-				const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-ASN1_VALUE *SMIME_read_ASN1(BIO *bio, BIO **bcont, const ASN1_ITEM *it) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+				const ASN1_ITEM *it);
+ASN1_VALUE *SMIME_read_ASN1(BIO *bio, BIO **bcont, const ASN1_ITEM *it);
+int SMIME_crlf_copy(BIO *in, BIO *out, int flags);
+int SMIME_text(BIO *in, BIO *out);
 
 /* BEGIN ERROR CODES */
 /* The following lines are auto generated by the script mkerr.pl. Any changes
  * made after this point may be overwritten when the script is next run.
  */
-void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void ERR_load_ASN1_strings(void);
 
 /* Error codes for the ASN1 functions. */
 
@@ -1120,6 +1176,7 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_ASN1_ENUMERATED_TO_BN			 113
 #define ASN1_F_ASN1_EX_C2I				 204
 #define ASN1_F_ASN1_FIND_END				 190
+#define ASN1_F_ASN1_GENERALIZEDTIME_ADJ			 216
 #define ASN1_F_ASN1_GENERALIZEDTIME_SET			 185
 #define ASN1_F_ASN1_GENERATE_V3				 178
 #define ASN1_F_ASN1_GET_OBJECT				 114
@@ -1136,11 +1193,12 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_ASN1_ITEM_I2D_FP				 193
 #define ASN1_F_ASN1_ITEM_PACK				 198
 #define ASN1_F_ASN1_ITEM_SIGN				 195
+#define ASN1_F_ASN1_ITEM_SIGN_CTX			 220
 #define ASN1_F_ASN1_ITEM_UNPACK				 199
 #define ASN1_F_ASN1_ITEM_VERIFY				 197
 #define ASN1_F_ASN1_MBSTRING_NCOPY			 122
 #define ASN1_F_ASN1_OBJECT_NEW				 123
-#define ASN1_F_ASN1_OUTPUT_DATA				 207
+#define ASN1_F_ASN1_OUTPUT_DATA				 214
 #define ASN1_F_ASN1_PACK_STRING				 124
 #define ASN1_F_ASN1_PCTX_NEW				 205
 #define ASN1_F_ASN1_PKCS5_PBE_SET			 125
@@ -1154,14 +1212,17 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_ASN1_TEMPLATE_EX_D2I			 132
 #define ASN1_F_ASN1_TEMPLATE_NEW			 133
 #define ASN1_F_ASN1_TEMPLATE_NOEXP_D2I			 131
+#define ASN1_F_ASN1_TIME_ADJ				 217
 #define ASN1_F_ASN1_TIME_SET				 175
 #define ASN1_F_ASN1_TYPE_GET_INT_OCTETSTRING		 134
 #define ASN1_F_ASN1_TYPE_GET_OCTETSTRING		 135
 #define ASN1_F_ASN1_UNPACK_STRING			 136
+#define ASN1_F_ASN1_UTCTIME_ADJ				 218
 #define ASN1_F_ASN1_UTCTIME_SET				 187
 #define ASN1_F_ASN1_VERIFY				 137
-#define ASN1_F_B64_READ_ASN1				 208
-#define ASN1_F_B64_WRITE_ASN1				 209
+#define ASN1_F_B64_READ_ASN1				 209
+#define ASN1_F_B64_WRITE_ASN1				 210
+#define ASN1_F_BIO_NEW_NDEF				 208
 #define ASN1_F_BITSTR_CB				 180
 #define ASN1_F_BN_TO_ASN1_ENUMERATED			 138
 #define ASN1_F_BN_TO_ASN1_INTEGER			 139
@@ -1180,6 +1241,7 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_D2I_ASN1_TYPE_BYTES			 149
 #define ASN1_F_D2I_ASN1_UINTEGER			 150
 #define ASN1_F_D2I_ASN1_UTCTIME				 151
+#define ASN1_F_D2I_AUTOPRIVATEKEY			 207
 #define ASN1_F_D2I_NETSCAPE_RSA				 152
 #define ASN1_F_D2I_NETSCAPE_RSA_2			 153
 #define ASN1_F_D2I_PRIVATEKEY				 154
@@ -1189,6 +1251,7 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_D2I_X509					 156
 #define ASN1_F_D2I_X509_CINF				 157
 #define ASN1_F_D2I_X509_PKEY				 159
+#define ASN1_F_I2D_ASN1_BIO_STREAM			 211
 #define ASN1_F_I2D_ASN1_SET				 188
 #define ASN1_F_I2D_ASN1_TIME				 160
 #define ASN1_F_I2D_DSA_PUBKEY				 161
@@ -1200,10 +1263,12 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_F_LONG_C2I					 166
 #define ASN1_F_OID_MODULE_INIT				 174
 #define ASN1_F_PARSE_TAGGING				 182
-#define ASN1_F_PKCS5_PBE2_SET				 167
+#define ASN1_F_PKCS5_PBE2_SET_IV			 167
 #define ASN1_F_PKCS5_PBE_SET				 202
-#define ASN1_F_SMIME_READ_ASN1				 210
-#define ASN1_F_SMIME_TEXT				 211
+#define ASN1_F_PKCS5_PBE_SET0_ALGOR			 215
+#define ASN1_F_PKCS5_PBKDF2_SET				 219
+#define ASN1_F_SMIME_READ_ASN1				 212
+#define ASN1_F_SMIME_TEXT				 213
 #define ASN1_F_X509_CINF_NEW				 168
 #define ASN1_F_X509_CRL_ADD0_REVOKED			 169
 #define ASN1_F_X509_INFO_NEW				 170
@@ -1215,22 +1280,24 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 /* Reason codes. */
 #define ASN1_R_ADDING_OBJECT				 171
-#define ASN1_R_ASN1_PARSE_ERROR				 198
-#define ASN1_R_ASN1_SIG_PARSE_ERROR			 199
+#define ASN1_R_ASN1_PARSE_ERROR				 203
+#define ASN1_R_ASN1_SIG_PARSE_ERROR			 204
 #define ASN1_R_AUX_ERROR				 100
 #define ASN1_R_BAD_CLASS				 101
 #define ASN1_R_BAD_OBJECT_HEADER			 102
 #define ASN1_R_BAD_PASSWORD_READ			 103
 #define ASN1_R_BAD_TAG					 104
-#define ASN1_R_BMPSTRING_IS_WRONG_LENGTH		 210
+#define ASN1_R_BMPSTRING_IS_WRONG_LENGTH		 214
 #define ASN1_R_BN_LIB					 105
 #define ASN1_R_BOOLEAN_IS_WRONG_LENGTH			 106
 #define ASN1_R_BUFFER_TOO_SMALL				 107
 #define ASN1_R_CIPHER_HAS_NO_OBJECT_IDENTIFIER		 108
+#define ASN1_R_CONTEXT_NOT_INITIALISED			 217
 #define ASN1_R_DATA_IS_WRONG				 109
 #define ASN1_R_DECODE_ERROR				 110
 #define ASN1_R_DECODING_ERROR				 111
 #define ASN1_R_DEPTH_EXCEEDED				 174
+#define ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED	 198
 #define ASN1_R_ENCODE_ERROR				 112
 #define ASN1_R_ERROR_GETTING_TIME			 173
 #define ASN1_R_ERROR_LOADING_SECTION			 172
@@ -1264,10 +1331,10 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_INTEGER_TOO_LARGE_FOR_LONG		 128
 #define ASN1_R_INVALID_BMPSTRING_LENGTH			 129
 #define ASN1_R_INVALID_DIGIT				 130
-#define ASN1_R_INVALID_MIME_TYPE			 200
+#define ASN1_R_INVALID_MIME_TYPE			 205
 #define ASN1_R_INVALID_MODIFIER				 186
 #define ASN1_R_INVALID_NUMBER				 187
-#define ASN1_R_INVALID_OBJECT_ENCODING			 212
+#define ASN1_R_INVALID_OBJECT_ENCODING			 216
 #define ASN1_R_INVALID_SEPARATOR			 131
 #define ASN1_R_INVALID_TIME_FORMAT			 132
 #define ASN1_R_INVALID_UNIVERSALSTRING_LENGTH		 133
@@ -1275,9 +1342,9 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_IV_TOO_LARGE				 135
 #define ASN1_R_LENGTH_ERROR				 136
 #define ASN1_R_LIST_ERROR				 188
-#define ASN1_R_MIME_NO_CONTENT_TYPE			 201
-#define ASN1_R_MIME_PARSE_ERROR				 202
-#define ASN1_R_MIME_SIG_PARSE_ERROR			 203
+#define ASN1_R_MIME_NO_CONTENT_TYPE			 206
+#define ASN1_R_MIME_PARSE_ERROR				 207
+#define ASN1_R_MIME_SIG_PARSE_ERROR			 208
 #define ASN1_R_MISSING_EOC				 137
 #define ASN1_R_MISSING_SECOND_NUMBER			 138
 #define ASN1_R_MISSING_VALUE				 189
@@ -1287,11 +1354,12 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_NON_HEX_CHARACTERS			 141
 #define ASN1_R_NOT_ASCII_FORMAT				 190
 #define ASN1_R_NOT_ENOUGH_DATA				 142
-#define ASN1_R_NO_CONTENT_TYPE				 204
+#define ASN1_R_NO_CONTENT_TYPE				 209
+#define ASN1_R_NO_DEFAULT_DIGEST			 201
 #define ASN1_R_NO_MATCHING_CHOICE_TYPE			 143
-#define ASN1_R_NO_MULTIPART_BODY_FAILURE		 205
-#define ASN1_R_NO_MULTIPART_BOUNDARY			 206
-#define ASN1_R_NO_SIG_CONTENT_TYPE			 207
+#define ASN1_R_NO_MULTIPART_BODY_FAILURE		 210
+#define ASN1_R_NO_MULTIPART_BOUNDARY			 211
+#define ASN1_R_NO_SIG_CONTENT_TYPE			 212
 #define ASN1_R_NULL_IS_WRONG_LENGTH			 144
 #define ASN1_R_OBJECT_NOT_ASCII_FORMAT			 191
 #define ASN1_R_ODD_NUMBER_OF_CHARS			 145
@@ -1301,8 +1369,8 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_SEQUENCE_NOT_CONSTRUCTED			 149
 #define ASN1_R_SEQUENCE_OR_SET_NEEDS_CONFIG		 192
 #define ASN1_R_SHORT_LINE				 150
-#define ASN1_R_SIG_INVALID_MIME_TYPE			 208
-#define ASN1_R_STREAMING_NOT_SUPPORTED			 209
+#define ASN1_R_SIG_INVALID_MIME_TYPE			 213
+#define ASN1_R_STREAMING_NOT_SUPPORTED			 202
 #define ASN1_R_STRING_TOO_LONG				 151
 #define ASN1_R_STRING_TOO_SHORT				 152
 #define ASN1_R_TAG_VALUE_TOO_HIGH			 153
@@ -1313,11 +1381,12 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_UNABLE_TO_DECODE_RSA_KEY			 157
 #define ASN1_R_UNABLE_TO_DECODE_RSA_PRIVATE_KEY		 158
 #define ASN1_R_UNEXPECTED_EOC				 159
-#define ASN1_R_UNIVERSALSTRING_IS_WRONG_LENGTH		 211
+#define ASN1_R_UNIVERSALSTRING_IS_WRONG_LENGTH		 215
 #define ASN1_R_UNKNOWN_FORMAT				 160
 #define ASN1_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM		 161
 #define ASN1_R_UNKNOWN_OBJECT_TYPE			 162
 #define ASN1_R_UNKNOWN_PUBLIC_KEY_TYPE			 163
+#define ASN1_R_UNKNOWN_SIGNATURE_ALGORITHM		 199
 #define ASN1_R_UNKNOWN_TAG				 194
 #define ASN1_R_UNKOWN_FORMAT				 195
 #define ASN1_R_UNSUPPORTED_ANY_DEFINED_BY_TYPE		 164
@@ -1325,6 +1394,7 @@ void ERR_load_ASN1_strings(void) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 #define ASN1_R_UNSUPPORTED_ENCRYPTION_ALGORITHM		 166
 #define ASN1_R_UNSUPPORTED_PUBLIC_KEY_TYPE		 167
 #define ASN1_R_UNSUPPORTED_TYPE				 196
+#define ASN1_R_WRONG_PUBLIC_KEY_TYPE			 200
 #define ASN1_R_WRONG_TAG				 168
 #define ASN1_R_WRONG_TYPE				 169
 

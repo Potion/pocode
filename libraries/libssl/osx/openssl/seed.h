@@ -81,9 +81,9 @@
 #ifndef HEADER_SEED_H
 #define HEADER_SEED_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/opensslconf.h>
+#include <openssl/e_os2.h>
+#include <openssl/crypto.h>
 
 #ifdef OPENSSL_NO_SEED
 #error SEED is disabled.
@@ -116,19 +116,21 @@ typedef struct seed_key_st {
 #endif
 } SEED_KEY_SCHEDULE;
 
+#ifdef OPENSSL_FIPS
+void private_SEED_set_key(const unsigned char rawkey[SEED_KEY_LENGTH], SEED_KEY_SCHEDULE *ks);
+#endif
+void SEED_set_key(const unsigned char rawkey[SEED_KEY_LENGTH], SEED_KEY_SCHEDULE *ks);
 
-void SEED_set_key(const unsigned char rawkey[SEED_KEY_LENGTH], SEED_KEY_SCHEDULE *ks) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void SEED_encrypt(const unsigned char s[SEED_BLOCK_SIZE], unsigned char d[SEED_BLOCK_SIZE], const SEED_KEY_SCHEDULE *ks);
+void SEED_decrypt(const unsigned char s[SEED_BLOCK_SIZE], unsigned char d[SEED_BLOCK_SIZE], const SEED_KEY_SCHEDULE *ks);
 
-void SEED_encrypt(const unsigned char s[SEED_BLOCK_SIZE], unsigned char d[SEED_BLOCK_SIZE], const SEED_KEY_SCHEDULE *ks) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void SEED_decrypt(const unsigned char s[SEED_BLOCK_SIZE], unsigned char d[SEED_BLOCK_SIZE], const SEED_KEY_SCHEDULE *ks) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-
-void SEED_ecb_encrypt(const unsigned char *in, unsigned char *out, const SEED_KEY_SCHEDULE *ks, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void SEED_ecb_encrypt(const unsigned char *in, unsigned char *out, const SEED_KEY_SCHEDULE *ks, int enc);
 void SEED_cbc_encrypt(const unsigned char *in, unsigned char *out,
-        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int enc);
 void SEED_cfb128_encrypt(const unsigned char *in, unsigned char *out,
-        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int *num, int enc) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int *num, int enc);
 void SEED_ofb128_encrypt(const unsigned char *in, unsigned char *out,
-        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int *num) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+        size_t len, const SEED_KEY_SCHEDULE *ks, unsigned char ivec[SEED_BLOCK_SIZE], int *num);
 
 #ifdef  __cplusplus
 }

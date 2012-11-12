@@ -58,8 +58,6 @@
 #ifndef HEADER_HMAC_H
 #define HEADER_HMAC_H
 
-#include <AvailabilityMacros.h>
-
 #include <openssl/opensslconf.h>
 
 #ifdef OPENSSL_NO_HMAC
@@ -87,22 +85,23 @@ typedef struct hmac_ctx_st
 #define HMAC_size(e)	(EVP_MD_size((e)->md))
 
 
-void HMAC_CTX_init(HMAC_CTX *ctx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void HMAC_CTX_cleanup(HMAC_CTX *ctx) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void HMAC_CTX_init(HMAC_CTX *ctx);
+void HMAC_CTX_cleanup(HMAC_CTX *ctx);
 
 #define HMAC_cleanup(ctx) HMAC_CTX_cleanup(ctx) /* deprecated */
 
-void HMAC_Init(HMAC_CTX *ctx, const void *key, int len,
-	       const EVP_MD *md) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER; /* deprecated */
-void HMAC_Init_ex(HMAC_CTX *ctx, const void *key, int len,
-		  const EVP_MD *md, ENGINE *impl) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void HMAC_Update(HMAC_CTX *ctx, const unsigned char *data, size_t len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-void HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+int HMAC_Init(HMAC_CTX *ctx, const void *key, int len,
+	       const EVP_MD *md); /* deprecated */
+int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, int len,
+		  const EVP_MD *md, ENGINE *impl);
+int HMAC_Update(HMAC_CTX *ctx, const unsigned char *data, size_t len);
+int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);
 unsigned char *HMAC(const EVP_MD *evp_md, const void *key, int key_len,
 		    const unsigned char *d, size_t n, unsigned char *md,
-		    unsigned int *md_len) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+		    unsigned int *md_len);
+int HMAC_CTX_copy(HMAC_CTX *dctx, HMAC_CTX *sctx);
 
-void HMAC_CTX_set_flags(HMAC_CTX *ctx, unsigned long flags) DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+void HMAC_CTX_set_flags(HMAC_CTX *ctx, unsigned long flags);
 
 #ifdef  __cplusplus
 }
