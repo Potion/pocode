@@ -74,5 +74,5 @@ namespace po {
 		std::string string;
 		DictionaryVec attribs;
 	};
-	
+
 }
