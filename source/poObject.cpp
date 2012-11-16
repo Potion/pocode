@@ -17,19 +17,18 @@
  *
  */
 
-#include "poHelpers.h"
-#include "poObject.h"
-#include "poWindow.h"
-#include "poApplication.h"
-
-#include "poOpenGLState.h"
-#include "poSimpleDrawing.h"
-
-#include "poCamera.h"
-
 #include <iostream>
 #include <boost/foreach.hpp>
 #include <glm/gtx/string_cast.hpp>
+
+#include "poObject.h"
+
+#include "poApplication.h"
+#include "poHelpers.h"
+#include "poWindow.h"
+#include "poOpenGLState.h"
+#include "poSimpleDrawing.h"
+#include "poCamera.h"
 
 static uint PO_OBJECT_UID = 0;
 
@@ -114,42 +113,98 @@ namespace po {
         if(eventMemory)
             delete eventMemory;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Object *Object::copy() {
         Object *obj = new Object();
         clone(obj);
         return obj;
     }
-
+    
+    
+    //------------------------------------------------------------------------
+    void Object::clone(Object *obj) {
+        obj->alpha = alpha;
+        obj->scale = scale;
+        obj->position = position;
+        obj->rotation = rotation;
+        obj->rotationAxis = rotationAxis;
+        obj->offset = offset;
+        obj->visible = visible;
+        obj->drawBounds = drawBounds;
+        obj->matrixOrder = matrixOrder;
+        obj->positionTween = positionTween;
+        obj->scaleTween = scaleTween;
+        obj->offsetTween = offsetTween;
+        obj->alphaTween = alphaTween;
+        obj->rotationTween = rotationTween;
+        obj->alignment = alignment;
+        
+        for(int i=0; i<getNumChildren(); i++) {
+            obj->children.push_back(children[i]->copy());
+        }
+        
+        for(int i=0; i<getNumModifiers(); i++) {
+            obj->modifiers.push_back(modifiers[i]->copy());
+        }
+        
+        poEventCenter::get()->copyEventsFromObject(this, obj);
+    }
+    
+    
+    //------------------------------------------------------------------------
     void Object::draw() {}
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::update() {}
+    
+    
+    //------------------------------------------------------------------------
     void Object::eventHandler(poEvent *event) {}
+    
+    
+    //------------------------------------------------------------------------
     void Object::messageHandler(const std::string &msg, const poDictionary& dict) {
         if(parent) {
             parent->messageHandler(msg,dict);
         }
     }
-
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Dimensions ========================================
+    #pragma mark Dimensions
+    
+    //------------------------------------------------------------------------
     float Object::getWidth() {
         return getBounds().width;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float Object::getScaledWidth() {
         return getBounds().width * scale.x;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float Object::getHeight() {
            return getBounds().height;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float Object::getScaledHeight() {
         return getBounds().height * scale.y;
     }
-
-
-    poPoint Object::getTransformedPoint( poPoint P )
-    {   
+    
+    
+    //------------------------------------------------------------------------
+    poPoint Object::getTransformedPoint( poPoint P ) {   
         // This assumes standard transformation order (PO_MATRIX_ORDER_TRS)
         // It should include alternate orders.
         P += offset;
@@ -159,7 +214,9 @@ namespace po {
         P += position;
         return P;
     }
-     
+    
+    
+    //------------------------------------------------------------------------
     poRect Object::getFrame() {
         poRect rect = getBounds();
         
@@ -176,10 +233,10 @@ namespace po {
         
         return frame;
     }
-
-
-    poRect Object::getBounds()
-    {    
+    
+    
+    //------------------------------------------------------------------------
+    poRect Object::getBounds() {    
         poRect rect(0,0,0,0);
         
         // must initialize rect with first object
@@ -192,21 +249,84 @@ namespace po {
         
         return rect;
     }
-           
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Events ========================================
+    #pragma mark Events
+    
+    //------------------------------------------------------------------------
     void Object::addEvent(int eventType, Object *sink, std::string message, const poDictionary& dict) {
         if(!sink)
             sink = this;
         poEventCenter::get()->addEvent(eventType, this, sink, message, dict);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::removeAllEvents() {
         poEventCenter::get()->removeAllEvents(this);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::removeAllEventsOfType(int eventType) {
         poEventCenter::get()->removeAllEventsOfType(this, eventType);
     }
-
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Draw Tree ========================================
+    #pragma mark Draw Tree
+    
+   //------------------------------------------------------------------------
+    Object* Object::addChild(Object* obj) {
+        if(obj->parent != NULL) {
+            std::cout << "poCode::Child " << obj->name << "added in two place, removing from old..." << std::endl;
+            obj->parent->removeChild(obj);
+        }
+        
+        obj->parent = this;
+        children.push_back(obj);
+        return obj;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Object* Object::addChild(Object* obj, int idx) {
+        if(obj->parent != NULL)
+            obj->parent->removeChild(obj);
+        obj->parent = this;
+        children.insert(children.begin()+idx, obj);
+        return obj;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Object* Object::addChildBefore(Object* obj, Object* before) {
+        if(obj->parent != NULL)
+            obj->parent->removeChild(obj);
+        obj->parent = this;
+        children.insert(children.begin()+getChildIndex(before), obj);
+        return obj;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Object*  Object::addChildAfter(Object* obj, Object* after) {
+        if(obj->parent != NULL)
+            obj->parent->removeChild(obj);
+        obj->parent = this;
+        children.insert(children.begin()+getChildIndex(after)+1, obj);
+        return obj;
+    }
+    
+    
+    //------------------------------------------------------------------------
     bool Object::removeChild(Object* obj) {
         ObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
         bool found = iter != children.end();
@@ -218,21 +338,25 @@ namespace po {
         
         return found;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     bool Object::removeChild(int idx, bool and_delete) {
         if(idx < 0 || idx >= children.size())
             return false;
-
+        
         children[idx]->parent = NULL;
-
+        
         if(and_delete)
             delete children[idx];
-
+        
         children.erase(children.begin()+idx);
         
         return true;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::removeAllChildren(bool and_delete) {
         BOOST_FOREACH(Object* obj, children) {
             obj->parent = NULL;
@@ -241,59 +365,38 @@ namespace po {
         }
         children.clear();
     }
-
+    
+    
+    //------------------------------------------------------------------------
+    Object* Object::getParent() const {
+        return parent;
+    }
+    
+    
+    //------------------------------------------------------------------------
     int Object::getNumChildren() const {
         return (int)children.size();
     }
-
-    Object* Object::addChild(Object* obj) {
-        if(obj->parent != NULL) {
-            std::cout << "poCode::Child " << obj->name << "added in two place, removing from old..." << std::endl;
-            obj->parent->removeChild(obj);
-        }
-        
-        obj->parent = this;
-        children.push_back(obj);
-        return obj;
-    }
-
-    Object* Object::addChild(Object* obj, int idx) {
-        if(obj->parent != NULL)
-            obj->parent->removeChild(obj);
-        obj->parent = this;
-        children.insert(children.begin()+idx, obj);
-        return obj;
-    }
-
-    Object* Object::addChildBefore(Object* obj, Object* before) {
-        if(obj->parent != NULL)
-            obj->parent->removeChild(obj);
-        obj->parent = this;
-        children.insert(children.begin()+getChildIndex(before), obj);
-        return obj;
-    }
-
-    Object*  Object::addChildAfter(Object* obj, Object* after) {
-        if(obj->parent != NULL)
-            obj->parent->removeChild(obj);
-        obj->parent = this;
-        children.insert(children.begin()+getChildIndex(after)+1, obj);
-        return obj;
-    }
-
+    
+    
+    //------------------------------------------------------------------------
     Object* Object::getChild(int idx) {
         if(idx < 0 || idx >= children.size())
             return NULL;
         return *(children.begin()+idx);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     int Object::getChildIndex(Object* obj) {
         ObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
         if(iter != children.end())
             return (int)std::distance(children.begin(), iter);
         return INVALID_INDEX;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Object* Object::getChildWithUID(uint UID) {
         BOOST_FOREACH(Object *obj, children) {
             Object *resp = obj->getChildWithUID(UID);
@@ -305,20 +408,26 @@ namespace po {
         
         return NULL;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Object* Object::getChild(const std::string &name) {
         ObjectVec::iterator iter = std::find_if(children.begin(), children.end(), boost::bind(&Object::name, _1) == name);
         if(iter != children.end())
             return *iter;
         return NULL;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Object* Object::getLastChild() {
         if(children.empty())
             return NULL;
         return children.back();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     std::vector<Object*> Object::getChildren(const std::string &name) {
         std::vector<Object*> childrenP;
         BOOST_FOREACH(Object *obj, children)
@@ -326,76 +435,117 @@ namespace po {
                 childrenP.push_back(obj);
         return childrenP;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::moveChildToFront(Object* child) {
         if(removeChild(child))
             addChild(child);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::moveChildToBack(Object* child) {
         if(removeChild(child))
             addChild(child, 0);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::moveChildForward(Object* child) {
         int idx = getChildIndex(child);
         if(removeChild(child))
             addChild(child, std::min(idx+1, getNumChildren()));
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::moveChildBackward(Object* child) {
         int idx = getChildIndex(child);
         if(removeChild(child))
             addChild(child, std::max(idx-1, 0));
     }
-
-    ObjectModifier* Object::addModifier(ObjectModifier* mod) {
-        modifiers.push_back(mod);
-        return mod;
-    }
-
-    ObjectModifier* Object::getModifier(int idx) {
-        return modifiers[idx];
-    }
-
-    std::vector<ObjectModifier*> const &Object::getModifiers() {
-        return modifiers;
-    }
-
-    bool Object::removeModifier(int idx, bool and_delete) {
-        if(idx >= 0 && idx < modifiers.size()) {
-            if(and_delete)
-                delete modifiers[idx];
-            modifiers.erase(modifiers.begin() + idx);
-            return true;
+    
+    
+    //------------------------------------------------------------------------
+    void Object::updateTree() {
+        if(!visible)
+            return;
+        
+        updateAllTweens();
+        update();
+        
+        BOOST_FOREACH(Object* obj, children) {
+            obj->updateTree();
         }
-        return false;
     }
-
-    bool Object::removeModifier(ObjectModifier* mod, bool and_delete) {
-        ObjectModifierVec::iterator found = std::find(modifiers.begin(), modifiers.end(), mod);
-        if(found != modifiers.end()) {
-            if(and_delete)
-                delete *found;
-            modifiers.erase(found);
-            return true;
+    
+    
+    //------------------------------------------------------------------------
+    void Object::drawTree() {
+        if(!visible)
+            return;
+        
+        // reset the drawing order for this object
+        drawOrder = po::applicationCurrentWindow()->getNextDrawOrder();
+        
+        if(parent)	trueAlpha = parent->trueAlpha * alpha;
+        else		trueAlpha = alpha;
+        
+        po::saveModelview();
+        
+        applyTransformation();
+        
+        po::saveModelview();
+        
+        // grab the matrices we need for everything
+        matrices.camType = poCamera::getCurrentCameraType();
+        matrices.capture();
+        
+        // set up the modifiers ... cameras, etc
+        BOOST_FOREACH(ObjectModifier* mod, modifiers) {
+            mod->setUp( this );
         }
-        return false;
-    }
-
-    void Object::removeAllModifiers(bool and_delete) {
-        if(and_delete) {
-            BOOST_FOREACH(ObjectModifier* mod, modifiers) {
-                delete mod;
-            }
+        
+        draw();
+        if(drawBounds)
+            _drawBounds();
+        
+        // go back to uncentered for children
+        po::restoreModelview();
+        
+        // draw the children
+        BOOST_FOREACH(Object* obj, children) {
+            obj->drawTree();
         }
-        modifiers.clear();
+        
+        // then recenter around offset
+        // some modifiers might need the objects complete transform
+        po::translate(offset);
+        
+        // let modifiers clean up
+        BOOST_FOREACH(ObjectModifier* mod, modifiers) {
+            mod->setDown( this );
+        }
+        
+        // and restore parent's matrix
+        po::restoreModelview();
     }
-
-    int Object::getNumModifiers() const {
-        return modifiers.size();
+    
+    
+    
+    
+    //------------------------------------------------------------------------
+    void Object::_drawBounds() {
+        po::setLineWidth(1);
+        po::setColor(poColor::red);
+        po::drawStrokedRect(getBounds());
+        po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
+        po::setColor(poColor::blue);
+        po::drawFilledRect(poRect(-offset-poPoint(2.5,2.5), poPoint(5,5)));
     }
-
+    
+    //------------------------------------------------------------------------
     void Object::applyTransformation() {
         switch(matrixOrder) {
             case PO_MATRIX_ORDER_TRS:
@@ -413,7 +563,82 @@ namespace po {
         
         po::translate(offset);
     }
-
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Modifiers ========================================
+    #pragma mark Modifiers
+    
+    //------------------------------------------------------------------------
+    ObjectModifier* Object::addModifier(ObjectModifier* mod) {
+        modifiers.push_back(mod);
+        return mod;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    ObjectModifier* Object::getModifier(int idx) {
+        return modifiers[idx];
+    }
+    
+    
+    //------------------------------------------------------------------------
+    std::vector<ObjectModifier*> const &Object::getModifiers() {
+        return modifiers;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Object::removeModifier(int idx, bool and_delete) {
+        if(idx >= 0 && idx < modifiers.size()) {
+            if(and_delete)
+                delete modifiers[idx];
+            modifiers.erase(modifiers.begin() + idx);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Object::removeModifier(ObjectModifier* mod, bool and_delete) {
+        ObjectModifierVec::iterator found = std::find(modifiers.begin(), modifiers.end(), mod);
+        if(found != modifiers.end()) {
+            if(and_delete)
+                delete *found;
+            modifiers.erase(found);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Object::removeAllModifiers(bool and_delete) {
+        if(and_delete) {
+            BOOST_FOREACH(ObjectModifier* mod, modifiers) {
+                delete mod;
+            }
+        }
+        modifiers.clear();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    int Object::getNumModifiers() const {
+        return modifiers.size();
+    }
+    
+    
+    
+    
+    // ------------------------------------------------------------------------------------
+    // =============================== Hit Testing ========================================
+    #pragma mark Hit Testing
+    
+    //------------------------------------------------------------------------
     bool Object::pointInside(poPoint point, bool localize) {
         // if invisible, return false
         if(!visible)
@@ -436,26 +661,46 @@ namespace po {
         }
         return getBounds().contains(point);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     bool Object::pointInside(float x, float y, float z, bool localize) {
         return pointInside(poPoint(x,y,z),localize);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     poPoint Object::globalToLocal(poPoint point) const {
         return matrices.globalToLocal(point);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     poPoint Object::localToGlobal(poPoint point) const {
         return matrices.localToGlobal(point);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     poPoint Object::objectToLocal(Object* obj, poPoint point) const {
         point = obj->localToGlobal(point);
         return globalToLocal(point);
     }
-
-    poAlignment Object::getAlignment() const {return alignment;}
-
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Alignment ========================================
+    #pragma mark Alignment
+    
+    //------------------------------------------------------------------------
+    poAlignment Object::getAlignment() const {
+        return alignment;
+    }
+    
+    
+    //------------------------------------------------------------------------
     Object& Object::setAlignment(poAlignment align) {
         alignment = align;
         
@@ -494,15 +739,42 @@ namespace po {
         
         return *this;
     }
-
-    Object*		Object::getParent() const {return parent;}
-    uint			Object::getUID() const {return uid;}
-
-    float			Object::getAppliedAlpha() const {return trueAlpha;}
-    poMatrixSet&    Object::getMatrixSet()  {return matrices;}
-    int				Object::getDrawOrder() const {return drawOrder;}
-
-    int             Object::getSizeInMemoryTree() {
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Getter Functions =================================
+    #pragma mark Getter Functions
+    
+    uint			Object::getUID()            const   { return uid; }
+    float			Object::getAppliedAlpha()   const   { return trueAlpha; }
+    int				Object::getDrawOrder()      const   { return drawOrder; }
+    poMatrixSet&    Object::getMatrixSet()              { return matrices; }
+    
+    
+    
+    //------------------------------------------------------------------------
+    bool Object::isVisible() {
+        Object *thisParent = getParent();
+        while(thisParent) {
+            if(!thisParent->visible) return false;
+            
+            thisParent = thisParent->getParent();
+        }
+        
+        return true;
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Memory Usage =====================================
+    #pragma mark Memory Usage
+    
+    //------------------------------------------------------------------------
+    int Object::getSizeInMemoryTree() {
         // get own size
         int S = getSizeInMemory();
         // get size of children
@@ -511,94 +783,30 @@ namespace po {
         // should also get ObjectModifier sizes
         return S;
     }
-
-    int             Object::getSizeInMemory() {
+    
+    
+    //------------------------------------------------------------------------
+    int Object::getSizeInMemory() {
         return sizeof(Object);
     }
-
-    bool Object::isVisible() {
-        Object *thisParent = getParent();
-        while(thisParent) {
-            if(!thisParent->visible) return false;
-               
-            thisParent = thisParent->getParent();
-        }
-               
-        return true;
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Tweens ===========================================
+    #pragma mark Tweens
+    
+    //------------------------------------------------------------------------
+    void Object::updateAllTweens() {
+        positionTween.update();
+        scaleTween.update();
+        offsetTween.update();
+        alphaTween.update();
+        rotationTween.update();
     }
-
-
-    void Object::drawTree() {
-        if(!visible)
-            return;
-        
-        // reset the drawing order for this object
-        drawOrder = po::applicationCurrentWindow()->getNextDrawOrder();
-        
-        if(parent)	trueAlpha = parent->trueAlpha * alpha;
-        else		trueAlpha = alpha;
-        
-        po::saveModelview();
-
-        applyTransformation();
-        
-        po::saveModelview();
-        
-        // grab the matrices we need for everything
-        matrices.camType = poCamera::getCurrentCameraType();
-        matrices.capture();
-
-        // set up the modifiers ... cameras, etc
-        BOOST_FOREACH(ObjectModifier* mod, modifiers) {
-            mod->setUp( this );
-        }
-        
-        draw();
-        if(drawBounds) 
-            _drawBounds();
-        
-        // go back to uncentered for children
-        po::restoreModelview();
-        
-        // draw the children
-        BOOST_FOREACH(Object* obj, children) {
-            obj->drawTree();
-        }
-        
-        // then recenter around offset
-        // some modifiers might need the objects complete transform
-        po::translate(offset);
-
-        // let modifiers clean up
-        BOOST_FOREACH(ObjectModifier* mod, modifiers) {
-            mod->setDown( this );
-        }
-        
-        // and restore parent's matrix
-        po::restoreModelview();
-    }
-
-    void Object::updateTree() {
-        if(!visible)
-            return;
-        
-        updateAllTweens();
-        update();
-        
-        BOOST_FOREACH(Object* obj, children) {
-            obj->updateTree();
-        }
-    }
-
-    void Object::_drawBounds() {
-        po::setLineWidth(1);
-        po::setColor(poColor::red);
-        po::drawStrokedRect(getBounds());
-        po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
-        po::setColor(poColor::blue);
-        po::drawFilledRect(poRect(-offset-poPoint(2.5,2.5), poPoint(5,5)));
-    }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::stopAllTweens(bool recurse) {
         positionTween.stop();
         scaleTween.stop();
@@ -611,7 +819,14 @@ namespace po {
                 obj->stopAllTweens(true);
         }
     }
-
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Reading/Saving =====================================
+    #pragma mark Reading/Saving
+    
+    //------------------------------------------------------------------------
     void Object::read(poXMLNode node) {
         uid = (uint)node.getChild("uid").getInnerInt();
         name = node.getChild("name").getInnerString();
@@ -628,7 +843,9 @@ namespace po {
         alignment = poAlignment(node.getChild("alignment").getInnerInt());
         setAlignment(alignment);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Object::write(poXMLNode &node) {
         node.setAttribute("type", "Object");
 
@@ -646,41 +863,4 @@ namespace po {
         node.addChild("matrixOrder").setInnerInt(matrixOrder);
         node.addChild("alignment").setInnerInt(alignment);
     }
-
-    void Object::updateAllTweens() {
-        positionTween.update();
-        scaleTween.update();
-        offsetTween.update();
-        alphaTween.update();
-        rotationTween.update();
-    }
-
-    void Object::clone(Object *obj) {
-        obj->alpha = alpha;
-        obj->scale = scale;
-        obj->position = position;
-        obj->rotation = rotation;
-        obj->rotationAxis = rotationAxis;
-        obj->offset = offset;
-        obj->visible = visible;
-        obj->drawBounds = drawBounds;
-        obj->matrixOrder = matrixOrder;
-        obj->positionTween = positionTween;
-        obj->scaleTween = scaleTween;
-        obj->offsetTween = offsetTween;
-        obj->alphaTween = alphaTween;
-        obj->rotationTween = rotationTween;
-        obj->alignment = alignment;
-        
-        for(int i=0; i<getNumChildren(); i++) {
-            obj->children.push_back(children[i]->copy());
-        }
-        
-        for(int i=0; i<getNumModifiers(); i++) {
-            obj->modifiers.push_back(modifiers[i]->copy());
-        }
-        
-        poEventCenter::get()->copyEventsFromObject(this, obj);
-    }
-}
-
+} /* End po namespace */

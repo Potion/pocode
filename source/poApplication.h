@@ -44,8 +44,8 @@ namespace po {
     poWindow*	applicationCurrentWindow();
     void		applicationMakeWindowCurrent(poWindow*);
     void		applicationMakeWindowFullscreen(poWindow*,bool);
-    void		applicationMoveWindow(poWindow*,poPoint);
-    void		applicationReshapeWindow(poWindow*,poRect);
+    void		applicationMoveWindow(poWindow*,Point);
+    void		applicationReshapeWindow(poWindow*,Rect);
     void        applicationQuit();
 
     // These three functions should be defined in your application. They are not defined in poApplication.cpp.
@@ -67,17 +67,17 @@ namespace po {
     // All of these extract data from the poWindow class.
     float		getWindowWidth();
     float		getWindowHeight();
-    poPoint		getWindowDimensions();
+    Point		getWindowDimensions();
     float		getWindowAspect();
-    poRect		getWindowFrame();
-    poRect		getWindowBounds();
-    poPoint		getWindowCenter();
+    Rect		getWindowFrame();
+    Rect		getWindowBounds();
+    Point		getWindowCenter();
     float		getWindowFramerate();
     int			getWindowFrameCount();
     float		getWindowLastFrameTime();
     float		getWindowLastFrameDuration();
-    poPoint		getWindowMousePosition();
-    poPoint		getWindowInvMousePosition();
+    Point		getWindowMousePosition();
+    Point		getWindowInvMousePosition();
 
     float       getScale();
 
@@ -102,8 +102,3 @@ namespace po {
     void            setAutoRotateOrientations(unsigned char orientations);
     #endif
 }
-
-
-
-
-

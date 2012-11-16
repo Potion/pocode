@@ -34,21 +34,21 @@ namespace po {
     class Object;
     typedef std::vector<poObject*> ObjectVec;
 
-    class poObjectModifier;
-    typedef std::vector<poObjectModifier*> ObjectModifierVec;
+    class ObjectModifier;
+    typedef std::vector<ObjectModifier*> ObjectModifierVec;
 
     class poWindow;
 
     // po::Object is the central object in the pocode library. All pocode graphic objects
-    // (including poShape2D, poRectShape and poTextBox) are subclasses poObject.
+    // (including Shape2D, RectShape and TextBox) are subclasses poObject.
     // 
-    // All poObjects and poObject subclasses:
+    // All Objects and Object subclasses:
     //
     // + Have position, scale, rotation, offset and tranparency (alpha) properties.
     // + Have a list of children that are also poObjects (this forms the scene graph).
     // + Can register for and receive events, including mouse, keyboard and touch events.
     // + Have a set of tweens for basic animation (animation may also be done in the "update" method).
-    // + Have a list of poObjectModifiers that can modify the object and/or OpenGl state.
+    // + Have a list of ObjectModifiers that can modify the object and/or OpenGl state.
 
 
 
@@ -130,7 +130,7 @@ namespace po {
         
         
         // poObject modifiers attach to a poObject and may modify it's properties.
-        // poObjectModifiers have two virtual methods, doSetUp and doSetDown
+        // ObjectModifiers have two virtual methods, doSetUp and doSetDown
         // that are called, respectively, before and afer a poObject is drawn.
 
         // OBJECT MODIFIER OPERATIONS
@@ -241,4 +241,4 @@ namespace po {
         uint                uid;
         poAlignment         alignment;
     };
-}
+} /* End po namespace */

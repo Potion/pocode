@@ -28,7 +28,7 @@
 #include "poSimpleDrawing.h"
 
 namespace po {
-    poShape2D::poShape2D()
+    Shape2D::Shape2D()
     :	fillEnabled(true)
     ,	strokeEnabled(false)
     ,	strokeWidth(1)
@@ -41,14 +41,18 @@ namespace po {
     ,	fillColorTween(&fillColor)
     //,	alphaTestTexture(false)
     {}
-
-    poObject* poShape2D::copy() {
-        poShape2D *shp = new poShape2D();
+    
+    
+    //------------------------------------------------------------------------
+    Object* Shape2D::copy() {
+        Shape2D *shp = new Shape2D();
         clone(shp);
         return shp;
     }
-
-    void poShape2D::clone(poShape2D *shp) {
+    
+    
+    //------------------------------------------------------------------------
+    void Shape2D::clone(Shape2D *shp) {
         shp->fillDrawStyle = fillDrawStyle;
         shp->fillColor = fillColor;
         shp->strokeColor = strokeColor;
@@ -64,10 +68,12 @@ namespace po {
         shp->texture = texture;
         shp->cap = cap;
         shp->join = join;
-        poObject::clone(shp);
+        Object::clone(shp);
     }
-
-    void poShape2D::draw() {
+    
+    
+    //------------------------------------------------------------------------
+    void Shape2D::draw() {
         // do shape fill
         if ( fillEnabled ) {
             // set the color
@@ -95,82 +101,127 @@ namespace po {
             }
         }
     }
-
-
-    poShape2D& poShape2D::addPoint(poPoint p) {
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Points ============================================
+    #pragma mark Points
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::addPoint(Point p) {
         points.push_back(p);
         setAlignment( getAlignment() );
         return *this;
     }
-
-    poShape2D& poShape2D::addPoint( float x, float y ) {
-        addPoint( poPoint(x,y) );
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::addPoint( float x, float y ) {
+        addPoint( Point(x,y) );
         return *this;
     }
-
-    poShape2D& poShape2D::addPoints(const std::vector<poPoint> &pts) {
-        std::for_each(pts.begin(), pts.end(), boost::bind(&poShape2D::addPoint, this, _1));
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::addPoints(const std::vector<Point> &pts) {
+        std::for_each(pts.begin(), pts.end(), boost::bind(&Shape2D::addPoint, this, _1));
         return *this;
     }
-
-    poShape2D& poShape2D::curveTo(poPoint pt, poPoint control, int resolution) {
-        if(points.empty()) {
-            addPoint(poPoint(0,0,0));
-        }
-        
-        std::vector<poPoint> pts = po::quadTo(points.back(), pt, control, resolution);
-        addPoints(pts);
-        return *this;
-    }
-
-    poShape2D& poShape2D::curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution) {
-        if(points.empty())
-            addPoint(poPoint(0,0,0));
-        
-        std::vector<poPoint> pts = po::cubeTo(points.back(), pt, control1, control2, resolution);
-        addPoints(pts);
-        return *this;
-    }
-
-    const std::vector<poPoint> &poShape2D::getPoints() {
-        return points;
-    }
-
-    poShape2D &poShape2D::setPoints(const std::vector<poPoint> &pts) {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D &Shape2D::setPoints(const std::vector<Point> &pts) {
         clearPoints();
         addPoints(pts);
         return *this;
     }
-
-    poShape2D& poShape2D::clearPoints() {
-        points.clear();
-        return *this;
-    }
-
-    size_t poShape2D::getNumPoints() const {
-        return points.size();
-    }
-
-    poPoint poShape2D::getPoint(int idx) {
-        return points[idx];
-    }
-
-    bool poShape2D::setPoint(int idx, poPoint p ) {
+    
+    
+    //------------------------------------------------------------------------
+    bool Shape2D::setPoint(int idx, Point p ) {
         if ( idx < 0 || idx >= getNumPoints() )
             return false;
         points[idx] = p;
         return true;
     }
-
-    poShape2D& poShape2D::placeTexture(poTexture *tex) {
+    
+    
+    //------------------------------------------------------------------------
+    size_t Shape2D::getNumPoints() const {
+        return points.size();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    const std::vector<Point> &Shape2D::getPoints() {
+        return points;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point Shape2D::getPoint(int idx) {
+        return points[idx];
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::clearPoints() {
+        points.clear();
+        return *this;
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Curves ============================================
+    #pragma mark Curves
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::curveTo(Point pt, Point control, int resolution) {
+        if(points.empty()) {
+            addPoint(Point(0,0,0));
+        }
+        
+        std::vector<Point> pts = po::quadTo(points.back(), pt, control, resolution);
+        addPoints(pts);
+        return *this;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::curveTo(Point pt, Point control1, Point control2, int resolution) {
+        if(points.empty())
+            addPoint(Point(0,0,0));
+        
+        std::vector<Point> pts = po::cubeTo(points.back(), pt, control1, control2, resolution);
+        addPoints(pts);
+        return *this;
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Textures ==========================================
+    #pragma mark Textures
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::placeTexture(poTexture *tex) {
         return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
     }
-
-    poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
         return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
     }
-
-    poShape2D& poShape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
         if(tex && tex->isValid()) {
             poRect rect = getBounds();
             
@@ -182,27 +233,34 @@ namespace po {
         texture = tex;
         return *this;
     }
-
-    poShape2D&  poShape2D::setTextureCoords(const std::vector<poPoint> &texCrds )
-    {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D&  Shape2D::setTextureCoords(const std::vector<Point> &texCrds ) {
         if ( texCrds.size() != points.size() )
-            printf("ERROR: mistmatch vector size in poShape2D::setTextureCoords\n");
+            printf("ERROR: mistmatch vector size in Shape2D::setTextureCoords\n");
         texCoords = texCrds;
         return* this;
     }
-
-    poTexture* poShape2D::getTexture() {
+    
+    
+    //------------------------------------------------------------------------
+    poTexture* Shape2D::getTexture() {
         return texture;
     }
-
-    void poShape2D::removeTexture(bool andDelete) {
+    
+    
+    //------------------------------------------------------------------------
+    void Shape2D::removeTexture(bool andDelete) {
         if(andDelete && texture) {
             delete texture;
             texture = NULL;
         }
     }
-
-    poShape2D& poShape2D::transformTexture(poPoint pt, poPoint scale, float rotate) {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::transformTexture(Point pt, Point scale, float rotate) {
 
         for( int i=0; i<texCoords.size(); i++ )
         {
@@ -217,24 +275,40 @@ namespace po {
         }
         return *this;
     }
-
-    void poShape2D::setStrokeWidth(int width) {
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Lines/Strokes =====================================
+    #pragma mark Lines/Strokes
+    
+    //------------------------------------------------------------------------
+    void Shape2D::setStrokeWidth(int width) {
         strokeWidth = (width > 0) ? width : 0;
     }
-
-    int poShape2D::getStrokeWidth() const {
+    
+    
+    //------------------------------------------------------------------------
+    int Shape2D::getStrokeWidth() const {
         return strokeWidth;
     }
-
-    poStrokeCapProperty poShape2D::capStyle() const {
+    
+    
+    //------------------------------------------------------------------------
+    poStrokeCapProperty Shape2D::capStyle() const {
         return cap;
     }
-
-    poStrokeJoinProperty poShape2D::joinStyle() const {
+    
+    
+    //------------------------------------------------------------------------
+    poStrokeJoinProperty Shape2D::joinStyle() const {
         return join;
     }
-
-    poShape2D& poShape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
+    
+    
+    //------------------------------------------------------------------------
+    Shape2D& Shape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
         useSimpleStroke = false;
         this->strokeWidth = strokeWidth;
         this->cap = cap;
@@ -249,7 +323,7 @@ namespace po {
         if(strokeEnabled) {
             std::vector<poExtrudedLineSeg> segments;
             
-            poPoint p1, p2, p3, p4, tmp;
+            Point p1, p2, p3, p4, tmp;
             
             for(int i=0; i<points.size()-1; i++) {
                 p1 = points[i];
@@ -283,10 +357,18 @@ namespace po {
         
         return *this;
     }
-
+    
+    
+    
+    
+    // ------------------------------------------------------------------------------------
+    // =============================== Hit Testing ========================================
+    #pragma mark Hit Testing
+    
+    //------------------------------------------------------------------------
     // localize will convert global to local first
     // otherwise, point is assumed to be local
-    bool poShape2D::pointInside(poPoint point, bool localize ) {
+    bool Shape2D::pointInside(Point point, bool localize ) {
         if(!visible)
             return false;
         
@@ -339,10 +421,16 @@ namespace po {
         
         return false;
     }
-
-
-    poRect  poShape2D::getBounds()
-    {
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // =============================== Dimensions ========================================
+    #pragma mark Dimensions
+    
+    //------------------------------------------------------------------------
+    poRect  Shape2D::getBounds() {
         poRect rect;
         
         // must initialize rect with first point
@@ -350,34 +438,52 @@ namespace po {
             rect.set( points[0].x, points[0].y, 0, 0 );
         
         // include all other points
-        BOOST_FOREACH(poPoint &p, points) {
+        BOOST_FOREACH(Point &p, points) {
             rect.include(p);
         }
         
         return rect;
     }
-
-    void poShape2D::stopAllTweens(bool recurse) {
-        poObject::stopAllTweens(recurse);
-        fillColorTween.stop();
-    }
-
-    void poShape2D::updateAllTweens() {
-        poObject::updateAllTweens();
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Tweens ===========================================
+    #pragma mark Tweens
+    
+    //------------------------------------------------------------------------
+    void Shape2D::updateAllTweens() {
+        Object::updateAllTweens();
         fillColorTween.update();
     }
+    
+    
+    //------------------------------------------------------------------------
+    void Shape2D::stopAllTweens(bool recurse) {
+        Object::stopAllTweens(recurse);
+        fillColorTween.stop();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    int Shape2D::getSizeInMemory() {
+        int S = sizeof(Shape2D);
 
-    int poShape2D::getSizeInMemory() {
-        int S = sizeof(poShape2D);
-
-        S += points.capacity() * sizeof(poPoint);
-        S += texCoords.capacity() * sizeof(poPoint);
-        S += stroke.capacity() * sizeof(poPoint);
+        S += points.capacity() * sizeof(Point);
+        S += texCoords.capacity() * sizeof(Point);
+        S += stroke.capacity() * sizeof(Point);
         
         return S;
     }
-
-    void poShape2D::read(poXMLNode node) {
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Reading/Saving =====================================
+    #pragma mark Reading/Saving
+    
+    //------------------------------------------------------------------------
+    void Shape2D::read(poXMLNode node) {
         fillDrawStyle = node.getChild("fillDrawStyle").getInnerInt();
         fillColor.set(node.getChild("fillColor").getInnerString());
         strokeColor.set(node.getChild("strokeColor").getInnerString());
@@ -394,7 +500,7 @@ namespace po {
         std::string pstr = node.getChild("points").getInnerString();
         std::string str = po::base64_decode(pstr);
         
-        points.resize(str.size() / sizeof(poPoint));
+        points.resize(str.size() / sizeof(Point));
         memcpy(&points[0],str.c_str(),str.size());
         
     //	poXMLNode tex = node.getChild("texture");
@@ -402,15 +508,17 @@ namespace po {
     //		std::string url = tex.stringAttribute("url");
     //		texture = getImage(url)->texture();
     //		str = base64_decode(node.getChild("tex_coords").innerString());
-    //		tex_coords.resize(str.size() / sizeof(poPoint));
+    //		tex_coords.resize(str.size() / sizeof(Point));
     //		memcpy(&tex_coords[0],str.c_str(),str.size());
     //	}
 
-        poObject::read(node);
+        Object::read(node);
         generateStroke(strokeWidth);
     }
-
-    void poShape2D::write(poXMLNode &node) {
+    
+    
+    //------------------------------------------------------------------------
+    void Shape2D::write(poXMLNode &node) {
         node.addChild("fillDrawStyle").setInnerInt(fillDrawStyle);
         node.addChild("fillColor").setInnerString(fillColor.toString());
         node.addChild("strokeColor").setInnerString(strokeColor.toString());
@@ -424,7 +532,7 @@ namespace po {
         node.addChild("join").setInnerInt(join);
         node.addChild("stroke_width").setInnerInt(strokeWidth);
 
-        int points_sz = sizeof(poPoint)*points.size();
+        int points_sz = sizeof(Point)*points.size();
         const unsigned char *points_ptr = (const unsigned char*)&points[0];
         node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(po::base64_encode(points_ptr, points_sz).c_str());
             
@@ -434,61 +542,62 @@ namespace po {
     //		tex.addAttribute("url",texture->image()->url());
     //		
     //		// write points out as binary
-    //		points_sz = sizeof(poPoint)*tex_coords.size();
+    //		points_sz = sizeof(Point)*tex_coords.size();
     //		points_ptr = (const unsigned char*)&tex_coords[0];
     //		tex.handle().append_child(pugi::node_cdata).set_value(base64_encode(points_ptr, points_sz).c_str());
     //	}
         
-        poObject::write(node);
-        node.setAttribute("type","poShape2D");
+        Object::write(node);
+        node.setAttribute("type","Shape2D");
     }
+    
+    
+    //------------------------------------------------------------------------
+    std::vector<Shape2D*> createShapesFromSVGfile(const fs::path &svg) {
 
-    std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
+        std::vector<Shape2D*> response;
 
-        std::vector<poShape2D*> response;
+        #ifdef POTION_APPLE
 
-    #ifdef POTION_APPLE
-
-        if(!fs::exists(svg)) {
-            po::log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
-            return response;
-        }
-        
-        SVGPath *result = svgParseFromFile(svg.string().c_str());
-        if(!result) {
-            po::log("poShape2D: invalid svg file (%s)", svg.string().c_str());
-            return response;
-        }
-        
-        while(result) {
-            poShape2D *shape = new poShape2D();
-            
-            for(int i=0; i<result->npts; i++) {
-                shape->addPoint(result->pts[i*2], result->pts[i*2+1]);
-            }
-            shape->closed = result->closed;
-            
-            shape->fillEnabled = result->hasFill;
-            shape->strokeEnabled = result->hasStroke;
-            
-            if(shape->fillEnabled) {
-                shape->fillColor = poColor().set255((result->fillColor>>16)&0xFF, (result->fillColor>>8)&0xFF, result->fillColor&0xFF);
+            if(!fs::exists(svg)) {
+                po::log("Shape2D: svg file doesn't exist (%s)", svg.string().c_str());
+                return response;
             }
             
-            if(shape->strokeEnabled) {
-                shape->generateStroke(result->strokeWidth);
-                shape->strokeColor = poColor().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF);
+            SVGPath *result = svgParseFromFile(svg.string().c_str());
+            if(!result) {
+                po::log("Shape2D: invalid svg file (%s)", svg.string().c_str());
+                return response;
             }
             
-            response.push_back(shape);
-            result = result->next;
-        }
-        
-        svgDelete(result);
-    #endif
+            while(result) {
+                Shape2D *shape = new Shape2D();
+                
+                for(int i=0; i<result->npts; i++) {
+                    shape->addPoint(result->pts[i*2], result->pts[i*2+1]);
+                }
+                shape->closed = result->closed;
+                
+                shape->fillEnabled = result->hasFill;
+                shape->strokeEnabled = result->hasStroke;
+                
+                if(shape->fillEnabled) {
+                    shape->fillColor = poColor().set255((result->fillColor>>16)&0xFF, (result->fillColor>>8)&0xFF, result->fillColor&0xFF);
+                }
+                
+                if(shape->strokeEnabled) {
+                    shape->generateStroke(result->strokeWidth);
+                    shape->strokeColor = poColor().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF);
+                }
+                
+                response.push_back(shape);
+                result = result->next;
+            }
+            
+            svgDelete(result);
+        #endif
 
         return response;
-
     }
-}
+} /* End po namespace */
 

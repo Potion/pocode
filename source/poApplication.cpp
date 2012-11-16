@@ -23,86 +23,117 @@
 #include "poTexture.h"
 
 namespace po {
+
+    //------------------------------------------------------------------------
     float getWindowWidth() {
         poWindow *window = applicationCurrentWindow();
         return window->getWidth();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getWindowHeight() {
         poWindow *window = applicationCurrentWindow();
         return window->getHeight();
     }
-
-    poPoint getWindowDimensions() {
+    
+    
+    //------------------------------------------------------------------------
+    Point getWindowDimensions() {
         poWindow *window = applicationCurrentWindow();
         return window->getDimensions();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getWindowAspect() {
         poWindow *window = applicationCurrentWindow();
         return window->getWidth() / (float)window->getHeight();
     }
-
-    poRect getWindowFrame() {
+    
+    
+    //------------------------------------------------------------------------
+    Rect getWindowFrame() {
         poWindow *window = applicationCurrentWindow();
         return window->getFrame();
     }
-
-    poRect getWindowBounds() {
+    
+    
+    //------------------------------------------------------------------------
+    Rect getWindowBounds() {
         poWindow *window = applicationCurrentWindow();
         return window->getBounds();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getScale() {
         poWindow *window = applicationCurrentWindow();
         return window->getScale();
     }
-
-    poPoint getWindowCenter() {
+    
+    
+    //------------------------------------------------------------------------
+    Point getWindowCenter() {
         poWindow *window = applicationCurrentWindow();
         return window->getCenterPoint();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getWindowFramerate() {
         poWindow *window = applicationCurrentWindow();
         return window->getFramerate();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     int getWindowFrameCount() {
         poWindow *window = applicationCurrentWindow();
         return window->getFramecount();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getWindowLastFrameTime() {
         poWindow *window = applicationCurrentWindow();
         return window->getLastFrameTime();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     float getWindowLastFrameDuration() {
         poWindow *window = applicationCurrentWindow();
         return window->getLastFrameElapsed();
     }
-
-    poPoint getWindowMousePosition() {
+    
+    
+    //------------------------------------------------------------------------
+    Point getWindowMousePosition() {
         poWindow *window = applicationCurrentWindow();
         return window->getMousePosition();
     }
-
-    poPoint getWindowInvMousePosition() {
+    
+    
+    //------------------------------------------------------------------------
+    Point getWindowInvMousePosition() {
         poWindow *window = applicationCurrentWindow();
-        poPoint response = window->getMousePosition();
+        Point response = window->getMousePosition();
         response.y = window->getBounds().height - response.y;
         return response;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void setWindowMouseMoveEnabled(bool b) {
         poWindow *window = applicationCurrentWindow();
         window->setMouseMoveEnabled(b);
     }
+    
+    
+    //------------------------------------------------------------------------
     bool getWindowMouseMoveEnabled() {
         poWindow *window = applicationCurrentWindow();
         return window->isMouseMoveEnabled();
     }
-}
-
-
+} /* End po namespace */
