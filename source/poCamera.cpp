@@ -35,7 +35,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Camera ============================
-    #pragma mark Class: Camera
+    #pragma mark - Camera -
 
     // camera base class
     Camera::Camera()
@@ -202,7 +202,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Camera2D ============================
-    #pragma mark Class: Camera2D
+    #pragma mark - Camera2D -
     
     Camera2D::Camera2D() {}
 
@@ -244,7 +244,7 @@ namespace po {
 
     // -----------------------------------------------------------------------------------
     // ================================ Class: Orthographic Camera =======================
-    #pragma mark Class: Orthographic Camera
+    #pragma mark  - Orthographic Camera -
     
     poOrthoCamera::poOrthoCamera()
     :	x1(-1)
@@ -328,7 +328,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Perspective Camera ========================
-    #pragma mark Class: Perspective Camera
+    #pragma mark - Perspective Camera -
     
     poPerspectiveCamera::poPerspectiveCamera(float fov, float nearClip, float farClip)
     :	fov(fov)

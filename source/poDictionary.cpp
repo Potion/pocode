@@ -57,7 +57,7 @@ namespace {
 namespace po {
     // -----------------------------------------------------------------------------------
     // ================================ Class: DictionaryItem ============================
-    #pragma mark Class: Sqlite Result
+    #pragma mark - Sqlite Result -
 
     DictionaryItem::DictionaryItem()
     : item(0)
@@ -139,7 +139,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Dictionary ================================
-    #pragma mark Class: Dictionary
+    #pragma mark - Dictionary -
 
     Dictionary::Dictionary() {
     }

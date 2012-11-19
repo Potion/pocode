@@ -128,7 +128,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Texture Config ============================
-    #pragma mark Class: Texture Config
+    #pragma mark - Texture Config -
     
     int Texture::totalAllocatedTextureMemorySize = 0;
     
@@ -167,7 +167,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Texture ===================================
-    #pragma mark Class: Texture
+    #pragma mark - Texture -
     
     Texture::Texture()
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)

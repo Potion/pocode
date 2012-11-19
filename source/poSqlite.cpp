@@ -24,7 +24,7 @@
 namespace po {
     // -----------------------------------------------------------------------------------
     // ================================ Class: Sqlite Result =============================
-    #pragma mark Class: Sqlite Result
+    #pragma mark - Sqlite Result -
 
     SqliteResult::SqliteResult(std::string query, bool bVerbose) {
         //Record the query for reuse, can be good to have
@@ -73,7 +73,7 @@ namespace po {
 
     // -----------------------------------------------------------------------------------
     // ================================ Class: Sqlite ====================================
-    #pragma mark Class: Sqlite
+    #pragma mark - Sqlite -
 
     Sqlite::Sqlite()
     : bVerbose(false) {

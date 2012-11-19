@@ -9,8 +9,8 @@ using namespace boost::asio;
 namespace po {
     
     // -----------------------------------------------------------------------------------
-    // ================================ Class: Thread Center ================================
-    #pragma mark Class: ThreadCenter
+    // ================================ Class: Thread Center =============================
+    #pragma mark - ThreadCenter -
     
     namespace ThreadCenter {
         
@@ -101,7 +101,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Worker ====================================
-    #pragma mark Class: Worker
+    #pragma mark - Worker -
     
     Worker::Worker() {
         workerAutoDelete = true;

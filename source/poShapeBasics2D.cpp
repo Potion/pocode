@@ -33,7 +33,7 @@
 namespace po {
     // ----------------------------------------------------------------------------------
     // ================================ Class: RectShape ================================
-    #pragma mark Class: RectShape
+    #pragma mark - RectShape -
 
     RectShape::RectShape() {
         construct(100,100,0);
@@ -127,7 +127,7 @@ namespace po {
     
     // ----------------------------------------------------------------------------------
     // ================================ Class: OvalShape ================================
-    #pragma mark Class: OvalShape
+    #pragma mark - OvalShape -
 
     OvalShape::OvalShape() {
         construct( 100,100,30 );
@@ -199,7 +199,7 @@ namespace po {
     
     // ----------------------------------------------------------------------------------
     // ================================ Class: LineShape ================================
-    #pragma mark Class: LineShape
+    #pragma mark - LineShape -
     
     LineShape::LineShape() {
         construct( poPoint(0,0,0), poPoint(0,100,0) );
@@ -232,7 +232,7 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Star Shape ================================
-    #pragma mark Class: StarShape
+    #pragma mark - StarShape -
 
     StarShape::StarShape() {
         construct(100, 5, 40);

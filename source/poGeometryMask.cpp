@@ -33,7 +33,7 @@
 namespace po {
     // -----------------------------------------------------------------------------------
     // ================================ Class: Geometry Mask ============================
-    #pragma mark Class: Geometry Mask
+    #pragma mark - Geometry Mask -
 
     GeometryMask::GeometryMask(poShape2D *shape, bool clearsStencil, bool inverse)
     :	shape(shape)

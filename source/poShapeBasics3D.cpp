@@ -29,8 +29,8 @@
 
 namespace po {
     // ----------------------------------------------------------------------------------
-    // ================================ Class:Mesh3D ================================
-    #pragma mark Class: Mesh3D
+    // ================================ Class: Mesh3D ===================================
+    #pragma mark - Mesh3D -
 
     Mesh3D::Mesh3D(int _numRows, int _numColumns) {
         numRows = _numRows;
@@ -99,8 +99,8 @@ namespace po {
 
 
     // ----------------------------------------------------------------------------------
-    // ================================ Class:Sphere3D ================================
-    #pragma mark Class: Sphere3D
+    // ================================ Class: Sphere3D ================================
+    #pragma mark - Sphere3D -
 
     Sphere3D::Sphere3D(int _numRows, int _numColumns, float _radius ) : Mesh3D(_numRows,_numColumns) {
         radius = _radius;
@@ -143,7 +143,7 @@ namespace po {
 
     // ----------------------------------------------------------------------------------
     // ================================ Class:Cube3D ====================================
-    #pragma mark Class: Cube3D
+    #pragma mark - Cube3D -
 
     Cube3D::Cube3D(float W, float H, float D) {
         cubeWidth = W;
