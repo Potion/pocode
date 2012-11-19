@@ -26,82 +26,84 @@
 
 #include <boost/variant.hpp>
 
-class poDictionary;
+namespace po {
+    class Dictionary;
 
-typedef boost::variant<int,float,std::string,poPoint,poColor,void*,boost::recursive_wrapper<poDictionary> > poDictionaryItem_t;
+    typedef boost::variant<int,float,std::string,poPoint,poColor,void*,boost::recursive_wrapper<Dictionary> > DictionaryItem_t;
 
-enum poDictionaryType {
-	PO_INT_T=0,
-	PO_FLOAT_T,
-	PO_STRING_T,
-	PO_POINT_T,
-	PO_COLOR_T,
-	PO_VOID_PTR_T,
-	PO_DICTIONARY_T
-};
+    enum DictionaryType {
+        PO_INT_T=0,
+        PO_FLOAT_T,
+        PO_STRING_T,
+        PO_POINT_T,
+        PO_COLOR_T,
+        PO_VOID_PTR_T,
+        PO_DICTIONARY_T
+    };
 
-class poDictionaryItem {
-	friend std::ostream& operator<<(std::ostream &out, const poDictionaryItem& item);
-	
-public:
-	poDictionaryItem();
-	poDictionaryItem(const poDictionaryItem_t &item);
-	
-	bool				getBool() const;
-	int					getInt() const;
-	float				getFloat() const;
-	std::string			getString() const;
-	poPoint				getPoint() const;
-	poColor				getColor() const;
-	void*				getPtr() const;
-	poDictionary		getDictionary() const;
-	poDictionaryType	getType() const;
-	
-	void				setBool(const poDictionaryItem_t &i);
-	std::string			toString();
-	
-private:
-	poDictionaryItem_t item;
-};
+    class DictionaryItem {
+        friend std::ostream& operator<<(std::ostream &out, const DictionaryItem& item);
+        
+    public:
+        DictionaryItem();
+        DictionaryItem(const DictionaryItem_t &item);
+        
+        bool				getBool() const;
+        int					getInt() const;
+        float				getFloat() const;
+        std::string			getString() const;
+        poPoint				getPoint() const;
+        poColor				getColor() const;
+        void*				getPtr() const;
+        Dictionary		getDictionary() const;
+        DictionaryType	getType() const;
+        
+        void				setBool(const DictionaryItem_t &i);
+        std::string			toString();
+        
+    private:
+        DictionaryItem_t item;
+    };
 
-typedef std::map<std::string, poDictionaryItem> poDictionaryItemMap;
+    typedef std::map<std::string, DictionaryItem> DictionaryItemMap;
 
-class poDictionary {
-	friend std::ostream& operator<<(std::ostream &out, const poDictionary &dict);
-	
-public:
-	poDictionary();
-	poDictionary		copy();
-	
-	bool				getBool(const std::string &s) const;
-	int					getInt(const std::string &s) const;
-	float				getFloat(const std::string &s) const;
-	std::string			getString(const std::string &s) const;
-	poPoint				getPoint(const std::string &s) const;
-	poColor				getColor(const std::string &s) const;
-	void*				getPtr(const std::string &s) const;
-	poDictionary		getDictionary(const std::string &s) const;
-	poDictionaryType	getType(const std::string &s) const;
-	
-	poDictionaryItem	get(const std::string &s) const;
-	poDictionary&		set(const std::string &s, const poDictionaryItem_t &di);
-	poDictionary&		append(const poDictionary &d);
-	
-	bool				has(const std::string &s) const;
-	size_t				count() const;
-	std::vector<std::string> keys() const;
-	
-	void				write(poXMLNode node);
-	void				write(poXMLDocument &doc);
-	void				write(const std::string &url);
-	void				read(poXMLNode node);
-	void				read(const std::string &url);
-	
-	poDictionaryItemMap::iterator begin();
-	poDictionaryItemMap::iterator end();
-	poDictionaryItemMap::const_iterator begin() const;
-	poDictionaryItemMap::const_iterator end() const;
-	
-private:
-	poDictionaryItemMap items;
-};
+    class Dictionary {
+        friend std::ostream& operator<<(std::ostream &out, const Dictionary &dict);
+        
+    public:
+        Dictionary();
+        Dictionary		copy();
+        
+        bool				getBool(const std::string &s) const;
+        int					getInt(const std::string &s) const;
+        float				getFloat(const std::string &s) const;
+        std::string			getString(const std::string &s) const;
+        poPoint				getPoint(const std::string &s) const;
+        poColor				getColor(const std::string &s) const;
+        void*				getPtr(const std::string &s) const;
+        Dictionary		getDictionary(const std::string &s) const;
+        DictionaryType	getType(const std::string &s) const;
+        
+        DictionaryItem	get(const std::string &s) const;
+        Dictionary&		set(const std::string &s, const DictionaryItem_t &di);
+        Dictionary&		append(const Dictionary &d);
+        
+        bool				has(const std::string &s) const;
+        size_t				count() const;
+        std::vector<std::string> keys() const;
+        
+        void				write(poXMLNode node);
+        void				write(poXMLDocument &doc);
+        void				write(const std::string &url);
+        void				read(poXMLNode node);
+        void				read(const std::string &url);
+        
+        DictionaryItemMap::iterator begin();
+        DictionaryItemMap::iterator end();
+        DictionaryItemMap::const_iterator begin() const;
+        DictionaryItemMap::const_iterator end() const;
+        
+    private:
+        DictionaryItemMap items;
+    };
+}/* End po namespace */

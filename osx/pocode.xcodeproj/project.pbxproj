@@ -126,7 +126,7 @@
 		AA2E613814FC0B9700F1859C /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
 		AA2E613914FC0B9700F1859C /* poPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */; };
 		AA2E613A14FC0B9700F1859C /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
-		AA2E613B14FC0B9700F1859C /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
+		AA2E613B14FC0B9700F1859C /* poSqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite.cpp */; };
 		AA2E613C14FC0B9700F1859C /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
 		AA2E613D14FC0B9700F1859C /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		AA2E613E14FC0B9700F1859C /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
@@ -166,8 +166,8 @@
 		AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF456D15E564D700EE2715 /* poThreadCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
 		AAEF457B15E56AEE00EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
-		E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
-		E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F4B231426A6DB00D647A7 /* poSqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E43F4B241426A6DB00D647A7 /* poSqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite.cpp */; };
+		E43F4B251426A6DB00D647A7 /* poSqlite.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F4B231426A6DB00D647A7 /* poSqlite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75F13D76F9100CBEB1C /* poBitmapFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E46C67D41427DD400064EA8E /* poTextureAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = E802C75A13D7683900CBEB1C /* poTextureAtlas.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E802C72113D5E3F100CBEB1C /* poApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E802C72013D5E3F100CBEB1C /* poApplication.cpp */; };
@@ -233,7 +233,7 @@
 		E84CEC83142A3533008B3E3E /* poColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0B5132E9F78002BE3D9 /* poColor.cpp */; };
 		E84CEC84142A3533008B3E3E /* poPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C3132E9F78002BE3D9 /* poPoint.cpp */; };
 		E84CEC85142A3533008B3E3E /* poRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B2D0C5132E9F78002BE3D9 /* poRect.cpp */; };
-		E84CEC86142A3533008B3E3E /* poSqlite3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */; };
+		E84CEC86142A3533008B3E3E /* poSqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F4B221426A6DB00D647A7 /* poSqlite.cpp */; };
 		E84CEC87142A3533008B3E3E /* poDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */; };
 		E84CEC88142A3533008B3E3E /* poXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E755C613C62F8B00A91EB8 /* poXML.cpp */; };
 		E84CEC89142A3533008B3E3E /* poMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8B02F391363512F0068FB5D /* poMath.cpp */; };
@@ -343,8 +343,8 @@
 		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
 		AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poThreadCenter.cpp; path = ../source/poThreadCenter.cpp; sourceTree = "<group>"; };
 		AAEF456D15E564D700EE2715 /* poThreadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poThreadCenter.h; path = ../source/poThreadCenter.h; sourceTree = "<group>"; };
-		E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite3.cpp; path = ../source/poSqlite3.cpp; sourceTree = "<group>"; };
-		E43F4B231426A6DB00D647A7 /* poSqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite3.h; path = ../source/poSqlite3.h; sourceTree = "<group>"; };
+		E43F4B221426A6DB00D647A7 /* poSqlite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite.cpp; path = ../source/poSqlite.cpp; sourceTree = "<group>"; };
+		E43F4B231426A6DB00D647A7 /* poSqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poSqlite.h; path = ../source/poSqlite.h; sourceTree = "<group>"; };
 		E494686D14679A7F009D3AFC /* poURLLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poURLLoader.cpp; path = ../source/poURLLoader.cpp; sourceTree = "<group>"; };
 		E494686E14679A7F009D3AFC /* poURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poURLLoader.h; path = ../source/poURLLoader.h; sourceTree = "<group>"; };
 		E802C72013D5E3F100CBEB1C /* poApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poApplication.cpp; path = ../source/poApplication.cpp; sourceTree = "<group>"; };
@@ -523,8 +523,8 @@
 		7F9E4BBD140AE78B00548BDB /* data */ = {
 			isa = PBXGroup;
 			children = (
-				E43F4B231426A6DB00D647A7 /* poSqlite3.h */,
-				E43F4B221426A6DB00D647A7 /* poSqlite3.cpp */,
+				E43F4B231426A6DB00D647A7 /* poSqlite.h */,
+				E43F4B221426A6DB00D647A7 /* poSqlite.cpp */,
 				E8B2D0B9132E9F78002BE3D9 /* poDictionary.h */,
 				E8341F8F138EE1AD00E508E0 /* poDictionary.cpp */,
 				E8E755C713C62F8B00A91EB8 /* poXML.h */,
@@ -808,7 +808,7 @@
 				E88E746613C753DC0051F026 /* poAttributedString.h in Headers */,
 				E83092EE13D09C9100836802 /* main.pch in Headers */,
 				E86F939913F987FC00D924F0 /* poGLBuffer.h in Headers */,
-				E43F4B251426A6DB00D647A7 /* poSqlite3.h in Headers */,
+				E43F4B251426A6DB00D647A7 /* poSqlite.h in Headers */,
 				E46C67D31427DD150064EA8E /* poBitmapFont.h in Headers */,
 				E46C67D41427DD400064EA8E /* poTextureAtlas.h in Headers */,
 				E84CEC0F1429556B008B3E3E /* poOpenGLState.h in Headers */,
@@ -996,7 +996,7 @@
 				AA2E613814FC0B9700F1859C /* poColor.cpp in Sources */,
 				AA2E613914FC0B9700F1859C /* poPoint.cpp in Sources */,
 				AA2E613A14FC0B9700F1859C /* poRect.cpp in Sources */,
-				AA2E613B14FC0B9700F1859C /* poSqlite3.cpp in Sources */,
+				AA2E613B14FC0B9700F1859C /* poSqlite.cpp in Sources */,
 				AA2E613C14FC0B9700F1859C /* poDictionary.cpp in Sources */,
 				AA2E613D14FC0B9700F1859C /* poXML.cpp in Sources */,
 				AA2E613E14FC0B9700F1859C /* poMath.cpp in Sources */,
@@ -1067,7 +1067,7 @@
 				E802C75D13D7687700CBEB1C /* poTextureAtlas.cpp in Sources */,
 				E802C76113D76FEC00CBEB1C /* poBitmapFont.cpp in Sources */,
 				E86F939713F987FC00D924F0 /* poGLBuffer.cpp in Sources */,
-				E43F4B241426A6DB00D647A7 /* poSqlite3.cpp in Sources */,
+				E43F4B241426A6DB00D647A7 /* poSqlite.cpp in Sources */,
 				E84CEC0E1429556B008B3E3E /* poOpenGLState.cpp in Sources */,
 				E8F48BBD142D61950020D9CE /* poShader.cpp in Sources */,
 				E8CAA4C11444DE9F00A7D3D5 /* poResourceStore.cpp in Sources */,
@@ -1122,7 +1122,7 @@
 				E84CEC83142A3533008B3E3E /* poColor.cpp in Sources */,
 				E84CEC84142A3533008B3E3E /* poPoint.cpp in Sources */,
 				E84CEC85142A3533008B3E3E /* poRect.cpp in Sources */,
-				E84CEC86142A3533008B3E3E /* poSqlite3.cpp in Sources */,
+				E84CEC86142A3533008B3E3E /* poSqlite.cpp in Sources */,
 				E84CEC87142A3533008B3E3E /* poDictionary.cpp in Sources */,
 				E84CEC88142A3533008B3E3E /* poXML.cpp in Sources */,
 				E84CEC89142A3533008B3E3E /* poMath.cpp in Sources */,

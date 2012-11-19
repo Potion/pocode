@@ -322,9 +322,6 @@ namespace po {
         po::setOrthoProjection(x1, x2, y2, y1, nearClip, farClip);
         Camera::currentCameraType = PO_CAMERA_2D;
     }
-
-
-    
     
     
     
