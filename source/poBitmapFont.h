@@ -38,25 +38,26 @@
 //		bitmapFont->cacheUID('a');
 // 
 
-class poBitmapFont : public poResource {
+namespace po {
+    class BitmapFont : public Resource {
+    public:
+        BitmapFont();
+        BitmapFont(poFont* font, int pointSize);
+        BitmapFont(const poFilePath &filePath, int pointSize);
+        BitmapFont(const std::string &fam, const std::string &style, int pointSize);
+        virtual ~BitmapFont();
 
-public:
-	poBitmapFont();
-	poBitmapFont(poFont* font, int pointSize);
-	poBitmapFont(const poFilePath &filePath, int pointSize);
-	poBitmapFont(const std::string &fam, const std::string &style, int pointSize);
-	virtual ~poBitmapFont();
+        poFont*	getFont() const;
+        int		getPointSize() const;
 
-	poFont*	getFont() const;
-	int		getPointSize() const;
-
-	void	drawGlyph(int glyph, const poPoint &at);
-	
-private:
-	void	init();
-	void	cacheGlyph(int glyph);
-	
-	poFont *font;
-	poTextureAtlas *atlas;
-	int pointSize;
-};
+        void	drawGlyph(int glyph, const poPoint &at);
+        
+    private:
+        void	init();
+        void	cacheGlyph(int glyph);
+        
+        poFont *font;
+        poTextureAtlas *atlas;
+        int pointSize;
+    };
+} /*End po namespace */

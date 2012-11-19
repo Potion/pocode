@@ -63,6 +63,7 @@ namespace {
 
 namespace po {
     
+    //------------------------------------------------------------------------
     void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
         if(ptSize > 0)
             font->setPointSize(ptSize);
@@ -88,6 +89,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawLine(poPoint a, poPoint b) {
         a = floor(a) + poPoint(0.5f, 0.5f);
         b = floor(b) + poPoint(0.5f, 0.5f);
@@ -107,25 +109,31 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawStrokedRect(float x, float y, float w, float h) {
         drawQuad(GL_LINE_LOOP,x,y,w,h);
     }
     
     
+    //------------------------------------------------------------------------
     void drawStrokedRect(poRect rect) {
         drawStrokedRect(rect.x, rect.y, rect.width, rect.height);
     }
     
     
+    //------------------------------------------------------------------------
     void drawFilledRect(float x, float y, float w, float h) {
         drawQuad(GL_TRIANGLE_STRIP, x,y,w,h); 
     }
     
     
+    //------------------------------------------------------------------------
     void drawFilledRect(poRect rect) {
         drawFilledRect(rect.x, rect.y, rect.width, rect.height);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void drawFilledCircle(float x, float y, float rad) {
         int segs = 10.f * sqrtf(rad);
         float theta = 2.f * M_PI / (float)segs;
@@ -148,22 +156,27 @@ namespace po {
         
         drawPoints(pt, GL_TRIANGLE_FAN);
     }
-
     
+    
+    //------------------------------------------------------------------------
     void drawTexturedRect(poTexture *tex) {
         drawTexturedRect(tex, poRect(0,0,tex->getWidth(),tex->getHeight()), poRect(0,0,1,1));
     }
     
     
+    //------------------------------------------------------------------------
     void drawTexturedRect(poTexture *tex, float x, float y, float w, float h) {
         drawTexturedRect(tex, poRect(x,y,w,h), poRect(0,0,1,1));
     }
     
     
+    //------------------------------------------------------------------------
     void drawTexturedRect(poTexture *tex, poRect rect) {
         drawTexturedRect(tex, rect, poRect(0,0,1,1));
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, poAlignment align) {
         std::vector<poPoint> coords = textureFit(rect, tex, fit, align);
         poRect coords_rect(coords[0], coords[2]);
@@ -171,6 +184,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
         GLfloat quad[4*3] = {
             rect.x,  rect.y, 0, 
@@ -205,26 +219,31 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawStrokedPolygon(const std::vector<poPoint> &points) {
         drawPoints(points, GL_LINE_LOOP);
     }
     
     
+    //------------------------------------------------------------------------
     void drawStrokedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices) {
         drawPoints(points, indices, GL_LINE_LOOP);
     }
     
     
+    //------------------------------------------------------------------------
     void drawFilledPolygon(const std::vector<poPoint> &points) {
         drawPoints(points, GL_TRIANGLE_FAN);
     }
     
     
+    //------------------------------------------------------------------------
     void drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices) {
         drawPoints(points, indices, GL_TRIANGLE_FAN);
     }
     
     
+    //------------------------------------------------------------------------
     void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords) {
         drawPoints(points, tex, texCoords, GL_TRIANGLE_FAN);
     }
@@ -235,6 +254,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align) {
         if(points.empty())
             return;
@@ -250,6 +270,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawPoints(const std::vector<poPoint> &points, GLenum type) {
         use2DShader();
         updateActiveShader();
@@ -261,6 +282,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type) {
         use2DShader();
         updateActiveShader();
@@ -272,6 +294,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
         useTexture(tex->getUid(), tex->hasAlpha());
         
@@ -288,6 +311,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
         useTexture(tex->getUid(), tex->hasAlpha());
         
@@ -304,6 +328,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     std::vector<poPoint> generateStroke(std::vector<poPoint> &points,
                                             int strokeWidth, 
                                             bool close, 
@@ -349,6 +374,7 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
     std::vector<poPoint> generateOval(float xRad, float yRad, uint resolution) {
         std::vector<poPoint> response;
         
@@ -359,8 +385,9 @@ namespace po {
         
         return response;
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     std::vector<poPoint> roundedRect(float width, float height, float rad) {
         std::vector<poPoint> response;
         std::vector<poPoint> tmp;
@@ -400,8 +427,9 @@ namespace po {
         
         return response;
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
         std::vector<poPoint> response;
         for(int i=0; i<resolution; i++) {
@@ -412,8 +440,9 @@ namespace po {
         }
         return response;
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
         std::vector<poPoint> response;
         for(int i=0; i<resolution; i++) {
@@ -424,8 +453,9 @@ namespace po {
         }
         return response;
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     float curveLength(const std::vector<poPoint> &curve) {
         float len = 0;
         for(int i=0; i<curve.size()-1; i++) {

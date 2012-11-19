@@ -30,56 +30,70 @@
 #include "poSimpleDrawing.h"
 #include "poOpenGLState.h"
 
-// ============ poGeometryMask =============== //
+namespace po {
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: Geometry Mask ============================
+    #pragma mark Class: Geometry Mask
 
-poGeometryMask::poGeometryMask(poShape2D *shape, bool clearsStencil, bool inverse)
-:	shape(shape)
-,	clearsStencil(clearsStencil)
-,   inverse(inverse)
-{}
+    GeometryMask::GeometryMask(poShape2D *shape, bool clearsStencil, bool inverse)
+    :	shape(shape)
+    ,	clearsStencil(clearsStencil)
+    ,   inverse(inverse)
+    {}
 
-poGeometryMask::~poGeometryMask() {
-	if(shape) {
-		delete shape;
-		shape = NULL;
-	}
-}
+    GeometryMask::~GeometryMask() {
+        if(shape) {
+            delete shape;
+            shape = NULL;
+        }
+    }
 
-poObjectModifier *poGeometryMask::copy() {
-	poGeometryMask *obj = new poGeometryMask((poShape2D*)shape->copy(), clearsStencil);
-	return obj;
-}
 
-void poGeometryMask::setShape(poShape2D *s) {
-	if(shape)
-		delete shape;
-	shape = s;
-	setEnabled(shape != NULL);
-}
+    //------------------------------------------------------------------------
+    poObjectModifier *GeometryMask::copy() {
+        GeometryMask *obj = new GeometryMask((poShape2D*)shape->copy(), clearsStencil);
+        return obj;
+    }
 
-bool poGeometryMask::pointInside(poPoint p) {
-	if(shape)
-		return shape->pointInside(p);
-	return false;
-}
 
-void poGeometryMask::doSetUp(poObject *obj) {
-    if(shape) {
-		po::setupStencilMask(clearsStencil);
-		po::saveModelview();
-//		po::saveModelviewThenIdentity();
-		shape->applyTransformation();
-		po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
-		po::restoreModelview();
-		po::useStencilMask(inverse);
-	}
-}
-
-void poGeometryMask::doSetDown(poObject *obj) {
-	if(shape) {
-		po::disableStencil();
-	}
-}
+    //------------------------------------------------------------------------
+    void GeometryMask::setShape(poShape2D *s) {
+        if(shape)
+            delete shape;
+        shape = s;
+        setEnabled(shape != NULL);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool GeometryMask::pointInside(poPoint p) {
+        if(shape)
+            return shape->pointInside(p);
+        return false;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void GeometryMask::doSetUp(poObject *obj) {
+        if(shape) {
+            po::setupStencilMask(clearsStencil);
+            po::saveModelview();
+    //		po::saveModelviewThenIdentity();
+            shape->applyTransformation();
+            po::drawPoints(shape->getPoints(), GL_TRIANGLE_FAN);
+            po::restoreModelview();
+            po::useStencilMask(inverse);
+        }
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void GeometryMask::doSetDown(poObject *obj) {
+        if(shape) {
+            po::disableStencil();
+        }
+    }
+} /*End po namespace */
 
 /*
 // ============ poImageMask =============== //
