@@ -44,13 +44,14 @@ poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
 	panelColor = _color;
     poControl::controlTextSize = textSize;
     
+//    addEvent(PO_MOUSE_MOVE_EVENT, this);
     addEvent(PO_MOUSE_UP_EVENT, this);
 	
     bar = new poRectShape(240,20);
     bar->position = pos;
     bar->fillColor = panelColor;
     bar->addEvent(PO_MOUSE_DOWN_INSIDE_EVENT, this);
-	bar->addEvent(PO_MOUSE_DRAG_INSIDE_EVENT, this);
+    bar->addEvent(PO_MOUSE_DRAG_INSIDE_EVENT, this);
     addChild( bar );
 
     save = new poRectShape(50,20);
@@ -308,16 +309,16 @@ void poControlPanel::eventHandler(poEvent *event) {
 	else if ( event->source == bar ) {
 		if ( event->type == PO_MOUSE_DOWN_INSIDE_EVENT ) {
 			isDragged = true;
-			dragOffset = event->localPosition;
-			dragOffset += bar->offset;
+            prevPoint = event->globalPosition;
 		}
 		
 		else if ( event->type == PO_MOUSE_DRAG_INSIDE_EVENT && isDragged ) {
 			poRect winBounds(0,0,getWindowWidth(),getWindowHeight());
 			if(!winBounds.contains(event->globalPosition))
 				return;
-			bar->position = event->globalPosition - dragOffset;
+			bar->position += event->globalPosition - prevPoint;
 			settings.set( label , bar->position );
+            prevPoint = event->globalPosition;
 		}
 	}
 	
@@ -481,4 +482,27 @@ void poControlPanel::setString( string s, string setString ) {
     D.set("control", C);
     D.set("valueType", "string");
     messageHandler("update_settings", D);
+}
+
+void poControlPanel::setBool(string s, bool val) {
+	poToggleBox* C = (poToggleBox*) container->getChild(s);
+	C->valB = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setInt(string s, int val) {
+	poSliderI* C = (poSliderI*) container->getChild(s);
+	C->valI = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setFloat(string s, float val) {
+	poSliderF* C = (poSliderF*) container->getChild(s);
+	C->valF = val;
+	C->setValue(val);
+}
+
+void poControlPanel::setPoint( string s, poPoint val ) {
+	poControl* C = (poControl*) container->getChild(s);
+	C->valP = val;
 }

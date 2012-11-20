@@ -125,6 +125,23 @@ void poSliderF::eventHandler(poEvent *event) {
     }
 }
 
+void poSliderF::setValue(float val) {
+	
+	float sliderWidth = sliderShape->getWidth() - PO_CONTROL_SLIDER_HEIGHT;
+	float xMin = 0;
+	float xMax = sliderWidth;
+	
+	float mappedVal = poMapf(min, max, val, 0.f, 1.f );
+	valF =  mappedVal;
+	
+	sliderKnob->position.x = sliderWidth*valF;
+	
+	char valString [32];
+	sprintf( valString, "%.2f", val );
+	shapeData->setText( valString );
+	shapeData->doLayout();
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 poSliderI::poSliderI( string _ID, int init, int _min, int _max, poObject* _listener ) : poControl( _ID, _listener ) {
@@ -217,6 +234,23 @@ void poSliderI::eventHandler(poEvent *event) {
 		D.set("valueType", "int");
 		getParent()->messageHandler("update_settings", D);
     }
+}
+
+void poSliderI::setValue(int val) {
+	
+	float sliderWidth = sliderShape->getWidth() - PO_CONTROL_SLIDER_HEIGHT;
+	float xMin = 0;
+	float xMax = sliderWidth;
+		
+	float mappedVal = poMapf(min, max, val, 0.f, 1.f );
+	valF =  mappedVal;
+	
+	sliderKnob->position.x = sliderWidth*valF;
+	
+	char valString [32];
+	sprintf( valString, "%i", val );
+	shapeData->setText( valString );
+	shapeData->doLayout();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,6 +410,11 @@ void poToggleBox::eventHandler(poEvent *event) {
 		D.set("valueType", "bool");
 		getParent()->messageHandler("update_settings", D);
     }
+}
+
+void poToggleBox::setValue(bool val) {
+	
+	toggleShape->fillColor = poColor((int)val,0,0,(int)val);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
