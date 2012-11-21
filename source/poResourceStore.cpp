@@ -30,176 +30,230 @@
 #include "poResourceStore.h"
 #include <boost/functional/hash.hpp>
 
-poFont *poGetFont(const poFilePath &filePath, int group) {
-	return poGetFont(filePath, "", group);
-}
-
-poFont *poGetFont(const poFilePath &filePath, const std::string &style, int group) {
-	poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForFont(filePath, style, group);
-	poResource *found = store->findResource(lookup);
-	if(found)
-		return (poFont*)found;
-	
-	poFont *font = new poFont(filePath, style);
-	store->addResource(lookup, font);
-	return font;
-}
-
-poFont *poGetFontByName(const std::string &family, int group) {
-	return poGetFontByName(family, "", group);
-}
-
-poFont *poGetFontByName(const std::string &family, const std::string &style, int group) {
-    poFilePath path;
-    urlForFontFamilyName(family, style, path);
-    
-	return poGetFont(path, "", group);
-}
-
-
-poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group) {
-    poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForBitmapFont(filePath, size, group);
-	poResource *found = store->findResource(lookup);
-	if(found)
-		return (poBitmapFont*)found;
-    
-	poBitmapFont* bmpFont = new poBitmapFont(filePath, size);
-	store->addResource(lookup, bmpFont);
-	return bmpFont;
-}
-
-poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group) {
-	return poGetBitmapFont(font->getFilePath(), size, group);
-}
-
-poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group) {
-	poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForBitmapFont(family, style, size, group);
-	poResource *found = store->findResource(lookup);
-	if(found)
-		return (poBitmapFont*)found;
-
-	poBitmapFont* bmpFont = new poBitmapFont(family, style, size);
-	store->addResource(lookup, bmpFont);
-	return bmpFont;
-}
-
-poTexture *poGetTexture(const poFilePath &filePath, bool keepImage, int group) {
-	poResourceStore *store = poResourceStore::get();
-	poResourceLocator lookup = store->locatorForTexture(filePath);
-	poResource *found = store->findResource(lookup);
-	if(found)
-		return (poTexture*)found;
-	
-	poTexture *tex = new poTexture(filePath,keepImage);
-	store->addResource(lookup, tex);
-	return tex;
-}
-
-void poDeleteResourceGroup(int group);
-void poDeleteResourceType(const std::type_info &type);
-
-// this is the only way to make one of these
-poResourceLocator::poResourceLocator(size_t h, int g, const std::type_info &t)
-:	hash(h)
-,	group(g)
-,	type(t)
-{
-	boost::hash_combine(hash, group);
-	boost::hash_combine(hash, type.name());
-}
-
-// must define to make this usable in a std::map
-bool poResourceLocator::operator<(const poResourceLocator &rhs) const {
-	return hash < rhs.hash;
-}
-
-static boost::hash<std::string> string_hasher;
-
-poResourceStore *poResourceStore::get() {
-	static poResourceStore *instance = NULL;
-	if(!instance)
-		instance = new poResourceStore;
-	return instance;
-}
-
-poResourceStore::poResourceStore() {
-}
-
-poResourceLocator poResourceStore::locatorForFont(const poFilePath &filePath, const std::string &style, int group) {
-	poResourceLocator lookup(0, group, typeid(poFont));
-	lookup.hash = string_hasher(filePath.toString() + style);
-	return lookup;
-}
-
-poResourceLocator poResourceStore::locatorForBitmapFont(const poFilePath &filePath, uint size, int group) {
-	return locatorForBitmapFont(poGetFont(filePath, group), size, group);
-}
-
-poResourceLocator poResourceStore::locatorForBitmapFont(poFont* font, uint size, int group) {
-	return locatorForBitmapFont(font->getFamilyName(), font->getStyleName(), size, group);
-}
-
-poResourceLocator poResourceStore::locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group) {
-	poResourceLocator lookup(0, group, typeid(poBitmapFont));
-	boost::hash_combine(lookup.hash, family + style);
-	boost::hash_combine(lookup.hash, size);
-	return lookup;
-}
-
-poResourceLocator poResourceStore::locatorForTexture(const poFilePath &filePath, int group) {
-	poResourceLocator lookup(0, group, typeid(poTexture));
-	lookup.hash = string_hasher(filePath.toString());
-	return lookup;
-}
-
-void poResourceStore::deleteResourceGroup(int group) {
-	std::map<poResourceLocator,poResource*>::iterator iter = resources.begin();
-	while(iter != resources.end()) {
-		if(iter->first.group == group) {
-			delete iter->second;
-			resources.erase(iter++);
-		}
-		else
-			iter++;
-	}
-}
-
-void poResourceStore::deleteAllResourcesOfType(const std::type_info &type) {
-	std::map<poResourceLocator,poResource*>::iterator iter = resources.begin();
-	while(iter != resources.end()) {
-		if(iter->first.type == type) {
-			delete iter->second;
-			resources.erase(iter++);
-		}
-		else
-			iter++;
-	}
-}
-
-poResource *poResourceStore::findResource(poResourceLocator locator) {
-	std::map<poResourceLocator, poResource*>::iterator iter = resources.find(locator);
-	if(iter != resources.end())
-		return iter->second;
-	return NULL;
-}
-
-void poResourceStore::addResource(poResourceLocator locator, poResource *resource) {
-	if(!findResource(locator)) {
-		resources[locator] = resource;
-	}
-}
-
-bool poResourceStore::resourceIsCached(poResource *rez) {
-	std::map<poResourceLocator, poResource*>::iterator iter = resources.begin();
-    while(iter != resources.end()) {
-        if(iter->second == rez)
-            return true;
-        ++iter;
+namespace po { 
+    //------------------------------------------------------------------
+    Font *getFont(const FilePath &filePath, int group) {
+        return getFont(filePath, "", group);
     }
-    return false;
     
-}
+    
+    //------------------------------------------------------------------
+    Font *getFont(const FilePath &filePath, const std::string &style, int group) {
+        ResourceStore *store = ResourceStore::get();
+        ResourceLocator lookup = store->locatorForFont(filePath, style, group);
+        Resource *found = store->findResource(lookup);
+        if(found)
+            return (Font*)found;
+        
+        Font *font = new Font(filePath, style);
+        store->addResource(lookup, font);
+        return font;
+    }
+    
+    
+    //------------------------------------------------------------------
+    Font *getFontByName(const std::string &family, int group) {
+        return getFontByName(family, "", group);
+    }
+    
+    
+    //------------------------------------------------------------------
+    Font *getFontByName(const std::string &family, const std::string &style, int group) {
+        FilePath path;
+        urlForFontFamilyName(family, style, path);
+        
+        return getFont(path, "", group);
+    }
+    
+    
+    //------------------------------------------------------------------
+    BitmapFont *getBitmapFont(const FilePath &filePath, uint size, int group) {
+        ResourceStore *store = ResourceStore::get();
+        ResourceLocator lookup = store->locatorForBitmapFont(filePath, size, group);
+        Resource *found = store->findResource(lookup);
+        if(found)
+            return (BitmapFont*)found;
+        
+        BitmapFont* bmpFont = new BitmapFont(filePath, size);
+        store->addResource(lookup, bmpFont);
+        return bmpFont;
+    }
+    
+    
+    //------------------------------------------------------------------
+    BitmapFont *getBitmapFont(Font* font, uint size, int group) {
+        return getBitmapFont(font->getFilePath(), size, group);
+    }
+    
+    
+    //------------------------------------------------------------------
+    BitmapFont *getBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group) {
+        ResourceStore *store = ResourceStore::get();
+        ResourceLocator lookup = store->locatorForBitmapFont(family, style, size, group);
+        Resource *found = store->findResource(lookup);
+        if(found)
+            return (BitmapFont*)found;
 
+        BitmapFont* bmpFont = new BitmapFont(family, style, size);
+        store->addResource(lookup, bmpFont);
+        return bmpFont;
+    }
+    
+    
+    //------------------------------------------------------------------
+    Texture *getTexture(const FilePath &filePath, bool keepImage, int group) {
+        ResourceStore *store = ResourceStore::get();
+        ResourceLocator lookup = store->locatorForTexture(filePath);
+        Resource *found = store->findResource(lookup);
+        if(found)
+            return (Texture*)found;
+        
+        Texture *tex = new Texture(filePath,keepImage);
+        store->addResource(lookup, tex);
+        return tex;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void deleteResourceGroup(int group);
+    void deleteResourceType(const std::type_info &type);
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: ResourceLocator ===========================
+    #pragma mark - ResourceLocator -
+
+    //------------------------------------------------------------------
+    // this is the only way to make one of these
+    ResourceLocator::ResourceLocator(size_t h, int g, const std::type_info &t)
+    :	hash(h)
+    ,	group(g)
+    ,	type(t)
+    {
+        boost::hash_combine(hash, group);
+        boost::hash_combine(hash, type.name());
+    }
+    
+    
+    //------------------------------------------------------------------
+    // must define to make this usable in a std::map
+    bool ResourceLocator::operator<(const ResourceLocator &rhs) const {
+        return hash < rhs.hash;
+    }
+
+    static boost::hash<std::string> string_hasher;
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: ResourceStore =============================
+    #pragma mark - ResourceStore -
+
+    ResourceStore *ResourceStore::get() {
+        static ResourceStore *instance = NULL;
+        if(!instance)
+            instance = new ResourceStore;
+        return instance;
+    }
+
+    ResourceStore::ResourceStore() {
+    }
+    
+    
+    //------------------------------------------------------------------
+    ResourceLocator ResourceStore::locatorForFont(const FilePath &filePath, const std::string &style, int group) {
+        ResourceLocator lookup(0, group, typeid(Font));
+        lookup.hash = string_hasher(filePath.toString() + style);
+        return lookup;
+    }
+    
+    
+    //------------------------------------------------------------------
+    ResourceLocator ResourceStore::locatorForBitmapFont(const FilePath &filePath, uint size, int group) {
+        return locatorForBitmapFont(getFont(filePath, group), size, group);
+    }
+    
+    
+    //------------------------------------------------------------------
+    ResourceLocator ResourceStore::locatorForBitmapFont(Font* font, uint size, int group) {
+        return locatorForBitmapFont(font->getFamilyName(), font->getStyleName(), size, group);
+    }
+    
+    
+    //------------------------------------------------------------------
+    ResourceLocator ResourceStore::locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group) {
+        ResourceLocator lookup(0, group, typeid(BitmapFont));
+        boost::hash_combine(lookup.hash, family + style);
+        boost::hash_combine(lookup.hash, size);
+        return lookup;
+    }
+    
+    
+    //------------------------------------------------------------------
+    ResourceLocator ResourceStore::locatorForTexture(const FilePath &filePath, int group) {
+        ResourceLocator lookup(0, group, typeid(Texture));
+        lookup.hash = string_hasher(filePath.toString());
+        return lookup;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void ResourceStore::deleteResourceGroup(int group) {
+        std::map<ResourceLocator,Resource*>::iterator iter = resources.begin();
+        while(iter != resources.end()) {
+            if(iter->first.group == group) {
+                delete iter->second;
+                resources.erase(iter++);
+            }
+            else
+                iter++;
+        }
+    }
+    
+    
+    //------------------------------------------------------------------
+    void ResourceStore::deleteAllResourcesOfType(const std::type_info &type) {
+        std::map<ResourceLocator,Resource*>::iterator iter = resources.begin();
+        while(iter != resources.end()) {
+            if(iter->first.type == type) {
+                delete iter->second;
+                resources.erase(iter++);
+            }
+            else
+                iter++;
+        }
+    }
+    
+    
+    //------------------------------------------------------------------
+    Resource *ResourceStore::findResource(ResourceLocator locator) {
+        std::map<ResourceLocator, Resource*>::iterator iter = resources.find(locator);
+        if(iter != resources.end())
+            return iter->second;
+        return NULL;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void ResourceStore::addResource(ResourceLocator locator, Resource *resource) {
+        if(!findResource(locator)) {
+            resources[locator] = resource;
+        }
+    }
+    
+    
+    //------------------------------------------------------------------
+    bool ResourceStore::resourceIsCached(Resource *rez) {
+        std::map<ResourceLocator, Resource*>::iterator iter = resources.begin();
+        while(iter != resources.end()) {
+            if(iter->second == rez)
+                return true;
+            ++iter;
+        }
+        return false;
+        
+    }
+}/* End po namespace */
