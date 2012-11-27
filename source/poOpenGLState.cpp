@@ -26,15 +26,22 @@
 //
 
 #include "poOpenGLState.h"
-#include "poShader.h"
+#include "Shader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <boost/algorithm/string.hpp>
 
-namespace {
 
+
+// -----------------------------------------------------------------------------------
+// ================================ Internal =========================================
+#pragma mark - Internal -
+
+namespace {
+    
+    //------------------------------------------------------------------------
 	const char * shader_2d =
 	"	[[uniforms]]							\n"
 	"	uniform mat4 mvp;						\n"
@@ -149,7 +156,8 @@ namespace {
 		int unit;
 		bool hasAlpha;
 	};
-	
+    
+    //------------------------------------------------------------------------
 	struct BlendState {
 		BlendState()
 		:	enabled(false)
@@ -178,7 +186,8 @@ namespace {
 		int srcRgbFactor, srcAlphaFactor;
 		int dstRgbFactor, dstAlphaFactor;
 	};
-
+    
+    //------------------------------------------------------------------------
 	struct OpenGLState {
 		
 		OpenGLState() {
@@ -249,9 +258,9 @@ namespace {
 		
 		std::stack<TextureState> texture;
 		std::stack<BlendState> blend;
-		std::stack<poShader*> shader;
+		std::stack<Shader*> shader;
 		
-		poShader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
+		Shader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
 	};
 	
 	OpenGLState *ogl = NULL;
@@ -261,41 +270,71 @@ namespace {
 	}
 };
 
+
+
+// -----------------------------------------------------------------------------------
+// ================================ External =========================================
+#pragma mark - External -
+
 namespace po {
-	
+    
+    //------------------------------------------------------------------------
 	void initGraphics() {
 		static boost::once_flag flag;
 		boost::call_once(flag, init_graphics);
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	int maxFBOSamples() {
 		return ogl->max_fbo_samples;
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	void defaultColorMask() {
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	void defaultStencil() {
 		glDisable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glStencilFunc(GL_ALWAYS, 0, 0);
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	void setColor(poColor const& c) {
 		ogl->color = c;
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void setColor(poColor const& c, float a) {
 		ogl->color = poColor(c,a);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	poColor getColor() { return ogl->color; }
 	
+    
+    
+    //------------------------------------------------------------------------
 	void setLineWidth(float w) {
 		ogl->lineWidth = w;
 		glLineWidth(w);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	float getLineWidth() { return ogl->lineWidth; }
 	
+    
+    
+    //------------------------------------------------------------------------
 	void setPointSize(float sz) {
 		ogl->pointSize = sz;
         
@@ -306,11 +345,20 @@ namespace po {
             glPointSize(sz);
         #endif
 	}
+    
+    
+    //------------------------------------------------------------------------
 	float getPointSize() {return ogl->pointSize; }
-
+    
+    
+    
+    //------------------------------------------------------------------------
 	void disableStencil() {
 		glDisable(GL_STENCIL_TEST);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void setupStencilMask(bool c) {
 		defaultStencil();
 		if(c) glClear(GL_STENCIL_BUFFER_BIT);
@@ -319,6 +367,9 @@ namespace po {
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void useStencilMask(bool inv) {
 		defaultStencil();
 		glEnable(GL_STENCIL_TEST);
@@ -326,13 +377,28 @@ namespace po {
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	void disableBlending() {
 		ogl->blend.top() = BlendState();
 		ogl->blend.top().apply();
 	}
-	void enableAlphaBlending() { enableBlendWithFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); }
-	void enableBlendWithFunc(int src, int dst) { enableBlendWithFunc(src, dst, src, dst); }
+    
+    
+    //------------------------------------------------------------------------
+	void enableAlphaBlending() {
+        enableBlendWithFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void enableBlendWithFunc(int src, int dst) {
+        enableBlendWithFunc(src, dst, src, dst);
+    }
+    
+    
+    //------------------------------------------------------------------------
 	void enableBlendWithFunc(int srcRgb, int dstRgb, int srcAlpha, int dstAlpha) {
 		BlendState st;
 		st.enabled = true;
@@ -343,14 +409,22 @@ namespace po {
 		st.apply();
 		ogl->blend.top() = st;
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void saveBlendState() {
 		ogl->blend.push(ogl->blend.top());
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void restoreBlendState() {
 		ogl->blend.pop();
 		ogl->blend.top().apply();
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	void disableTexture() {
 		TextureState &st = ogl->texture.top();
 		glActiveTexture(GL_TEXTURE0 + st.unit);
@@ -361,6 +435,9 @@ namespace po {
 		st.unit = 0;
 		st.hasAlpha = false;
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void useTexture(int uid, bool hasAlpha, int target, int unit) {
 		TextureState &st = ogl->texture.top();
 		st.target = target;
@@ -371,32 +448,67 @@ namespace po {
 		glActiveTexture(GL_TEXTURE0 + unit);
 		glBindTexture(target, uid);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void saveTextureState() { ogl->texture.push(ogl->texture.top()); }
+    
+    
+    //------------------------------------------------------------------------
 	void restoreTextureState() {
 		ogl->texture.pop();
 		TextureState &st = ogl->texture.top();
 		glActiveTexture(GL_TEXTURE0 + st.unit);
 		glBindTexture(st.target, st.unit);
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	void disableShader() { useShader(NULL); }
-	void useShader(poShader* s) {
+    
+    
+    //------------------------------------------------------------------------
+	void useShader(Shader* s) {
 		ogl->shader.top() = s;
 		glUseProgram(s ? s->getUid() : 0);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void use2DShader() {
 		disableTexture();
 		useShader(&ogl->shader2D);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void use3DShader() {
 		disableTexture();
 		useShader(&ogl->shader3D);
 	}
-	void useTex2DShader() { useShader(&ogl->shaderTex2D); }
-	void useTex2DMaskShader() { useShader(&ogl->shaderTex2DMask); }
-	void useTexRectShader() { useShader(&ogl->shaderTexRect); }
+    
+    
+    //------------------------------------------------------------------------
+	void useTex2DShader() {
+        useShader(&ogl->shaderTex2D);
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void useTex2DMaskShader() {
+        useShader(&ogl->shaderTex2DMask);
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void useTexRectShader() {
+        useShader(&ogl->shaderTexRect);
+    }
+    
+    
+    //------------------------------------------------------------------------
 	void updateActiveShader() {
-		poShader *sh = ogl->shader.top();
+		Shader *sh = ogl->shader.top();
 		if(sh) {
 			// 2D
 			sh->uniform("color", ogl->color);
@@ -414,60 +526,162 @@ namespace po {
 			sh->uniform("isAlphaMask", st.hasAlpha);
 		}
 	}
-	void saveShaderState() { ogl->shader.push(ogl->shader.top()); }
+    
+    
+    //------------------------------------------------------------------------
+	void saveShaderState() {
+        ogl->shader.push(ogl->shader.top());
+    }
+    
+    
+    //------------------------------------------------------------------------
 	void restoreShaderState() {
 		ogl->shader.pop();
 		useShader(ogl->shader.top());
 	}
-	
-	void saveProjection() { ogl->projection.push(ogl->projection.top()); }
-	void saveProjectionThenIdentity() { ogl->projection.push(glm::mat4(1.f)); }
-	void saveModelview() { ogl->modelview.push(ogl->modelview.top()); }
-	void saveModelviewThenIdentity() { ogl->modelview.push(glm::mat4(1.f)); }
-	void restoreProjection() { ogl->projection.pop(); }
-	void restoreModelview() { ogl->modelview.pop(); }
-	void saveViewport() { ogl->viewport.push(ogl->viewport.top()); }
+    
+    
+    //------------------------------------------------------------------------
+	void saveProjection() {
+        ogl->projection.push(ogl->projection.top());
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void saveProjectionThenIdentity() {
+        ogl->projection.push(glm::mat4(1.f));
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void saveModelview() {
+        ogl->modelview.push(ogl->modelview.top());
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void saveModelviewThenIdentity() {
+        ogl->modelview.push(glm::mat4(1.f));
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void restoreProjection() {
+        ogl->projection.pop();
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void restoreModelview() {
+        ogl->modelview.pop();
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void saveViewport() {
+        ogl->viewport.push(ogl->viewport.top());
+    }
+    
+    
+    //------------------------------------------------------------------------
 	void restoreViewport() {
 		ogl->viewport.pop();
 		glm::vec4 vp = ogl->viewport.top();
 		glViewport(vp[0],vp[1],vp[2],vp[3]);
 	}
-	void translate(poPoint off) { ogl->modelview.top() = glm::translate(ogl->modelview.top(), glm::vec3(off.x,off.y,off.z)); }
-	void scale(poPoint scl) { ogl->modelview.top() = glm::scale(ogl->modelview.top(), glm::vec3(scl.x,scl.y,scl.z)); }
-	void rotate(float angle, poPoint axis) { ogl->modelview.top() = glm::rotate(ogl->modelview.top(), angle, glm::vec3(axis.x,axis.y,axis.z)); }
-	void lookAt(poPoint eye, poPoint center, poPoint up) {
+    
+    
+    //------------------------------------------------------------------------
+	void translate(Point off) {
+        ogl->modelview.top() = glm::translate(ogl->modelview.top(), glm::vec3(off.x,off.y,off.z));
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void scale(Point scl) {
+        ogl->modelview.top() = glm::scale(ogl->modelview.top(), glm::vec3(scl.x,scl.y,scl.z));
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void rotate(float angle, Point axis) {
+        ogl->modelview.top() = glm::rotate(ogl->modelview.top(), angle, glm::vec3(axis.x,axis.y,axis.z));
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void lookAt(Point eye, Point center, Point up) {
 		ogl->camera = glm::lookAt(glm::vec3(eye.x,eye.y,eye.z), glm::vec3(center.x,center.y,center.z), glm::vec3(up.x,up.y,up.z));
 		ogl->projection.top() *= ogl->camera;
 	}
-	void setViewport(poRect r) {
+    
+    
+    //------------------------------------------------------------------------
+	void setViewport(Rect r) {
 		ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
 		glViewport(r.x, r.y, r.width, r.height);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void setViewport(float x, float y, float w, float h) {
 		ogl->viewport.top() = glm::vec4(x,y,w,h);
 		glViewport(x,y,w,h);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void setCamera(glm::mat4 m) { ogl->camera = m; }
+    
+    
+    //------------------------------------------------------------------------
 	void setOrthoProjection(float l, float r, float b, float t, float n, float f) {
 		ogl->projection.top() = glm::ortho(l, r, b, t, n, f);
 	}
+    
+    
+    //------------------------------------------------------------------------
 	void setPerpsective(float fovy, float aspect, float n, float f) {
 		ogl->projection.top() = glm::perspective(fovy, aspect, n, f);
 	}
-	poRect viewport() {
+    
+    
+    //------------------------------------------------------------------------
+	Rect viewport() {
 		glm::vec4 vp = ogl->viewport.top();
-		return poRect(vp[0], vp[1], vp[2], vp[3]);
+		return Rect(vp[0], vp[1], vp[2], vp[3]);
 	}
-	glm::mat4 modelview() { return ogl->modelview.top(); }
-	glm::mat4 projection() { return ogl->projection.top(); }
-	glm::mat4 modelviewProjection() { return ogl->projection.top() * ogl->modelview.top(); }
-	poPoint globalToLocal(poPoint pt) {
+    
+    
+    //------------------------------------------------------------------------
+	glm::mat4 modelview() {
+        return ogl->modelview.top();
+    }
+    
+    
+    //------------------------------------------------------------------------
+	glm::mat4 projection() {
+        return ogl->projection.top();
+    }
+    
+    
+    //------------------------------------------------------------------------
+	glm::mat4 modelviewProjection() {
+        return ogl->projection.top() * ogl->modelview.top();
+    }
+    
+    
+    //------------------------------------------------------------------------
+	Point globalToLocal(Point pt) {
 		glm::vec3 r = glm::unProject(glm::vec3(pt.x,pt.y,pt.z), ogl->modelview.top(), ogl->projection.top(), ogl->viewport.top());
-		return poPoint(r.x, r.y, r.z);
+		return Point(r.x, r.y, r.z);
 	}
-	poPoint localToGlobal(poPoint pt) {
+    
+    
+    //------------------------------------------------------------------------
+	Point localToGlobal(Point pt) {
 		glm::vec3 r = glm::project(glm::vec3(pt.x,pt.y,pt.z), ogl->modelview.top(), ogl->projection.top(), ogl->viewport.top());
-		return poPoint(r.x, r.y, r.z);
+		return Point(r.x, r.y, r.z);
 	}
 
 };

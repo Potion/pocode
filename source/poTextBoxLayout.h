@@ -31,7 +31,7 @@
 #include "poTextLayout.h"
 
 namespace po {
-	
+    
 	class TextBoxLayout : public TextLayout {
 	public:
 		int tabWidth;
@@ -86,5 +86,4 @@ namespace po {
 		void addWordToLine(lineLayoutProps &props);
 		void breakLine(lineLayoutProps &props);
 	};
-
-}
+} /* End po Namespace */

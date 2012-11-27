@@ -18,7 +18,7 @@
  */
 
 //
-//  poShader.h
+//  Shader.h
 //  pocode
 //
 //  Created by Joshua Fisher on 9/23/11.
@@ -36,36 +36,38 @@
 
 #include <glm/glm.hpp>
 
-class poShader {
-public:
-	poShader();
-	~poShader();
+namespace po {
+    class Shader {
+    public:
+        Shader();
+        ~Shader();
 
-	void load(std::string const& name);
-	void loadSource(std::string const& src);
-	bool compile();
-	bool link();
-	
-	GLuint getUid();
-	
-	std::vector<std::string> getAllAttributes();
-	GLint attribLocation(const char *name);
-	
-	std::vector<std::string> getAllUniforms();
-	GLint uniformLocation(const char *name);
+        void load(std::string const& name);
+        void loadSource(std::string const& src);
+        bool compile();
+        bool link();
+        
+        GLuint getUid();
+        
+        std::vector<std::string> getAllAttributes();
+        GLint attribLocation(const char *name);
+        
+        std::vector<std::string> getAllUniforms();
+        GLint uniformLocation(const char *name);
 
-	void uniform(const char* name, int i);
-	void uniform(const char* name, float f);
-	void uniform(const char* name, poPoint v);
-	void uniform(const char* name, poColor c);
-	void uniform(const char* name, glm::mat4 m);
-	
-private:
-	GLuint uid;
-	GLuint vertexID, fragmentID;
-	std::stringstream vertexSource, fragmentSource;
-	
-	std::map<std::string,GLint> uniformLocations;
-	std::map<std::string,GLint> attributeLocations;
-};
+        void uniform(const char* name, int i);
+        void uniform(const char* name, float f);
+        void uniform(const char* name, Point v);
+        void uniform(const char* name, Color c);
+        void uniform(const char* name, glm::mat4 m);
+        
+    private:
+        GLuint uid;
+        GLuint vertexID, fragmentID;
+        std::stringstream vertexSource, fragmentSource;
+        
+        std::map<std::string,GLint> uniformLocations;
+        std::map<std::string,GLint> attributeLocations;
+    };
+} /* End po Namespace */
 

@@ -30,118 +30,123 @@
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//File Loader
-#pragma mark poURLLoader
+namespace po {
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: URLLoader =================================
+    #pragma mark - URLLoader -
 
-size_t write_data( void *ptr, size_t size, size_t nmeb, FILE *stream) {
-    return std::fwrite(ptr,size,nmeb,stream);
-}
+    size_t write_data( void *ptr, size_t size, size_t nmeb, FILE *stream) {
+        return std::fwrite(ptr,size,nmeb,stream);
+    }
 
-size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
-    ((std::string*)stream)->append((char*)ptr, 0, size*count);
-    return size*count;
-}
+    size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
+        ((std::string*)stream)->append((char*)ptr, 0, size*count);
+        return size*count;
+    }
 
 
-namespace poURLLoader {
-    //------------------------------------------------------------------
-    poFilePath getFile(poURL url, const poFilePath &savePath) {
-        poFilePath p(savePath.toString());
-        
-        if(!savePath.isSet()) {
-            boost::char_separator<char> sep("/");
-            boost::tokenizer< boost::char_separator<char> > tokens(url.toString(), sep);
-            BOOST_FOREACH(const std::string &t, tokens) {
-                p.set(t);
+    namespace URLLoader {
+        //------------------------------------------------------------------
+        FilePath getFile(URL url, const FilePath &savePath) {
+            FilePath p(savePath.toString());
+            
+            if(!savePath.isSet()) {
+                boost::char_separator<char> sep("/");
+                boost::tokenizer< boost::char_separator<char> > tokens(url.toString(), sep);
+                BOOST_FOREACH(const std::string &t, tokens) {
+                    p.set(t);
+                }
             }
-        }
 
-        FILE * file = (FILE *)fopen(p.toString().c_str(),"w+");
-        if(!file){
-            perror("poURLLoader:: File Open:: ");
-            return;
-        }
-        CURL *handle = curl_easy_init();
-        curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-        curl_easy_setopt(handle,CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
-        curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
-        curl_easy_perform(handle);
-        curl_easy_cleanup(handle);
-        
-        fclose(file);
-        return p;
-    }
-
-    //------------------------------------------------------------------
-    void getFileAsync(poURL url, poObject* notify, const poFilePath &filepath) {
-        poThreadCenter::addItem(new poURLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath), notify);
-    }
-
-    //------------------------------------------------------------------
-    std::string getFileAsString(poURL url) {
-        std::string response;
-        
-        CURL *handle = curl_easy_init();
-        curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-        curl_easy_setopt(handle,CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
-        curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
-        curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
-        curl_easy_perform(handle);
-        curl_easy_cleanup(handle);
-        
-        return response;
-    }
-
-    //------------------------------------------------------------------
-    void getFileAsStringAsync(poURL url, poObject* notify) {
-        poThreadCenter::addItem(new poURLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
-    }
-};
-
-
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//File Loader Worker
-#pragma mark poURLLoaderWorker
-poURLLoaderWorker::poURLLoaderWorker(poURL url, poURLLoaderMode mode, const poFilePath &savePath)
-: url(url)
-, mode(mode)
-, filePath(savePath)
-{};
-
-poURLLoaderWorker::~poURLLoaderWorker() {
-}
-
-
-//------------------------------------------------------------------
-void poURLLoaderWorker::workerFunc() {
-    switch(mode) {
-        case PO_FILE_LOADER_MODE_SAVE: {
-            //Save the file
-            //if the save path is "" we get back the name of the file, otherwise the savepath is passed around
-            filePath = poURLLoader::getFile(url, filePath);
+            FILE * file = (FILE *)fopen(p.toString().c_str(),"w+");
+            if(!file){
+                perror("URLLoader:: File Open:: ");
+                return;
+            }
+            CURL *handle = curl_easy_init();
+            curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
+            curl_easy_setopt(handle,CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
+            curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
+            curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
+            curl_easy_perform(handle);
+            curl_easy_cleanup(handle);
             
-            dict.set("mode", mode);
-            dict.set("url", url.toString());
-            dict.set("filePath", filePath.toString());
-            break;
+            fclose(file);
+            return p;
         }
+        
+        
+        //------------------------------------------------------------------
+        void getFileAsync(URL url, Object* notify, const FilePath &filepath) {
+            ThreadCenter::addItem(new URLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath), notify);
+        }
+        
+        
+        //------------------------------------------------------------------
+        std::string getFileAsString(URL url) {
+            std::string response;
             
-        case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
-            //Get File as string
-            std::string fileContents = poURLLoader::getFileAsString(url);
+            CURL *handle = curl_easy_init();
+            curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
+            curl_easy_setopt(handle,CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
+            curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
+            curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
+            curl_easy_perform(handle);
+            curl_easy_cleanup(handle);
             
-            //Set Dictionary with contents
-            dict.set("mode", mode);
-            dict.set("url", url.toString());
-            dict.set("content", fileContents);
-            break;
+            return response;
+        }
+        
+        
+        //------------------------------------------------------------------
+        void getFileAsStringAsync(URL url, Object* notify) {
+            ThreadCenter::addItem(new URLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+        }
+    };
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: URLLoader Worker ==========================
+    #pragma mark - URLLoader Worker -
+
+    URLLoaderWorker::URLLoaderWorker(URL url, URLLoaderMode mode, const FilePath &savePath)
+    : url(url)
+    , mode(mode)
+    , filePath(savePath)
+    {};
+
+    URLLoaderWorker::~URLLoaderWorker() {
     }
     
-    workerMessage = poURLLoaderCompleteMessage;
-}
-
+    
+    //------------------------------------------------------------------
+    void URLLoaderWorker::workerFunc() {
+        switch(mode) {
+            case PO_FILE_LOADER_MODE_SAVE: {
+                //Save the file
+                //if the save path is "" we get back the name of the file, otherwise the savepath is passed around
+                filePath = URLLoader::getFile(url, filePath);
+                
+                dict.set("mode", mode);
+                dict.set("url", url.toString());
+                dict.set("filePath", filePath.toString());
+                break;
+            }
+                
+            case PO_FILE_LOADER_MODE_RETURN_AS_STRING:
+                //Get File as string
+                std::string fileContents = URLLoader::getFileAsString(url);
+                
+                //Set Dictionary with contents
+                dict.set("mode", mode);
+                dict.set("url", url.toString());
+                dict.set("content", fileContents);
+                break;
+        }
+        
+        workerMessage = URLLoaderCompleteMessage;
+    }
+} /* End po Namespace */

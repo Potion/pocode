@@ -29,11 +29,17 @@
 namespace po {
 	
 	Range::Range(int s, int e) : start(s), end(e) {}
-	
-	AttributedString::RangeDict::RangeDict(Range r, const poDictionary &d) : range(r), dict(d) {}
-	
+    
+    
+    //------------------------------------------------------------------------
+	AttributedString::RangeDict::RangeDict(Range r, const Dictionary &d) : range(r), dict(d) {}
+    
+    
+    //------------------------------------------------------------------------
 	AttributedString::RangeDictSorter::RangeDictSorter(int idx) : idx(idx) {}
-	
+    
+    
+    //------------------------------------------------------------------------
 	bool AttributedString::RangeDictSorter::operator()(const RangeDict &a, const RangeDict &b) {
 		float as_dist = abs(a.range.start - idx);
 		float ae_dist = abs(a.range.end - idx);
@@ -44,24 +50,32 @@ namespace po {
 			return ae_dist > be_dist;
 		return as_dist > bs_dist;
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	AttributedString::OutsideRange::OutsideRange(int idx) : idx(idx) {}
 	bool AttributedString::OutsideRange::operator()(const RangeDict &a) {
 		return !(a.range.start <= idx && a.range.end > idx);
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	AttributedString &AttributedString::append(const std::string &str) {
 		this->string += str; return *this;
 	}
-	
-	AttributedString &AttributedString::append(Range r, const poDictionary &d) {
+    
+    
+    //------------------------------------------------------------------------
+	AttributedString &AttributedString::append(Range r, const Dictionary &d) {
 		RangeDict range(r, d);
 		attribs.push_back(range);
 		return *this;
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	// all the dictionaries that apply to a given point combined 
-	poDictionary AttributedString::attributes(int idx) {
+	Dictionary AttributedString::attributes(int idx) {
 		using namespace std;
 		
 		// TODO verify this does what i want
@@ -85,36 +99,44 @@ namespace po {
 			//	should sort to 1,3,2
 			std::sort(filtered.begin(), filtered.end(), RangeDictSorter(idx));
 			
-			poDictionary response = filtered.front().dict;
+			Dictionary response = filtered.front().dict;
 			for(DictionaryVec::iterator i=filtered.begin()+1; i!=filtered.end(); ++i) {
 				response.append(i->dict);
 			}
 			return response;
 		}
 		
-		return poDictionary();
+		return Dictionary();
 	}
-		
+    
+    
+    //------------------------------------------------------------------------
 	bool AttributedString::empty() {
 		return string.empty();
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	std::string &AttributedString::str() {
 		return string;
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	const std::string &AttributedString::str() const {
 		return string;
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	std::string::const_iterator AttributedString::begin() const {
 		return string.begin();
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	std::string::const_iterator AttributedString::end() const {
 		return string.end();
 	}
 
-}
-
-
+} /* End po Namespace*/

@@ -18,7 +18,7 @@
  */
 
 //
-//  poShader.cpp
+//  Shader.cpp
 //  pocode
 //
 //  Created by Joshua Fisher on 9/23/11.
@@ -26,7 +26,7 @@
 //
 
 #include "poHelpers.h"
-#include "poShader.h"
+#include "Shader.h"
 
 #include <fstream>
 #include <iostream>
@@ -35,7 +35,12 @@
 #include <boost/algorithm/string/trim.hpp>
 
 namespace po {
-	
+    
+    // -----------------------------------------------------------------------------------
+    // ========================== Shader Building Funcs ==================================
+    #pragma mark - Utils -
+
+    //------------------------------------------------------------------------
 	GLuint compile(GLenum type, const std::string &source, std::string &log) {
 		log = "";
 		GLuint uid = glCreateShader(type);
@@ -63,7 +68,9 @@ namespace po {
 		
 		return uid;
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	bool link(GLuint uid, std::string &log) {
 		log = "";
 		glLinkProgram(uid);
@@ -87,7 +94,9 @@ namespace po {
 		
 		return true;
 	}
-
+    
+    
+    //------------------------------------------------------------------------
 	void variableNames(const std::string &str, const boost::regex &re, std::map<std::string,GLint> &vars) {
 		// http://stackoverflow.com/questions/3122344/boost-c-regex-how-to-get-multiple-matches
 		using namespace boost;
@@ -99,7 +108,9 @@ namespace po {
 			}
 		}
 	}
-	
+    
+    
+    //------------------------------------------------------------------------
 	std::vector<std::string> allKeys(const std::map<std::string,GLint> &theMap) {
 		// http://stackoverflow.com/questions/110157/how-to-retrieve-all-keys-or-values-from-a-stdmap/110228#110228
 		using namespace std;
@@ -113,148 +124,180 @@ namespace po {
 				  );
 		return keys;
 	}
-	
-}
-	
-poShader::poShader()
-:	uid(0)
-,	vertexID(0), fragmentID(0)
-{}
+    
+    // -----------------------------------------------------------------------------------
+    // ================================= Shader ==========================================
+    #pragma mark - Shader -
 
-poShader::~poShader() {
-	if(uid) {
-		glDeleteProgram(uid);
-		uid = 0;
-	}
-}
+    Shader::Shader()
+    :	uid(0)
+    ,	vertexID(0), fragmentID(0)
+    {}
 
-void poShader::load(const std::string &name) {
-	if(uid) {
-		glDeleteProgram(uid);
-		uid = 0;
-	}
-	
-	loadSource(name);
-}
+    Shader::~Shader() {
+        if(uid) {
+            glDeleteProgram(uid);
+            uid = 0;
+        }
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::load(const std::string &name) {
+        if(uid) {
+            glDeleteProgram(uid);
+            uid = 0;
+        }
+        
+        loadSource(name);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::loadSource(std::string const& src) {
+        using namespace std;
+        stringstream uniforms, varyings, vertex, fragment;
+        stringstream *target = &uniforms;
 
-void poShader::loadSource(std::string const& src) {
-	using namespace std;
-	stringstream uniforms, varyings, vertex, fragment;
-	stringstream *target = &uniforms;
+        std::istringstream ss(src);
+        std::string line;
+        while(getline(ss, line)) {
+            boost::algorithm::trim(line);
+            
+                 if(line == "[[uniforms]]")	target = &uniforms;
+            else if(line == "[[varyings]]")	target = &varyings;
+            else if(line == "[[vertex]]")	target = &vertex;
+            else if(line == "[[fragment]]")	target = &fragment;
+            else							*target << line << "\n";
+        }
+        
+        po::variableNames(vertex.str(), boost::regex("attribute .*?\\s+?(.*?);"), attributeLocations);
+        po::variableNames(uniforms.str(), boost::regex("uniform .*?\\s+?(.*?);"), uniformLocations);
+        
+        vertexSource << uniforms.str() << varyings.str() << vertex.str();
+        #if defined(OPENGL_ES)
+            fragmentSource << "precision mediump float;\n" << uniforms.str() << varyings.str() << fragment.str();
+        #else
+            fragmentSource << uniforms.str() << varyings.str() << fragment.str();
+        #endif
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Shader::compile() {
+        using namespace std;
+        
+        std::string log;
+        vertexID = po::compile(GL_VERTEX_SHADER, vertexSource.str(), log);
+        if(vertexID == 0) {
+            cout << "vertex:\n" << log;
+            return false;
+        }
+        
+        log = "";
+        fragmentID = po::compile(GL_FRAGMENT_SHADER, fragmentSource.str(), log);
+        if(fragmentID == 0) {
+            cout << "fragment:\n" << log;
+            glDeleteShader(vertexID);
+            return false;
+        }
+        
+        uid = glCreateProgram();
+        glAttachShader(uid, vertexID);
+        glAttachShader(uid, fragmentID);
+        
+        glDeleteShader(vertexID);
+        glDeleteShader(fragmentID);
 
-	std::istringstream ss(src);
-	std::string line;
-	while(getline(ss, line)) {
-		boost::algorithm::trim(line);
-		
-			 if(line == "[[uniforms]]")	target = &uniforms;
-		else if(line == "[[varyings]]")	target = &varyings;
-		else if(line == "[[vertex]]")	target = &vertex;
-		else if(line == "[[fragment]]")	target = &fragment;
-		else							*target << line << "\n";
-	}
-	
-	po::variableNames(vertex.str(), boost::regex("attribute .*?\\s+?(.*?);"), attributeLocations);
-	po::variableNames(uniforms.str(), boost::regex("uniform .*?\\s+?(.*?);"), uniformLocations);
-	
-	vertexSource << uniforms.str() << varyings.str() << vertex.str();
-	#if defined(OPENGL_ES)
-		fragmentSource << "precision mediump float;\n" << uniforms.str() << varyings.str() << fragment.str();
-	#else
-		fragmentSource << uniforms.str() << varyings.str() << fragment.str();
-	#endif
+        return true;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Shader::link() {
+        std::string log;
+        if(!po::link(uid, log)) {
+            std::cout << "link:\n" << log;
+            glDeleteProgram(uid);
+            uid = 0;
+            return false;
+        }
+        
+        std::map<std::string,GLint>::iterator iter = uniformLocations.begin();
+        for( ; iter!=uniformLocations.end(); iter++) {
+            uniformLocations[iter->first] = glGetUniformLocation(uid, iter->first.c_str());
+    //		std::cout << iter->first << ": " << uniformLocations[iter->first] << "\n";
+        }
+        
+        return true;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    GLuint Shader::getUid() {
+        return uid;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    std::vector<std::string> Shader::getAllAttributes() {
+        return po::allKeys(attributeLocations);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    GLint Shader::attribLocation(const char *name) {
+        if(attributeLocations.find(name) != attributeLocations.end())
+            return attributeLocations[name];
+        return -1;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    std::vector<std::string> Shader::getAllUniforms() {
+        return po::allKeys(uniformLocations);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    GLint Shader::uniformLocation(const char *name) {
+        if(uniformLocations.find(name) != uniformLocations.end())
+            return uniformLocations[name];
+        return -1;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::uniform(const char* name, int i) {
+        int l = uniformLocation(name);
+        if(l >= 0) glUniform1i(l, i);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::uniform(const char* name, float f) {
+        int l = uniformLocation(name);
+        if(l >= 0) glUniform1f(l, f);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::uniform(const char* name, Point v) {
+        int l = uniformLocation(name);
+        if(l >= 0) glUniform3fv(l, 1, &v.x);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::uniform(const char* name, Color c) {
+        int l = uniformLocation(name);
+        if(l >= 0) glUniform4fv(l, 1, &c.R);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Shader::uniform(const char* name, glm::mat4 m) {
+        int l = uniformLocation(name);
+        if(l >= 0) glUniformMatrix4fv(l, 1, GL_FALSE, &m[0][0]);
+    }
 }
-
-bool poShader::compile() {
-	using namespace std;
-	
-	std::string log;
-	vertexID = po::compile(GL_VERTEX_SHADER, vertexSource.str(), log);
-	if(vertexID == 0) {
-		cout << "vertex:\n" << log;
-		return false;
-	}
-	
-	log = "";
-	fragmentID = po::compile(GL_FRAGMENT_SHADER, fragmentSource.str(), log);
-	if(fragmentID == 0) {
-		cout << "fragment:\n" << log;
-		glDeleteShader(vertexID);
-		return false;
-	}
-	
-	uid = glCreateProgram();
-	glAttachShader(uid, vertexID);
-	glAttachShader(uid, fragmentID);
-	
-	glDeleteShader(vertexID);
-	glDeleteShader(fragmentID);
-
-	return true;
-}
-	
-bool poShader::link() {
-	std::string log;
-	if(!po::link(uid, log)) {
-		std::cout << "link:\n" << log;
-		glDeleteProgram(uid);
-		uid = 0;
-		return false;
-	}
-	
-	std::map<std::string,GLint>::iterator iter = uniformLocations.begin();
-	for( ; iter!=uniformLocations.end(); iter++) {
-		uniformLocations[iter->first] = glGetUniformLocation(uid, iter->first.c_str());
-//		std::cout << iter->first << ": " << uniformLocations[iter->first] << "\n";
-	}
-	
-	return true;
-}
-
-GLuint poShader::getUid() {
-	return uid;
-}
-
-std::vector<std::string> poShader::getAllAttributes() {
-	return po::allKeys(attributeLocations);
-}
-
-GLint poShader::attribLocation(const char *name) {
-	if(attributeLocations.find(name) != attributeLocations.end())
-		return attributeLocations[name];
-	return -1;
-}
-
-std::vector<std::string> poShader::getAllUniforms() {
-	return po::allKeys(uniformLocations);
-}
-
-GLint poShader::uniformLocation(const char *name) {
-	if(uniformLocations.find(name) != uniformLocations.end())
-		return uniformLocations[name];
-	return -1;
-}
-
-void poShader::uniform(const char* name, int i) {
-	int l = uniformLocation(name);
-	if(l >= 0) glUniform1i(l, i);
-}
-void poShader::uniform(const char* name, float f) {
-	int l = uniformLocation(name);
-	if(l >= 0) glUniform1f(l, f);
-}
-void poShader::uniform(const char* name, poPoint v) {
-	int l = uniformLocation(name);
-	if(l >= 0) glUniform3fv(l, 1, &v.x);
-}
-void poShader::uniform(const char* name, poColor c) {
-	int l = uniformLocation(name);
-	if(l >= 0) glUniform4fv(l, 1, &c.R);
-}
-void poShader::uniform(const char* name, glm::mat4 m) {
-	int l = uniformLocation(name);
-	if(l >= 0) glUniformMatrix4fv(l, 1, GL_FALSE, &m[0][0]);
-}
-
-
-

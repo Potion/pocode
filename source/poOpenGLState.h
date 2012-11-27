@@ -103,7 +103,6 @@ namespace po {
 	glm::mat4 modelviewProjection();
 	poPoint globalToLocal(poPoint pt);
 	poPoint localToGlobal(poPoint pt);
-
 };
 
 

@@ -24,30 +24,38 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-poMatrixSet::poMatrixSet() 
-:   camType(PO_CAMERA_NONE)
-{}
+namespace po {
+    MatrixSet::MatrixSet() 
+    :   camType(PO_CAMERA_NONE)
+    {}
 
-void poMatrixSet::capture() {
-	projection = po::projection();
-	modelview = po::modelview();
-	viewport = po::viewport();
-}
-
-poPoint poMatrixSet::globalToLocal(poPoint pt) const {
-	glm::vec3 p(pt.x, pt.y, pt.z);
-	glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
-	glm::vec3 r = glm::unProject(p, modelview, projection, vp);
-	return poPoint(r.x, r.y, r.z);
-}
-
-poPoint poMatrixSet::localToGlobal(poPoint pt) const {
-	glm::vec3 p(pt.x, pt.y, pt.z);
-	glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
-	glm::vec3 r = glm::project(p, modelview, projection, vp);
-	return poPoint(r.x, r.y, r.z);
-}
-
-poPoint poMatrixSet::localToGlobal2(poPoint pt) const {
-	return glm::value_ptr(glm::inverse(modelview) * glm::vec4(pt.x,pt.y,pt.z,1.f));
-}
+    void MatrixSet::capture() {
+        projection = po::projection();
+        modelview = po::modelview();
+        viewport = po::viewport();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point MatrixSet::globalToLocal(Point pt) const {
+        glm::vec3 p(pt.x, pt.y, pt.z);
+        glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
+        glm::vec3 r = glm::unProject(p, modelview, projection, vp);
+        return Point(r.x, r.y, r.z);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point MatrixSet::localToGlobal(Point pt) const {
+        glm::vec3 p(pt.x, pt.y, pt.z);
+        glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
+        glm::vec3 r = glm::project(p, modelview, projection, vp);
+        return Point(r.x, r.y, r.z);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point MatrixSet::localToGlobal2(Point pt) const {
+        return glm::value_ptr(glm::inverse(modelview) * glm::vec4(pt.x,pt.y,pt.z,1.f));
+    }
+} /*End po Namespace */

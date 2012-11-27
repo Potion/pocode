@@ -27,21 +27,21 @@
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
-typedef struct {
-    int hours;
-    int amPmHours;
-    std::string amPm;
-    
-    int minutes;
-    int seconds;
-} poTime;
-
 namespace po {
+    typedef struct {
+        int hours;
+        int amPmHours;
+        std::string amPm;
+        
+        int minutes;
+        int seconds;
+    } Time;
+    
     //Time Functions
     float getElapsedTime();
     int   getElapsedTimeMillis();
 
-    poTime getCurrentTime();
+    po::Time getCurrentTime();
 
     unsigned int getNumCpus();
 

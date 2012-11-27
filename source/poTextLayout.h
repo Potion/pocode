@@ -28,8 +28,8 @@
 #pragma once
 
 
-#include "poRect.h"
-#include "poFont.h"
+#include "Rect.h"
+#include "Font.h"
 #include "poAttributedString.h"
 
 
@@ -45,7 +45,7 @@ namespace po {
 	struct TextLayoutGlyph {
 		TextLayoutGlyph() : glyph(0), bbox() {}
 		uint glyph;
-		poRect bbox;
+		Rect bbox;
 	};
 
 	struct TextLayoutLine {
@@ -57,7 +57,7 @@ namespace po {
         virtual int getSizeInMemory() { return ( sizeof(TextLayoutLine)+(glyphs.capacity()*sizeof(TextLayoutGlyph)) ); };
         
 		std::vector<TextLayoutGlyph> glyphs;
-		poRect bbox;
+		Rect bbox;
 		int wordCount;
 	};
 
@@ -71,27 +71,27 @@ namespace po {
 		
 				TextLayout();
 		void	layout();
-		poRect	getTextBounds() const;
-		poDictionary getTextPropsAtIndex(int idx);
+		Rect	getTextBounds() const;
+		Dictionary getTextPropsAtIndex(int idx);
 
 		uint	getNumLines() const;
 		uint	getNumGlyphsForLine(uint line) const;
 		
 		TextLayoutLine &getLine(uint line);
 		TextLayoutGlyph &getGlyphOnLine(uint glyph, uint line);
-		poRect	getBoundsForLine(uint line) const;
-		poRect	getBoundsForGlyphOnLine(uint glyphIdx, uint line) const;
+		Rect	getBoundsForLine(uint line) const;
+		Rect	getBoundsForGlyphOnLine(uint glyphIdx, uint line) const;
 
         void    setUseTextBounds( char B ) { useTextBounds = B; };
         
-		void	shiftLine(uint line, poPoint p);
-		void	rotateLine(uint line, poPoint origin, float rot);
+		void	shiftLine(uint line, Point p);
+		void	rotateLine(uint line, Point origin, float rot);
 		
 		// style corresponds to the tag used to display it
 		// ''=regular, 'b'=bold, 'i'=italic, etc
 		// you can set any font equal to any tag then use that tag in your text box
-		void	setFont(poFont *f, const std::string &style="");
-		poFont*	getFont(const std::string &style="");
+		void	setFont(Font *f, const std::string &style="");
+		Font*	getFont(const std::string &style="");
 		bool	hasFont(const std::string &style="");
         
 	protected:
@@ -106,9 +106,9 @@ namespace po {
 		// 3. build attributed str
 		void	prepareText();
 		
-		std::map<std::string, poFont*> fonts;
-		poRect  textBounds;
+		std::map<std::string, Font*> fonts;
+		Rect  textBounds;
         char    useTextBounds;
 	};
 	
-}
+} /* End po Namespace */

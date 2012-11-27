@@ -56,31 +56,27 @@ using namespace boost::posix_time;
 //so we use internal Mac & iOS functions here
 #ifdef __APPLE__
     #if defined(POTION_MAC)
-        poPoint getDeviceResolutionMac() {
+        Point getDeviceResolutionMac() {
             NSWindow *window = (NSWindow*)po::applicationCurrentWindow()->getWindowHandle();
             NSScreen *screen = [window screen];
             
             NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
-            return poPoint(size.width, size.height);
+            return Point(size.width, size.height);
         }
     #else
-        poPoint getDeviceResolutioniOS() {
-            return poPoint(72,72);
+        Point getDeviceResolutioniOS() {
+            return Point(72,72);
         }
     #endif
 #endif
 
 
-//poHelpers
+
 namespace po {
-    unsigned int getNumCpus() {
-        return boost::thread::hardware_concurrency();
-    }
     
-    //------------------------------------------------------------------
-    //------------------------------------------------------------------
-    //Time Functions
-    #pragma mark Time Functions
+    // -----------------------------------------------------------------------------------
+    // ================================ Time Functions ===================================
+    #pragma mark - Time Functions -
     
     #ifdef __APPLE__
         float getElapsedTime() {
@@ -96,7 +92,7 @@ namespace po {
         }
 
         int getElapsedTimeMillis() {
-            return po::getElapsedTime() * 1000.0f;
+            return getElapsedTime() * 1000.0f;
         }
 
     #elif defined(POTION_WINDOWS)
@@ -117,19 +113,19 @@ namespace po {
         }
 
         int getElapsedTimeMillis() {
-            return poGetElapsedTime() * 1000.0f;
+            return GetElapsedTime() * 1000.0f;
         }
     #endif
-
     
-    //------------------------------------------------------------------
-    //Returns the current time as a poTime Object
-    poTime getCurrentTime() {
+    
+    //------------------------------------------------------------------------
+    //Returns the current time as a Time Object
+    po::Time getCurrentTime() {
         date today(day_clock::local_day());
             
         ptime now = second_clock::local_time();
             
-        poTime t;
+        Time t;
         t.hours      = now.time_of_day().hours();
         t.minutes    = now.time_of_day().minutes();
         t.seconds    = now.time_of_day().seconds();
@@ -146,7 +142,7 @@ namespace po {
     }
     
     
-    //------------------------------------------------------------------
+    //------------------------------------------------------------------------
     //Get the current time as a string
     const char *currentTimeStr() {
         static char buffer[80];
@@ -156,30 +152,35 @@ namespace po {
         
         return buffer;
     }
-
     
-    //------------------------------------------------------------------
-    //------------------------------------------------------------------
+    
+    unsigned int getNumCpus() {
+        return boost::thread::hardware_concurrency();
+    }
+    
+    
+    //------------------------------------------------------------------------
     //Device Resolution
     #pragma mark Device Resolution
     
     #ifdef __APPLE__
         #if defined(POTION_MAC)
-            poPoint deviceResolution() {
+            Point deviceResolution() {
                 return getDeviceResolutionMac();
             }
         #else // IPHONE OR SIMULATOR
-            poPoint deviceResolution() {
+            Point deviceResolution() {
                 return getDeviceResolutioniOS();
             }
         #endif
     #elif defined(POTION_WINDOWS)
-        poPoint deviceResolution() {
-            return poPoint(72, 72);
+        Point deviceResolution() {
+            return Point(72, 72);
         }
     #endif
     
-    //------------------------------------------------------------------
+    
+    //------------------------------------------------------------------------
     //Logging
     std::ofstream log_file;
     
@@ -200,17 +201,21 @@ namespace po {
         log_file << ss.str();
         std::cerr << ss.str();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     size_t utf8strlen(const std::string &str) {
         using utf8::unchecked::next;
         return utf8::unchecked::distance(str.begin(), str.end());
     }
-
-
-    //------------------------------------------------------------------
-    //------------------------------------------------------------------
-    //base64 Conversion
-    #pragma mark Base64 Conversion
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ====================== Base64 Encoding/Decoding ===================================
+    #pragma mark - Time Functions -
+    
     
     static const std::string base64_chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -220,7 +225,9 @@ namespace po {
     static inline bool is_base64(unsigned char c) {
         return (isalnum(c) || (c == '+') || (c == '/'));
     }
-
+    
+    
+    //------------------------------------------------------------------------
     std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len) {
         std::string ret;
         int i = 0;
@@ -261,9 +268,10 @@ namespace po {
         }
         
         return ret;
-        
     }
-
+    
+    
+    //------------------------------------------------------------------------
     std::string base64_decode(std::string const& encoded_string) {
         int in_len = encoded_string.size();
         int i = 0;
@@ -304,10 +312,9 @@ namespace po {
         
         return ret;
     }
-
-
-    //------------------------------------------------------------------
-    //------------------------------------------------------------------
+    
+    
+    //------------------------------------------------------------------------
     //String Manipulation
     #pragma mark String Manipulation
     std::string toUpperCase(std::string s) {
@@ -317,7 +324,9 @@ namespace po {
         
         return s;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     std::string toLowerCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             s[i] = tolower(s[i]);
@@ -325,7 +334,9 @@ namespace po {
         
         return s;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     std::string toTitleCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             if(i==0 || s[i-1] == ' ') {
@@ -335,8 +346,10 @@ namespace po {
         
         return s;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     int toInt(std::string s) {
         return atoi(s.c_str());
     }
-}
+} /* End po Namespace */

@@ -10,6 +10,10 @@
 #include "poHelpers.h"
 #include "poApplication.h"
 
+// -----------------------------------------------------------------------------------
+// ================================ ThreadCenter Utils ===================================
+#pragma mark - ThreadCenter Utils -
+
 //------------------------------------------------------------------
 //Set Current Path, depends on OS
 #ifdef __APPLE__
@@ -30,18 +34,12 @@ void setCurrentPath(const fs::path &path) {
 }
 #endif
 
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//File Path Utils
-#pragma mark FilePath Utils
-
 namespace po {
     //------------------------------------------------------------------
-    poFilePath getCurrentPath() {
-        return poFilePath(fs::current_path());
+    FilePath getCurrentPath() {
+        return FilePath(fs::current_path());
     }
-
+    
     
     //------------------------------------------------------------------
     bool pathToFolder(const std::string &folder_name, fs::path *path) {
@@ -87,100 +85,106 @@ namespace po {
     std::string getApplicationSupportDirectory() {
         return applicationGetSupportDirectory();
     }
-}
 
 
-//------------------------------------------------------------------
-//poFilePath
-#pragma mark poFilePath
-poFilePath::poFilePath() {}
-
-poFilePath::~poFilePath() {}
-
-poFilePath::poFilePath(const char *path) {
-    set(path);
-}
-
-poFilePath::poFilePath(const std::string &path) {
-    set(path);
-}
-
-poFilePath::poFilePath(const fs::path &filePath) {
-    setFromBoostPath(filePath);
-}
 
 
-//------------------------------------------------------------------
-void poFilePath::set(std::string path) {
-    this->filePath = fs::path(path);
-}
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: ThreadCenter ==================================
+    #pragma mark - ThreadCenter -
+
+    FilePath::FilePath() {}
+
+    FilePath::~FilePath() {}
+
+    FilePath::FilePath(const char *path) {
+        set(path);
+    }
+
+    FilePath::FilePath(const std::string &path) {
+        set(path);
+    }
+
+    FilePath::FilePath(const fs::path &ThreadCenter) {
+        setFromBoostPath(ThreadCenter);
+    }
 
 
-//------------------------------------------------------------------
-void poFilePath::setFromBoostPath(fs::path filePath) {
-    this->filePath = filePath;
-}
+    //------------------------------------------------------------------
+    void FilePath::set(std::string path) {
+        this->ThreadCenter = fs::path(path);
+    }
 
 
-//------------------------------------------------------------------
-bool poFilePath::isSet() const {
-    return filePath.string() != "";
-}
+    //------------------------------------------------------------------
+    void FilePath::setFromBoostPath(fs::path ThreadCenter) {
+        this->ThreadCenter = ThreadCenter;
+    }
 
 
-//------------------------------------------------------------------
-std::string poFilePath::toString() const {
-    return filePath.string();
-}
+    //------------------------------------------------------------------
+    bool FilePath::isSet() const {
+        return ThreadCenter.string() != "";
+    }
 
 
-//------------------------------------------------------------------
-fs::path poFilePath::toBoostPath() const {
-    return this->filePath;
-}
+    //------------------------------------------------------------------
+    std::string FilePath::toString() const {
+        return ThreadCenter.string();
+    }
 
 
-//------------------------------------------------------------------
-bool poFilePath::exists() const {
-    return fs::exists(filePath);
-}
+    //------------------------------------------------------------------
+    fs::path FilePath::toBoostPath() const {
+        return this->ThreadCenter;
+    }
 
-//------------------------------------------------------------------
-//Add @scale x to item, see if it exists, return new filePath
-poFilePath poFilePath::getScaled(float scale) const {
-    std::string stem = filePath.stem().string();
-    stem += "@" + po::toString(po::toString(scale) + "x");
-    std::string extension = filePath.extension().string();
-    
-    fs::path base(this->toString());
-    poFilePath p(base.remove_filename().string() + "/" + stem + extension);
-    
-    if(!p.exists()) {
-        p.set(this->toString());
+
+    //------------------------------------------------------------------
+    bool FilePath::exists() const {
+        return fs::exists(ThreadCenter);
+    }
+
+    //------------------------------------------------------------------
+    //Add @scale x to item, see if it exists, return new ThreadCenter
+    FilePath FilePath::getScaled(float scale) const {
+        std::string stem = ThreadCenter.stem().string();
+        stem += "@" + po::toString(po::toString(scale) + "x");
+        std::string extension = ThreadCenter.extension().string();
+        
+        fs::path base(this->toString());
+        FilePath p(base.remove_filename().string() + "/" + stem + extension);
+        
+        if(!p.exists()) {
+            p.set(this->toString());
+        }
+        
+        return p;
+    }
+
+
+
+
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: URL =========================
+    #pragma mark - URL -
+
+    URL::URL() {}
+
+    URL::URL(std::string u)
+    : url(u)
+    {}
+
+    URL::~URL() {}
+
+    //------------------------------------------------------------------
+    std::string URL::toString() const {
+        return url;
+    }
+
+    //------------------------------------------------------------------
+    bool URL::isSet() const {
+        return url != "";
     }
     
-    return p;
-}
-
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//poURL
-#pragma mark poURL
-poURL::poURL() {}
-
-poURL::poURL(std::string u)
-: url(u)
-{}
-
-poURL::~poURL() {}
-
-//------------------------------------------------------------------
-std::string poURL::toString() const {
-    return url;
-}
-
-//------------------------------------------------------------------
-bool poURL::isSet() const {
-    return url != "";
-}
+} /* End po Namespace */

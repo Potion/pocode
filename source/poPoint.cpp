@@ -62,6 +62,11 @@ namespace po {
     }
     
     
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Utils ============================================
+    #pragma mark - Utils -
+
     //------------------------------------------------------------------------
     bool Point::fromString(std::string const& str) {
         int count = sscanf(str.c_str(), "point(%f,%f,%f)", &x, &y, &z);
@@ -86,42 +91,9 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool Point::operator==(Point rhs) {
-        return compare(*this, rhs);
-    }
-    
-    
-    //------------------------------------------------------------------------
-    void Point::operator+=(Point rhs) {
-        x += rhs.x;
-        y += rhs.y;
-        z += rhs.z;
-    }
-    
-    
-    //------------------------------------------------------------------------
-    void Point::operator-=(Point rhs) {
-        x -= rhs.x;
-        y -= rhs.y;
-        z -= rhs.z;
-    }
-    
-    
-    //------------------------------------------------------------------------
-    void Point::operator*=(float scalar) {
-        x *= scalar;
-        y *= scalar;
-        z *= scalar;
-    }
-    
-    
-    //------------------------------------------------------------------------
-    void Point::operator/=(float scalar) {
-        if(scalar == 0) return;
-        
-        if(x != 0) x /= scalar;
-        if(y != 0) y /= scalar;
-        if(z != 0) z /= scalar;
+    Point normalize(Point pt) {
+        float len = pt.getLength();
+        return Point(pt.x/len, pt.y/len, pt.z/len);
     }
     
     
@@ -137,6 +109,19 @@ namespace po {
     }
     
     
+    //------------------------------------------------------------------------
+    bool compare(Point a, Point b, float range) {
+        return (compare(a.x, b.x, range) &&
+                compare(a.y, b.y, range) &&
+                compare(a.z, b.z, range));
+    }
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Getters ==========================================
+    #pragma mark - Getters -
+
     //------------------------------------------------------------------------
     float Point::getLength() const {
         return sqrtf(x*x + y*y + z*z);
@@ -180,7 +165,10 @@ namespace po {
         return Point(Xv * x + Yv * y);
     }
     
-    
+    // -----------------------------------------------------------------------------------
+    // ================================ Operators ========================================
+    #pragma mark - Operators -
+
     //------------------------------------------------------------------------
     Point operator+(Point A, Point B) {
         return Point(A.x+B.x, A.y+B.y, A.z+B.z);
@@ -224,17 +212,42 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Point normalize(Point pt) {
-        float len = pt.getLength();
-        return Point(pt.x/len, pt.y/len, pt.z/len);
+    bool Point::operator==(Point rhs) {
+        return compare(*this, rhs);
     }
     
     
     //------------------------------------------------------------------------
-    bool compare(Point a, Point b, float range) {
-        return (compare(a.x, b.x, range) &&
-                compare(a.y, b.y, range) &&
-                compare(a.z, b.z, range));
+    void Point::operator+=(Point rhs) {
+        x += rhs.x;
+        y += rhs.y;
+        z += rhs.z;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Point::operator-=(Point rhs) {
+        x -= rhs.x;
+        y -= rhs.y;
+        z -= rhs.z;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Point::operator*=(float scalar) {
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Point::operator/=(float scalar) {
+        if(scalar == 0) return;
+        
+        if(x != 0) x /= scalar;
+        if(y != 0) y /= scalar;
+        if(z != 0) z /= scalar;
     }
     
     
