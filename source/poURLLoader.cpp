@@ -18,7 +18,6 @@
  */
 
 #include "poURLLoader.h"
-#include "poThreadCenter.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -79,7 +78,7 @@ namespace po {
         
         //------------------------------------------------------------------
         void getFileAsync(URL url, Object* notify, const FilePath &filepath) {
-            ThreadCenter::addItem(new URLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath), notify);
+            ThreadCenter::addItem(new po::URLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath), notify);
         }
         
         
@@ -101,7 +100,7 @@ namespace po {
         
         //------------------------------------------------------------------
         void getFileAsStringAsync(URL url, Object* notify) {
-            ThreadCenter::addItem(new URLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+            ThreadCenter::addItem(new po::URLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
         }
     };
     

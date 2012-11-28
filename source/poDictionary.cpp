@@ -24,37 +24,38 @@
 using namespace std;
 using namespace boost;
 
-namespace {
-	
-	struct item_printer : public static_visitor<> {
-		ostream &out;
-		item_printer(ostream &os) : out(os) {}
-		
-		void operator()(const int& i) const			{out << i;}
-		void operator()(const float& d) const		{out << std::fixed << d;}
-		void operator()(const string& s) const		{out << "'" << s << "'";}
-		void operator()(const poPoint& p) const		{out << p;}
-		void operator()(const poColor& c) const		{out << c;}
-		void operator()(const void* p) const		{out << "&" << hex << (size_t)p;}
-		void operator()(const Dictionary& d) const{out << d;}
-	};
-	
-	struct string_converter : public static_visitor<string> {
-		ostringstream ss;
-		
-		string operator()(int& i)			{ss << i; return ss.str();}
-		string operator()(float& d)			{ss << std::fixed << d; return ss.str();}
-		string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
-		string operator()(poPoint& p)		{ss << p; return ss.str();}
-		string operator()(poColor& c)		{ss << c; return ss.str();}
-		string operator()(void* p)			{ss << "&" << hex << (size_t)p; return ss.str();}
-		string operator()(Dictionary& d)	{ss << d; return ss.str();}
-	};
-	
-}
-
 
 namespace po {
+
+    namespace {
+        
+        struct item_printer : public static_visitor<> {
+            ostream &out;
+            item_printer(ostream &os) : out(os) {}
+            
+            void operator()(const int& i) const			{out << i;}
+            void operator()(const float& d) const		{out << std::fixed << d;}
+            void operator()(const string& s) const		{out << "'" << s << "'";}
+            void operator()(const Point& p) const		{out << p;}
+            void operator()(const Color& c) const		{out << c;}
+            void operator()(const void* p) const		{out << "&" << hex << (size_t)p;}
+            void operator()(const Dictionary& d) const{out << d;}
+        };
+        
+        struct string_converter : public static_visitor<string> {
+            ostringstream ss;
+            
+            string operator()(int& i)			{ss << i; return ss.str();}
+            string operator()(float& d)			{ss << std::fixed << d; return ss.str();}
+            string operator()(string& s)		{ss << "'" << s << "'"; return ss.str();}
+            string operator()(Point& p)		{ss << p; return ss.str();}
+            string operator()(Color& c)		{ss << c; return ss.str();}
+            string operator()(void* p)			{ss << "&" << hex << (size_t)p; return ss.str();}
+            string operator()(Dictionary& d)	{ss << d; return ss.str();}
+        };
+        
+    }
+    
     // -----------------------------------------------------------------------------------
     // ================================ Class: DictionaryItem ============================
     #pragma mark - Sqlite Result -
@@ -93,14 +94,14 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poPoint DictionaryItem::getPoint() const {
-        return boost::get<poPoint>(item);
+    Point DictionaryItem::getPoint() const {
+        return boost::get<Point>(item);
     }
     
     
     //------------------------------------------------------------------
-    poColor DictionaryItem::getColor() const {
-        return boost::get<poColor>(item);
+    Color DictionaryItem::getColor() const {
+        return boost::get<Color>(item);
     }
     
     
@@ -182,13 +183,13 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poPoint Dictionary::getPoint(const std::string &s) const {
+    Point Dictionary::getPoint(const std::string &s) const {
         return items.at(s).getPoint();
     }
     
     
     //------------------------------------------------------------------
-    poColor Dictionary::getColor(const std::string &s) const {
+    Color Dictionary::getColor(const std::string &s) const {
         return items.at(s).getColor();
     }
     
@@ -257,10 +258,10 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Dictionary::write(poXMLNode node) {
+    void Dictionary::write(XMLNode node) {
         node.setName("item");
         for(DictionaryItemMap::iterator iter=items.begin(); iter!=items.end(); ++iter) {
-            poXMLNode item = node.addChild("item");
+            XMLNode item = node.addChild("item");
             
             item.setAttribute("name", iter->first);
             item.setAttribute("type", iter->second.getType());
@@ -277,8 +278,8 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Dictionary::write(poXMLDocument &doc) {
-        poXMLNode root = doc.getRootNode();
+    void Dictionary::write(XMLDocument &doc) {
+        XMLNode root = doc.getRootNode();
         root.setAttribute("name", "root");
         root.setAttribute("type", PO_DICTIONARY_T);
         write(root);
@@ -287,14 +288,14 @@ namespace po {
     
     //------------------------------------------------------------------
     void Dictionary::write(const std::string &url) {
-        poXMLDocument doc;
+        XMLDocument doc;
         write(doc);
         doc.write(url.c_str());
     }
     
     
     //------------------------------------------------------------------
-    void Dictionary::read(poXMLNode node) {
+    void Dictionary::read(XMLNode node) {
         int type = node.getIntAttribute("type");
         std::string name = node.getStringAttribute("name");
         
@@ -309,13 +310,13 @@ namespace po {
                 set(name, node.getInnerString());
                 break;
             case PO_POINT_T: {
-                poPoint p;
+                Point p;
                 if(p.fromString(node.getInnerString()))
                     set(name, p);
                 break;
             }
             case PO_COLOR_T: {
-                poColor c;
+                Color c;
                 if(c.set(node.getInnerString()))
                     set(name, c);
                 break;
@@ -326,7 +327,7 @@ namespace po {
                 break;
             case PO_DICTIONARY_T: {
                 Dictionary dict;
-                poXMLNode item = node.getFirstChild();
+                XMLNode item = node.getFirstChild();
                 while(item.isValid()) {
                     dict.read(item);
                     item = item.getNextSibling();
@@ -340,9 +341,9 @@ namespace po {
     
     //------------------------------------------------------------------
     void Dictionary::read(const std::string &url) {
-        poXMLDocument doc(url);
+        XMLDocument doc(url);
         if(doc.isValid()) {
-            poXMLNode item = doc.getRootNode().getFirstChild();
+            XMLNode item = doc.getRootNode().getFirstChild();
             while(item.isValid()) {
                 read(item);
                 item = item.getNextSibling();

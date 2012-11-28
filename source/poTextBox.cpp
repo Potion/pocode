@@ -39,7 +39,7 @@
 
 namespace po {
     TextBox::TextBox()
-    :	poObject()
+    :	Object()
     ,	textColor(poColor::white)
     ,	layout(Point())
     ,	useTextBounds(false)
@@ -54,7 +54,7 @@ namespace po {
     }
 
     TextBox::TextBox(int w) 
-    :	poObject()
+    :	Object()
     ,	textColor(poColor::white)
     ,	layout(Point(w,0))
     ,	useTextBounds(false)
@@ -70,7 +70,7 @@ namespace po {
     }
 
     TextBox::TextBox(int w, int h) 
-    :	poObject()
+    :	Object()
     ,	textColor(poColor::white)
     ,	layout(Point(w,h))
     ,	useTextBounds(false)
@@ -91,7 +91,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poObject* TextBox::copy() {
+    Object* TextBox::copy() {
         TextBox *tb = new TextBox();
         clone(tb);
         return tb;
@@ -105,7 +105,7 @@ namespace po {
         tb->cacheToTexture = cacheToTexture;
         tb->layout = layout;
         tb->cached = cached;
-        poObject::clone(tb);
+        Object::clone(tb);
     }
     
     
@@ -520,7 +520,7 @@ namespace po {
                 BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
                     po::setColor(poColor(textColor, getAppliedAlpha()));
                     
-                    poDictionary dict = layout.getTextPropsAtIndex(count);
+                    Dictionary dict = layout.getTextPropsAtIndex(count);
                     count++;
                     
                     // see if the user wants anything special
@@ -579,7 +579,7 @@ namespace po {
             po::drawStrokedRect(getTextBounds());
         }
         
-        poObject::_drawBounds();
+        Object::_drawBounds();
         
         /*po::setColor(poColor::dkGrey, .8f);
          po::drawStrokedRect(getBounds());

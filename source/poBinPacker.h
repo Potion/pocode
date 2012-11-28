@@ -40,14 +40,14 @@ namespace po {
         ~BinPacker();
 
         void reset();
-        uint addRect(poRect r);
+        uint addRect(Rect r);
 
         void pack();
         void render();
 
         int getNumPages() const;
         float getWastedPixels() const;
-        poRect packPosition(uint handle, uint *page=NULL);
+        Rect packPosition(uint handle, uint *page=NULL);
 
     private:
         BinPacker(const BinPacker &lhs) {}

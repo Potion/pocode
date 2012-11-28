@@ -18,7 +18,7 @@
  */
 
 #include "poObject.h"
-#include "Window.h"
+#include "poWindow.h"
 
 #include "poThreadCenter.h"
 #include "poMessageCenter.h"
@@ -31,7 +31,7 @@
 #include "poImage.h"
 
 namespace po {
-    void objUnderPoint(Object *obj, poPoint &pnt, std::set<Object*> &objsBeneath) {
+    void objUnderPoint(Object *obj, Point &pnt, std::set<Object*> &objsBeneath) {
         if(!(obj->visible && obj->alpha > 0.01))
             return; 
         
@@ -84,13 +84,13 @@ namespace po {
         
         // handle events
         if(handle && !received.empty()) {
-            poEventCenter::get()->processEvents(received);
+            EventCenter::get()->processEvents(received);
         }
         received.clear();
         
         //Update internal classes
-        poMessageCenter::update();
-        poThreadCenter::update();
+        MessageCenter::update();
+        ThreadCenter::update();
         
         
         // tell everyone who cares they should update
@@ -110,7 +110,7 @@ namespace po {
     //------------------------------------------------------------------------
     void Window::draw() {
         drawOrderCounter = 0;
-        poEventCenter::get()->negateDrawOrderForObjectWithEvents();
+        EventCenter::get()->negateDrawOrderForObjectWithEvents();
         getRootObject()->drawTree();
     }
     
@@ -180,7 +180,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Window::moveTo(poPoint p) {
+    void Window::moveTo(Point p) {
         po::applicationMoveWindow(this, p);
     }
     
@@ -206,7 +206,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint Window::getDimensions() const {
+    Point Window::getDimensions() const {
         return bounds.getSize();
     }
     
@@ -231,13 +231,13 @@ namespace po {
     
     //------------------------------------------------------------------------
     Rect Window::getBounds() const {
-        return Rect(poPoint(0,0), bounds.getSize());
+        return Rect(Point(0,0), bounds.getSize());
     }
     
     
     //------------------------------------------------------------------------
-    poPoint Window::getCenterPoint() const {
-        return poPoint(bounds.width/2.f, bounds.height/2.f);
+    Point Window::getCenterPoint() const {
+        return Point(bounds.width/2.f, bounds.height/2.f);
     }
     
     
@@ -289,7 +289,7 @@ namespace po {
         po::setViewport(0, 0, w, h);
         bounds.set(x,y,w,h);
         //
-        //	poEvent event;
+        //	Event event;
         //	event.type = PO_WINDOW_RESIZED_EVENT;
         //	received.push_back(event);
     }
@@ -308,7 +308,7 @@ namespace po {
     #pragma mark Mouse Events
     
     //------------------------------------------------------------------------
-    poPoint Window::getMousePosition() const {
+    Point Window::getMousePosition() const {
         return mousePos;
     }
     
@@ -329,7 +329,7 @@ namespace po {
     void Window::mouseDown(int x, int y, int mod) {
         mousePos.set(x,y,1.f);
         
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
@@ -342,7 +342,7 @@ namespace po {
     void Window::mouseUp(int x, int y, int mod) {
         mousePos.set(x,y,1);
         
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
@@ -358,7 +358,7 @@ namespace po {
         
         mousePos.set(x,y,1);
         
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
@@ -371,7 +371,7 @@ namespace po {
     void Window::mouseDrag(int x, int y, int mod) {
         mousePos.set(x,y,1);
         
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
@@ -392,7 +392,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::keyDown(int key, int code, int mod) {
-        poEvent event;
+        Event event;
         event.keyChar = key;
         event.keyCode = code;
         event.modifiers = mod;
@@ -404,7 +404,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::keyUp(int key, int code, int mod) {
-        poEvent event;
+        Event event;
         event.keyCode = code;
         event.keyChar = key;
         event.modifiers = mod;
@@ -430,7 +430,7 @@ namespace po {
         trackTouch(t);
             
         //Fire Event
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.touchID   = t->id;
         event.uniqueID  = uid;
@@ -447,7 +447,7 @@ namespace po {
         interactionPoint *t = getTouch(uid);
         
         //Send event
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.touchID   = t->id;
         event.uniqueID  = uid;
@@ -464,7 +464,7 @@ namespace po {
         interactionPoint *t = getTouch(uid);
        
         //Send event
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.touchID   = t->id;
         event.uniqueID  = uid;
@@ -481,7 +481,7 @@ namespace po {
     void Window::touchCancelled(int x, int y, int uid, int tapCount) {
         untrackTouch(uid);
         
-        poEvent event;
+        Event event;
         event.globalPosition.set(x, y, 0.f);
         event.touchID = uid;
         event.tapCount = tapCount;
@@ -543,7 +543,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::accelerometerEvent(double x, double y, double z) {
-        poEvent event;
+        Event event;
         event.motion.set(x, y, z);
         event.type = PO_ACCELEROMETER_EVENT;
         received.push_back(event);
@@ -552,7 +552,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::gyroscopeEvent(double x, double y, double z) {
-        poEvent event;
+        Event event;
         event.motion.set(x, y, z);
         event.type = PO_GYROSCOPE_EVENT;
         received.push_back(event);
@@ -561,7 +561,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::rotationEvent() {
-        poEvent event;
+        Event event;
         event.type = PO_ROTATION_EVENT;
         received.push_back(event);
     }

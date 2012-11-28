@@ -23,6 +23,7 @@
 #include <cmath>
 #include <ctime>
 #include <algorithm>
+#include <math.h>
 
 #include "poPoint.h"
 #include "poRect.h"
@@ -77,13 +78,13 @@ namespace po {
     
     //------------------------------------------------------------------------
     inline float Rand(float low, float high) {
-        return poRand() * (high-low) + low;
+        return Rand() * (high-low) + low;
     }
     
     //------------------------------------------------------------------------
-    inline Point randomPointInRect(poRect r) {
-        return poPoint(poRand(r.x,r.x+r.width),
-                       poRand(r.y,r.y+r.height));
+    inline Point randomPointInRect(Rect r) {
+        return Point(Rand(r.x,r.x+r.width),
+                       Rand(r.y,r.y+r.height));
     }
     
     //------------------------------------------------------------------------
@@ -127,7 +128,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     inline Point floor(Point p) {
-        return Point(floor(p.x), floor(p.y), floor(p.z));
+        //return Point(floor(p.x), floor(p.y), floor(p.z));
     }
     
     //------------------------------------------------------------------------

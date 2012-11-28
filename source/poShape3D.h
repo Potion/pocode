@@ -34,17 +34,17 @@
 //
 /////////////////////////////////////////////////////
 
-#include "Object.h"
+#include "poObject.h"
 #include "poTexture.h"
 
 namespace po {
     //Vertex3D
     class Vertex3D {
     public:
-        poPoint position;
-        poPoint normal;
-        poPoint textureCoords;
-        poColor color;
+        Point position;
+        Point normal;
+        Point textureCoords;
+        Color color;
     };
 
     //Triangle3D
@@ -67,10 +67,10 @@ namespace po {
         virtual void        draw();
         
         int                 addVertex();
-        int                 addVertex( poPoint pos );
-        int                 addVertex( poPoint pos, poPoint texCoords );
-        int                 addVertex( poPoint pos, poPoint texCoords, poPoint normal );
-        int                 addVertex( poPoint pos, poPoint texCoords, poPoint normal, poColor color );
+        int                 addVertex( Point pos );
+        int                 addVertex( Point pos, Point texCoords );
+        int                 addVertex( Point pos, Point texCoords, Point normal );
+        int                 addVertex( Point pos, Point texCoords, Point normal, Color color );
         
         int                 numVertices() { return vertexList.size(); };
         Vertex3D&         getVertex( int N );
@@ -81,11 +81,11 @@ namespace po {
         int                 numTriangles() { return triangleList.size(); };
         Triangle3D&       getTriangle( int N );
         
-        //void              generateTrianglesFromPolygon( std::vector<poPoint> pointList );
+        //void              generateTrianglesFromPolygon( std::vector<Point> pointList );
         
         virtual void        calculateNormals();
         
-        virtual bool        pointInside(poPoint point, bool localize=false);
+        virtual bool        pointInside(Point point, bool localize=false);
 
         // VERTEX PROPERTIES
         bool                useVertexNormals;
@@ -93,14 +93,14 @@ namespace po {
         bool                useVertexTextureCoords;
         
         // FILL AND STROKE AND POINTS
-        poColor             fillColor;
+        Color             fillColor;
         bool                fillEnabled;
-        poColor             strokeColor;
+        Color             strokeColor;
         int                 strokeWidth;
-        poColor             pointColor;
+        Color             pointColor;
         int                 pointSize;
         
-        poTexture*			texture;
+        Texture*			texture;
         
     protected:
         Triangle3DVector  triangleList;

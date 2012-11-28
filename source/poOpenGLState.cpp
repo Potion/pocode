@@ -26,7 +26,7 @@
 //
 
 #include "poOpenGLState.h"
-#include "Shader.h"
+#include "poShader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -34,249 +34,249 @@
 #include <boost/algorithm/string.hpp>
 
 
+namespace po {
+    // -----------------------------------------------------------------------------------
+    // ================================ Internal =========================================
+    #pragma mark - Internal -
 
-// -----------------------------------------------------------------------------------
-// ================================ Internal =========================================
-#pragma mark - Internal -
+    namespace {
+        
+        //------------------------------------------------------------------------
+        const char * shader_2d =
+        "	[[uniforms]]							\n"
+        "	uniform mat4 mvp;						\n"
+        "	uniform vec4 color;						\n"
+        
+        "	[[varyings]]							\n"
+        
+        "	[[vertex]]								\n"
+        "	attribute vec4 position;				\n"
+        
+        "	void main() {							\n"
+        "		gl_Position = mvp * position;		\n"
+        "	}										\n"
+        
+        "	[[fragment]]							\n"
+        "	void main() {							\n"
+        "		gl_FragColor = color;				\n"
+        "	}										\n";
+        
+        const char * shader_3d =
+        "	[[uniforms]]							\n"
+        "	uniform mat4 modelView;                 \n"
+        "   uniform mat4 projection;                \n"
+        "	uniform vec4 color;						\n"
+        "   uniform vec3 lightPos;                  \n"
+        
+        "	[[varyings]]							\n"
+        "   varying vec3 normalVar;                 \n"
+        "   varying vec3 lightDir;                  \n"
+        
+        "	[[vertex]]								\n"
+        "	attribute vec4 position;				\n"
+        "   attribute vec3 normal;                  \n"
+        
+        "	void main() {							\n"
+        "       normalVar = (modelView * vec4(normal,0.0)).xyz; \n"
+        "       vec4 pos = modelView * position;    \n"
+        "       lightDir = lightPos - pos.xyz;		\n"
+        "		gl_Position = projection * pos;     \n"
+        "	}										\n"
+        
+        "	[[fragment]]							\n"
+        "	void main() {							\n"
+        "       float NdotL = max(dot(normalVar,normalize(lightDir)),0.0); \n"
+        "		gl_FragColor = color * NdotL;       \n"
+        "	}										\n";
+        
+        const char * shader_tex =
+        #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+            "   precision mediump sampler2D;            \n"
+        #endif
+        "	[[uniforms]]							\n"
+        "	uniform mat4 mvp;						\n"
+        "	uniform vec4 color;						\n"
+        "	uniform sampler2D tex;					\n"
+        
+        "	[[varyings]]							\n"
+        "	varying vec2 texCoord;					\n"
+        
+        "	[[vertex]]								\n"
+        "	attribute vec4 position;				\n"
+        "	attribute vec2 textureCoordinates;		\n"
+        
+        "	void main() {							\n"
+        "		texCoord = textureCoordinates;		\n"
+        "		gl_Position = mvp * position;		\n"
+        "	}										\n"
+        
+        "	[[fragment]]							\n"
+        "	void main() {							\n"
+        "		vec4 texColor = texture2D(tex, texCoord);\n"
+        "		gl_FragColor = texColor * color;	\n"
+        "	}										\n";
 
-namespace {
-    
-    //------------------------------------------------------------------------
-	const char * shader_2d =
-	"	[[uniforms]]							\n"
-	"	uniform mat4 mvp;						\n"
-	"	uniform vec4 color;						\n"
-	
-	"	[[varyings]]							\n"
-	
-	"	[[vertex]]								\n"
-	"	attribute vec4 position;				\n"
-	
-	"	void main() {							\n"
-	"		gl_Position = mvp * position;		\n"
-	"	}										\n"
-	
-	"	[[fragment]]							\n"
-	"	void main() {							\n"
-	"		gl_FragColor = color;				\n"
-	"	}										\n";
-	
-	const char * shader_3d =
-	"	[[uniforms]]							\n"
-	"	uniform mat4 modelView;                 \n"
-	"   uniform mat4 projection;                \n"
-	"	uniform vec4 color;						\n"
-	"   uniform vec3 lightPos;                  \n"
-	
-	"	[[varyings]]							\n"
-	"   varying vec3 normalVar;                 \n"
-	"   varying vec3 lightDir;                  \n"
-	
-	"	[[vertex]]								\n"
-	"	attribute vec4 position;				\n"
-	"   attribute vec3 normal;                  \n"
-	
-	"	void main() {							\n"
-	"       normalVar = (modelView * vec4(normal,0.0)).xyz; \n"
-	"       vec4 pos = modelView * position;    \n"
-	"       lightDir = lightPos - pos.xyz;		\n"
-	"		gl_Position = projection * pos;     \n"
-	"	}										\n"
-	
-	"	[[fragment]]							\n"
-	"	void main() {							\n"
-	"       float NdotL = max(dot(normalVar,normalize(lightDir)),0.0); \n"
-	"		gl_FragColor = color * NdotL;       \n"
-	"	}										\n";
-	
-	const char * shader_tex =
+        const char * shader_tex_mask =
     #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         "   precision mediump sampler2D;            \n"
     #endif
-	"	[[uniforms]]							\n"
-	"	uniform mat4 mvp;						\n"
-	"	uniform vec4 color;						\n"
-	"	uniform sampler2D tex;					\n"
-	
-	"	[[varyings]]							\n"
-	"	varying vec2 texCoord;					\n"
-	
-	"	[[vertex]]								\n"
-	"	attribute vec4 position;				\n"
-	"	attribute vec2 textureCoordinates;		\n"
-	
-	"	void main() {							\n"
-	"		texCoord = textureCoordinates;		\n"
-	"		gl_Position = mvp * position;		\n"
-	"	}										\n"
-	
-	"	[[fragment]]							\n"
-	"	void main() {							\n"
-	"		vec4 texColor = texture2D(tex, texCoord);\n"
-	"		gl_FragColor = texColor * color;	\n"
-	"	}										\n";
+        "	[[uniforms]]							\n"
+        "	uniform mat4 mvp;						\n"
+        "	uniform vec4 color;						\n"
+        "	uniform sampler2D tex;					\n"
+        
+        "	[[varyings]]							\n"
+        "	varying vec2 texCoord;					\n"
+        
+        "	[[vertex]]								\n"
+        "	attribute vec4 position;				\n"
+        "	attribute vec2 textureCoordinates;		\n"
+        
+        "	void main() {							\n"
+        "		texCoord = textureCoordinates;		\n"
+        "		gl_Position = mvp * position;		\n"
+        "	}										\n"
+        
+        "	[[fragment]]							\n"
+        "	void main() {							\n"
+        "		vec4 texColor = texture2D(tex, texCoord);\n"
+        "		gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;	\n"
+        "	}										\n";
 
-	const char * shader_tex_mask =
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	"   precision mediump sampler2D;            \n"
-#endif
-	"	[[uniforms]]							\n"
-	"	uniform mat4 mvp;						\n"
-	"	uniform vec4 color;						\n"
-	"	uniform sampler2D tex;					\n"
-	
-	"	[[varyings]]							\n"
-	"	varying vec2 texCoord;					\n"
-	
-	"	[[vertex]]								\n"
-	"	attribute vec4 position;				\n"
-	"	attribute vec2 textureCoordinates;		\n"
-	
-	"	void main() {							\n"
-	"		texCoord = textureCoordinates;		\n"
-	"		gl_Position = mvp * position;		\n"
-	"	}										\n"
-	
-	"	[[fragment]]							\n"
-	"	void main() {							\n"
-	"		vec4 texColor = texture2D(tex, texCoord);\n"
-	"		gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;	\n"
-	"	}										\n";
+        using namespace glm;
 
-	using namespace glm;
-
-	struct TextureState {
-		TextureState()
-		:	target(GL_TEXTURE_2D)
-		,	bound(0), unit(0), hasAlpha(0)
-		{}
-		
-		int target;
-		int bound;
-		int unit;
-		bool hasAlpha;
-	};
-    
-    //------------------------------------------------------------------------
-	struct BlendState {
-		BlendState()
-		:	enabled(false)
-		{
-			setEq(GL_FUNC_ADD);
-			setFunc(GL_ONE, GL_ZERO);
-		}
-		
-		void setEq(GLenum eq) {
-			rgbEq = alphaEq = eq;
-		}
-		
-		void setFunc(GLenum src, GLenum dst) {
-			srcRgbFactor = srcAlphaFactor = src;
-			dstRgbFactor = dstAlphaFactor = dst;
-		}
-		
-		void apply() {
-			enabled ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-			glBlendEquationSeparate(rgbEq, alphaEq);
-			glBlendFuncSeparate(srcRgbFactor, dstRgbFactor, srcAlphaFactor, dstAlphaFactor);
-		}
-		
-		bool enabled;
-		int rgbEq, alphaEq;
-		int srcRgbFactor, srcAlphaFactor;
-		int dstRgbFactor, dstAlphaFactor;
-	};
-    
-    //------------------------------------------------------------------------
-	struct OpenGLState {
-		
-		OpenGLState() {
-			shader2D.loadSource(shader_2d);
-			shader2D.compile();
-			glBindAttribLocation(shader2D.getUid(), 0, "position");
-			shader2D.link();
-			
-			shader3D.loadSource(shader_3d);
-			shader3D.compile();
-			glBindAttribLocation(shader3D.getUid(), 0, "position");
-			glBindAttribLocation(shader3D.getUid(), 1, "normal");
-			shader3D.link();
-			
-			shaderTex2D.loadSource(shader_tex);
-			shaderTex2D.compile();
-			glBindAttribLocation(shaderTex2D.getUid(), 0, "position");
-			glBindAttribLocation(shaderTex2D.getUid(), 1, "textureCoordinates");
-			shaderTex2D.link();
-			
-			std::string src(shader_tex);
+        struct TextureState {
+            TextureState()
+            :	target(GL_TEXTURE_2D)
+            ,	bound(0), unit(0), hasAlpha(0)
+            {}
             
-            boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
-            boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
-			
-			shaderTexRect.loadSource(src);
-			shaderTexRect.compile();
-			glBindAttribLocation(shaderTexRect.getUid(), 0, "position");
-			glBindAttribLocation(shaderTexRect.getUid(), 1, "textureCoordinates");
-			shaderTexRect.link();
-			
-			shaderTex2DMask.loadSource(shader_tex_mask);
-			shaderTex2DMask.compile();
-			glBindAttribLocation(shaderTex2DMask.getUid(), 0, "position");
-			glBindAttribLocation(shaderTex2DMask.getUid(), 1, "textureCoordinates");
-			shaderTex2DMask.link();
-			
-			viewport.push(vec4(0,0,0,0));
-			projection.push(mat4(1.f));
-			modelview.push(mat4(1.f));
-			
-			texture.push(TextureState());
-			blend.push(BlendState());
-			shader.push(NULL);
-			
-            //Need to use GL_MAX_SAMPLES_APPLE for iPhone
-            #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-                glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_fbo_samples);
-            #else
-                glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
-            #endif
+            int target;
+            int bound;
+            int unit;
+            bool hasAlpha;
+        };
+        
+        //------------------------------------------------------------------------
+        struct BlendState {
+            BlendState()
+            :	enabled(false)
+            {
+                setEq(GL_FUNC_ADD);
+                setFunc(GL_ONE, GL_ZERO);
+            }
             
-			color.set(1.0,1.0,1.0,1.0);
-			lineWidth = 1.f;
-			pointSize = 1.f;
-		}
-		
-		int max_fbo_samples;
-		
-		glm::mat4 camera;
-		std::stack<glm::vec4> viewport;
-		std::stack<glm::mat4> projection;
-		std::stack<glm::mat4> modelview;
-		
-		poColor color;
-		float lineWidth;
-		float pointSize;
-		
-		std::stack<TextureState> texture;
-		std::stack<BlendState> blend;
-		std::stack<Shader*> shader;
-		
-		Shader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
-	};
-	
-	OpenGLState *ogl = NULL;
+            void setEq(GLenum eq) {
+                rgbEq = alphaEq = eq;
+            }
+            
+            void setFunc(GLenum src, GLenum dst) {
+                srcRgbFactor = srcAlphaFactor = src;
+                dstRgbFactor = dstAlphaFactor = dst;
+            }
+            
+            void apply() {
+                enabled ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
+                glBlendEquationSeparate(rgbEq, alphaEq);
+                glBlendFuncSeparate(srcRgbFactor, dstRgbFactor, srcAlphaFactor, dstAlphaFactor);
+            }
+            
+            bool enabled;
+            int rgbEq, alphaEq;
+            int srcRgbFactor, srcAlphaFactor;
+            int dstRgbFactor, dstAlphaFactor;
+        };
+        
+        //------------------------------------------------------------------------
+        struct OpenGLState {
+            
+            OpenGLState() {
+                shader2D.loadSource(shader_2d);
+                shader2D.compile();
+                glBindAttribLocation(shader2D.getUid(), 0, "position");
+                shader2D.link();
+                
+                shader3D.loadSource(shader_3d);
+                shader3D.compile();
+                glBindAttribLocation(shader3D.getUid(), 0, "position");
+                glBindAttribLocation(shader3D.getUid(), 1, "normal");
+                shader3D.link();
+                
+                shaderTex2D.loadSource(shader_tex);
+                shaderTex2D.compile();
+                glBindAttribLocation(shaderTex2D.getUid(), 0, "position");
+                glBindAttribLocation(shaderTex2D.getUid(), 1, "textureCoordinates");
+                shaderTex2D.link();
+                
+                std::string src(shader_tex);
+                
+                boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
+                boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
+                
+                shaderTexRect.loadSource(src);
+                shaderTexRect.compile();
+                glBindAttribLocation(shaderTexRect.getUid(), 0, "position");
+                glBindAttribLocation(shaderTexRect.getUid(), 1, "textureCoordinates");
+                shaderTexRect.link();
+                
+                shaderTex2DMask.loadSource(shader_tex_mask);
+                shaderTex2DMask.compile();
+                glBindAttribLocation(shaderTex2DMask.getUid(), 0, "position");
+                glBindAttribLocation(shaderTex2DMask.getUid(), 1, "textureCoordinates");
+                shaderTex2DMask.link();
+                
+                viewport.push(vec4(0,0,0,0));
+                projection.push(mat4(1.f));
+                modelview.push(mat4(1.f));
+                
+                texture.push(TextureState());
+                blend.push(BlendState());
+                shader.push(NULL);
+                
+                //Need to use GL_MAX_SAMPLES_APPLE for iPhone
+                #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+                    glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_fbo_samples);
+                #else
+                    glGetIntegerv(GL_MAX_SAMPLES, &max_fbo_samples);
+                #endif
+                
+                color.set(1.0,1.0,1.0,1.0);
+                lineWidth = 1.f;
+                pointSize = 1.f;
+            }
+            
+            int max_fbo_samples;
+            
+            glm::mat4 camera;
+            std::stack<glm::vec4> viewport;
+            std::stack<glm::mat4> projection;
+            std::stack<glm::mat4> modelview;
+            
+            Color color;
+            float lineWidth;
+            float pointSize;
+            
+            std::stack<TextureState> texture;
+            std::stack<BlendState> blend;
+            std::stack<Shader*> shader;
+            
+            Shader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
+        };
+        
+        OpenGLState *ogl = NULL;
 
-	void init_graphics() {
-		ogl = new OpenGLState;
-	}
-};
+        void init_graphics() {
+            ogl = new OpenGLState;
+        }
+    };
 
 
 
-// -----------------------------------------------------------------------------------
-// ================================ External =========================================
-#pragma mark - External -
+    // -----------------------------------------------------------------------------------
+    // ================================ External =========================================
+    #pragma mark - External -
 
-namespace po {
+
     
     //------------------------------------------------------------------------
 	void initGraphics() {
@@ -306,19 +306,19 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-	void setColor(poColor const& c) {
+	void setColor(Color const& c) {
 		ogl->color = c;
 	}
     
     
     //------------------------------------------------------------------------
-	void setColor(poColor const& c, float a) {
-		ogl->color = poColor(c,a);
+	void setColor(Color const& c, float a) {
+		ogl->color = Color(c,a);
 	}
     
     
     //------------------------------------------------------------------------
-	poColor getColor() { return ogl->color; }
+	Color getColor() { return ogl->color; }
 	
     
     

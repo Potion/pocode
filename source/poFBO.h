@@ -28,9 +28,9 @@
 #pragma once
 
 
-#include "Camera.h"
-#include "Texture.h"
-#include "ObjectModifier.h"
+#include "poCamera.h"
+#include "poTexture.h"
+#include "poObjectModifier.h"
 
 namespace po {
     struct FBOConfig {

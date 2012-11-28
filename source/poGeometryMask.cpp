@@ -35,7 +35,7 @@ namespace po {
     // ================================ Class: Geometry Mask ============================
     #pragma mark - Geometry Mask -
 
-    GeometryMask::GeometryMask(poShape2D *shape, bool clearsStencil, bool inverse)
+    GeometryMask::GeometryMask(Shape2D *shape, bool clearsStencil, bool inverse)
     :	shape(shape)
     ,	clearsStencil(clearsStencil)
     ,   inverse(inverse)
@@ -50,14 +50,14 @@ namespace po {
 
 
     //------------------------------------------------------------------------
-    poObjectModifier *GeometryMask::copy() {
-        GeometryMask *obj = new GeometryMask((poShape2D*)shape->copy(), clearsStencil);
+    ObjectModifier *GeometryMask::copy() {
+        GeometryMask *obj = new GeometryMask((Shape2D*)shape->copy(), clearsStencil);
         return obj;
     }
 
 
     //------------------------------------------------------------------------
-    void GeometryMask::setShape(poShape2D *s) {
+    void GeometryMask::setShape(Shape2D *s) {
         if(shape)
             delete shape;
         shape = s;
@@ -66,7 +66,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool GeometryMask::pointInside(poPoint p) {
+    bool GeometryMask::pointInside(Point p) {
         if(shape)
             return shape->pointInside(p);
         return false;
@@ -74,7 +74,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void GeometryMask::doSetUp(poObject *obj) {
+    void GeometryMask::doSetUp(Object *obj) {
         if(shape) {
             po::setupStencilMask(clearsStencil);
             po::saveModelview();
@@ -88,7 +88,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void GeometryMask::doSetDown(poObject *obj) {
+    void GeometryMask::doSetDown(Object *obj) {
         if(shape) {
             po::disableStencil();
         }
@@ -107,11 +107,11 @@ poImageMask::poImageMask(const std::string &str)
 	image = getImage(str);
 }
 
-bool poImageMask::pointInside(poPoint p) {
+bool poImageMask::pointInside(Point p) {
 	
 }
 
-void poImageMask::doSetUp( poObject* obj ) {
+void poImageMask::doSetUp( Object* obj ) {
 	my_obj = obj;
 
 	state.enabled = true;
@@ -134,7 +134,7 @@ void poImageMask::doSetUp( poObject* obj ) {
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
-void poImageMask::doSetDown( poObject* obj ) {
+void poImageMask::doSetDown( Object* obj ) {
 	restore();
 }
 */

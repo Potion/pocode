@@ -108,7 +108,7 @@ namespace po {
     }
 
     Object::~Object() {
-        poEventCenter::get()->removeAllEvents(this);
+        EventCenter::get()->removeAllEvents(this);
         removeAllChildren(true);
         if(eventMemory)
             delete eventMemory;
@@ -149,7 +149,7 @@ namespace po {
             obj->modifiers.push_back(modifiers[i]->copy());
         }
         
-        poEventCenter::get()->copyEventsFromObject(this, obj);
+        EventCenter::get()->copyEventsFromObject(this, obj);
     }
     
     
@@ -162,11 +162,11 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Object::eventHandler(poEvent *event) {}
+    void Object::eventHandler(Event *event) {}
     
     
     //------------------------------------------------------------------------
-    void Object::messageHandler(const std::string &msg, const poDictionary& dict) {
+    void Object::messageHandler(const std::string &msg, const Dictionary& dict) {
         if(parent) {
             parent->messageHandler(msg,dict);
         }
@@ -204,7 +204,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint Object::getTransformedPoint( poPoint P ) {   
+    Point Object::getTransformedPoint( Point P ) {   
         // This assumes standard transformation order (PO_MATRIX_ORDER_TRS)
         // It should include alternate orders.
         P += offset;
@@ -217,15 +217,15 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poRect Object::getFrame() {
-        poRect rect = getBounds();
+    Rect Object::getFrame() {
+        Rect rect = getBounds();
         
-        poPoint topLeft = getTransformedPoint( rect.getTopLeft() );
-        poPoint topRight = getTransformedPoint( rect.getTopRight() );
-        poPoint bottomRight = getTransformedPoint( rect.getBottomRight() );
-        poPoint bottomLeft = getTransformedPoint( rect.getBottomLeft() );
+        Point topLeft = getTransformedPoint( rect.getTopLeft() );
+        Point topRight = getTransformedPoint( rect.getTopRight() );
+        Point bottomRight = getTransformedPoint( rect.getBottomRight() );
+        Point bottomLeft = getTransformedPoint( rect.getBottomLeft() );
         
-        poRect frame;
+        Rect frame;
         frame.setPosition( bottomRight );
         frame.include( topLeft );
         frame.include( topRight );
@@ -236,8 +236,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poRect Object::getBounds() {    
-        poRect rect(0,0,0,0);
+    Rect Object::getBounds() {    
+        Rect rect(0,0,0,0);
         
         // must initialize rect with first object
         if ( children.size() > 0 )
@@ -258,22 +258,22 @@ namespace po {
     #pragma mark Events
     
     //------------------------------------------------------------------------
-    void Object::addEvent(int eventType, Object *sink, std::string message, const poDictionary& dict) {
+    void Object::addEvent(int eventType, Object *sink, std::string message, const Dictionary& dict) {
         if(!sink)
             sink = this;
-        poEventCenter::get()->addEvent(eventType, this, sink, message, dict);
+        EventCenter::get()->addEvent(eventType, this, sink, message, dict);
     }
     
     
     //------------------------------------------------------------------------
     void Object::removeAllEvents() {
-        poEventCenter::get()->removeAllEvents(this);
+        EventCenter::get()->removeAllEvents(this);
     }
     
     
     //------------------------------------------------------------------------
     void Object::removeAllEventsOfType(int eventType) {
-        poEventCenter::get()->removeAllEventsOfType(this, eventType);
+        EventCenter::get()->removeAllEventsOfType(this, eventType);
     }
     
     
@@ -499,7 +499,7 @@ namespace po {
         po::saveModelview();
         
         // grab the matrices we need for everything
-        matrices.camType = poCamera::getCurrentCameraType();
+        matrices.camType = Camera::getCurrentCameraType();
         matrices.capture();
         
         // set up the modifiers ... cameras, etc
@@ -538,11 +538,11 @@ namespace po {
     //------------------------------------------------------------------------
     void Object::_drawBounds() {
         po::setLineWidth(1);
-        po::setColor(poColor::red);
+        po::setColor(Color::red);
         po::drawStrokedRect(getBounds());
-        po::drawFilledRect(poRect(-poPoint(2.5,2.5), poPoint(5,5)));
-        po::setColor(poColor::blue);
-        po::drawFilledRect(poRect(-offset-poPoint(2.5,2.5), poPoint(5,5)));
+        po::drawFilledRect(Rect(-Point(2.5,2.5), Point(5,5)));
+        po::setColor(Color::blue);
+        po::drawFilledRect(Rect(-offset-Point(2.5,2.5), Point(5,5)));
     }
     
     //------------------------------------------------------------------------
@@ -639,7 +639,7 @@ namespace po {
     #pragma mark Hit Testing
     
     //------------------------------------------------------------------------
-    bool Object::pointInside(poPoint point, bool localize) {
+    bool Object::pointInside(Point point, bool localize) {
         // if invisible, return false
         if(!visible)
             return false;
@@ -665,24 +665,24 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool Object::pointInside(float x, float y, float z, bool localize) {
-        return pointInside(poPoint(x,y,z),localize);
+        return pointInside(Point(x,y,z),localize);
     }
     
     
     //------------------------------------------------------------------------
-    poPoint Object::globalToLocal(poPoint point) const {
+    Point Object::globalToLocal(Point point) const {
         return matrices.globalToLocal(point);
     }
     
     
     //------------------------------------------------------------------------
-    poPoint Object::localToGlobal(poPoint point) const {
+    Point Object::localToGlobal(Point point) const {
         return matrices.localToGlobal(point);
     }
     
     
     //------------------------------------------------------------------------
-    poPoint Object::objectToLocal(Object* obj, poPoint point) const {
+    Point Object::objectToLocal(Object* obj, Point point) const {
         point = obj->localToGlobal(point);
         return globalToLocal(point);
     }
@@ -695,20 +695,20 @@ namespace po {
     #pragma mark Alignment
     
     //------------------------------------------------------------------------
-    poAlignment Object::getAlignment() const {
+    Alignment Object::getAlignment() const {
         return alignment;
     }
     
     
     //------------------------------------------------------------------------
-    Object& Object::setAlignment(poAlignment align) {
+    Object& Object::setAlignment(Alignment align) {
         alignment = align;
         
         if ( alignment == PO_ALIGN_NONE )
             return *this;
         
         // first calculate bounds
-        poRect bounds = getBounds();
+        Rect bounds = getBounds();
         
         float offsetZ = offset.z;
         
@@ -750,7 +750,7 @@ namespace po {
     uint			Object::getUID()            const   { return uid; }
     float			Object::getAppliedAlpha()   const   { return trueAlpha; }
     int				Object::getDrawOrder()      const   { return drawOrder; }
-    poMatrixSet&    Object::getMatrixSet()              { return matrices; }
+    MatrixSet&    Object::getMatrixSet()              { return matrices; }
     
     
     
@@ -827,7 +827,7 @@ namespace po {
     #pragma mark Reading/Saving
     
     //------------------------------------------------------------------------
-    void Object::read(poXMLNode node) {
+    void Object::read(XMLNode node) {
         uid = (uint)node.getChild("uid").getInnerInt();
         name = node.getChild("name").getInnerString();
         position.fromString(node.getChild("position").getInnerString());
@@ -839,14 +839,14 @@ namespace po {
         rotationAxis.fromString(node.getChild("rotationAxis").getInnerString());
         offset.fromString(node.getChild("offset").getInnerString());
         visible = (bool)node.getChild("visible").getInnerInt();
-        matrixOrder = poMatrixOrder(node.getChild("matrixOrder").getInnerInt());
-        alignment = poAlignment(node.getChild("alignment").getInnerInt());
+        matrixOrder = MatrixOrder(node.getChild("matrixOrder").getInnerInt());
+        alignment = Alignment(node.getChild("alignment").getInnerInt());
         setAlignment(alignment);
     }
     
     
     //------------------------------------------------------------------------
-    void Object::write(poXMLNode &node) {
+    void Object::write(XMLNode &node) {
         node.setAttribute("type", "Object");
 
         node.addChild("uid").setInnerInt(getUID());

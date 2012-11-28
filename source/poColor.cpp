@@ -42,7 +42,7 @@ namespace po {
     const Color Color::transparent = Color(0,0,0,0);
 
     Color Color::random() {
-        return Color(poRand(), poRand(), poRand(), 1.f);
+        return Color(Rand(), Rand(), Rand(), 1.f);
     }
     
     

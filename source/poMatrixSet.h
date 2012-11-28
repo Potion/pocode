@@ -27,16 +27,16 @@
 
 namespace po {
     struct MatrixSet {
-                    poMatrixSet();
+                    MatrixSet();
         void		capture();
-        poPoint		globalToLocal(poPoint pt) const;
-        poPoint		localToGlobal(poPoint pt) const;
+        Point		globalToLocal(Point pt) const;
+        Point		localToGlobal(Point pt) const;
         
-        poPoint		localToGlobal2(poPoint pt) const;
+        Point		localToGlobal2(Point pt) const;
         
         glm::mat4	modelview, projection;
-        poRect		viewport;
+        Rect		viewport;
         
-        poCameraType  camType;
+        CameraType  camType;
     };
 }

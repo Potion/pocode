@@ -57,8 +57,8 @@ namespace po {
         Rect  glyphBounds;
         Rect  glyphFrame;
         float   glyphDescender;
-        poPoint glyphBearing;
-        poPoint glyphAdvance;
+        Point glyphBearing;
+        Point glyphAdvance;
     };
 
     typedef std::vector<FontGlyphMetrics> glyphMetricsVector;
@@ -67,9 +67,9 @@ namespace po {
     unsigned long encodeTag(const char tag[4]);
     std::string decodeTag(unsigned long encoded);
 
-    bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response);
+    bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response);
 
-    class Font : public poResource {
+    class Font : public Resource {
         friend std::ostream &operator<<(std::ostream &o, const Font *f);
 
     public:
@@ -77,7 +77,7 @@ namespace po {
         static Font *defaultFont();
         
         Font();
-        Font(const poFilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
+        Font(const FilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
         virtual ~Font();
         
         // FONT LOADING
@@ -86,7 +86,7 @@ namespace po {
         // FONT PROPERTIES
         std::string         getFamilyName() const;
         std::string         getStyleName() const;
-        poFilePath          getFilePath() const;
+        FilePath          getFilePath() const;
         bool                hasKerning() const;
         std::vector<std::string>
                             getEncodings() const;
@@ -112,12 +112,12 @@ namespace po {
         Rect              getGlyphBounds();
         Rect              getGlyphFrame();
         float               getGlyphDescender();
-        poPoint             getGlyphBearing();
-        poPoint             getGlyphAdvance();
-        poImage*			getGlyphImage();
+        Point             getGlyphBearing();
+        Point             getGlyphAdvance();
+        Image*			getGlyphImage();
     //	poShape2D           *getGlyphOutline() const;
 
-        poPoint             kernGlyphs(int glyph1, int glyph2) const;
+        Point             kernGlyphs(int glyph1, int glyph2) const;
 
         std::string         toString() const;
         std::string			getRequestedFamilyName() const;
@@ -132,7 +132,7 @@ namespace po {
         glyphMetricsVector                  *currentCache;
         std::map<int,glyphMetricsVector>    cachedGlyphMetricsSet;
         
-        poFilePath          filePath;
+        FilePath          filePath;
         std::string			reqFamily, reqStyle;
         int					size;
         int					glyph, loadedGlyph;

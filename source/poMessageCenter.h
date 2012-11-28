@@ -10,11 +10,11 @@ namespace po {
     namespace MessageCenter {
         void update();
 
-        void addSubscriber(std::string msg, poObject* subscriber, poObject* sender=NULL);
+        void addSubscriber(std::string msg, Object* subscriber, Object* sender=NULL);
         
-        void removeSubscriber(std::string msg, poObject* subscriber);
+        void removeSubscriber(std::string msg, Object* subscriber);
         void removeAllSubscribers(std::string msg);
         
-        void broadcastMessage(std::string msg, poObject* sender=NULL, const poDictionary& dict=poDictionary());
+        void broadcastMessage(std::string msg, Object* sender=NULL, const Dictionary& dict=Dictionary());
     };
 } /*End po namespace */

@@ -33,8 +33,8 @@ namespace po {
         
     };
 
-    ImageShape::ImageShape(poImage *image)
-    : tex(new poTexture(image, true))
+    ImageShape::ImageShape(Image *image)
+    : tex(new Texture(image, true))
     {};
 
 
@@ -44,8 +44,8 @@ namespace po {
     //,   imageScale(1.0)
     //{}
     //
-    //ImageShape::ImageShape(poImage *i, bool keepImage)
-    //:	tex(new poTexture(i, keepImage))
+    //ImageShape::ImageShape(Image *i, bool keepImage)
+    //:	tex(new Texture(i, keepImage))
     //,	alphaTest(i->hasAlpha())
     //,   imageScale(1.0)
     //{
@@ -78,17 +78,17 @@ namespace po {
     //	alphaTest = b;
     //}
     //
-    //poImage *ImageShape::getImage() const {
+    //Image *ImageShape::getImage() const {
     //	return tex->getSourceImage();
     //}
     //
-    //void ImageShape::setImage(poImage* i) {
+    //void ImageShape::setImage(Image* i) {
     //	if(tex) {
     //        
     //		delete tex;
     //		
     ////		img = i;
-    //		tex = new poTexture(i);
+    //		tex = new Texture(i);
     //	}
     //}
     //
@@ -106,7 +106,7 @@ namespace po {
     //        }
     //        
     //        if(alphaTest) {
-    //            // flip y value, since poImage y coordinates are reversed
+    //            // flip y value, since Image y coordinates are reversed
     //            p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
     //            p /= imageScale;
     //            poColor pix = tex->getSourceImagePixel(p);
@@ -125,7 +125,7 @@ namespace po {
     //        }
     //        
     //        /*if(alphaTest) {
-    //            // flip y value, since poImage y coordinates are reversed
+    //            // flip y value, since Image y coordinates are reversed
     //            p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
     //            p /= imageScale;
     //            poColor pix = tex->getSourceImagePixel(p);

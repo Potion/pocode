@@ -64,22 +64,22 @@ namespace {
 namespace po {
     
     //------------------------------------------------------------------------
-    void drawString(const std::string &str, poFont *font, poPoint pos, int ptSize, float tracking) {
+    void drawString(const std::string &str, Font *font, Point pos, int ptSize, float tracking) {
         if(ptSize > 0)
             font->setPointSize(ptSize);
         
         font->setGlyph(' ');
         float spacer = font->getGlyphAdvance().x * tracking;
         
-        poBitmapFont *bmpFont = poGetBitmapFont(font, ptSize);
+        BitmapFont *bmpFont = GetBitmapFont(font, ptSize);
         
         std::string::const_iterator ch = str.begin();
         while(ch != str.end()) {
             uint codepoint = utf8::next(ch, str.end());
             
             font->setGlyph(codepoint);
-            poPoint adv = font->getGlyphAdvance();
-            poPoint org = round(pos+font->getGlyphBearing());
+            Point adv = font->getGlyphAdvance();
+            Point org = round(pos+font->getGlyphBearing());
             org.y += font->getAscender();
             
             bmpFont->drawGlyph( codepoint, org );
@@ -90,9 +90,9 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawLine(poPoint a, poPoint b) {
-        a = floor(a) + poPoint(0.5f, 0.5f);
-        b = floor(b) + poPoint(0.5f, 0.5f);
+    void drawLine(Point a, Point b) {
+        a = floor(a) + Point(0.5f, 0.5f);
+        b = floor(b) + Point(0.5f, 0.5f);
         
         GLfloat points[2*3] = {
             a.x, a.y, a.z, 
@@ -116,7 +116,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawStrokedRect(poRect rect) {
+    void drawStrokedRect(Rect rect) {
         drawStrokedRect(rect.x, rect.y, rect.width, rect.height);
     }
     
@@ -128,7 +128,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawFilledRect(poRect rect) {
+    void drawFilledRect(Rect rect) {
         drawFilledRect(rect.x, rect.y, rect.width, rect.height);
     }
     
@@ -143,9 +143,9 @@ namespace po {
         float x1 = rad;
         float y1 = 0.f;
 
-        std::vector<poPoint> pt;
+        std::vector<Point> pt;
         for(int i=0; i<segs; ++i) {
-            pt.push_back(poPoint(x1+x, y1+y));
+            pt.push_back(Point(x1+x, y1+y));
 
             float tx = -y1;
             float ty = x1;
@@ -159,33 +159,33 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(poTexture *tex) {
-        drawTexturedRect(tex, poRect(0,0,tex->getWidth(),tex->getHeight()), poRect(0,0,1,1));
+    void drawTexturedRect(Texture *tex) {
+        drawTexturedRect(tex, Rect(0,0,tex->getWidth(),tex->getHeight()), Rect(0,0,1,1));
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(poTexture *tex, float x, float y, float w, float h) {
-        drawTexturedRect(tex, poRect(x,y,w,h), poRect(0,0,1,1));
+    void drawTexturedRect(Texture *tex, float x, float y, float w, float h) {
+        drawTexturedRect(tex, Rect(x,y,w,h), Rect(0,0,1,1));
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(poTexture *tex, poRect rect) {
-        drawTexturedRect(tex, rect, poRect(0,0,1,1));
+    void drawTexturedRect(Texture *tex, Rect rect) {
+        drawTexturedRect(tex, rect, Rect(0,0,1,1));
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, poAlignment align) {
-        std::vector<poPoint> coords = textureFit(rect, tex, fit, align);
-        poRect coords_rect(coords[0], coords[2]);
+    void drawTexturedRect(Texture *tex, Rect rect, TextureFitOption fit, poAlignment align) {
+        std::vector<Point> coords = textureFit(rect, tex, fit, align);
+        Rect coords_rect(coords[0], coords[2]);
         drawTexturedRect(tex, rect, coords_rect);
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(poTexture *tex, poRect rect, poRect coords) {
+    void drawTexturedRect(Texture *tex, Rect rect, Rect coords) {
         GLfloat quad[4*3] = {
             rect.x,  rect.y, 0, 
             rect.x+rect.width, rect.y, 0, 
@@ -220,58 +220,58 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawStrokedPolygon(const std::vector<poPoint> &points) {
+    void drawStrokedPolygon(const std::vector<Point> &points) {
         drawPoints(points, GL_LINE_LOOP);
     }
     
     
     //------------------------------------------------------------------------
-    void drawStrokedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices) {
+    void drawStrokedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices) {
         drawPoints(points, indices, GL_LINE_LOOP);
     }
     
     
     //------------------------------------------------------------------------
-    void drawFilledPolygon(const std::vector<poPoint> &points) {
+    void drawFilledPolygon(const std::vector<Point> &points) {
         drawPoints(points, GL_TRIANGLE_FAN);
     }
     
     
     //------------------------------------------------------------------------
-    void drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices) {
+    void drawFilledPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices) {
         drawPoints(points, indices, GL_TRIANGLE_FAN);
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords) {
+    void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords) {
         drawPoints(points, tex, texCoords, GL_TRIANGLE_FAN);
     }
     
     
-    void drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords) {
+    void drawTexturedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords) {
         drawPoints(points, indices, tex, texCoords, GL_TRIANGLE_FAN);
     }
     
     
     //------------------------------------------------------------------------
-    void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align) {
+    void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, TextureFitOption fit, poAlignment align) {
         if(points.empty())
             return;
 
-        poRect bounds( points[0].x, points[0].y, 0, 0 );
-        BOOST_FOREACH(poPoint p, points) {
+        Rect bounds( points[0].x, points[0].y, 0, 0 );
+        BOOST_FOREACH(Point p, points) {
             bounds.include(p);
         }
         
-        std::vector<poPoint> coords(points.size());
+        std::vector<Point> coords(points.size());
         textureFit(bounds, tex, fit, align, coords, points);
         po::drawTexturedPolygon(points, tex, coords);
     }
     
     
     //------------------------------------------------------------------------
-    void drawPoints(const std::vector<poPoint> &points, GLenum type) {
+    void drawPoints(const std::vector<Point> &points, GLenum type) {
         use2DShader();
         updateActiveShader();
 
@@ -283,7 +283,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type) {
+    void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, GLenum type) {
         use2DShader();
         updateActiveShader();
 
@@ -295,7 +295,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
+    void drawPoints(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords, GLenum type) {
         useTexture(tex->getUid(), tex->hasAlpha());
         
         useTex2DShader();
@@ -304,7 +304,7 @@ namespace po {
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0]);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Point), &texCoords[0]);
         glDrawArrays(type, 0, points.size());
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -312,7 +312,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type) {
+    void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords, GLenum type) {
         useTexture(tex->getUid(), tex->hasAlpha());
         
         useTex2DShader();
@@ -321,7 +321,7 @@ namespace po {
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0]);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Point), &texCoords[0]);
         glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -329,17 +329,17 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> generateStroke(std::vector<poPoint> &points,
+    std::vector<Point> generateStroke(std::vector<Point> &points,
                                             int strokeWidth, 
                                             bool close, 
                                             poStrokePlacementProperty place, 
                                             poStrokeJoinProperty join, 
                                             poStrokeCapProperty cap) 
     {
-        std::vector<poPoint> stroke;
+        std::vector<Point> stroke;
         
         std::vector<poExtrudedLineSeg> segments;
-        poPoint p1, p2, p3, p4, tmp;
+        Point p1, p2, p3, p4, tmp;
         
         for(uint i=0; i<points.size()-1; i++) {
             p1 = points[i];
@@ -375,12 +375,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> generateOval(float xRad, float yRad, uint resolution) {
-        std::vector<poPoint> response;
+    std::vector<Point> generateOval(float xRad, float yRad, uint resolution) {
+        std::vector<Point> response;
         
         for(uint i=0; i<resolution; i++) {
             float phase = (i / float(resolution)) * M_2PI;
-            response.push_back(poPoint(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
+            response.push_back(Point(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
         }
         
         return response;
@@ -388,40 +388,40 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> roundedRect(float width, float height, float rad) {
-        std::vector<poPoint> response;
-        std::vector<poPoint> tmp;
+    std::vector<Point> roundedRect(float width, float height, float rad) {
+        std::vector<Point> response;
+        std::vector<Point> tmp;
         
-        poPoint P1( rad,rad );
-        poPoint P2( width-rad,rad );
-        poPoint P3( width-rad,height-rad );
-        poPoint P4( rad,height-rad );
+        Point P1( rad,rad );
+        Point P2( width-rad,rad );
+        Point P3( width-rad,height-rad );
+        Point P4( rad,height-rad );
         
         for( int i=180; i>=90; i-=10 )
         {
             float A = i;
-            poPoint P = P1 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+            Point P = P1 + Point( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
             response.push_back( P );
         }
         
         for( int i=90; i>=0; i-=10 )
         {
             float A = i;
-            poPoint P = P2 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+            Point P = P2 + Point( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
             response.push_back( P );
         }
         
         for( int i=0; i>=-90; i-=10 )
         {
             float A = i;
-            poPoint P = P3 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+            Point P = P3 + Point( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
             response.push_back( P );
         }
         
         for( int i=-90; i>=-180; i-=10 )
         {
             float A = i;
-            poPoint P = P4 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
+            Point P = P4 + Point( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
             response.push_back( P );
         }
         
@@ -430,12 +430,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution) {
-        std::vector<poPoint> response;
+    std::vector<Point> quadTo(Point p1, Point p2, Point control, int resolution) {
+        std::vector<Point> response;
         for(int i=0; i<resolution; i++) {
             float t = i / float(resolution-1);
             float invt = 1.f - t;
-            poPoint pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
+            Point pt = invt*invt*p1 + 2*invt*t*control + t*t*p2;
             response.push_back(pt);
         }
         return response;
@@ -443,12 +443,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution) {
-        std::vector<poPoint> response;
+    std::vector<Point> cubeTo(Point p1, Point p2, Point c1, Point c2, int resolution) {
+        std::vector<Point> response;
         for(int i=0; i<resolution; i++) {
             float t = i / float(resolution-1);
             float invt = 1.f - t;
-            poPoint pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
+            Point pt = invt*invt*invt*p1 + 3*invt*invt*t*c1 + 3*invt*t*t*c2 + t*t*t*p2;
             response.push_back(pt);
         }
         return response;
@@ -456,7 +456,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    float curveLength(const std::vector<poPoint> &curve) {
+    float curveLength(const std::vector<Point> &curve) {
         float len = 0;
         for(int i=0; i<curve.size()-1; i++) {
             len += (curve[i+1] - curve[i]).getLength();

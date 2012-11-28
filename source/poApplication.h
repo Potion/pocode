@@ -37,24 +37,24 @@
 
 namespace po {
     int			applicationNumberWindows();
-    poWindow*	applicationCreateWindow(uint, poWindowType, const char*, int, int, int, int);
-    poWindow*	applicationGetWindow(int index=0);
+    Window*	applicationCreateWindow(uint, WindowType, const char*, int, int, int, int);
+    Window*	applicationGetWindow(int index=0);
     std::string	applicationGetResourceDirectory();
     std::string applicationGetSupportDirectory();
-    poWindow*	applicationCurrentWindow();
-    void		applicationMakeWindowCurrent(poWindow*);
-    void		applicationMakeWindowFullscreen(poWindow*,bool);
-    void		applicationMoveWindow(poWindow*,Point);
-    void		applicationReshapeWindow(poWindow*,Rect);
+    Window*	applicationCurrentWindow();
+    void		applicationMakeWindowCurrent(Window*);
+    void		applicationMakeWindowFullscreen(Window*,bool);
+    void		applicationMoveWindow(Window*,Point);
+    void		applicationReshapeWindow(Window*,Rect);
     void        applicationQuit();
 
     // These three functions should be defined in your application. They are not defined in poApplication.cpp.
 
-    // This function should return a poObject, that is the root node of the scene graph.
+    // This function should return a Object, that is the root node of the scene graph.
     // The UID is the same UID passed in per window as each window is created.
     // This allows you to have multiple windows, each with their own scenge graph.
     // All pocode example projects implement this function.
-    extern poObject*    createObjectForID(uint uid);
+    extern Object*    createObjectForID(uint uid);
 
     // This function is where windows should be created. All pocode example projects implement this function.
     extern void         setupApplication();
@@ -64,7 +64,7 @@ namespace po {
 
 
     // These functions are defined in poApplication.cpp. The values returned are for the current top-most window.
-    // All of these extract data from the poWindow class.
+    // All of these extract data from the Window class.
     float		getWindowWidth();
     float		getWindowHeight();
     Point		getWindowDimensions();

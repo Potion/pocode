@@ -136,7 +136,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     float Point::getDist(Point pt) {
-        return poDist(x, y, z, pt.x, pt.y, pt.z);
+        return Dist(x, y, z, pt.x, pt.y, pt.z);
     }
     
     

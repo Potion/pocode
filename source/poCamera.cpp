@@ -41,11 +41,11 @@ namespace po {
     Camera::Camera()
     :	reset(true)
     ,	clearsBG(true)
-    ,	backgroundColor(poColor::transparent)
+    ,	backgroundColor(Color::transparent)
     ,	isSizeFixed(false)
     {}
 
-    Camera::Camera(poColor color) 
+    Camera::Camera(Color color) 
     :	reset(true)
     ,	clearsBG(true)
     ,	backgroundColor(color)
@@ -78,7 +78,7 @@ namespace po {
     //	if(isFixedSize())
     //		po::setViewport(0, 0, fixedSize.x, fixedSize.y);
     //	else {
-    //		poPoint win = getWindowDimensions() * poGetScale();
+    //		Point win = getWindowDimensions() * poGetScale();
     //		po::setViewport(0, 0, win.x, win.y);
     //	}
         
@@ -152,13 +152,13 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poColor Camera::getBackgroundColor() const {
+    Color Camera::getBackgroundColor() const {
         return backgroundColor;
     }
     
     
     //------------------------------------------------------------------------
-    Camera* Camera::setBackgroundColor(poColor color) {
+    Camera* Camera::setBackgroundColor(Color color) {
         backgroundColor = color;
         return this;
     }
@@ -191,7 +191,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Camera* Camera::setFixedSize(bool b, poPoint p) {
+    Camera* Camera::setFixedSize(bool b, Point p) {
         isSizeFixed=b;
         fixedSize=p;
         return this;
@@ -206,7 +206,7 @@ namespace po {
     
     Camera2D::Camera2D() {}
 
-    Camera2D::Camera2D(poColor clear)
+    Camera2D::Camera2D(Color clear)
     :	Camera(clear)
     {}
     
@@ -295,7 +295,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poOrthoCamera::set(poRect r, float n, float f) {
+    void poOrthoCamera::set(Rect r, float n, float f) {
         set(r.x, r.y, r.x + r.width, r.y + r.height, n, f);
     }
     
@@ -312,8 +312,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poRect poOrthoCamera::get() const {
-        return poRect(x1, y1, x2-x1, y2-y1);
+    Rect poOrthoCamera::get() const {
+        return Rect(x1, y1, x2-x1, y2-y1);
     }
     
     
@@ -354,13 +354,13 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint poPerspectiveCamera::lookAtPosition() const { 
+    Point poPerspectiveCamera::lookAtPosition() const { 
         return lookAtPos;
     }
     
     
     //------------------------------------------------------------------------
-    poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(poPoint p) {
+    poPerspectiveCamera *poPerspectiveCamera::lookAtPosition(Point p) {
         lookAtPos = p;
         return this;
     }
@@ -378,13 +378,13 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint poPerspectiveCamera::cameraPosition() const  {
+    Point poPerspectiveCamera::cameraPosition() const  {
         return cameraPos;
     }
     
     
     //------------------------------------------------------------------------
-    poPerspectiveCamera* poPerspectiveCamera::cameraPosition(poPoint p) {
+    poPerspectiveCamera* poPerspectiveCamera::cameraPosition(Point p) {
         cameraPos = p; return this;
     }
     
@@ -405,8 +405,8 @@ namespace po {
     
     //------------------------------------------------------------------------
     void poPerspectiveCamera::setModelview() {
-        po::lookAt(cameraPos, lookAtPos, poPoint(0,1,0));
-        po::scale(poPoint(-1,-1,1));
+        po::lookAt(cameraPos, lookAtPos, Point(0,1,0));
+        po::scale(Point(-1,-1,1));
     }
     
     

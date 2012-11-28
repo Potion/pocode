@@ -4,14 +4,14 @@
 namespace po {
     namespace MessageCenter {
         typedef struct {
-            poObject* sender;
+            Object* sender;
             std::string message;
-            poDictionary dict;
+            Dictionary dict;
         } Message;
         
         typedef struct {
-            poObject* sender;
-            poObject* subscriber;
+            Object* sender;
+            Object* subscriber;
         } MessageSubscriber;
         
         namespace {
@@ -42,7 +42,7 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void addSubscriber(std::string msg, poObject* subscriber, poObject* sender) {
+        void addSubscriber(std::string msg, Object* subscriber, Object* sender) {
             subscribers[msg].push_back(new MessageSubscriber());
             subscribers[msg].back()->sender       = sender;
             subscribers[msg].back()->subscriber   = subscriber;
@@ -50,7 +50,7 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void removeSubscriber(std::string msg, poObject* subscriber) {
+        void removeSubscriber(std::string msg, Object* subscriber) {
             if(subscribers.find(msg) != subscribers.end()) {
                 if(!subscribers[msg].empty()) {
                     //Find the subscriber and delete it
@@ -79,7 +79,7 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void broadcastMessage(std::string msg, poObject* sender, const poDictionary& dict) {
+        void broadcastMessage(std::string msg, Object* sender, const Dictionary& dict) {
             if(subscribers.find(msg) != subscribers.end()) {
                 messageQueue.push_back(new Message());
                 

@@ -25,7 +25,7 @@
 
 // CLASS NOTES
 //
-// GeometryMask implements a mask based upon a poShape2D object. A geometry mask is used as follows:
+// GeometryMask implements a mask based upon a Shape2D object. A geometry mask is used as follows:
 //
 //      poRectShape* objectToMask = new poRectShape("myImage.jpg");
 //      addChild( objectToMask );
@@ -44,21 +44,21 @@
 namespace po {
     class GeometryMask : public ObjectModifier {
     public:
-        GeometryMask(poShape2D *shape, bool clearsStencil=false, bool inverse=false);
+        GeometryMask(Shape2D *shape, bool clearsStencil=false, bool inverse=false);
         virtual			~GeometryMask();
         
         virtual			ObjectModifier *copy();
         
-        void            setShape(poShape2D *shape);	
+        void            setShape(Shape2D *shape);	
         // this isn't implemented yet
-        bool            pointInside(poPoint p);
+        bool            pointInside(Point p);
         
     protected:
         void			doSetUp(Object*);
         void			doSetDown(Object*);
         
     private:
-        poShape2D*		shape;
+        Shape2D*		shape;
         bool			clearsStencil;
         bool            inverse;
     };

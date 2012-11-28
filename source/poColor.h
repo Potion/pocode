@@ -22,7 +22,6 @@
 #include <string>
 #include <ostream>
 
-class HSVColor;
 
 // CLASS NOTES
 //
@@ -38,6 +37,8 @@ class HSVColor;
 //
 
 namespace po {
+    class HSVColor;
+    
     class Color {
     public:
         float R, G, B, A;

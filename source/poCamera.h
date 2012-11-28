@@ -47,14 +47,14 @@ namespace po {
     class Camera : public ObjectModifier {
     public:
         Camera();
-        Camera(poColor clear);
+        Camera(Color clear);
         virtual ObjectModifier *copy();
         
         // BACKGROUND CLEARING and BACKGROUND COLOR
         bool                clearsBackground() const;
         Camera*           setClearsBackground(bool b);
-        poColor             getBackgroundColor() const;
-        Camera*           setBackgroundColor(poColor color);
+        Color             getBackgroundColor() const;
+        Camera*           setBackgroundColor(Color color);
         Camera*           setBackgroundColor(float r, float g, float b, float a=1.f);
         
         // RESET MODEL VIEW
@@ -65,7 +65,7 @@ namespace po {
         
         // FIXED VIEW SIZE
         bool                isFixedSize() const;
-        Camera*           setFixedSize(bool b, poPoint p=poPoint());
+        Camera*           setFixedSize(bool b, Point p=Point());
         
         static CameraType   getCurrentCameraType() { return currentCameraType; };
         
@@ -83,14 +83,14 @@ namespace po {
         virtual void        saveAndUpdateGLSettings();
         virtual void        restoreGLSettings();
         
-        poPoint             fixedSize;
+        Point             fixedSize;
         bool                reset;
 
         static CameraType   currentCameraType;
         
     private:
         bool                clearsBG;
-        poColor             backgroundColor;
+        Color             backgroundColor;
         bool                isSizeFixed;
     };
 
@@ -102,7 +102,7 @@ namespace po {
     class Camera2D : public Camera {
     public:
         Camera2D();
-        Camera2D(poColor clear);
+        Camera2D(Color clear);
         virtual ObjectModifier *copy();
 
     protected:
@@ -126,9 +126,9 @@ namespace po {
         poOrthoCamera(float x1, float y1, float x2, float y2, float n, float f);
         virtual ObjectModifier *copy();
 
-        void                set(poRect r, float n=-1, float f=1);
+        void                set(Rect r, float n=-1, float f=1);
         void                set(float x1, float y1, float x2, float y2, float n, float f);
-        poRect              get() const;
+        Rect              get() const;
         
     protected:
         void				clone(poOrthoCamera *cam);
@@ -147,8 +147,8 @@ namespace po {
     // of the space, the camera may be set up as follows:
     //
     //      Cam = new poPerspectiveCamera(90, 1, 1000);
-    //      Cam->cameraPosition( poPoint(0,0,-100 ) );
-    //      Cam->lookAtPosition( poPoint(0,0,0 ) );
+    //      Cam->cameraPosition( Point(0,0,-100 ) );
+    //      Cam->lookAtPosition( Point(0,0,0 ) );
     //      addModifier( Cam );
     //
     // Notice that the Z value of the cameraPosition is set to -100. This effectively pulls
@@ -160,11 +160,11 @@ namespace po {
         virtual ObjectModifier* copy();
 
         // CAMERA POSITION and LOOKAT POSITION
-        poPoint                 cameraPosition() const;
-        poPerspectiveCamera*    cameraPosition(poPoint p);
+        Point                 cameraPosition() const;
+        poPerspectiveCamera*    cameraPosition(Point p);
         
-        poPoint                 lookAtPosition() const;
-        poPerspectiveCamera*    lookAtPosition(poPoint p);
+        Point                 lookAtPosition() const;
+        poPerspectiveCamera*    lookAtPosition(Point p);
         
         // This method positions the 3D camera so that at Z=0, there is a 1:1 dimension match
         // to the XY coordinate system of a 2D camera. The only difference is that the origin
@@ -186,6 +186,6 @@ namespace po {
         
     private:
         float                   fov, nearClip, farClip;
-        poPoint                 lookAtPos, cameraPos;
+        Point                 lookAtPos, cameraPos;
     };
 }

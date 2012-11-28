@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "poShapeBasics2D.h"
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
@@ -71,7 +70,7 @@ namespace po {
         ~Image();
         
         static void getImageAsync(FilePath url, Object *notify);
-        static void getImageAsync(poURL url, Object *notify, const FilePath &savePath=FilePath());
+        static void getImageAsync(URL url, Object *notify, const FilePath &savePath=FilePath());
 
         Image*              copy();
         void				save(const FilePath &filePath);
@@ -82,22 +81,22 @@ namespace po {
         uint                getWidth() const;
         uint                getHeight() const;
         uint				getChannels() const;
-        poPoint             getDimensions() const;
+        Point             getDimensions() const;
         uint                getPitch() const;
         uint                getStorageSize() const;
         bool                isScaled();
         
         // GET and SET PIXELS
         ubyte const*		getPixels() const;
-        Color               getPixel(poPoint p) const;
-        void                setPixel(poPoint p, Color c);
-        void                setPixel(poPoint p, Color c, int stamp_width);
+        Color               getPixel(Point p) const;
+        void                setPixel(Point p, Color c);
+        void                setPixel(Point p, Color c, int stamp_width);
         
         // IMAGE OPERATIONS
         void                setNumChannels(uint numChannels);
-        void                composite(Image *img, poPoint into, float blend);
+        void                composite(Image *img, Point into, float blend);
         void                blur(int kernel_size, float sigma, int stepMultiplier=1);
-        void                flip(poOrientation dir);
+        void                flip(Orientation dir);
         void				fill(Color c);
         void                invert();
         void                clear();
@@ -138,13 +137,13 @@ namespace po {
     class ImageLoaderWorker : public Worker {
     public:
         ImageLoaderWorker(FilePath filePath);
-        ImageLoaderWorker(poURL url, const FilePath &savePath = FilePath("null"));
+        ImageLoaderWorker(URL url, const FilePath &savePath = FilePath("null"));
         virtual ~ImageLoaderWorker();
         
         void workerFunc();
     private:
         bool loadFromNetwork;
-        poURL url;
+        URL url;
         FilePath filePath;
     };
 } /* End po Namespace */

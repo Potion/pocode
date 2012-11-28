@@ -18,7 +18,7 @@
  */
 
 //
-//  poEventCenter.cpp
+//  EventCenter.cpp
 //  pocode
 //
 //  Created by Jared Schiffman on 10/16/11.
@@ -33,7 +33,7 @@
 #include <boost/foreach.hpp>
 
 namespace po {
-    void localizeEvent(poEvent &global_event, poEvent &tolocal) {
+    void localizeEvent(Event &global_event, Event &tolocal) {
         tolocal.timestamp			= global_event.timestamp;
         tolocal.modifiers			= global_event.modifiers;
         tolocal.globalPosition		= global_event.globalPosition;
@@ -54,42 +54,42 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poEventCenter *poEventCenter::get() {
-        static poEventCenter *instance = NULL;
+    EventCenter *EventCenter::get() {
+        static EventCenter *instance = NULL;
         if(!instance)
-            instance = new poEventCenter();
+            instance = new EventCenter();
         return instance;
     }
     
     
     //------------------------------------------------------------------------
-    poEventCenter::poEventCenter() 
+    EventCenter::EventCenter() 
     :	events(PO_LAST_EVENT)
     {}
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::addEvent(int eventType, Object *source, std::string message, const poDictionary& dict) {
+    void EventCenter::addEvent(int eventType, Object *source, std::string message, const Dictionary& dict) {
         return addEvent(eventType, source, source, message, dict);
     }
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::addEvent(int eventType, Object *source, Object *sink, std::string message, const poDictionary& dict) {
-        poEventCallback* callback = new poEventCallback();
+    void EventCenter::addEvent(int eventType, Object *source, Object *sink, std::string message, const Dictionary& dict) {
+        EventCallback* callback = new EventCallback();
         // make sure the source has a slot for event info
         if(!source->eventMemory)
-            source->eventMemory = new poEventMemory;
+            source->eventMemory = new EventMemory;
         callback->receiver = sink;
-        callback->event = poEvent(eventType, source, message, dict);
+        callback->event = Event(eventType, source, message, dict);
         events[eventType].push_back(callback);
     }
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::removeAllEvents(Object* obj) {
+    void EventCenter::removeAllEvents(Object* obj) {
         // check the regular event queues
-        BOOST_FOREACH(std::vector<poEventCallback*> &event_vec, events) {
+        BOOST_FOREACH(std::vector<EventCallback*> &event_vec, events) {
             for(int i=event_vec.size()-1; i>=0; i--) {
                 if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
                     // remove the memory slot
@@ -106,8 +106,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::removeAllEventsOfType(Object* obj, int eventType) {
-        std::vector<poEventCallback*> &event_vec = events[eventType];
+    void EventCenter::removeAllEventsOfType(Object* obj, int eventType) {
+        std::vector<EventCallback*> &event_vec = events[eventType];
         for(int i=event_vec.size()-1; i>=0; i--) {
             if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
                 // remove the memory slot
@@ -123,8 +123,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool poEventCenter::objectHasEvent(Object *obj, int eventType) {
-        std::vector<poEventCallback*> &event_vec = events[eventType];
+    bool EventCenter::objectHasEvent(Object *obj, int eventType) {
+        std::vector<EventCallback*> &event_vec = events[eventType];
         for(int i=0; i<event_vec.size(); i++) {
             if(obj == event_vec[i]->event.source)
                 return true;
@@ -134,19 +134,19 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::copyEventsFromObject(Object *from, Object *to) {
+    void EventCenter::copyEventsFromObject(Object *from, Object *to) {
         for(int i=0; i<events.size(); i++) {
-            std::vector<poEventCallback*> additions;
+            std::vector<EventCallback*> additions;
             
             for(int j=0; j<events[i].size(); j++) {
                 if(events[i][j]->receiver == from) {
-                    poEventCallback *cb = new poEventCallback;
+                    EventCallback *cb = new EventCallback;
                     cb->receiver = to;
                     cb->event = events[i][j]->event;
                     additions.push_back(cb);
                 }
                 else if(events[i][j]->event.source == from) {
-                    poEventCallback *cb = new poEventCallback;
+                    EventCallback *cb = new EventCallback;
                     cb->event = events[i][j]->event;
                     cb->event.source = to;
                     additions.push_back(cb);
@@ -165,19 +165,19 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::notifyAllListeners( poEvent &global_event ) {    
+    void EventCenter::notifyAllListeners( Event &global_event ) {    
         // for all registed event listeners
-        std::vector<poEventCallback*> &event_vec = events[global_event.type];
+        std::vector<EventCallback*> &event_vec = events[global_event.type];
         for(int i=0; i<event_vec.size(); i++)
                 notifyOneListener( event_vec[i], global_event );
     }
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::notifyOneListener( poEventCallback* callback, poEvent &global_event ) {
+    void EventCenter::notifyOneListener( EventCallback* callback, Event &global_event ) {
         // get event stored in callback
-        poEvent &stored_event = callback->event;
-        poEvent sentEvent = stored_event;
+        Event &stored_event = callback->event;
+        Event sentEvent = stored_event;
         
         if(objectIsAvailableForEvents(stored_event.source)) {
             // prep the event for sending
@@ -193,8 +193,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poEventCallback* poEventCenter::findTopObjectUnderPoint( int eventType, Point P ) {
-        std::vector<poEventCallback*> &event_vec = events[eventType];
+    EventCallback* EventCenter::findTopObjectUnderPoint( int eventType, Point P ) {
+        std::vector<EventCallback*> &event_vec = events[eventType];
         
         // for all registed event listeners
         for( int i=event_vec.size()-1; i>=0; i-- ) {
@@ -214,13 +214,13 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::processEvents(std::deque<poEvent> &events) {
+    void EventCenter::processEvents(std::deque<Event> &events) {
         // sort all event callbacks by draw order
         sortCallbacksByDrawOrder();
 
         while(!events.empty()) {
             //Get Event
-            poEvent &event = events.front();
+            Event &event = events.front();
             
             if(isMouseEvent(event.type)) {
                 processMouseEvents(event);
@@ -248,7 +248,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::processMouseEvents( poEvent &Event ) {
+    void EventCenter::processMouseEvents( Event &Event ) {
 
         // notify all objects listening for basic events
         notifyAllListeners( Event );
@@ -259,7 +259,7 @@ namespace po {
       
             // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
             
-            poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
             if ( callback )
             {
                 Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
@@ -267,7 +267,7 @@ namespace po {
             }
             
             // set lastDragID for object to receive PO_MOUSE_DRAG_INSIDE_EVENT
-            poEventCallback* drag_callback = findTopObjectUnderPoint( PO_MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
+            EventCallback* drag_callback = findTopObjectUnderPoint( PO_MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
             if ( drag_callback )
             {
                 Object* obj = drag_callback->event.source;
@@ -280,9 +280,9 @@ namespace po {
         else if ( Event.type == PO_MOUSE_UP_EVENT ) {
             
             // reset lastDragID for object receiving PO_MOUSE_DRAG_EVENT
-            std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
+            std::vector<EventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
-                poEventCallback* callback = event_vec[i];
+                EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
                 obj->eventMemory->lastDragID = -1;
             }
@@ -292,7 +292,7 @@ namespace po {
         else if ( Event.type == PO_MOUSE_MOVE_EVENT ) {
 
             // move over events
-            poEventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_OVER_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_OVER_EVENT, Event.globalPosition );
             if ( callback )
             {
                 Event.type = PO_MOUSE_OVER_EVENT;
@@ -306,9 +306,9 @@ namespace po {
             //  1 = last touch inside
             
             // enter events
-            std::vector<poEventCallback*> &enter_event_vec = events[PO_MOUSE_ENTER_EVENT];
+            std::vector<EventCallback*> &enter_event_vec = events[PO_MOUSE_ENTER_EVENT];
             for( int i=0; i<enter_event_vec.size(); i++ ) {
-                poEventCallback* callback = enter_event_vec[i];
+                EventCallback* callback = enter_event_vec[i];
                 Object* obj = callback->event.source;
                 
                 if( ! objectIsAvailableForEvents(obj) )
@@ -327,9 +327,9 @@ namespace po {
             }
             
             // leave events
-            std::vector<poEventCallback*> &leave_event_vec = events[PO_MOUSE_LEAVE_EVENT];
+            std::vector<EventCallback*> &leave_event_vec = events[PO_MOUSE_LEAVE_EVENT];
             for( int i=0; i<leave_event_vec.size(); i++ ) {
-                poEventCallback* callback = leave_event_vec[i];
+                EventCallback* callback = leave_event_vec[i];
                 Object* obj = callback->event.source;
                 
                 if( ! objectIsAvailableForEvents(obj) )
@@ -350,7 +350,7 @@ namespace po {
             // go back and fix states for enter events
             for( int i=0; i<enter_event_vec.size(); i++ )
             {
-                poEventCallback* callback = enter_event_vec[i];
+                EventCallback* callback = enter_event_vec[i];
                 Object* obj = callback->event.source;
                 // for all enter events, switch lastInsideTouchID from -2 to to 1, and  2 to -1
                 if ( obj->eventMemory->lastInsideTouchID == -2 )
@@ -365,9 +365,9 @@ namespace po {
 
             // for all objects listening to PO_MOUSE_DRAG_INSIDE_EVENT with lastDragID set
             // for mouse control, this should just be a single object in the set
-            std::vector<poEventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
+            std::vector<EventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
-                poEventCallback* callback = event_vec[i];
+                EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
                 if ( obj->eventMemory->lastDragID != -1 ) {  
                     Event.type = PO_MOUSE_DRAG_INSIDE_EVENT;
@@ -379,22 +379,22 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::processTouchEvents( poEvent &Event ) {
+    void EventCenter::processTouchEvents( Event &Event ) {
          // First notify all objects listening for ..._EVERYWHERE_EVENTs
          notifyAllListeners( Event );
          
          // handles PO_TOUCH_BEGAN_INSIDE_EVENT and PO_TOUCH_BEGAN_OUTSIDE_EVENT
          if ( Event.type == PO_TOUCH_BEGAN_EVENT ) {
              Event.type = PO_TOUCH_BEGAN_INSIDE_EVENT;
-             poEventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
+             EventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
              if ( callback )
                  notifyOneListener( callback, Event );
              
              // notify objects listening for PO_TOUCH_BEGAN_OUTSIDE_EVENT
              Event.type = PO_TOUCH_BEGAN_OUTSIDE_EVENT;
-             std::vector<poEventCallback*> &event_vec = events[PO_TOUCH_BEGAN_OUTSIDE_EVENT];
+             std::vector<EventCallback*> &event_vec = events[PO_TOUCH_BEGAN_OUTSIDE_EVENT];
              for( int i=0; i<event_vec.size(); i++ ) {
-                 poEventCallback* callback = event_vec[i];
+                 EventCallback* callback = event_vec[i];
                  Object* obj = callback->event.source;
                  // check that object is visible
                  if( objectIsAvailableForEvents(obj) ) {
@@ -411,15 +411,15 @@ namespace po {
             // find single object to receive PO_MOUSE_UP_INSIDE_EVENT
             Event.type = PO_TOUCH_ENDED_INSIDE_EVENT;
             
-            poEventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
             if ( callback )
                 notifyOneListener( callback, Event );
             
             // notify objects listening for PO_TOUCH_ENDED_OUTSIDE_EVENT
             Event.type = PO_TOUCH_ENDED_OUTSIDE_EVENT;
-            std::vector<poEventCallback*> &event_vec = events[PO_TOUCH_ENDED_OUTSIDE_EVENT];
+            std::vector<EventCallback*> &event_vec = events[PO_TOUCH_ENDED_OUTSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
-                poEventCallback* callback = event_vec[i];
+                EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
                 // check that object is visible
                 if( objectIsAvailableForEvents(obj) ) {
@@ -433,31 +433,31 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::processMotionEvent( poEvent &Event ) {
+    void EventCenter::processMotionEvent( Event &Event ) {
         notifyAllListeners(Event);
     }
     
     
     //------------------------------------------------------------------------
-    void processEnterLeave(std::deque<poEventCallback*> &e) {
+    void processEnterLeave(std::deque<EventCallback*> &e) {
         
     }
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::processKeyEvents( poEvent &Event ) {
+    void EventCenter::processKeyEvents( Event &Event ) {
         notifyAllListeners(Event);
     }
     
     
     //------------------------------------------------------------------------
-    bool sortCallbacksByDrawOrderFunc(poEventCallback* a, poEventCallback* b) {
+    bool sortCallbacksByDrawOrderFunc(EventCallback* a, EventCallback* b) {
         return a->event.source->getDrawOrder() < b->event.source->getDrawOrder();
     }
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::sortCallbacksByDrawOrder() {
+    void EventCenter::sortCallbacksByDrawOrder() {
         // sort only event callback vectors where order matters
         std::sort( events[PO_MOUSE_DOWN_INSIDE_EVENT].begin(), events[PO_MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
         std::sort( events[PO_MOUSE_OVER_EVENT].begin(), events[PO_MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
@@ -467,10 +467,10 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    std::vector<poEvent*> poEventCenter::eventsForObject(Object *obj, int eventType) {
-        std::vector<poEvent*> response;
+    std::vector<Event*> EventCenter::eventsForObject(Object *obj, int eventType) {
+        std::vector<Event*> response;
         
-        std::vector<poEventCallback*> &event_vec = events[eventType];
+        std::vector<EventCallback*> &event_vec = events[eventType];
         for(int i=0; i<event_vec.size(); i++) {
             if(obj == event_vec[i]->event.source)
                 response.push_back(&(event_vec[i]->event));
@@ -480,7 +480,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void poEventCenter::negateDrawOrderForObjectWithEvents() {
+    void EventCenter::negateDrawOrderForObjectWithEvents() {
         for(int i=0; i<events.size(); i++) {
             for(int j=0; j<events[i].size(); j++) {
                 events[i][j]->event.source->drawOrder = -1;
@@ -490,7 +490,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool poEventCenter::objectIsAvailableForEvents(Object *obj) {
+    bool EventCenter::objectIsAvailableForEvents(Object *obj) {
         return obj->visible && obj->alpha > 0.01 && obj->getDrawOrder() != -1;
     }
 } /*End po namespace */

@@ -21,14 +21,14 @@
 
 
 #include "poObject.h"
-#include "poSimpleDrawing.h"
 #include "poTexture.h"
+#include "poSimpleDrawing.h"
 
 
 // CLASS NOTES
 //
 // po::Shape2D derives directly from po::Object and is the parent class of all 2D graphics objects
-// in pocode, including poRectShape, poOvalShape and poLineShape (see "poShapeBasics2D.h").
+// in pocode, including RectShape, poOvalShape and poLineShape (see "poShapeBasics2D.h").
 //
 // All Shape2D objects and Shape2D subclasses:
 //
@@ -38,12 +38,12 @@
 // + Have fillEnabled and strokeEnabled properties.
 // + Have a fillDrawStyle property that determines how OpenGL uses the points (GL_TRIANGLE_STRIP, GL_POLYGON, etc)
 // + Have a generateStroke method for generating a high-quality thick stroke with multiple capping options.
-// + Have a placeTexture and and transformTexture methods for assigning a poTexture to the shape
+// + Have a placeTexture and and transformTexture methods for assigning a Texture to the shape
 // + Have a pointInside method for testing if a point is inside the shape.
 
-
 namespace po {
-    class Shape2D : public Object {
+    
+class Shape2D : public Object {
     public:
         Shape2D();
         virtual Object*		copy();
@@ -57,34 +57,34 @@ namespace po {
         // Shape2D maintains a list of points that define the contour the shape.
         // Points can be added one by one, or can be added as vector of points.
         // The "curveTo" method generates a curve formed by adding many points.
-        Shape2D&				addPoint(poPoint p);
+        Shape2D&				addPoint(Point p);
         Shape2D&				addPoint( float x, float y );
-        Shape2D&				addPoints(const std::vector<poPoint> &points);
-        Shape2D&				curveTo(poPoint pt, poPoint control, int resolution=10);
-        Shape2D&				curveTo(poPoint pt, poPoint control1, poPoint control2, int resolution=10);
+        Shape2D&				addPoints(const std::vector<Point> &points);
+        Shape2D&				curveTo(Point pt, Point control, int resolution=10);
+        Shape2D&				curveTo(Point pt, Point control1, Point control2, int resolution=10);
         
-        Shape2D&				setPoints(const std::vector<poPoint> &points);
+        Shape2D&				setPoints(const std::vector<Point> &points);
         Shape2D&				clearPoints();
 
         size_t                  getNumPoints() const;
-        poPoint                 getPoint(int idx);
-        bool                    setPoint(int idx, poPoint p );
-        const std::vector<poPoint> &getPoints();
+        Point                   getPoint(int idx);
+        bool                    setPoint(int idx, Point p );
+        const std::vector<Point> &getPoints();
         
         // SHAPE TEXTURE
-        // A Shape2D can be assigned a poTexture.
+        // A Shape2D can be assigned a Texture.
         // By default, the texture will be placed within the shape at actual size. This means that
         // the texture image may extend beyond the bounds of the shape or may not be large enough
-        // to fill the shape. Use the poTextureFitOption's to determine how a texture is placed
-        // into the shape. These poTextureFitOption's are listed in poEnums.h. Once a texture is placed,
+        // to fill the shape. Use the TextureFitOption's to determine how a texture is placed
+        // into the shape. These TextureFitOption's are listed in poEnums.h. Once a texture is placed,
         // you can use transform the placement, rotation and scale of the texture.
-        Shape2D&              placeTexture(poTexture *tex);
-        Shape2D&              placeTexture(poTexture *tex, poTextureFitOption fit);
-        Shape2D&              placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align);
-        Shape2D&				setTextureCoords(const std::vector<poPoint> &texCrds );
-        poTexture*              getTexture();
-        void                    removeTexture(bool andDelete = false);
-        Shape2D&              transformTexture(poPoint pt, poPoint scale, float rotate);
+        Shape2D&              placeTexture(Texture *tex);
+        Shape2D&              placeTexture(Texture *tex, TextureFitOption fit);
+        Shape2D&              placeTexture(Texture *tex, TextureFitOption fit, Alignment align);
+        Shape2D&              setTextureCoords(const std::vector<Point> &texCrds );
+        Texture*              getTexture();
+        void                  removeTexture(bool andDelete = false);
+        Shape2D&              transformTexture(Point pt, Point scale, float rotate);
         
         // HIGH QUALITY SHAPE STROKE
         // By default, Shape2D's use a simple OpenGL stroke. Unfortunately, when the stroke width
@@ -92,10 +92,10 @@ namespace po {
         // Shape2D includes a "generateStroke" method that creates a very high quality stroke.
         // This stroke is actually drawn as a very thin filled shape. These high quality strokes
         // scale with the shape, unlike simple strokes which do not scale.
-        Shape2D&              generateStroke(int strokeWidth, poStrokePlacementProperty place=PO_STROKE_PLACE_CENTER, 
-                                               poStrokeJoinProperty join=PO_STROKE_JOIN_MITRE, poStrokeCapProperty cap=PO_STROKE_CAP_BUTT);
-        poStrokeCapProperty     capStyle() const;
-        poStrokeJoinProperty    joinStyle() const;
+        Shape2D&              generateStroke(int strokeWidth, StrokePlacementProperty place=PO_STROKE_PLACE_CENTER, 
+                                               StrokeJoinProperty join=PO_STROKE_JOIN_MITRE, StrokeCapProperty cap=PO_STROKE_CAP_BUTT);
+        StrokeCapProperty     capStyle() const;
+        StrokeJoinProperty    joinStyle() const;
         
         void                    setStrokeWidth(int width);
         int                     getStrokeWidth() const;
@@ -104,8 +104,8 @@ namespace po {
         // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).
         // The localize option will convert the point from global to local coordinates before
         // performing the test.
-        virtual bool            pointInside(poPoint point, bool localize=false);
-        virtual poRect          getBounds();
+        virtual bool            pointInside(Point point, bool localize=false);
+        virtual Rect          getBounds();
         
         // TWEEN MANAGEMENT
         virtual void            stopAllTweens(bool recurse=false);
@@ -114,13 +114,13 @@ namespace po {
         virtual int         getSizeInMemory();
         
         // SHAPE SERIALIZAATION
-        virtual void            read(poXMLNode node);
-        virtual void            write(poXMLNode &node);
+        virtual void            read(XMLNode node);
+        virtual void            write(XMLNode &node);
         
         // SHAPE PROPERTIES (DIRECTLY ACCCESSIBLE)
         GLenum                  fillDrawStyle;
-        poColor                 fillColor;
-        poColor                 strokeColor;
+        Color                 fillColor;
+        Color                 strokeColor;
         bool                    fillEnabled;
         bool                    strokeEnabled;
         bool                    useSimpleStroke;
@@ -128,7 +128,7 @@ namespace po {
         
         // SHAPE SPECIFIC TWEEN
         // In addition to the five tweens in po::Object, Shape2D has a special tween for the fillColor.
-        poTween<poColor>        fillColorTween;
+        Tween<Color>        fillColorTween;
 
 
     protected:
@@ -137,14 +137,14 @@ namespace po {
         
     private:
         // SHAPE PROPERTIES (PRIVATE)
-        std::vector<poPoint>    points;
-        std::vector<poPoint>    texCoords;
-        std::vector<poPoint>    stroke;
+        std::vector<Point>    points;
+        std::vector<Point>    texCoords;
+        std::vector<Point>    stroke;
 
-        poTexture*				texture;
+        Texture*				texture;
 
-        poStrokeCapProperty     cap;
-        poStrokeJoinProperty    join;
+        StrokeCapProperty     cap;
+        StrokeJoinProperty    join;
         int						strokeWidth;
     };
 

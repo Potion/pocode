@@ -61,11 +61,11 @@ using namespace boost::posix_time;
             NSScreen *screen = [window screen];
             
             NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
-            return Point(size.width, size.height);
+            return po::Point(size.width, size.height);
         }
     #else
         Point getDeviceResolutioniOS() {
-            return Point(72,72);
+            return po::Point(72,72);
         }
     #endif
 #endif

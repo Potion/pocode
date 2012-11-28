@@ -45,7 +45,7 @@ namespace po {
 
     unsigned int getNumCpus();
 
-    poPoint deviceResolution();
+    Point deviceResolution();
 
 
     //Log

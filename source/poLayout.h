@@ -37,7 +37,7 @@ namespace po {
         void				setSpacing(float w, float h);
         
         po::Orientation		getOrientation();
-        void				setOrientation(poOrientation orient);
+        void				setOrientation(Orientation orient);
         
         bool				doesRefreshEveryFrame();
         void				setRefreshEveryFrame(bool b);

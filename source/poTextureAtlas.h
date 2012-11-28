@@ -21,7 +21,7 @@
 
 #include "poRect.h"
 #include "poPoint.h"
-#include "Texture.h"
+#include "poTexture.h"
 #include "poBinPacker.h"
 
 namespace po {
@@ -32,7 +32,7 @@ namespace po {
         ~TextureAtlas();
         
         // pass in the id you want to have associated with the image
-        void            addImage(poImage *img, uint requested_id);
+        void            addImage(Image *img, uint requested_id);
         // remove all images that are current in there
         void            clearImages();
 
@@ -41,11 +41,11 @@ namespace po {
         
         bool            hasUID(uint uid);
         int             getNumPages();
-        poPoint         getDimensions() const;
+        Point         getDimensions() const;
         
         uint            getPageForUID(uint uid);
-        poRect          getCoordsForUID(uint uid);
-        poRect          getSizeForUID(uint uid);
+        Rect          getCoordsForUID(uint uid);
+        Rect          getSizeForUID(uint uid);
         Texture*		getTextureForPage(uint pg);
         Texture*		getTextureForUID(uint uid);
         
@@ -53,9 +53,9 @@ namespace po {
         // tho user can look at the pages for what it wants to draw and
         // organize it so there are minimal texture switches
         // size should be between 0..1, will scale
-        void            drawUID(uint uid, poRect r, float scale);
+        void            drawUID(uint uid, Rect r, float scale);
         // this one will draw the subtex at its native size
-        void            drawUID(uint uid, poPoint p, float scale);
+        void            drawUID(uint uid, Point p, float scale);
         
         
         // dump the pack to screen for debugging
@@ -64,8 +64,8 @@ namespace po {
     private:
         struct ImageLookup {
             uint page;
-            poRect coords;
-            poPoint size;
+            Rect coords;
+            Point size;
         };
         
         void clearPages();
@@ -75,13 +75,13 @@ namespace po {
         std::vector<ImageLookup> coords;
         
         // the items to be atlased
-        std::vector<poImage*> images;
+        std::vector<Image*> images;
         
         // users control the ids
         std::vector<uint> requestedIDs;
         
         // the pages of the atlas
-        std::vector<poImage*> pages;
+        std::vector<Image*> pages;
         
         // the textures of the atlas
         std::vector<Texture*> textures;

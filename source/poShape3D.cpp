@@ -25,7 +25,7 @@
 //  Copyright 2011 Potion. All rights reserved.
 //
 
-#include "Shape3D.h"
+#include "poShape3D.h"
 #include "poOpenGLState.h"
 #include "poCamera.h"
 #include "poApplication.h"
@@ -41,11 +41,11 @@ namespace po {
         useVertexColors = false;
         useVertexTextureCoords = false;
         
-        fillColor = poColor::white;
+        fillColor = Color::white;
         fillEnabled = true;
-        strokeColor = poColor::grey;
+        strokeColor = Color::grey;
         strokeWidth = 0;
-        pointColor = poColor::green;
+        pointColor = Color::green;
         pointSize = 0;
     }
     
@@ -118,30 +118,30 @@ namespace po {
     
     //------------------------------------------------------------------------
     int Shape3D::addVertex() {
-        return addVertex( poPoint(), poPoint(), poPoint(), poColor() );
+        return addVertex( poPoint(), poPoint(), poPoint(), Color() );
     }
     
     
     //------------------------------------------------------------------------
     int Shape3D::addVertex( poPoint pos ) {
-        return addVertex( pos, poPoint(), poPoint(), poColor() );
+        return addVertex( pos, poPoint(), poPoint(), Color() );
     }
     
     
     //------------------------------------------------------------------------
     int Shape3D::addVertex( poPoint pos, poPoint texCoords ) {
-        return addVertex( pos, texCoords, poPoint(), poColor() );
+        return addVertex( pos, texCoords, poPoint(), Color() );
     }
     
     
     //------------------------------------------------------------------------
     int Shape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal ) {
-        return addVertex( pos, texCoords, normal, poColor() );
+        return addVertex( pos, texCoords, normal, Color() );
     }
     
     
     //------------------------------------------------------------------------
-    int Shape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal, poColor color ) {
+    int Shape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal, Color color ) {
         Vertex3D V;
         
         V.position = pos;

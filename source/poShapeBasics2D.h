@@ -58,16 +58,16 @@ namespace po {
         // rounded rect shape
         RectShape( float width, float height, float rad=0.f );
         // place an already-made texture
-        RectShape( poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+        RectShape( Texture *tex, TextureFitOption fit=PO_TEX_FIT_NONE, Alignment align=PO_ALIGN_TOP_LEFT );
         // make a texture from the specified url and place it
-        RectShape( const poFilePath &filePath, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT);
+        RectShape( const FilePath &filePath, TextureFitOption fit=PO_TEX_FIT_NONE, Alignment align=PO_ALIGN_TOP_LEFT);
         // make a shape of a certain size and put the texture in place inside it
-        RectShape( float width, float height, poTexture *tex, poTextureFitOption fit=PO_TEX_FIT_NONE, poAlignment align=PO_ALIGN_TOP_LEFT );
+        RectShape( float width, float height, Texture *tex, TextureFitOption fit=PO_TEX_FIT_NONE, Alignment align=PO_ALIGN_TOP_LEFT );
         
         virtual Object* copy();
         
         void	reshape( float width, float height, float rad=0.f );
-        void	reshape( poRect r, float rad=0.f );
+        void	reshape( Rect r, float rad=0.f );
         
         void	setCornerRadius(float rad);
         float	getCornerRadius() const;
@@ -124,17 +124,17 @@ namespace po {
     // each pair of points added will form an individual line segment.
     //
     // A simple LineShape can be constructed as follows:
-    //      LineShape* S = new LineShape( poPoint(0,0), poPoint(100,100) );
+    //      LineShape* S = new LineShape( Point(0,0), Point(100,100) );
 
     class LineShape : public Shape2D {
     public:
         LineShape();
-        LineShape( poPoint A, poPoint B );
+        LineShape( Point A, Point B );
         
-        void    reshape( poPoint A, poPoint B );
+        void    reshape( Point A, Point B );
         
     protected:
-        void    construct( poPoint A, poPoint B );
+        void    construct( Point A, Point B );
     };
 
 

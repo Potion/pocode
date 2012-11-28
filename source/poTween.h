@@ -20,7 +20,7 @@
 #pragma once
 
 #include "poEnums.h"
-#include "Point.h"
+#include "poPoint.h"
 #include "poDictionary.h"
 #include "poEasingFunctions.h"
 
@@ -82,7 +82,7 @@ namespace po {
         //		calling 'stop'
         // notifications only happen once
         // reregister in the notification callback if you want to get one for the next repeat
-        TweenBase&        setNotification(Object *obj, const std::string &msg="", const poDictionary &dict=poDictionary());
+        TweenBase&        setNotification(Object *obj, const std::string &msg="", const Dictionary &dict=Dictionary());
         TweenBase&        setTweenFunction(TweenFunction func);
         TweenBase&        setDuration(float duration);
         
@@ -157,15 +157,15 @@ namespace po {
     }
 
     static bool tweenUpdater(TweenBase::TweenFunction func, 
-                             poColor *value, poColor begin_value, poColor end_value,
+                             Color *value, Color begin_value, Color end_value,
                              float time, float begin, float end,
                              float duration, float e1, float e2) 
     {
-        poHSVColor hsv1, hsv2(begin_value), hsv3(end_value);
+        HSVColor hsv1, hsv2(begin_value), hsv3(end_value);
         bool d1 = func(&hsv1.H, hsv2.H, hsv3.H, time, begin, end, duration, e1, e2);
         bool d2 = func(&hsv1.S, hsv2.S, hsv3.S, time, begin, end, duration, e1, e2);
         bool d3 = func(&hsv1.V, hsv2.V, hsv3.V, time, begin, end, duration, e1, e2);
-        *value = poColor(hsv1);
+        *value = Color(hsv1);
         return d1 && d2 && d3;
     }
 

@@ -43,52 +43,52 @@
 namespace po {
     
 	// Draw a line
-	void drawLine(poPoint a, poPoint b);
+	void drawLine(Point a, Point b);
 	
 	// Draw a string
-	void drawString(const std::string &str, poFont *font, poPoint position, int ptSize=0, float tracking=1.f);
+	void drawString(const std::string &str, Font *font, Point position, int ptSize=0, float tracking=1.f);
     
 	// Draw a stroked rectangle
 	void drawStrokedRect(float x, float y, float w, float h);
-	void drawStrokedRect(poRect rect);
+	void drawStrokedRect(Rect rect);
 	
 	// Draw a filled rectangle
 	void drawFilledRect(float x, float y, float w, float h);
-	void drawFilledRect(poRect rect);
+	void drawFilledRect(Rect rect);
 	
 	void drawFilledCircle(float x, float y, float rad);
 	
 	// Draw a rectangle with a texture placed on it
 	// By default, the texture will be placed within the rectangle at actual size. This means that
     // the texture image may extend beyond the bounds of the shape or may not be large enough
-    // to fill the shape. Use poTextureFitOption and poAlignment to determine how a texture is placed
+    // to fill the shape. Use TextureFitOption and Alignment to determine how a texture is placed
     // into the shape. These options are listed in poEnums.h.
-	void drawTexturedRect(poTexture *tex);
-	void drawTexturedRect(poTexture *tex, float x, float y, float w, float h);
-	void drawTexturedRect(poTexture *tex, poRect rect);
-	void drawTexturedRect(poTexture *tex, poRect rect, poRect coords);
-	void drawTexturedRect(poTexture *tex, poRect rect, poTextureFitOption fit, poAlignment align);
+	void drawTexturedRect(Texture *tex);
+	void drawTexturedRect(Texture *tex, float x, float y, float w, float h);
+	void drawTexturedRect(Texture *tex, Rect rect);
+	void drawTexturedRect(Texture *tex, Rect rect, Rect coords);
+	void drawTexturedRect(Texture *tex, Rect rect, TextureFitOption fit, Alignment align);
 	
 	// Draw a stroked polygon
-	void drawStrokedPolygon(const std::vector<poPoint> &points);
-	void drawStrokedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
+	void drawStrokedPolygon(const std::vector<Point> &points);
+	void drawStrokedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices);
 	
 	// Draw a filled polygon
-	void drawFilledPolygon(const std::vector<poPoint> &points);
-	void drawFilledPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices);
+	void drawFilledPolygon(const std::vector<Point> &points);
+	void drawFilledPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices);
 	
 	// Draw a polygon with a texture placed on it
 	// Using this method gives you the option of specifying texture indeces and coordinates
 	// so you have more control over how the texture is placed into the shape
-	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, poTextureFitOption fit, poAlignment align);
-	void drawTexturedPolygon(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords);
-	void drawTexturedPolygon(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords);
+	void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, TextureFitOption fit, Alignment align);
+	void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords);
+	void drawTexturedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords);
 	
 	// drawPoints allows you to draw a shape and specify the GLenum type
-	void drawPoints(const std::vector<poPoint> &points, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
-	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(const std::vector<Point> &points, GLenum type);
+	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, GLenum type);
+	void drawPoints(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
+	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
 	
 	// The "generateStroke" method creates a very high quality stroke.
     // This stroke is actually drawn as a very thin filled shape. 
@@ -96,20 +96,20 @@ namespace po {
 	// the method returns another list of points that can be used to draw the
 	// stroke as a thin shape around the original shape.
 	// For example you can draw a triangle as follows:
-	//		std::vector<poPoint> shapePoints;
-	//		shapePoints.push_back(poPoint(100,100));
-	//		shapePoints.push_back(poPoint(300,100));
-	//		shapePoints.push_back(poPoint(300,300));
+	//		std::vector<Point> shapePoints;
+	//		shapePoints.push_back(Point(100,100));
+	//		shapePoints.push_back(Point(300,100));
+	//		shapePoints.push_back(Point(300,300));
 	//		
-	//		std::vector<poPoint> strokePoints = po::generateStroke(shapePoints, 10, true);
+	//		std::vector<Point> strokePoints = po::generateStroke(shapePoints, 10, true);
 	//		po::drawPoints(strokePoints, GL_TRIANGLE_STRIP);
 	
-	std::vector<poPoint> generateStroke(std::vector<poPoint> &points, 
+	std::vector<Point> generateStroke(std::vector<Point> &points, 
 										int strokeWidth, 
 										bool close = false,
-										poStrokePlacementProperty place = PO_STROKE_PLACE_CENTER, 
-										poStrokeJoinProperty join = PO_STROKE_JOIN_MITRE, 
-										poStrokeCapProperty cap = PO_STROKE_CAP_BUTT);
+										StrokePlacementProperty place = PO_STROKE_PLACE_CENTER, 
+										StrokeJoinProperty join = PO_STROKE_JOIN_MITRE, 
+										StrokeCapProperty cap = PO_STROKE_CAP_BUTT);
 	
 	// The "generateOval" method returns a list of points that can be used
 	// to draw a 2D oval shape, given an horizontal and vertical radius.
@@ -117,15 +117,15 @@ namespace po {
 	// For a smooth oval or circle, this should generally be about 1/3 the width or height of the shape.
 	// For example, a 100x100 circle, should use approximately 33 points.
 	// An oval can be drawn as follows:
-	//		std::vector<poPoint> ovalPoints = po::generateOval(100, 100);
+	//		std::vector<Point> ovalPoints = po::generateOval(100, 100);
 	//		po::drawPoints(ovalPoints, GL_TRIANGLE_FAN);
 	
-	std::vector<poPoint> generateOval(float xRad, float yRad, uint resolution=50);
+	std::vector<Point> generateOval(float xRad, float yRad, uint resolution=50);
     
     
     //Rounded Rect returns 
-    std::vector<poPoint> roundedRect(float w, float h, float r);
-    std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution);
-    std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution);
-    float curveLength(const std::vector<poPoint> &curve);
+    std::vector<Point> roundedRect(float w, float h, float r);
+    std::vector<Point> quadTo(Point p1, Point p2, Point control, int resolution);
+    std::vector<Point> cubeTo(Point p1, Point p2, Point c1, Point c2, int resolution);
+    float curveLength(const std::vector<Point> &curve);
 } /*End po Namespace*/

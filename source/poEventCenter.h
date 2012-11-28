@@ -74,9 +74,9 @@ namespace po {
         
         // EVENT REGISTRATION
         // get window events to your event handler
-        void     addEvent(int eventType, Object *source, std::string message, const poDictionary& dict=poDictionary());
+        void     addEvent(int eventType, Object *source, std::string message, const Dictionary& dict=Dictionary());
         // get window events for an object delivered to another object
-        void     addEvent(int eventType, Object *source, Object *sink, std::string message, const poDictionary& dict=poDictionary());
+        void     addEvent(int eventType, Object *source, Object *sink, std::string message, const Dictionary& dict=Dictionary());
         // get rid of everything that this obj is associated with
         void    removeAllEvents(Object* obj);
         // will remove everything, either bouncing or generating

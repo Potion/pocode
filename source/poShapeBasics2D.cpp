@@ -18,7 +18,7 @@
  */
 
 //
-//  poShapeBasics2D.cpp
+//  ShapeBasics2D.cpp
 //  pocode
 //
 //  Created by Jared Schiffman on 5/19/11.
@@ -43,20 +43,20 @@ namespace po {
         construct(width,height,rad);
     }
 
-    RectShape::RectShape(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+    RectShape::RectShape(Texture *tex, TextureFitOption fit, Alignment align) {
         construct(tex->getWidth(), tex->getHeight(), 0);
         placeTexture(tex, fit, align);
     }
 
-    RectShape::RectShape(const poFilePath &filePath, poTextureFitOption fit, poAlignment align) {
-        poTexture *tex = poGetTexture(filePath);
+    RectShape::RectShape(const FilePath &filePath, TextureFitOption fit, Alignment align) {
+        Texture *tex = GetTexture(filePath);
         if(tex && tex->isValid()) {
             construct(tex->getWidth(), tex->getHeight(), 0);
             placeTexture(tex, fit, align);
         }
     }
 
-    RectShape::RectShape(float width, float height, poTexture *tex, poTextureFitOption fit, poAlignment align) {
+    RectShape::RectShape(float width, float height, Texture *tex, TextureFitOption fit, Alignment align) {
         construct(width, height, 0);
         placeTexture(tex, fit, align);
     }
@@ -73,7 +73,7 @@ namespace po {
     //------------------------------------------------------------------------
     void RectShape::clone(RectShape *shp) {
         shp->radius = radius;
-        poShape2D::clone(shp);
+        Shape2D::clone(shp);
     }
     
     
@@ -89,7 +89,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void RectShape::reshape( poRect r, float rad ) {
+    void RectShape::reshape( Rect r, float rad ) {
         reshape(r.width, r.height, rad);
     }
     
@@ -115,10 +115,10 @@ namespace po {
             addPoints(po::roundedRect(w,h,rad));
         }
         else {
-            addPoint( poPoint(0,0) );
-            addPoint( poPoint(w,0) );
-            addPoint( poPoint(w,h) );
-            addPoint( poPoint(0,h) );
+            addPoint( Point(0,0) );
+            addPoint( Point(w,0) );
+            addPoint( Point(w,h) );
+            addPoint( Point(0,h) );
         }
     }
 
@@ -152,7 +152,7 @@ namespace po {
             
             float dA = M_2PI / (float) nPoints;
             for( int i=0; i<nPoints; i++ )
-                setPoint( i, poPoint(_width/2.0*cos(dA*i), _height/2.0*sin(dA*i), 0) );
+                setPoint( i, Point(_width/2.0*cos(dA*i), _height/2.0*sin(dA*i), 0) );
             
             setAlignment( getAlignment() );
         }
@@ -191,7 +191,7 @@ namespace po {
     void OvalShape::clone(OvalShape *shp) {
         shp->width = width;
         shp->height = height;
-        poShape2D::clone(shp);
+        Shape2D::clone(shp);
     }
     
     
@@ -202,23 +202,23 @@ namespace po {
     #pragma mark - LineShape -
     
     LineShape::LineShape() {
-        construct( poPoint(0,0,0), poPoint(0,100,0) );
+        construct( Point(0,0,0), Point(0,100,0) );
     }
 
-    LineShape::LineShape( poPoint A, poPoint B ) {
+    LineShape::LineShape( Point A, Point B ) {
         construct( A,B );
     }
     
     
     //------------------------------------------------------------------------
-    void    LineShape::reshape( poPoint A, poPoint B ) {
+    void    LineShape::reshape( Point A, Point B ) {
         setPoint( 0, A );
         setPoint( 1, B );
     }
     
     
     //------------------------------------------------------------------------
-    void    LineShape::construct( poPoint A, poPoint B ) {
+    void    LineShape::construct( Point A, Point B ) {
         addPoint( A );
         addPoint( B );
         
@@ -262,7 +262,7 @@ namespace po {
         shp->depth = depth;
         shp->outerRadius = outerRadius;
         shp->innerRadius = innerRadius;
-        poShape2D::clone(shp);
+        Shape2D::clone(shp);
     }
     
     
@@ -315,11 +315,11 @@ namespace po {
             float origin = M_2PI * 3/4;
             for( int i=0; i<2*nPoints; i++ ) {
                 if( i%2 == 0 )
-                    setPoint( i+1, poPoint(outerRadius*cos(dA*i + origin), outerRadius*sin(dA*i + origin), 0) );
+                    setPoint( i+1, Point(outerRadius*cos(dA*i + origin), outerRadius*sin(dA*i + origin), 0) );
                 else
-                    setPoint( i+1, poPoint(innerRadius*cos(dA*i + origin), innerRadius*sin(dA*i + origin), 0) );
+                    setPoint( i+1, Point(innerRadius*cos(dA*i + origin), innerRadius*sin(dA*i + origin), 0) );
             }
-            setPoint( 2*nPoints+1, poPoint( 0.f, -outerRadius, 0) );
+            setPoint( 2*nPoints+1, Point( 0.f, -outerRadius, 0) );
             setAlignment( getAlignment() );
         }
         // if not, clear the list and make new points
@@ -344,11 +344,11 @@ namespace po {
             float origin = M_2PI * 3/4;
             for( int i=0; i<2*nPoints; i++ ) {
                 if( i%2 == 0 )
-                    setPoint( i+1, poPoint( width/2.0*cos(dA*i + origin), height/2.0*sin(dA*i + origin), 0) );
+                    setPoint( i+1, Point( width/2.0*cos(dA*i + origin), height/2.0*sin(dA*i + origin), 0) );
                 else
-                    setPoint( i+1, poPoint((width/2.0 - depth)*cos(dA*i + origin), (height/2.0 - depth)*sin(dA*i + origin), 0) );
+                    setPoint( i+1, Point((width/2.0 - depth)*cos(dA*i + origin), (height/2.0 - depth)*sin(dA*i + origin), 0) );
             }
-            setPoint( 2*nPoints+1, poPoint( 0.f, -height/2.0, 0) );
+            setPoint( 2*nPoints+1, Point( 0.f, -height/2.0, 0) );
         }
         // if not, clear the list and make new points
         else {

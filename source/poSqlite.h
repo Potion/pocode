@@ -55,9 +55,9 @@ namespace po {
             std::string getColumnNames();
             
             int getNumRows();
-            poDictionary getRow(int rowNum);
+            Dictionary getRow(int rowNum);
             
-            std::vector <poDictionary> rows;
+            std::vector <Dictionary> rows;
 
             std::string errorMessage;
         private:

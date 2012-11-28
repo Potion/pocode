@@ -37,7 +37,7 @@ namespace po {
     // This class implements a platform-independent window. The Window holds the root Object
     // of the scene graph, and is responsible for the continuous draw/update loop. It also
     // receives events (mouse, keyboard, touch, etc) from the operating system and turns them into
-    // poEvents, which are processed and propagated to Objects that have registed for them.
+    // Events, which are processed and propagated to Objects that have registed for them.
     // pocode can support multiple windows. Each window may contains its own scene graph,
     // or may share a common scene graph.
 
@@ -132,7 +132,7 @@ namespace po {
         // once per frame by the processEvents method. Queuing the events allows for thread-safe operation.
         void                    processEvents();
         
-        std::deque<poEvent>     received;
+        std::deque<Event>     received;
         
         // WINDOW PROPERTIES (PRIVATE)
         bool            closed;

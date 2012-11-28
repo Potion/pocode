@@ -83,7 +83,7 @@ namespace po {
 
 
     //------------------------------------------------------------------------
-    void Mesh3D::placeTexture( poTexture* tex) {
+    void Mesh3D::placeTexture( Texture* tex) {
         texture = tex;
         
         for(int i=0; i<numRows; i++) {

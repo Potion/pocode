@@ -29,7 +29,7 @@
 // this is really a texture atlas with a different name
 //
 // to draw a character:
-//		bitmapFont->drawUID('a', poPoint(0,0));
+//		bitmapFont->drawUID('a', Point(0,0));
 //
 // to see if a character is cached already:
 //		bitmapFont->hasUID('a');
@@ -42,22 +42,22 @@ namespace po {
     class BitmapFont : public Resource {
     public:
         BitmapFont();
-        BitmapFont(poFont* font, int pointSize);
-        BitmapFont(const poFilePath &filePath, int pointSize);
+        BitmapFont(Font* font, int pointSize);
+        BitmapFont(const FilePath &filePath, int pointSize);
         BitmapFont(const std::string &fam, const std::string &style, int pointSize);
         virtual ~BitmapFont();
 
-        poFont*	getFont() const;
+        Font*	getFont() const;
         int		getPointSize() const;
 
-        void	drawGlyph(int glyph, const poPoint &at);
+        void	drawGlyph(int glyph, const Point &at);
         
     private:
         void	init();
         void	cacheGlyph(int glyph);
         
-        poFont *font;
-        poTextureAtlas *atlas;
+        Font *font;
+        TextureAtlas *atlas;
         int pointSize;
     };
 } /*End po namespace */

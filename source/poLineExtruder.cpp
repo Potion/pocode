@@ -29,10 +29,10 @@
 #include "poMath.h"
 
 namespace po {
-    poExtrudedLineSeg::poExtrudedLineSeg()
+    ExtrudedLineSeg::ExtrudedLineSeg()
     {}
 
-    poExtrudedLineSeg::poExtrudedLineSeg(Point a, Point b, float w, poStrokePlacementProperty place) {
+    ExtrudedLineSeg::ExtrudedLineSeg(Point a, Point b, float w, poStrokePlacementProperty place) {
         Point diff = b - a;
         float angle = atan2(diff.y, diff.x);
         
@@ -65,7 +65,7 @@ namespace po {
         p4 = b + Point(c2,s2);
     }
 
-    poExtrudedLineSeg::poExtrudedLineSeg(Point ul, Point ll, Point ur, Point lr)
+    ExtrudedLineSeg::ExtrudedLineSeg(Point ul, Point ll, Point ur, Point lr)
     :	p1(ul)
     ,	p2(ll)
     ,	p3(ur)
@@ -74,7 +74,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    float angleBetweenSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2) {
+    float angleBetweenSegments(ExtrudedLineSeg seg1, ExtrudedLineSeg seg2) {
         Point p1, p2, p3;
         
         switch(seg1.place) {
@@ -100,7 +100,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool combineExtrudedLineSegments(poExtrudedLineSeg seg1, poExtrudedLineSeg seg2, Point *top, Point *bottom) {
+    bool combineExtrudedLineSegments(ExtrudedLineSeg seg1, ExtrudedLineSeg seg2, Point *top, Point *bottom) {
         Point i1, i2, i3, i4;
         
         float angle = angleBetweenSegments(seg1, seg2);
@@ -127,7 +127,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void makeStrokeForJoint(std::vector<Point> &stroke, poExtrudedLineSeg &seg1, poExtrudedLineSeg &seg2, poStrokeJoinProperty join, float stroke_width) {
+    void makeStrokeForJoint(std::vector<Point> &stroke, ExtrudedLineSeg &seg1, ExtrudedLineSeg &seg2, poStrokeJoinProperty join, float stroke_width) {
         Point top, bottom;
         Point p1, p2, p3, p4, tmp;
         

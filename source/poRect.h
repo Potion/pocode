@@ -38,7 +38,7 @@
 namespace po {
     class Rect;
     
-    poPoint alignInRect(poPoint max, Rect rect, poAlignment align);
+    Point alignInRect(Point max, Rect rect, Alignment align);
 
     class Rect {
     public:
@@ -46,48 +46,48 @@ namespace po {
         // CONSTRUCTORS
         Rect();
         Rect(float x, float y, float w, float h);
-        Rect(const poPoint &origin, const poPoint &size);
+        Rect(const Point &origin, const Point &size);
 
         // RECT SET METHODS
         Rect&         set(float x, float y, float w, float h);
-        Rect&         set(poPoint pos, poPoint size);
+        Rect&         set(Point pos, Point size);
         
         Rect&         setPosition(float x, float y);
-        Rect&         setPosition(poPoint pos);
+        Rect&         setPosition(Point pos);
         Rect&         setSize(float w, float h);
-        Rect&         setSize(poPoint size);
+        Rect&         setSize(Point size);
         
         // RECT PROPERTIES
-        poPoint         getPosition() const;
-        poPoint         getSize() const;
+        Point         getPosition() const;
+        Point         getSize() const;
         float           getArea() const;
-        poPoint         getCenter() const;
+        Point         getCenter() const;
         float           getAspect() const;
         
         // RECT CORNERS
-        poPoint         getTopLeft() const;
-        poPoint         getBottomLeft() const;
-        poPoint         getTopRight() const;
-        poPoint         getBottomRight() const;
-        std::vector<poPoint> getCorners() const;
+        Point         getTopLeft() const;
+        Point         getBottomLeft() const;
+        Point         getTopRight() const;
+        Point         getBottomRight() const;
+        std::vector<Point> getCorners() const;
 
         // RECT EXPANSION
         Rect&         include(float x, float y);
-        Rect&         include(const poPoint &pt);
+        Rect&         include(const Point &pt);
         Rect&         include(const Rect &rect);
         
         // RECT SCALING
         Rect&         scale(float scalar);
         // scale around a point
-        Rect&         scale(float scalar, const poPoint &pt);
-        Rect&         inset(poPoint p);
-        Rect&			expand(poPoint p);
+        Rect&         scale(float scalar, const Point &pt);
+        Rect&         inset(Point p);
+        Rect&			expand(Point p);
         
         // RECT QUERYING
         bool            contains(float x, float y) const;
-        bool            contains(const poPoint &pt) const;
+        bool            contains(const Point &pt) const;
 
-        poPoint         remap(Rect from, poPoint p);
+        Point         remap(Rect from, Point p);
         
         // RECT TO STRING
         std::string     toString() const;

@@ -25,7 +25,6 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
-#include "poTextLayout.h"
 
 #include <pugixml.hpp>
 
@@ -65,7 +64,7 @@ namespace po {
             return;
         
         int start;
-        poDictionary dict;
+        Dictionary dict;
         
         if(node.type() == node_element) {
             start = po::utf8strlen(data->string.str());
@@ -91,7 +90,7 @@ namespace po {
                     dict.set("leading", attrib.as_float());
                 else 
                 if(!strcmp(attrib.name(),"color")) {
-                    poColor c;
+                    Color c;
                     if(c.set(attrib.value())) {
                         dict.set("color", c);
                     }
@@ -145,7 +144,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poDictionary TextLayout::getTextPropsAtIndex(int idx) {
+    Dictionary TextLayout::getTextPropsAtIndex(int idx) {
         return parsedText.attributes(idx);
     }
     

@@ -37,7 +37,7 @@
 //
 
 namespace po {
-    class ImageShape : public poObject {
+    class ImageShape : public Object {
     public:
         ImageShape();
         ImageShape(std::string url, bool loadAsync = false);
@@ -56,7 +56,7 @@ namespace po {
         
     private:
         bool shouldKeepImage;
-        poTexture *tex;
+        Texture *tex;
         
     //	ImageShape();
     //	ImageShape(poImage *img, bool keepImage=false);
@@ -74,7 +74,7 @@ namespace po {
     //	bool                    pointInside(poPoint p, bool localize=false);
     //	virtual poRect          getBounds();
     //private:
-    //	poTexture*  tex;
+    //	Texture*  tex;
     //	bool        alphaTest;
     };
 }

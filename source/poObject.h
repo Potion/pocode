@@ -32,7 +32,7 @@
 
 namespace po {
     class Object;
-    typedef std::vector<poObject*> ObjectVec;
+    typedef std::vector<Object*> ObjectVec;
 
     class ObjectModifier;
     typedef std::vector<ObjectModifier*> ObjectModifierVec;
@@ -40,12 +40,12 @@ namespace po {
     class poWindow;
 
     // po::Object is the central object in the pocode library. All pocode graphic objects
-    // (including Shape2D, RectShape and TextBox) are subclasses poObject.
+    // (including Shape2D, RectShape and TextBox) are subclasses Object.
     // 
     // All Objects and Object subclasses:
     //
     // + Have position, scale, rotation, offset and tranparency (alpha) properties.
-    // + Have a list of children that are also poObjects (this forms the scene graph).
+    // + Have a list of children that are also Objects (this forms the scene graph).
     // + Can register for and receive events, including mouse, keyboard and touch events.
     // + Have a set of tweens for basic animation (animation may also be done in the "update" method).
     // + Have a list of ObjectModifiers that can modify the object and/or OpenGl state.
@@ -63,7 +63,7 @@ namespace po {
         
         virtual Object*	copy();
         
-        // Most poObject subclasses should implement all four of these methods.
+        // Most Object subclasses should implement all four of these methods.
         // The only method you should call explictly is messageHandler. 
         // The other three are called automatically if the object is added to the scene graph. 
          
@@ -78,15 +78,15 @@ namespace po {
         virtual void        update();
         
         // "eventHandler" is called when the object receives an event. Events are registered using "addEvent".
-        virtual void        eventHandler(poEvent *event);
+        virtual void        eventHandler(Event *event);
         
-        // "messageHander" is a general utility method used for passing messages between any two poObjects.
-        virtual void        messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+        // "messageHander" is a general utility method used for passing messages between any two Objects.
+        virtual void        messageHandler(const std::string &msg, const Dictionary& dict=Dictionary());
 
         //  All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.
         // EVENTS
         
-        void				addEvent(int eventType, poObject *sink, std::string message="", const poDictionary& dict=poDictionary());
+        void				addEvent(int eventType, Object *sink, std::string message="", const Dictionary& dict=Dictionary());
         void				removeAllEvents();
         void				removeAllEventsOfType(int eventType);
 
@@ -98,27 +98,27 @@ namespace po {
         float               getScaledWidth();
         float				getHeight();
         float               getScaledHeight();
-        virtual poRect      getBounds();
-        poRect				getFrame();
-        poPoint             getTransformedPoint( poPoint P );
+        virtual Rect      getBounds();
+        Rect				getFrame();
+        Point             getTransformedPoint( Point P );
 
-        // The scene graph is a tree structure composed of poObjects and subclasses of poObject.
-        // A pocode app is itself a poObject and is also the root of the tree.
+        // The scene graph is a tree structure composed of Objects and subclasses of Object.
+        // A pocode app is itself a Object and is also the root of the tree.
         // The most recently added objects appear on top of previously added objects.
         
         // SCENE GRAPH COMPOSITION
         int                 getNumChildren() const;
-        po::Object*			addChild(poObject* obj);
-        po::Object*			addChild(poObject* obj, int idx); 
-        po::Object*			addChildBefore(poObject* obj, poObject* before);
-        po::Object*			addChildAfter(poObject* obj, poObject* after);
-        int                 getChildIndex(poObject* child);
+        po::Object*			addChild(Object* obj);
+        po::Object*			addChild(Object* obj, int idx); 
+        po::Object*			addChildBefore(Object* obj, Object* before);
+        po::Object*			addChildAfter(Object* obj, Object* after);
+        int                 getChildIndex(Object* child);
         po::Object*           getChild(int at_idx);
         po::Object*           getChildWithUID(uint uid);
         po::Object*           getChild(const std::string &with_name);
         po::Object*           getLastChild();
-        std::vector<poObject*> getChildren(const std::string &with_name);
-        bool                removeChild(poObject* obj);
+        std::vector<Object*> getChildren(const std::string &with_name);
+        bool                removeChild(Object* obj);
         bool                removeChild(int at_idx, bool and_delete=true);
         void                removeAllChildren(bool and_delete=true);
         
@@ -129,9 +129,9 @@ namespace po {
         void                moveChildBackward(po::Object* child);
         
         
-        // poObject modifiers attach to a poObject and may modify it's properties.
+        // Object modifiers attach to a Object and may modify it's properties.
         // ObjectModifiers have two virtual methods, doSetUp and doSetDown
-        // that are called, respectively, before and afer a poObject is drawn.
+        // that are called, respectively, before and afer a Object is drawn.
 
         // OBJECT MODIFIER OPERATIONS
         po::ObjectModifier*	addModifier(po::ObjectModifier* mod);
@@ -147,23 +147,23 @@ namespace po {
         
         // HIT TESTING & COORDINATE TRANSFORMATIONS
         void				applyTransformation();
-        virtual bool        pointInside(poPoint point, bool localize=false);
+        virtual bool        pointInside(Point point, bool localize=false);
         bool                pointInside(float x, float y, float z=0.f, bool localize=false);
-        poPoint             objectToLocal(poObject* obj, poPoint point) const;
-        poPoint             globalToLocal(poPoint point) const;
-        poPoint             localToGlobal(poPoint point) const;
+        Point             objectToLocal(Object* obj, Point point) const;
+        Point             globalToLocal(Point point) const;
+        Point             localToGlobal(Point point) const;
         
         // OBJECT ALIGNMENT & BOUNDS CALCULATION
-        poAlignment         getAlignment() const;
-        virtual poObject&   setAlignment(poAlignment align);
+        Alignment         getAlignment() const;
+        virtual Object&   setAlignment(Alignment align);
         
         // TWEEN MANAGEMENT
         virtual void        stopAllTweens(bool recurse=false);
         
-        //  Parent object should pass the child's poXMLNode node into the child.
+        //  Parent object should pass the child's XMLNode node into the child.
         // OBJECT SERIALIZATION
-        virtual void        read(poXMLNode node);
-        virtual void        write(poXMLNode &node);
+        virtual void        read(XMLNode node);
+        virtual void        write(XMLNode &node);
         
         
         // SCENE GRAPH TRAVERSAL (DO NOT CALL)
@@ -176,32 +176,32 @@ namespace po {
         // OBJECT PROPERTIES (DIRECTLY ACCESSIBLE)
         std::string         name;
         float               alpha;
-        poPoint             scale;
-        poPoint             position;
+        Point             scale;
+        Point             position;
         float               rotation;
-        poPoint             rotationAxis;
-        poPoint             offset;
+        Point             rotationAxis;
+        Point             offset;
         bool                visible;
         int                 drawBounds;
-        poMatrixOrder       matrixOrder;
+        MatrixOrder       matrixOrder;
         
         
-        // All poObjects have tween operators that may be enabled and disabled independently.
-        // By default, all tweens are disabled. See poTween.h for more about tweens.
+        // All Objects have tween operators that may be enabled and disabled independently.
+        // By default, all tweens are disabled. See Tween.h for more about tweens.
         
         // OBJECT TWEENS (DIRECTLY ACCESSIBLE)
-        poTween<poPoint>	positionTween;
-        poTween<poPoint>	scaleTween;
-        poTween<poPoint>	offsetTween;
-        poTween<float>		alphaTween;
-        poTween<float>		rotationTween;
+        Tween<Point>	positionTween;
+        Tween<Point>	scaleTween;
+        Tween<Point>	offsetTween;
+        Tween<float>		alphaTween;
+        Tween<float>		rotationTween;
 
         
         po::Object*         getParent() const;
         uint                getUID() const;
         //!alpha with parent alpha pre-multiplied
         float               getAppliedAlpha() const;
-        poMatrixSet&        getMatrixSet();
+        MatrixSet&        getMatrixSet();
         int                 getDrawOrder() const;
         
         //Recursively check parents for definitive visibility
@@ -212,7 +212,7 @@ namespace po {
         virtual int         getSizeInMemory();
         static const int    INVALID_INDEX = -1;
         
-        poEventMemory       *eventMemory;
+        EventMemory       *eventMemory;
         int                 drawOrder;
         
     protected:
@@ -223,15 +223,15 @@ namespace po {
         void				clone(po::Object* obj);
         
         
-        poMatrixSet         matrices;
+        MatrixSet         matrices;
         
     private:
         
         // PRIVATE PROPERTIES
         
-        // "children" is a vector of poObjects. It is the basis for the poObject scene graph/tree structure.
-        // Every poObject that has been added as child has a parent. Be careful not to access the parent
-        // in a poObject constructor, since it will not have one yet.
+        // "children" is a vector of Objects. It is the basis for the Object scene graph/tree structure.
+        // Every Object that has been added as child has a parent. Be careful not to access the parent
+        // in a Object constructor, since it will not have one yet.
         // CHILDREN, PARENT AND MODIFIERS
         
         po::ObjectVec         children;
@@ -239,6 +239,6 @@ namespace po {
         po::ObjectModifierVec modifiers;
         
         uint                uid;
-        poAlignment         alignment;
+        Alignment         alignment;
     };
 } /* End po namespace */

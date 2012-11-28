@@ -26,7 +26,7 @@ using namespace std;
 
 //General functions
 namespace po {
-    Point alignInRect(Point max, Rect rect, poAlignment align) {
+    Point alignInRect(Point max, Rect rect, Alignment align) {
         Point offset;
         switch(align) {
             case PO_ALIGN_TOP_LEFT:
@@ -259,8 +259,8 @@ namespace po {
         Point to_ur = getBottomRight();
         
         Point pt;
-        pt.x = poMapf(from_ll.x, from_ur.x, p.x, to_ll.x, to_ur.x);
-        pt.y = poMapf(from_ll.y, from_ur.y, p.y, to_ll.y, to_ur.y);
+        pt.x = Mapf(from_ll.x, from_ur.x, p.x, to_ll.x, to_ur.x);
+        pt.y = Mapf(from_ll.y, from_ur.y, p.y, to_ll.y, to_ur.y);
         return pt;
     }
     

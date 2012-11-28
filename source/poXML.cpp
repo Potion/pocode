@@ -55,7 +55,8 @@ namespace po {
     }
     
     
-    //------------------------------------------------------------------    std::string XpathResult::getString(uint idx) {
+    //------------------------------------------------------------------
+    std::string XpathResult::getString(uint idx) {
         return nodes[idx].attribute().value();
     }
     

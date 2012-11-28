@@ -275,9 +275,9 @@ namespace po {
         }
         else {
             if(r->handle != 0)
-                po::setColor(poColor(1,.5,.5,1));
+                po::setColor(Color(1,.5,.5,1));
             else
-                po::setColor(poColor(.5,.5,.5,1));
+                po::setColor(Color(.5,.5,.5,1));
 
             po::drawFilledRect(r->x+1, r->y+1, (int)r->width-2, (int)r->height-2);
         }
@@ -289,7 +289,7 @@ namespace po {
         po::saveModelviewThenIdentity();
         
         BOOST_FOREACH(pack_page *page, pages) {
-            po::setColor(poColor::white);
+            po::setColor(Color::white);
             po::drawFilledRect(0,0,width,height);
 
             BOOST_FOREACH(packRect *rect, page->rows) {

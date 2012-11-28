@@ -28,8 +28,8 @@
 #pragma once
 
 
-#include "Rect.h"
-#include "Font.h"
+#include "poRect.h"
+#include "poFont.h"
 #include "poAttributedString.h"
 
 

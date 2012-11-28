@@ -28,7 +28,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "poObject.h"
 #include "TextBoxLayout.h"
 
 #include "poFont.h"
@@ -149,25 +149,25 @@ namespace po {
         // The "textBounds" methods returns the actual bounds of the text after is has been layed out.
         // So, if the text does not fill the whole textbox, the bounds will differ.
         void                reshape(int w, int h);
-        void                reshape(poPoint p);
-        void				reshape(poRect r);
+        void                reshape(Point p);
+        void				reshape(Rect r);
         void                useTextBoundsAsBounds( bool B );
         void                useAutoAdjustHeight( bool B );
-        poRect              getTextBounds() const;
-        virtual poRect      getBounds();
+        Rect                getTextBounds() const;
+        virtual Rect        getBounds();
         
-        virtual bool        pointInside(poPoint p, bool localize);
+        virtual bool        pointInside(Point p, bool localize);
         
         // LINES OF TEXT
         uint                getNumLines() const;
         uint                getNumWordsForLine(uint lineNum);
-        poRect              boundsForLine(uint num) const;
+        Rect                boundsForLine(uint num) const;
         int                 numLettersForLine( int lineIndex );
-        poRect              getBoundsForLetterOnLine( int letterIndex, int lineIndex );
-        void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, poRect newBounds );
+        Rect                getBoundsForLetterOnLine( int letterIndex, int lineIndex );
+        void                setBoundsForLetterOnLine( int letterIndex, int lineIndex, Rect newBounds );
         
         // MOVE LINES OF TEXT
-        void				setLineOffset(uint lineNum, poPoint offset);
+        void				setLineOffset(uint lineNum, Point offset);
         
         // CACHE TEXT
         bool				getCacheToTexture() const;
@@ -202,9 +202,9 @@ namespace po {
         bool                autoAdjustHeight;
         bool				cacheToTexture;
         bool                layoutDone;
-        poAlignment         textAlignment;
-        po::TextBoxLayout   layout;
-        poTexture*			cached;
+        Alignment         textAlignment;
+        TextBoxLayout   layout;
+        Texture*			cached;
         
 
     };

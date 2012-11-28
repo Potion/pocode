@@ -44,8 +44,8 @@ namespace po {
 
 
     //------------------------------------------------------------------
-    //Get a poDictionary for a row
-    poDictionary SqliteResult::getRow(int rowNum) {
+    //Get a Dictionary for a row
+    Dictionary SqliteResult::getRow(int rowNum) {
         if((uint)rowNum < rows.size()) {
             return rows[rowNum];
         }
@@ -185,7 +185,7 @@ namespace po {
                 
                 //If a Row is returned, add to dict
                 if(result == SQLITE_ROW) {
-                    poDictionary dict;
+                    Dictionary dict;
                     
                     //Step through columns
                     for(int col = 0; col < nCols; col++) {

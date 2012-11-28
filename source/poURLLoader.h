@@ -26,6 +26,7 @@
 
 #include "poObject.h"
 #include "poFileLocation.h"
+#include "poThreadCenter.h"
 #include <string>
 
 namespace po {

@@ -6,7 +6,7 @@
 
 #include "poObject.h"
 
-class poWorker;
+class Worker;
 
 namespace po {
     //Thread Center
@@ -16,22 +16,22 @@ namespace po {
         
         void update();
         
-        void addItem(poWorker *worker, Object *notify, std::string message = "", const poDictionary &dict = poDictionary());
-        void workerDone(poWorker *threadedObject);
-    };
+        void addItem(Worker *worker, Object *notify, std::string message = "", const Dictionary &dict = Dictionary());
+        void workerDone(Worker *threadedObject);
+    } /* End ThreadCenter namespace */
 
 
 
 
     //------------------------------------------------------------------
     //Base Class for all workers
-    class poWorker : public Object {
+    class Worker : public Object {
     public:
-        poWorker();
-        virtual ~poWorker();
+        Worker();
+        virtual ~Worker();
         
         virtual void workerFunc();
-        virtual void setWorkerParams(Object *notify, std::string message, const poDictionary &dict);
+        virtual void setWorkerParams(Object *notify, std::string message, const Dictionary &dict);
         
         void run();
         
@@ -40,8 +40,8 @@ namespace po {
         
         bool workerShouldBeDeleted();
         
-        poDictionary dict;
-        float poWorkerStartTime;
+        Dictionary dict;
+        float WorkerStartTime;
         
         bool workerAutoDelete;
         std::string workerMessage;

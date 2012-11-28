@@ -26,7 +26,7 @@
 //
 
 #include "poHelpers.h"
-#include "Shader.h"
+#include "poShader.h"
 
 #include <fstream>
 #include <iostream>

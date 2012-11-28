@@ -29,7 +29,7 @@ namespace po {
 
     BitmapFont::BitmapFont(Font* font, int sz)
     :	font(font)
-    ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+    ,	atlas(new TextureAtlas(GL_ALPHA, 512, 512))
     ,	pointSize(sz)
     {
         init();
@@ -37,7 +37,7 @@ namespace po {
 
     BitmapFont::BitmapFont(const poFilePath &filePath, int sz)
     :	font(poGetFont(filePath))
-    ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+    ,	atlas(new TextureAtlas(GL_ALPHA, 512, 512))
     ,	pointSize(sz)
     {
         init();
@@ -45,7 +45,7 @@ namespace po {
 
     BitmapFont::BitmapFont(const std::string &family, const std::string &style, int sz)
     :	font(poGetFontByName(family,style))
-    ,	atlas(new poTextureAtlas(GL_ALPHA, 512, 512))
+    ,	atlas(new TextureAtlas(GL_ALPHA, 512, 512))
     ,	pointSize(sz)
     {
         init();
@@ -83,7 +83,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void BitmapFont::drawGlyph(int glyph, const poPoint &at) {
+    void BitmapFont::drawGlyph(int glyph, const Point &at) {
         
         if(!atlas->hasUID(glyph))
             cacheGlyph(glyph);

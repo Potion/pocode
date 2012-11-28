@@ -178,4 +178,4 @@ namespace po {
         XpathResult(pugi::xpath_node_set nodes);
         pugi::xpath_node_set nodes;
     };
-}
+} /* End po Namespace */

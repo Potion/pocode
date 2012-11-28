@@ -77,7 +77,7 @@ namespace po {
     ,	cam(new Camera2D())
     ,	multisampling(false)
     {
-        cam->setFixedSize(true, poPoint(w,h));
+        cam->setFixedSize(true, Point(w,h));
         setup();
     }
 
@@ -88,7 +88,7 @@ namespace po {
     ,	cam(new Camera2D())
     ,	multisampling(false)
     {
-        cam->setFixedSize(true, poPoint(w,h));
+        cam->setFixedSize(true, Point(w,h));
         setup();
     }
 

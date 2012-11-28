@@ -28,7 +28,7 @@
 #pragma once
 
 
-#include "Shape3D.h"
+#include "poShape3D.h"
 #include "poTexture.h"
 
 namespace po {
@@ -40,7 +40,7 @@ namespace po {
         poVertex3D&     getVertex(int row, int col);
         int             getVertexIndex(int row, int col);
 
-        void            placeTexture(poTexture* tex);
+        void            placeTexture(Texture* tex);
         
         int             numRows,
                         numColumns;

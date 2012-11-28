@@ -242,8 +242,8 @@ namespace po {
     //------------------------------------------------------------------
     void Font::setPointSize(int sz) {
         if(sz != size) {
-            size = sz;
-            poPoint rez = po::deviceResolution();
+            size = [sz;
+            Point rez = po::deviceResolution();
             FT_Set_Char_Size(face, (size*po::getScale())*64, 0, rez.x, 0);
         }
         
@@ -297,7 +297,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poRect Font::getGlyphBounds() {
+    Rect Font::getGlyphBounds() {
         if ( currentCache != NULL && glyph < 128 )
             return (*currentCache)[ glyph ].glyphBounds;
                                     
@@ -306,19 +306,19 @@ namespace po {
         float y = 0;
         float w = (face->glyph->metrics.width    >> 6)/po::getScale();
         float h = (face->glyph->metrics.height   >> 6)/po::getScale();
-        return poRect(x, y, w, h);
+        return Rect(x, y, w, h);
     }
     
     
     //------------------------------------------------------------------
     //Get Glyph Frame & Get Glyph Bounds do not get scaling applied because
     //they use functions that are already scaling
-    poRect Font::getGlyphFrame() {
+    Rect Font::getGlyphFrame() {
         if ( currentCache != NULL && glyph < 128 )
             return (*currentCache)[ glyph ].glyphFrame;
         
         loadGlyph( glyph );
-        return poRect(getGlyphBearing(), getGlyphBounds().getSize());
+        return Rect(getGlyphBearing(), getGlyphBounds().getSize());
     }
     
     
@@ -328,13 +328,13 @@ namespace po {
             return (*currentCache)[ glyph ].glyphDescender;
         
         loadGlyph( glyph );
-        poRect r = getGlyphFrame();
+        Rect r = getGlyphFrame();
         return (r.height + r.y);
     }
     
     
     //------------------------------------------------------------------
-    poPoint Font::getGlyphBearing() {
+    Point Font::getGlyphBearing() {
         if ( currentCache != NULL && glyph < 128 )
             return (*currentCache)[ glyph ].glyphBearing;
         
@@ -342,19 +342,19 @@ namespace po {
         float x = (face->glyph->metrics.horiBearingX >> 6)/po::getScale();
         float y = -((face->glyph->metrics.horiBearingY >> 6)/po::getScale());
 
-        return poPoint(x, y);
+        return Point(x, y);
     }
     
     
     //------------------------------------------------------------------
-    poPoint Font::getGlyphAdvance() {
+    Point Font::getGlyphAdvance() {
         if ( currentCache != NULL && glyph < 128 )
             return (*currentCache)[ glyph ].glyphAdvance;
         
         loadGlyph( glyph );
         float x = (face->glyph->metrics.horiAdvance >> 6)/po::getScale();
         float y = (face->glyph->metrics.vertAdvance >> 6)/po::getScale();
-        return poPoint(x, y);
+        return Point(x, y);
     }
     
     
@@ -386,16 +386,16 @@ namespace po {
     //------------------------------------------------------------------
     //poShape2D *Font::glyphOutline() const {}
 
-    poPoint Font::kernGlyphs(int glyph1, int glyph2) const {
+    Point Font::kernGlyphs(int glyph1, int glyph2) const {
         if(!hasKerning()) {
-            return poPoint(0,0);
+            return Point(0,0);
         }
         
         FT_Vector kern;
         FT_Get_Kerning(face, 
                        FT_Get_Char_Index(face, glyph1), FT_Get_Char_Index(face, glyph2),
                        0, &kern);
-        return poPoint(kern.x/po::getScale(), kern.y/po::getScale());
+        return Point(kern.x/po::getScale(), kern.y/po::getScale());
     }
     
     

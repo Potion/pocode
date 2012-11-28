@@ -34,10 +34,10 @@
 namespace po {
     struct ExtrudedLineSeg {
         Point p1, p2, p3, p4;
-        poStrokePlacementProperty place;
+        StrokePlacementProperty place;
         
         ExtrudedLineSeg();
-        ExtrudedLineSeg(Point a, Point b, float w, poStrokePlacementProperty place);
+        ExtrudedLineSeg(Point a, Point b, float w, StrokePlacementProperty place);
         ExtrudedLineSeg(Point ul, Point ll, Point ur, Point lr);
     };
 
@@ -46,5 +46,5 @@ namespace po {
     // returns true if top is on the outside
     bool combineExtrudedLineSegments(ExtrudedLineSeg seg1, ExtrudedLineSeg seg2, Point *top, Point *bottom);
     // layout the wide stroke for the joint
-    void makeStrokeForJoint(std::vector<Point> &stroke, ExtrudedLineSeg &seg1, ExtrudedLineSeg &seg2, poStrokeJoinProperty join, float stroke_width);
+    void makeStrokeForJoint(std::vector<Point> &stroke, ExtrudedLineSeg &seg1, ExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width);
 } /* End po Namespace */

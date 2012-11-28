@@ -17,11 +17,11 @@
  *
  */
 
-#include "Layout.h"
+#include "poLayout.h"
 
 namespace po {
 
-    Layout::Layout(poOrientation orientation) : 
+    Layout::Layout(Orientation orientation) :
     layoutOrientation(orientation),
     refreshEveryFrame(true),
     layoutDone(false)

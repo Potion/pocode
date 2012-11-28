@@ -101,7 +101,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Event::Event(int t, poObject* f, std::string m, const poDictionary& d)
+    Event::Event(int t, Object* f, std::string m, const Dictionary& d)
     :	type(t)
     ,	source(f)
     ,	keyCode(0)

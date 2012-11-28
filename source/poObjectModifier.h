@@ -32,7 +32,7 @@ namespace po {
 
     // CLASS NOTES
     //
-    // A poObjectModifer can be attached to a poObject and can change that poObject
+    // A ObjectModifer can be attached to a Object and can change that Object
     // on every frame. ObjectModifier, as a base class, does not change anything.
     //
     // A ObjectModifier has two virtual methods, doSetUp() and doSetDown(). These are
@@ -59,15 +59,15 @@ namespace po {
         void            setEnabled(bool b) {enabled = b;}
         
         // SETUP 
-        // This is called just BEFORE the draw() method of the poObject it is attached to.
-        void setUp( poObject* obj ) {
+        // This is called just BEFORE the draw() method of the Object it is attached to.
+        void setUp( Object* obj ) {
             if(isEnabled())
                 doSetUp(obj);
         }
         
         // SETDOWN
-        // This is called just AFTER the draw() method of the poObject it is attached to.
-        void setDown( poObject* obj ) { 
+        // This is called just AFTER the draw() method of the Object it is attached to.
+        void setDown( Object* obj ) { 
             if(isEnabled())
                 doSetDown(obj);
         }
@@ -75,8 +75,8 @@ namespace po {
     protected:
         // VIRTUAL METHODS
         // THESE METHODS ARE THE ONES THAT WILL GET CALLED SO SUBCLASS THEM
-        virtual void    doSetUp(poObject*) {}
-        virtual void    doSetDown(poObject*) {}
+        virtual void    doSetUp(Object*) {}
+        virtual void    doSetDown(Object*) {}
         
         void			clone(ObjectModifier *obj) {
             obj->enabled = enabled;

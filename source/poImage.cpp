@@ -82,13 +82,13 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::getImageAsync(FilePath filePath, poObject *notify) {
+    void Image::getImageAsync(FilePath filePath, Object *notify) {
         ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
     }
     
     
     //------------------------------------------------------------------
-    void Image::getImageAsync(poURL url, poObject *notify, const FilePath &savePath){
+    void Image::getImageAsync(URL url, Object *notify, const FilePath &savePath) {
         ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
     }
     
@@ -150,8 +150,8 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poPoint Image::getDimensions() const {
-        return poPoint(getWidth(), getHeight());
+    Point Image::getDimensions() const {
+        return Point(getWidth(), getHeight());
     }
     
     
@@ -174,7 +174,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    Color Image::getPixel(poPoint p) const {
+    Color Image::getPixel(Point p) const {
             
         if(!isValid() || p.x < 0 || p.y < 0 || p.x >= getWidth() || p.y >=getHeight())
             return Color();
@@ -207,7 +207,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::setPixel(poPoint p, Color c) {
+    void Image::setPixel(Point p, Color c) {
         if(p.x < 0 || p.y < 0 || p.x >= getWidth() || p.y >=getHeight())
             return;
         
@@ -239,10 +239,10 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::setPixel(poPoint p, Color c, int stamp_width) {
+    void Image::setPixel(Point p, Color c, int stamp_width) {
         for(int y=-stamp_width/2; y<stamp_width/2; y++) {
             for(int x=-stamp_width/2; x<stamp_width/2; x++) {
-                setPixel(p + poPoint(x,y), c);
+                setPixel(p + Point(x,y), c);
             }
         }
     }
@@ -273,7 +273,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::composite(Image *img, poPoint into, float blend) {
+    void Image::composite(Image *img, Point into, float blend) {
         FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, blend*256);
     }
     
@@ -339,12 +339,12 @@ namespace po {
                     float k = kernel[i+hk];
                     k_tot += k;
                     
-                    Color c = getPixel(poPoint(x+stp,y));
+                    Color c = getPixel(Point(x+stp,y));
                     
                     sum = sum + (c*k);
                 }
                 
-                tmp->setPixel(poPoint(x,y), sum/k_tot);
+                tmp->setPixel(Point(x,y), sum/k_tot);
             }
         }
         
@@ -361,12 +361,12 @@ namespace po {
                     float k = kernel[i+hk];
                     k_tot += k;
                     
-                    Color c = tmp->getPixel(poPoint(x,y+stp));
+                    Color c = tmp->getPixel(Point(x,y+stp));
                     
                     sum = sum + (c*k);
                 }
                 
-                setPixel(poPoint(x,y), sum/k_tot);
+                setPixel(Point(x,y), sum/k_tot);
             }
         }
         
@@ -585,7 +585,7 @@ namespace po {
     //	for(int h=0; h<img->height(); h++) {
     //		fprintf(f,"\t");
     //		for(int w=0; w<img->width(); w++) {
-    //			Color color = img->getPixel(poPoint(w,h));
+    //			Color color = img->getPixel(Point(w,h));
     //			fprintf(f,"0x%X,0x%X,0x%X,", uint(color.R*255), uint(color.G*255), uint(color.B*255));
     //		}
     //		if(h == img->height()-1)

@@ -51,7 +51,7 @@ namespace po {
             
             while (!completed.empty()) {
                 double elapsedTime = po::getElapsedTime() - completed.front()->WorkerStartTime;
-                completed.front()->getWorkerNotify()->messageHandler(completed.front()->workerMessage, poDictionary()
+                completed.front()->getWorkerNotify()->messageHandler(completed.front()->workerMessage, Dictionary()
                                                            .set("worker", completed.front())
                                                            .set("elapsed", (float)elapsedTime)
                                                            .append(completed.front()->dict));
@@ -73,7 +73,7 @@ namespace po {
         
         
         //------------------------------------------------------------------------
-        void ThreadCenter::addItem(Worker *worker, Object *notify, std::string message, const poDictionary &dict) {
+        void addItem(Worker *worker, Object *notify, std::string message, const Dictionary &dict) {
             if(!threads.size()) {
                 init();
             }
@@ -87,7 +87,7 @@ namespace po {
         
         
         //------------------------------------------------------------------------
-        void ThreadCenter::workerDone(Worker *worker) {
+        void workerDone(Worker *worker) {
             //Gotta lock b/c we're resizing the vector
             boost::lock_guard<boost::mutex> lock(mtx);
             
@@ -111,7 +111,7 @@ namespace po {
     }
 
     //------------------------------------------------------------------
-    void Worker::setWorkerParams(Object *notify, std::string message, const poDictionary &dict) {
+    void Worker::setWorkerParams(Object *notify, std::string message, const Dictionary &dict) {
         this->notify = notify;
         this->workerMessage = message;
         this->dict.append(dict);

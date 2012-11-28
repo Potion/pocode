@@ -95,9 +95,9 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    TweenBase& TweenBase::setNotification(Object *obj, const std::string &msg, const poDictionary &d) {
+    TweenBase& TweenBase::setNotification(Object *obj, const std::string &msg, const Dictionary &d) {
         if(obj) {
-            poDictionary dict = d;
+            Dictionary dict = d;
             dict.set("tween", this);
             callback = boost::bind(&Object::messageHandler, obj, msg, dict);
         }

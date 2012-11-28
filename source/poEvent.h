@@ -116,7 +116,7 @@ namespace po {
     {
     public:
         Event();
-        Event(int type, Object* from, std::string _message, const poDictionary& dict=poDictionary());
+        Event(int type, Object* from, std::string _message, const Dictionary& dict=Dictionary());
         
         // EVENT PROPERTIES
         // When you call addEvent(), the object that the event is added to is the source.
@@ -130,7 +130,7 @@ namespace po {
 
         // The event message and dictionary are set by the user per event, via the addEvent method.
         std::string     message;
-        poDictionary    dictionary;
+        Dictionary    dictionary;
         
         // Mouse or key modifiers.
         unsigned int    modifiers;

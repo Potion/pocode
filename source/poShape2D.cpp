@@ -209,19 +209,19 @@ namespace po {
     #pragma mark Textures
     
     //------------------------------------------------------------------------
-    Shape2D& Shape2D::placeTexture(poTexture *tex) {
+    Shape2D& Shape2D::placeTexture(Texture *tex) {
         return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
     }
     
     
     //------------------------------------------------------------------------
-    Shape2D& Shape2D::placeTexture(poTexture *tex, poTextureFitOption fit) {
+    Shape2D& Shape2D::placeTexture(Texture *tex, TextureFitOption fit) {
         return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
     }
     
     
     //------------------------------------------------------------------------
-    Shape2D& Shape2D::placeTexture(poTexture *tex, poTextureFitOption fit, poAlignment align) {
+    Shape2D& Shape2D::placeTexture(Texture *tex, TextureFitOption fit, poAlignment align) {
         if(tex && tex->isValid()) {
             poRect rect = getBounds();
             
@@ -245,7 +245,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poTexture* Shape2D::getTexture() {
+    Texture* Shape2D::getTexture() {
         return texture;
     }
     
