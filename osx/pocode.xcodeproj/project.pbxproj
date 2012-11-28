@@ -39,12 +39,6 @@
 		41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F2EDE414EB06AB00FE891A /* poLayout.cpp */; };
 		41F2EDE114EB068600FE891A /* poLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F2EDE014EB068600FE891A /* poLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F2EDE414EB06AB00FE891A /* poLayout.cpp */; };
-		7CEA2FCF14E03B8800DD6FF8 /* poControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCB14E03B8800DD6FF8 /* poControl.cpp */; };
-		7CEA2FD014E03B8800DD6FF8 /* poControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCB14E03B8800DD6FF8 /* poControl.cpp */; };
-		7CEA2FD214E03B8800DD6FF8 /* poControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CEA2FCC14E03B8800DD6FF8 /* poControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7CEA2FD414E03B8800DD6FF8 /* poControlPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCD14E03B8800DD6FF8 /* poControlPanel.cpp */; };
-		7CEA2FD514E03B8800DD6FF8 /* poControlPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCD14E03B8800DD6FF8 /* poControlPanel.cpp */; };
-		7CEA2FD714E03B8800DD6FF8 /* poControlPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CEA2FCE14E03B8800DD6FF8 /* poControlPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5188A21482C89100890604 /* poShapeBasics3D.cpp */; };
 		7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188A31482C89100890604 /* poShapeBasics3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F5188AC1482C8B300890604 /* poShape3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5188AA1482C8B000890604 /* poShape3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,8 +139,6 @@
 		AA2E614D14FC0B9700F1859C /* poFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8D8F33D144C9F700077F6DA /* poFBO.cpp */; };
 		AA2E614E14FC0B9700F1859C /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		AA2E615014FC0B9700F1859C /* poImageShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FAE3A01476B86600A917EB /* poImageShape.cpp */; };
-		AA2E615114FC0B9700F1859C /* poControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCB14E03B8800DD6FF8 /* poControl.cpp */; };
-		AA2E615214FC0B9700F1859C /* poControlPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2FCD14E03B8800DD6FF8 /* poControlPanel.cpp */; };
 		AA2E615314FC0B9700F1859C /* poLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F2EDE414EB06AB00FE891A /* poLayout.cpp */; };
 		AA2E615614FC0B9700F1859C /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E851C27C1448DDCE0018FB34 /* poGeometryMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615714FC0B9700F1859C /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -320,10 +312,6 @@
 		03ACAAB615E68EEE00F6540B /* nanosvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanosvg.h; sourceTree = "<group>"; };
 		41F2EDE014EB068600FE891A /* poLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poLayout.h; path = ../source/poLayout.h; sourceTree = "<group>"; };
 		41F2EDE414EB06AB00FE891A /* poLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poLayout.cpp; path = ../source/poLayout.cpp; sourceTree = "<group>"; };
-		7CEA2FCB14E03B8800DD6FF8 /* poControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poControl.cpp; path = ../source/poControl.cpp; sourceTree = "<group>"; };
-		7CEA2FCC14E03B8800DD6FF8 /* poControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poControl.h; path = ../source/poControl.h; sourceTree = "<group>"; };
-		7CEA2FCD14E03B8800DD6FF8 /* poControlPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poControlPanel.cpp; path = ../source/poControlPanel.cpp; sourceTree = "<group>"; };
-		7CEA2FCE14E03B8800DD6FF8 /* poControlPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poControlPanel.h; path = ../source/poControlPanel.h; sourceTree = "<group>"; };
 		7F01E8E11386279D008F0EE1 /* poCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poCamera.cpp; path = ../source/poCamera.cpp; sourceTree = "<group>"; };
 		7F01E8E21386279D008F0EE1 /* poCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poCamera.h; path = ../source/poCamera.h; sourceTree = "<group>"; };
 		7F5188A21482C89100890604 /* poShapeBasics3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poShapeBasics3D.cpp; path = ../source/poShapeBasics3D.cpp; sourceTree = "<group>"; };
@@ -729,10 +717,6 @@
 			children = (
 				E88E746313C753DB0051F026 /* poAttributedString.h */,
 				E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */,
-				7CEA2FCC14E03B8800DD6FF8 /* poControl.h */,
-				7CEA2FCB14E03B8800DD6FF8 /* poControl.cpp */,
-				7CEA2FCE14E03B8800DD6FF8 /* poControlPanel.h */,
-				7CEA2FCD14E03B8800DD6FF8 /* poControlPanel.cpp */,
 				E8C7E71413913E3A00E6848E /* poHelpers.h */,
 				E8C7E71313913E3A00E6848E /* poHelpers.cpp */,
 				41F2EDE014EB068600FE891A /* poLayout.h */,
@@ -821,8 +805,6 @@
 				E8FAE3A41476B86600A917EB /* poImageShape.h in Headers */,
 				7F5188A71482C89200890604 /* poShapeBasics3D.h in Headers */,
 				7F5188AC1482C8B300890604 /* poShape3D.h in Headers */,
-				7CEA2FD214E03B8800DD6FF8 /* poControl.h in Headers */,
-				7CEA2FD714E03B8800DD6FF8 /* poControlPanel.h in Headers */,
 				41F2EDE114EB068600FE891A /* poLayout.h in Headers */,
 				AA51F15015051F2E009FDA0A /* poMessageCenter.h in Headers */,
 				AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */,
@@ -1016,8 +998,6 @@
 				AA2E614E14FC0B9700F1859C /* poAttributedString.cpp in Sources */,
 				AA2E614E14FC0B9700F1859C /* poAttributedString.cpp in Sources */,
 				AA2E615014FC0B9700F1859C /* poImageShape.cpp in Sources */,
-				AA2E615114FC0B9700F1859C /* poControl.cpp in Sources */,
-				AA2E615214FC0B9700F1859C /* poControlPanel.cpp in Sources */,
 				AA2E615314FC0B9700F1859C /* poLayout.cpp in Sources */,
 				AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457B15E56AEE00EE2715 /* poThreadCenter.cpp in Sources */,
@@ -1080,8 +1060,6 @@
 				E8FAE3A21476B86600A917EB /* poImageShape.cpp in Sources */,
 				7F5188A61482C89200890604 /* poShapeBasics3D.cpp in Sources */,
 				7F5188C2148467FA00890604 /* poShape3D.cpp in Sources */,
-				7CEA2FCF14E03B8800DD6FF8 /* poControl.cpp in Sources */,
-				7CEA2FD414E03B8800DD6FF8 /* poControlPanel.cpp in Sources */,
 				41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */,
 				AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457015E564D700EE2715 /* poThreadCenter.cpp in Sources */,
@@ -1142,8 +1120,6 @@
 				E8EBF0F6144FD44C00884C4A /* poAttributedString.cpp in Sources */,
 				E8EBF0F6144FD44C00884C4A /* poAttributedString.cpp in Sources */,
 				E8FAE3A31476B86600A917EB /* poImageShape.cpp in Sources */,
-				7CEA2FD014E03B8800DD6FF8 /* poControl.cpp in Sources */,
-				7CEA2FD514E03B8800DD6FF8 /* poControlPanel.cpp in Sources */,
 				41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */,
 				AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */,
 				AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */,
