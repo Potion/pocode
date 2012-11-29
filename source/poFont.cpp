@@ -36,62 +36,64 @@
 #include <freetype/ftbitmap.h>
 using namespace std;
 
-namespace po {
-    #ifdef POTION_WINDOWS
 
-        #include "windows.h"
+#ifdef POTION_WINDOWS
 
-            bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
+    #include "windows.h"
+
+        bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
+            return false;
+        }
+
+#elif defined(POTION_APPLE)
+    #include <CoreFoundation/CoreFoundation.h>
+
+    #if defined(POTION_MAC)
+        #include <ApplicationServices/ApplicationServices.h>
+
+    bool urlForFontFamilyName(const std::string &family, const std::string &style, po::FilePath &response) {
+            CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            
+            CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
+            CFStringRef sty_str = CFStringCreateWithBytes(NULL, (const UInt8*)style.c_str(), style.size(), kCFStringEncodingUTF8, false);
+            CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, fam_str);
+            CFDictionaryAddValue(attributes, kCTFontStyleNameAttribute, sty_str);
+            CFRelease(fam_str);
+            CFRelease(sty_str);
+            
+            CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
+            CFRelease(attributes);
+            
+            CFURLRef url = (CFURLRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontURLAttribute);
+            CFStringRef styleName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontStyleNameAttribute);
+            CFStringRef displayName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontDisplayNameAttribute);
+            
+            CFRelease(descriptor);
+            
+            if(!url)
                 return false;
-            }
+            
+            UInt8 path[1024];
+            CFURLGetFileSystemRepresentation(url, true, path, 1024);
+            CFRelease(url);
+            
+            response.set((char*)path);
+            return true;
+        }
 
-    #elif defined(POTION_APPLE)
-        #include <CoreFoundation/CoreFoundation.h>
+    #else
 
-        #if defined(POTION_MAC)
-            #include <ApplicationServices/ApplicationServices.h>
-
-            bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
-                CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                
-                CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
-                CFStringRef sty_str = CFStringCreateWithBytes(NULL, (const UInt8*)style.c_str(), style.size(), kCFStringEncodingUTF8, false);
-                CFDictionaryAddValue(attributes, kCTFontFamilyNameAttribute, fam_str);
-                CFDictionaryAddValue(attributes, kCTFontStyleNameAttribute, sty_str);
-                CFRelease(fam_str);
-                CFRelease(sty_str);
-                
-                CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes(attributes);
-                CFRelease(attributes);
-                
-                CFURLRef url = (CFURLRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontURLAttribute);
-                CFStringRef styleName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontStyleNameAttribute);
-                CFStringRef displayName = (CFStringRef)CTFontDescriptorCopyAttribute(descriptor, kCTFontDisplayNameAttribute);
-                
-                CFRelease(descriptor);
-                
-                if(!url)
-                    return false;
-                
-                UInt8 path[1024];
-                CFURLGetFileSystemRepresentation(url, true, path, 1024);
-                CFRelease(url);
-                
-                response.set((char*)path);
-                return true;
-            }
-
-        #else
-
-            bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response) {
-                return false;
-            }
-
-        #endif
+        bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
+            return false;
+        }
 
     #endif
-    FT_Library Font::lib = NULL;
 
+    #endif
+
+FT_Library po::Font::lib = NULL;
+
+namespace po {
     unsigned long encodeTag(const char tag[4]) {
         unsigned long rez = 0;
         rez |= tag[0] << 24;
@@ -111,12 +113,12 @@ namespace po {
     }
 
     bool Font::fontExists(const std::string &family) {
-        poFilePath filePath;
+        FilePath filePath;
         return 	fs::exists(family) || urlForFontFamilyName(family, "", filePath);
     }
 
     Font *Font::defaultFont() {
-        return poGetFont(poFilePath(po::applicationGetResourceDirectory()+"/OpenSans-Regular.ttf"));
+        return getFont(FilePath(po::applicationGetResourceDirectory()+"/OpenSans-Regular.ttf"));
     }
 
     Font::Font()
@@ -133,7 +135,7 @@ namespace po {
 
 
     //Loads fonts from file
-    Font::Font(const poFilePath &filePath, const std::string &style, unsigned long encoding)
+    Font::Font(const FilePath &filePath, const std::string &style, unsigned long encoding)
     :	face(NULL)
     ,	size(0)
     ,	filePath(filePath)
@@ -147,12 +149,12 @@ namespace po {
 
         reqStyle = style;
         
-        poFilePath location = filePath;
+        FilePath location = filePath;
         
         if(!filePath.exists()) {
             //Try to find the font locally
             //Currently only works on OS X
-            poFilePath localFont;
+            FilePath localFont;
             if(urlForFontFamilyName(filePath.toString(), style, location)) {
                 //Its a font family!
                 reqFamily = filePath.toString();
@@ -210,7 +212,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poFilePath Font::getFilePath() const {
+    FilePath Font::getFilePath() const {
         return filePath;
     }
     
@@ -242,7 +244,7 @@ namespace po {
     //------------------------------------------------------------------
     void Font::setPointSize(int sz) {
         if(sz != size) {
-            size = [sz;
+            size = sz;
             Point rez = po::deviceResolution();
             FT_Set_Char_Size(face, (size*po::getScale())*64, 0, rez.x, 0);
         }
@@ -359,7 +361,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    poImage* Font::getGlyphImage() {
+    Image* Font::getGlyphImage() {
         currentCache = &cachedGlyphMetricsSet[size];
         
         loadGlyph( glyph );
@@ -375,7 +377,7 @@ namespace po {
             // inset the copy 1 x 1 so the top and left sides doesn't look aliased 
             memcpy(buffer+(i*w)+1, bitmap.buffer+(bitmap.rows-i-1)*bitmap.pitch, bitmap.width);
         
-        poImage *img = new poImage(w, h, 1, buffer);
+        Image *img = new Image(w, h, 1, buffer);
         
         delete [] buffer;
             

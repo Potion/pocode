@@ -29,6 +29,7 @@
 #include <pugixml.hpp>
 
 #include <utf8.h>
+#include <iostream>
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
@@ -36,7 +37,7 @@
 #include "poHelpers.h"
 #include "poDictionary.h"
 #include "poResourceStore.h"
-#include <iostream>
+#include "poTextLayout.h"
 using namespace std;
 
 namespace po {
@@ -51,7 +52,7 @@ namespace po {
         {}
         
         TextLayout *layout;
-        po::AttributedString string;
+        AttributedString string;
     };
     
     

@@ -71,7 +71,7 @@ namespace po {
         font->setGlyph(' ');
         float spacer = font->getGlyphAdvance().x * tracking;
         
-        BitmapFont *bmpFont = GetBitmapFont(font, ptSize);
+        BitmapFont *bmpFont = getBitmapFont(font, ptSize);
         
         std::string::const_iterator ch = str.begin();
         while(ch != str.end()) {
@@ -177,7 +177,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawTexturedRect(Texture *tex, Rect rect, TextureFitOption fit, poAlignment align) {
+    void drawTexturedRect(Texture *tex, Rect rect, TextureFitOption fit, Alignment align) {
         std::vector<Point> coords = textureFit(rect, tex, fit, align);
         Rect coords_rect(coords[0], coords[2]);
         drawTexturedRect(tex, rect, coords_rect);
@@ -255,7 +255,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, TextureFitOption fit, poAlignment align) {
+    void drawTexturedPolygon(const std::vector<Point> &points, Texture *tex, TextureFitOption fit, Alignment align) {
         if(points.empty())
             return;
 
@@ -332,23 +332,23 @@ namespace po {
     std::vector<Point> generateStroke(std::vector<Point> &points,
                                             int strokeWidth, 
                                             bool close, 
-                                            poStrokePlacementProperty place, 
-                                            poStrokeJoinProperty join, 
-                                            poStrokeCapProperty cap) 
+                                            StrokePlacementProperty place,
+                                            StrokeJoinProperty join,
+                                            StrokeCapProperty cap)
     {
         std::vector<Point> stroke;
         
-        std::vector<poExtrudedLineSeg> segments;
+        std::vector<ExtrudedLineSeg> segments;
         Point p1, p2, p3, p4, tmp;
         
         for(uint i=0; i<points.size()-1; i++) {
             p1 = points[i];
             p2 = points[i+1];
-            segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
+            segments.push_back(ExtrudedLineSeg(p1, p2, strokeWidth, place));
         }
         
         if(close) {
-            segments.push_back(poExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
+            segments.push_back(ExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
             makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
         }	
         else {

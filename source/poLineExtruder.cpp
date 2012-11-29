@@ -32,7 +32,7 @@ namespace po {
     ExtrudedLineSeg::ExtrudedLineSeg()
     {}
 
-    ExtrudedLineSeg::ExtrudedLineSeg(Point a, Point b, float w, poStrokePlacementProperty place) {
+    ExtrudedLineSeg::ExtrudedLineSeg(Point a, Point b, float w, StrokePlacementProperty place) {
         Point diff = b - a;
         float angle = atan2(diff.y, diff.x);
         
@@ -110,12 +110,12 @@ namespace po {
             *bottom = seg2.p4;
         }
         else {
-            rayIntersection(poRay(seg1.p2, seg1.p4-seg1.p2),
-                            poRay(seg2.p4, seg2.p2-seg2.p4),
+            rayIntersection(Ray(seg1.p2, seg1.p4-seg1.p2),
+                            Ray(seg2.p4, seg2.p2-seg2.p4),
                             &i1, &i2);
             
-            rayIntersection(poRay(seg1.p1, seg1.p3-seg1.p1),
-                            poRay(seg2.p3, seg2.p1-seg2.p3),
+            rayIntersection(Ray(seg1.p1, seg1.p3-seg1.p1),
+                            Ray(seg2.p3, seg2.p1-seg2.p3),
                             &i3, &i4);
             
             *top = i3;
@@ -127,7 +127,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void makeStrokeForJoint(std::vector<Point> &stroke, ExtrudedLineSeg &seg1, ExtrudedLineSeg &seg2, poStrokeJoinProperty join, float stroke_width) {
+    void makeStrokeForJoint(std::vector<Point> &stroke, ExtrudedLineSeg &seg1, ExtrudedLineSeg &seg2, StrokeJoinProperty join, float stroke_width) {
         Point top, bottom;
         Point p1, p2, p3, p4, tmp;
         

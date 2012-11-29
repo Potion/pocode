@@ -173,10 +173,10 @@ namespace po {
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {}
 
-    Texture::Texture(const poFilePath &filePath, bool keepImage )
+    Texture::Texture(const FilePath &filePath, bool keepImage )
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {
-        poImage* img = new poImage(filePath);
+        Image* img = new Image(filePath);
         load(img);
         
         if ( keepImage )
@@ -185,13 +185,13 @@ namespace po {
             delete img;
     }
 
-    Texture::Texture(poImage* img) 
+    Texture::Texture(Image* img) 
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
     {
         load(img);
     }
 
-    Texture::Texture(poImage* img, const TextureConfig &config)
+    Texture::Texture(Image* img, const TextureConfig &config)
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
     {
         load(img, config);
@@ -225,7 +225,7 @@ namespace po {
             glBindTexture(GL_TEXTURE_2D, uid);
             
             #ifndef OPENGL_ES
-            poGLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
+            GLBuffer buffer(GL_PIXEL_PACK_BUFFER, getSizeInBytes());
             glBindBuffer(GL_PIXEL_PACK_BUFFER, buffer.getUid());
             glGetTexImage(GL_TEXTURE_2D, 0, config.format, config.type, NULL);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
@@ -244,7 +244,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Texture::replace(poImage* image) {
+    void Texture::replace(Image* image) {
         replace(image->getPixels());
     }
     
@@ -321,21 +321,21 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint Texture::getDimensions() const {
-        return poPoint(width, height, 0);
+    Point Texture::getDimensions() const {
+        return Point(width, height, 0);
     }
     
     
     //------------------------------------------------------------------------
-    poRect Texture::getBounds() const {
-        return poRect(0,0,width,height);
+    Rect Texture::getBounds() const {
+        return Rect(0,0,width,height);
     }
     
     
     //------------------------------------------------------------------------
-    poColor Texture::getSourceImagePixel(poPoint p) {
+    Color Texture::getSourceImagePixel(Point p) {
         if ( sourceImage == NULL )
-            return poColor(1,1,1,1);
+            return Color(1,1,1,1);
         else
             return sourceImage->getPixel(p);
     }
@@ -424,7 +424,7 @@ namespace po {
     #pragma mark Loading
     
     //------------------------------------------------------------------------
-    void Texture::load(poImage* img) {
+    void Texture::load(Image* img) {
         if(!(img && img->isValid())) {
             loadDummyImage();
             return;
@@ -436,7 +436,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Texture::load(poImage* img, const TextureConfig &config) {
+    void Texture::load(Image* img, const TextureConfig &config) {
         if(!(img && img->isValid())) {
             loadDummyImage();
             return;
@@ -545,23 +545,23 @@ namespace po {
     // ================================ Texture Fit ======================================
     #pragma mark Texture Fit
     
-    void textureFitExact(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-    void textureFitNone(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-    void textureFitHorizontal(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
-    void textureFitVertical(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);
+    void textureFitExact(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
+    void textureFitNone(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
+    void textureFitHorizontal(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
+    void textureFitVertical(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
     
     
     //------------------------------------------------------------------------
-    std::vector<poPoint> textureFit(poRect rect, Texture *tex, TextureFitOption fit, poAlignment align) {
-        std::vector<poPoint> coords(4);
-        std::vector<poPoint> points = rect.getCorners();
+    std::vector<Point> textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align) {
+        std::vector<Point> coords(4);
+        std::vector<Point> points = rect.getCorners();
         textureFit(rect, tex, fit, align, coords, points);
         return coords;
     }
     
     
     //------------------------------------------------------------------------
-    void textureFit(poRect rect, Texture *tex, TextureFitOption fit, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+    void textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         switch(fit) {
             case PO_TEX_FIT_NONE:
                 textureFitNone(rect, tex, align, coords, points);
@@ -595,7 +595,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void textureFitExact(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+    void textureFitExact(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         for(uint i=0; i<points.size(); i++) {
             float s = (points[i].x-rect.x) / rect.width;
             float t = (points[i].y-rect.y) / rect.height;
@@ -605,8 +605,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void textureFitNone(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
-        poPoint max(FLT_MIN, FLT_MIN);
+    void textureFitNone(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
+        Point max(FLT_MIN, FLT_MIN);
         
         for(uint i=0; i<points.size(); i++) {
             float s = (points[i].x-rect.x) / tex->getWidth();
@@ -618,7 +618,7 @@ namespace po {
             coords[i].set(s,t,0.f);
         }
         
-        poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
+        Point offset = po::alignInRect(max, Rect(0,0,1,1), align);
         
         for(uint i=0; i<coords.size(); i++) {
             coords[i].y = max.y - coords[i].y;
@@ -628,11 +628,11 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void textureFitHorizontal(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+    void textureFitHorizontal(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         float new_w = rect.width;
         float new_h = new_w / (tex->getWidth() / (float)tex->getHeight());
         
-        poPoint max(FLT_MIN, FLT_MIN);
+        Point max(FLT_MIN, FLT_MIN);
         
         for(uint i=0; i<points.size(); i++) {
             float s = (points[i].x-rect.x) / rect.width;
@@ -644,7 +644,7 @@ namespace po {
             coords[i].set(s,t,0.f);
         }
         
-        poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
+        Point offset = po::alignInRect(max, Rect(0,0,1,1), align);
         
         for(uint i=0; i<coords.size(); i++) {
             coords[i].y = max.y - coords[i].y;
@@ -654,11 +654,11 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void textureFitVertical(poRect rect, Texture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points) {
+    void textureFitVertical(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         float new_h = rect.height;
         float new_w = new_h / (tex->getHeight() / (float)tex->getWidth());
         
-        poPoint max(FLT_MIN, FLT_MIN);
+        Point max(FLT_MIN, FLT_MIN);
         
         for(uint i=0; i<points.size(); i++) {
             float s = (points[i].x-rect.x) / new_w;
@@ -670,7 +670,7 @@ namespace po {
             coords[i].set(s,t,0.f);
         }
         
-        poPoint offset = po::alignInRect(max, poRect(0,0,1,1), align);
+        Point offset = po::alignInRect(max, Rect(0,0,1,1), align);
         
         for(uint i=0; i<coords.size(); i++) {
             coords[i].y = max.y - coords[i].y;

@@ -35,8 +35,8 @@ namespace po {
         init();
     }
 
-    BitmapFont::BitmapFont(const poFilePath &filePath, int sz)
-    :	font(poGetFont(filePath))
+    BitmapFont::BitmapFont(const FilePath &filePath, int sz)
+    :	font(po::getFont(filePath))
     ,	atlas(new TextureAtlas(GL_ALPHA, 512, 512))
     ,	pointSize(sz)
     {
@@ -44,7 +44,7 @@ namespace po {
     }
 
     BitmapFont::BitmapFont(const std::string &family, const std::string &style, int sz)
-    :	font(poGetFontByName(family,style))
+    :	font(getFontByName(family,style))
     ,	atlas(new TextureAtlas(GL_ALPHA, 512, 512))
     ,	pointSize(sz)
     {
@@ -62,7 +62,7 @@ namespace po {
         for(int i=32; i<128; i++) {
             font->setGlyph(i);
             
-            poImage *img = font->getGlyphImage();
+            Image *img = font->getGlyphImage();
             atlas->addImage(img,i);
             delete img;
         }
@@ -87,7 +87,7 @@ namespace po {
         
         if(!atlas->hasUID(glyph))
             cacheGlyph(glyph);
-        atlas->drawUID(glyph, at, po::getScale());
+        atlas->drawUID(glyph, at, getScale());
     }
     
     
@@ -97,7 +97,7 @@ namespace po {
             font->setPointSize(getPointSize());
             font->setGlyph(glyph);
             
-            poImage* img = font->getGlyphImage();
+            Image* img = font->getGlyphImage();
             atlas->addImage(img, glyph);
             delete img;
             

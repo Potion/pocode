@@ -221,9 +221,9 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Shape2D& Shape2D::placeTexture(Texture *tex, TextureFitOption fit, poAlignment align) {
+    Shape2D& Shape2D::placeTexture(Texture *tex, TextureFitOption fit, Alignment align) {
         if(tex && tex->isValid()) {
-            poRect rect = getBounds();
+            Rect rect = getBounds();
             
             texCoords.clear();
             texCoords.resize(points.size());
@@ -296,19 +296,19 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poStrokeCapProperty Shape2D::capStyle() const {
+    StrokeCapProperty Shape2D::capStyle() const {
         return cap;
     }
     
     
     //------------------------------------------------------------------------
-    poStrokeJoinProperty Shape2D::joinStyle() const {
+    StrokeJoinProperty Shape2D::joinStyle() const {
         return join;
     }
     
     
     //------------------------------------------------------------------------
-    Shape2D& Shape2D::generateStroke(int strokeWidth, poStrokePlacementProperty place, poStrokeJoinProperty join, poStrokeCapProperty cap) {
+    Shape2D& Shape2D::generateStroke(int strokeWidth, StrokePlacementProperty place, StrokeJoinProperty join, StrokeCapProperty cap) {
         useSimpleStroke = false;
         this->strokeWidth = strokeWidth;
         this->cap = cap;
@@ -321,18 +321,18 @@ namespace po {
         stroke.clear();
         
         if(strokeEnabled) {
-            std::vector<poExtrudedLineSeg> segments;
+            std::vector<ExtrudedLineSeg> segments;
             
             Point p1, p2, p3, p4, tmp;
             
             for(int i=0; i<points.size()-1; i++) {
                 p1 = points[i];
                 p2 = points[i+1];
-                segments.push_back(poExtrudedLineSeg(p1, p2, strokeWidth, place));
+                segments.push_back(ExtrudedLineSeg(p1, p2, strokeWidth, place));
             }
             
             if(closed) {
-                segments.push_back(poExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
+                segments.push_back(ExtrudedLineSeg(points.back(), points.front(), strokeWidth, place));
                 makeStrokeForJoint(stroke, segments.back(), segments.front(), join, strokeWidth);
             }	
             else {
@@ -430,8 +430,8 @@ namespace po {
     #pragma mark Dimensions
     
     //------------------------------------------------------------------------
-    poRect  Shape2D::getBounds() {
-        poRect rect;
+    Rect  Shape2D::getBounds() {
+        Rect rect;
         
         // must initialize rect with first point
         if ( points.size() > 0 )
@@ -483,7 +483,7 @@ namespace po {
     #pragma mark Reading/Saving
     
     //------------------------------------------------------------------------
-    void Shape2D::read(poXMLNode node) {
+    void Shape2D::read(XMLNode node) {
         fillDrawStyle = node.getChild("fillDrawStyle").getInnerInt();
         fillColor.set(node.getChild("fillColor").getInnerString());
         strokeColor.set(node.getChild("strokeColor").getInnerString());
@@ -493,8 +493,8 @@ namespace po {
         closed = node.getChild("closed").getInnerInt();
         drawBounds = node.getChild("drawBounds").getInnerInt();
     //	alphaTestTexture = node.getChild("alphaTestTexture").innerInt();
-        cap = poStrokeCapProperty(node.getChild("cap").getInnerInt());
-        join = poStrokeJoinProperty(node.getChild("join").getInnerInt());
+        cap = StrokeCapProperty(node.getChild("cap").getInnerInt());
+        join = StrokeJoinProperty(node.getChild("join").getInnerInt());
         strokeWidth = node.getChild("stroke_width").getInnerInt();
 
         std::string pstr = node.getChild("points").getInnerString();
@@ -503,7 +503,7 @@ namespace po {
         points.resize(str.size() / sizeof(Point));
         memcpy(&points[0],str.c_str(),str.size());
         
-    //	poXMLNode tex = node.getChild("texture");
+    //	XMLNode tex = node.getChild("texture");
     //	if(tex) {
     //		std::string url = tex.stringAttribute("url");
     //		texture = getImage(url)->texture();
@@ -518,7 +518,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Shape2D::write(poXMLNode &node) {
+    void Shape2D::write(XMLNode &node) {
         node.addChild("fillDrawStyle").setInnerInt(fillDrawStyle);
         node.addChild("fillColor").setInnerString(fillColor.toString());
         node.addChild("strokeColor").setInnerString(strokeColor.toString());
@@ -537,7 +537,7 @@ namespace po {
         node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(po::base64_encode(points_ptr, points_sz).c_str());
             
     //	if(texture && texture->image() && texture->image()->isValid()) {
-    //		poXMLNode tex = node.addChild("texture");
+    //		XMLNode tex = node.addChild("texture");
     //		// this is only going to work in the most simple case
     //		tex.addAttribute("url",texture->image()->url());
     //		
@@ -582,12 +582,12 @@ namespace po {
                 shape->strokeEnabled = result->hasStroke;
                 
                 if(shape->fillEnabled) {
-                    shape->fillColor = poColor().set255((result->fillColor>>16)&0xFF, (result->fillColor>>8)&0xFF, result->fillColor&0xFF);
+                    shape->fillColor = Color().set255((result->fillColor>>16)&0xFF, (result->fillColor>>8)&0xFF, result->fillColor&0xFF);
                 }
                 
                 if(shape->strokeEnabled) {
                     shape->generateStroke(result->strokeWidth);
-                    shape->strokeColor = poColor().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF);
+                    shape->strokeColor = Color().set255((result->strokeColor>>16)&0xFF, (result->strokeColor>>8)&0xFF, result->strokeColor&0xFF);
                 }
                 
                 response.push_back(shape);

@@ -49,11 +49,11 @@ namespace po {
     }
 
     RectShape::RectShape(const FilePath &filePath, TextureFitOption fit, Alignment align) {
-        Texture *tex = GetTexture(filePath);
-        if(tex && tex->isValid()) {
-            construct(tex->getWidth(), tex->getHeight(), 0);
-            placeTexture(tex, fit, align);
-        }
+//        Texture *tex = GetTexture(filePath);
+//        if(tex && tex->isValid()) {
+//            construct(tex->getWidth(), tex->getHeight(), 0);
+//            placeTexture(tex, fit, align);
+//        }
     }
 
     RectShape::RectShape(float width, float height, Texture *tex, TextureFitOption fit, Alignment align) {

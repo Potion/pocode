@@ -64,7 +64,7 @@ namespace po {
         
         lineLayoutProps props;
         
-        poFont *fnt = getFont();
+        Font *fnt = getFont();
         
         fnt->setPointSize(textSize);
         fnt->cacheGlyphMetrics();       // caches the first time font is used (presently, only works for single poFont size)
@@ -106,7 +106,7 @@ namespace po {
                 // check if the font has changed
                 if(dict.has("font")) {
                     // there's one in hte dictionary
-                    poFont* tmp = (poFont*)dict.getPtr("font");
+                    Font* tmp = (Font*)dict.getPtr("font");
                     int tmpSize = dict.has("fontSize") ? dict.getInt("fontSize") : textSize;
                     
                     // and it isn't the same as last time
@@ -166,7 +166,7 @@ namespace po {
                     {
                         float s = spacer * tabWidth;
                         float w = props.line.bbox.width + props.word.width;
-                        props.lastSpace = (floor(w/s) + 1) * s - w;
+                        props.lastSpace = (std::floor(w/s) + 1) * s - w;
                         break;
                     }
                 }

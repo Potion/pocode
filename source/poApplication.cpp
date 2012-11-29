@@ -26,98 +26,98 @@ namespace po {
 
     //------------------------------------------------------------------------
     float getWindowWidth() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getWidth();
     }
     
     
     //------------------------------------------------------------------------
     float getWindowHeight() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getHeight();
     }
     
     
     //------------------------------------------------------------------------
     Point getWindowDimensions() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getDimensions();
     }
     
     
     //------------------------------------------------------------------------
     float getWindowAspect() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getWidth() / (float)window->getHeight();
     }
     
     
     //------------------------------------------------------------------------
     Rect getWindowFrame() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getFrame();
     }
     
     
     //------------------------------------------------------------------------
     Rect getWindowBounds() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getBounds();
     }
     
     
     //------------------------------------------------------------------------
     float getScale() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getScale();
     }
     
     
     //------------------------------------------------------------------------
     Point getWindowCenter() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getCenterPoint();
     }
     
     
     //------------------------------------------------------------------------
     float getWindowFramerate() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getFramerate();
     }
     
     
     //------------------------------------------------------------------------
     int getWindowFrameCount() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getFramecount();
     }
     
     
     //------------------------------------------------------------------------
     float getWindowLastFrameTime() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getLastFrameTime();
     }
     
     
     //------------------------------------------------------------------------
     float getWindowLastFrameDuration() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getLastFrameElapsed();
     }
     
     
     //------------------------------------------------------------------------
     Point getWindowMousePosition() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->getMousePosition();
     }
     
     
     //------------------------------------------------------------------------
     Point getWindowInvMousePosition() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         Point response = window->getMousePosition();
         response.y = window->getBounds().height - response.y;
         return response;
@@ -126,14 +126,14 @@ namespace po {
     
     //------------------------------------------------------------------------
     void setWindowMouseMoveEnabled(bool b) {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         window->setMouseMoveEnabled(b);
     }
     
     
     //------------------------------------------------------------------------
     bool getWindowMouseMoveEnabled() {
-        poWindow *window = applicationCurrentWindow();
+        Window *window = applicationCurrentWindow();
         return window->isMouseMoveEnabled();
     }
 } /* End po namespace */

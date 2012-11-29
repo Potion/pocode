@@ -48,10 +48,10 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void TextureAtlas::addImage(poImage* img, uint request) {
+    void TextureAtlas::addImage(Image* img, uint request) {
         requestedIDs.push_back(request);
 
-        poImage* copy = img->copy();
+        Image* copy = img->copy();
         copy->setNumChannels(channelsForFormat(config.format));
         images.push_back(copy);
     }
@@ -70,8 +70,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poPoint TextureAtlas::getDimensions() const {
-        return poPoint(width, height);
+    Point TextureAtlas::getDimensions() const {
+        return Point(width, height);
     }
     
     
@@ -82,14 +82,14 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    poRect TextureAtlas::getCoordsForUID(uint uid) {
+    Rect TextureAtlas::getCoordsForUID(uint uid) {
         return coords[uids[uid]].coords;
     }
     
     
     //------------------------------------------------------------------------
-    poRect TextureAtlas::getSizeForUID(uint uid) {
-        return poRect(poPoint(0,0), coords[uids[uid]].size);
+    Rect TextureAtlas::getSizeForUID(uint uid) {
+        return Rect(Point(0,0), coords[uids[uid]].size);
     }
     
     
@@ -106,12 +106,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void TextureAtlas::drawUID(uint uid, poRect rect, float scale) {
+    void TextureAtlas::drawUID(uint uid, Rect rect, float scale) {
         if(hasUID(uid)) {
             uint page = getPageForUID(uid);
             
-            poRect size = getSizeForUID(uid);
-            poRect placement(rect.x, 
+            Rect size = getSizeForUID(uid);
+            Rect placement(rect.x, 
                              rect.y,
                              rect.width  * size.width,
                              rect.height * size.height);
@@ -119,15 +119,15 @@ namespace po {
             placement.width    /= scale;
             placement.height   /= scale;
             
-            poRect coords = getCoordsForUID(uid);
+            Rect coords = getCoordsForUID(uid);
             po::drawTexturedRect(getTextureForPage(page), placement, coords);
         }
     }
     
     
     //------------------------------------------------------------------------
-    void TextureAtlas::drawUID(uint uid, poPoint p, float scale) {
-        drawUID(uid, poRect(p.x,p.y,1,1), scale);
+    void TextureAtlas::drawUID(uint uid, Point p, float scale) {
+        drawUID(uid, Rect(p.x,p.y,1,1), scale);
     }
     
     
@@ -149,7 +149,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void TextureAtlas::clearPages() {
-        BOOST_FOREACH(poImage *img, pages)
+        BOOST_FOREACH(Image *img, pages)
             delete img;
         pages.clear();
     }
@@ -157,7 +157,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void TextureAtlas::clearImages() {
-        BOOST_FOREACH(poImage *img, images)
+        BOOST_FOREACH(Image *img, images)
             delete img;
         images.clear();
         requestedIDs.clear();
@@ -171,31 +171,31 @@ namespace po {
         packer.reset();
         
         for(uint i=0; i<images.size(); i++) {
-            uids[requestedIDs[i]] = packer.addRect(poRect(0,0,images[i]->getWidth(),images[i]->getHeight()));
+            uids[requestedIDs[i]] = packer.addRect(Rect(0,0,images[i]->getWidth(),images[i]->getHeight()));
         }
         packer.pack();
         
         for(int i=0; i<packer.getNumPages(); i++)
-            pages.push_back(new poImage(width,height,channelsForFormat(config.format),NULL));
+            pages.push_back(new Image(width,height,channelsForFormat(config.format),NULL));
         
         coords.resize(images.size());
         
         for(uint i=0; i<images.size(); i++) {
             uint pg;
-            poRect pack_loc = packer.packPosition(i, &pg);
+            Rect pack_loc = packer.packPosition(i, &pg);
             
             uint uid = requestedIDs[i];
             
             ImageLookup item;
             item.page = pg;
             
-            poPoint size(pack_loc.width / (float)width,
+            Point size(pack_loc.width / (float)width,
                          pack_loc.height / (float)height);
             
-            poPoint origin(pack_loc.x / (float)width,
+            Point origin(pack_loc.x / (float)width,
                            pack_loc.y / (float)height);
             
-            item.coords = poRect(origin, size);
+            item.coords = Rect(origin, size);
             item.coords.y = 1.f - item.coords.y - item.coords.height;
             
             item.size = pack_loc.getSize();
@@ -207,7 +207,7 @@ namespace po {
         textures.resize(pages.size());
         
         for(uint i=0; i<pages.size(); i++) {
-            poImage* img = pages[i];
+            Image* img = pages[i];
             textures[i] = new Texture(img,config);
         }
 

@@ -83,13 +83,13 @@ namespace po {
     
     //------------------------------------------------------------------
     void Image::getImageAsync(FilePath filePath, Object *notify) {
-        ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
+        //ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
     }
     
     
     //------------------------------------------------------------------
     void Image::getImageAsync(URL url, Object *notify, const FilePath &savePath) {
-        ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
+        //ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
     }
     
     
@@ -376,7 +376,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::flip(poOrientation dir) {
+    void Image::flip(Orientation dir) {
         if(dir == PO_VERTICAL)
             FreeImage_FlipVertical(bitmap);
         else
@@ -626,7 +626,7 @@ namespace po {
     , filePath(filePath)
     {}
 
-    ImageLoaderWorker::ImageLoaderWorker(poURL url, const FilePath &savePath)
+    ImageLoaderWorker::ImageLoaderWorker(URL url, const FilePath &savePath)
     : url(url)
     , loadFromNetwork(true)
     , filePath(savePath)
@@ -642,7 +642,7 @@ namespace po {
         //from a remote url
         //If so, do it!
         if(loadFromNetwork) {
-            filePath = poURLLoader::getFile(url, filePath);
+            filePath = URLLoader::getFile(url, filePath);
         }
         
         //Try to load the image (should be local now regardless)

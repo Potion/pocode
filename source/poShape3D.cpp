@@ -118,30 +118,30 @@ namespace po {
     
     //------------------------------------------------------------------------
     int Shape3D::addVertex() {
-        return addVertex( poPoint(), poPoint(), poPoint(), Color() );
+        return addVertex( Point(), Point(), Point(), Color() );
     }
     
     
     //------------------------------------------------------------------------
-    int Shape3D::addVertex( poPoint pos ) {
-        return addVertex( pos, poPoint(), poPoint(), Color() );
+    int Shape3D::addVertex( Point pos ) {
+        return addVertex( pos, Point(), Point(), Color() );
     }
     
     
     //------------------------------------------------------------------------
-    int Shape3D::addVertex( poPoint pos, poPoint texCoords ) {
-        return addVertex( pos, texCoords, poPoint(), Color() );
+    int Shape3D::addVertex( Point pos, Point texCoords ) {
+        return addVertex( pos, texCoords, Point(), Color() );
     }
     
     
     //------------------------------------------------------------------------
-    int Shape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal ) {
+    int Shape3D::addVertex( Point pos, Point texCoords, Point normal ) {
         return addVertex( pos, texCoords, normal, Color() );
     }
     
     
     //------------------------------------------------------------------------
-    int Shape3D::addVertex( poPoint pos, poPoint texCoords, poPoint normal, Color color ) {
+    int Shape3D::addVertex( Point pos, Point texCoords, Point normal, Color color ) {
         Vertex3D V;
         
         V.position = pos;
@@ -222,13 +222,13 @@ namespace po {
             int indexB = T.vertexIndexSet[1];
             int indexC = T.vertexIndexSet[2];
             
-            poPoint A = vertexList[ indexA ].position;
-            poPoint B = vertexList[ indexB ].position;
-            poPoint C = vertexList[ indexC ].position;
+            Point A = vertexList[ indexA ].position;
+            Point B = vertexList[ indexB ].position;
+            Point C = vertexList[ indexC ].position;
             
-            poPoint AB = B - A;
-            poPoint AC = C - A;
-            poPoint normal = AB.getCross( AC );
+            Point AB = B - A;
+            Point AC = C - A;
+            Point normal = AB.getCross( AC );
             normal.normalize();
             
             vertexList[ indexA ].normal += normal;
@@ -245,18 +245,18 @@ namespace po {
     //------------------------------------------------------------------------
     // localize will convert global to local first
     // otherwise, point is assumed to be local
-    bool Shape3D::pointInside(poPoint point, bool localize ) {
+    bool Shape3D::pointInside(Point point, bool localize ) {
         if(!visible)
             return false;
         
         // DO POINT INSIDE TEST FOR 2D
-        if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D ) {
+        if ( Camera::getCurrentCameraType() == PO_CAMERA_2D ) {
             // presently, no text defined for 2D camera
             return false;
         }
         
         // DO POINT INSIDE TEST FOR 3D
-        if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D ) {
+        if ( Camera::getCurrentCameraType() == PO_CAMERA_3D ) {
             if(localize)
                 point.y = po::getWindowHeight() - point.y;
             
@@ -265,9 +265,9 @@ namespace po {
                 int indexB = triangleList[i].vertexIndexSet[1];
                 int indexC = triangleList[i].vertexIndexSet[2];
                 
-                poPoint pointA = vertexList[indexA].position;
-                poPoint pointB = vertexList[indexB].position;
-                poPoint pointC = vertexList[indexC].position;
+                Point pointA = vertexList[indexA].position;
+                Point pointB = vertexList[indexB].position;
+                Point pointC = vertexList[indexC].position;
                 
                 if ( pointInTriangle3D( point, getMatrixSet(), pointA, pointB, pointC ))
                     return true;

@@ -56,7 +56,7 @@ using namespace boost::posix_time;
 //so we use internal Mac & iOS functions here
 #ifdef __APPLE__
     #if defined(POTION_MAC)
-        Point getDeviceResolutionMac() {
+        po::Point getDeviceResolutionMac() {
             NSWindow *window = (NSWindow*)po::applicationCurrentWindow()->getWindowHandle();
             NSScreen *screen = [window screen];
             
@@ -64,7 +64,7 @@ using namespace boost::posix_time;
             return po::Point(size.width, size.height);
         }
     #else
-        Point getDeviceResolutioniOS() {
+        po::Point getDeviceResolutioniOS() {
             return po::Point(72,72);
         }
     #endif

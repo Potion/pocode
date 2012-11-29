@@ -78,7 +78,8 @@ namespace po {
         
         //------------------------------------------------------------------
         void getFileAsync(URL url, Object* notify, const FilePath &filepath) {
-            ThreadCenter::addItem(new po::URLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath), notify);
+            URLLoaderWorker *worker = new URLLoaderWorker(url, PO_FILE_LOADER_MODE_SAVE, filepath);
+            ThreadCenter::addItem(worker, notify);
         }
         
         
@@ -100,7 +101,7 @@ namespace po {
         
         //------------------------------------------------------------------
         void getFileAsStringAsync(URL url, Object* notify) {
-            ThreadCenter::addItem(new po::URLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
+            ThreadCenter::addItem(new URLLoaderWorker(url, PO_FILE_LOADER_MODE_RETURN_AS_STRING), notify);
         }
     };
     

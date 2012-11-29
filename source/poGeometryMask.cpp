@@ -96,22 +96,22 @@ namespace po {
 } /*End po namespace */
 
 /*
-// ============ poImageMask =============== //
+// ============ ImageMask =============== //
 
-poImageMask::poImageMask(poImage *img)
+ImageMask::ImageMask(Image *img)
 :	image(img)
 {}
 
-poImageMask::poImageMask(const std::string &str)
+ImageMask::ImageMask(const std::string &str)
 {
 	image = getImage(str);
 }
 
-bool poImageMask::pointInside(Point p) {
+bool ImageMask::pointInside(Point p) {
 	
 }
 
-void poImageMask::doSetUp( Object* obj ) {
+void ImageMask::doSetUp( Object* obj ) {
 	my_obj = obj;
 
 	state.enabled = true;
@@ -134,7 +134,7 @@ void poImageMask::doSetUp( Object* obj ) {
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
-void poImageMask::doSetDown( Object* obj ) {
+void ImageMask::doSetDown( Object* obj ) {
 	restore();
 }
 */

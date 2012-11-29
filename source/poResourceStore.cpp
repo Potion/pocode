@@ -24,10 +24,10 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
+#include "poResourceStore.h"
 #include "poFont.h"
 #include "poTexture.h"
 #include "poBitmapFont.h"
-#include "poResourceStore.h"
 #include <boost/functional/hash.hpp>
 
 namespace po { 

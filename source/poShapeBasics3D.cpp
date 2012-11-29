@@ -18,7 +18,7 @@
  */
 
 //
-//  poShape3DBasics.cpp
+//  Shape3DBasics.cpp
 //  basicShapes
 //
 //  Created by Jared Schiffman on 10/26/11.
@@ -60,10 +60,10 @@ namespace po {
 
 
     //------------------------------------------------------------------------
-    poVertex3D& Mesh3D::getVertex(int row, int col) {
+    Vertex3D& Mesh3D::getVertex(int row, int col) {
         if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
             printf("ERROR: Mesh3D::getVertex out of bounds (%d,%d) of (%d,%d)\n", row, col, numRows, numColumns);
-            return poShape3D::errorVertex;
+            return Shape3D::errorVertex;
         }
         
         int index = getVertexIndex(row,col);
@@ -151,16 +151,16 @@ namespace po {
         cubeDepth = D;
         
         // front vertices
-        int FTL = addVertex( poPoint(0,0,0) );
-        int FTR = addVertex( poPoint(W,0,0) );
-        int FBR = addVertex( poPoint(W,H,0) );
-        int FBL = addVertex( poPoint(0,H,0) );
+        int FTL = addVertex( Point(0,0,0) );
+        int FTR = addVertex( Point(W,0,0) );
+        int FBR = addVertex( Point(W,H,0) );
+        int FBL = addVertex( Point(0,H,0) );
         
         // back vertices
-        int BTL = addVertex( poPoint(0,0,D) );
-        int BTR = addVertex( poPoint(W,0,D) );
-        int BBR = addVertex( poPoint(W,H,D) );
-        int BBL = addVertex( poPoint(0,H,D) );
+        int BTL = addVertex( Point(0,0,D) );
+        int BTR = addVertex( Point(W,0,D) );
+        int BBR = addVertex( Point(W,H,D) );
+        int BBL = addVertex( Point(0,H,D) );
         
         // front face
         addTriangle( FTL, FTR, FBR );
