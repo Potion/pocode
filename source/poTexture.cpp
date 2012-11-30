@@ -201,7 +201,7 @@ namespace po {
     {
         load(width, height, pixels, config, stride);
     }
-
+    
     Texture::~Texture() {
         glDeleteTextures(1, &uid);
         uid = 0;
@@ -450,9 +450,10 @@ namespace po {
     void Texture::load(uint width, uint height, int channels, const ubyte *pixels, uint stride) {
         load(width, height, pixels, TextureConfig(formatForChannels(channels)), stride);
     }
+    
+    
     //------------------------------------------------------------------------
-    void Texture::load(uint w, uint h, const ubyte *p, const TextureConfig &c) {
-        
+    void Texture::load(uint w, uint h, const ubyte *p, const TextureConfig &c, uint stride) {
         totalAllocatedTextureMemorySize -= width*height*channels;
         totalAllocatedTextureMemorySize += w*h*channelsForFormat(c.format);
         
@@ -465,7 +466,13 @@ namespace po {
         
         glGenTextures(1, &uid);
         glBindTexture(GL_TEXTURE_2D, uid);
-        glPixelStorei(GL_PACK_ALIGNMENT, 1);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        if(stride) {
+            if(stride != width*height*channels) {
+                int elements = stride / channels;
+                glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
+            }
+        }
         
         // set the filters we want
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
@@ -479,7 +486,7 @@ namespace po {
     #endif
         
         // i'm assuming you're replacing the whole texture anyway
-        glTexImage2D(GL_TEXTURE_2D, 
+        glTexImage2D(GL_TEXTURE_2D,
                      0, 
                      config.internalFormat, 
                      width, 
@@ -489,6 +496,7 @@ namespace po {
                      config.type, 
                      p);
         
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
         po::restoreTextureState();
     }
     
