@@ -35,7 +35,7 @@ poAsyncImageLoaderExampleApp::~poAsyncImageLoaderExampleApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void poAsyncImageLoaderExampleApp::update() {
-    imageHolder->rotation++;
+    //imageHolder->rotation++;
 	imageHolder->position.set(po::getWindowWidth()/2,
                               po::getWindowHeight()/2,
                               1.0);

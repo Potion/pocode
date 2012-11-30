@@ -3,8 +3,8 @@
  *	This file is part of pocode.
  *
  *	pocode is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU Lesser General Public License as 
- *	published by the Free Software Foundation, either version 3 of 
+ *	it under the terms of the GNU Lesser General Public License as
+ *	published by the Free Software Foundation, either version 3 of
  *	the License, or (at your option) any later version.
  *
  *	pocode is distributed in the hope that it will be useful,
@@ -12,7 +12,7 @@
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU Lesser General Public License for more details.
  *
- *	You should have received a copy of the GNU Lesser General Public 
+ *	You should have received a copy of the GNU Lesser General Public
  *	License along with pocode.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
@@ -27,6 +27,7 @@
 
 #pragma once
 
+
 #include "poPoint.h"
 #include "poColor.h"
 #include "poRect.h"
@@ -36,15 +37,14 @@
 #include "poResourceStore.h"
 
 namespace po {
-    
-    // This utlity class contains the settings for a Texture.
-    class TextureConfig {
+// This utlity class contains the settings for a Texture.
+class TextureConfig {
     public:
         TextureConfig();
         TextureConfig(GLenum format);
         
-        TextureConfig &setFormat(GLenum f)              { format = f; return *this; }
-        TextureConfig &setInternalFormat(GLenum f)      { internalFormat = f; return *this; }
+        TextureConfig &setFormat(GLenum f)			{ format = f; return *this; }
+        TextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
         TextureConfig &setType(GLenum f)				{ type = f; return *this; }
         TextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
         TextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
@@ -53,6 +53,7 @@ namespace po {
         
         GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
     };
+
 
     // CLASS NOTES
     //
@@ -63,7 +64,6 @@ namespace po {
     //
     // Texture's are also used in frame buffer objects (FBO's) and in video display.
     //
-    
     class Texture : public Resource {
     public:
         Texture();
@@ -99,8 +99,8 @@ namespace po {
         void				setWrapT(GLenum f);
         
         bool                hasSourceImage() { return (sourceImage != NULL); };
-        Color               getSourceImagePixel(Point p);
-        Image*              getSourceImage() { return sourceImage; };
+        Color             getSourceImagePixel(Point p);
+        Image*            getSourceImage() { return sourceImage; };
         
         static int          getTotalAllocatedTextureMemorySize() { return totalAllocatedTextureMemorySize; };
         bool				hasAlpha() { return channels > 0 && channels != 3; }
@@ -114,14 +114,15 @@ namespace po {
         void                unload();
         void				configure();
         
-        TextureConfig       config;
+        TextureConfig     config;
         uint				uid, width, height, channels;
         
-        Image*              sourceImage;
+        Image*            sourceImage;
         bool                sourceIsScaled;
         
         static int          totalAllocatedTextureMemorySize;
     };
+
 
     // figures out tex coords to fit texture in rect
     std::vector<Point> textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align);
@@ -129,4 +130,4 @@ namespace po {
     // returns texture coordinates thru coords
     void textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
     uint channelsForFormat(GLenum format);
-}/* End po namespace */
+}

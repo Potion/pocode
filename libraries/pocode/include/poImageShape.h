@@ -36,7 +36,6 @@
 // that has image-centric methods for convenience
 //
 
-<<<<<<< HEAD
 namespace po {
     class ImageShape : public Object {
     public:
@@ -78,61 +77,4 @@ namespace po {
     //	Texture*  tex;
     //	bool        alphaTest;
     };
-}
-=======
-
-class poImageShape : public poObject {
-public:
-	poImageShape();
-	poImageShape(poImage *img, bool keepImage=false);
-	poImageShape(const std::string &str, bool keepImage=false);
-	virtual ~poImageShape();
-	
-	virtual void draw();
-	
-//    poImageShape();
-//    poImageShape(std::string url, bool loadAsync = false);
-//    poImageShape(poImage* image);
-    
-	bool doesAlphaTest() const;
-	void setAlphaTest(bool b);
-	
-    poImage *getImage() const;
-    
-    void setImage(const std::string &str, bool keepImage=false);
-    void setImage(poImage *image);
-    void setImageAsync(std::string url); //Load image asynchronously
-    
-    void clearImageData(); //Deletes the image data from the texture, lower memory cost
-    
-    void setShouldClearImage(bool shouldClearImage);
-    bool getShouldClearImage();
-	
-	bool                    pointInside(poPoint p, bool localize=false);
-	virtual poRect          getBounds();
-    
-private:
-    bool shouldKeepImage;
-    poTexture *tex;
-	bool alphaTest;
-    
-//	poImageShape();
-//	poImageShape(poImage *img, bool keepImage=false);
-//	poImageShape(const std::string &str, bool keepImage=false);
-//	virtual ~poImageShape();
-//    
-//	virtual void draw();
-//	
-//	bool doesAlphaTest() const;
-//	void setAlphaTest(bool b);
-//	
-//	poImage *getImage() const;
-//	void setImage(poImage* img);
-//    
-//	bool                    pointInside(poPoint p, bool localize=false);
-//	virtual poRect          getBounds();
-//private:
-//	poTexture*  tex;
-//	bool        alphaTest;
-};
->>>>>>> master
+} /* End po Namespace */

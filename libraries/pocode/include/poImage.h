@@ -26,7 +26,7 @@
 //
 
 #pragma once
-
+#include "poObject.h"
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"
@@ -81,7 +81,7 @@ namespace po {
         uint                getWidth() const;
         uint                getHeight() const;
         uint				getChannels() const;
-        Point             getDimensions() const;
+        Point               getDimensions() const;
         uint                getPitch() const;
         uint                getStorageSize() const;
         bool                isScaled();

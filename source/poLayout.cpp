@@ -19,7 +19,6 @@
 
 #include "poLayout.h"
 
-
 namespace po {
 
     Layout::Layout(Orientation orientation) :
