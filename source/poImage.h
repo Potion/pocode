@@ -26,7 +26,7 @@
 //
 
 #pragma once
-
+#include "poObject.h"
 #include "poRect.h"
 #include "poEnums.h"
 #include "poColor.h"

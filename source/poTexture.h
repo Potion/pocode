@@ -108,8 +108,8 @@ namespace po {
     private:
         void                load(Image* img);
         void                load(Image* img, const TextureConfig &config);
-        void				load(uint width, uint height, int channels, const ubyte *pixels);
-        void				load(uint width, uint height, const ubyte *pixels, const TextureConfig &config, uint stride=0);
+        void				load(uint width, uint height, int channels, const ubyte *pixels, uint stride=0);
+        void				load(uint width, uint height, const ubyte *pixels, const TextureConfig &config);
         void				loadDummyImage();
         void                unload();
         void				configure();

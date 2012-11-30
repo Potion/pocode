@@ -99,11 +99,11 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Point poPoint::normalized() const {
+    Point Point::normalized() const {
         float len = getLength();
         if(len == 0) return *this;
         
-        poPoint r = *this;
+        Point r = *this;
         r.x = x / len;
         r.y = y / len;
         r.z = z / len;
