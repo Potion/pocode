@@ -96,6 +96,19 @@ namespace po {
         float len = pt.getLength();
         return Point(pt.x/len, pt.y/len, pt.z/len);
     }
+    
+    
+    //------------------------------------------------------------------------
+    Point poPoint::normalized() const {
+        float len = getLength();
+        if(len == 0) return *this;
+        
+        poPoint r = *this;
+        r.x = x / len;
+        r.y = y / len;
+        r.z = z / len;
+        return r;
+    }
 
 
     //------------------------------------------------------------------------

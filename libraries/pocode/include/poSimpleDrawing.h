@@ -39,6 +39,7 @@
 //		po::drawStrokedRect(0,0,100,100);
 // 
 
+#include "poOpenGLState.h"
 
 namespace po {
     
@@ -85,10 +86,18 @@ namespace po {
 	void drawTexturedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords);
 	
 	// drawPoints allows you to draw a shape and specify the GLenum type
+<<<<<<< HEAD
 	void drawPoints(const std::vector<Point> &points, GLenum type);
 	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, GLenum type);
 	void drawPoints(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
 	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
+=======
+	void drawPoints(const std::vector<poPoint> &points, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(const std::vector<poPoint> &points, const std::vector<unsigned short> &indices, poTexture *tex, const std::vector<poPoint> &texCoords, GLenum type);
+	void drawPoints(poPoint* pt, int count, GLenum type);
+>>>>>>> master
 	
 	// The "generateStroke" method creates a very high quality stroke.
     // This stroke is actually drawn as a very thin filled shape. 

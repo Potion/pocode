@@ -77,4 +77,4 @@ namespace po {
     //	Texture*  tex;
     //	bool        alphaTest;
     };
-}
+} /* End po Namespace */

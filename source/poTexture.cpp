@@ -164,7 +164,6 @@ namespace po {
     
     
     
-    
     // -----------------------------------------------------------------------------------
     // ================================ Class: Texture ===================================
     #pragma mark - Texture -
@@ -197,10 +196,10 @@ namespace po {
         load(img, config);
     }
 
-    Texture::Texture(uint width, uint height, const ubyte *pixels, const TextureConfig &config)
+    Texture::Texture(uint width, uint height, const ubyte *pixels, const TextureConfig &config, uint stride)
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {
-        load(width, height, pixels, config);
+        load(width, height, pixels, config, stride);
     }
 
     Texture::~Texture() {
@@ -448,11 +447,9 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Texture::load(uint width, uint height, int channels, const ubyte *pixels) {
-        load(width, height, pixels, TextureConfig(formatForChannels(channels)));
+    void Texture::load(uint width, uint height, int channels, const ubyte *pixels, uint stride) {
+        load(width, height, pixels, TextureConfig(formatForChannels(channels)), stride);
     }
-    
-    
     //------------------------------------------------------------------------
     void Texture::load(uint w, uint h, const ubyte *p, const TextureConfig &c) {
         

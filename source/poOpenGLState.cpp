@@ -306,6 +306,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
+	void setColor(float r, float g, float b, float a) {
+		setColor(Color(r,g,b,a));
+	}
+    
+    
+    //------------------------------------------------------------------------
 	void setColor(Color const& c) {
 		ogl->color = c;
 	}

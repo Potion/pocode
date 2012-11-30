@@ -58,8 +58,8 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: DictionaryItem ============================
-    #pragma mark - Sqlite Result -
-
+    #pragma mark - Dictionary Item -
+    
     DictionaryItem::DictionaryItem()
     : item(0)
     {}
@@ -143,6 +143,11 @@ namespace po {
     #pragma mark - Dictionary -
 
     Dictionary::Dictionary() {
+    }
+        
+        
+    Dictionary::Dictionary(std::string const k, DictionaryItem_t const& v) {
+        set(k,v);
     }
     
     Dictionary Dictionary::copy() {

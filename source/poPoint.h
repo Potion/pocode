@@ -55,6 +55,7 @@ namespace po {
         
         // POINT (VECTOR) OPERATIONS
         Point&          normalize();
+        Point			normalized() const;
         float           getLength() const;
         float           getLengthSquared() const;
         float           getDist(Point pt);

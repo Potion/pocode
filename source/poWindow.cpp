@@ -30,6 +30,7 @@
 #include "poTexture.h"
 #include "poImage.h"
 
+
 namespace po {
     void objUnderPoint(Object *obj, Point &pnt, std::set<Object*> &objsBeneath) {
         if(!(obj->visible && obj->alpha > 0.01))
@@ -43,6 +44,7 @@ namespace po {
             objsBeneath.insert(obj);
     }
 
+    
     Window::Window(const char *title, uint rootID, Rect b, float s)
     :	title(title)
     ,	handle(NULL)
@@ -58,6 +60,7 @@ namespace po {
     ,	lastMark(0.0)
     ,	framerate(0.f)
     ,	mouseMoveEnabled(true)
+    ,	block_all_events(false)
     {
     }
 
@@ -104,6 +107,12 @@ namespace po {
     //------------------------------------------------------------------------
     SigConn Window::addUpdate(const boost::function<void()> &func) {
         return updateSignal.connect(func);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::setBlockAllEvent(bool b) {
+        block_all_events = b;
     }
     
     
@@ -565,4 +574,4 @@ namespace po {
         event.type = PO_ROTATION_EVENT;
         received.push_back(event);
     }
-}
+} /* End po Namespace */

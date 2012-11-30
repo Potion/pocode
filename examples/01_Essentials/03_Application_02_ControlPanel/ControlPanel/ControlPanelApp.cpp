@@ -7,7 +7,6 @@
 #include "ControlPanelApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"
 
 
 // APP CONSTRUCTOR. Create all objects here.
@@ -24,7 +23,7 @@ ControlPanelApp::ControlPanelApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	control = new poControlPanel( "controlPanel", poColor(0,0,0,0.6), 11 );	// Create a control panel
@@ -90,7 +89,6 @@ ControlPanelApp::ControlPanelApp() {
 	
 	text = new poTextBox(450,295);
 	text->setText(control->getString("text"));					// Get a string value from the control called "text"
-	text->setFont(poGetFont("Helvetica", "Bold"));
 	text->setTextSize(control->getInt("textSize"));				// Get a integer value from the control called "size"
 	text->textColor = poColor::black;
 	text->setTextAlignment(PO_ALIGN_CENTER_CENTER);

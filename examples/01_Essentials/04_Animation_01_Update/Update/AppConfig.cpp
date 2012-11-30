@@ -7,6 +7,7 @@
 
 #include "UpdateApp.h"
 #include "poApplication.h"
+#include "poHelpers.h"
 
 poObject *createObjectForID(uint uid) {
 	return new UpdateApp();

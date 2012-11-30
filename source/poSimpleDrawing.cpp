@@ -329,6 +329,18 @@ namespace po {
     
     
     //------------------------------------------------------------------------
+    void po::drawPoints(Point* pt, int count, GLenum type) {
+        use2DShader();
+        updateActiveShader();
+        
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &pt[0].x);
+        glDrawArrays(type, 0, count);
+        glDisableVertexAttribArray(0);
+    }
+    
+    
+    //------------------------------------------------------------------------
     std::vector<Point> generateStroke(std::vector<Point> &points,
                                             int strokeWidth, 
                                             bool close, 
@@ -463,4 +475,4 @@ namespace po {
         }
         return len;
     }
-}
+} /* End po Namespace */

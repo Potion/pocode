@@ -89,7 +89,6 @@ namespace po {
         bool			isMouseMoveEnabled() const;
         void			setMouseMoveEnabled(bool b);
         
-        
 
         // EVENT RECEIVING METHODS
         // These methods are called by the platform-specific windowing system. On the Mac and iOS
@@ -120,6 +119,7 @@ namespace po {
         int             getNextDrawOrder();
         
         SigConn			addUpdate(const boost::function<void()> &func);
+        void			setBlockAllEvent(bool b);
 
     private:
         
@@ -161,5 +161,6 @@ namespace po {
         int drawOrderCounter;
         
         boost::signals2::signal<void()> updateSignal;
+        bool block_all_events;
     };
 } /* End po namespace */

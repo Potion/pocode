@@ -24,6 +24,7 @@
 #undef min
 #undef max
 
+<<<<<<< HEAD
 namespace po {
     TweenBase::TweenBase()
     :	state(NOT_RUNNING)
@@ -214,4 +215,4 @@ namespace po {
             endTime = duration;
         }
     }
-}/*End po namespace */
+} /*End po namespace */

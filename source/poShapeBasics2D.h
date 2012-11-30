@@ -102,6 +102,7 @@ namespace po {
         OvalShape();
         OvalShape( float radius );
         OvalShape( float _width, float _height, int numPoints );
+        virtual ~OvalShape() {}
         
         virtual Object *copy();
         
@@ -130,6 +131,7 @@ namespace po {
     public:
         LineShape();
         LineShape( Point A, Point B );
+        virtual ~LineShape() {}
         
         void    reshape( Point A, Point B );
         
@@ -165,4 +167,4 @@ namespace po {
         float	width, height, depth;
         float	outerRadius, innerRadius;
     };
-} /* End po namespace */
+}

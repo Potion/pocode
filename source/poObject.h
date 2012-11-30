@@ -50,8 +50,6 @@ namespace po {
     // + Have a set of tweens for basic animation (animation may also be done in the "update" method).
     // + Have a list of ObjectModifiers that can modify the object and/or OpenGl state.
 
-
-
     class Object {
         friend class poWindow;
     public:
@@ -70,6 +68,7 @@ namespace po {
         /// WORK-HORSE METHODS
         // "draw" is only necessary if the class does its own OpenGL drawing, instead of using pocode shapes.
         virtual void        draw();
+        virtual void		drawAfter();
         
         // Draw the bounds if drawBounds is set.
         virtual void        _drawBounds();
@@ -113,10 +112,10 @@ namespace po {
         po::Object*			addChildBefore(Object* obj, Object* before);
         po::Object*			addChildAfter(Object* obj, Object* after);
         int                 getChildIndex(Object* child);
-        po::Object*           getChild(int at_idx);
-        po::Object*           getChildWithUID(uint uid);
-        po::Object*           getChild(const std::string &with_name);
-        po::Object*           getLastChild();
+        po::Object*         getChild(int at_idx);
+        po::Object*         getChildWithUID(uint uid);
+        po::Object*         getChild(const std::string &with_name);
+        po::Object*         getLastChild();
         std::vector<Object*> getChildren(const std::string &with_name);
         bool                removeChild(Object* obj);
         bool                removeChild(int at_idx, bool and_delete=true);
@@ -149,13 +148,13 @@ namespace po {
         void				applyTransformation();
         virtual bool        pointInside(Point point, bool localize=false);
         bool                pointInside(float x, float y, float z=0.f, bool localize=false);
-        Point             objectToLocal(Object* obj, Point point) const;
-        Point             globalToLocal(Point point) const;
-        Point             localToGlobal(Point point) const;
+        Point               objectToLocal(Object* obj, Point point) const;
+        Point               globalToLocal(Point point) const;
+        Point               localToGlobal(Point point) const;
         
         // OBJECT ALIGNMENT & BOUNDS CALCULATION
-        Alignment         getAlignment() const;
-        virtual Object&   setAlignment(Alignment align);
+        Alignment           getAlignment() const;
+        virtual Object&     setAlignment(Alignment align);
         
         // TWEEN MANAGEMENT
         virtual void        stopAllTweens(bool recurse=false);
@@ -176,23 +175,23 @@ namespace po {
         // OBJECT PROPERTIES (DIRECTLY ACCESSIBLE)
         std::string         name;
         float               alpha;
-        Point             scale;
-        Point             position;
+        Point               scale;
+        Point               position;
         float               rotation;
-        Point             rotationAxis;
-        Point             offset;
+        Point               rotationAxis;
+        Point               offset;
         bool                visible;
         int                 drawBounds;
-        MatrixOrder       matrixOrder;
+        MatrixOrder         matrixOrder;
         
         
         // All Objects have tween operators that may be enabled and disabled independently.
         // By default, all tweens are disabled. See Tween.h for more about tweens.
         
         // OBJECT TWEENS (DIRECTLY ACCESSIBLE)
-        Tween<Point>	positionTween;
-        Tween<Point>	scaleTween;
-        Tween<Point>	offsetTween;
+        Tween<Point>        positionTween;
+        Tween<Point>        scaleTween;
+        Tween<Point>        offsetTween;
         Tween<float>		alphaTween;
         Tween<float>		rotationTween;
 

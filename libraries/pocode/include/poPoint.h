@@ -35,6 +35,7 @@
 #include <string>
 #include <ostream>
 
+<<<<<<< HEAD
 namespace po {
     class Point {
     public:
@@ -74,6 +75,47 @@ namespace po {
         // X, Y and Z
         float           x, y, z;
     };
+=======
+class poPoint {
+public:
+    // CONSTRUCTORS
+	poPoint();
+	poPoint(const float *f);
+	poPoint(float x, float y, float z=0.f);
+	
+    // SET POINT
+	poPoint&        set(poPoint p);
+	poPoint&        set(float x, float y, float z);
+	poPoint&        setPolar(float deg, float mag);
+    
+    // SET POINT with STRING
+    // Format is "point(x,y)" or "point(x,y,z)"
+	bool			fromString(std::string const& str);
+	std::string     toString() const;
+	
+    // POINT (VECTOR) OPERATIONS
+	poPoint&        normalize();
+	poPoint			normalized() const;
+	float           getLength() const;
+	float           getLengthSquared() const;
+    float           getDist(poPoint pt) const;
+	float           getDot(poPoint rhs) const;
+	poPoint         getCross(poPoint rhs) const;
+	poPoint         getNormal2D() const;
+	poPoint         getRotate2D(float angle) const;
+    
+    // OVERLOADED OPERATORS
+    // For example, where A and B are both poPoints, and S is a scalar
+    bool            operator==(poPoint rhs);    // A == B
+	void            operator+=(poPoint rhs);    // A += B
+	void            operator-=(poPoint rhs);    // A -= B
+	void            operator*=(float scalar);   // A *= S
+	void            operator/=(float scalar);   // A /= S
+    
+    // X, Y and Z
+    float           x, y, z;
+};
+>>>>>>> master
 
     // OVERLOADED OPERATOR
     // For example, where A and B are both Points, and S is a scalar

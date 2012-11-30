@@ -73,6 +73,7 @@ public:
     
     poSliderF( string _ID, float init, float _min = 0, float _max = 1, string _valName = "" ,poObject* _listener = NULL );
     virtual void eventHandler(poEvent *event);
+	void setValue(float val);
 	
     poRectShape* sliderShape;
     poRectShape* sliderKnob;
@@ -88,6 +89,7 @@ public:
     
     poSliderI( string _ID, int init, int _min = 0, int _max = 255, poObject* _listener = NULL );
     virtual void eventHandler(poEvent *event);
+	void setValue(int val);
     
     poRectShape* sliderShape;
     poRectShape* sliderKnob;
@@ -117,6 +119,7 @@ public:
     
     poToggleBox( string _ID, bool init, poObject* _listener = NULL );
     virtual void eventHandler(poEvent *event);
+	void setValue(bool val);
 
     poRectShape* toggleShape;
     poTextBox*   shapeLabel;

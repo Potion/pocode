@@ -52,6 +52,7 @@ namespace po {
 
 
 
+<<<<<<< HEAD
     class Object {
         friend class poWindow;
     public:
@@ -82,6 +83,39 @@ namespace po {
         
         // "messageHander" is a general utility method used for passing messages between any two Objects.
         virtual void        messageHandler(const std::string &msg, const Dictionary& dict=Dictionary());
+=======
+class poObject {
+	friend class poWindow;
+public:
+	// OBJECT CREATION AND DESTRUCTION
+    poObject();
+    poObject(const std::string &name);
+    poObject(int width, int height, const std::string &name="");
+	virtual ~poObject();
+	
+	virtual poObject*	copy();
+	
+    // Most poObject subclasses should implement all four of these methods.
+    // The only method you should call explictly is messageHandler. 
+    // The other three are called automatically if the object is added to the scene graph. 
+     
+    /// WORK-HORSE METHODS
+    // "draw" is only necessary if the class does its own OpenGL drawing, instead of using pocode shapes.
+    virtual void        draw();
+	virtual void		drawAfter();
+    
+    // Draw the bounds if drawBounds is set.
+    virtual void        _drawBounds();
+    
+    // "update" is called once per frame. It should be used for implementing animation.
+	virtual void        update();
+    
+    // "eventHandler" is called when the object receives an event. Events are registered using "addEvent".
+	virtual void        eventHandler(poEvent *event);
+    
+    // "messageHander" is a general utility method used for passing messages between any two poObjects.
+	virtual void        messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+>>>>>>> master
 
         //  All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.
         // EVENTS
@@ -133,6 +167,7 @@ namespace po {
         // ObjectModifiers have two virtual methods, doSetUp and doSetDown
         // that are called, respectively, before and afer a Object is drawn.
 
+<<<<<<< HEAD
         // OBJECT MODIFIER OPERATIONS
         po::ObjectModifier*	addModifier(po::ObjectModifier* mod);
         po::ObjectModifier*	getModifier(int idx);
@@ -195,6 +230,71 @@ namespace po {
         Tween<Point>	offsetTween;
         Tween<float>		alphaTween;
         Tween<float>		rotationTween;
+=======
+    // OBJECT MODIFIER OPERATIONS
+    poObjectModifier*	addModifier(poObjectModifier* mod);
+	poObjectModifier*	getModifier(int idx);
+	std::vector<poObjectModifier*> const &getModifiers();
+	bool                removeModifier(int idx, bool and_delete=true);
+	bool                removeModifier(poObjectModifier* mod, bool and_delete=true);
+    void                removeAllModifiers(bool and_delete=true);
+	int                 getNumModifiers() const;
+	
+    // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).
+    // globalToLocal and localToGlobal are useful in hitTesting and inter-object coordination.
+    
+    // HIT TESTING & COORDINATE TRANSFORMATIONS
+	void				applyTransformation();
+	virtual bool        pointInside(poPoint point, bool localize=false);
+	bool                pointInside(float x, float y, float z=0.f, bool localize=false);
+	poPoint             objectToLocal(poObject* obj, poPoint point) const;
+	poPoint             globalToLocal(poPoint point) const;
+	poPoint             localToGlobal(poPoint point) const;
+	float				getDistance(poObject* o) const;
+    
+    // OBJECT ALIGNMENT & BOUNDS CALCULATION
+	poAlignment         getAlignment() const;
+	virtual poObject&   setAlignment(poAlignment align);
+	
+    // TWEEN MANAGEMENT
+    virtual void        stopAllTweens(bool recurse=false);
+    
+    //  Parent object should pass the child's poXMLNode node into the child.
+    // OBJECT SERIALIZATION
+	virtual void        read(poXMLNode node);
+	virtual void        write(poXMLNode &node);
+	
+    
+	// SCENE GRAPH TRAVERSAL (DO NOT CALL)
+	virtual void        drawTree();
+	virtual void        updateTree();
+    
+    // These properties may be set directly either inside or outside the class.
+    // Changes to these properties require no additional computation.
+	
+    // OBJECT PROPERTIES (DIRECTLY ACCESSIBLE)
+    std::string         name;
+	float               alpha;
+	poPoint             scale;
+	poPoint             position;
+	float               rotation;
+	poPoint             rotationAxis;
+	poPoint             offset;
+	bool                visible;
+    int                 drawBounds;
+	poMatrixOrder       matrixOrder;
+    
+    
+    // All poObjects have tween operators that may be enabled and disabled independently.
+    // By default, all tweens are disabled. See poTween.h for more about tweens.
+ 	
+    // OBJECT TWEENS (DIRECTLY ACCESSIBLE)
+	poTween<poPoint>	positionTween;
+	poTween<poPoint>	scaleTween;
+	poTween<poPoint>	offsetTween;
+	poTween<float>		alphaTween;
+	poTween<float>		rotationTween;
+>>>>>>> master
 
         
         po::Object*         getParent() const;

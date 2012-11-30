@@ -26,6 +26,7 @@
 //
 #include "poAttributedString.h"
 
+
 namespace po {
 	
 	Range::Range(int s, int e) : start(s), end(e) {}

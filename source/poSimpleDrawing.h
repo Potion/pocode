@@ -39,6 +39,7 @@
 //		po::drawStrokedRect(0,0,100,100);
 // 
 
+#include "poOpenGLState.h"
 
 namespace po {
     
@@ -89,6 +90,7 @@ namespace po {
 	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, GLenum type);
 	void drawPoints(const std::vector<Point> &points, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
 	void drawPoints(const std::vector<Point> &points, const std::vector<unsigned short> &indices, Texture *tex, const std::vector<Point> &texCoords, GLenum type);
+    void drawPoints(Point* pt, int count, GLenum type);
 	
 	// The "generateStroke" method creates a very high quality stroke.
     // This stroke is actually drawn as a very thin filled shape. 

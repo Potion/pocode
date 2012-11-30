@@ -46,8 +46,8 @@ namespace po {
         Point				getPoint() const;
         Color				getColor() const;
         void*				getPtr() const;
-        Dictionary		getDictionary() const;
-        DictionaryType	getType() const;
+        Dictionary          getDictionary() const;
+        DictionaryType      getType() const;
         
         void				setBool(const DictionaryItem_t &i);
         std::string			toString();
@@ -63,6 +63,7 @@ namespace po {
         
     public:
         Dictionary();
+        Dictionary(std::string const k, DictionaryItem_t const& v);
         Dictionary		copy();
         
         bool				getBool(const std::string &s) const;
@@ -72,12 +73,12 @@ namespace po {
         Point				getPoint(const std::string &s) const;
         Color				getColor(const std::string &s) const;
         void*				getPtr(const std::string &s) const;
-        Dictionary		getDictionary(const std::string &s) const;
-        DictionaryType	getType(const std::string &s) const;
+        Dictionary          getDictionary(const std::string &s) const;
+        DictionaryType      getType(const std::string &s) const;
         
-        DictionaryItem	get(const std::string &s) const;
-        Dictionary&		set(const std::string &s, const DictionaryItem_t &di);
-        Dictionary&		append(const Dictionary &d);
+        DictionaryItem      get(const std::string &s) const;
+        Dictionary&         set(const std::string &s, const DictionaryItem_t &di);
+        Dictionary&         append(const Dictionary &d);
         
         bool				has(const std::string &s) const;
         size_t				count() const;

@@ -44,10 +44,13 @@ namespace po {
 	void defaultStencil();
 	void defaultBlending();
 
+	void setColor(float, float, float, float);
 	void setColor(Color const& c);
 	void setColor(Color const& c, float alpha);
-	Color getColor();
-	void setLineWidth(float w);
+	
+    Color getColor();
+	
+    void setLineWidth(float w);
 	float getLineWidth();
 	void setPointSize(float sz);
 	float getPointSize();

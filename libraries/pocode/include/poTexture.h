@@ -35,6 +35,7 @@
 
 #include "poResourceStore.h"
 
+<<<<<<< HEAD
 namespace po {
     
     // This utlity class contains the settings for a Texture.
@@ -53,6 +54,94 @@ namespace po {
         
         GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
     };
+=======
+// This utlity class contains the settings for a poTexture.
+class poTextureConfig {
+public:
+	poTextureConfig();
+	poTextureConfig(GLenum format);
+	
+	poTextureConfig &setFormat(GLenum f)			{ format = f; return *this; }
+	poTextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
+	poTextureConfig &setType(GLenum f)				{ type = f; return *this; }
+	poTextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
+	poTextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
+	poTextureConfig &setWrapS(GLenum f)				{ wrapS = f; return *this; }
+	poTextureConfig &setWrapT(GLenum f)				{ wrapT = f; return *this; }
+	
+	GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
+};
+
+
+// CLASS NOTES
+//
+// A poTexture is a type of image that can be attached to poShape2D objects.
+//
+// It is rare that you will neeed to construct a poTexture directly. Instead, poTexture's
+// are usually derived from poImage objects.
+//
+// poTexture's are also used in frame buffer objects (FBO's) and in video display.
+//
+
+class poTexture : public poResource {
+public:
+	poTexture();
+	poTexture(const poFilePath &filePath, bool keepImage=false );
+	poTexture(poImage* img);
+	poTexture(poImage* img, const poTextureConfig &config);
+	poTexture(uint width, uint height, const ubyte *pixels, const poTextureConfig &config, uint stride=0);
+	~poTexture();
+	
+	poTexture*			copy();
+    
+	void				replace(poImage* image);
+	void				replace(const ubyte *pixels);
+	
+	bool                isValid() const;
+    bool                isScaled() const;
+	poTextureConfig		getConfig() const;
+	uint				getUid() const;
+	uint				getWidth() const;
+	uint				getHeight() const;
+	uint				getChannels() const;
+	uint				getBitsPerPixel() const;
+	size_t				getSizeInBytes() const;
+	poPoint				getDimensions() const;
+	poRect				getBounds() const;
+	
+	void				setFormat(GLenum f);
+	void				setInternalFormat(GLenum f);
+	void				setMagFilter(GLenum f);
+	void				setMinFilter(GLenum f);
+	void				setType(GLenum f);
+	void				setWrapS(GLenum f);
+	void				setWrapT(GLenum f);
+    
+    bool                hasSourceImage() { return (sourceImage != NULL); };
+	poColor             getSourceImagePixel(poPoint p);
+    poImage*            getSourceImage() { return sourceImage; };
+    
+    static int          getTotalAllocatedTextureMemorySize() { return totalAllocatedTextureMemorySize; };
+	bool				hasAlpha() { return channels > 0 && channels != 3; }
+    
+private:
+	void                load(poImage* img);
+	void                load(poImage* img, const poTextureConfig &config);
+	void				load(uint width, uint height, int channels, const ubyte *pixels, uint stride=0);
+	void				load(uint width, uint height, const ubyte *pixels, const poTextureConfig &config, uint stride=0);
+	void				loadDummyImage();
+	void                unload();
+	void				configure();
+	
+	poTextureConfig     config;
+	uint				uid, width, height, channels;
+	
+    poImage*            sourceImage;
+    bool                sourceIsScaled;
+    
+    static int          totalAllocatedTextureMemorySize;
+};
+>>>>>>> master
 
 
     // CLASS NOTES

@@ -7,7 +7,6 @@
 #include "XMLApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 #include "poTextBox.h"								// include poTextBox.h to be able to use poTextBox
 #include "poShapeBasics2D.h"						// Include poShapeBasics2D.h to be able to use poShapes
 
@@ -26,7 +25,7 @@ XMLApp::XMLApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	
@@ -51,8 +50,6 @@ XMLApp::XMLApp() {
 	float colorB = nodeA.getFloatAttribute("colorB");		// Get the attribute called "colorB" as a float
 	
 	std::string textA = nodeA.getInnerString();				// Get the content of node A as a string
-	
-	printf("%s\n", fontFamilyA.c_str());
 	
 	poFont* fontA = poGetFont(fontFamilyA, "Regular");		// Set the font based on the "fontFamily" attribute
 	
@@ -91,7 +88,6 @@ XMLApp::XMLApp() {
 		
 		poTextBox* text = new poTextBox(50, 20);			// Create a poTextBox to display the string
 		text->setText( stringValue );						// Set the text based on the value of the node
-		text->setFont( poGetFont("Helvetica", "Regular") );
 		text->setTextSize(13);
 		text->textColor = poColor::white;
 		text->doLayout();

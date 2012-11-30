@@ -8,7 +8,6 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poShapeBasics2D.h"								// include poTextBox.h to be able to use poShape
-#include "poImageShape.h"							// Include poImageShape.h to be able to use poImageShapes
 
 
 // APP CONSTRUCTOR. Create all objects here.
@@ -25,7 +24,7 @@ ParentsChildrenApp::ParentsChildrenApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
     

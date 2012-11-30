@@ -7,7 +7,6 @@
 #include "BasicTweensApp.h"
 #include "poApplication.h"
 #include "poCamera.h"
-#include "poImageShape.h"
 
 
 // APP CONSTRUCTOR. Create all objects here.
@@ -24,7 +23,7 @@ BasicTweensApp::BasicTweensApp() {
 	}
 	else fclose(F);
 	
-    poImageShape* BG = new poImageShape("bg.jpg");
+    poRectShape* BG = new poRectShape("bg.jpg");
     addChild( BG );
 	
 	

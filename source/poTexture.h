@@ -43,8 +43,8 @@ namespace po {
         TextureConfig();
         TextureConfig(GLenum format);
         
-        TextureConfig &setFormat(GLenum f)			{ format = f; return *this; }
-        TextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
+        TextureConfig &setFormat(GLenum f)              { format = f; return *this; }
+        TextureConfig &setInternalFormat(GLenum f)      { internalFormat = f; return *this; }
         TextureConfig &setType(GLenum f)				{ type = f; return *this; }
         TextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
         TextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
@@ -53,7 +53,6 @@ namespace po {
         
         GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
     };
-
 
     // CLASS NOTES
     //
@@ -71,7 +70,7 @@ namespace po {
         Texture(const FilePath &filePath, bool keepImage=false );
         Texture(Image* img);
         Texture(Image* img, const TextureConfig &config);
-        Texture(uint width, uint height, const ubyte *pixels, const TextureConfig &config);
+        Texture(uint width, uint height, const ubyte *pixels, const TextureConfig &config, uint stride=0);
         ~Texture();
         
         Texture*			copy();
@@ -110,15 +109,15 @@ namespace po {
         void                load(Image* img);
         void                load(Image* img, const TextureConfig &config);
         void				load(uint width, uint height, int channels, const ubyte *pixels);
-        void				load(uint width, uint height, const ubyte *pixels, const TextureConfig &config);
+        void				load(uint width, uint height, const ubyte *pixels, const TextureConfig &config, uint stride=0);
         void				loadDummyImage();
         void                unload();
         void				configure();
         
-        TextureConfig     config;
+        TextureConfig       config;
         uint				uid, width, height, channels;
         
-        Image*            sourceImage;
+        Image*              sourceImage;
         bool                sourceIsScaled;
         
         static int          totalAllocatedTextureMemorySize;

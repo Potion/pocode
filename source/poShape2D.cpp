@@ -25,6 +25,7 @@
 #include "poCamera.h"
 #include "nanosvg.h"
 #include "poOpenGLState.h"
+
 #include "poSimpleDrawing.h"
 
 namespace po {
@@ -120,6 +121,13 @@ namespace po {
     //------------------------------------------------------------------------
     Shape2D& Shape2D::addPoint( float x, float y ) {
         addPoint( Point(x,y) );
+        return *this;
+    }
+    
+    //------------------------------------------------------------------------
+    Shape2D &Shape2D::removeLastPoint() {
+        if(!points.empty())
+            points.pop_back();
         return *this;
     }
     

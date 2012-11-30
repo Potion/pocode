@@ -99,6 +99,7 @@
 #define PO_TWEEN_ELASTIC_OUT_FUNC elasticOutFunc
 #define PO_TWEEN_ELASTIC_INOUT_FUNC elasticInOutFunc
 
+<<<<<<< HEAD
 namespace po {
 
     //------------------------------------------------------------------------
@@ -678,4 +679,4 @@ namespace po {
 
             return (t-b) >= d;
         }
-} /*End po Namespace*/
+} /* End po Namespace */
