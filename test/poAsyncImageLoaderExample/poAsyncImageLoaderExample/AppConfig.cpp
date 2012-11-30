@@ -9,7 +9,7 @@
 #include "poAsyncImageLoaderExampleApp.h"
 
 namespace po {
-    poObject *createObjectForID(uint uid) {
+    Object *createObjectForID(uint uid) {
         return new poAsyncImageLoaderExampleApp();
     }
 

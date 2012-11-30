@@ -83,13 +83,13 @@ namespace po {
     
     //------------------------------------------------------------------
     void Image::getImageAsync(FilePath filePath, Object *notify) {
-        //ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
+        ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
     }
     
     
     //------------------------------------------------------------------
     void Image::getImageAsync(URL url, Object *notify, const FilePath &savePath) {
-        //ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
+        ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
     }
     
     

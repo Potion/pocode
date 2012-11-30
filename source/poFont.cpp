@@ -41,7 +41,7 @@ using namespace std;
 
     #include "windows.h"
 
-        bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
+        bool po::urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
             return false;
         }
 
@@ -51,7 +51,7 @@ using namespace std;
     #if defined(POTION_MAC)
         #include <ApplicationServices/ApplicationServices.h>
 
-    bool urlForFontFamilyName(const std::string &family, const std::string &style, po::FilePath &response) {
+    bool po::urlForFontFamilyName(const std::string &family, const std::string &style, po::FilePath &response) {
             CFMutableDictionaryRef attributes = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             
             CFStringRef fam_str = CFStringCreateWithBytes(NULL, (const UInt8*)family.c_str(), family.size(), kCFStringEncodingUTF8, false);
@@ -83,7 +83,7 @@ using namespace std;
 
     #else
 
-        bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
+    bool po::urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response) {
             return false;
         }
 

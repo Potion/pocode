@@ -5,8 +5,8 @@
 #include "poWindow.h"
 #include "poHelpers.h"
 
-poRect rectFromNSRect(NSRect r) {
-	return poRect(r.origin.x, r.origin.y, r.size.width, r.size.height);
+po::Rect rectFromNSRect(NSRect r) {
+	return po::Rect(r.origin.x, r.origin.y, r.size.width, r.size.height);
 }
 
 std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
@@ -56,8 +56,8 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[view release];
 }
 
--(poWindow*)createWindow:(uint)appId 
-					type:(poWindowType)type 
+-(po::Window*)createWindow:(uint)appId 
+					type:(po::WindowType)type 
 				   frame:(NSRect)frame 
 				   title:(const char*)str
 {
@@ -73,13 +73,13 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	
 	NSUInteger style_mask;
 	switch(type) {
-		case WINDOW_TYPE_FULLSCREEN:
+		case po::WINDOW_TYPE_FULLSCREEN:
 			frame = [screen frame];
 			// we still want the borderless mask so let it fall thru
-		case WINDOW_TYPE_BORDERLESS:
+		case po::WINDOW_TYPE_BORDERLESS:
 			style_mask = NSBorderlessWindowMask;
 			break;
-		case WINDOW_TYPE_NORMAL:
+		case po::WINDOW_TYPE_NORMAL:
 			style_mask = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
 			break;
 	}
@@ -95,7 +95,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	GLint swapInt = 1;
 	[context setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
 	// make our window, using the opengl context we just made
-	poWindow *powin = new poWindow(str, appId, rectFromNSRect(frame));
+	po::Window *powin = new po::Window(str, appId, rectFromNSRect(frame));
 	// and let it go
 	CGLUnlockContext(cglcontext);
 	
@@ -114,7 +114,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[window setReleasedWhenClosed:YES];
     
 	// in case its full screen
-	if(type == WINDOW_TYPE_FULLSCREEN) {
+	if(type == po::WINDOW_TYPE_FULLSCREEN) {
 		[window setLevel:NSMainMenuWindowLevel+1];
 		[window setOpaque:YES];
 		[window setHidesOnDeactivate:YES];
@@ -140,7 +140,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	return powin;
 }
 
--(void)closeWindow:(poWindow*)window {
+-(void)closeWindow:(po::Window*)window {
 	[(NSWindow*)window->getWindowHandle() close];
 }
 
@@ -174,7 +174,7 @@ std::map<NSView*,NSDictionary*> windows_fullscreen_restore;
 	[window setHidesOnDeactivate:NO];
 }
 
--(void)fullscreenWindow:(poWindow*)window value:(BOOL)b {
+-(void)fullscreenWindow:(po::Window*)window value:(BOOL)b {
 	window->setFullscreen(b);
     
 	NSWindow *win = (NSWindow*)window->getWindowHandle();
@@ -194,7 +194,7 @@ namespace po {
         [app quit];
     }
 
-    poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
+    po::Window* applicationCreateWindow(uint root_id, po::WindowType type, const char* title, int x, int y, int w, int h) {
         AppDelegate *app = [NSApplication sharedApplication].delegate;
         return [app createWindow:root_id type:type frame:NSMakeRect(x,y,w,h) title:title];
     }
@@ -203,34 +203,34 @@ namespace po {
         return [NSApplication sharedApplication].windows.count;
     }
 
-    poWindow* applicationGetWindow(int index) {
+    po::Window* applicationGetWindow(int index) {
         NSWindow *window = [[NSApplication sharedApplication].windows objectAtIndex:index];
         return ((poOpenGLView*)window.contentView).appWindow;
     }
 
-    poWindow* applicationCurrentWindow() {
+    po::Window* applicationCurrentWindow() {
         AppDelegate *app = [NSApplication sharedApplication].delegate;
         return app.currentWindow;
     }
 
-    void applicationMakeWindowCurrent(poWindow* win) {
+    void applicationMakeWindowCurrent(po::Window* win) {
         AppDelegate *app = [NSApplication sharedApplication].delegate;
         app.currentWindow = win;
     }
 
-    void applicationMakeWindowFullscreen(poWindow* win, bool value) {
+    void applicationMakeWindowFullscreen(po::Window* win, bool value) {
         if(win->isFullscreen() != value) {
             AppDelegate *app = [NSApplication sharedApplication].delegate;
             [app fullscreenWindow:win value:value];
         }
     }
 
-    void applicationMoveWindow(poWindow* win, poPoint p) {
+    void applicationMoveWindow(po::Window* win, po::Point p) {
         NSWindow *window = (NSWindow*)win->getWindowHandle();
         [window setFrameOrigin:NSMakePoint(p.x, p.y)];
     }
 
-    void applicationReshapeWindow(poWindow* win, poRect r) {
+    void applicationReshapeWindow(po::Window* win, po::Rect r) {
         NSWindow *window = (NSWindow*)win->getWindowHandle();
         NSRect new_bounds = NSMakeRect(window.frame.origin.x, window.frame.origin.y, r.width, r.height);
         NSRect new_frame = [NSWindow frameRectForContentRect:new_bounds styleMask:window.styleMask];

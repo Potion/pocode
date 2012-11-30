@@ -5,7 +5,7 @@
 #include "poObject.h"
 #include "poShapeBasics2D.h"
 
-class poAsyncImageLoaderExampleApp : public poObject {
+class poAsyncImageLoaderExampleApp : public po::Object {
 public:
 	poAsyncImageLoaderExampleApp();
 	virtual ~poAsyncImageLoaderExampleApp();
@@ -13,9 +13,9 @@ public:
     virtual void update();
     virtual void draw();
 	
-    virtual void eventHandler(poEvent *event);
-    virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+    virtual void eventHandler(po::Event *event);
+    virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
     
-    poRectShape *imageHolder;
+    po::RectShape *imageHolder;
 };
 
