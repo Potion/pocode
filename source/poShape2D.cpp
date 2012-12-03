@@ -218,13 +218,13 @@ namespace po {
     
     //------------------------------------------------------------------------
     Shape2D& Shape2D::placeTexture(Texture *tex) {
-        return placeTexture(tex, PO_TEX_FIT_NONE, PO_ALIGN_CENTER_CENTER);
+        return placeTexture(tex, po::TEX_FIT_NONE, po::ALIGN_CENTER_CENTER);
     }
     
     
     //------------------------------------------------------------------------
     Shape2D& Shape2D::placeTexture(Texture *tex, TextureFitOption fit) {
-        return placeTexture(tex, fit, PO_ALIGN_CENTER_CENTER);
+        return placeTexture(tex, fit, po::ALIGN_CENTER_CENTER);
     }
     
     
@@ -381,7 +381,7 @@ namespace po {
             return false;
         
         // DO POINT INSIDE TEST FOR 2D
-        if ( matrices.camType == PO_CAMERA_2D )
+        if ( matrices.camType == po::CAMERA_2D )
         {
             if(localize) {
                 point.y = po::getWindowHeight() - point.y;
@@ -405,7 +405,7 @@ namespace po {
         }
         
         // DO POINT INSIDE TEST FOR 3D
-        if ( matrices.camType == PO_CAMERA_3D )
+        if ( matrices.camType == po::CAMERA_3D )
         {
             if(localize) {
                 point.y = po::getWindowHeight() - point.y;

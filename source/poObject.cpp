@@ -43,9 +43,9 @@ namespace po {
     ,	rotation(0.f)
     ,	rotationAxis(0.f, 0.f, 1.f)
     ,	offset(0.f, 0.f, 0.f)
-    ,	alignment(PO_ALIGN_NONE)
+    ,	alignment(ALIGN_NONE)
     ,	visible(true)
-    ,	matrixOrder(PO_MATRIX_ORDER_TRS)
+    ,	matrixOrder(po::MATRIX_ORDER_TRS)
     ,	drawOrder(-1)
     ,	positionTween(&position)
     ,	scaleTween(&scale)
@@ -67,9 +67,9 @@ namespace po {
     ,	rotation(0.f)
     ,	rotationAxis(0.f, 0.f, 1.f)
     ,	offset(0.f, 0.f, 0.f)
-    ,	alignment(PO_ALIGN_NONE)
+    ,	alignment(ALIGN_NONE)
     ,	visible(true)
-    ,	matrixOrder(PO_MATRIX_ORDER_TRS)
+    ,	matrixOrder(po::MATRIX_ORDER_TRS)
     ,	drawOrder(-1)
     ,	positionTween(&position)
     ,	scaleTween(&scale)
@@ -92,9 +92,9 @@ namespace po {
     ,	rotation(0.f)
     ,	rotationAxis(0.f, 0.f, 1.f)
     ,	offset(0.f, 0.f, 0.f)
-    ,	alignment(PO_ALIGN_NONE)
+    ,	alignment(ALIGN_NONE)
     ,	visible(true)
-    ,	matrixOrder(PO_MATRIX_ORDER_TRS)
+    ,	matrixOrder(po::MATRIX_ORDER_TRS)
     ,	drawOrder(-1)
     ,	positionTween(&position)
     ,	scaleTween(&scale)
@@ -208,7 +208,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     Point Object::getTransformedPoint( Point P ) {   
-        // This assumes standard transformation order (PO_MATRIX_ORDER_TRS)
+        // This assumes standard transformation order (po::MATRIX_ORDER_TRS)
         // It should include alternate orders.
         P += offset;
         P.x *= scale.x;
@@ -551,13 +551,13 @@ namespace po {
     //------------------------------------------------------------------------
     void Object::applyTransformation() {
         switch(matrixOrder) {
-            case PO_MATRIX_ORDER_TRS:
+            case po::MATRIX_ORDER_TRS:
                 po::translate(position);
                 po::rotate(rotation, rotationAxis);
                 po::scale(scale);
                 break;
                 
-            case PO_MATRIX_ORDER_RST:
+            case po::MATRIX_ORDER_RST:
                 po::rotate(rotation, rotationAxis);
                 po::scale(scale);
                 po::translate(position);
@@ -707,7 +707,7 @@ namespace po {
     Object& Object::setAlignment(Alignment align) {
         alignment = align;
         
-        if ( alignment == PO_ALIGN_NONE )
+        if ( alignment == ALIGN_NONE )
             return *this;
         
         // first calculate bounds
@@ -717,23 +717,23 @@ namespace po {
         
         // then set offset based upon bounds and alignment
         switch(align) {
-            case PO_ALIGN_TOP_LEFT:
+            case ALIGN_TOP_LEFT:
                 offset.set(0,0,0); break;
-            case PO_ALIGN_TOP_CENTER:
+            case ALIGN_TOP_CENTER:
                 offset.set(-bounds.width/2.f,0,0); break;
-            case PO_ALIGN_TOP_RIGHT:
+            case ALIGN_TOP_RIGHT:
                 offset.set(-bounds.width,0,0); break;
-            case PO_ALIGN_CENTER_LEFT:
+            case ALIGN_CENTER_LEFT:
                 offset.set(0,-bounds.height/2.f,0); break;
-            case PO_ALIGN_CENTER_CENTER:
+            case ALIGN_CENTER_CENTER:
                 offset.set(-bounds.width/2.f,-bounds.height/2.f,0); break;
-            case PO_ALIGN_CENTER_RIGHT:
+            case ALIGN_CENTER_RIGHT:
                 offset.set(-bounds.width,-bounds.height/2.f,0); break;
-            case PO_ALIGN_BOTTOM_LEFT:
+            case ALIGN_BOTTOM_LEFT:
                 offset.set(0,-bounds.height,0); break;
-            case PO_ALIGN_BOTTOM_CENTER:
+            case ALIGN_BOTTOM_CENTER:
                 offset.set(-bounds.width/2.f,-bounds.height,0); break;
-            case PO_ALIGN_BOTTOM_RIGHT:
+            case ALIGN_BOTTOM_RIGHT:
                 offset.set(-bounds.width,-bounds.height,0); break;
         }
         

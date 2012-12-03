@@ -109,9 +109,9 @@ namespace po {
 	std::vector<Point> generateStroke(std::vector<Point> &points, 
 										int strokeWidth, 
 										bool close = false,
-										StrokePlacementProperty place = PO_STROKE_PLACE_CENTER, 
-										StrokeJoinProperty join = PO_STROKE_JOIN_MITRE, 
-										StrokeCapProperty cap = PO_STROKE_CAP_BUTT);
+										StrokePlacementProperty place = po::STROKE_PLACE_CENTER, 
+										StrokeJoinProperty join = po::STROKE_JOIN_MITRE, 
+										StrokeCapProperty cap = po::STROKE_CAP_BUTT);
 	
 	// The "generateOval" method returns a list of points that can be used
 	// to draw a 2D oval shape, given an horizontal and vertical radius.

@@ -44,7 +44,7 @@ namespace po {
     ,	layout(Point())
     ,	useTextBounds(false)
     ,   autoAdjustHeight(false)
-    ,	textAlignment(PO_ALIGN_TOP_LEFT)
+    ,	textAlignment(po::ALIGN_TOP_LEFT)
     ,	cacheToTexture(false)
     ,	cached(NULL)
     ,   fillEnabled(false)
@@ -59,7 +59,7 @@ namespace po {
     ,	layout(Point(w,0))
     ,	useTextBounds(false)
     ,   autoAdjustHeight(true)
-    ,	textAlignment(PO_ALIGN_TOP_LEFT)
+    ,	textAlignment(po::ALIGN_TOP_LEFT)
     ,	cacheToTexture(false)
     ,	cached(NULL)
     ,   fillEnabled(false)
@@ -75,7 +75,7 @@ namespace po {
     ,	layout(Point(w,h))
     ,	useTextBounds(false)
     ,   autoAdjustHeight(false)
-    ,	textAlignment(PO_ALIGN_TOP_LEFT)
+    ,	textAlignment(po::ALIGN_TOP_LEFT)
     ,	cacheToTexture(false)
     ,	cached(NULL)
     ,   fillEnabled(false)
@@ -249,10 +249,10 @@ namespace po {
         Rect bounds = getBounds();
         
         // DO POINT INSIDE TEST FOR 2D
-        if ( Camera::getCurrentCameraType() == PO_CAMERA_2D ) {
+        if ( Camera::getCurrentCameraType() == po::CAMERA_2D ) {
             return bounds.contains(p.x, p.y);
         }
-        else if(Camera::getCurrentCameraType() == PO_CAMERA_3D) {
+        else if(Camera::getCurrentCameraType() == po::CAMERA_3D) {
             return pointInRect3D( p, getMatrixSet(), bounds );
         }
         
@@ -561,20 +561,20 @@ namespace po {
     //------------------------------------------------------------------------
     void TextBox::_drawBounds() {
         for(uint i=0; i<getNumLines(); i++) {
-            if(drawBounds & PO_TEXT_BOX_STROKE_GLYPHS) {
+            if(drawBounds & po::TEXT_BOX_STROKE_GLYPHS) {
                 po::setColor(Color::ltGrey, .5f);
                 BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.getLine(i).glyphs) {
                     po::drawStrokedRect(glyph.bbox);
                 }
             }
             
-            if(drawBounds & PO_TEXT_BOX_STROKE_LINES) {
+            if(drawBounds & po::TEXT_BOX_STROKE_LINES) {
                 po::setColor(Color::white, .6f);
                 po::drawStrokedRect(boundsForLine(i));
             }
         }
         
-        if(drawBounds & PO_TEXT_BOX_STROKE_TEXT_BOUNDS) {
+        if(drawBounds & po::TEXT_BOX_STROKE_TEXT_BOUNDS) {
             po::setColor(Color::grey, .7f);
             po::drawStrokedRect(getTextBounds());
         }

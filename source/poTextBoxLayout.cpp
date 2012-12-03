@@ -38,7 +38,7 @@ namespace po {
     :	size(s)
     ,	tracking(1.f)
     ,	leading(1.f)
-    ,	alignment(PO_ALIGN_LEFT)
+    ,	alignment(po::ALIGN_LEFT)
     ,	tabWidth(4)
     ,	padding()
     {}
@@ -270,41 +270,41 @@ namespace po {
             Point glyphOffset(0.f, 0.f);
                     
             switch(alignment) {
-                case PO_ALIGN_TOP_LEFT:
+                case po::ALIGN_TOP_LEFT:
                     glyphOffset.x = 0;
                     glyphOffset.y = 0;
                     break;
-                case PO_ALIGN_CENTER_LEFT:
+                case po::ALIGN_CENTER_LEFT:
                     glyphOffset.x = 0;
                     glyphOffset.y = (size.y - bounds.height)/2;
                     break;
-                case PO_ALIGN_BOTTOM_LEFT:
+                case po::ALIGN_BOTTOM_LEFT:
                     glyphOffset.x = 0;
                     glyphOffset.y = (size.y - bounds.height);
                     break;
                     
-                case PO_ALIGN_TOP_CENTER:
+                case po::ALIGN_TOP_CENTER:
                     glyphOffset.x = (size.x - line.bbox.width)/2;
                     glyphOffset.y = 0;
                     break;
-                case PO_ALIGN_CENTER_CENTER:
+                case po::ALIGN_CENTER_CENTER:
                     glyphOffset.x = (size.x - line.bbox.width)/2;
                     glyphOffset.y = (size.y - bounds.height)/2;
                     break;
-                case PO_ALIGN_BOTTOM_CENTER:
+                case po::ALIGN_BOTTOM_CENTER:
                     glyphOffset.x = (size.x - line.bbox.width)/2;
                     glyphOffset.y = (size.y - bounds.height);
                     break;
                     
-                case PO_ALIGN_TOP_RIGHT:
+                case po::ALIGN_TOP_RIGHT:
                     glyphOffset.x = (size.x - line.bbox.width); 
                     glyphOffset.y = 0;
                     break;
-                case PO_ALIGN_CENTER_RIGHT:
+                case po::ALIGN_CENTER_RIGHT:
                     glyphOffset.x = (size.x - line.bbox.width); 
                     glyphOffset.y = (size.y - bounds.height)/2;
                     break;
-                case PO_ALIGN_BOTTOM_RIGHT:
+                case po::ALIGN_BOTTOM_RIGHT:
                     glyphOffset.x = (size.x - line.bbox.width); 
                     glyphOffset.y = (size.y - bounds.height);
                     break;

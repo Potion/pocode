@@ -28,7 +28,7 @@
 namespace po {
     #pragma mark - Window Enums
 
-    // PO_WINDW_TYPE
+    // WINDW_TYPE
     // Used by applicationCreateWindow() prior to application launch
     enum WindowType {
         WINDOW_TYPE_NORMAL=0,
@@ -39,48 +39,48 @@ namespace po {
 
     #pragma mark - Camera Enums
     enum CameraType { 
-        PO_CAMERA_NONE, 
-        PO_CAMERA_2D, 
-        PO_CAMERA_3D 
+        CAMERA_NONE, 
+        CAMERA_2D, 
+        CAMERA_3D 
     };
 
     // Orientation
     #pragma mark - General Enums
     enum Orientation {
-        PO_VERTICAL_UP      = 0x01,
-        PO_VERTICAL_DOWN    = 0x02,
-        PO_HORIZONTAL_LEFT  = 0x04,
-        PO_HORIZONTAL_RIGHT = 0x08,
+        ORIENTATION_VERTICAL_UP         = 0x01,
+        ORIENTATION_VERTICAL_DOWN       = 0x02,
+        ORIENTATION_HORIZONTAL_LEFT     = 0x04,
+        ORIENTATION_HORIZONTAL_RIGHT    = 0x08,
         
-        PO_UNKNOWN_ORIENTATION = 0x16,
+        ORIENTATION_UNKNOWN = 0x16,
         
-        PO_VERTICAL=PO_VERTICAL_UP | PO_VERTICAL_DOWN,
-        PO_HORIZONTAL=PO_HORIZONTAL_LEFT | PO_HORIZONTAL_RIGHT
+        ORIENTATION_VERTICAL            = ORIENTATION_VERTICAL_UP | ORIENTATION_VERTICAL_DOWN,
+        ORIENTATION_HORIZONTAL          = ORIENTATION_HORIZONTAL_LEFT | ORIENTATION_HORIZONTAL_RIGHT
     };
 
     // Alignment
     // Used by all poObjects as arguments to the setAlignment() method.
     // Also used by poTextBoxes in the setTextAlignment() method.
     enum Alignment {
-        PO_ALIGN_NONE=0,
-        PO_ALIGN_TOP_LEFT,
-        PO_ALIGN_TOP_CENTER,
-        PO_ALIGN_TOP_RIGHT,
-        PO_ALIGN_CENTER_LEFT,
-        PO_ALIGN_CENTER_CENTER,
-        PO_ALIGN_CENTER_RIGHT,
-        PO_ALIGN_BOTTOM_LEFT,
-        PO_ALIGN_BOTTOM_CENTER,
-        PO_ALIGN_BOTTOM_RIGHT,
+        ALIGN_NONE=0,
+        ALIGN_TOP_LEFT,
+        ALIGN_TOP_CENTER,
+        ALIGN_TOP_RIGHT,
+        ALIGN_CENTER_LEFT,
+        ALIGN_CENTER_CENTER,
+        ALIGN_CENTER_RIGHT,
+        ALIGN_BOTTOM_LEFT,
+        ALIGN_BOTTOM_CENTER,
+        ALIGN_BOTTOM_RIGHT,
         
         // for code clarity in cases where only one direction matters 
-        PO_ALIGN_LEFT	= PO_ALIGN_TOP_LEFT,
-        PO_ALIGN_RIGHT	= PO_ALIGN_TOP_RIGHT,
-        PO_ALIGN_CENTER	= PO_ALIGN_CENTER_CENTER,
-        PO_ALIGN_TOP	= PO_ALIGN_TOP_LEFT,
-        PO_ALIGN_BOTTOM	= PO_ALIGN_BOTTOM_LEFT,
+        ALIGN_LEFT	= ALIGN_TOP_LEFT,
+        ALIGN_RIGHT	= ALIGN_TOP_RIGHT,
+        ALIGN_CENTER	= ALIGN_CENTER_CENTER,
+        ALIGN_TOP	= ALIGN_TOP_LEFT,
+        ALIGN_BOTTOM	= ALIGN_BOTTOM_LEFT,
         
-        PO_ALIGN_NUM_OPTIONS
+        ALIGN_NUM_OPTIONS
     };
 
     #pragma mark - Matrix enums
@@ -89,9 +89,9 @@ namespace po {
     // Used by poObjects to determine the order of the matrix transormations on every frame.
     enum MatrixOrder {
         // standard order
-        PO_MATRIX_ORDER_TRS,
+        MATRIX_ORDER_TRS,
         // orbit order
-        PO_MATRIX_ORDER_RST
+        MATRIX_ORDER_RST
     };
 
 
@@ -99,150 +99,150 @@ namespace po {
 
     // PO TEXTURE FITTING OPTIONS
     enum TextureFitOption {
-        PO_TEX_FIT_NONE=0,
-        PO_TEX_FIT_EXACT,
-        PO_TEX_FIT_H,
-        PO_TEX_FIT_V,
-        PO_TEX_FIT_INSIDE,
+        TEX_FIT_NONE=0,
+        TEX_FIT_EXACT,
+        TEX_FIT_H,
+        TEX_FIT_V,
+        TEX_FIT_INSIDE,
         
-        PO_TEX_FIT_NUM_OPTIONS
+        TEX_FIT_NUM_OPTIONS
     };
 
 
 
     #pragma mark - Stroke Enums
 
-    // PO_SHAPE_2D STROKE OPTIONS
+    // SHAPE_2D STROKE OPTIONS
     enum StrokePlacementOption {
-        PO_STROKE_INSIDE=0,
-        PO_STROKE_OUTSIDE,
-        PO_STROKE_CENTER
+        STROKE_INSIDE=0,
+        STROKE_OUTSIDE,
+        STROKE_CENTER
     };
 
     enum StrokePlacementProperty {
-        PO_STROKE_PLACE_INSIDE=0,
-        PO_STROKE_PLACE_OUTSIDE,
-        PO_STROKE_PLACE_CENTER
+        STROKE_PLACE_INSIDE=0,
+        STROKE_PLACE_OUTSIDE,
+        STROKE_PLACE_CENTER
     };
 
     enum StrokeCapProperty {
-        PO_STROKE_CAP_BUTT=0,
-        PO_STROKE_CAP_ROUND,
-        PO_STROKE_CAP_SQUARE
+        STROKE_CAP_BUTT=0,
+        STROKE_CAP_ROUND,
+        STROKE_CAP_SQUARE
     };
 
     enum StrokeJoinProperty {
-        PO_STROKE_JOIN_MITRE=0,
-        PO_STROKE_JOIN_BEVEL,
-        PO_STROKE_JOIN_ROUND
+        STROKE_JOIN_MITRE=0,
+        STROKE_JOIN_BEVEL,
+        STROKE_JOIN_ROUND
     };
 
 
     #pragma mark - Tween Enums
 
-    // PO_TWEEN REPEAT OPTIONS
+    // TWEEN REPEAT OPTIONS
     enum  TweenRepeat {
-        PO_TWEEN_REPEAT_NONE,
-        PO_TWEEN_REPEAT_REGULAR,
-        PO_TWEEN_REPEAT_PINGPONG
+        TWEEN_REPEAT_NONE,
+        TWEEN_REPEAT_REGULAR,
+        TWEEN_REPEAT_PINGPONG
     };
 
 
     #pragma mark - TextBox Enums
     enum {
-        PO_TEXT_BOX_STROKE_BOUNDS = 1,
-        PO_TEXT_BOX_STROKE_TEXT_BOUNDS = 1<<1,
-        PO_TEXT_BOX_STROKE_LINES = 1<<2,
-        PO_TEXT_BOX_STROKE_GLYPHS = 1<<3,
-        PO_TEXT_BOX_STROKE_ALL = PO_TEXT_BOX_STROKE_BOUNDS | PO_TEXT_BOX_STROKE_TEXT_BOUNDS | PO_TEXT_BOX_STROKE_LINES | PO_TEXT_BOX_STROKE_GLYPHS
+        TEXT_BOX_STROKE_BOUNDS = 1,
+        TEXT_BOX_STROKE_TEXT_BOUNDS = 1<<1,
+        TEXT_BOX_STROKE_LINES = 1<<2,
+        TEXT_BOX_STROKE_GLYPHS = 1<<3,
+        TEXT_BOX_STROKE_ALL = TEXT_BOX_STROKE_BOUNDS | TEXT_BOX_STROKE_TEXT_BOUNDS | TEXT_BOX_STROKE_LINES | TEXT_BOX_STROKE_GLYPHS
     };
     
-    // PO_DICTIONARY TYPES
+    // DICTIONARY TYPES
     //These are valid values that can be passed to a poDictionary
     
     enum DictionaryType {
-        PO_INT_T=0,
-        PO_FLOAT_T,
-        PO_STRING_T,
-        PO_POINT_T,
-        PO_COLOR_T,
-        PO_VOID_PTR_T,
-        PO_DICTIONARY_T
+        INT_T=0,
+        FLOAT_T,
+        STRING_T,
+        POINT_T,
+        COLOR_T,
+        VOID_PTR_T,
+        DICTIONARY_T
     };
 
-    // PO_EVENT TYPES
+    // EVENT TYPES
     // This is a list of all poEvent types. These are used in addEvent() and in the eventHandker implementations.
     #pragma mark - EventType Enums
     enum {
-        PO_MOUSE_DOWN_EVENT,
-        PO_MOUSE_DOWN_INSIDE_EVENT,
-        PO_MOUSE_UP_EVENT,
-        PO_MOUSE_MOVE_EVENT,
-        PO_MOUSE_DRAG_EVENT,
-        PO_MOUSE_DRAG_INSIDE_EVENT,
-        PO_MOUSE_ENTER_EVENT,
-        PO_MOUSE_LEAVE_EVENT,
-        PO_MOUSE_OVER_EVENT,
+        MOUSE_DOWN_EVENT,
+        MOUSE_DOWN_INSIDE_EVENT,
+        MOUSE_UP_EVENT,
+        MOUSE_MOVE_EVENT,
+        MOUSE_DRAG_EVENT,
+        MOUSE_DRAG_INSIDE_EVENT,
+        MOUSE_ENTER_EVENT,
+        MOUSE_LEAVE_EVENT,
+        MOUSE_OVER_EVENT,
         
-        PO_KEY_DOWN_EVENT,
-        PO_KEY_UP_EVENT,
+        KEY_DOWN_EVENT,
+        KEY_UP_EVENT,
         
-        PO_TOUCH_BEGAN_EVENT,
-        PO_TOUCH_BEGAN_INSIDE_EVENT,
-        PO_TOUCH_BEGAN_OUTSIDE_EVENT,
-        PO_TOUCH_MOVED_EVENT,
-        PO_TOUCH_ENDED_EVENT,
-        PO_TOUCH_ENDED_INSIDE_EVENT,
-        PO_TOUCH_ENDED_OUTSIDE_EVENT,
-        PO_TOUCH_CANCELLED_EVENT,
+        TOUCH_BEGAN_EVENT,
+        TOUCH_BEGAN_INSIDE_EVENT,
+        TOUCH_BEGAN_OUTSIDE_EVENT,
+        TOUCH_MOVED_EVENT,
+        TOUCH_ENDED_EVENT,
+        TOUCH_ENDED_INSIDE_EVENT,
+        TOUCH_ENDED_OUTSIDE_EVENT,
+        TOUCH_CANCELLED_EVENT,
         
-        PO_ACCELEROMETER_EVENT,
-        PO_GYROSCOPE_EVENT,
-        PO_ROTATION_EVENT,
+        ACCELEROMETER_EVENT,
+        GYROSCOPE_EVENT,
+        ROTATION_EVENT,
         
-        PO_LAST_EVENT
+        LAST_EVENT
     };
     
-    // PO_EVENT SPECIAL KEYS
+    // EVENT SPECIAL KEYS
     enum {
         // key event mask
-        PO_KEY_CAPS		= 1 << 16,
-        PO_KEY_SHIFT	= 1 << 17,
-        PO_KEY_CTRL		= 1 << 18,
-        PO_KEY_ALT		= 1 << 19,
-        PO_KEY_META		= 1 << 20,
+        KEY_CAPS		= 1 << 16,
+        KEY_SHIFT	= 1 << 17,
+        KEY_CTRL		= 1 << 18,
+        KEY_ALT		= 1 << 19,
+        KEY_META		= 1 << 20,
         // specific key
-        PO_NUMERIC_KEY_MASK = 1 << 21,
-        PO_FUNCTION_KEY_MASK = 1 << 23,
+        NUMERIC_KEY_MASK = 1 << 21,
+        FUNCTION_KEY_MASK = 1 << 23,
     };
     
     
-    // PO_EVENT MOUSE BUTTON LEFT and RIGHT
+    // EVENT MOUSE BUTTON LEFT and RIGHT
     enum {
         // mouse event mask
-        PO_MOUSE_LEFT	= 1,
-        PO_MOUSE_MIDDLE	= 1 << 1,
-        PO_MOUSE_RIGHT	= 1 << 2,
+        MOUSE_LEFT	= 1,
+        MOUSE_MIDDLE	= 1 << 1,
+        MOUSE_RIGHT	= 1 << 2,
     };
     
     enum {
         // also need to check the modifier flags
         // for arrows, numeric mask and function mask should both be set
         // these numbers are the keyCode
-        PO_UP_ARROW = 126,
-        PO_DOWN_ARROW = 125,
-        PO_LEFT_ARROW = 123,
-        PO_RIGHT_ARROW = 124,
+        UP_ARROW = 126,
+        DOWN_ARROW = 125,
+        LEFT_ARROW = 123,
+        RIGHT_ARROW = 124,
         
-        PO_RETURN_KEY = 36,
+        RETURN_KEY = 36,
         
-        PO_F1 = 122,
-        PO_F2 = 120,
-        PO_F3 = 99,
-        PO_F4 = 118,
-        PO_F5 = 96,
-        PO_F6 = 97,
-        PO_F7 = 98,
-        PO_F8 = 100
+        F1 = 122,
+        F2 = 120,
+        F3 = 99,
+        F4 = 118,
+        F5 = 96,
+        F6 = 97,
+        F7 = 98,
+        F8 = 100
     };
 }

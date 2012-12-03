@@ -377,7 +377,7 @@ namespace po {
     
     //------------------------------------------------------------------
     void Image::flip(Orientation dir) {
-        if(dir == PO_VERTICAL)
+        if(dir == po::ORIENTATION_VERTICAL)
             FreeImage_FlipVertical(bitmap);
         else
             FreeImage_FlipHorizontal(bitmap);

@@ -224,7 +224,7 @@ namespace po {
         
         closed = false;
         fillEnabled = false;
-        generateStroke(1,PO_STROKE_PLACE_CENTER,PO_STROKE_JOIN_MITRE,PO_STROKE_CAP_ROUND);
+        generateStroke(1,po::STROKE_PLACE_CENTER,po::STROKE_JOIN_MITRE,po::STROKE_CAP_ROUND);
     }
     
     

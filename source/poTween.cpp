@@ -27,7 +27,7 @@
 namespace po {
     TweenBase::TweenBase()
     :	state(NOT_RUNNING)
-    ,	repeatType(PO_TWEEN_REPEAT_NONE)
+    ,	repeatType(po::TWEEN_REPEAT_NONE)
     ,	repeatCount(0)
     ,	repeatCounter(0)
     ,	tweenFunc(goToFunc)
@@ -63,11 +63,11 @@ namespace po {
                 bool repeat_ok = repeatCount < 0 || repeatCounter < repeatCount;
                 repeatCounter++;
                 
-                if(repeatType & PO_TWEEN_REPEAT_REGULAR && repeat_ok) {
+                if(repeatType & po::TWEEN_REPEAT_REGULAR && repeat_ok) {
                     setValueToBegin();
                     startWithDelay(delay_on_repeat);
                 }
-                else if(repeatType & PO_TWEEN_REPEAT_PINGPONG && repeat_ok) {
+                else if(repeatType & po::TWEEN_REPEAT_PINGPONG && repeat_ok) {
                     setValueToEnd();
                     swapBeginAndEnd();
                     startWithDelay(delay_on_repeat);
@@ -176,7 +176,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool TweenBase::isRepeating() const {
-        return repeatType != PO_TWEEN_REPEAT_NONE;
+        return repeatType != po::TWEEN_REPEAT_NONE;
     }
     
     

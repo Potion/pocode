@@ -250,13 +250,13 @@ namespace po {
             return false;
         
         // DO POINT INSIDE TEST FOR 2D
-        if ( Camera::getCurrentCameraType() == PO_CAMERA_2D ) {
+        if ( Camera::getCurrentCameraType() == po::CAMERA_2D ) {
             // presently, no text defined for 2D camera
             return false;
         }
         
         // DO POINT INSIDE TEST FOR 3D
-        if ( Camera::getCurrentCameraType() == PO_CAMERA_3D ) {
+        if ( Camera::getCurrentCameraType() == po::CAMERA_3D ) {
             if(localize)
                 point.y = po::getWindowHeight() - point.y;
             

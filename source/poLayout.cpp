@@ -82,13 +82,13 @@ namespace po {
             Object* child = obj->getChild(i);
             child->position = pos;
             
-            if( layoutOrientation == PO_HORIZONTAL || 
-                layoutOrientation == PO_HORIZONTAL_RIGHT ||
-                layoutOrientation == PO_HORIZONTAL_LEFT ) {
+            if( layoutOrientation == po::ORIENTATION_HORIZONTAL || 
+                layoutOrientation == po::ORIENTATION_HORIZONTAL_RIGHT ||
+                layoutOrientation == po::ORIENTATION_HORIZONTAL_LEFT ) {
                 
                 child->position.x -= child->offset.x;
                 float direction = 1.f;
-                if( layoutOrientation == PO_HORIZONTAL_LEFT ) {
+                if( layoutOrientation == po::ORIENTATION_HORIZONTAL_LEFT ) {
                     child->position.x -= child->getBounds().width;
                     direction = -1.f;
                 }
@@ -96,13 +96,13 @@ namespace po {
                 pos.x += spacing[SPACING_H] * direction;
             }
             else 
-                if(	layoutOrientation == PO_VERTICAL ||
-                    layoutOrientation == PO_VERTICAL_DOWN ||
-                    layoutOrientation == PO_VERTICAL_UP ) {
+                if(	layoutOrientation == po::ORIENTATION_VERTICAL ||
+                    layoutOrientation == po::ORIENTATION_VERTICAL_DOWN ||
+                    layoutOrientation == po::ORIENTATION_VERTICAL_UP ) {
                     
                     child->position.y -= child->offset.y;
                     float direction = 1.f;
-                    if( layoutOrientation == PO_VERTICAL_UP ) {
+                    if( layoutOrientation == po::ORIENTATION_VERTICAL_UP ) {
                         child->position.y -= child->getBounds().height;
                         direction = -1.f;
                     }

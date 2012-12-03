@@ -153,7 +153,7 @@ namespace po {
     Dictionary Dictionary::copy() {
         Dictionary dict;
         for(DictionaryItemMap::iterator iter=begin(); iter!=end(); ++iter) {
-            if(iter->second.getType() == PO_DICTIONARY_T)
+            if(iter->second.getType() == po::DICTIONARY_T)
                 dict.set(iter->first, iter->second.getDictionary().copy());
             else {
                 dict.items[iter->first] = iter->second;
@@ -271,7 +271,7 @@ namespace po {
             item.setAttribute("name", iter->first);
             item.setAttribute("type", iter->second.getType());
 
-            if(iter->second.getType() == PO_DICTIONARY_T) {
+            if(iter->second.getType() == po::DICTIONARY_T) {
                 Dictionary dict = iter->second.getDictionary();
                 dict.write(item);
             }
@@ -286,7 +286,7 @@ namespace po {
     void Dictionary::write(XMLDocument &doc) {
         XMLNode root = doc.getRootNode();
         root.setAttribute("name", "root");
-        root.setAttribute("type", PO_DICTIONARY_T);
+        root.setAttribute("type", po::DICTIONARY_T);
         write(root);
     }
     
@@ -305,32 +305,32 @@ namespace po {
         std::string name = node.getStringAttribute("name");
         
         switch(type) {
-            case PO_INT_T:
+            case po::INT_T:
                 set(name, node.getInnerInt());
                 break;
-            case PO_FLOAT_T:
+            case po::FLOAT_T:
                 set(name, node.getInnerFloat());
                 break;
-            case PO_STRING_T:
+            case po::STRING_T:
                 set(name, node.getInnerString());
                 break;
-            case PO_POINT_T: {
+            case po::POINT_T: {
                 Point p;
                 if(p.fromString(node.getInnerString()))
                     set(name, p);
                 break;
             }
-            case PO_COLOR_T: {
+            case po::COLOR_T: {
                 Color c;
                 if(c.set(node.getInnerString()))
                     set(name, c);
                 break;
             }
-            case PO_VOID_PTR_T:
+            case po::VOID_PTR_T:
                 printf("reading void ptr from dictionary not supported; inserting address as string, though its basically meaningless\n");
                 set(name, node.getInnerString());
                 break;
-            case PO_DICTIONARY_T: {
+            case po::DICTIONARY_T: {
                 Dictionary dict;
                 XMLNode item = node.getFirstChild();
                 while(item.isValid()) {

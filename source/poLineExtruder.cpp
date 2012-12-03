@@ -42,14 +42,14 @@ namespace po {
         float offset2 = 0;
         
         switch(place) {
-            case PO_STROKE_PLACE_CENTER:
+            case po::STROKE_PLACE_CENTER:
                 offset1 = offset2 = w / 2.f;
                 break;
-            case PO_STROKE_PLACE_INSIDE:
+            case po::STROKE_PLACE_INSIDE:
                 offset1 = w;
                 offset2 = 0.f;
                 break;
-            case PO_STROKE_PLACE_OUTSIDE:
+            case po::STROKE_PLACE_OUTSIDE:
                 offset1 = 0.f;
                 offset2 = w;
                 break;
@@ -78,17 +78,17 @@ namespace po {
         Point p1, p2, p3;
         
         switch(seg1.place) {
-            case PO_STROKE_PLACE_CENTER:
+            case po::STROKE_PLACE_CENTER:
                 p1 = (seg1.p2 + seg1.p1) / 2.f;
                 p2 = (seg1.p4 + seg1.p3) / 2.f;
                 p3 = (seg2.p4 + seg2.p3) / 2.f;
                 break;
-            case PO_STROKE_PLACE_INSIDE:
+            case po::STROKE_PLACE_INSIDE:
                 p1 = seg1.p1;
                 p2 = seg1.p3;
                 p3 = seg2.p3;
                 break;
-            case PO_STROKE_PLACE_OUTSIDE:
+            case po::STROKE_PLACE_OUTSIDE:
                 p1 = seg1.p2;
                 p2 = seg1.p4;
                 p3 = seg2.p4;
@@ -135,7 +135,7 @@ namespace po {
         Point joint = (seg1.p4 + seg1.p3) / 2.f;
         
         switch(join) {
-            case PO_STROKE_JOIN_MITRE:
+            case po::STROKE_JOIN_MITRE:
                 if(top_outside) {
                     stroke.push_back(top);
                     stroke.push_back(bottom);
@@ -146,7 +146,7 @@ namespace po {
                 }
                 break;
                 
-            case PO_STROKE_JOIN_BEVEL:
+            case po::STROKE_JOIN_BEVEL:
                 if(top_outside) {
                     stroke.push_back(seg1.p3);
                     stroke.push_back(bottom);
@@ -161,7 +161,7 @@ namespace po {
                 }
                 break;
                 
-            case PO_STROKE_JOIN_ROUND:
+            case po::STROKE_JOIN_ROUND:
             {
                 float halfW = stroke_width / 2.f;
                 

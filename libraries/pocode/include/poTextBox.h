@@ -54,7 +54,7 @@ namespace po {
     //      TextBox* TB = new TextBox( 200,300 );
     //      TB->setText( "hello world!" );
     //      TB->setFont( getFont("Courier", 20) );
-    //      TB->setTextAlignment( PO_ALIGN_TOP_CENTER );
+    //      TB->setTextAlignment( po::ALIGN_TOP_CENTER );
     //      TB->textColor = Color::black;
     //      TB->doLayout();
     //
@@ -100,7 +100,7 @@ namespace po {
         Font*				getFont(const std::string &name=PO_TEXT_REGULAR);
         
         // textAlignment may be set using one of the Alignment enums found in "poEnums.h".
-        // Commonly used settings are PO_ALIGN_TOP_LEFT, PO_ALIGN_TOP_CENTER and PO_ALIGN_CENTER_CENTER.
+        // Commonly used settings are po::ALIGN_TOP_LEFT, po::ALIGN_TOP_CENTER and po::ALIGN_CENTER_CENTER.
         Alignment         getTextAlignment() const;
         void                setTextAlignment(Alignment align);
         
@@ -175,7 +175,7 @@ namespace po {
         
         // DEBUGGING
         // The bounds of a textBox can be shown by setting drawBounds to 1. Setting it to 0 will hide the bounds.
-        // You can use the PO_TEXT_BOX_STROKE_XXXXX settings in the enum defined at the top of this file.
+        // You can use the po::TEXT_BOX_STROKE_XXXXX settings in the enum defined at the top of this file.
         virtual void		_drawBounds();
         
         // DRAWING

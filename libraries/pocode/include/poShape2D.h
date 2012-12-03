@@ -94,8 +94,8 @@ class Shape2D : public Object {
         // Shape2D includes a "generateStroke" method that creates a very high quality stroke.
         // This stroke is actually drawn as a very thin filled shape. These high quality strokes
         // scale with the shape, unlike simple strokes which do not scale.
-        Shape2D&                generateStroke(int strokeWidth, StrokePlacementProperty place=PO_STROKE_PLACE_CENTER, 
-                                               StrokeJoinProperty join=PO_STROKE_JOIN_MITRE, StrokeCapProperty cap=PO_STROKE_CAP_BUTT);
+        Shape2D&                generateStroke(int strokeWidth, StrokePlacementProperty place=po::STROKE_PLACE_CENTER, 
+                                               StrokeJoinProperty join=po::STROKE_JOIN_MITRE, StrokeCapProperty cap=po::STROKE_CAP_BUTT);
         StrokeCapProperty       capStyle() const;
         StrokeJoinProperty      joinStyle() const;
         

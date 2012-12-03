@@ -29,34 +29,34 @@ namespace po {
     Point alignInRect(Point max, Rect rect, Alignment align) {
         Point offset;
         switch(align) {
-            case PO_ALIGN_TOP_LEFT:
+            case po::ALIGN_TOP_LEFT:
                 offset.set(0.f, max.y - 1.f, 0.f);
                 break;
-            case PO_ALIGN_TOP_CENTER:
+            case po::ALIGN_TOP_CENTER:
                 offset.set((max.x - 1.f)/2.f, max.y - 1.f, 0.f);
                 break;
-            case PO_ALIGN_TOP_RIGHT:
+            case po::ALIGN_TOP_RIGHT:
                 offset.set(max.x - 1.f, max.y - 1.f, 0.f);
                 break;
-            case PO_ALIGN_CENTER_LEFT:
+            case po::ALIGN_CENTER_LEFT:
                 offset.set(0.f, (max.y - 1.f)/2.f, 0.f);
                 break;
-            case PO_ALIGN_CENTER_CENTER:
+            case po::ALIGN_CENTER_CENTER:
                 offset.set((max.x - 1.f)/2.f, (max.y - 1.f)/2.f, 0.f);
                 break;
-            case PO_ALIGN_CENTER_RIGHT:
+            case po::ALIGN_CENTER_RIGHT:
                 offset.set(max.x - 1.f, (max.y - 1.f)/2.f, 0.f);
                 break;
-            case PO_ALIGN_BOTTOM_LEFT:
+            case po::ALIGN_BOTTOM_LEFT:
                 offset.set(0.f, 0.f, 0.f);
                 break;
-            case PO_ALIGN_BOTTOM_CENTER:
+            case po::ALIGN_BOTTOM_CENTER:
                 offset.set((max.x - 1.f)/2.f, 0.f, 0.f);
                 break;
-            case PO_ALIGN_BOTTOM_RIGHT:
+            case po::ALIGN_BOTTOM_RIGHT:
                 offset.set(max.x - 1.f, 0.f, 0.f);
                 break;
-            case PO_ALIGN_NONE:
+            case po::ALIGN_NONE:
                 break;
         }
         return offset;

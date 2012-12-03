@@ -31,7 +31,7 @@
 //#include <glm/gtc/matrix_transform.hpp>
 
 namespace po {
-    CameraType   Camera::currentCameraType = PO_CAMERA_NONE;
+    CameraType   Camera::currentCameraType = po::CAMERA_2D;
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Camera ============================
@@ -236,7 +236,7 @@ namespace po {
             float h = po::getWindowHeight();
             po::setOrthoProjection(0, w / scale, h / scale, 0);
         }
-        Camera::currentCameraType = PO_CAMERA_2D;
+        Camera::currentCameraType = po::CAMERA_2D;
     }
     
     
@@ -320,7 +320,7 @@ namespace po {
     //------------------------------------------------------------------------
     void poOrthoCamera::setProjection() {
         po::setOrthoProjection(x1, x2, y2, y1, nearClip, farClip);
-        Camera::currentCameraType = PO_CAMERA_2D;
+        Camera::currentCameraType = po::CAMERA_2D;
     }
     
     
@@ -399,7 +399,7 @@ namespace po {
     void poPerspectiveCamera::setProjection() {
         float aspect = po::getWindowAspect();
         po::setPerpsective(fov, aspect, nearClip, farClip);
-        Camera::currentCameraType = PO_CAMERA_3D;
+        Camera::currentCameraType = po::CAMERA_3D;
     }
     
     

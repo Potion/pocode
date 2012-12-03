@@ -26,7 +26,7 @@
 
 namespace po {
     MatrixSet::MatrixSet() 
-    :   camType(PO_CAMERA_NONE)
+    :   camType(po::CAMERA_2D)
     {}
 
     void MatrixSet::capture() {

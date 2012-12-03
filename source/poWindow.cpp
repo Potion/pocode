@@ -342,7 +342,7 @@ namespace po {
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
-        event.type = PO_MOUSE_DOWN_EVENT;
+        event.type = po::MOUSE_DOWN_EVENT;
         received.push_back(event);
     }
     
@@ -355,7 +355,7 @@ namespace po {
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
-        event.type = PO_MOUSE_UP_EVENT;
+        event.type = po::MOUSE_UP_EVENT;
         received.push_back(event);
     }
     
@@ -371,7 +371,7 @@ namespace po {
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
-        event.type = PO_MOUSE_MOVE_EVENT;
+        event.type = po::MOUSE_MOVE_EVENT;
         received.push_back(event);
     }
     
@@ -384,7 +384,7 @@ namespace po {
         event.globalPosition.set(x, y, 0.f);
         event.modifiers = mod;
         
-        event.type = PO_MOUSE_DRAG_EVENT;
+        event.type = po::MOUSE_DRAG_EVENT;
         received.push_back(event);
     }
     
@@ -406,7 +406,7 @@ namespace po {
         event.keyCode = code;
         event.modifiers = mod;
         
-        event.type = PO_KEY_DOWN_EVENT;
+        event.type = po::KEY_DOWN_EVENT;
         received.push_back(event);
     }
     
@@ -418,7 +418,7 @@ namespace po {
         event.keyChar = key;
         event.modifiers = mod;
         
-        event.type = PO_KEY_UP_EVENT;
+        event.type = po::KEY_UP_EVENT;
         received.push_back(event);
     }
     
@@ -445,7 +445,7 @@ namespace po {
         event.uniqueID  = uid;
         event.tapCount  = tapCount;
         
-        event.type = PO_TOUCH_BEGAN_EVENT;
+        event.type = po::TOUCH_BEGAN_EVENT;
         received.push_back(event);
     }
     
@@ -462,7 +462,7 @@ namespace po {
         event.uniqueID  = uid;
         event.tapCount  = tapCount;
         
-        event.type = PO_TOUCH_MOVED_EVENT;
+        event.type = po::TOUCH_MOVED_EVENT;
         received.push_back(event);
     }
     
@@ -479,7 +479,7 @@ namespace po {
         event.uniqueID  = uid;
         event.tapCount = tapCount;
         
-        event.type = PO_TOUCH_ENDED_EVENT;
+        event.type = po::TOUCH_ENDED_EVENT;
         received.push_back(event);
         
         untrackTouch(uid);
@@ -495,7 +495,7 @@ namespace po {
         event.touchID = uid;
         event.tapCount = tapCount;
         
-        event.type = PO_TOUCH_CANCELLED_EVENT;
+        event.type = po::TOUCH_CANCELLED_EVENT;
         received.push_back(event);
         
         untrackTouch(uid);
@@ -554,7 +554,7 @@ namespace po {
     void Window::accelerometerEvent(double x, double y, double z) {
         Event event;
         event.motion.set(x, y, z);
-        event.type = PO_ACCELEROMETER_EVENT;
+        event.type = po::ACCELEROMETER_EVENT;
         received.push_back(event);
     }
     
@@ -563,7 +563,7 @@ namespace po {
     void Window::gyroscopeEvent(double x, double y, double z) {
         Event event;
         event.motion.set(x, y, z);
-        event.type = PO_GYROSCOPE_EVENT;
+        event.type = po::GYROSCOPE_EVENT;
         received.push_back(event);
     }
     
@@ -571,7 +571,7 @@ namespace po {
     //------------------------------------------------------------------------
     void Window::rotationEvent() {
         Event event;
-        event.type = PO_ROTATION_EVENT;
+        event.type = po::ROTATION_EVENT;
         received.push_back(event);
     }
 } /* End po Namespace */

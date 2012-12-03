@@ -58,7 +58,7 @@ namespace po {
     //
     // Objects register for events by calling the Object's addEvent() method as follows:
     //
-    //      myObject->addEvent( PO_MOUSE_DOWN_INSIDE_EVENT, this, "message" );
+    //      myObject->addEvent( po::MOUSE_DOWN_INSIDE_EVENT, this, "message" );
     //
     // Objects receive events through the virtual eventHandler() method.
     //

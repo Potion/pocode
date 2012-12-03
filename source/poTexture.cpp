@@ -464,23 +464,23 @@ namespace po {
 
     void textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         switch(fit) {
-            case PO_TEX_FIT_NONE:
+            case po::TEX_FIT_NONE:
                 textureFitNone(rect, tex, align, coords, points);
                 break;
                 
-            case PO_TEX_FIT_EXACT:
+            case po::TEX_FIT_EXACT:
                 textureFitExact(rect, tex, align, coords, points);
                 break;
                 
-            case PO_TEX_FIT_H:
+            case po::TEX_FIT_H:
                 textureFitHorizontal(rect, tex, align, coords, points);
                 break;
                 
-            case PO_TEX_FIT_V:
+            case po::TEX_FIT_V:
                 textureFitVertical(rect, tex, align, coords, points);
                 break;
                 
-            case PO_TEX_FIT_INSIDE:
+            case po::TEX_FIT_INSIDE:
             {
                 float new_h = ((float)rect.width) * ((float)tex->getHeight()) / ((float)tex->getWidth());
                 if(new_h > rect.height)

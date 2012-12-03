@@ -64,7 +64,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     EventCenter::EventCenter() 
-    :	events(PO_LAST_EVENT)
+    :	events(po::LAST_EVENT)
     {}
     
     
@@ -254,20 +254,20 @@ namespace po {
         notifyAllListeners( Event );
         
         
-        // handles PO_MOUSE_DOWN_EVENT and PO_MOUSE_DOWN_INSIDE_EVENT
-        if ( Event.type == PO_MOUSE_DOWN_EVENT ) {
+        // handles po::MOUSE_DOWN_EVENT and po::MOUSE_DOWN_INSIDE_EVENT
+        if ( Event.type == po::MOUSE_DOWN_EVENT ) {
       
-            // find single object to receive PO_MOUSE_DOWN_INSIDE_EVENT
+            // find single object to receive po::MOUSE_DOWN_INSIDE_EVENT
             
-            EventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( po::MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
             if ( callback )
             {
-                Event.type = PO_MOUSE_DOWN_INSIDE_EVENT;
+                Event.type = po::MOUSE_DOWN_INSIDE_EVENT;
                 notifyOneListener( callback, Event );
             }
             
-            // set lastDragID for object to receive PO_MOUSE_DRAG_INSIDE_EVENT
-            EventCallback* drag_callback = findTopObjectUnderPoint( PO_MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
+            // set lastDragID for object to receive po::MOUSE_DRAG_INSIDE_EVENT
+            EventCallback* drag_callback = findTopObjectUnderPoint( po::MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
             if ( drag_callback )
             {
                 Object* obj = drag_callback->event.source;
@@ -275,12 +275,12 @@ namespace po {
             }
         }
         
-        // handles PO_MOUSE_UP_EVENT
-        // also handles last part of PO_MOUSE_DRAG_EVENT
-        else if ( Event.type == PO_MOUSE_UP_EVENT ) {
+        // handles po::MOUSE_UP_EVENT
+        // also handles last part of po::MOUSE_DRAG_EVENT
+        else if ( Event.type == po::MOUSE_UP_EVENT ) {
             
-            // reset lastDragID for object receiving PO_MOUSE_DRAG_EVENT
-            std::vector<EventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
+            // reset lastDragID for object receiving po::MOUSE_DRAG_EVENT
+            std::vector<EventCallback*> &event_vec = events[po::MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
@@ -288,16 +288,16 @@ namespace po {
             }
         }
         
-        // handles PO_MOUSE_MOVE_EVENT, PO_MOUSE_OVER_EVENT, PO_MOUSE_ENTER_EVENT and PO_MOUSE_LEAVE_EVENT
-        else if ( Event.type == PO_MOUSE_MOVE_EVENT ) {
+        // handles po::MOUSE_MOVE_EVENT, po::MOUSE_OVER_EVENT, po::MOUSE_ENTER_EVENT and po::MOUSE_LEAVE_EVENT
+        else if ( Event.type == po::MOUSE_MOVE_EVENT ) {
 
             // move over events
-            EventCallback* callback = findTopObjectUnderPoint( PO_MOUSE_OVER_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( po::MOUSE_OVER_EVENT, Event.globalPosition );
             if ( callback )
             {
-                Event.type = PO_MOUSE_OVER_EVENT;
+                Event.type = po::MOUSE_OVER_EVENT;
                 notifyOneListener( callback, Event );
-                Event.type = PO_MOUSE_MOVE_EVENT;
+                Event.type = po::MOUSE_MOVE_EVENT;
             }
             
             // lastInsideTouchID states
@@ -306,7 +306,7 @@ namespace po {
             //  1 = last touch inside
             
             // enter events
-            std::vector<EventCallback*> &enter_event_vec = events[PO_MOUSE_ENTER_EVENT];
+            std::vector<EventCallback*> &enter_event_vec = events[po::MOUSE_ENTER_EVENT];
             for( int i=0; i<enter_event_vec.size(); i++ ) {
                 EventCallback* callback = enter_event_vec[i];
                 Object* obj = callback->event.source;
@@ -327,7 +327,7 @@ namespace po {
             }
             
             // leave events
-            std::vector<EventCallback*> &leave_event_vec = events[PO_MOUSE_LEAVE_EVENT];
+            std::vector<EventCallback*> &leave_event_vec = events[po::MOUSE_LEAVE_EVENT];
             for( int i=0; i<leave_event_vec.size(); i++ ) {
                 EventCallback* callback = leave_event_vec[i];
                 Object* obj = callback->event.source;
@@ -360,17 +360,17 @@ namespace po {
             }		
         }
         
-        // handles PO_MOUSE_DRAG_EVERYWHERE_EVENT and PO_MOUSE_DRAG_EVENT
-        else if ( Event.type == PO_MOUSE_DRAG_EVENT ) {
+        // handles po::MOUSE_DRAG_EVERYWHERE_EVENT and po::MOUSE_DRAG_EVENT
+        else if ( Event.type == po::MOUSE_DRAG_EVENT ) {
 
-            // for all objects listening to PO_MOUSE_DRAG_INSIDE_EVENT with lastDragID set
+            // for all objects listening to po::MOUSE_DRAG_INSIDE_EVENT with lastDragID set
             // for mouse control, this should just be a single object in the set
-            std::vector<EventCallback*> &event_vec = events[PO_MOUSE_DRAG_INSIDE_EVENT];
+            std::vector<EventCallback*> &event_vec = events[po::MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
                 if ( obj->eventMemory->lastDragID != -1 ) {  
-                    Event.type = PO_MOUSE_DRAG_INSIDE_EVENT;
+                    Event.type = po::MOUSE_DRAG_INSIDE_EVENT;
                     notifyOneListener( callback, Event );
                 }
             }
@@ -383,16 +383,16 @@ namespace po {
          // First notify all objects listening for ..._EVERYWHERE_EVENTs
          notifyAllListeners( Event );
          
-         // handles PO_TOUCH_BEGAN_INSIDE_EVENT and PO_TOUCH_BEGAN_OUTSIDE_EVENT
-         if ( Event.type == PO_TOUCH_BEGAN_EVENT ) {
-             Event.type = PO_TOUCH_BEGAN_INSIDE_EVENT;
-             EventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
+         // handles po::TOUCH_BEGAN_INSIDE_EVENT and po::TOUCH_BEGAN_OUTSIDE_EVENT
+         if ( Event.type == po::TOUCH_BEGAN_EVENT ) {
+             Event.type = po::TOUCH_BEGAN_INSIDE_EVENT;
+             EventCallback* callback = findTopObjectUnderPoint( po::TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
              if ( callback )
                  notifyOneListener( callback, Event );
              
-             // notify objects listening for PO_TOUCH_BEGAN_OUTSIDE_EVENT
-             Event.type = PO_TOUCH_BEGAN_OUTSIDE_EVENT;
-             std::vector<EventCallback*> &event_vec = events[PO_TOUCH_BEGAN_OUTSIDE_EVENT];
+             // notify objects listening for po::TOUCH_BEGAN_OUTSIDE_EVENT
+             Event.type = po::TOUCH_BEGAN_OUTSIDE_EVENT;
+             std::vector<EventCallback*> &event_vec = events[po::TOUCH_BEGAN_OUTSIDE_EVENT];
              for( int i=0; i<event_vec.size(); i++ ) {
                  EventCallback* callback = event_vec[i];
                  Object* obj = callback->event.source;
@@ -405,19 +405,19 @@ namespace po {
              }
          }
          
-         // handles PO_TOUCH_ENDED_EVENT, PO_MOUSE_UP_INSIDE_EVENT and PO_TOUCH_ENDED_OUTSIDE_EVENT
-         // also handles last part of PO_MOUSE_DRAG_EVENT
-        else if ( Event.type == PO_TOUCH_ENDED_EVENT ) {
-            // find single object to receive PO_MOUSE_UP_INSIDE_EVENT
-            Event.type = PO_TOUCH_ENDED_INSIDE_EVENT;
+         // handles po::TOUCH_ENDED_EVENT, po::MOUSE_UP_INSIDE_EVENT and po::TOUCH_ENDED_OUTSIDE_EVENT
+         // also handles last part of po::MOUSE_DRAG_EVENT
+        else if ( Event.type == po::TOUCH_ENDED_EVENT ) {
+            // find single object to receive po::MOUSE_UP_INSIDE_EVENT
+            Event.type = po::TOUCH_ENDED_INSIDE_EVENT;
             
-            EventCallback* callback = findTopObjectUnderPoint( PO_TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
+            EventCallback* callback = findTopObjectUnderPoint( po::TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
             if ( callback )
                 notifyOneListener( callback, Event );
             
-            // notify objects listening for PO_TOUCH_ENDED_OUTSIDE_EVENT
-            Event.type = PO_TOUCH_ENDED_OUTSIDE_EVENT;
-            std::vector<EventCallback*> &event_vec = events[PO_TOUCH_ENDED_OUTSIDE_EVENT];
+            // notify objects listening for po::TOUCH_ENDED_OUTSIDE_EVENT
+            Event.type = po::TOUCH_ENDED_OUTSIDE_EVENT;
+            std::vector<EventCallback*> &event_vec = events[po::TOUCH_ENDED_OUTSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
                 Object* obj = callback->event.source;
@@ -459,10 +459,10 @@ namespace po {
     //------------------------------------------------------------------------
     void EventCenter::sortCallbacksByDrawOrder() {
         // sort only event callback vectors where order matters
-        std::sort( events[PO_MOUSE_DOWN_INSIDE_EVENT].begin(), events[PO_MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
-        std::sort( events[PO_MOUSE_OVER_EVENT].begin(), events[PO_MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
-        std::sort( events[PO_TOUCH_BEGAN_INSIDE_EVENT].begin(), events[PO_TOUCH_BEGAN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
-        std::sort( events[PO_TOUCH_ENDED_INSIDE_EVENT].begin(), events[PO_TOUCH_ENDED_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+        std::sort( events[po::MOUSE_DOWN_INSIDE_EVENT].begin(), events[po::MOUSE_DOWN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+        std::sort( events[po::MOUSE_OVER_EVENT].begin(), events[po::MOUSE_OVER_EVENT].end(), sortCallbacksByDrawOrderFunc );
+        std::sort( events[po::TOUCH_BEGAN_INSIDE_EVENT].begin(), events[po::TOUCH_BEGAN_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
+        std::sort( events[po::TOUCH_ENDED_INSIDE_EVENT].begin(), events[po::TOUCH_ENDED_INSIDE_EVENT].end(), sortCallbacksByDrawOrderFunc );
     }
     
     

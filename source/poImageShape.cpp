@@ -98,7 +98,7 @@ namespace po {
     //		return false;
     //	
     //    // DO POINT INSIDE TEST FOR 2D
-    //    if ( poCamera::getCurrentCameraType() == PO_CAMERA_2D )
+    //    if ( poCamera::getCurrentCameraType() == po::CAMERA_2D )
     //    {
     //        if(localize) {
     //            p.y = getWindowHeight() - p.y;
@@ -118,7 +118,7 @@ namespace po {
     //    }
     //     
     //    // DO POINT INSIDE TEST FOR 3D
-    //    if ( poCamera::getCurrentCameraType() == PO_CAMERA_3D )
+    //    if ( poCamera::getCurrentCameraType() == po::CAMERA_3D )
     //    {
     //        if(localize) {
     //            p.y = getWindowHeight() - p.y;

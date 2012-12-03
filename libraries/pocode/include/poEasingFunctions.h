@@ -55,51 +55,51 @@
 //	@see EasingUtil
 
 
-#define PO_TWEEN_GOTO_FUNC goToFunc
-#define PO_TWEEN_LINEAR_FUNC linearFunc
-
-#define PO_TWEEN_QUAD_IN_FUNC quadInFunc
-#define PO_TWEEN_QUAD_OUT_FUNC quadOutFunc
-#define PO_TWEEN_QUAD_INOUT_FUNC quadInOutFunc
-
-#define PO_TWEEN_CUBE_IN_FUNC cubeInFunc
-#define PO_TWEEN_CUBE_OUT_FUNC cubeOutFunc
-#define PO_TWEEN_CUBE_INOUT_FUNC cubeInOutFunc
-
-#define PO_TWEEN_QUART_IN_FUNC quartInFunc
-#define PO_TWEEN_QUART_OUT_FUNC quartOutFunc
-#define PO_TWEEN_QUART_INOUT_FUNC quartInOutFunc
-
-#define PO_TWEEN_QUINT_IN_FUNC quintInFunc
-#define PO_TWEEN_QUINT_OUT_FUNC quintOutFunc
-#define PO_TWEEN_QUINT_INOUT_FUNC quintInOutFunc
-
-#define PO_TWEEN_SINUS_IN_FUNC sinusInFunc
-#define PO_TWEEN_SINUS_OUT_FUNC sinusOutFunc
-#define PO_TWEEN_SINUS_INOUT_FUNC sinusInOutFunc
-
-#define PO_TWEEN_EXPO_IN_FUNC expoInFunc
-#define PO_TWEEN_EXPO_OUT_FUNC expoOutFunc
-#define PO_TWEEN_EXPO_INOUT_FUNC expoInOutFunc
-
-#define PO_TWEEN_CIRC_IN_FUNC circInFunc
-#define PO_TWEEN_CIRC_OUT_FUNC circOutFunc
-#define PO_TWEEN_CIRC_INOUT_FUNC circInOutFunc
-
-#define PO_TWEEN_BACK_IN_FUNC backInFunc
-#define PO_TWEEN_BACK_OUT_FUNC backOutFunc
-#define PO_TWEEN_BACK_INOUT_FUNC backInOutFunc
-
-// to be completed
-#define PO_TWEEN_BOUNCE_IN_FUNC bounceInFunc
-#define PO_TWEEN_BOUNCE_OUT_FUNC bounceOutFunc
-#define PO_TWEEN_BOUNCE_INOUT_FUNC bounceInOutFunc
-
-#define PO_TWEEN_ELASTIC_IN_FUNC elasticInFunc
-#define PO_TWEEN_ELASTIC_OUT_FUNC elasticOutFunc
-#define PO_TWEEN_ELASTIC_INOUT_FUNC elasticInOutFunc
 
 namespace po {
+    #define TWEEN_GOTO_FUNC goToFunc
+    #define TWEEN_LINEAR_FUNC linearFunc
+
+    #define TWEEN_QUAD_IN_FUNC quadInFunc
+    #define TWEEN_QUAD_OUT_FUNC quadOutFunc
+    #define TWEEN_QUAD_INOUT_FUNC quadInOutFunc
+
+    #define TWEEN_CUBE_IN_FUNC cubeInFunc
+    #define TWEEN_CUBE_OUT_FUNC cubeOutFunc
+    #define TWEEN_CUBE_INOUT_FUNC cubeInOutFunc
+
+    #define TWEEN_QUART_IN_FUNC quartInFunc
+    #define TWEEN_QUART_OUT_FUNC quartOutFunc
+    #define TWEEN_QUART_INOUT_FUNC quartInOutFunc
+
+    #define TWEEN_QUINT_IN_FUNC quintInFunc
+    #define TWEEN_QUINT_OUT_FUNC quintOutFunc
+    #define TWEEN_QUINT_INOUT_FUNC quintInOutFunc
+
+    #define TWEEN_SINUS_IN_FUNC sinusInFunc
+    #define TWEEN_SINUS_OUT_FUNC sinusOutFunc
+    #define TWEEN_SINUS_INOUT_FUNC sinusInOutFunc
+
+    #define TWEEN_EXPO_IN_FUNC expoInFunc
+    #define TWEEN_EXPO_OUT_FUNC expoOutFunc
+    #define TWEEN_EXPO_INOUT_FUNC expoInOutFunc
+
+    #define TWEEN_CIRC_IN_FUNC circInFunc
+    #define TWEEN_CIRC_OUT_FUNC circOutFunc
+    #define TWEEN_CIRC_INOUT_FUNC circInOutFunc
+
+    #define TWEEN_BACK_IN_FUNC backInFunc
+    #define TWEEN_BACK_OUT_FUNC backOutFunc
+    #define TWEEN_BACK_INOUT_FUNC backInOutFunc
+
+    // to be completed
+    #define TWEEN_BOUNCE_IN_FUNC bounceInFunc
+    #define TWEEN_BOUNCE_OUT_FUNC bounceOutFunc
+    #define TWEEN_BOUNCE_INOUT_FUNC bounceInOutFunc
+
+    #define TWEEN_ELASTIC_IN_FUNC elasticInFunc
+    #define TWEEN_ELASTIC_OUT_FUNC elasticOutFunc
+    #define TWEEN_ELASTIC_INOUT_FUNC elasticInOutFunc
 
     //------------------------------------------------------------------------
     inline bool goToFunc(float *v, float bv, float ev,
