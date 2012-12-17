@@ -80,8 +80,6 @@ poImage *poImageShape::getImage() const {
 
 void poImageShape::setImage(const std::string &str, bool keepImage){
 	if(tex) {
-        
-		delete tex;
 		
 		tex = poGetTexture(str, keepImage);
 	}
@@ -89,10 +87,7 @@ void poImageShape::setImage(const std::string &str, bool keepImage){
 
 void poImageShape::setImage(poImage* i) {
 	if(tex) {
-        
-		delete tex;
-		
-//		img = i;
+
 		tex = new poTexture(i);
 	}
 }
