@@ -31,9 +31,9 @@
 		03AC604715E68B0800F6540B /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603815E68B0800F6540B /* tess.c */; };
 		03AC604815E68B0800F6540B /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603915E68B0800F6540B /* tess.h */; };
 		03AC604915E68B0800F6540B /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603A15E68B0800F6540B /* tesselator.h */; };
-		03AC605815E68BA500F6540B /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC604F15E68BA500F6540B /* pugiconfig.hpp */; };
+		03AC605815E68BA500F6540B /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC604F15E68BA500F6540B /* pugiconfig.hpp */; settings = {ATTRIBUTES = (); }; };
 		03AC605915E68BA500F6540B /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03AC605015E68BA500F6540B /* pugixml.cpp */; };
-		03AC605A15E68BA500F6540B /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; };
+		03AC605A15E68BA500F6540B /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; settings = {ATTRIBUTES = (); }; };
 		03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
 		03ACAAB115E68D1100F6540B /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
 		03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
@@ -1219,7 +1219,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
 				GCC_THUMB_SUPPORT = NO;
@@ -1238,7 +1238,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
