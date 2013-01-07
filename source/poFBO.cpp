@@ -190,8 +190,8 @@ namespace po {
         if(multisampling) {
         #ifdef OPENGL_ES
             #ifdef POTION_IOS
-                glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, framebuffers[0]);
-                glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, framebuffers[1]);
+                glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, framebuffers[1]);
+                glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, framebuffers[0]);
                 glResolveMultisampleFramebufferAPPLE();
             #else
                 #warning non-ios opengl es fbo multisample implementation incomplete

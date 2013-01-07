@@ -49,7 +49,17 @@ namespace po {
     }
 
     RectShape::RectShape(const FilePath &filePath, TextureFitOption fit, Alignment align) {
-//        Texture *tex = GetTexture(filePath);
+        Texture *tex = po::getTexture(filePath);
+        
+        if(tex && tex->isValid()) {
+            construct(tex->getWidth(), tex->getHeight(), 0);
+            placeTexture(tex, fit, align);
+        }
+    }
+    
+    RectShape::RectShape(const URL &url, TextureFitOption fit, Alignment align) {
+//        Texture *tex = po::getTexture(url.toString());
+//        
 //        if(tex && tex->isValid()) {
 //            construct(tex->getWidth(), tex->getHeight(), 0);
 //            placeTexture(tex, fit, align);

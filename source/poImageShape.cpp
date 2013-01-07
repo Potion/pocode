@@ -21,23 +21,72 @@
 #include "poSimpleDrawing.h"
 #include "poCamera.h"
 #include "poOpenGLState.h"
+#include "poURLLoader.h"
 
 namespace po {
     ImageShape::ImageShape()
     : tex(NULL)
+    , imageRect(NULL)
+    {};
+    
+    ImageShape::ImageShape(float width, float height)
+    : tex(NULL)
+    , imageRect(NULL)
     {};
 
-    ImageShape::ImageShape(std::string url, bool shouldLoadAsync)
+    ImageShape::ImageShape(const FilePath filePath, bool async, float width, float height)
     : tex(NULL)
     {
-        
+        imageRect = new po::RectShape();
+        imageRect->reshape(width ? width : imageRect->getWidth(), height ? height : imageRect->getHeight());
+        addChild(imageRect);
     };
 
-    ImageShape::ImageShape(Image *image)
-    : tex(new Texture(image, true))
-    {};
+    ImageShape::ImageShape(const URL url, bool async, float width, float height)
+    : tex(NULL)
+    {
+       po::URLLoader::getFile(url);
+       imageRect = new po::RectShape();
+       imageRect->reshape(width ? width : imageRect->getWidth(), height ? height : imageRect->getHeight());
+       addChild(imageRect);
+    };
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================== FilePath Loading ===============================
+    #pragma mark Loading
+    
+    //------------------------------------------------------------------------
+    //Load image normally
+    void ImageShape::load(const FilePath filePath, bool shouldAutoFit) {
+        Image *img = new Image(filePath);
+        imageRect->placeTexture(new Texture(filePath));
+    }
 
-
+    
+    //------------------------------------------------------------------------
+    //Load image in thread
+    void ImageShape::loadAsync(const FilePath filePath, bool shouldAutoFit) {
+        
+    }
+    
+    
+    //------------------------------------------------------------------------
+    //Load from URL normally (blocking)
+    void ImageShape::load(const URL url, bool shouldAutoFit) {
+        
+    }
+    
+    
+    //------------------------------------------------------------------------
+    //Load from URL using a worker and callback (threaded)
+    void ImageShape::loadAsync(const URL url, bool shouldAutoFit) {
+        
+    }
+    
+    
     //ImageShape::ImageShape()
     //:	tex(NULL)
     //,	alphaTest(false)

@@ -491,10 +491,8 @@ namespace po {
         if(cached && cached->isValid()) {
             po::saveBlendState();
             po::enableAlphaBlending();
-            
-            po::setColor(textColor, getAppliedAlpha());
+            po::setColor(textColor, 1);
             po::drawTexturedRect(cached, Rect(0,0,cached->getWidth()/po::getScale(), cached->getHeight()/po::getScale()));
-            
             po::restoreBlendState();
             return;
         }

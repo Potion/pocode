@@ -357,10 +357,16 @@ namespace po {
         glGenTextures(1, &uid);
         glBindTexture(GL_TEXTURE_2D, uid);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        
         if(stride) {
             if(stride != width*height*channels) {
                 int elements = stride / channels;
+                
+                #if defined(OPENGL_ES)
+                #warning GL_UNPACK_ROW_LENGTH not available in GLES, needs to be implemented differently
+                #else
                 glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
+                #endif
             }
         }
         
@@ -385,8 +391,11 @@ namespace po {
                      config.format,
                      config.type,
                      p);
-        
-        glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        #if defined(OPENGL_ES)
+        #warning GL_UNPACK_ROW_LENGTH not available in GLES, needs to be implemented differently
+        #else
+                glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        #endif
         po::restoreTextureState();
     }
 

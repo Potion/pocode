@@ -31,6 +31,21 @@
 #include "poApplication.h"
 #include <FreeImage.h>
 
+// -----------------------------------------------------------------------------------
+// ========================== Static Async Loading Functions =========================
+
+
+//------------------------------------------------------------------
+void po::Image::getImageAsync(FilePath filePath, Object *notify) {
+    ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
+}
+
+
+//------------------------------------------------------------------
+void po::Image::getImageAsync(URL url, Object *notify, const FilePath &savePath) {
+    ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
+}
+
 namespace po {
     
     static void loadFreeImageIfNeeded() {
@@ -78,18 +93,6 @@ namespace po {
         totalAllocatedImageMemorySize -= FreeImage_GetDIBSize(bitmap);
         FreeImage_Unload(bitmap);
         bitmap = NULL;
-    }
-    
-    
-    //------------------------------------------------------------------
-    void Image::getImageAsync(FilePath filePath, Object *notify) {
-        ThreadCenter::addItem(new ImageLoaderWorker(filePath), notify);
-    }
-    
-    
-    //------------------------------------------------------------------
-    void Image::getImageAsync(URL url, Object *notify, const FilePath &savePath) {
-        ThreadCenter::addItem(new ImageLoaderWorker(url, savePath), notify);
     }
     
     

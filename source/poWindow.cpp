@@ -186,14 +186,10 @@ namespace po {
         return bounds.y;
     }
     
-    
-    
     //------------------------------------------------------------------------
     void Window::moveTo(Point p) {
         po::applicationMoveWindow(this, p);
     }
-    
-    
     
     
     // -----------------------------------------------------------------------------------
@@ -296,6 +292,7 @@ namespace po {
     //------------------------------------------------------------------------
     void Window::resized(int x, int y, int w, int h) {
         po::setViewport(0, 0, w, h);
+        std::cout << w << std::endl;
         bounds.set(x,y,w,h);
         //
         //	Event event;

@@ -27,6 +27,7 @@
 
 #include "poOpenGLState.h"
 #include "poShader.h"
+#include "poApplication.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -261,14 +262,15 @@ namespace po {
             std::stack<Shader*> shader;
             
             Shader shader2D, shader3D, shaderTex2D, shaderTexRect, shaderTex2DMask;
-        };
+        }; 
         
         OpenGLState *ogl = NULL;
 
         void init_graphics() {
             ogl = new OpenGLState;
+            std::cout << "Init!" << std::endl;
         }
-    };
+    }; /* End internal namespace */
 
 
 
@@ -593,7 +595,7 @@ namespace po {
 	void restoreViewport() {
 		ogl->viewport.pop();
 		glm::vec4 vp = ogl->viewport.top();
-		glViewport(vp[0],vp[1],vp[2],vp[3]);
+        setViewport(vp[0],vp[1],vp[2],vp[3]);
 	}
     
     
@@ -624,15 +626,18 @@ namespace po {
     
     //------------------------------------------------------------------------
 	void setViewport(Rect r) {
-		ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
-		glViewport(r.x, r.y, r.width, r.height);
+        initGraphics();
+        ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
+		glViewport(r.x, r.y, r.width * getScale(), r.height * getScale());
+        
 	}
     
     
     //------------------------------------------------------------------------
 	void setViewport(float x, float y, float w, float h) {
+        initGraphics();
 		ogl->viewport.top() = glm::vec4(x,y,w,h);
-		glViewport(x,y,w,h);
+		glViewport(x,y,w * getScale(),h * getScale());
 	}
     
     
@@ -642,7 +647,7 @@ namespace po {
     
     //------------------------------------------------------------------------
 	void setOrthoProjection(float l, float r, float b, float t, float n, float f) {
-		ogl->projection.top() = glm::ortho(l, r, b, t, n, f);
+		ogl->projection.top() = glm::ortho(l, r * getScale(), b * getScale(), t, n, f);
 	}
     
     
@@ -690,4 +695,4 @@ namespace po {
 		return Point(r.x, r.y, r.z);
 	}
 
-};
+}; /* End po Namespace */
