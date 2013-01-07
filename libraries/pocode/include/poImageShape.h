@@ -25,7 +25,7 @@
  */
 
 #include "poObject.h"
-#include "poApplication.h"
+#include "poShapeBasics2D.h"
 #include "poImage.h"
 #include "poTexture.h"
 
@@ -40,22 +40,22 @@ namespace po {
     class ImageShape : public Object {
     public:
         ImageShape();
-        ImageShape(std::string url, bool loadAsync = false);
-        ImageShape(Image* image);
+        ImageShape(float width, float height);
+        ImageShape(const FilePath filePath, bool async = false, float width=0, float height=0);
+        ImageShape(const URL url, bool async = false, float width=0, float height=0);
         
-        Image *getImage();
+        ~ImageShape();
         
-        void setImage(std::string url);
-        void setImage(Image *image);
-        void setImageAsync(std::string url); //Load image asynchronously
+        //Load from FilePath
+        void load(const FilePath filePath, bool shouldAutoFit = true);
+        void loadAsync(const FilePath filePath, bool shouldAutoFit = true);
         
-        void clearImageData(); //Deletes the image data from the texture, lower memory cost
-        
-        void setShouldClearImage(bool shouldClearImage);
-        bool getShouldClearImage();
+        //Load from URL
+        void load(const URL url, bool shouldAutoFit = true);
+        void loadAsync(const URL url, bool shouldAutoFit = true);
         
     private:
-        bool shouldKeepImage;
+        po::RectShape *imageRect;
         Texture *tex;
         
     //	ImageShape();

@@ -59,8 +59,10 @@ namespace po {
         RectShape( float width, float height, float rad=0.f );
         // place an already-made texture
         RectShape( Texture *tex, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT );
-        // make a texture from the specified url and place it
+        // make a texture from the specified filepath and place it
         RectShape( const FilePath &filePath, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
+        // make a texture from the specified url and place it
+        RectShape( const URL &url, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
         // make a shape of a certain size and put the texture in place inside it
         RectShape( float width, float height, Texture *tex, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT );
         

@@ -73,19 +73,19 @@ namespace po {
         float           getY() const;
         float           getWidth() const;
         float			getHeight() const;
-        Point         getDimensions() const;
+        Point           getDimensions() const;
         float           getScale() const;
-        Rect          getFrame() const;
-        Rect          getBounds() const;
-        Point         getCenterPoint() const;
+        Rect            getFrame() const;
+        Rect            getBounds() const;
+        Point           getCenterPoint() const;
         float           getFramerate() const;
         int             getFramecount() const;
         float           getLastFrameElapsed() const;
         float           getLastFrameTime() const;
         bool            isFullscreen() const;
         bool            wasClosed() const;
-        Point         getMousePosition() const;
-        Object*       getRootObject();
+        Point           getMousePosition() const;
+        Object*         getRootObject();
         bool			isMouseMoveEnabled() const;
         void			setMouseMoveEnabled(bool b);
         
@@ -136,7 +136,7 @@ namespace po {
         
         // WINDOW PROPERTIES (PRIVATE)
         bool            closed;
-        Rect          bounds;
+        Rect            bounds;
         float           scale;
         bool            fullscreen;
         void            *handle;
@@ -148,7 +148,7 @@ namespace po {
         float           framerate, lastElapsed;
         
         // GLOBAL MOUSE POSITION
-        Point         mousePos;
+        Point           mousePos;
         bool			mouseMoveEnabled;
         
         // TOUCH EVENTS
