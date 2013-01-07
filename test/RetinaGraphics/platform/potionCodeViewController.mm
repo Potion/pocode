@@ -158,7 +158,7 @@ po::Object *root = NULL;
 	return appWindow;
 }
 
-/*Touch events*/
+//Touch events
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:eagl];

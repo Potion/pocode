@@ -40,7 +40,5 @@ static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_C
 - (BOOL)presentFramebuffer;
 - (void)deleteFramebuffer;
 
-
-
 @end
 

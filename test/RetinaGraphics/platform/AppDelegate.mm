@@ -15,7 +15,7 @@
 @end
 
 
-
+//Main View Controller
 @implementation MyVC : UIViewController
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -57,7 +57,6 @@
             break;
         }
     }
-    
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -80,6 +79,7 @@
 
 @end
 
+//App Delegate
 @implementation AppDelegate
 
 @synthesize window, pocodeVC;

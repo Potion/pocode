@@ -66,7 +66,6 @@
 
 - (void)createFramebuffer
 {
-	
     if (context && !defaultFramebuffer) {
         [EAGLContext setCurrentContext:context];
         
@@ -97,7 +96,6 @@
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 		
-//		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);
 		[[NSNotificationCenter defaultCenter] postNotificationName:EAGLViewLayoutChangedNotification object:self];
     }
 }
@@ -117,7 +115,6 @@
             colorRenderbuffer = 0;
         }
 		
-
         glDeleteFramebuffers(1, multisampleBuffers);
         glDeleteRenderbuffers(2, multisampleBuffers+1);
     }

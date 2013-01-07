@@ -20,7 +20,5 @@ public:
     
     virtual void eventHandler(po::Event *event);
     virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
-    
-    
 };
 
