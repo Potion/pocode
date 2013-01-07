@@ -6,13 +6,13 @@
 
 #include "poObject.h"
 
-class ___FILEBASENAME___ : public poObject
+class ___FILEBASENAME___ : public po::Object
 {
 public:
 	___FILEBASENAME___();
 	virtual ~___FILEBASENAME___();
 	
 	virtual void update();
-	virtual void eventHandler(poEvent *event);
-	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+	virtual void eventHandler(po::Event *event);
+	virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
 };

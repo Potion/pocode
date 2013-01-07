@@ -5,6 +5,7 @@
 //  Created by Joshua Fisher on 9/21/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
+#define kAccelerometerFrequency        10.0 //Hz
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -14,7 +15,7 @@
 #include "poHelpers.h"
 #include "poApplication.h"
 
-poObject *root = NULL;
+po::Object *root = NULL;
 
 @interface potionCodeViewController ()
 @property (nonatomic, retain) EAGLContext *context;
@@ -88,7 +89,7 @@ poObject *root = NULL;
     // Tear down context.
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
-	self.context = nil;	
+	self.context = nil;
 }
 
 - (NSInteger)animationFrameInterval {
@@ -139,26 +140,31 @@ poObject *root = NULL;
 }
 
 -(void)eaglViewLayoutChanged:(NSNotification*)notice {
-	CGSize size = eagl.size;
-	self.appWindow->resized(size.width, size.height);
+	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    
+    if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        self.appWindow->resized(appFrame.size.height, appFrame.size.width);
+    } else {
+        self.appWindow->resized(appFrame.size.width, appFrame.size.height);
+    }
 }
 
-- (poWindow*)appWindow {
+- (po::Window*)appWindow {
 	if(appWindow == NULL) {
-		CGSize size = eagl.size;
-		poRect frame(0, 0, size.width, size.height);
-		appWindow = new poWindow("window", 0, frame);
+        CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+		po::Rect frame(0, 0, appFrame.size.width, appFrame.size.height);
+		appWindow = new po::Window("window", 0, frame, [[UIScreen mainScreen] scale]);
 	}
 	return appWindow;
 }
 
-/*Touch events*/
+//Touch events
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:eagl];
         self.appWindow->touchBegin(touchPoint.x, touchPoint.y, (int)touch, touch.tapCount);
     }
-} 
+}
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for(UITouch *touch in touches) {
@@ -183,7 +189,7 @@ poObject *root = NULL;
 }
 
 //Motion Events
-- (void) rotationEvent {	
+- (void) rotationEvent {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     
     //Resize the GL View
@@ -199,26 +205,26 @@ poObject *root = NULL;
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     UIAccelerationValue x, y, z;
-    switch (poGetOrientation()) {
-        case PO_HORIZONTAL_LEFT:
+    switch (po::getOrientation()) {
+        case po::ORIENTATION_HORIZONTAL_LEFT:
             x = acceleration.y;
             y = acceleration.x;
             z = acceleration.z;
             break;
             
-        case PO_HORIZONTAL_RIGHT:
+        case po::ORIENTATION_HORIZONTAL_RIGHT:
             x = -acceleration.y;
             y = -acceleration.x;
             z = acceleration.z;
             break;
             
-        case PO_VERTICAL_UP:
+        case po::ORIENTATION_VERTICAL_UP:
             x = acceleration.x;
             y = -acceleration.y;
             z = acceleration.z;
             break;
             
-        case PO_VERTICAL_DOWN:
+        case po::ORIENTATION_VERTICAL_DOWN:
             x = -acceleration.x;
             y = acceleration.y;
             z = acceleration.z;
@@ -230,5 +236,4 @@ poObject *root = NULL;
     
     // Do something with the values.
 }
-
 @end

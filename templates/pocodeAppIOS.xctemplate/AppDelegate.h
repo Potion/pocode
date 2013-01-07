@@ -13,18 +13,18 @@
 @class potionCodeViewController;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate> {
-    @public
-        poOrientation               poAppOrientation;
-        std::vector<poOrientation>  poSupportedOrientations;
-
-        bool isReachableAtEnterBackground;
-        UIImageView *fakeSplash;
+@public
+    po::Orientation               poAppOrientation;
+    std::vector<po::Orientation>  poSupportedOrientations;
+@private
+    double timeAtEnterBackground;
+    bool isReachableAtEnterBackground;
+    UIImageView *fakeSplash;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) potionCodeViewController *pocodeVC;
 
-- (BOOL)getSplashImageName;
-- (BOOL)hasRetinaDisplay;
-
+- (void)failIfSimulator;
+- (void)handleNotification;
 @end
