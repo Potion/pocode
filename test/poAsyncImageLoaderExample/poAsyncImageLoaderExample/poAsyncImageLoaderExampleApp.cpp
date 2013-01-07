@@ -20,7 +20,7 @@ poAsyncImageLoaderExampleApp::poAsyncImageLoaderExampleApp() {
     
     addChild(imageHolder);
     
-    po::URL url("http://richtaveras.com/static/media/uploads/zinnia/successkid.jpg");
+    po::URL url("http://theislanderinseattle.com/wp-content/uploads/2012/04/Seattle_West_View_Space_Needle_5_Frommer_contest.jpg");
     po::Image::getImageAsync(url, this);
     
     po::URLLoader::getFile(url);
@@ -35,10 +35,11 @@ poAsyncImageLoaderExampleApp::~poAsyncImageLoaderExampleApp() {
 
 // UPDATE. Called once per frame. Animate objects here.
 void poAsyncImageLoaderExampleApp::update() {
-    //imageHolder->rotation++;
+    imageHolder->rotation++;
 	imageHolder->position.set(po::getWindowWidth()/2,
                               po::getWindowHeight()/2,
                               1.0);
+    
 }
 
 // DRAW. Called once per frame. Draw objects here.
