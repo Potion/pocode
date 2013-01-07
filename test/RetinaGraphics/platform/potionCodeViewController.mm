@@ -5,6 +5,7 @@
 //  Created by Joshua Fisher on 9/21/11.
 //  Copyright 2011 Potion Design. All rights reserved.
 //
+#define kAccelerometerFrequency        10.0 //Hz
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -14,7 +15,7 @@
 #include "poHelpers.h"
 #include "poApplication.h"
 
-poObject *root = NULL;
+po::Object *root = NULL;
 
 @interface potionCodeViewController ()
 @property (nonatomic, retain) EAGLContext *context;
@@ -148,11 +149,11 @@ poObject *root = NULL;
     }
 }
 
-- (poWindow*)appWindow {
+- (po::Window*)appWindow {
 	if(appWindow == NULL) {
         CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-		poRect frame(0, 0, appFrame.size.width, appFrame.size.height);
-		appWindow = new poWindow("window", 0, frame, [[UIScreen mainScreen] scale]);
+		po::Rect frame(0, 0, appFrame.size.width, appFrame.size.height);
+		appWindow = new po::Window("window", 0, frame, [[UIScreen mainScreen] scale]);
 	}
 	return appWindow;
 }
@@ -204,26 +205,26 @@ poObject *root = NULL;
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     UIAccelerationValue x, y, z;
-    switch (poGetOrientation()) {
-        case PO_HORIZONTAL_LEFT:
+    switch (po::getOrientation()) {
+        case po::ORIENTATION_HORIZONTAL_LEFT:
             x = acceleration.y;
             y = acceleration.x;
             z = acceleration.z;
             break;
             
-        case PO_HORIZONTAL_RIGHT:
+        case po::ORIENTATION_HORIZONTAL_RIGHT:
             x = -acceleration.y;
             y = -acceleration.x;
             z = acceleration.z;
             break;
             
-        case PO_VERTICAL_UP:
+        case po::ORIENTATION_VERTICAL_UP:
             x = acceleration.x;
             y = -acceleration.y;
             z = acceleration.z;
             break;
             
-        case PO_VERTICAL_DOWN:
+        case po::ORIENTATION_VERTICAL_DOWN:
             x = -acceleration.x;
             y = acceleration.y;
             z = acceleration.z;
@@ -235,5 +236,4 @@ poObject *root = NULL;
     
     // Do something with the values.
 }
-
 @end

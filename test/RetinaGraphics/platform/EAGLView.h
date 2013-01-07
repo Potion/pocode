@@ -17,7 +17,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 
-static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_CHANGED_NOTIFICTATION";
+static NSString * const EAGLViewLayoutChangedNotification = @"EAGL_VIEW_LAYOUT_CHANGED_NOTIFICATION";
 
 @class EAGLContext;
 

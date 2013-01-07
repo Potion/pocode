@@ -1,12 +1,18 @@
+//
+//  Release.xcconfig
+//  SMCApp
+//
+//  Created by Steve Varga on 8/23/12.
+//  Copyright (c) 2012 Potion Design. All rights reserved.
+//
 
-
-ARCHS = $(ARCHS_UNIVERSAL_IPHONE_OS)
+ARCHS = $(ARCHS_STANDARD_32_BIT)
 
 SDKROOT = iphoneos
 
-GCC_VERSION = com.apple.compilers.llvmgcc42
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 
-IPHONEOS_DEPLOYMENT_TARGET = 4.3
+IPHONEOS_DEPLOYMENT_TARGET = 5.1
 
 ALWAYS_SEARCH_USER_PATHS = NO
 
@@ -14,15 +20,17 @@ TARGETED_DEVICE_FAMILY = 1,2
 
 LD_NO_PIE = YES
 
-PRODUCT_NAME = pocodeApp
+PRODUCT_NAME = Smithsonian Channel
 
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
 OTHER_LDFLAGS = /pocode/libraries/pocode/libpocode_iOS_d.a /pocode/libraries/pocode/libpocode_iOS_simulator_d.a $(THE_FRAMEWORKS)
 
-HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_45_0 /pocode/libraries/FreeImage /pocode/libraries/FreeType /pocode/libraries/utf8 /pocode/libraries/libMikko /pocode/libraries
+HEADER_SEARCH_PATHS = /pocode/libraries/pugixml /pocode/libraries/Boost/boost_1_49_0 /pocode/libraries/FreeImage /pocode/libraries/FreeType /pocode/libraries/utf8 /pocode/libraries/libMikko /pocode/libraries
 
 USER_HEADER_SEARCH_PATHS = /pocode/libraries/pocode/include
+
+LIBRARY_SEARCH_PATHS = /pocode/libraries/libcurl
 
 GCC_THUMB_SUPPORT = NO
 

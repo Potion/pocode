@@ -6,16 +6,9 @@
 //  Copyright 2010 Apple Inc. All rights reserved.
 //
 
-//#define MULTISAMPLE
-
 #import "EAGLView.h"
 #import <QuartzCore/QuartzCore.h>
-
 #include "poWindow.h"
-
-
-EAGLView        *current_view = NULL;
-
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;
@@ -25,48 +18,42 @@ EAGLView        *current_view = NULL;
 
 @synthesize context;
 @synthesize size;
-@synthesize viewController;
-
 
 // You must implement this method
-+ (Class)layerClass {
++ (Class)layerClass
+{
     return [CAEAGLLayer class];
 }
 
-- (id) initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+//The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:.
+- (id) initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
 	if (self) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
-        
-        eaglLayer.opaque = TRUE;
+        eaglLayer.backgroundColor =  CGColorCreate(CGColorSpaceCreateDeviceRGB(), (CGFloat[]){ 0,0,0, 1 });
+        eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking,
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
         
-        if ([self respondsToSelector: NSSelectorFromString(@"contentScaleFactor")]) {
-            eaglLayer.contentsScale = [[UIScreen mainScreen] scale];
-        }
-        
-        //Enable multitouch by default
+        //Enable multitouch
         self.multipleTouchEnabled = YES;
-        
-        self.backgroundColor = [UIColor blackColor];
     }
-
-    current_view = self;
     return self;
 }
 
-- (void)dealloc {
-    [self deleteFramebuffer];    
+- (void)dealloc
+{
+    [self deleteFramebuffer];
     [context release];
     
     [super dealloc];
 }
 
-- (void)setContext:(EAGLContext *)newContext {
-    current_view = self;
+- (void)setContext:(EAGLContext *)newContext
+{
     if (context != newContext) {
         [self deleteFramebuffer];
         
@@ -77,7 +64,8 @@ EAGLView        *current_view = NULL;
     }
 }
 
-- (void)createFramebuffer {
+- (void)createFramebuffer
+{
 	
     if (context && !defaultFramebuffer) {
         [EAGLContext setCurrentContext:context];
@@ -94,31 +82,20 @@ EAGLView        *current_view = NULL;
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &framebufferHeight);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
 
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-
-#ifdef MULTISAMPLE
-		glGenFramebuffers(1, multisampleBuffers);
-		glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
-		glGenRenderbuffers(2, multisampleBuffers+1);
-		glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[1]);
-		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_RGBA8_OES, framebufferWidth, framebufferHeight);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, multisampleBuffers[1]);
-		glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[2]);
-		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
-
+        glGenFramebuffers(1, multisampleBuffers);
+        glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
+        glGenRenderbuffers(2, multisampleBuffers+1);
+        glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[1]);
+        glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 2, GL_RGBA8_OES, framebufferWidth, framebufferHeight);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, multisampleBuffers[1]);
+        glBindRenderbuffer(GL_RENDERBUFFER, multisampleBuffers[2]);
+        glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 2, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, multisampleBuffers[2]);
+        
+        NSLog(@"Multisampling!");
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-#else
-		glGenRenderbuffers(1, &depthStencil);
-		glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, framebufferWidth, framebufferHeight);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
-		glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
-#endif
 		
 //		NSLog(@"create: %d,%d", framebufferWidth,framebufferHeight);
 		[[NSNotificationCenter defaultCenter] postNotificationName:EAGLViewLayoutChangedNotification object:self];
@@ -140,10 +117,9 @@ EAGLView        *current_view = NULL;
             colorRenderbuffer = 0;
         }
 		
-#ifdef MULTISAMPLE
-		glDeleteFramebuffers(1, multisampleBuffers);
-		glDeleteRenderbuffers(2, multisampleBuffers+1);
-#endif
+
+        glDeleteFramebuffers(1, multisampleBuffers);
+        glDeleteRenderbuffers(2, multisampleBuffers+1);
     }
 }
 
@@ -154,11 +130,8 @@ EAGLView        *current_view = NULL;
         
         if (!defaultFramebuffer)
             [self createFramebuffer];
-#ifdef MULTISAMPLE
+        
         glBindFramebuffer(GL_FRAMEBUFFER, multisampleBuffers[0]);
-#else
-		glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
-#endif
     }
 }
 
@@ -168,17 +141,15 @@ EAGLView        *current_view = NULL;
     
     if (context) {
         [EAGLContext setCurrentContext:context];
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleBuffers[0]);
+        glResolveMultisampleFramebufferAPPLE();
         
-#ifdef MULTISAMPLE
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer);
-		glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleBuffers[0]);
-		glResolveMultisampleFramebufferAPPLE();
-		
-		const GLenum discards[]  = {GL_COLOR_ATTACHMENT0,GL_DEPTH_ATTACHMENT,GL_STENCIL_ATTACHMENT};
-		glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE,3,discards);
-		
+        const GLenum discards[]  = {GL_COLOR_ATTACHMENT0,GL_DEPTH_ATTACHMENT,GL_STENCIL_ATTACHMENT};
+        glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE,3,discards);
+        
         glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
-#endif
+
 		success = [context presentRenderbuffer:GL_RENDERBUFFER];
     }
     
@@ -199,8 +170,4 @@ EAGLView        *current_view = NULL;
 	return CGSizeMake(framebufferWidth, framebufferHeight);
 }
 
-
-
 @end
-
-
