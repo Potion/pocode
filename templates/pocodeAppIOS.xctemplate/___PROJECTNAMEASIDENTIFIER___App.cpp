@@ -32,6 +32,6 @@ void ___PROJECTNAMEASIDENTIFIER___App::eventHandler(po::Event *event) {
 }
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.
-void ___PROJECTNAMEASIDENTIFIER___App::messageHandler(const std::string &msg, const po::Dictionary& dict) {
+void ___PROJECTNAMEASIDENTIFIER___App::messageHandler(const std::string &msg, const po::Dictionary& dict, const po::Object *sender) {
 	
 }

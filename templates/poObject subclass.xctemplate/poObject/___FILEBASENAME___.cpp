@@ -16,6 +16,6 @@ void ___FILEBASENAME___::eventHandler(po::Event *event)
 {
 }
 
-void ___FILEBASENAME___::messageHandler(const std::string &msg, const po::Dictionary& dict)
+void ___FILEBASENAME___::messageHandler(const std::string &msg, const po::Dictionary& dict, const po::Object *sender)
 {
 }
