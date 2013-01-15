@@ -30,7 +30,7 @@ namespace po {
                     MessageSubscriber* thisSubscriber = (*sIter);
                     
                     if(thisSubscriber->sender == NULL || thisSubscriber->sender == m->sender) {
-                        (*sIter)->subscriber->messageHandler(m->message, m->dict);
+                        (*sIter)->subscriber->messageHandler(m->message, m->dict, m->sender);
                     }
                 }
                 

@@ -80,7 +80,7 @@ namespace po {
         virtual void        eventHandler(Event *event);
         
         // "messageHander" is a general utility method used for passing messages between any two Objects.
-        virtual void        messageHandler(const std::string &msg, const Dictionary& dict=Dictionary());
+        virtual void        messageHandler(const std::string &msg, const Dictionary& dict=Dictionary(), const Object* sender=NULL);
 
         //  All events are registed using "addEvent". See "poEnums.h" for a list of all eventTypes.
         // EVENTS
@@ -97,9 +97,9 @@ namespace po {
         float               getScaledWidth();
         float				getHeight();
         float               getScaledHeight();
-        virtual Rect      getBounds();
+        virtual Rect        getBounds();
         Rect				getFrame();
-        Point             getTransformedPoint( Point P );
+        Point               getTransformedPoint( Point P );
 
         // The scene graph is a tree structure composed of Objects and subclasses of Object.
         // A pocode app is itself a Object and is also the root of the tree.

@@ -169,7 +169,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Object::messageHandler(const std::string &msg, const Dictionary& dict) {
+    void Object::messageHandler(const std::string &msg, const Dictionary& dict, const Object *sender) {
         if(parent) {
             parent->messageHandler(msg,dict);
         }

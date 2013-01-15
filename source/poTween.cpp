@@ -99,7 +99,7 @@ namespace po {
         if(obj) {
             Dictionary dict = d;
             dict.set("tween", this);
-            callback = boost::bind(&Object::messageHandler, obj, msg, dict);
+            callback = boost::bind(&Object::messageHandler, obj, msg, dict, (const Object *)NULL);
         }
         else {
             TweenFinishedCallback().swap(callback);
