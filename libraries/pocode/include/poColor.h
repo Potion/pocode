@@ -59,7 +59,7 @@ namespace po {
         // Set with values between 0.0 and 1.0.
         Color&            set(float r, float g, float b, float a=1.f);
         // Set with another Color;
-        Color&            set(Color &fromColor);
+        Color&            set(const Color &fromColor);
         // Set with values between 0 and 255. Values will be scaled to 0.0 to 1.0.
         Color&            set255(float r, float g, float b, float a=255.f);
         // Set using HSV (HUE, SATURATION, VALUE) and alpha.

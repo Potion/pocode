@@ -192,7 +192,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Color &Color::set(Color &fromColor) {
+    Color &Color::set(const Color &fromColor) {
         R = fromColor.R;
         G = fromColor.G;
         B = fromColor.B;
