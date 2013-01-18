@@ -29,6 +29,7 @@
 #include "poOpenGLState.h"
 #include "poSimpleDrawing.h"
 #include "poCamera.h"
+#include "poMessageCenter.h"
 
 static uint PO_OBJECT_UID = 0;
 
@@ -109,6 +110,7 @@ namespace po {
 
     Object::~Object() {
         EventCenter::get()->removeAllEvents(this);
+        MessageCenter::removeSubscriber(this);
         removeAllChildren(true);
         if(eventMemory)
             delete eventMemory;

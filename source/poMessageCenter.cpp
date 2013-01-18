@@ -50,7 +50,18 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void removeSubscriber(std::string msg, Object* subscriber) {
+        void removeSubscriber(Object* subscriber) {
+            for (std::map<std::string, std::vector<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
+                for(std::vector<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
+                    if((*sIter)->subscriber == subscriber) {
+                        iter->second.erase(sIter);
+                    }
+                }
+            }
+        }
+        
+        //------------------------------------------------------------------
+        void removeSubscriberForMessage(Object* subscriber, std::string msg) {
             if(subscribers.find(msg) != subscribers.end()) {
                 if(!subscribers[msg].empty()) {
                     //Find the subscriber and delete it
@@ -67,7 +78,7 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void removeAllSubscribers(std::string msg) {
+        void removeAllSubscribersForMessage(std::string msg) {
             if(subscribers.find(msg) != subscribers.end()) {
                 subscribers[msg].clear();
                 
