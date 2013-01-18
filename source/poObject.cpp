@@ -566,6 +566,10 @@ void poObject::drawTree() {
 	// go back to uncentered for children
 	po::restoreModelview();
 	
+	// then recenter around offset
+	// some modifiers might need the objects complete transform
+	po::translate(-offset);
+	
 	// draw the children
 	BOOST_FOREACH(poObject* obj, children) {
 		obj->drawTree();
