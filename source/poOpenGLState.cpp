@@ -105,8 +105,7 @@ namespace {
 	
 	"	[[fragment]]							\n"
 	"	void main() {							\n"
-	"		vec4 texColor = texture2D(tex, texCoord);\n"
-	"		gl_FragColor = texColor * color;	\n"
+	"		gl_FragColor = texture2D(tex, texCoord) * color;\n"
 	"	}										\n";
 
 	const char * shader_tex_mask =
@@ -277,6 +276,7 @@ namespace po {
 	}
 	
 	void defaultStencil() {
+		glClearStencil(0);
 		glDisable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glStencilFunc(GL_ALWAYS, 0, 0);
@@ -319,7 +319,7 @@ namespace po {
 		defaultStencil();
 		if(c) glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0);
+		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 	}

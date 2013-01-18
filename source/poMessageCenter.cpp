@@ -21,8 +21,11 @@ namespace poMessageCenter {
     
     //------------------------------------------------------------------
     void update() {
+		std::vector<poMessage*> copy(messageQueue.begin(), messageQueue.end());
+		messageQueue.clear();
+		
         //Go through queue, broadcasting messages
-        for(std::vector<poMessage*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
+        for(std::vector<poMessage*>::iterator mIter = copy.begin(); mIter != copy.end(); ++mIter) {
             poMessage* m = (*mIter);
             
             //Go through subscribers for this message, checking to see if they need to be alerted
@@ -36,8 +39,6 @@ namespace poMessageCenter {
             
             delete m; m=NULL;
         }
-        
-        messageQueue.clear();
     }
     
     
