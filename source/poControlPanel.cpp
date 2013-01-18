@@ -23,9 +23,10 @@
 #define MARGIN 10
 #define SPACING 5
 
-poControlPanel::poControlPanel( string _label, poColor _color, int textSize ) {
+poControlPanel::poControlPanel( string _label, poColor _color, int textSize, string _path ) {
     label = _label;
-    
+    path = _path;
+	
     readSettings();
     
     if ( settings.has(label) )
@@ -373,12 +374,20 @@ void poControlPanel::messageHandler(const std::string &msg, const poDictionary& 
 }
 
 void poControlPanel::saveSettings() {
-    settings.write( label+".xml" );
+	char filepath[256];
+	sprintf(filepath, "%s%s.xml", path.c_str(), label.c_str());
+    settings.write( filepath );
 }
 
-void poControlPanel::readSettings() {    
-    FILE* p = fopen((label+".xml").c_str() , "r");
-    if(p) settings.read( label+".xml" );
+void poControlPanel::readSettings() {
+	char filepath[256];
+	sprintf(filepath, "%s%s.xml", path.c_str(), label.c_str());
+    FILE* p = fopen(filepath , "r");
+    if(p) settings.read( filepath );
+}
+
+void poControlPanel::setSavePath(string s) {
+	path = s;
 }
 
 bool poControlPanel::getBool( string s ) {

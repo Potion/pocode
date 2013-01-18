@@ -42,7 +42,7 @@ static const std::string CUI_WINDOW_EVENT = "ui panel value changed";
 class poControlPanel : public poObject {
 
 public:
-    poControlPanel( string _label, poColor _color = poColor( 1,1,1,.2 ), int textSize = 11 );
+    poControlPanel( string _label, poColor _color = poColor( 1,1,1,.2 ), int textSize = 11, string _path = "" );
     
 	virtual void update();
     virtual void eventHandler(poEvent *event);
@@ -61,6 +61,8 @@ public:
     void autoResize();
     void saveSettings();
     void readSettings();
+	
+	void setSavePath( string s );
     
     bool                getBool( string s);
 	int					getInt( string s);
@@ -85,6 +87,7 @@ public:
     poRectShape* hide;
     poTextBox*   hideText;
     string       label;
+	string		 path;
     
     poPoint      pos;
     
