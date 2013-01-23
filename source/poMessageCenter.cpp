@@ -16,13 +16,14 @@ namespace po {
         
         namespace {
             std::map<std::string, std::vector<MessageSubscriber* > > subscribers;
-            std::vector<Message* > messageQueue;
+            std::list<Message* > messageQueue;
         }
+        
         
         //------------------------------------------------------------------
         void update() {
             //Go through queue, broadcasting messages
-            for(std::vector<Message*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
+            for(std::list<Message*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
                 Message* m = (*mIter);
                 
                 //Go through subscribers for this message, checking to see if they need to be alerted
@@ -59,6 +60,7 @@ namespace po {
                 }
             }
         }
+        
         
         //------------------------------------------------------------------
         void removeSubscriberForMessage(Object* subscriber, std::string msg) {
