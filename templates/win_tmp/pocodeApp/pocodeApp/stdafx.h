@@ -10,6 +10,8 @@
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
+#include <GL\glew.h>
+#include <GL\wglew.h>
 
 // C RunTime Header Files
 #include <stdlib.h>
@@ -17,5 +19,12 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include <map>
+#include <cstdint>
 
-// TODO: reference additional headers your program requires here
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
+
+typedef uint32_t uint;
+typedef uint8_t ubyte;

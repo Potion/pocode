@@ -45,17 +45,21 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;BOOST_ALL_NO_LIB;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\pocode\include;C:\pocode\libraries\glew\include\GL\;C:\pocode\libraries\Boost\boost_1_45_0;C:\pocode\libraries\FreeImage;C:\pocode\libraries\FreeType;C:\pocode\libraries\libcurl;C:\pocode\libraries\utf8;C:\pocode\libraries\sqlite3\include;C:\pocode\libraries\pugixml;C:\pocode\libraries;..\App</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;BOOST_ALL_NO_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\pocode\libraries\pocode\include;C:\pocode\libraries\glew;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries;..\App</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\pocode\win\Release;C:\pocode\libraries\glew\win;C:\pocode\libraries\libMikko\win;C:\pocode\libraries\FreeImage\win;C:\pocode\libraries\FreeType\win;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\Boost\boost_1_45_0\win</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glu32.lib;opengl32.lib;FreeImage.lib;freetype.lib;curllib_static.lib;pocode.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\pocode\libraries\pocode\win;C:\pocode\libraries\glew\win;C:\pocode\libraries\Boost\boost_1_49_0\win</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32sd.lib;glu32.lib;opengl32.lib;pocode.lib;libboost_date_time-vc100-mt-gd-1_49.lib;libboost_system-vc100-mt-gd-1_49.lib;libboost_filesystem-vc100-mt-gd-1_49.lib;libboost_thread-vc100-mt-gd-1_49.lib;libboost_regex-vc100-mt-gd-1_49.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,16 +82,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="pocodeApp.ico" />
     <None Include="ReadMe.txt" />
-    <None Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\App\pocodeApp2.h" />
     <ClInclude Include="pixel_format_helper.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\App\pocodeApp2.cpp" />
@@ -98,9 +98,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="pocodeApp.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

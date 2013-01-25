@@ -28,11 +28,12 @@
 
 #include <string>
 #include <vector>
-#include <sqlite3.h>
 
-#define PO_COL_TYPE_STRING  SQLITE_TEXT
-#define PO_COL_TYPE_INT     SQLITE_INTEGER
-#define PO_COL_TYPE_FLOAT   SQLITE_FLOAT
+#define PO_COL_TYPE_INT     1
+#define PO_COL_TYPE_FLOAT   2
+#define PO_COL_TYPE_STRING  3
+
+struct sqlite3;
 
 //------------------------------------------------------------
 //poSqlite3Column

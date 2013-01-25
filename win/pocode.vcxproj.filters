@@ -8,7 +8,10 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="libtess2">
+    <Filter Include="3rd party">
+      <UniqueIdentifier>{74c45d00-722f-40f5-aa1d-cc15e521b0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd party\libtess2">
       <UniqueIdentifier>{bf6040cf-5bd6-4043-88e0-2c4781a9edc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -17,9 +20,6 @@
       <Filter>pocode</Filter>
     </ClInclude>
     <ClInclude Include="..\source\poAttributedString.h">
-      <Filter>pocode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\poBasicRenderer.h">
       <Filter>pocode</Filter>
     </ClInclude>
     <ClInclude Include="..\source\poBinPacker.h">
@@ -52,9 +52,6 @@
     <ClInclude Include="..\source\poFBO.h">
       <Filter>pocode</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\poFileLoader.h">
-      <Filter>pocode</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\poFont.h">
       <Filter>pocode</Filter>
     </ClInclude>
@@ -80,9 +77,6 @@
       <Filter>pocode</Filter>
     </ClInclude>
     <ClInclude Include="..\source\poMatrixSet.h">
-      <Filter>pocode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\poMatrixStack.h">
       <Filter>pocode</Filter>
     </ClInclude>
     <ClInclude Include="..\source\poObject.h">
@@ -155,36 +149,45 @@
       <Filter>pugixml</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\bucketalloc.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\dict.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\geom.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\mesh.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\priorityq.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\sweep.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\tess.h">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClInclude>
     <ClInclude Include="main.h" />
+    <ClInclude Include="..\source\poThreadCenter.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poURLLoader.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poFileLocation.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poMessageCenter.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poAttributedString.cpp">
-      <Filter>pocode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\poBasicRenderer.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poBinPacker.cpp">
@@ -209,9 +212,6 @@
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poFBO.cpp">
-      <Filter>pocode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\poFileLoader.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poFont.cpp">
@@ -239,9 +239,6 @@
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poMatrixSet.cpp">
-      <Filter>pocode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\poMatrixStack.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poObject.cpp">
@@ -308,26 +305,44 @@
       <Filter>pugixml</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\bucketalloc.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\dict.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\geom.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\mesh.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\priorityq.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\sweep.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\tess.c">
-      <Filter>libtess2</Filter>
+      <Filter>3rd party\libtess2</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\libraries\sqlite3\sqlite3.c">
+      <Filter>3rd party</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\nanosvg\nanosvg.c">
+      <Filter>3rd party</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poThreadCenter.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poURLLoader.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poFileLocation.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poMessageCenter.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,13 +1,5 @@
-#include <Windows.h>
-#include <stdlib.h>
-#include <string.h>
-#include <tchar.h>
-
-#include "glew.h"
-#include "wglew.h"
 #include "poWindow.h"
 
-#include "Resource.h"
 #include "pixel_format_helper.h"
 
 #include "shellapi.h"
@@ -18,11 +10,6 @@
 #include <fcntl.h>
  
 
-#ifdef _DEBUG
-#pragma comment(lib, "libboost_thread-vc100-mt-1_45.lib")
-#pragma comment(lib, "libboost_regex-vc100-mt-1_45.lib")
-#endif
- 
 #define LOSHORT(l) ((SHORT)(l))
 #define HISHORT(l) ((SHORT)(((DWORD)(l) >> 16) & 0xFFFF))
  
@@ -63,17 +50,6 @@ void registerWindowsClass(HINSTANCE hinst) {
 	wcl.lpszClassName = WND_CLASS_NAME;
 	wcl.hIconSm = 0;
 	RegisterClassEx(&wcl);
-}
-
-void setIcons() {
-	large_ico = (HICON)LoadImage(hinst, MAKEINTRESOURCE(IDR_MAINFRAME),
-		IMAGE_ICON, GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
-
-	small_ico = (HICON)LoadImage(hinst, MAKEINTRESOURCE(IDR_MAINFRAME),
-		IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
-
-	SendMessage(hwnd, WM_SETICON, (WPARAM)ICON_BIG, (LPARAM)large_ico);
-	SendMessage(hwnd, WM_SETICON, (WPARAM)ICON_SMALL, (LPARAM)small_ico);
 }
 
 bool SetWindowPixelFormat(HDC hdc) {
@@ -122,7 +98,6 @@ void createWindow(LPTSTR title, float w, float h) {
 							NULL, NULL, hinst, NULL);
 
 	GetClientRect(hwnd, &win_rect);
-	setIcons();
 
 	dc = GetDC(hwnd);
 	SetWindowPixelFormat(dc);
@@ -137,8 +112,6 @@ void cleanupWindow() {
 	wglDeleteContext(rc);
 
 	ReleaseDC(hwnd,dc);
-	DestroyIcon(small_ico);
-	DestroyIcon(large_ico);
 	DestroyWindow(hwnd);
 }
 

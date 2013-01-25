@@ -1,6 +1,3 @@
-#include <Windows.h>
-#include <glew.h>
-#include <wglew.h>
 #include <oleauto.h>
 #include <stdio.h>
 #include <tchar.h>
@@ -9,9 +6,9 @@
 namespace {
 	 
 	WNDCLASSEX g_wcl;
-	HWND g_hWnd;
-	HDC g_hDC;
-	HGLRC g_hRC;
+	HWND g_hWnd = 0;
+	HDC g_hDC = 0;
+	HGLRC g_hRC = 0;
 	char g_szAAPixelFormat[32];
 
 	LRESULT CALLBACK DummyGLWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -87,7 +84,8 @@ namespace {
 
 		// i guess we have to do this here when glew is statically linked
 		// if its a dll this gets called when the dll is loaded
-		glewInit();
+		if(glewInit() != GLEW_OK)
+			return false;
 
 		return true;
 	}
