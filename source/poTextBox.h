@@ -101,7 +101,7 @@ namespace po {
         
         // textAlignment may be set using one of the Alignment enums found in "poEnums.h".
         // Commonly used settings are po::ALIGN_TOP_LEFT, po::ALIGN_TOP_CENTER and po::ALIGN_CENTER_CENTER.
-        Alignment         getTextAlignment() const;
+        Alignment           getTextAlignment() const;
         void                setTextAlignment(Alignment align);
         
         // This is the textColor for all of the text. To set the text color by word or by letter,
@@ -187,9 +187,9 @@ namespace po {
         virtual int         getSizeInMemory();
         
         // FILL AND STROKE
-        Color             fillColor;
+        Color               fillColor;
         bool                fillEnabled;
-        Color             strokeColor;
+        Color               strokeColor;
         int                 strokeWidth;
             
     protected:
@@ -202,10 +202,8 @@ namespace po {
         bool                autoAdjustHeight;
         bool				cacheToTexture;
         bool                layoutDone;
-        Alignment         textAlignment;
-        TextBoxLayout   layout;
+        Alignment           textAlignment;
+        TextBoxLayout       layout;
         Texture*			cached;
-        
-
     };
 } /* End po namespace */
