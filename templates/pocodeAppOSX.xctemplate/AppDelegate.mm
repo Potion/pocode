@@ -248,4 +248,12 @@ namespace po {
         return [dir UTF8String];
     }
     
+    void hideCursor() {
+        [NSCursor hide];
+    }
+    
+    void showCursor() {
+        [NSCursor unhide];
+    }
+    
 } /* End po Namespace */
