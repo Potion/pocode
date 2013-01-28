@@ -38,9 +38,11 @@ namespace po {
     
     //------------------------------------------------------------------------
     Point MatrixSet::globalToLocal(Point pt) const {
-        glm::vec3 p(pt.x, pt.y, pt.z);
+        glm::vec3 p(pt.x, viewport.height - pt.y, pt.z);
         glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
         glm::vec3 r = glm::unProject(p, modelview, projection, vp);
+        
+        //Invert Y
         return Point(r.x, r.y, r.z);
     }
     
@@ -50,6 +52,9 @@ namespace po {
         glm::vec3 p(pt.x, pt.y, pt.z);
         glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
         glm::vec3 r = glm::project(p, modelview, projection, vp);
+        
+        //Invert Y
+        r.y = viewport.height - r.y;
         return Point(r.x, r.y, r.z);
     }
     

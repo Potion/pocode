@@ -384,7 +384,7 @@ namespace po {
         if ( matrices.camType == po::CAMERA_2D )
         {
             if(localize) {
-                point.y = po::getWindowHeight() - point.y;
+                //point.y = po::getWindowHeight() - point.y;
                 point = globalToLocal(point);
             }
             

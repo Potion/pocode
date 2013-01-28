@@ -661,9 +661,9 @@ namespace po {
         
         // if there are no children, check bounds rect
         if(localize) {
-            point.y = po::getWindowHeight() - point.y;
             point = globalToLocal(point);
         }
+        
         return getBounds().contains(point);
     }
     

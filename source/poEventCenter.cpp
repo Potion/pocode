@@ -46,7 +46,7 @@ namespace po {
         
         if(isMouseEvent(global_event.type) || isTouchEvent(global_event.type)) {
             // flip the coords so the local position can match the orientation of the global one
-            Point pt = tolocal.source->globalToLocal(Point(tolocal.globalPosition.x, po::getWindowHeight()-tolocal.globalPosition.y));
+            Point pt = tolocal.source->globalToLocal(Point(tolocal.globalPosition.x, tolocal.globalPosition.y));
             tolocal.localPosition = pt;
             tolocal.localPosition.z = 0; // z = 1 out of globalToLocal math
         }
