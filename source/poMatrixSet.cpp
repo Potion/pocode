@@ -37,12 +37,15 @@ namespace po {
     
     
     //------------------------------------------------------------------------
+    //!!!!!!!!!!!!!!!!
+    //Y-Positions are being autamtically flipped to go from GL space to po Coordinate System
+    //Any code prior to this change that used these functions and manually flipped Y-Coordinates
+    //Should be updated
     Point MatrixSet::globalToLocal(Point pt) const {
         glm::vec3 p(pt.x, viewport.height - pt.y, pt.z);
         glm::vec4 vp(viewport.x, viewport.y, viewport.width, viewport.height);
         glm::vec3 r = glm::unProject(p, modelview, projection, vp);
         
-        //Invert Y
         return Point(r.x, r.y, r.z);
     }
     
@@ -55,6 +58,7 @@ namespace po {
         
         //Invert Y
         r.y = viewport.height - r.y;
+        
         return Point(r.x, r.y, r.z);
     }
     
