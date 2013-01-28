@@ -286,7 +286,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool Rect::containsRect(const Rect rect) const {
+    bool Rect::contains(const Rect rect) const {
         if(contains(rect.getTopLeft()) && contains(rect.getTopRight()) && contains(rect.getBottomLeft()) && contains(rect.getBottomRight())) {
             return true;
         }
@@ -296,7 +296,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool Rect::overlapsRect(const Rect rect) const {
+    bool Rect::overlaps(const Rect rect) const {
         if(contains(rect.getTopLeft()) || contains(rect.getTopRight()) || contains(rect.getBottomLeft()) || contains(rect.getBottomRight())) {
             return true;
         }
