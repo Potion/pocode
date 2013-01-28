@@ -87,6 +87,7 @@ namespace po {
         bool        contains(float x, float y) const;
         bool        contains(const Point &pt) const;
         bool        containsRect(const po::Rect rect) const;
+        bool        overlapsRect(const po::Rect rect) const;
 
         Point       remap(Rect from, Point p);
         

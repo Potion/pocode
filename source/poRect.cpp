@@ -287,6 +287,16 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool Rect::containsRect(const Rect rect) const {
+        if(contains(rect.getTopLeft()) && contains(rect.getTopRight()) && contains(rect.getBottomLeft()) && contains(rect.getBottomRight())) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Rect::overlapsRect(const Rect rect) const {
         if(contains(rect.getTopLeft()) || contains(rect.getTopRight()) || contains(rect.getBottomLeft()) || contains(rect.getBottomRight())) {
             return true;
         }
