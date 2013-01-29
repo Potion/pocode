@@ -63,7 +63,6 @@ AdvancedEventsApp::AdvancedEventsApp() {
 		addChild(Brect);
 		
 		poTextBox* Btext = new poTextBox(rectSize, rectSize);		// Draw a text on top of the rectangle
-		Btext->setFont(poGetFont("Helvetica", "Bold"));
 		Btext->setTextSize(35);
 		Btext->textColor = poColor::white;
 		Btext->setTextAlignment(PO_ALIGN_CENTER_CENTER);
