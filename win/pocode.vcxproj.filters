@@ -182,6 +182,15 @@
     <ClInclude Include="..\source\poMessageCenter.h">
       <Filter>pocode</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\poLayout.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poControl.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poControlPanel.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
@@ -342,6 +351,15 @@
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poMessageCenter.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poLayout.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poControl.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poControlPanel.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,7 +9,7 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\BasicShapes">
+    <Filter Include="BasicShapes">
       <UniqueIdentifier>{6fea367c-f45f-449c-955d-780b21430763}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -24,7 +24,7 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\BasicShapes\BasicShapesApp.h">
-      <Filter>Source Files\BasicShapes</Filter>
+      <Filter>BasicShapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,7 +41,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\BasicShapes\BasicShapesApp.cpp">
-      <Filter>Source Files\BasicShapes</Filter>
+      <Filter>BasicShapes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -120,6 +120,8 @@ exit 0
     <ClInclude Include="..\source\poBitmapFont.h" />
     <ClInclude Include="..\source\poCamera.h" />
     <ClInclude Include="..\source\poColor.h" />
+    <ClInclude Include="..\source\poControl.h" />
+    <ClInclude Include="..\source\poControlPanel.h" />
     <ClInclude Include="..\source\poDictionary.h" />
     <ClInclude Include="..\source\poEasingFunctions.h" />
     <ClInclude Include="..\source\poEnums.h" />
@@ -133,6 +135,7 @@ exit 0
     <ClInclude Include="..\source\poHelpers.h" />
     <ClInclude Include="..\source\poImage.h" />
     <ClInclude Include="..\source\poImageShape.h" />
+    <ClInclude Include="..\source\poLayout.h" />
     <ClInclude Include="..\source\poLineExtruder.h" />
     <ClInclude Include="..\source\poMath.h" />
     <ClInclude Include="..\source\poMatrixSet.h" />
@@ -250,6 +253,8 @@ exit 0
     <ClCompile Include="..\source\poBitmapFont.cpp" />
     <ClCompile Include="..\source\poCamera.cpp" />
     <ClCompile Include="..\source\poColor.cpp" />
+    <ClCompile Include="..\source\poControl.cpp" />
+    <ClCompile Include="..\source\poControlPanel.cpp" />
     <ClCompile Include="..\source\poDictionary.cpp" />
     <ClCompile Include="..\source\poEvent.cpp" />
     <ClCompile Include="..\source\poEventCenter.cpp" />
@@ -261,6 +266,7 @@ exit 0
     <ClCompile Include="..\source\poHelpers.cpp" />
     <ClCompile Include="..\source\poImage.cpp" />
     <ClCompile Include="..\source\poImageShape.cpp" />
+    <ClCompile Include="..\source\poLayout.cpp" />
     <ClCompile Include="..\source\poLineExtruder.cpp" />
     <ClCompile Include="..\source\poMath.cpp" />
     <ClCompile Include="..\source\poMatrixSet.cpp" />
