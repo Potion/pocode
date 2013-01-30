@@ -15,7 +15,7 @@ namespace po {
         } MessageSubscriber;
         
         namespace {
-            std::map<std::string, std::vector<MessageSubscriber* > > subscribers;
+            std::map<std::string, std::list<MessageSubscriber* > > subscribers;
             std::list<Message* > messageQueue;
         }
         
@@ -27,7 +27,7 @@ namespace po {
                 Message* m = (*mIter);
                 
                 //Go through subscribers for this message, checking to see if they need to be alerted
-                for (std::vector<MessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
+                for (std::list<MessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
                     MessageSubscriber* thisSubscriber = (*sIter);
                     
                     if(thisSubscriber->sender == NULL || thisSubscriber->sender == m->sender) {
@@ -52,8 +52,9 @@ namespace po {
         
         //------------------------------------------------------------------
         void removeSubscriber(Object* subscriber) {
-            for (std::map<std::string, std::vector<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
-                for(std::vector<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
+            //Remove from Subscribers list
+            for (std::map<std::string, std::list<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
+                for(std::list<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
                     if((*sIter)->subscriber == subscriber) {
                         iter->second.erase(sIter);
                     }
@@ -67,7 +68,7 @@ namespace po {
             if(subscribers.find(msg) != subscribers.end()) {
                 if(!subscribers[msg].empty()) {
                     //Find the subscriber and delete it
-                    for(std::vector<MessageSubscriber* >::iterator sIter = subscribers[msg].begin(); sIter != subscribers[msg].end(); ++sIter) {
+                    for(std::list<MessageSubscriber* >::iterator sIter = subscribers[msg].begin(); sIter != subscribers[msg].end(); ++sIter) {
                         MessageSubscriber* thisSubscriber = (*sIter);
                         if(thisSubscriber->subscriber == subscriber) {
                             delete (*sIter);
@@ -84,7 +85,7 @@ namespace po {
             if(subscribers.find(msg) != subscribers.end()) {
                 subscribers[msg].clear();
                 
-                std::map<std::string, std::vector<MessageSubscriber* > >::iterator it;
+                std::map<std::string, std::list<MessageSubscriber* > >::iterator it;
                 it = subscribers.find(msg);
                 subscribers.erase(it);
             }
