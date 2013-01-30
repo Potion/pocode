@@ -329,7 +329,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void po::drawPoints(Point* pt, int count, GLenum type) {
+    void drawPoints(Point* pt, int count, GLenum type) {
         use2DShader();
         updateActiveShader();
         
