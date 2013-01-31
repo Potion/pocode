@@ -70,7 +70,6 @@ DictionariesApp::DictionariesApp() {
 	addChild(bigRect);
 	
 	rectTextBox = new poTextBox(310, 90);						// Create a text box
-	rectTextBox->setFont( poGetFont("Helvetica", "Regular") );
 	rectTextBox->setText("Click on the colored rectangles to change color");
 	rectTextBox->setTextSize(18);
 	rectTextBox->setTextAlignment(PO_ALIGN_CENTER_CENTER);

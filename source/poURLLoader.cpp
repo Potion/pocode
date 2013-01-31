@@ -20,9 +20,6 @@
 #include "poURLLoader.h"
 #include "poThreadCenter.h"
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
 #include <curl/curl.h>
 
 #include <stdio.h>
@@ -46,6 +43,7 @@ size_t write_to_string(void *ptr, size_t size, size_t count, void *stream) {
 
 
 namespace poURLLoader {
+
     //------------------------------------------------------------------
     poFilePath getFile(poURL url, const poFilePath &savePath) {
         poFilePath p(savePath.asString());

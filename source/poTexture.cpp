@@ -352,17 +352,23 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 	channels    = channelsForFormat(c.format);
 	config = c;
 	
+	if(stride) {
+		int align = 1;
+		if(!(stride % 4)) align = 4;
+		else if(!(stride % 3)) align = 3;
+		else if(!(stride % 2)) align = 2;
+		else align = 1;
+
+		int eles = stride / channels;
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, align);
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
+	}
+
 	po::saveTextureState();
-	
+
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	if(stride) {
-		if(stride != width*height*channels) {
-			int elements = stride / channels;
-			glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
-		}
-	}
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
@@ -386,8 +392,10 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 				 config.type, 
 				 p);
 	
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	po::restoreTextureState();
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 }
 
 void poTexture::loadDummyImage() {

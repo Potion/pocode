@@ -25,6 +25,12 @@
 //  Copyright 2011 Potion Design. All rights reserved.
 //
 
+#include <ft2build.h> 
+#include FT_FREETYPE_H 
+#include FT_BITMAP_H 
+#include FT_GLYPH_H 
+#include FT_IMAGE_H
+
 #include "poFont.h"
 #include "poShape2D.h"
 #include "poHelpers.h"

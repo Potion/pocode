@@ -63,7 +63,6 @@ UpdateApp::UpdateApp() {
 	// D. Update text ///////////////////////
     
     D = new poTextBox(140, 140);						// Draw a text box that shows the current time
-    D->setFont(new poFont("Helvetica", "Bold"));
     D->setTextSize(25);
 	D->textColor.set(0.6, 0.8, 0.4);
     D->position.set(674, 240, 0);
