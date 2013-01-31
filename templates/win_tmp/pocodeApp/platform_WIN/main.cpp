@@ -1,4 +1,5 @@
 #include "poWindow.h"
+#include "poOpenGLState.h"
 
 #include "pixel_format_helper.h"
 
@@ -412,6 +413,9 @@ poWindow* applicationCreateWindow(uint uid, poWindowType type, const char* name,
 
 	//createWindow((LPWSTR)name, w, h);
 	createWindow((LPTSTR)L"pocodeApp", w, h);
+
+	po::initGraphics();
+
 	window = new poWindow(name,uid,poRect(x,y,w,h));
 
 	RECT rcClient, rcWind;
