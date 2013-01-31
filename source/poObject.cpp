@@ -761,6 +761,8 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool Object::isVisible() {
+        if(!this->visible) return false;
+        
         Object *thisParent = getParent();
         while(thisParent) {
             if(!thisParent->visible) return false;
