@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="pugixml">
-      <UniqueIdentifier>{dcb096ac-a371-4156-811a-56bd049b0999}</UniqueIdentifier>
-    </Filter>
     <Filter Include="pocode">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -13,6 +10,9 @@
     </Filter>
     <Filter Include="3rd party\libtess2">
       <UniqueIdentifier>{bf6040cf-5bd6-4043-88e0-2c4781a9edc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd party\pugixml">
+      <UniqueIdentifier>{dcb096ac-a371-4156-811a-56bd049b0999}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -143,10 +143,10 @@
       <Filter>pocode</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\pugixml\pugixml.hpp">
-      <Filter>pugixml</Filter>
+      <Filter>3rd party\pugixml</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\pugixml\pugiconfig.hpp">
-      <Filter>pugixml</Filter>
+      <Filter>3rd party\pugixml</Filter>
     </ClInclude>
     <ClInclude Include="..\libraries\libtess2\bucketalloc.h">
       <Filter>3rd party\libtess2</Filter>
@@ -311,7 +311,7 @@
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\pugixml\pugixml.cpp">
-      <Filter>pugixml</Filter>
+      <Filter>3rd party\pugixml</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\libtess2\bucketalloc.c">
       <Filter>3rd party\libtess2</Filter>
