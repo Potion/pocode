@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\AdvancedEvents\AdvancedEventsApp.cpp" />
-    <ClCompile Include="AppConfig.cpp" />
+    <ClCompile Include="..\AdvancedEvents\AppConfig.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pixel_format_helper.cpp" />
     <ClCompile Include="stdafx.cpp">

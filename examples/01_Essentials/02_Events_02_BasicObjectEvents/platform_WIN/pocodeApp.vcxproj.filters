@@ -31,9 +31,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AppConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -41,6 +38,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\BasicObjectEvents\BasicObjectEventsApp.cpp">
+      <Filter>BasicObjectEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BasicObjectEvents\AppConfig.cpp">
       <Filter>BasicObjectEvents</Filter>
     </ClCompile>
   </ItemGroup>

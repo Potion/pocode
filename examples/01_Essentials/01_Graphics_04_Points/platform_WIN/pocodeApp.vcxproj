@@ -90,8 +90,8 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Points\AppConfig.cpp" />
     <ClCompile Include="..\Points\PointsApp.cpp" />
-    <ClCompile Include="AppConfig.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pixel_format_helper.cpp" />
     <ClCompile Include="stdafx.cpp">

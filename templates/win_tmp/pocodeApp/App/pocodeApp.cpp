@@ -1,10 +1,9 @@
 
 #include "pocodeApp.h"
-#include "poShapeBasics2D.h"
 #include "poApplication.h"
 #include "poHelpers.h"
 #include "poCamera.h"
-#include "poResourceStore.h"
+#include "poShapeBasics2D.h"
 
 pocodeApp::pocodeApp()
 {

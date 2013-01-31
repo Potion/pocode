@@ -31,9 +31,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AppConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -41,6 +38,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Points\PointsApp.cpp">
+      <Filter>Points</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Points\AppConfig.cpp">
       <Filter>Points</Filter>
     </ClCompile>
   </ItemGroup>

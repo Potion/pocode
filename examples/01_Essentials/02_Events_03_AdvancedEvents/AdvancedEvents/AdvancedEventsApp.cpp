@@ -66,7 +66,6 @@ AdvancedEventsApp::AdvancedEventsApp() {
 		Btext->setTextSize(35);
 		Btext->textColor = poColor::white;
 		Btext->setTextAlignment(PO_ALIGN_CENTER_CENTER);
-		Btext->setAlignment(PO_ALIGN_CENTER_CENTER);
 		
 		if(i == 0) {												// Set the text to be a number from 1 to 3
 			Btext->setText("3");									// The bottom rectangle is number 3

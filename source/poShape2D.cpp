@@ -531,8 +531,6 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 
 	std::vector<poShape2D*> response;
 
-#ifdef POTION_APPLE
-
 	if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
 		return response;
@@ -569,7 +567,6 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 	}
 	
 	svgDelete(result);
-#endif
 
 	return response;
 
