@@ -33,6 +33,10 @@
 #include "poApplication.h"
 
 namespace po {
+    // -----------------------------------------------------------------------------------
+    // ================================ Formatting =======================================
+    #pragma mark Formatting
+    
     GLenum formatForChannels(uint channels) {
         switch(channels) {
             case 1:
@@ -147,11 +151,19 @@ namespace po {
     {}
 
     int Texture::totalAllocatedTextureMemorySize = 0;
-
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Class: Texture ===================================
+    #pragma mark - Texture -
+    
+    //------------------------------------------------------------------------
     Texture::Texture()
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {}
-
+    
+    
+    //------------------------------------------------------------------------
     Texture::Texture(const FilePath &filePath, bool keepImage )
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {
@@ -163,25 +175,33 @@ namespace po {
         else
             delete img;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Texture::Texture(Image* img)
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
     {
         load(img);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Texture::Texture(Image* img, const TextureConfig &config)
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(img), sourceIsScaled(false)
     {
         load(img, config);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Texture::Texture(uint width, uint height, const ubyte *pixels, const TextureConfig &config, uint stride)
     :	uid(0), width(0), height(0), channels(0), config(), sourceImage(NULL), sourceIsScaled(false)
     {
         load(width, height, pixels, config, stride);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Texture::~Texture() {
         glDeleteTextures(1, &uid);
         uid = 0;
@@ -190,7 +210,9 @@ namespace po {
         
         // should delete sourceImage in some cases
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Texture* Texture::copy() {
     #if defined(OPENGL_ES)
     #warning Texture::copy not implemented on iOS\n\
@@ -218,11 +240,15 @@ namespace po {
         return tex;
     #endif
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::replace(Image* image) {
         replace(image->getPixels());
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::replace(const ubyte *pixels) {
         po::saveTextureState();
         
@@ -231,94 +257,133 @@ namespace po {
         
         po::restoreTextureState();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     bool Texture::isValid() const {
         return uid > 0;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     bool Texture::isScaled() const {
         return sourceIsScaled;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     TextureConfig Texture::getConfig() const {
         return config;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     uint Texture::getUid() const {
         return uid;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     uint Texture::getWidth() const {
         return isScaled() ? width/getScale() : width;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     uint Texture::getHeight() const {
         return isScaled() ? height/getScale() : height;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     uint Texture::getChannels() const {
         return channels;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     uint Texture::getBitsPerPixel() const {
         return bppForFormatAndType(config.format, config.type);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     size_t Texture::getSizeInBytes() const {
         return (getWidth() * getScale()) * (getHeight() * getScale()) * getBitsPerPixel();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Point Texture::getDimensions() const {
         return Point(width, height, 0);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     Rect Texture::getBounds() const {
         return Rect(0,0,width,height);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setFormat(GLenum f){
         config.setFormat(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setInternalFormat(GLenum f){
         config.setInternalFormat(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setMagFilter(GLenum f){
         config.setMagFilter(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setMinFilter(GLenum f){
         config.setMinFilter(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setType(GLenum f){
         config.setType(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setWrapS(GLenum f){
         config.setWrapS(f);
         configure();
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::setWrapT(GLenum f){
         config.setWrapT(f);
         configure();
     }
-
-    Color Texture::getSourceImagePixel(Point p)
-    {
+    
+    
+    //------------------------------------------------------------------------
+    Color Texture::getSourceImagePixel(Point p) {
         if ( sourceImage == NULL )
             return Color(1,1,1,1);
         else
             return sourceImage->getPixel(p);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::load(Image* img) {
         if(!(img && img->isValid())) {
             loadDummyImage();
@@ -328,7 +393,9 @@ namespace po {
         sourceIsScaled = img->isScaled();
         load(img, TextureConfig(formatForChannels(img->getChannels())));
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::load(Image* img, const TextureConfig &config) {
         if(!(img && img->isValid())) {
             loadDummyImage();
@@ -338,11 +405,15 @@ namespace po {
         sourceIsScaled = img->isScaled();
         load(img->getWidth(), img->getHeight(), img->getPixels(), config, img->getPitch());
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::load(uint width, uint height, int channels, const ubyte *pixels, uint stride) {
         load(width, height, pixels, TextureConfig(formatForChannels(channels)), stride);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::load(uint w, uint h, const ubyte *p, const TextureConfig &c, uint stride) {
         totalAllocatedTextureMemorySize -= width*height*channels;
         totalAllocatedTextureMemorySize += w*h*channelsForFormat(c.format);
@@ -352,23 +423,23 @@ namespace po {
         channels    = channelsForFormat(c.format);
         config = c;
         
+        if(stride) {
+            int align = 1;
+            if(!(stride % 4)) align = 4;
+            else if(!(stride % 3)) align = 3;
+            else if(!(stride % 2)) align = 2;
+            else align = 1;
+            
+            int eles = stride / channels;
+            
+            glPixelStorei(GL_UNPACK_ALIGNMENT, align);
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
+        }
+        
         po::saveTextureState();
         
         glGenTextures(1, &uid);
         glBindTexture(GL_TEXTURE_2D, uid);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        
-        if(stride) {
-            if(stride != width*height*channels) {
-                int elements = stride / channels;
-                
-                #if defined(OPENGL_ES)
-                #warning GL_UNPACK_ROW_LENGTH not available in GLES, needs to be implemented differently
-                #else
-                glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
-                #endif
-            }
-        }
         
         // set the filters we want
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
@@ -376,29 +447,30 @@ namespace po {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
         
-    #ifndef OPENGL_ES
-        float trans[] = {0.f, 0.f, 0.f, 0.f};
-        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-    #endif
+        #ifndef OPENGL_ES
+            float trans[] = {0.f, 0.f, 0.f, 0.f};
+            glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+        #endif
         
         // i'm assuming you're replacing the whole texture anyway
         glTexImage2D(GL_TEXTURE_2D,
-                     0,
-                     config.internalFormat,
-                     width,
-                     height,
-                     0,
-                     config.format,
-                     config.type,
+                     0, 
+                     config.internalFormat, 
+                     width, 
+                     height, 
+                     0, 
+                     config.format, 
+                     config.type, 
                      p);
-        #if defined(OPENGL_ES)
-        #warning GL_UNPACK_ROW_LENGTH not available in GLES, needs to be implemented differently
-        #else
-                glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-        #endif
+        
         po::restoreTextureState();
+        
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::loadDummyImage() {
         static GLuint dummy = 0;
         if(!dummy) {
@@ -439,7 +511,9 @@ namespace po {
         channels = 3;
         config = TextureConfig(GL_RGB).setMinFilter(GL_NEAREST).setMagFilter(GL_NEAREST).setWrapS(GL_TEXTURE_WRAP_S).setWrapT(GL_TEXTURE_WRAP_T);
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void Texture::configure(){
         po::saveTextureState();
         
@@ -458,7 +532,13 @@ namespace po {
         
         po::restoreTextureState();
     }
-
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Texture Fit ======================================
+    #pragma mark Texture Fit
+    
     void textureFitExact(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
     void textureFitNone(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
     void textureFitHorizontal(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points);
@@ -470,7 +550,9 @@ namespace po {
         textureFit(rect, tex, fit, align, coords, points);
         return coords;
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void textureFit(Rect rect, Texture *tex, TextureFitOption fit, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         switch(fit) {
             case po::TEX_FIT_NONE:
@@ -502,7 +584,9 @@ namespace po {
                 ;
         }
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void textureFitExact(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         for(uint i=0; i<points.size(); i++) {
             float s = (points[i].x-rect.x) / rect.width;
@@ -510,8 +594,9 @@ namespace po {
             coords[i].set(s,1.f-t,0.f);
         }
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     void textureFitNone(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         Point max(FLT_MIN, FLT_MIN);
         
@@ -532,8 +617,9 @@ namespace po {
             coords[i] -= offset;
         }
     }
-
-
+    
+    
+    //------------------------------------------------------------------------
     void textureFitHorizontal(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         float new_w = rect.width;
         float new_h = new_w / (tex->getWidth() / (float)tex->getHeight());
@@ -557,7 +643,9 @@ namespace po {
             coords[i] -= offset;
         }
     }
-
+    
+    
+    //------------------------------------------------------------------------
     void textureFitVertical(Rect rect, Texture *tex, Alignment align, std::vector<Point> &coords, const std::vector<Point> &points) {
         float new_h = rect.height;
         float new_w = new_h / (tex->getHeight() / (float)tex->getWidth());

@@ -42,9 +42,7 @@
 // + Have a pointInside method for testing if a point is inside the shape.
 
 namespace po {
-
-    
-class Shape2D : public Object {
+    class Shape2D : public Object {
     public:
         Shape2D();
         virtual Object*		copy();
@@ -136,7 +134,8 @@ class Shape2D : public Object {
     protected:
         virtual void            updateAllTweens();
         void					clone(Shape2D *shp);
-        
+        void					setTexture(Texture* t);
+    
     private:
         // SHAPE PROPERTIES (PRIVATE)
         std::vector<Point>    points;

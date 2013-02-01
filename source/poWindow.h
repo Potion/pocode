@@ -30,6 +30,8 @@
 typedef boost::signals2::connection SigConn;
 
 namespace po {
+    const std::string WindowResizedNotification;
+    
     class Object;
 
     // CLASS NOTES

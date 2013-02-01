@@ -25,6 +25,7 @@
 #include "poCamera.h"
 #include "nanosvg.h"
 #include "poOpenGLState.h"
+#include <glm/gtc/type_ptr.hpp>
 
 #include "poSimpleDrawing.h"
 
@@ -49,6 +50,7 @@ namespace po {
         Shape2D *shp = new Shape2D();
         clone(shp);
         return shp;
+
     }
     
     
@@ -125,7 +127,7 @@ namespace po {
     }
     
     //------------------------------------------------------------------------
-    Shape2D &Shape2D::removeLastPoint() {
+    Shape2D& Shape2D::removeLastPoint() {
         if(!points.empty())
             points.pop_back();
         return *this;
@@ -215,6 +217,12 @@ namespace po {
     // -----------------------------------------------------------------------------------
     // =============================== Textures ==========================================
     #pragma mark Textures
+    
+    //------------------------------------------------------------------------
+    void Shape2D::setTexture(Texture* tex) {
+        texture = tex;
+    }
+    
     
     //------------------------------------------------------------------------
     Shape2D& Shape2D::placeTexture(Texture *tex) {

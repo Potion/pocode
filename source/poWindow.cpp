@@ -30,11 +30,10 @@
 #include "poTexture.h"
 #include "poImage.h"
 
-
 namespace po {
     void objUnderPoint(Object *obj, Point &pnt, std::set<Object*> &objsBeneath) {
         if(!(obj->visible && obj->alpha > 0.01))
-            return; 
+            return;
         
         for(int i=obj->getNumChildren()-1; i>=0; i--) {
             objUnderPoint(obj->getChild(i), pnt, objsBeneath);
@@ -292,12 +291,9 @@ namespace po {
     //------------------------------------------------------------------------
     void Window::resized(int x, int y, int w, int h) {
         po::setViewport(0, 0, w, h);
-        std::cout << w << std::endl;
         bounds.set(x,y,w,h);
-        //
-        //	Event event;
-        //	event.type = PO_WINDOW_RESIZED_EVENT;
-        //	received.push_back(event);
+        
+        MessageCenter::broadcastMessage(po::WindowResizedNotification);
     }
     
     

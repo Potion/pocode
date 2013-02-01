@@ -3,8 +3,8 @@
  *	This file is part of pocode.
  *
  *	pocode is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU Lesser General Public License as 
- *	published by the Free Software Foundation, either version 3 of 
+ *	it under the terms of the GNU Lesser General Public License as
+ *	published by the Free Software Foundation, either version 3 of
  *	the License, or (at your option) any later version.
  *
  *	pocode is distributed in the hope that it will be useful,
@@ -12,7 +12,7 @@
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU Lesser General Public License for more details.
  *
- *	You should have received a copy of the GNU Lesser General Public 
+ *	You should have received a copy of the GNU Lesser General Public
  *	License along with pocode.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
@@ -41,33 +41,33 @@ using namespace boost::posix_time;
 
 //Header Includes based on platform
 #ifdef __APPLE__
-    #include <mach/mach_time.h>
-    #include <sys/param.h>
-    #include <sys/sysctl.h>
+#include <mach/mach_time.h>
+#include <sys/param.h>
+#include <sys/sysctl.h>
 
-    #if defined(POTION_MAC)
-        #include <Cocoa/Cocoa.h>
-    #else // IPHONE OR SIMULATOR
-        #include <UIKit/UIKit.h>
-    #endif
+#if defined(POTION_MAC)
+#include <Cocoa/Cocoa.h>
+#else // IPHONE OR SIMULATOR
+#include <UIKit/UIKit.h>
+#endif
 #endif
 
 //Obj-C Classes can not exist within C++ Namespaces,
 //so we use internal Mac & iOS functions here
 #ifdef __APPLE__
-    #if defined(POTION_MAC)
-        po::Point getDeviceResolutionMac() {
-            NSWindow *window = (NSWindow*)po::applicationCurrentWindow()->getWindowHandle();
-            NSScreen *screen = [window screen];
-            
-            NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
-            return po::Point(size.width, size.height);
-        }
-    #else
-        po::Point getDeviceResolutioniOS() {
-            return po::Point(72,72);
-        }
-    #endif
+#if defined(POTION_MAC)
+po::Point getDeviceResolutionMac() {
+    NSWindow *window = (NSWindow*)po::applicationCurrentWindow()->getWindowHandle();
+    NSScreen *screen = [window screen];
+    
+    NSSize size = [[[screen deviceDescription] objectForKey:NSDeviceResolution] sizeValue];
+    return po::Point(size.width, size.height);
+}
+#else
+po::Point getDeviceResolutioniOS() {
+    return po::Point(72,72);
+}
+#endif
 #endif
 
 
@@ -76,68 +76,68 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ================================ Time Functions ===================================
-    #pragma mark - Time Functions -
+#pragma mark - Time Functions -
     
-    #ifdef __APPLE__
-        float getElapsedTime() {
-            static uint64_t start = 0.0;
-            static mach_timebase_info_data_t info;
-            if(info.denom == 0) {
-                mach_timebase_info(&info);
-                start = mach_absolute_time();
-            }
-            
-            uint64_t duration = mach_absolute_time() - start;
-            return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
+#ifdef __APPLE__
+    float getElapsedTime() {
+        static uint64_t start = 0.0;
+        static mach_timebase_info_data_t info;
+        if(info.denom == 0) {
+            mach_timebase_info(&info);
+            start = mach_absolute_time();
         }
-
-        int getElapsedTimeMillis() {
-            return getElapsedTime() * 1000.0f;
+        
+        uint64_t duration = mach_absolute_time() - start;
+        return ((duration * info.numer) / (double)info.denom) * 1.0e-9;
+    }
+    
+    int getElapsedTimeMillis() {
+        return getElapsedTime() * 1000.0f;
+    }
+    
+#elif defined(POTION_WINDOWS)
+    float getElapsedTime() {
+        static __int64 freq=0L, start;
+        
+        if(freq == 0) {
+            // start
+            QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+            QueryPerformanceCounter((LARGE_INTEGER*)&start);
         }
-
-    #elif defined(POTION_WINDOWS)
-        float getElapsedTime() {
-            static __int64 freq=0L, start;
-
-            if(freq == 0) {
-                // start
-                QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
-                QueryPerformanceCounter((LARGE_INTEGER*)&start);
-            }
-
-            // end
-            __int64 end;
-            QueryPerformanceCounter((LARGE_INTEGER*)&end);
-            double diff = (end - start) / (double)freq;
-            return diff;
-        }
-
-        int getElapsedTimeMillis() {
-            return GetElapsedTime() * 1000.0f;
-        }
-    #endif
+        
+        // end
+        __int64 end;
+        QueryPerformanceCounter((LARGE_INTEGER*)&end);
+        double diff = (end - start) / (double)freq;
+        return diff;
+    }
+    
+    int getElapsedTimeMillis() {
+        return GetElapsedTime() * 1000.0f;
+    }
+#endif
     
     
     //------------------------------------------------------------------------
     //Returns the current time as a Time Object
     po::Time getCurrentTime() {
         date today(day_clock::local_day());
-            
+        
         ptime now = second_clock::local_time();
-            
+        
         Time t;
         t.hours      = now.time_of_day().hours();
         t.minutes    = now.time_of_day().minutes();
         t.seconds    = now.time_of_day().seconds();
-            
+        
         //Am/PM
         t.amPmHours   = t.hours;
-            
+        
         t.amPm = t.amPmHours < 12 ? "AM" : "PM";
-            
+        
         if(t.amPmHours > 12) t.amPmHours -= 12;
         if(t.amPmHours == 0) t.amPmHours = 12;
-            
+        
         return t;
     }
     
@@ -161,23 +161,23 @@ namespace po {
     
     //------------------------------------------------------------------------
     //Device Resolution
-    #pragma mark Device Resolution
+#pragma mark Device Resolution
     
-    #ifdef __APPLE__
-        #if defined(POTION_MAC)
-            Point deviceResolution() {
-                return getDeviceResolutionMac();
-            }
-        #else // IPHONE OR SIMULATOR
-            Point deviceResolution() {
-                return getDeviceResolutioniOS();
-            }
-        #endif
-    #elif defined(POTION_WINDOWS)
-        Point deviceResolution() {
-            return Point(72, 72);
-        }
-    #endif
+#ifdef __APPLE__
+#if defined(POTION_MAC)
+    Point deviceResolution() {
+        return getDeviceResolutionMac();
+    }
+#else // IPHONE OR SIMULATOR
+    Point deviceResolution() {
+        return getDeviceResolutioniOS();
+    }
+#endif
+#elif defined(POTION_WINDOWS)
+    Point deviceResolution() {
+        return Point(72, 72);
+    }
+#endif
     
     
     //------------------------------------------------------------------------
@@ -186,7 +186,7 @@ namespace po {
     
     void log(const char *format, ...) {
         static char buffer[SHRT_MAX];
-
+        
         va_list args;
         va_start(args, format);
         vsprintf(buffer, format, args);
@@ -194,7 +194,7 @@ namespace po {
         
         if(!log_file.is_open())
             log_file.open("log.text");
-
+        
         std::stringstream ss;
         ss << currentTimeStr() << ": " << buffer << "\n";
         
@@ -214,14 +214,14 @@ namespace po {
     
     // -----------------------------------------------------------------------------------
     // ====================== Base64 Encoding/Decoding ===================================
-    #pragma mark - Time Functions -
+#pragma mark - Time Functions -
     
     
     static const std::string base64_chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
     "0123456789+/";
-
+    
     static inline bool is_base64(unsigned char c) {
         return (isalnum(c) || (c == '+') || (c == '/'));
     }
@@ -316,7 +316,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     //String Manipulation
-    #pragma mark String Manipulation
+#pragma mark String Manipulation
     std::string toUpperCase(std::string s) {
         for(int i=0; i<s.length(); i++) {
             s[i] = toupper(s[i]);

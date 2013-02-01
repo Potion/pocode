@@ -13,11 +13,14 @@
 mask_testApp::mask_testApp() {
 	addModifier(new poCamera2D(poColor::black));
 	
-	poShape2D *shp = new poOvalShape(getWindowWidth()/2);
+	poShape2D *shp = new poRectShape(300,300);
 	poShape2D *mask = new poRectShape(getWindowWidth()/2,getWindowHeight()/2);
-	shp->addModifier(new poGeometryMask(mask));
+	shp->offset = poPoint(30,30);
+	shp->drawBounds = true;
+//	shp->addModifier(new poGeometryMask(mask));
 	shp->position = getWindowCenter();
-	shp->rotationTween.set(360.f).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(5.f).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
+//	shp->rotationTween.set(360.f).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(5.f).setRepeat(PO_TWEEN_REPEAT_REGULAR).start();
+	shp->scaleTween.set(poPoint(.5,.5,1.0)).setTweenFunction(PO_TWEEN_LINEAR_FUNC).setDuration(1.f).setRepeat(PO_TWEEN_REPEAT_PINGPONG).start();
 	addChild(shp);
 }
 

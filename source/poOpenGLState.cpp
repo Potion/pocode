@@ -113,14 +113,13 @@ namespace po {
         
         "	[[fragment]]							\n"
         "	void main() {							\n"
-        "		vec4 texColor = texture2D(tex, texCoord);\n"
-        "		gl_FragColor = texColor * color;	\n"
+        "		gl_FragColor = texture2D(tex, texCoord) * color;\n"
         "	}										\n";
 
         const char * shader_tex_mask =
-    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        "   precision mediump sampler2D;            \n"
-    #endif
+        #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+            "   precision mediump sampler2D;            \n"
+        #endif
         "	[[uniforms]]							\n"
         "	uniform mat4 mvp;						\n"
         "	uniform vec4 color;						\n"
@@ -143,6 +142,8 @@ namespace po {
         "		vec4 texColor = texture2D(tex, texCoord);\n"
         "		gl_FragColor = vec4(1.0,1.0,1.0,texColor.a) * color;	\n"
         "	}										\n";
+
+	using namespace glm;
 
         using namespace glm;
 
@@ -301,6 +302,7 @@ namespace po {
     
     //------------------------------------------------------------------------
 	void defaultStencil() {
+		glClearStencil(0);
 		glDisable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glStencilFunc(GL_ALWAYS, 0, 0);
@@ -371,7 +373,7 @@ namespace po {
 		defaultStencil();
 		if(c) glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0);
+		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 	}
