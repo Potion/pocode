@@ -191,6 +191,15 @@
     <ClInclude Include="..\source\poControlPanel.h">
       <Filter>pocode</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\poAudioPlayer.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poFFMpegDecoder.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\poMoviePlayer.h">
+      <Filter>pocode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
@@ -360,6 +369,15 @@
       <Filter>pocode</Filter>
     </ClCompile>
     <ClCompile Include="..\source\poControlPanel.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poAudioPlayer.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poFFMpegDecoder.cpp">
+      <Filter>pocode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\poMoviePlayer.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
   </ItemGroup>

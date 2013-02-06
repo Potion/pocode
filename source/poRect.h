@@ -75,6 +75,9 @@ public:
 	poRect&         scale(float scalar, const poPoint &pt);
 	poRect&         inset(poPoint p);
 	poRect&			expand(poPoint p);
+
+	// invert the height and y
+	poRect			getFlipped() const;
 	
     // RECT QUERYING
 	bool            contains(float x, float y) const;
