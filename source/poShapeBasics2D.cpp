@@ -125,7 +125,7 @@ void    poOvalShape::reshape( float _width, float _height, int nPoints ) {
         width = _width;
         height = _height;
         
-        float dA = M_2PI / (float) nPoints;
+        float dA = (M_PI*2) / (float) nPoints;
         for( int i=0; i<nPoints; i++ )
             setPoint( i, poPoint(_width/2.0*cos(dA*i), _height/2.0*sin(dA*i), 0) );
         
@@ -145,7 +145,7 @@ void poOvalShape::construct( float _width, float _height, int nPoints ) {
     width = _width;
     height = _height;
     
-    float dA = M_2PI / (float) nPoints;
+    float dA = (M_PI*2) / (float) nPoints;
     for( int i=0; i<nPoints; i++ ) {
         addPoint( _width/2.0*cos(dA*i), _height/2.0*sin(dA*i) );
     }
@@ -222,8 +222,8 @@ void poStarShape::construct(float _outerRadius, int nPoints, float depth) {
     innerRadius = apothem - depth;
     
     addPoint( 0.f, 0.f );
-    float dA = M_2PI / (float) (2 * nPoints);
-    float origin = M_2PI * 3/4;
+    float dA = (M_PI*2) / (float) (2 * nPoints);
+    float origin = (M_PI*2) * 3/4;
     for( int i=0; i<2*nPoints; i++ ) {
 		if( i%2 == 0 )
 			addPoint( outerRadius*cos(dA*i + origin), outerRadius*sin(dA*i + origin) );
@@ -238,8 +238,8 @@ void poStarShape::construct(float _width, float _height, int nPoints, float dept
     height = _height;
     
     addPoint( 0.f, 0.f );
-    float dA = M_2PI / (float) (2 * nPoints);
-    float origin = M_2PI * 3/4;
+    float dA = (M_PI*2) / (float) (2 * nPoints);
+    float origin = (M_PI*2) * 3/4;
     for( int i=0; i<2*nPoints; i++ ) {
 		if( i%2 == 0 )
             addPoint( width/2.0*cos(dA*i + origin), height/2.0*sin(dA*i + origin) );
@@ -256,8 +256,8 @@ void    poStarShape::reshape( float _outerRadius, int nPoints, float depth ) {
         float apothem = outerRadius*cos(M_PI/nPoints);
         innerRadius = apothem - depth;
         
-        float dA = M_2PI / (float) (2 * nPoints);
-        float origin = M_2PI * 3/4;
+        float dA = (M_PI*2) / (float) (2 * nPoints);
+        float origin = (M_PI*2) * 3/4;
         for( int i=0; i<2*nPoints; i++ ) {
 			if( i%2 == 0 )
 				setPoint( i+1, poPoint(outerRadius*cos(dA*i + origin), outerRadius*sin(dA*i + origin), 0) );
@@ -283,8 +283,8 @@ void    poStarShape::reshape( float _width, float _height, int nPoints, float de
         width = _width;
         height = _height;
         
-        float dA = M_2PI / (float) (2 * nPoints);
-        float origin = M_2PI * 3/4;
+        float dA = (M_PI*2) / (float) (2 * nPoints);
+        float origin = (M_PI*2) * 3/4;
         for( int i=0; i<2*nPoints; i++ ) {
 			if( i%2 == 0 )
 				setPoint( i+1, poPoint( width/2.0*cos(dA*i + origin), height/2.0*sin(dA*i + origin), 0) );
