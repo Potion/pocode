@@ -1,18 +1,41 @@
-#ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
-#endif
 
+#ifdef __APPLE__
+#define POTION_APPLE
+#include "TargetConditionals.h"
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
+#define OPENGL_ES
+#define POTION_IOS
+#elif TARGET_OS_MAC
+#define POTION_MAC
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/glu.h>
+#endif
+#elif defined(_WIN32)
+#define POTION_WIN32
+// include glew
+#elif defined(__linux)
+// include whatever linux uses
+#endif
 
-#if defined(__cplusplus)
-#include <string>
-#include <vector>
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#endif
+
+#ifdef __cplusplus
+
+#include <glm/ext.hpp>
+
+#include <map>
 #include <set>
 #include <list>
+#include <string>
+#include <vector>
 #include <stack>
-#include <map>
 #include <algorithm>
+#include <iostream>
 
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
@@ -22,8 +45,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
+#include <boost/format.hpp>
 
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
