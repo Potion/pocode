@@ -1,0 +1,230 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0325A78116C459CB00410C61 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77116C459CB00410C61 /* AppConfig.cpp */; };
+		0325A78216C459CB00410C61 /* pocodeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77216C459CB00410C61 /* pocodeApp.cpp */; };
+		0325A78316C459CB00410C61 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77616C459CB00410C61 /* AppDelegate.mm */; };
+		0325A78516C459CB00410C61 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0325A77816C459CB00410C61 /* en.strings */; };
+		0325A78616C459CB00410C61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77916C459CB00410C61 /* main.m */; };
+		0325A78816C459CB00410C61 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0325A77C16C459CB00410C61 /* main.xib */; };
+		0325A78A16C459CB00410C61 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77F16C459CB00410C61 /* poOpenGLView.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0325A74E16C4599200410C61 /* ffmpeg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ffmpeg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0325A77116C459CB00410C61 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		0325A77216C459CB00410C61 /* pocodeApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pocodeApp.cpp; sourceTree = "<group>"; };
+		0325A77316C459CB00410C61 /* pocodeApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pocodeApp.h; sourceTree = "<group>"; };
+		0325A77516C459CB00410C61 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0325A77616C459CB00410C61 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		0325A77716C459CB00410C61 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		0325A77816C459CB00410C61 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		0325A77916C459CB00410C61 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0325A77A16C459CB00410C61 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		0325A77B16C459CB00410C61 /* main.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main.plist; sourceTree = "<group>"; };
+		0325A77C16C459CB00410C61 /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		0325A77D16C459CB00410C61 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		0325A77E16C459CB00410C61 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
+		0325A77F16C459CB00410C61 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
+		0325A78016C459CB00410C61 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0325A74B16C4599200410C61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0325A74516C4599200410C61 = {
+			isa = PBXGroup;
+			children = (
+				0325A75016C4599200410C61 /* ffmpeg */,
+				0325A74F16C4599200410C61 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0325A74F16C4599200410C61 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0325A74E16C4599200410C61 /* ffmpeg.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0325A75016C4599200410C61 /* ffmpeg */ = {
+			isa = PBXGroup;
+			children = (
+				0325A77016C459CB00410C61 /* App */,
+				0325A77416C459CB00410C61 /* platform_OSX */,
+			);
+			path = ffmpeg;
+			sourceTree = "<group>";
+		};
+		0325A77016C459CB00410C61 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0325A77116C459CB00410C61 /* AppConfig.cpp */,
+				0325A77216C459CB00410C61 /* pocodeApp.cpp */,
+				0325A77316C459CB00410C61 /* pocodeApp.h */,
+			);
+			path = App;
+			sourceTree = SOURCE_ROOT;
+		};
+		0325A77416C459CB00410C61 /* platform_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				0325A77516C459CB00410C61 /* AppDelegate.h */,
+				0325A77616C459CB00410C61 /* AppDelegate.mm */,
+				0325A77716C459CB00410C61 /* Debug.xcconfig */,
+				0325A77816C459CB00410C61 /* en.strings */,
+				0325A77916C459CB00410C61 /* main.m */,
+				0325A77A16C459CB00410C61 /* main.pch */,
+				0325A77B16C459CB00410C61 /* main.plist */,
+				0325A77C16C459CB00410C61 /* main.xib */,
+				0325A77D16C459CB00410C61 /* OpenSans-Regular.ttf */,
+				0325A77E16C459CB00410C61 /* poOpenGLView.h */,
+				0325A77F16C459CB00410C61 /* poOpenGLView.mm */,
+				0325A78016C459CB00410C61 /* Release.xcconfig */,
+			);
+			path = platform_OSX;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0325A74D16C4599200410C61 /* ffmpeg */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0325A76D16C4599200410C61 /* Build configuration list for PBXNativeTarget "ffmpeg" */;
+			buildPhases = (
+				0325A74A16C4599200410C61 /* Sources */,
+				0325A74B16C4599200410C61 /* Frameworks */,
+				0325A74C16C4599200410C61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ffmpeg;
+			productName = ffmpeg;
+			productReference = 0325A74E16C4599200410C61 /* ffmpeg.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0325A74616C4599200410C61 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = 0325A74916C4599200410C61 /* Build configuration list for PBXProject "ffmpeg" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0325A74516C4599200410C61;
+			productRefGroup = 0325A74F16C4599200410C61 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0325A74D16C4599200410C61 /* ffmpeg */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0325A74C16C4599200410C61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0325A78516C459CB00410C61 /* en.strings in Resources */,
+				0325A78816C459CB00410C61 /* main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0325A74A16C4599200410C61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0325A78116C459CB00410C61 /* AppConfig.cpp in Sources */,
+				0325A78216C459CB00410C61 /* pocodeApp.cpp in Sources */,
+				0325A78316C459CB00410C61 /* AppDelegate.mm in Sources */,
+				0325A78616C459CB00410C61 /* main.m in Sources */,
+				0325A78A16C459CB00410C61 /* poOpenGLView.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0325A76B16C4599200410C61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0325A76C16C4599200410C61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0325A76E16C4599200410C61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0325A77716C459CB00410C61 /* Debug.xcconfig */;
+			buildSettings = {
+				GCC_PREFIX_HEADER = platform_OSX/main.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/platform_OSX/main.plist";
+			};
+			name = Debug;
+		};
+		0325A76F16C4599200410C61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0325A78016C459CB00410C61 /* Release.xcconfig */;
+			buildSettings = {
+				GCC_PREFIX_HEADER = platform_OSX/main.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/platform_OSX/main.plist";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0325A74916C4599200410C61 /* Build configuration list for PBXProject "ffmpeg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0325A76B16C4599200410C61 /* Debug */,
+				0325A76C16C4599200410C61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0325A76D16C4599200410C61 /* Build configuration list for PBXNativeTarget "ffmpeg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0325A76E16C4599200410C61 /* Debug */,
+				0325A76F16C4599200410C61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0325A74616C4599200410C61 /* Project object */;
+}

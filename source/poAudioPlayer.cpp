@@ -37,16 +37,16 @@ namespace po {
 			AL_ASSERT_NO_ERROR();
 		}
 		~OpenALInit() {
-			ALCcontext* context = alcGetCurrentContext();
-			AL_ASSERT_NO_ERROR();
-			ALCdevice* device = alcGetContextsDevice(context);
-			AL_ASSERT_NO_ERROR();
-			alcMakeContextCurrent(NULL);
-			AL_ASSERT_NO_ERROR();
-			alcDestroyContext(context);
-			AL_ASSERT_NO_ERROR();
-			alcCloseDevice(device);
-			AL_ASSERT_NO_ERROR();
+//			ALCcontext* context = alcGetCurrentContext();
+//			AL_ASSERT_NO_ERROR();
+//			ALCdevice* device = alcGetContextsDevice(context);
+//			AL_ASSERT_NO_ERROR();
+//			alcMakeContextCurrent(NULL);
+//			AL_ASSERT_NO_ERROR();
+//			alcDestroyContext(context);
+//			AL_ASSERT_NO_ERROR();
+//			alcCloseDevice(device);
+//			AL_ASSERT_NO_ERROR();
 		}
 	};
 	static OpenALInit openALInit;
