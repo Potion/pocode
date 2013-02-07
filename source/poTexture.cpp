@@ -433,7 +433,10 @@ namespace po {
             int eles = stride / channels;
             
             glPixelStorei(GL_UNPACK_ALIGNMENT, align);
+            
+            #ifndef OPENGL_ES
             glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
+            #endif
         }
         
         po::saveTextureState();
@@ -466,7 +469,10 @@ namespace po {
         po::restoreTextureState();
         
         glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+        
+        #ifndef OPENGL_ES
         glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        #endif
     }
     
     
