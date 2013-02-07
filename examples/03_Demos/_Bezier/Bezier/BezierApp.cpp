@@ -2,18 +2,6 @@
 #include "poApplication.h"
 #include "poCamera.h"
 
-poObject *createObjectForID(uint uid) {
-	return new BezierApp();
-}
-
-void setupApplication() {
-	applicationCreateWindow(0, WINDOW_TYPE_NORMAL, "Bezier", 100, 100, 600, 300);
-}
-
-void cleanupApplication() {
-}
-
-
 BezierApp::BezierApp() {
 	addModifier(new poCamera2D(poColor::black));
 	

@@ -14,6 +14,7 @@
 		2BA780081470DA8900F87F61 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BA780071470DA8900F87F61 /* main.xib */; };
 		2BA7800B1470DA8900F87F61 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BA7800A1470DA8900F87F61 /* poOpenGLView.mm */; };
 		2BA7800F1470DA8900F87F61 /* BezierApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BA7800E1470DA8900F87F61 /* BezierApp.cpp */; };
+		EF093B781669539D005F6327 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF093B771669539D005F6327 /* AppConfig.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		2BA7800A1470DA8900F87F61 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
 		2BA7800D1470DA8900F87F61 /* BezierApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BezierApp.h; sourceTree = "<group>"; };
 		2BA7800E1470DA8900F87F61 /* BezierApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BezierApp.cpp; sourceTree = "<group>"; };
+		EF093B771669539D005F6327 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		EF093B7916695E82005F6327 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 				2BA780071470DA8900F87F61 /* main.xib */,
 				2BA780091470DA8900F87F61 /* poOpenGLView.h */,
 				2BA7800A1470DA8900F87F61 /* poOpenGLView.mm */,
+				EF093B7916695E82005F6327 /* OpenSans-Regular.ttf */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -90,6 +94,7 @@
 		2BA7800C1470DA8900F87F61 /* application */ = {
 			isa = PBXGroup;
 			children = (
+				EF093B771669539D005F6327 /* AppConfig.cpp */,
 				2BA7800D1470DA8900F87F61 /* BezierApp.h */,
 				2BA7800E1470DA8900F87F61 /* BezierApp.cpp */,
 			);
@@ -163,6 +168,7 @@
 				2BA780031470DA8900F87F61 /* main.m in Sources */,
 				2BA7800B1470DA8900F87F61 /* poOpenGLView.mm in Sources */,
 				2BA7800F1470DA8900F87F61 /* BezierApp.cpp in Sources */,
+				EF093B781669539D005F6327 /* AppConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +220,7 @@
 				2BA780141470DA8900F87F61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
