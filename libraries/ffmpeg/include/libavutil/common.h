@@ -34,7 +34,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef WIN32
 #include "inttypes.h"
+#else
+#include <inttypes.h>
+#endif
 
 #include "attributes.h"
 #include "version.h"

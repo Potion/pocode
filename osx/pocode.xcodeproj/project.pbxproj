@@ -13,6 +13,12 @@
 		032464F815E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032464F915E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
+		0325A73F16C4562800410C61 /* poAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73916C4562800410C61 /* poAudioPlayer.cpp */; };
+		0325A74016C4562800410C61 /* poAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73A16C4562800410C61 /* poAudioPlayer.h */; };
+		0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73B16C4562800410C61 /* poFFMpegDecoder.cpp */; };
+		0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73C16C4562800410C61 /* poFFMpegDecoder.h */; };
+		0325A74316C4562800410C61 /* poMoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73D16C4562800410C61 /* poMoviePlayer.cpp */; };
+		0325A74416C4562800410C61 /* poMoviePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73E16C4562800410C61 /* poMoviePlayer.h */; };
 		032CC439162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43A162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43B162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
@@ -295,6 +301,12 @@
 /* Begin PBXFileReference section */
 		032464F315E56E27009E5822 /* poMatrixSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMatrixSet.cpp; path = ../source/poMatrixSet.cpp; sourceTree = "<group>"; };
 		032464F415E56E27009E5822 /* poMatrixSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMatrixSet.h; path = ../source/poMatrixSet.h; sourceTree = "<group>"; };
+		0325A73916C4562800410C61 /* poAudioPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poAudioPlayer.cpp; path = ../source/poAudioPlayer.cpp; sourceTree = "<group>"; };
+		0325A73A16C4562800410C61 /* poAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poAudioPlayer.h; path = ../source/poAudioPlayer.h; sourceTree = "<group>"; };
+		0325A73B16C4562800410C61 /* poFFMpegDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poFFMpegDecoder.cpp; path = ../source/poFFMpegDecoder.cpp; sourceTree = "<group>"; };
+		0325A73C16C4562800410C61 /* poFFMpegDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poFFMpegDecoder.h; path = ../source/poFFMpegDecoder.h; sourceTree = "<group>"; };
+		0325A73D16C4562800410C61 /* poMoviePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poMoviePlayer.cpp; path = ../source/poMoviePlayer.cpp; sourceTree = "<group>"; };
+		0325A73E16C4562800410C61 /* poMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMoviePlayer.h; path = ../source/poMoviePlayer.h; sourceTree = "<group>"; };
 		03AC602C15E68B0800F6540B /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
 		03AC602D15E68B0800F6540B /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
 		03AC602E15E68B0800F6540B /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
@@ -706,6 +718,10 @@
 				E8D18FA41386BF3E0087288A /* poObjectModifier.h */,
 				E8FAE3A11476B86600A917EB /* poImageShape.h */,
 				E8FAE3A01476B86600A917EB /* poImageShape.cpp */,
+				0325A73916C4562800410C61 /* poAudioPlayer.cpp */,
+				0325A73A16C4562800410C61 /* poAudioPlayer.h */,
+				0325A73D16C4562800410C61 /* poMoviePlayer.cpp */,
+				0325A73E16C4562800410C61 /* poMoviePlayer.h */,
 			);
 			name = poObjects;
 			sourceTree = "<group>";
@@ -713,6 +729,8 @@
 		E8E7559413C60AF900A91EB8 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0325A73B16C4562800410C61 /* poFFMpegDecoder.cpp */,
+				0325A73C16C4562800410C61 /* poFFMpegDecoder.h */,
 				E88E746313C753DB0051F026 /* poAttributedString.h */,
 				E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */,
 				E8E51B3E13A13E5D008C67FF /* poBinPacker.h */,
@@ -834,6 +852,9 @@
 				03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */,
 				03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */,
 				AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */,
+				0325A74016C4562800410C61 /* poAudioPlayer.h in Headers */,
+				0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */,
+				0325A74416C4562800410C61 /* poMoviePlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1109,9 @@
 				03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */,
 				03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */,
 				AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */,
+				0325A73F16C4562800410C61 /* poAudioPlayer.cpp in Sources */,
+				0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */,
+				0325A74316C4562800410C61 /* poMoviePlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

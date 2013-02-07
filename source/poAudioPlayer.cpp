@@ -8,8 +8,13 @@
 
 #include "poAudioPlayer.h"
 
+#ifdef __APPLE__
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
+#elif defined WIN32
 #include <al.h>
 #include <alc.h>
+#endif
 
 #include <cassert>
 #include <algorithm>
@@ -24,9 +29,9 @@ namespace po {
 	struct OpenALInit {
 		OpenALInit() {
 			alGetError();
-			ALCdevice* device = alcOpenDevice(nullptr);
+			ALCdevice* device = alcOpenDevice(NULL);
 			AL_ASSERT_NO_ERROR();
-			ALCcontext* context = alcCreateContext(device, nullptr);
+			ALCcontext* context = alcCreateContext(device, NULL);
 			AL_ASSERT_NO_ERROR();
 			alcMakeContextCurrent(context);
 			AL_ASSERT_NO_ERROR();
