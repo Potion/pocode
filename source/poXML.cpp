@@ -364,7 +364,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    XMLDocument::XMLDocument(const std::string &url) {
+    XMLDocument::XMLDocument(const FilePath &url) {
         document.reset(new pugi::xml_document);
         read(url);
     }
@@ -393,14 +393,14 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    bool XMLDocument::read(const std::string &url) {
+    bool XMLDocument::read(const FilePath &url) {
         document.reset(new pugi::xml_document);
-        xml_parse_result result = document->load_file(url.c_str(), parse_default, encoding_utf8);
+        xml_parse_result result = document->load_file(url.toString().c_str(), parse_default, encoding_utf8);
         if(result.status == status_ok) {
             return true;
         }
         
-        po::log("XML: parse error (file: %s) (error: %s)", url.c_str(), result.description());
+        po::log("XML: parse error (file: %s) (error: %s)", url.toString().c_str(), result.description());
         return false;
     }
     
