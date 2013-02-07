@@ -32,6 +32,8 @@
 #include <pugixml.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include "poFileLocation.h"
+
 namespace po {
     class XMLNode;
     class XpathResult;
@@ -48,7 +50,7 @@ namespace po {
     public:
         XMLDocument();
         // load from a file
-        XMLDocument(const std::string &url);
+        XMLDocument(const FilePath &url);
         
         bool			isValid() const;
         
@@ -57,7 +59,7 @@ namespace po {
         XMLNode		resetRootNode();
         
         // READ and WRITE XML FILE
-        bool            read(const std::string &url);
+        bool            read(const FilePath &url);
         bool            readStr(const std::string &str);
         bool            write(const std::string &url);
         
