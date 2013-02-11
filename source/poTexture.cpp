@@ -361,8 +361,10 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 
 		int eles = stride / channels;
 
+		#ifndef OPENGL_ES
 		glPixelStorei(GL_UNPACK_ALIGNMENT, align);
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
+		#endif
 	}
 
 	po::saveTextureState();
@@ -376,10 +378,10 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
 	
-#ifndef OPENGL_ES
+	#ifndef OPENGL_ES
 	float trans[] = {0.f, 0.f, 0.f, 0.f};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-#endif
+	#endif
 	
 	// i'm assuming you're replacing the whole texture anyway
 	glTexImage2D(GL_TEXTURE_2D, 
@@ -394,8 +396,10 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 	
 	po::restoreTextureState();
 
+	#ifndef OPENGL_ES
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	#endif
 }
 
 void poTexture::loadDummyImage() {
