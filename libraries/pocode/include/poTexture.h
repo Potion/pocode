@@ -114,6 +114,8 @@ private:
 	void                unload();
 	void				configure();
 	
+	uint8_t*			unpack(uint8_t* pix, int stride1, int stride2, int height);
+	
 	poTextureConfig     config;
 	uint				uid, width, height, channels;
 	
