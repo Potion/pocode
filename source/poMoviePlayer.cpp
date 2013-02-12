@@ -89,9 +89,7 @@ namespace po {
 		if(state != Playing) {
 			switch(state) {
 				case Stopped:
-					videoDecoder->seekToFrame(0);
-					playStartTime = poGetElapsedTime();
-					pauseElapsedTime = 0;
+					seek(0);
 					break;
 					
 				case Paused:

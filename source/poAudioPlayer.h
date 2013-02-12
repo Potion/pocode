@@ -59,6 +59,7 @@ namespace po {
 		void updateBuffers();
 		boost::thread updateThread;
 		bool killUpdateThread;
+		bool ownsDemuxer;
 	};
 	
 }

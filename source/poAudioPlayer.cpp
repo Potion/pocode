@@ -59,6 +59,7 @@ namespace po {
 	,	clock(0.f)
 	,	loop(false)
 	,	state(Stopped)
+	,	ownsDemuxer(false)
 	{}
 	
 	AudioPlayer::~AudioPlayer() {
@@ -67,6 +68,7 @@ namespace po {
 	
 	bool AudioPlayer::open(const char* path) {
 		Demuxer* de = Demuxer::open(path);
+		ownsDemuxer = true;
 		return open(de);
 	}
 	
@@ -76,6 +78,8 @@ namespace po {
 		demuxer = de;
 		if(!demuxer)
 			return false;
+		
+		ownsDemuxer = false;
 
 		if(!(audioDecoder = AudioDecoder::open(demuxer)))
 			return false;
@@ -119,7 +123,7 @@ namespace po {
 			delete audioDecoder;
 			audioDecoder = NULL;
 		}
-		if(demuxer) {
+		if(demuxer && ownsDemuxer) {
 			delete demuxer;
 			demuxer = NULL;
 		}
