@@ -8,7 +8,7 @@
 #include "poMoviePlayer.h"
 #include "poAudioPlayer.h"
 
-#define MOVIE_URI "diehard5_1080p.mov"
+#define MOVIE_URI "MSI_testdrive_noaudio.mp4"
 
 pocodeApp::pocodeApp()
 {
@@ -25,7 +25,7 @@ pocodeApp::pocodeApp()
 	else {
 		printf("can't open movie file\n");
 	}
-	
+
 	//audio = new po::AudioPlayer;
 	//if(audio->open("audio_stereo16.mp3")) {
 	//	audio->play();
@@ -39,6 +39,9 @@ pocodeApp::pocodeApp()
 
 void pocodeApp::update()
 {
+	if(player->isPlaying()) {
+		printf("%f %d/%d\n", player->getTime(), player->getFrameNum(), player->getFrameCount());
+	}
 }
 
 void pocodeApp::draw()

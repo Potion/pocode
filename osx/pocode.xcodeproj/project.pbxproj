@@ -14,11 +14,11 @@
 		032464F915E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		0325A73F16C4562800410C61 /* poAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73916C4562800410C61 /* poAudioPlayer.cpp */; };
-		0325A74016C4562800410C61 /* poAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73A16C4562800410C61 /* poAudioPlayer.h */; };
+		0325A74016C4562800410C61 /* poAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73A16C4562800410C61 /* poAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73B16C4562800410C61 /* poFFMpegDecoder.cpp */; };
 		0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73C16C4562800410C61 /* poFFMpegDecoder.h */; };
 		0325A74316C4562800410C61 /* poMoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73D16C4562800410C61 /* poMoviePlayer.cpp */; };
-		0325A74416C4562800410C61 /* poMoviePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73E16C4562800410C61 /* poMoviePlayer.h */; };
+		0325A74416C4562800410C61 /* poMoviePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73E16C4562800410C61 /* poMoviePlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032CC439162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43A162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43B162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };

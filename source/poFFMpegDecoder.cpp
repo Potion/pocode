@@ -291,10 +291,10 @@ namespace po {
 		dec->frame = avcodec_alloc_frame();
 		dec->frameRGB = avcodec_alloc_frame();
 
-		int64_t numFrames = dec->stream->nb_frames;
-		double frameRate = av_q2d(dec->stream->r_frame_rate);
-		double bitRate = dec->context->bit_rate / 1000000.0;
-		printf("video stream:\n\t%lld frames\n\t%f frames/sec\n\t%f bits/sec\n", numFrames, frameRate, bitRate);
+		dec->numFrames = dec->stream->nb_frames;
+		dec->frameRate = av_q2d(dec->stream->r_frame_rate);
+		dec->bitRate = dec->context->bit_rate / 1000000.0;
+//		printf("video stream:\n\t%lld frames\n\t%f frames/sec\n\t%f bits/sec\n", numFrames, frameRate, bitRate);
 		
 //		// look at link for why we need to override the frame creation and release functions
 //		// http://dranger.com/ffmpeg/tutorial05.html
@@ -392,18 +392,18 @@ namespace po {
 			// decode next packet of video
 			int complete = 0;
 			int error = 0;
-			if((error = avcodec_decode_video2(context, frame, &complete, &packet)) < 0) {
+			error = avcodec_decode_video2(context, frame, &complete, &packet);
+			if(error <= 0) {
 				printf("ffmpeg video decoding error: %x\n", error);
 			}
+			
 			// free allocated packet resources
 			av_free_packet(&packet);
 
 			// we decoded a whole frame
 			if(complete) {
-				currentDts = packet.dts;
-				currentFrame = frame->pkt_pts;
-				currentDts = frame->pkt_dts;
-				clock = currentFrame * av_q2d(stream->time_base);
+				clock = frame->pkt_pts * av_q2d(stream->time_base);
+				currentFrame = clock * frameRate;
 				
 				double delay = 0.0;
 				delay = av_q2d(context->time_base);
@@ -421,6 +421,7 @@ namespace po {
 	}
 	
 	int64_t VideoDecoder::getCurrentFrame() { return currentFrame; }
+	int64_t VideoDecoder::getFrameCount() { return numFrames; }
 	double VideoDecoder::getCurrentTime() { return clock; }
 	double VideoDecoder::getNextTime() { return nextFrameTime; }
 
@@ -476,7 +477,7 @@ namespace po {
 									  dec->context->sample_fmt,
 									  dec->context->sample_rate,
 									  0,
-									  NULL);
+									  NULL);		
 		swr_init(dec->swr);
 		
 		return dec;
@@ -494,8 +495,6 @@ namespace po {
 	int AudioDecoder::getChannelCount() const { return context->channels; }
 
 	AudioBuffer::Ptr AudioDecoder::convert(AVFrame* frame) {
-		// do the conversion
-		
 		double out = frame->pkt_dts * av_q2d(stream->time_base);
 		AudioBuffer::Ptr buffer = AudioBuffer::create(out, sampleRate, frameSize, NULL);
 		

@@ -185,6 +185,18 @@ namespace po {
 		return state == Complete;
 	}
 
+	double MoviePlayer::getTime() const {
+		return videoDecoder->getCurrentTime();
+	}
+	
+	int MoviePlayer::getFrameNum() const {
+		return videoDecoder->getCurrentFrame();
+	}
+	
+	int MoviePlayer::getFrameCount() const {
+		return videoDecoder->getFrameCount();
+	}
+	
 	void MoviePlayer::setRect(float x, float y, float w, float h) {
 		if(videoDecoder) {
 			int vW = videoDecoder->getWidth();
@@ -222,8 +234,12 @@ namespace po {
 				target = poGetElapsedTime() - (playStartTime + pauseElapsedTime);
 			
 			while(cur <= target) {
-				if(!uploadFrame(texture, videoDecoder->nextFrame()))
+				if(!uploadFrame(texture, videoDecoder->nextFrame())) {
+					if(videoDecoder->isLastFrame()) {
+						state = Complete;
+					}
 					break;
+				}
 
 				cur = videoDecoder->getNextTime();
 			}

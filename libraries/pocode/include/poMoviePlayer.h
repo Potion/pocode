@@ -35,6 +35,9 @@ namespace po {
 		bool isPaused() const;
 		bool isStopped() const;
 		bool isFinished() const;
+		double getTime() const;
+		int getFrameNum() const;
+		int getFrameCount() const;
 		
 		void setRect(float x, float y, float w, float h);
 
@@ -55,8 +58,8 @@ namespace po {
 		
 		poRect rect;
 
-		uint32_t playStartTime;
-		uint32_t pauseStartTime, pauseElapsedTime;
+		double playStartTime;
+		double pauseStartTime, pauseElapsedTime;
 
 		poTexture* texture;
 	};
