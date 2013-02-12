@@ -367,7 +367,7 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 		glPixelStorei(GL_UNPACK_ALIGNMENT, align);
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
 		#else
-		p = unpack(p, stride, width * channels, height);
+		p = unpack((unsigned char*)p, stride, width * channels, height);
 		reallocatedPixels = true;
 		#endif
 	}
