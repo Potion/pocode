@@ -49,7 +49,9 @@ namespace po {
 		if(!(videoDecoder = VideoDecoder::open(demuxer)))
 		   return false;
 
-		if(demuxer->getStreamIndex(AVMEDIA_TYPE_AUDIO)) {
+		int st = demuxer->getStreamIndex(AVMEDIA_TYPE_AUDIO);
+		
+		if(st >= 0) {
 			audioPlayer = new AudioPlayer;
 			audioPlayer->open(demuxer);
 		}
@@ -88,12 +90,12 @@ namespace po {
 			switch(state) {
 				case Stopped:
 					videoDecoder->seekToFrame(0);
-					playStartTime = poGetElapsedTimeMillis();
+					playStartTime = poGetElapsedTime();
 					pauseElapsedTime = 0;
 					break;
 					
 				case Paused:
-					pauseElapsedTime += (poGetElapsedTimeMillis() - pauseStartTime);
+					pauseElapsedTime += (poGetElapsedTime() - pauseStartTime);
 					break;
 					
 				default:
@@ -101,7 +103,9 @@ namespace po {
 			}
 			
 			state = Playing;
-			audioPlayer->play();
+			
+			if(audioPlayer)
+				audioPlayer->play();
 		}
 	}
 	
@@ -109,7 +113,7 @@ namespace po {
 		if(state != Paused) {
 			switch(state) {
 				case Playing:
-					pauseStartTime = poGetElapsedTimeMillis();
+					pauseStartTime = poGetElapsedTime();
 					break;
 					
 				default:
@@ -117,20 +121,37 @@ namespace po {
 			}
 			
 			state = Paused;
-			audioPlayer->pause();
+			
+			if(audioPlayer)
+				audioPlayer->pause();
 		}
 	}
 	
 	void MoviePlayer::stop() {
 		if(state != Stopped) {
 			state = Stopped;
-			audioPlayer->stop();
+			
+			if(audioPlayer)
+				audioPlayer->stop();
 		}
 	}
 	
 	void MoviePlayer::seek(float time) {
-		videoDecoder->seekToTime(time);
-		audioPlayer->seek(time);
+		if(audioPlayer) {
+			// this needs to happen to reset the audio clock
+			// TODO:	figure out fix so the audio decoder knows when
+			//			it was flushed and can reset its clock
+			audioPlayer->seek(time);
+		}
+		else {
+			videoDecoder->seekToTime(time);
+			double now = poGetElapsedTime();
+			playStartTime = now + time;
+			pauseStartTime = now;
+			pauseElapsedTime = 0;
+		}
+		
+		uploadFrame(texture, videoDecoder->nextFrame());
 	}
 	
 	void MoviePlayer::previousFrame() {
@@ -194,9 +215,15 @@ namespace po {
 	void MoviePlayer::update() {
 		if(state == Playing) {
 			double cur = videoDecoder->getNextTime();
-			double target = audioPlayer->getTime();
+			
+			double target = 0.0;
+			
+			if(audioPlayer)
+				target = audioPlayer->getTime();
+			else
+				target = poGetElapsedTime() - (playStartTime + pauseElapsedTime);
+			
 			while(cur <= target) {
-				VideoFrame::Ptr next = videoDecoder->nextFrame();
 				if(!uploadFrame(texture, videoDecoder->nextFrame()))
 					break;
 

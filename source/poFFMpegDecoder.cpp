@@ -118,7 +118,13 @@ namespace po {
 	
 	int Demuxer::getStreamIndex(AVMediaType type) {
 		// look up the best-guess stream index for media type
-		return av_find_best_stream(format, type, -1, -1, NULL, 0);
+		int st = av_find_best_stream(format, type, -1, -1, NULL, 0);
+		if(st == AVERROR_STREAM_NOT_FOUND ||
+		   st == AVERROR_STREAM_NOT_FOUND)
+		{
+			return -1;
+		}
+		return st;
 	}
 	
 	PacketQueue* Demuxer::getPacketQueue(int idx) {
@@ -182,8 +188,8 @@ namespace po {
 		
 		avformat_seek_file(format, -1, INT64_MIN, ts, ts, AVSEEK_FLAG_BACKWARD | AVSEEK_FLAG_FRAME);
 
-			for(std::map<int,PacketQueue*>::iterator it=packetQueues.begin(); it!=packetQueues.end(); ++it)
-				it->second->flush();
+		for(std::map<int,PacketQueue*>::iterator it=packetQueues.begin(); it!=packetQueues.end(); ++it)
+			it->second->flush();
 	}
 
 	VideoFrame::VideoFrame()
@@ -404,7 +410,7 @@ namespace po {
 				delay += frame->repeat_pict * (delay * 0.5);
 				nextFrameTime = clock + delay;
 				
-				VideoFrame::Ptr rez = VideoFrame::create(clock, width, height, bytesPerFrame, NULL);
+				VideoFrame::Ptr rez = VideoFrame::create(nextFrameTime, width, height, bytesPerFrame, NULL);
 				avpicture_fill((AVPicture*)frameRGB, rez->bytes, PIX_FMT_RGB24, width, height);
 				sws_scale(sws, (uint8_t const* const*)frame->data, frame->linesize, 0, height, frameRGB->data, frameRGB->linesize);
 				return rez;
@@ -422,6 +428,10 @@ namespace po {
 	
 	void VideoDecoder::seekToTime(double time) {
 		demuxer->seekToTime(time);
+		
+		// pull the next frame
+		
+		
 		lastFrame = false;
 	}
 

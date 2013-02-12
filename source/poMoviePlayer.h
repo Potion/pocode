@@ -55,8 +55,8 @@ namespace po {
 		
 		poRect rect;
 
-		uint32_t playStartTime;
-		uint32_t pauseStartTime, pauseElapsedTime;
+		double playStartTime;
+		double pauseStartTime, pauseElapsedTime;
 
 		poTexture* texture;
 	};

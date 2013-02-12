@@ -58,6 +58,7 @@ namespace po {
 	,	killUpdateThread(false)
 	,	clock(0.f)
 	,	loop(false)
+	,	state(Stopped)
 	{}
 	
 	AudioPlayer::~AudioPlayer() {
@@ -90,7 +91,7 @@ namespace po {
 
 		format = AL_FORMAT_STEREO16;
 		clock = 0.f;
-
+		
 		return true;
 	}
 
@@ -122,26 +123,31 @@ namespace po {
 			delete demuxer;
 			demuxer = NULL;
 		}
+		
+		state = Stopped;
 	}
 	
 	void AudioPlayer::play() {
 		if(state != Playing) {
-			killUpdateThread = false;
-			updateThread = boost::thread(boost::bind(&AudioPlayer::updateBuffers,this));
+			if(state == Stopped) {
+				killUpdateThread = false;
+				updateThread = boost::thread(boost::bind(&AudioPlayer::updateBuffers,this));
 
-			for(int i=0; i<BufferCount; i++) {
-				AudioBuffer::Ptr buf = audioDecoder->nextBuffer();
-				if(buf) {
-					alBufferData(buffers[i], format, buf->bytes, buf->numBytes, buf->sampleRate);
-					AL_ASSERT_NO_ERROR();
+				for(int i=0; i<BufferCount; i++) {
+					AudioBuffer::Ptr buf = audioDecoder->nextBuffer();
+					if(buf) {
+						alBufferData(buffers[i], format, buf->bytes, buf->numBytes, buf->sampleRate);
+						AL_ASSERT_NO_ERROR();
+					}
 				}
+				
+				alSourceQueueBuffers(uid, BufferCount, buffers);
+				AL_ASSERT_NO_ERROR();
 			}
-			
-			alSourceQueueBuffers(uid, BufferCount, buffers);
-			AL_ASSERT_NO_ERROR();
 			
 			alSourcePlay(uid);
 			AL_ASSERT_NO_ERROR();
+			
 			state = Playing;
 		}
 	}

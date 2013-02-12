@@ -16,6 +16,44 @@
 		0325A78A16C459CB00410C61 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0325A77F16C459CB00410C61 /* poOpenGLView.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		03BC72C116CA945E0012DE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E80625911396FEDA00615CCB;
+			remoteInfo = pocode_osx;
+		};
+		03BC72C316CA945E0012DE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E84CEC5C142A2F48008B3E3E;
+			remoteInfo = pocode_iOS;
+		};
+		03BC72C516CA945E0012DE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AA2E616014FC0B9700F1859C;
+			remoteInfo = pocode_iOS_simulator;
+		};
+		03BC72C716CA945E0012DE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E8D8F309144C8DEA0077F6DA;
+			remoteInfo = pocode_reg;
+		};
+		03BC72CA16CA949A0012DE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E80625901396FEDA00615CCB;
+			remoteInfo = pocode_osx;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0325A74E16C4599200410C61 /* ffmpeg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ffmpeg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0325A77116C459CB00410C61 /* AppConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
@@ -33,6 +71,7 @@
 		0325A77E16C459CB00410C61 /* poOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poOpenGLView.h; sourceTree = "<group>"; };
 		0325A77F16C459CB00410C61 /* poOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = poOpenGLView.mm; sourceTree = "<group>"; };
 		0325A78016C459CB00410C61 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pocode.xcodeproj; path = ../../osx/pocode.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +88,7 @@
 		0325A74516C4599200410C61 = {
 			isa = PBXGroup;
 			children = (
+				03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */,
 				0325A75016C4599200410C61 /* ffmpeg */,
 				0325A74F16C4599200410C61 /* Products */,
 			);
@@ -100,6 +140,17 @@
 			path = platform_OSX;
 			sourceTree = SOURCE_ROOT;
 		};
+		03BC72BB16CA945E0012DE7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03BC72C216CA945E0012DE7E /* libpocode_d.a */,
+				03BC72C416CA945E0012DE7E /* libpocode_iOS_d.a */,
+				03BC72C616CA945E0012DE7E /* libpocode_iOS_simulator_d.a */,
+				03BC72C816CA945E0012DE7E /* pocode_reg */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -114,6 +165,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				03BC72CB16CA949A0012DE7E /* PBXTargetDependency */,
 			);
 			name = ffmpeg;
 			productName = ffmpeg;
@@ -138,12 +190,49 @@
 			mainGroup = 0325A74516C4599200410C61;
 			productRefGroup = 0325A74F16C4599200410C61 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 03BC72BB16CA945E0012DE7E /* Products */;
+					ProjectRef = 03BC72BA16CA945E0012DE7E /* pocode.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0325A74D16C4599200410C61 /* ffmpeg */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		03BC72C216CA945E0012DE7E /* libpocode_d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libpocode_d.a;
+			remoteRef = 03BC72C116CA945E0012DE7E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		03BC72C416CA945E0012DE7E /* libpocode_iOS_d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libpocode_iOS_d.a;
+			remoteRef = 03BC72C316CA945E0012DE7E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		03BC72C616CA945E0012DE7E /* libpocode_iOS_simulator_d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libpocode_iOS_simulator_d.a;
+			remoteRef = 03BC72C516CA945E0012DE7E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		03BC72C816CA945E0012DE7E /* pocode_reg */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = pocode_reg;
+			remoteRef = 03BC72C716CA945E0012DE7E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0325A74C16C4599200410C61 /* Resources */ = {
@@ -171,6 +260,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03BC72CB16CA949A0012DE7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = pocode_osx;
+			targetProxy = 03BC72CA16CA949A0012DE7E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0325A76B16C4599200410C61 /* Debug */ = {
