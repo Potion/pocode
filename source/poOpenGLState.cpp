@@ -444,6 +444,7 @@ namespace po {
 		ogl->projection.top() *= ogl->camera;
 	}
 	void setViewport(poRect r) {
+        initGraphics();
 		ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
 		glViewport(r.x, r.y, r.width, r.height);
 	}
