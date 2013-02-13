@@ -19,8 +19,8 @@
 
 #pragma once
 
-
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <ctime>
 #include <algorithm>
 
@@ -28,12 +28,6 @@
 #include "poRect.h"
 #include "poColor.h"
 #include "poMatrixSet.h"
-
-#undef M_PI
-#define M_PI 3.14159265f
-#define M_2PI (M_PI*2.f)
-#define M_HALF_PI (M_PI/2.f)
-#define M_QUARTER_PI (M_HALF_PI/2.f)
 
 inline bool compare(float f1, float f2, float range=1.0e-6f) {
 	return ::fabs(f1-f2) < range;

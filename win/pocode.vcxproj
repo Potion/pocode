@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;BOOST_ALL_NO_LIB=1;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\bz2;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\bz2;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -54,10 +54,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libcurld.lib;freetype240_d.lib;freeimaged.lib</AdditionalDependencies>
+      <AdditionalDependencies>libcurld.lib;freetype240_d.lib;freeimaged.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win;c:\pocode\libraries\ffmpeg\win32;c:\pocode\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
@@ -116,6 +116,7 @@ exit 0
     <ClInclude Include="..\libraries\pugixml\pugixml.hpp" />
     <ClInclude Include="..\source\poApplication.h" />
     <ClInclude Include="..\source\poAttributedString.h" />
+    <ClInclude Include="..\source\poAudioPlayer.h" />
     <ClInclude Include="..\source\poBinPacker.h" />
     <ClInclude Include="..\source\poBitmapFont.h" />
     <ClInclude Include="..\source\poCamera.h" />
@@ -128,6 +129,7 @@ exit 0
     <ClInclude Include="..\source\poEvent.h" />
     <ClInclude Include="..\source\poEventCenter.h" />
     <ClInclude Include="..\source\poFBO.h" />
+    <ClInclude Include="..\source\poFFMpegDecoder.h" />
     <ClInclude Include="..\source\poFileLocation.h" />
     <ClInclude Include="..\source\poFont.h" />
     <ClInclude Include="..\source\poGeometryMask.h" />
@@ -140,6 +142,7 @@ exit 0
     <ClInclude Include="..\source\poMath.h" />
     <ClInclude Include="..\source\poMatrixSet.h" />
     <ClInclude Include="..\source\poMessageCenter.h" />
+    <ClInclude Include="..\source\poMoviePlayer.h" />
     <ClInclude Include="..\source\poObject.h" />
     <ClInclude Include="..\source\poObjectModifier.h" />
     <ClInclude Include="..\source\poOpenGLState.h" />
@@ -249,6 +252,7 @@ exit 0
     </ClCompile>
     <ClCompile Include="..\source\poApplication.cpp" />
     <ClCompile Include="..\source\poAttributedString.cpp" />
+    <ClCompile Include="..\source\poAudioPlayer.cpp" />
     <ClCompile Include="..\source\poBinPacker.cpp" />
     <ClCompile Include="..\source\poBitmapFont.cpp" />
     <ClCompile Include="..\source\poCamera.cpp" />
@@ -259,6 +263,7 @@ exit 0
     <ClCompile Include="..\source\poEvent.cpp" />
     <ClCompile Include="..\source\poEventCenter.cpp" />
     <ClCompile Include="..\source\poFBO.cpp" />
+    <ClCompile Include="..\source\poFFMpegDecoder.cpp" />
     <ClCompile Include="..\source\poFileLocation.cpp" />
     <ClCompile Include="..\source\poFont.cpp" />
     <ClCompile Include="..\source\poGeometryMask.cpp" />
@@ -271,6 +276,7 @@ exit 0
     <ClCompile Include="..\source\poMath.cpp" />
     <ClCompile Include="..\source\poMatrixSet.cpp" />
     <ClCompile Include="..\source\poMessageCenter.cpp" />
+    <ClCompile Include="..\source\poMoviePlayer.cpp" />
     <ClCompile Include="..\source\poObject.cpp" />
     <ClCompile Include="..\source\poOpenGLState.cpp" />
     <ClCompile Include="..\source\poPoint.cpp" />

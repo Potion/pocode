@@ -66,7 +66,7 @@ namespace poThreadCenter {
     }
     
     //------------------------------------------------------------------
-    void poThreadCenter::addItem(poWorker *worker, poObject *notify, std::string message, const poDictionary &dict) {
+    void addItem(poWorker *worker, poObject *notify, std::string message, const poDictionary &dict) {
         if(!threads.size()) {
             init();
         }
@@ -80,7 +80,7 @@ namespace poThreadCenter {
 
 
     //------------------------------------------------------------------
-    void poThreadCenter::workerDone(poWorker *worker) {
+    void workerDone(poWorker *worker) {
         //Gotta lock b/c we're resizing the vector
         boost::lock_guard<boost::mutex> lock(mtx);
         

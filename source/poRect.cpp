@@ -151,6 +151,10 @@ poRect &poRect::expand(poPoint p) {
 	return *this;
 }
 
+poRect poRect::getFlipped() const {
+	return poRect(x, y+height, width, -height);
+}
+
 bool poRect::contains(float x, float y) const {
 	return	x >= this->x && 
 			x <= (this->x+width) && 
