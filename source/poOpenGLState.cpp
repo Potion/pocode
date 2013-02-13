@@ -449,6 +449,7 @@ namespace po {
 		glViewport(r.x, r.y, r.width, r.height);
 	}
 	void setViewport(float x, float y, float w, float h) {
+        initGraphics();
 		ogl->viewport.top() = glm::vec4(x,y,w,h);
 		glViewport(x,y,w,h);
 	}
