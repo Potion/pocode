@@ -89,6 +89,7 @@ namespace po {
         
         // will register all events to an object that are already registered 'from' object
         void	copyEventsFromObject(Object *from, Object *to);
+        
         // get the stored event for this this object/action
         std::vector<Event*> eventsForObject(Object *obj, int eventType);
 
