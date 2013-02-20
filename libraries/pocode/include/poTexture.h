@@ -43,8 +43,8 @@ class TextureConfig {
         TextureConfig();
         TextureConfig(GLenum format);
         
-        TextureConfig &setFormat(GLenum f)			{ format = f; return *this; }
-        TextureConfig &setInternalFormat(GLenum f)	{ internalFormat = f; return *this; }
+        TextureConfig &setFormat(GLenum f)              { format = f; return *this; }
+        TextureConfig &setInternalFormat(GLenum f)      { internalFormat = f; return *this; }
         TextureConfig &setType(GLenum f)				{ type = f; return *this; }
         TextureConfig &setMinFilter(GLenum f)			{ minFilter = f; return *this; }
         TextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }

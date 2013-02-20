@@ -168,7 +168,6 @@ namespace po {
     // returns false if parallel, p1 = intersection or p1 and p2 = closest point on each
     bool rayIntersection(Ray r1, Ray r2, Point *p1, Point *p2);
     
-    
     //------------------------------------------------------------------------
     //Implemented in CPP
     bool pointInTriangle( Point &P, Point &A, Point &B, Point &C );
