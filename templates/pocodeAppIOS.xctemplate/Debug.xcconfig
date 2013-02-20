@@ -30,7 +30,7 @@ PRODUCT_NAME = Smithsonian Channel
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
 OTHER_LDFLAGS = $(SIMULATOR) $(DEVICE) $(THE_FRAMEWORKS)
-HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(LIBRARIES)
+HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(JSON) $(LIBRARIES)
 LIBRARY_SEARCH_PATHS = /pocode/libraries/libcurl
 
 LIBRARIES			= /pocode/libraries
@@ -41,6 +41,7 @@ TINYXPATH			= $(LIBRARIES)/TinyXPath
 FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
 PUGIXML				= $(LIBRARIES)/pugixml
+JSON                = $(LIBRARIES)/jsoncpp/json
 SIMULATOR           = $(POTION)/libpocode_iOS_d.a
 DEVICE              = $(POTION)/libpocode_iOS_simulator_d.a
 THE_FRAMEWORKS      = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText

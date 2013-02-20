@@ -17,7 +17,7 @@ GCC_THUMB_SUPPORT               = NO
 GCC_SYMBOLS_PRIVATE_EXTERN      = YES
 GCC_PRECOMPILE_PREFIX_HEADER    = YES
 GCC_PREFIX_HEADER               = platform/main.pch
-GCC_OPTIMIZATION_LEVEL          = s
+GCC_OPTIMIZATION_LEVEL          = 0
 
 IPHONEOS_DEPLOYMENT_TARGET  = 5.1
 ALWAYS_SEARCH_USER_PATHS    = NO
@@ -29,8 +29,8 @@ PRODUCT_NAME = Smithsonian Channel
 
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
-OTHER_LDFLAGS =  $(SIMULATOR) $(DEVICE) $(THE_FRAMEWORKS)
-HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(LIBRARIES)
+OTHER_LDFLAGS = $(SIMULATOR) $(DEVICE) $(THE_FRAMEWORKS)
+HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(JSON) $(LIBRARIES)
 LIBRARY_SEARCH_PATHS = /pocode/libraries/libcurl
 
 LIBRARIES			= /pocode/libraries
@@ -41,7 +41,7 @@ TINYXPATH			= $(LIBRARIES)/TinyXPath
 FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
 PUGIXML				= $(LIBRARIES)/pugixml
-SIMULATOR           = $(POTION)/libpocode_iOS.a
-DEVICE              = $(POTION)/libpocode_iOS_simulator.a
-
+JSON                = $(LIBRARIES)/jsoncpp/json
+SIMULATOR           = $(POTION)/libpocode_iOS_d.a
+DEVICE              = $(POTION)/libpocode_iOS_simulator_d.a
 THE_FRAMEWORKS      = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText

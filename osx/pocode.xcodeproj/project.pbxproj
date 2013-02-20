@@ -154,6 +154,18 @@
 		AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AA51F14E15051F2E009FDA0A /* poMessageCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA51F154150520A0009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
 		AA51F155150520A0009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
+		AA80226616D4147500575CA9 /* json_batchallocator.h in Headers */ = {isa = PBXBuildFile; fileRef = AA80225E16D4147500575CA9 /* json_batchallocator.h */; };
+		AA80226716D4147500575CA9 /* json_batchallocator.h in Headers */ = {isa = PBXBuildFile; fileRef = AA80225E16D4147500575CA9 /* json_batchallocator.h */; };
+		AA80226816D4147500575CA9 /* json_batchallocator.h in Headers */ = {isa = PBXBuildFile; fileRef = AA80225E16D4147500575CA9 /* json_batchallocator.h */; };
+		AA80226916D4147500575CA9 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226116D4147500575CA9 /* json_reader.cpp */; };
+		AA80226A16D4147500575CA9 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226116D4147500575CA9 /* json_reader.cpp */; };
+		AA80226B16D4147500575CA9 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226116D4147500575CA9 /* json_reader.cpp */; };
+		AA80226C16D4147500575CA9 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226216D4147500575CA9 /* json_value.cpp */; };
+		AA80226D16D4147500575CA9 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226216D4147500575CA9 /* json_value.cpp */; };
+		AA80226E16D4147500575CA9 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226216D4147500575CA9 /* json_value.cpp */; };
+		AA80226F16D4147500575CA9 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226416D4147500575CA9 /* json_writer.cpp */; };
+		AA80227016D4147500575CA9 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226416D4147500575CA9 /* json_writer.cpp */; };
+		AA80227116D4147500575CA9 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226416D4147500575CA9 /* json_writer.cpp */; };
 		AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAEF457015E564D700EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
@@ -329,6 +341,14 @@
 		AA51F14E15051F2E009FDA0A /* poMessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poMessageCenter.h; path = ../source/poMessageCenter.h; sourceTree = "<group>"; };
 		AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.ios.xcconfig; sourceTree = "<group>"; };
 		AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.ios.xcconfig; sourceTree = "<group>"; };
+		AA80225E16D4147500575CA9 /* json_batchallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_batchallocator.h; sourceTree = "<group>"; };
+		AA80225F16D4147500575CA9 /* json_internalarray.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalarray.inl; sourceTree = "<group>"; };
+		AA80226016D4147500575CA9 /* json_internalmap.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalmap.inl; sourceTree = "<group>"; };
+		AA80226116D4147500575CA9 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		AA80226216D4147500575CA9 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		AA80226316D4147500575CA9 /* json_valueiterator.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_valueiterator.inl; sourceTree = "<group>"; };
+		AA80226416D4147500575CA9 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		AA80226516D4147500575CA9 /* sconscript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sconscript; sourceTree = "<group>"; };
 		AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poThreadCenter.cpp; path = ../source/poThreadCenter.cpp; sourceTree = "<group>"; };
 		AAEF456D15E564D700EE2715 /* poThreadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poThreadCenter.h; path = ../source/poThreadCenter.h; sourceTree = "<group>"; };
 		E43F4B221426A6DB00D647A7 /* poSqlite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = poSqlite.cpp; path = ../source/poSqlite.cpp; sourceTree = "<group>"; };
@@ -445,6 +465,7 @@
 		03AC602A15E68AD500F6540B /* 3rd party */ = {
 			isa = PBXGroup;
 			children = (
+				AA80225D16D4147500575CA9 /* lib_json */,
 				03ACAAB415E68EEE00F6540B /* nanosvg */,
 				03ACAAAA15E68D1100F6540B /* sqlite3 */,
 				03AC602B15E68B0800F6540B /* libtess2 */,
@@ -555,6 +576,22 @@
 				E8F29988144628E900D0A507 /* poTextBoxLayout.cpp */,
 			);
 			name = text;
+			sourceTree = "<group>";
+		};
+		AA80225D16D4147500575CA9 /* lib_json */ = {
+			isa = PBXGroup;
+			children = (
+				AA80225E16D4147500575CA9 /* json_batchallocator.h */,
+				AA80225F16D4147500575CA9 /* json_internalarray.inl */,
+				AA80226016D4147500575CA9 /* json_internalmap.inl */,
+				AA80226116D4147500575CA9 /* json_reader.cpp */,
+				AA80226216D4147500575CA9 /* json_value.cpp */,
+				AA80226316D4147500575CA9 /* json_valueiterator.inl */,
+				AA80226416D4147500575CA9 /* json_writer.cpp */,
+				AA80226516D4147500575CA9 /* sconscript */,
+			);
+			name = lib_json;
+			path = ../libraries/jsoncpp/lib_json;
 			sourceTree = "<group>";
 		};
 		E494686B14679A00009D3AFC /* resource */ = {
@@ -756,6 +793,7 @@
 				AA16A48B15E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
 				AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */,
 				AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */,
+				AA80226816D4147500575CA9 /* json_batchallocator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +862,7 @@
 				03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */,
 				03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */,
 				AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */,
+				AA80226616D4147500575CA9 /* json_batchallocator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +892,7 @@
 				AA16A48815E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
 				AA16A48D15E80B1700CAA1C6 /* nanosvg.h in Headers */,
 				AA16A49015E80B6900CAA1C6 /* main.pch in Headers */,
+				AA80226716D4147500575CA9 /* json_batchallocator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,6 +1053,9 @@
 				AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 				AA2A69E715F95CD6002C5919 /* poFileLocation.cpp in Sources */,
+				AA80226B16D4147500575CA9 /* json_reader.cpp in Sources */,
+				AA80226E16D4147500575CA9 /* json_value.cpp in Sources */,
+				AA80227116D4147500575CA9 /* json_writer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,6 +1117,9 @@
 				03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */,
 				03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */,
 				AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */,
+				AA80226916D4147500575CA9 /* json_reader.cpp in Sources */,
+				AA80226C16D4147500575CA9 /* json_value.cpp in Sources */,
+				AA80226F16D4147500575CA9 /* json_writer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1133,6 +1179,9 @@
 				AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 				AA2A69E615F95CD6002C5919 /* poFileLocation.cpp in Sources */,
+				AA80226A16D4147500575CA9 /* json_reader.cpp in Sources */,
+				AA80226D16D4147500575CA9 /* json_value.cpp in Sources */,
+				AA80227016D4147500575CA9 /* json_writer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

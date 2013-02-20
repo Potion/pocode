@@ -7,7 +7,7 @@ LIBRARY_SEARCH_PATHS= $(BOOSTL) $(FREEIMAGE) $(FREETYPE) $(BZ2) $(CURL) $(SSL)
 OTHER_LDFLAGS		= $(LIBRARIES_CMD) $(FRAMEWORKS_CMD)
 PRODUCT_NAME		= pocode
 ALWAYS_SEARCH_USER_PATHS = NO
-HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(BZ2) $(CURL) $(SSL) $(LIBRARIES)
+HEADER_SEARCH_PATHS	= $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(BZ2) $(JSON) $(CURL) $(SSL) $(LIBRARIES)
 USER_HEADER_SEARCH_PATHS = $(HEADERS)
 
 DSTROOT = /pocode/libraries/pocode
@@ -32,7 +32,7 @@ FREEIMAGE			= $(LIBRARIES)/FreeImage
 FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
 BZ2					= $(LIBRARIES)/bz2
-SQLITE				= /usr/lib/libsqlite3.0.dylib
+JSON                = $(LIBRARIES)/jsoncpp/
 CURL                = $(LIBRARIES)/libcurl/osx
 SSL                 = $(LIBRARIES)/libssl/osx
 LIBRARIES_CMD		= -lboost -lfreeimage -lfreetype -lbz2 -lssl -lcrypto -lcurl
