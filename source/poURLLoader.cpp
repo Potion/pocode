@@ -63,15 +63,32 @@ namespace po {
                 perror("URLLoader:: File Open:: ");
                 return;
             }
+            
+            
+            //Create CURL handle
             CURL *handle = curl_easy_init();
+            
+            //Set Headers
+            struct curl_slist *headers=NULL;
+            for(int i=0; i<url.getHeaders().size(); i++) {
+                headers = curl_slist_append(headers, url.getHeaders()[i].c_str());
+            }
+            curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+            
+            //Set Options
             curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
             curl_easy_setopt(handle,CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
             curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
             curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
-            curl_easy_perform(handle);
-            curl_easy_cleanup(handle);
             
+            //Do Request
+            curl_easy_perform(handle);
+            
+            //Cleanup
+            curl_easy_cleanup(handle);
+            curl_slist_free_all(headers);
             fclose(file);
+            
             return p;
         }
         
@@ -87,13 +104,28 @@ namespace po {
         std::string getFileAsString(URL url) {
             std::string response;
             
+            //Create CURL handle
             CURL *handle = curl_easy_init();
+            
+            //Set Headers
+            struct curl_slist *headers=NULL;
+            for(int i=0; i<url.getHeaders().size(); i++) {
+                headers = curl_slist_append(headers, url.getHeaders()[i].c_str());
+            }
+            curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+            
+            //Set Options
             curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
             curl_easy_setopt(handle,CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
             curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
             curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
+            
+            //Do request
             curl_easy_perform(handle);
+            
+            //Cleanup
             curl_easy_cleanup(handle);
+            curl_slist_free_all(headers);
             
             return response;
         }

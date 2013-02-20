@@ -125,15 +125,34 @@ namespace po {
     {}
 
     URL::~URL() {}
-
+    
     //------------------------------------------------------------------
-    std::string URL::toString() const {
-        return url;
+    void URL::set(std::string url) {
+        this->url = url;
     }
+    
 
     //------------------------------------------------------------------
     bool URL::isSet() const {
         return url != "";
+    }
+    
+    
+    //------------------------------------------------------------------
+    void URL::addHeader(std::string value) {
+        headers.push_back(value);
+    }
+    
+    
+    //------------------------------------------------------------------
+    const std::vector <std::string> &URL::getHeaders() {
+        return headers;
+    }
+    
+    
+    //------------------------------------------------------------------
+    std::string URL::toString() const {
+        return url;
     }
     
     

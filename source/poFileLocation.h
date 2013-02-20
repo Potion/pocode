@@ -64,8 +64,12 @@ namespace po {
         void set(std::string url);
         bool isSet() const;
         
+        void addHeader(std::string value);
+        const std::vector <std::string> &getHeaders();
+        
         std::string toString() const;
     private:
         std::string url;
+        std::vector <std::string> headers;
     };
 }/* End po Namespace */
