@@ -352,17 +352,30 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 	channels    = channelsForFormat(c.format);
 	config = c;
 	
-	po::saveTextureState();
+	bool reallocatedPixels = false;
 	
+	if(stride) {
+		int align = 1;
+		if(!(stride % 4)) align = 4;
+		else if(!(stride % 3)) align = 3;
+		else if(!(stride % 2)) align = 2;
+		else align = 1;
+
+		int eles = stride / channels;
+
+		#ifndef OPENGL_ES
+		glPixelStorei(GL_UNPACK_ALIGNMENT, align);
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, eles);
+		#else
+		p = unpack((unsigned char*)p, stride, width * channels, height);
+		reallocatedPixels = true;
+		#endif
+	}
+
+	po::saveTextureState();
+
 	glGenTextures(1, &uid);
 	glBindTexture(GL_TEXTURE_2D, uid);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	if(stride) {
-		if(stride != width*height*channels) {
-			int elements = stride / channels;
-			glPixelStorei(GL_UNPACK_ROW_LENGTH, elements);
-		}
-	}
 	
 	// set the filters we want
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
@@ -370,10 +383,10 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
 	
-#ifndef OPENGL_ES
+	#ifndef OPENGL_ES
 	float trans[] = {0.f, 0.f, 0.f, 0.f};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
-#endif
+	#endif
 	
 	// i'm assuming you're replacing the whole texture anyway
 	glTexImage2D(GL_TEXTURE_2D, 
@@ -386,8 +399,15 @@ void poTexture::load(uint w, uint h, const ubyte *p, const poTextureConfig &c, u
 				 config.type, 
 				 p);
 	
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	po::restoreTextureState();
+
+	#ifndef OPENGL_ES
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	#else
+	if(reallocatedPixels)
+		delete [] p;
+	#endif
 }
 
 void poTexture::loadDummyImage() {
@@ -448,6 +468,13 @@ void poTexture::configure(){
 	#endif
 	
 	po::restoreTextureState();
+}
+
+uint8_t* poTexture::unpack(uint8_t* pix, int stride1, int stride2, int height) {
+	uint8_t* out = new uint8_t[stride2 * height]();
+	for(int i=0; i<height; i++)
+		memcpy(out + (i * stride2), pix + (i * stride1), stride2);
+	return out;
 }
 
 void textureFitExact(poRect rect, poTexture *tex, poAlignment align, std::vector<poPoint> &coords, const std::vector<poPoint> &points);

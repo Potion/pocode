@@ -250,3 +250,11 @@ std::string applicationGetSupportDirectory() {
 	return [dir UTF8String];
 }
 
+void poShowCursor() {
+	[NSCursor unhide];
+}
+
+void poHideCursor() {
+	[NSCursor hide];
+}
+

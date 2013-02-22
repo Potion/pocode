@@ -20,6 +20,7 @@
 #include "poSqlite3.h"
 
 #include <iostream>
+#include <sqlite3.h>
 
 #pragma mark - poSqlite3 -
 

@@ -54,10 +54,10 @@ poExtrudedLineSeg::poExtrudedLineSeg(poPoint a, poPoint b, float w, poStrokePlac
 			break;
 	};
 	
-	float c1 = cosf(angle + M_HALF_PI) * offset1;
-	float s1 = sinf(angle + M_HALF_PI) * offset1;
-	float c2 = cosf(angle - M_HALF_PI) * offset2;
-	float s2 = sinf(angle - M_HALF_PI) * offset2;
+	float c1 = cosf(angle + M_PI_2) * offset1;
+	float s1 = sinf(angle + M_PI_2) * offset1;
+	float c2 = cosf(angle - M_PI_2) * offset2;
+	float s2 = sinf(angle - M_PI_2) * offset2;
 	p1 = a + poPoint(c1,s1);
 	p2 = a + poPoint(c2,s2);
 	p3 = b + poPoint(c1,s1);

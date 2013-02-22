@@ -338,7 +338,7 @@ std::vector<poPoint> po::generateOval(float xRad, float yRad, uint resolution) {
 	std::vector<poPoint> response;
 	
 	for(uint i=0; i<resolution; i++) {
-		float phase = (i / float(resolution)) * M_2PI;
+		float phase = (i / float(resolution)) * (M_PI*2);
 		response.push_back(poPoint(cosf(phase)*xRad, sinf(phase)*yRad, 0.f));
 	}
 	

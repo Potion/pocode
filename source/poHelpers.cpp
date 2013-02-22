@@ -198,6 +198,8 @@ std::vector<poPoint> roundedRect(float width, float height, float rad) {
     poPoint P2( width-rad,rad );
     poPoint P3( width-rad,height-rad );
     poPoint P4( rad,height-rad );
+	
+//	response.push_back(poPoint(0,rad));
     
     for( int i=180; i>=90; i-=10 )
     {
@@ -226,7 +228,8 @@ std::vector<poPoint> roundedRect(float width, float height, float rad) {
         poPoint P = P4 + poPoint( cos_deg(A)*rad, -sin_deg(A)*rad, 0 );
         response.push_back( P );
     }
-    
+	
+	response.push_back(response[0]);
 	return response;
 }
 

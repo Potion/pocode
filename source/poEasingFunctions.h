@@ -255,7 +255,7 @@ inline bool sinusInFunc(float *v, float bv, float ev,
 						float e1, float e2) 
 {
 	float t2 = (t - b) / d;
-	*v = -(ev-bv) * ::cosf(t2 * M_HALF_PI) + (ev-bv) + bv;
+	*v = -(ev-bv) * ::cosf(t2 * M_PI_2) + (ev-bv) + bv;
 	return (t-b) >= d;
 }
 
@@ -264,7 +264,7 @@ inline bool sinusOutFunc(float *v, float bv, float ev,
 						 float e1, float e2) 
 {
 	float t2 = (t - b) / d;
-	*v = (ev-bv) * ::sin(t2 * M_HALF_PI) + bv;
+	*v = (ev-bv) * ::sin(t2 * M_PI_2) + bv;
 	return (t-b) >= d;
 }
 
@@ -510,9 +510,9 @@ inline bool elasticInFunc(float *v, float bv, float ev,
 		decay = e2 / 4.f; 
 	} else
 	{
-		decay= e2 / M_2PI * ::asin(c/e1);
+		decay= e2 / (M_PI*2) * ::asin(c/e1);
 	}
-	*v = -(e1 * powf(2.f, 10.f*(t-=1.f)) * ::sin((t*d-decay)*M_2PI/e2)) + bv;
+	*v = -(e1 * powf(2.f, 10.f*(t-=1.f)) * ::sin((t*d-decay)*(M_PI*2)/e2)) + bv;
 	
 	return (t-b) >= d;
 }
@@ -539,9 +539,9 @@ inline bool elasticOutFunc(float *v, float bv, float ev,
 		e1 = 1; 
 		decay = e2 / 4.f; 
 	} else {
-		decay= e2 / M_2PI * ::asin(1/e1);
+		decay= e2 / (M_PI*2) * ::asin(1/e1);
 	}
-	*v = (e1 * powf(2.f, 10*(-t2)) * ::sin((((t2-1)*d-decay)*M_2PI/e2) + 1));
+	*v = (e1 * powf(2.f, 10*(-t2)) * ::sin((((t2-1)*d-decay)*(M_PI*2)/e2) + 1));
 	
 	return (t-b) >= d;
 }
@@ -568,13 +568,13 @@ inline bool elasticInOutFunc(float *v, float bv, float ev,
 			e1 = 1; 
 			decay = e2 / 4.f; 
 		} else {
-			decay= e2 / M_2PI * ::asin(1/e1);
+			decay= e2 / (M_PI*2) * ::asin(1/e1);
 		}
 		
 		if (t2 < 1)
-			*v = -.5f * (e1 * powf(2.f, 10*(t2-1)) * ::sin(((t2-1)*d-decay)*M_2PI/e2));
+			*v = -.5f * (e1 * powf(2.f, 10*(t2-1)) * ::sin(((t2-1)*d-decay)*(M_PI*2)/e2));
 		else
-			*v = .5f * (e1 * powf(2.f, -10*(t2-1)) * ::sin(((t2-1)*d-decay)*M_2PI/e2)) + 1;			
+			*v = .5f * (e1 * powf(2.f, -10*(t2-1)) * ::sin(((t2-1)*d-decay)*(M_PI*2)/e2)) + 1;			
 
 		return (t-b) >= d;
 	}

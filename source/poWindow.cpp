@@ -42,6 +42,8 @@ void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath
 		objsBeneath.insert(obj);
 }
 
+const std::string WindowResizedNotification = "~wrsn~";
+
 poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
 :	title(title)
 ,	handle(NULL)
@@ -284,6 +286,9 @@ void poWindow::resized(int w, int h) {
 void poWindow::resized(int x, int y, int w, int h) {
 	po::setViewport(0, 0, w, h);
 	bounds.set(x,y,w,h);
+	
+	poMessageCenter::broadcastMessage(WindowResizedNotification);
+	
 //
 //	poEvent event;
 //	event.type = PO_WINDOW_RESIZED_EVENT;

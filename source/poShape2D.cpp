@@ -25,6 +25,7 @@
 #include "poCamera.h"
 #include "nanosvg.h"
 #include "poOpenGLState.h"
+#include <glm/gtc/type_ptr.hpp>
 
 poShape2D::poShape2D()
 :	fillEnabled(true)
@@ -68,6 +69,9 @@ void poShape2D::clone(poShape2D *shp) {
 }
 
 void poShape2D::draw() {
+	if(points.empty())
+		return;
+	
 	// do shape fill
 	if ( fillEnabled ) {
 		// set the color
@@ -83,6 +87,76 @@ void poShape2D::draw() {
 	
 	// do shape stroke
 	if(strokeEnabled) {
+//		int prog;
+//		glGetIntegerv(GL_CURRENT_PROGRAM, &prog);
+//		glUseProgram(0);
+//
+//		glPushAttrib(GL_ALL_ATTRIB_BITS);
+//		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+//		
+//		glEnable(GL_BLEND);
+//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//		
+//		glMatrixMode(GL_PROJECTION);
+//		glPushMatrix();
+//		glLoadIdentity();
+//		glMatrixMode(GL_MODELVIEW);
+//		glPushMatrix();
+//		glLoadIdentity();
+//		glLoadMatrixf(glm::value_ptr(po::modelviewProjection()));
+//
+//		glEnable(GL_POINT_SMOOTH);
+//		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+//		
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//		glVertexPointer(3, GL_FLOAT, 0, &points[0].x);
+//		
+//		// set up the line width
+//		glLineWidth(strokeWidth);
+//		glPointSize(std::max(strokeWidth-1.5f,1.f));
+//		
+//		// turn off everything we don't need
+//		glColorMask(0,0,0,0);
+//		
+//		// set up the stencil buffer to draw 1s where geometry is rendered
+//		glEnable(GL_STENCIL_TEST);
+//		glStencilFunc(GL_ALWAYS, 1, ~0);
+//		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+//		
+//		// draw lines
+//		glDrawArrays(GL_LINE_STRIP, 0, points.size());
+//		
+//		// draw caps
+//		glDrawArrays(GL_POINTS, 0, points.size());
+//		
+//		// draw the coverage
+//		glColorMask(1,1,1,1);
+//		
+//		glStencilFunc(GL_EQUAL, 1, ~0);
+//		glStencilOp(GL_ZERO, GL_ZERO, GL_ZERO);
+//		
+//		poRect r = getBounds();
+//		r.expand(poPoint(strokeWidth,strokeWidth));
+//		std::vector<poPoint> tmp = r.getCorners();
+//		
+//		glColor4f(strokeColor.R,
+//				  strokeColor.G,
+//				  strokeColor.B,
+//				  strokeColor.A);
+//
+//		glVertexPointer(3, GL_FLOAT, 0, &tmp[0].x);
+//		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+//		
+//		glPopClientAttrib();
+//		glPopAttrib();
+//		
+//		glUseProgram(prog);
+//		
+//		glMatrixMode(GL_PROJECTION);
+//		glPopMatrix();
+//		glMatrixMode(GL_MODELVIEW);
+//		glPopMatrix();
+
 		po::setColor(strokeColor, getAppliedAlpha());
 
 		if(useSimpleStroke) {
@@ -166,6 +240,10 @@ bool poShape2D::setPoint(int idx, poPoint p ) {
 		return false;
 	points[idx] = p;
 	return true;
+}
+
+void poShape2D::setTexture(poTexture* tex) {
+	texture = tex;
 }
 
 poShape2D& poShape2D::placeTexture(poTexture *tex) {
@@ -453,8 +531,6 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 
 	std::vector<poShape2D*> response;
 
-#ifdef POTION_APPLE
-
 	if(!fs::exists(svg)) {
 		log("poShape2D: svg file doesn't exist (%s)", svg.string().c_str());
 		return response;
@@ -491,7 +567,6 @@ std::vector<poShape2D*> createShapesFromSVGfile(const fs::path &svg) {
 	}
 	
 	svgDelete(result);
-#endif
 
 	return response;
 

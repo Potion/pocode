@@ -48,7 +48,7 @@ BasicTextBoxesApp::BasicTextBoxesApp() {
 	poTextBox* B = new poTextBox(280, 120);
 	B->setText("This is an example of bold text aligned to the bottom right...");	// Set the text
 	B->setTextAlignment(PO_ALIGN_BOTTOM_RIGHT);			// Set the text alignment within the text box
-	B->setFont( poGetFont("Helvetica", "Bold") );		// Set the font to Helvetica Bold
+	if(poGetFont("Helvetica", "Bold")->isValid()) B->setFont( poGetFont("Helvetica", "Bold") );		// Set the font to Helvetica Bold
 	B->setTextSize(22);									// Set the text size
 	B->textColor = poColor::blue;						// Set the text color
 	B->doLayout();										// Always call doLayout() after you make any change

@@ -30,4 +30,4 @@ FREETYPE			= $(LIBRARIES)/FreeType
 UTF8				= $(LIBRARIES)/utf8
 PUGIXML				= $(LIBRARIES)/pugixml
 LIBRARIES_CMD		= -lpocode
-FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit
+FRAMEWORKS_CMD		= -framework Cocoa -framework ApplicationServices -framework OpenGL -framework CoreVideo -framework QTKit -framework OpenAL -framework VideoDecodeAcceleration

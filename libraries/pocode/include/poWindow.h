@@ -49,6 +49,8 @@ typedef struct {
     bool bIsDead;
 } interactionPoint;
 
+extern const std::string WindowResizedNotification;
+
 class poWindow {
 public:
 	poWindow(const char *title, uint rootID, poRect bounds, float scale=1.0f);

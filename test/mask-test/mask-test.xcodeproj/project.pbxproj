@@ -16,6 +16,7 @@
 		0343993115FF873100CB5DD3 /* mask_testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0343993015FF873100CB5DD3 /* mask_testApp.cpp */; };
 		0343993315FF873100CB5DD3 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0343993215FF873100CB5DD3 /* AppConfig.cpp */; };
 		0343993515FF873100CB5DD3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0343993415FF873100CB5DD3 /* OpenSans-Regular.ttf */; };
+		03FA916216A9C02F0020C223 /* libpocode_d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FA916116A9C02F0020C223 /* libpocode_d.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		0343993015FF873100CB5DD3 /* mask_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mask_testApp.cpp; sourceTree = "<group>"; };
 		0343993215FF873100CB5DD3 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
 		0343993415FF873100CB5DD3 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		03FA916116A9C02F0020C223 /* libpocode_d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpocode_d.a; path = ../../osx/Build/Products/Debug/libpocode_d.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03FA916216A9C02F0020C223 /* libpocode_d.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +54,7 @@
 		0343990D15FF873100CB5DD3 = {
 			isa = PBXGroup;
 			children = (
+				03FA916116A9C02F0020C223 /* libpocode_d.a */,
 				0343991B15FF873100CB5DD3 /* mask-test */,
 				0343991915FF873100CB5DD3 /* Products */,
 			);
@@ -194,12 +198,20 @@
 		0343993915FF873100CB5DD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../osx/Build/Products/Debug\"",
+				);
 			};
 			name = Debug;
 		};
 		0343993A15FF873100CB5DD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../osx/Build/Products/Debug\"",
+				);
 			};
 			name = Release;
 		};
@@ -222,6 +234,7 @@
 				0343993A15FF873100CB5DD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -105,8 +105,7 @@ namespace {
 	
 	"	[[fragment]]							\n"
 	"	void main() {							\n"
-	"		vec4 texColor = texture2D(tex, texCoord);\n"
-	"		gl_FragColor = texColor * color;	\n"
+	"		gl_FragColor = texture2D(tex, texCoord) * color;\n"
 	"	}										\n";
 
 	const char * shader_tex_mask =
@@ -277,6 +276,7 @@ namespace po {
 	}
 	
 	void defaultStencil() {
+		glClearStencil(0);
 		glDisable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glStencilFunc(GL_ALWAYS, 0, 0);
@@ -319,7 +319,7 @@ namespace po {
 		defaultStencil();
 		if(c) glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0);
+		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 	}
@@ -444,10 +444,12 @@ namespace po {
 		ogl->projection.top() *= ogl->camera;
 	}
 	void setViewport(poRect r) {
+        initGraphics();
 		ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
 		glViewport(r.x, r.y, r.width, r.height);
 	}
 	void setViewport(float x, float y, float w, float h) {
+        initGraphics();
 		ogl->viewport.top() = glm::vec4(x,y,w,h);
 		glViewport(x,y,w,h);
 	}
