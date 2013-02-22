@@ -42,10 +42,10 @@ namespace po {
 	class AttributedString {
 	public:
 		AttributedString &append(const std::string &str);
-		AttributedString &append(Range r, const poDictionary &dict);
+		AttributedString &append(Range r, const Dictionary &dict);
 		
 		// all the dictionaries that apply to a given point combined 
-		poDictionary attributes(int idx);
+		Dictionary attributes(int idx);
 		
 		bool empty();
 		std::string &str();
@@ -55,24 +55,27 @@ namespace po {
 		
 	private:
 		struct RangeDict {
-			RangeDict(Range r, const poDictionary &d);
+			RangeDict(Range r, const Dictionary &d);
 			Range range;
-			poDictionary dict;
+			Dictionary dict;
 		};
+        
 		struct RangeDictSorter {
 			int idx;
 			RangeDictSorter(int idx);
 			bool operator()(const RangeDict &a, const RangeDict &b);
 		};
+        
 		struct OutsideRange {
 			int idx;
 			OutsideRange(int idx);
 			bool operator()(const RangeDict &a);
 		};
+        
 		typedef std::vector<RangeDict> DictionaryVec;
 		
 		std::string string;
 		DictionaryVec attribs;
 	};
-	
-}
+
+} /* End po Namespace */

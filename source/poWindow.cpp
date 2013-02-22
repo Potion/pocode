@@ -30,426 +30,541 @@
 #include "poTexture.h"
 #include "poImage.h"
 
-void objUnderPoint(poObject *obj, poPoint &pnt, std::set<poObject*> &objsBeneath) {
-	if(!(obj->visible && obj->alpha > 0.01))
-		return; 
-	
-	for(int i=obj->getNumChildren()-1; i>=0; i--) {
-		objUnderPoint(obj->getChild(i), pnt, objsBeneath);
-	}
-
-	if(obj->pointInside(pnt,true))
-		objsBeneath.insert(obj);
-}
-
-const std::string WindowResizedNotification = "~wrsn~";
-
-poWindow::poWindow(const char *title, uint rootID, poRect b, float s)
-:	title(title)
-,	handle(NULL)
-,	root(NULL)
-,	rootID(rootID)
-,	bounds(b)
-,   scale(s)
-//,   key_receiver(NULL)
-,	fullscreen(false)
-,	closed(false)
-,	framecounter(0)
-,	totalFramecount(0)
-,	lastMark(0.0)
-,	framerate(0.f)
-,	mouseMoveEnabled(true)
-,	block_all_events(false)
-{}
-
-poWindow::~poWindow() {
-	makeCurrent();
-	delete root;
-}
-
-void poWindow::moveTo(poPoint p) {
-	applicationMoveWindow(this, p);
-}
-
-void poWindow::setFullscreen(bool b) {
-	fullscreen = b;
-	applicationMakeWindowFullscreen(this, b);
-}
-
-float poWindow::getX() const {
-	return bounds.x;
-}
-
-std::string poWindow::getTitle() const {
-	return title;
-}
-
-float poWindow::getY() const {
-	return bounds.y;
-}
-
-float poWindow::getWidth() const {
-	return bounds.width;
-}
-
-poPoint poWindow::getDimensions() const {
-	return bounds.getSize();
-}
-
-poRect poWindow::getFrame() const {
-	return bounds;
-}
-
-poRect poWindow::getBounds() const {
-	return poRect(poPoint(0,0), bounds.getSize());
-}
-
-float poWindow::getScale() const {
-	return scale;
-}
-
-poPoint poWindow::getCenterPoint() const {
-	return poPoint(bounds.width/2.f, bounds.height/2.f);
-}
-
-float poWindow::getHeight() const {
-	return bounds.height;
-}
-
-float poWindow::getFramerate() const {
-	return framerate;
-}
-
-int poWindow::getFramecount() const {
-	return totalFramecount;
-}
-
-float poWindow::getLastFrameElapsed() const {
-	return lastElapsed;
-}
-
-float poWindow::getLastFrameTime() const {
-	return lastFrame;
-}
-
-bool poWindow::isFullscreen() const {
-	return fullscreen;
-}
-
-poObject *poWindow::getRootObject() {
-	if(!root) {
-		makeCurrent();
-		po::initGraphics();
-		po::enableAlphaBlending();
-		po::setViewport(poRect(0,0,bounds.width,bounds.height));
-		root = createObjectForID(rootID);
-	}
-	return root;
-}
-
-poPoint poWindow::getMousePosition() const {
-	return mousePos;
-}
-
-bool poWindow::isMouseMoveEnabled() const {
-	return mouseMoveEnabled;
-}
-
-void poWindow::setMouseMoveEnabled(bool b) {
-	mouseMoveEnabled = b;
-}
-
-void poWindow::makeCurrent() {
-	applicationMakeWindowCurrent(this);
-}
-
-void poWindow::draw() {
-	drawOrderCounter = 0;
-    poEventCenter::get()->negateDrawOrderForObjectWithEvents();
-	getRootObject()->drawTree();
-}
-
-void poWindow::update() {
-	float now = poGetElapsedTime();
-	
-	totalFramecount++;
-	framecounter++;
-	if(now - lastMark >= 1.0) {
-		lastMark = now;
-		framerate = (float)framecounter;
-		framecounter = 0;
-	}
-	
-	lastElapsed = now - lastFrame;
-	lastFrame = now;
-
-	// handle events
-	if(handle && !received.empty() && !block_all_events) {
-		poEventCenter::get()->processEvents(received);
-	}
-	received.clear();
-    
-    //Update internal classes
-    poMessageCenter::update();
-    poThreadCenter::update();
-    
-    
-	// tell everyone who cares they should update 
-	updateSignal();
-	
-	// update the objects
-	getRootObject()->updateTree();
-} 
-
-void poWindow::mouseDown(int x, int y, int mod) {
-	mousePos.set(x,y,1.f);
-	
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-	
-	event.type = PO_MOUSE_DOWN_EVENT; 
-	received.push_back(event);
-}
-
-void poWindow::mouseUp(int x, int y, int mod) {
-	mousePos.set(x,y,1);
-	
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_MOUSE_UP_EVENT;
-	received.push_back(event);
-}
-
-void poWindow::mouseMove(int x, int y, int mod) {
-	if(!mouseMoveEnabled)
-		return;
-	
-	mousePos.set(x,y,1);
-	
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_MOUSE_MOVE_EVENT;
-	received.push_back(event);
-}
-
-void poWindow::mouseDrag(int x, int y, int mod) {
-	mousePos.set(x,y,1);
-	
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_MOUSE_DRAG_EVENT;
-	received.push_back(event);
-}
-
-void poWindow::mouseWheel(int x, int y, int mod, int num_steps) {
-}
-
-void poWindow::keyDown(int key, int code, int mod) {
-	poEvent event;
-	event.keyChar = key;
-	event.keyCode = code;
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_KEY_DOWN_EVENT;
-	received.push_back(event);
-}
-
-void poWindow::keyUp(int key, int code, int mod) {
-	poEvent event;
-	event.keyCode = code;
-	event.keyChar = key;
-	event.modifiers = mod;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_KEY_UP_EVENT;
-	received.push_back(event);
-}
-
-
-void poWindow::resized(int w, int h) {
-	resized(bounds.x, bounds.y, w, h);
-}
-
-
-void poWindow::resized(int x, int y, int w, int h) {
-	po::setViewport(0, 0, w, h);
-	bounds.set(x,y,w,h);
-	
-	poMessageCenter::broadcastMessage(WindowResizedNotification);
-	
-//
-//	poEvent event;
-//	event.type = PO_WINDOW_RESIZED_EVENT;
-//	received.push_back(event);
-}
-
-
-void poWindow::touchBegin(int x, int y, int uid, int tapCount ) {
-    //Create an interactionPoint for this touch, with a unique id
-    interactionPoint *t = new interactionPoint();
-    t->uid = uid;
-    t->bIsDead = false;
-    
-    //Begin tracking touch + give it a simple ID (0-100)
-    trackTouch(t);
-        
-    //Fire Event
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID   = t->id;
-    event.uniqueID  = uid;
-    event.tapCount  = tapCount;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_TOUCH_BEGAN_EVENT;
-	received.push_back(event);
-}
-
-
-void poWindow::touchMove(int x, int y, int uid, int tapCount ) {
-    //Get the corresponding tracked object
-    interactionPoint *t = getTouch(uid);
-    
-    //Send event
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID   = t->id;
-    event.uniqueID  = uid;
-    event.tapCount  = tapCount;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_TOUCH_MOVED_EVENT;
-	received.push_back(event);
-}
-
-
-void poWindow::touchEnd(int x, int y, int uid, int tapCount ) {
-    //Get the corresponding tracked object
-    interactionPoint *t = getTouch(uid);
-   
-    //Send event
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID   = t->id;
-    event.uniqueID  = uid;
-    event.tapCount = tapCount;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_TOUCH_ENDED_EVENT;
-    received.push_back(event);
-    
-    untrackTouch(uid);
-}
-
-
-void poWindow::touchCancelled(int x, int y, int uid, int tapCount ) {
-    untrackTouch(uid);
-    
-    poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID = uid;
-    event.tapCount = tapCount;
-	event.timestamp = poGetElapsedTime();
-
-	event.type = PO_TOUCH_CANCELLED_EVENT;
-	received.push_back(event);
-    
-    untrackTouch(uid);
-}
-
-
-void poWindow::trackTouch(interactionPoint *t) {
-    int totalTouches = trackedTouches.size();
-        
-    //See if there are any empty slots
-    for(int i=0; i<totalTouches; i++) {
-        if(trackedTouches[i]->bIsDead) {
-            //Delete old touch
-            delete trackedTouches[i];
-            
-            //Set id
-            t->id = i;
-        
-            //Track in this spot
-            trackedTouches[i] = t;
+namespace po {
+    void objUnderPoint(Object *obj, Point &pnt, std::set<Object*> &objsBeneath) {
+        if(!(obj->visible && obj->alpha > 0.01))
             return;
+        
+        for(int i=obj->getNumChildren()-1; i>=0; i--) {
+            objUnderPoint(obj->getChild(i), pnt, objsBeneath);
         }
+
+        if(obj->pointInside(pnt,true))
+            objsBeneath.insert(obj);
+    }
+
+    
+    Window::Window(const char *title, uint rootID, Rect b, float s)
+    :	title(title)
+    ,	handle(NULL)
+    ,	root(NULL)
+    ,	rootID(rootID)
+    ,	bounds(b)
+    ,   scale(s)
+    //,   key_receiver(NULL)
+    ,	fullscreen(false)
+    ,	closed(false)
+    ,	framecounter(0)
+    ,	totalFramecount(0)
+    ,	lastMark(0.0)
+    ,	framerate(0.f)
+    ,	mouseMoveEnabled(true)
+    ,	block_all_events(false)
+    {
+    }
+
+    Window::~Window() {
+        makeCurrent();
+        delete root;
     }
     
-    //If the touch wasn't found, add it
-    t->id = trackedTouches.size();
-    trackedTouches.push_back(t);
-}
-
-interactionPoint *poWindow::getTouch(int uid) {
-    for(uint i=0;i<trackedTouches.size(); i++) {
-        if(trackedTouches[i]->uid == uid) {
-            return trackedTouches[i];
+    
+    //------------------------------------------------------------------------
+    void Window::update() {
+        float now = po::getElapsedTime();
+        
+        totalFramecount++;
+        framecounter++;
+        if(now - lastMark >= 1.0) {
+            lastMark = now;
+            framerate = (float)framecounter;
+            framecounter = 0;
         }
+        
+        lastElapsed = now - lastFrame;
+        lastFrame = now;
+        
+        // handle events
+        if(handle && !received.empty()) {
+            EventCenter::get()->processEvents(received);
+        }
+        received.clear();
+        
+        //Update internal classes
+        MessageCenter::update();
+        ThreadCenter::update();
+        
+        
+        // tell everyone who cares they should update
+        updateSignal();
+        
+        // update the objects
+        getRootObject()->updateTree();
     }
-	return NULL;
-}
-
-void poWindow::untrackTouch(int uid) {
-    interactionPoint *t = getTouch(uid);
-    t->bIsDead = true;
-}
-
-void poWindow::accelerometerEvent(double x, double y, double z) {
-    poEvent event;
-	event.motion.set(x, y, z);
-	event.type = PO_ACCELEROMETER_EVENT;
-	event.timestamp = poGetElapsedTime();
-    received.push_back(event);
-}
-
-void poWindow::gyroscopeEvent(double x, double y, double z) {
-    poEvent event;
-	event.motion.set(x, y, z);
-	event.type = PO_GYROSCOPE_EVENT;
- 	event.timestamp = poGetElapsedTime();
-   received.push_back(event);
-}
-
-void poWindow::rotationEvent() {
-    poEvent event;
-    event.type = PO_ROTATION_EVENT;
-	event.timestamp = poGetElapsedTime();
-    received.push_back(event);
-}
-
-void *poWindow::getWindowHandle() {
-	return handle;
-}
-
-void poWindow::setWindowHandle(void *handle) {
-	this->handle = handle;
-}
-
-int poWindow::getNextDrawOrder() {
-	return drawOrderCounter++;
-}
-
-SigConn poWindow::addUpdate(const boost::function<void()> &func) {
-	return updateSignal.connect(func);
-}
-
-void poWindow::setBlockAllEvent(bool b) {
-	block_all_events = b;
-}
-
-
-
-
+    
+    
+    //------------------------------------------------------------------------
+    SigConn Window::addUpdate(const boost::function<void()> &func) {
+        return updateSignal.connect(func);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::setBlockAllEvent(bool b) {
+        block_all_events = b;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::draw() {
+        drawOrderCounter = 0;
+        EventCenter::get()->negateDrawOrderForObjectWithEvents();
+        getRootObject()->drawTree();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    std::string Window::getTitle() const {
+        return title;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Object *Window::getRootObject() {
+        if(!root) {
+            makeCurrent();
+            po::initGraphics();
+            po::enableAlphaBlending();
+            po::setViewport(Rect(0,0,bounds.width,bounds.height));
+            root = po::createObjectForID(rootID);
+        }
+        return root;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::makeCurrent() {
+        po::applicationMakeWindowCurrent(this);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void *Window::getWindowHandle() {
+        return handle;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::setWindowHandle(void *handle) {
+        this->handle = handle;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    int Window::getNextDrawOrder() {
+        return drawOrderCounter++;
+    }
+    
+    
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Position =========================================
+    #pragma mark Position
+    
+    //------------------------------------------------------------------------
+    float Window::getX() const {
+        return bounds.x;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    float Window::getY() const {
+        return bounds.y;
+    }
+    
+    //------------------------------------------------------------------------
+    void Window::moveTo(Point p) {
+        po::applicationMoveWindow(this, p);
+    }
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Dimensions =======================================
+    #pragma mark Dimensions
+    
+    
+    //------------------------------------------------------------------------
+    void Window::setFullscreen(bool b) {
+        fullscreen = b;
+        po::applicationMakeWindowFullscreen(this, b);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Window::isFullscreen() const {
+        return fullscreen;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point Window::getDimensions() const {
+        return bounds.getSize();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Rect Window::getFrame() const {
+        return bounds;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    float Window::getWidth() const {
+        return bounds.width;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    float Window::getHeight() const {
+        return bounds.height;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Rect Window::getBounds() const {
+        return Rect(Point(0,0), bounds.getSize());
+    }
+    
+    
+    //------------------------------------------------------------------------
+    Point Window::getCenterPoint() const {
+        return Point(bounds.width/2.f, bounds.height/2.f);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    //For Retina Displays, scale of content (ie @2x stuff), not window
+    float Window::getScale() const {
+        return scale;
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Framerate ========================================
+    #pragma mark Framerate
+    
+    //------------------------------------------------------------------------
+    float Window::getFramerate() const {
+        return framerate;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    int Window::getFramecount() const {
+        return totalFramecount;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    float Window::getLastFrameElapsed() const {
+        return lastElapsed;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    float Window::getLastFrameTime() const {
+        return lastFrame;
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Window Events ====================================
+    #pragma mark Window Events
+    
+    //------------------------------------------------------------------------
+    void Window::resized(int x, int y, int w, int h) {
+        po::setViewport(0, 0, w, h);
+        bounds.set(x,y,w,h);
+        
+        MessageCenter::broadcastMessage(po::WindowResizedNotification);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::resized(int w, int h) {
+        resized(bounds.x, bounds.y, w, h);
+    }
+    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Mouse Events =====================================
+    #pragma mark Mouse Events
+    
+    //------------------------------------------------------------------------
+    Point Window::getMousePosition() const {
+        return mousePos;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    bool Window::isMouseMoveEnabled() const {
+        return mouseMoveEnabled;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::setMouseMoveEnabled(bool b) {
+        mouseMoveEnabled = b;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::mouseDown(int x, int y, int mod) {
+        mousePos.set(x,y,1.f);
+        
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.modifiers = mod;
+        
+        event.type = po::MOUSE_DOWN_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::mouseUp(int x, int y, int mod) {
+        mousePos.set(x,y,1);
+        
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.modifiers = mod;
+        
+        event.type = po::MOUSE_UP_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::mouseMove(int x, int y, int mod) {
+        if(!mouseMoveEnabled)
+            return;
+        
+        mousePos.set(x,y,1);
+        
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.modifiers = mod;
+        
+        event.type = po::MOUSE_MOVE_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::mouseDrag(int x, int y, int mod) {
+        mousePos.set(x,y,1);
+        
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.modifiers = mod;
+        
+        event.type = po::MOUSE_DRAG_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::mouseWheel(int x, int y, int mod, int num_steps) {
+    }    
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Key Events =======================================
+    #pragma mark Key Events
+    
+    //------------------------------------------------------------------------
+    void Window::keyDown(int key, int code, int mod) {
+        Event event;
+        event.keyChar = key;
+        event.keyCode = code;
+        event.modifiers = mod;
+        
+        event.type = po::KEY_DOWN_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::keyUp(int key, int code, int mod) {
+        Event event;
+        event.keyCode = code;
+        event.keyChar = key;
+        event.modifiers = mod;
+        
+        event.type = po::KEY_UP_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Touch Events =======================================
+    #pragma mark Touch Events
+    
+    //------------------------------------------------------------------------
+    void Window::touchBegin(int x, int y, int uid, int tapCount ) {
+        //Create an interactionPoint for this touch, with a unique id
+        interactionPoint *t = new interactionPoint();
+        t->uid = uid;
+        t->bIsDead = false;
+        
+        //Begin tracking touch + give it a simple ID (0-100)
+        trackTouch(t);
+            
+        //Fire Event
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.touchID   = t->id;
+        event.uniqueID  = uid;
+        event.tapCount  = tapCount;
+        
+        event.type = po::TOUCH_BEGAN_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::touchMove(int x, int y, int uid, int tapCount ) {
+        //Get the corresponding tracked object
+        interactionPoint *t = getTouch(uid);
+        
+        //Send event
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.touchID   = t->id;
+        event.uniqueID  = uid;
+        event.tapCount  = tapCount;
+        
+        event.type = po::TOUCH_MOVED_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::touchEnd(int x, int y, int uid, int tapCount) {
+        //Get the corresponding tracked object
+        interactionPoint *t = getTouch(uid);
+       
+        //Send event
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.touchID   = t->id;
+        event.uniqueID  = uid;
+        event.tapCount = tapCount;
+        
+        event.type = po::TOUCH_ENDED_EVENT;
+        received.push_back(event);
+        
+        untrackTouch(uid);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::touchCancelled(int x, int y, int uid, int tapCount) {
+        untrackTouch(uid);
+        
+        Event event;
+        event.globalPosition.set(x, y, 0.f);
+        event.touchID = uid;
+        event.tapCount = tapCount;
+        
+        event.type = po::TOUCH_CANCELLED_EVENT;
+        received.push_back(event);
+        
+        untrackTouch(uid);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::trackTouch(interactionPoint *t) {
+        int totalTouches = trackedTouches.size();
+            
+        //See if there are any empty slots
+        for(int i=0; i<totalTouches; i++) {
+            if(trackedTouches[i]->bIsDead) {
+                //Delete old touch
+                delete trackedTouches[i];
+                
+                //Set id
+                t->id = i;
+            
+                //Track in this spot
+                trackedTouches[i] = t;
+                return;
+            }
+        }
+        
+        //If the touch wasn't found, add it
+        t->id = trackedTouches.size();
+        trackedTouches.push_back(t);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    interactionPoint *Window::getTouch(int uid) {
+        for(uint i=0;i<trackedTouches.size(); i++) {
+            if(trackedTouches[i]->uid == uid) {
+                return trackedTouches[i];
+            }
+        }
+        return NULL;
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::untrackTouch(int uid) {
+        interactionPoint *t = getTouch(uid);
+        t->bIsDead = true;
+    }
+    
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Motion Events ====================================
+    #pragma mark Motion Events
+    
+    //------------------------------------------------------------------------
+    void Window::accelerometerEvent(double x, double y, double z) {
+        Event event;
+        event.motion.set(x, y, z);
+        event.type = po::ACCELEROMETER_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::gyroscopeEvent(double x, double y, double z) {
+        Event event;
+        event.motion.set(x, y, z);
+        event.type = po::GYROSCOPE_EVENT;
+        received.push_back(event);
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void Window::rotationEvent() {
+        Event event;
+        event.type = po::ROTATION_EVENT;
+        received.push_back(event);
+    }
+} /* End po Namespace */

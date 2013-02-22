@@ -33,92 +33,96 @@
 #include "poHelpers.h"
 #include "poFileLocation.h"
 
-class poFont;
-class poBitmapFont;
-class poTexture;
-
-// simple helper functions to retreive the resources you want
-poFont *poGetFont(const poFilePath &filePath, int group=0);
-poFont *poGetFont(const poFilePath &filePath, const std::string &style, int group=0);
-
-poFont *poGetFontByName(const std::string &family, int group=0);
-poFont *poGetFontByName(const std::string &family, const std::string &style, int group=0);
-
-poBitmapFont *poGetBitmapFont(poFont* font, uint size, int group=0);
-poBitmapFont *poGetBitmapFont(const poFilePath &filePath, uint size, int group=0);
-
-poBitmapFont *poGetBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group=0);
-
-poTexture *poGetTexture(const poFilePath &filePath, bool keepImage=false, int group=0);
-
-void poDeleteResourceGroup(int group);
-void poDeleteResourceType(const std::type_info &type);
-
-// helper class to find stored resources 
-struct poResourceLocator {
-	// each class type should have a consisten hashing method
-	size_t hash;
-	// resource groups let you delete a batch
-	int group;
-	// type_info keeps resources distinct from eachother
-	const std::type_info &type;
-	
-	// this is the only way to make one of these
-	poResourceLocator(size_t h, int g, const std::type_info &t);
-	// must define to make this usable in a std::map
-	bool operator<(const poResourceLocator &rhs) const;
-};
-inline std::ostream &operator<<(std::ostream &out, poResourceLocator const& loc) {
-	out << "resource(" << loc.hash << "," << loc.group << "," << loc.type.name() << ")";
-	return out;
-}
-
-// base class for resources
-class poResource {
-public:
-	virtual ~poResource()		{}
-
-	void resourceMarkUsed()		{timestamp = poGetElapsedTime();}
-	float resourceLastUsed()	{return timestamp;}
-	
-private:
-	float timestamp;
-};
-
-// helper function to retrieve the type_info of a given poResource subclass
-inline const std::type_info &poResourceType(poResource *rez) {
-	return typeid(*rez);
-}
-
-// a place to stash pointers to resources
-// to facilitate reuse and help managed memory
-class poResourceStore {
-public:
-	// grab the singleton
-	static poResourceStore *get();
-	
-	// build a locator to find a resource of a given type
-	poResourceLocator locatorForFont(const poFilePath &filePath, const std::string &style="", int group=-1);
-	poResourceLocator locatorForBitmapFont(poFont* font, uint size, int group=-1);
-	poResourceLocator locatorForBitmapFont(const poFilePath &filePath, uint size, int group=-1);
-	poResourceLocator locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group=-1);
+namespace po {
+    class Font;
+    class BitmapFont;
+    class Texture;
     
-	poResourceLocator locatorForTexture(const poFilePath &filePath, int group=-1);
-	// pull up a poResource* based on locator
-	poResource *findResource(poResourceLocator locator);
-	// add any old poResource* subclass you'd like
-	void addResource(poResourceLocator locator, poResource *resource);
-	// delete a resource group
-	void deleteResourceGroup(int group);
-	// delete all resources of a given type
-	void deleteAllResourcesOfType(const std::type_info &type);
-    bool resourceIsCached(poResource* rez);
-	
-private:
-	poResourceStore();
-	std::map<poResourceLocator, poResource*> resources;
-};
+    // simple helper functions to retreive the resources you want
+    Font *getFont(const FilePath &filePath, int group=0);
+    Font *getFont(const FilePath &filePath, const std::string &style, int group=0);
 
+    Font *getFontByName(const std::string &family, int group=0);
+    Font *getFontByName(const std::string &family, const std::string &style, int group=0);
 
+    BitmapFont *getBitmapFont(Font* font, uint size, int group=0);
+    BitmapFont *getBitmapFont(const FilePath &filePath, uint size, int group=0);
 
+    BitmapFont *getBitmapSystemFont(const std::string &family, const std::string &style, uint size, int group=0);
 
+    Texture *getTexture(const FilePath &filePath, bool keepImage=false, int group=0);
+
+    void DeleteResourceGroup(int group);
+    void DeleteResourceType(const std::type_info &type);
+
+    // base class for resources
+    class Resource {
+    public:
+        virtual ~Resource()		{}
+
+        void resourceMarkUsed() {
+            timestamp = getElapsedTime();
+        }
+        
+        float resourceLastUsed() {
+            return timestamp;
+        }
+        
+    private:
+        float timestamp;
+    };
+
+    // helper function to retrieve the type_info of a given Resource subclass
+    inline const std::type_info &ResourceType(Resource *rez) {
+        return typeid(*rez);
+    }
+    
+    // helper class to find stored resources
+    struct ResourceLocator {
+        // each class type should have a consisten hashing method
+        size_t hash;
+        // resource groups let you delete a batch
+        int group;
+        // type_info keeps resources distinct from eachother
+        const std::type_info &type;
+        
+        // this is the only way to make one of these
+        ResourceLocator(size_t h, int g, const std::type_info &t);
+        // must define to make this usable in a std::map
+        bool operator<(const ResourceLocator &rhs) const;
+    };
+    
+    inline std::ostream &operator<<(std::ostream &out, ResourceLocator const& loc) {
+        out << "resource(" << loc.hash << "," << loc.group << "," << loc.type.name() << ")";
+        return out;
+    }
+
+    // a place to stash pointers to resources
+    // to facilitate reuse and help managed memory
+    class ResourceStore {
+    public:
+        // grab the singleton
+        static ResourceStore *get();
+        
+        // build a locator to find a resource of a given type
+        ResourceLocator locatorForFont(const FilePath &filePath, const std::string &style="", int group=-1);
+        ResourceLocator locatorForBitmapFont(Font* font, uint size, int group=-1);
+        ResourceLocator locatorForBitmapFont(const FilePath &filePath, uint size, int group=-1);
+        ResourceLocator locatorForBitmapFont(const std::string &family, const std::string &style, uint size, int group=-1);
+        
+        ResourceLocator locatorForTexture(const FilePath &filePath, int group=-1);
+        // pull up a Resource* based on locator
+        Resource *findResource(ResourceLocator locator);
+        // add any old Resource* subclass you'd like
+        void addResource(ResourceLocator locator, Resource *resource);
+        // delete a resource group
+        void deleteResourceGroup(int group);
+        // delete all resources of a given type
+        void deleteAllResourcesOfType(const std::type_info &type);
+        bool resourceIsCached(Resource* rez);
+        
+    private:
+        ResourceStore();
+        std::map<ResourceLocator, Resource*> resources;
+    };
+} /* End po Namespace */

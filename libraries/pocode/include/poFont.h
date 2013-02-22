@@ -18,7 +18,7 @@
  */
 
 //
-//  poFont.h
+//  Font.h
 //  pocode
 //
 //  Created by Joshua Fisher on 3/23/11.
@@ -27,117 +27,116 @@
 
 #pragma once
 
-
 #include "poRect.h"
 #include "poImage.h"
 #include "poResourceStore.h"
 
-class poShape2D;
-struct FT_LibraryRec_;
-struct FT_FaceRec_;
+#include <ft2build.h> 
+#include FT_FREETYPE_H 
+#include FT_BITMAP_H 
+#include FT_GLYPH_H 
+#include FT_IMAGE_H
 
-typedef FT_FaceRec_* FT_Face;
-typedef FT_LibraryRec_* FT_Library;
+namespace po {
+    class Shape2D;
 
-// CLASS NOTES
-//
-// A poFont implements general font functionality. A single poFont object represents a single
-// font face in a single font size.
-//
-// You cannot construct a new font directly. You can load a new font as follows:
-//
-//      poFont* font = getFont("Courier", 20);
-//
-// Using getFont() ensures that the same font is not loaded and constructed multiple times.
-//
-// 
+    // CLASS NOTES
+    //
+    // A Font implements general font functionality. A single Font object represents a single
+    // font face in a single font size.
+    //
+    // You cannot construct a new font directly. You can load a new font as follows:
+    //
+    //      Font* font = getFont("Courier", 20);
+    //
+    // Using getFont() ensures that the same font is not loaded and constructed multiple times.
+    //
+    // 
 
-struct poFontGlyphMetrics
-{
-    poRect  glyphBounds;
-	poRect  glyphFrame;
-	float   glyphDescender;
-	poPoint glyphBearing;
-	poPoint glyphAdvance;
-};
+    struct FontGlyphMetrics  {
+        Rect  glyphBounds;
+        Rect  glyphFrame;
+        float   glyphDescender;
+        Point glyphBearing;
+        Point glyphAdvance;
+    };
 
-typedef std::vector<poFontGlyphMetrics> glyphMetricsVector;
+    typedef std::vector<FontGlyphMetrics> glyphMetricsVector;
 
-// http://www.freetype.org/freetype2/docs/reference/ft2-base_interface.html#FT_Encoding
-unsigned long encodeTag(const char tag[4]);
-std::string decodeTag(unsigned long encoded);
+    // http://www.freetype.org/freetype2/docs/reference/ft2-base_interface.html#FT_Encoding
+    unsigned long encodeTag(const char tag[4]);
+    std::string decodeTag(unsigned long encoded);
 
-bool urlForFontFamilyName(const std::string &family, const std::string &style, poFilePath &response);
+    bool urlForFontFamilyName(const std::string &family, const std::string &style, FilePath &response);
 
-class poFont : public poResource
-{
-	friend std::ostream &operator<<(std::ostream &o, const poFont *f);
+    class Font : public Resource {
+        friend std::ostream &operator<<(std::ostream &o, const Font *f);
 
-public:
-	static bool fontExists(const std::string &family_or_url);
-	static poFont *defaultFont();
-	
-	poFont();
-	poFont(const poFilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
-	virtual ~poFont();
-	
-    // FONT LOADING
-	bool                isValid() const;
-	
-    // FONT PROPERTIES
-	std::string         getFamilyName() const;
-	std::string         getStyleName() const;
-	poFilePath          getFilePath() const;
-	bool                hasKerning() const;
-	std::vector<std::string>
-						getEncodings() const;
-	
-	int                 getPointSize() const;
-	void                setPointSize(int size);
+    public:
+        static bool fontExists(const std::string &family_or_url);
+        static Font *defaultFont();
+        
+        Font();
+        Font(const FilePath &filePath, const std::string &style="", unsigned long encoding=encodeTag("unic"));
+        virtual ~Font();
+        
+        // FONT LOADING
+        bool                isValid() const;
+        
+        // FONT PROPERTIES
+        std::string         getFamilyName() const;
+        std::string         getStyleName() const;
+        FilePath          getFilePath() const;
+        bool                hasKerning() const;
+        std::vector<std::string>
+                            getEncodings() const;
+        
+        int                 getPointSize() const;
+        void                setPointSize(int size);
 
-	float               getLineHeight() const;
-	float               getAscender() const;
-	float               getDescender() const;
-    
-    // UNDERLINE
-	// maximum bbox for this font face at this size
-	float               getUnderlinePosition() const;
-	float               getUnderlineThickness() const;
+        float               getLineHeight() const;
+        float               getAscender() const;
+        float               getDescender() const;
+        
+        // UNDERLINE
+        // maximum bbox for this font face at this size
+        float               getUnderlinePosition() const;
+        float               getUnderlineThickness() const;
 
-    // CURRENT GLYPH
-    // Get and set the current glyph.
-	int                 getGlyph() const;
-	void                setGlyph(int g);
-    
-	// These functions (starting with 'glyph') return info about the current codepoint.
-	poRect              getGlyphBounds();
-	poRect              getGlyphFrame();
-	float               getGlyphDescender();
-	poPoint             getGlyphBearing();
-	poPoint             getGlyphAdvance();
-	poImage*			getGlyphImage();
-//	poShape2D           *getGlyphOutline() const;
+        // CURRENT GLYPH
+        // Get and set the current glyph.
+        int                 getGlyph() const;
+        void                setGlyph(int g);
+        
+        // These functions (starting with 'glyph') return info about the current codepoint.
+        Rect                getGlyphBounds();
+        Rect                getGlyphFrame();
+        float               getGlyphDescender();
+        Point               getGlyphBearing();
+        Point               getGlyphAdvance();
+        Image*              getGlyphImage();
+    //	 Shape2D           *getGlyphOutline() const;
 
-	poPoint             kernGlyphs(int glyph1, int glyph2) const;
+        Point             kernGlyphs(int glyph1, int glyph2) const;
 
-	std::string         toString() const;
-	std::string			getRequestedFamilyName() const;
-	std::string			getRequestedStyleName() const;
+        std::string         toString() const;
+        std::string			getRequestedFamilyName() const;
+        std::string			getRequestedStyleName() const;
 
-    bool                cachedForSizeYet(int fontSize);
-    void                cacheGlyphMetrics();
+        bool                cachedForSizeYet(int fontSize);
+        void                cacheGlyphMetrics();
 
-private:
-	void                loadGlyph(int g);
-    
-    glyphMetricsVector                  *currentCache;
-    std::map<int,glyphMetricsVector>    cachedGlyphMetricsSet;
-    
-    poFilePath          filePath;
-	std::string			reqFamily, reqStyle;
-	int					size;
-	int					glyph, loadedGlyph;
-	FT_Face				face;
-	static FT_Library   lib;
-};
-
+    private:
+        void                loadGlyph(int g);
+        
+        glyphMetricsVector                  *currentCache;
+        std::map<int,glyphMetricsVector>    cachedGlyphMetricsSet;
+        
+        FilePath          filePath;
+        std::string			reqFamily, reqStyle;
+        int					size;
+        int					glyph, loadedGlyph;
+        FT_Face				face;
+        static FT_Library   lib;
+    };
+} /* End po namespace */

@@ -15,25 +15,25 @@
 @end
 
 
-
+//Main View Controller
 @implementation MyVC : UIViewController
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     AppDelegate *app = [UIApplication sharedApplication].delegate;
     
-    poOrientation poCodeOrientation = PO_UNKNOWN_ORIENTATION;
+    po::Orientation poCodeOrientation = po::ORIENTATION_UNKNOWN;
     switch (toInterfaceOrientation) {
         case UIInterfaceOrientationPortrait:
-            poCodeOrientation = PO_VERTICAL_UP;
+            poCodeOrientation = po::ORIENTATION_VERTICAL_UP;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            poCodeOrientation = PO_VERTICAL_DOWN;
+            poCodeOrientation = po::ORIENTATION_VERTICAL_DOWN;
             break;
         case UIInterfaceOrientationLandscapeRight:
-            poCodeOrientation = PO_HORIZONTAL_RIGHT;
+            poCodeOrientation = po::ORIENTATION_HORIZONTAL_RIGHT;
             break;
         case UIInterfaceOrientationLandscapeLeft:
-            poCodeOrientation = PO_HORIZONTAL_LEFT;
+            poCodeOrientation = po::ORIENTATION_HORIZONTAL_LEFT;
             break;
     }
     
@@ -57,7 +57,6 @@
             break;
         }
     }
-    
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -80,17 +79,18 @@
 
 @end
 
+//App Delegate
 @implementation AppDelegate
 
 @synthesize window, pocodeVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //Run init methods
-    poAppOrientation = PO_VERTICAL_UP;
-    setupApplication();
+    poAppOrientation = po::ORIENTATION_VERTICAL_UP;
+    po::setupApplication();
     
 	// initialize the time
-	poGetElapsedTime();
+    po::getElapsedTime();
 	
 	// move the pwd to match our present location
 	[[NSFileManager defaultManager] changeCurrentDirectoryPath:[[NSBundle mainBundle] resourcePath]];
@@ -112,8 +112,8 @@
     } else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         bool bVerticalSupported = false;
         for(int i=0; i<poSupportedOrientations.size(); i++) {
-            if(poSupportedOrientations[i] == PO_VERTICAL_UP || poSupportedOrientations[i] == PO_VERTICAL_DOWN) {
-                bVerticalSupported = true; 
+            if(poSupportedOrientations[i] == po::ORIENTATION_VERTICAL_UP || poSupportedOrientations[i] == po::ORIENTATION_VERTICAL_DOWN) {
+                bVerticalSupported = true;
                 break;
             }
         }
@@ -132,7 +132,7 @@
 	UIImage *img = [UIImage imageNamed:defaultImage];
 	fakeSplash = [[UIImageView alloc] initWithImage:img];
 	[rootView addSubview:fakeSplash];
-	[fakeSplash release]; 
+	[fakeSplash release];
 	
 	UIViewController *root = [[MyVC alloc] init];
 	root.view = rootView;
@@ -152,7 +152,6 @@
 -(void)loadGLVC {
     self.pocodeVC = [[potionCodeViewController alloc] init];
 	self.pocodeVC.appWindow->setWindowHandle(self.window);
-    self.pocodeVC.eagl.multipleTouchEnabled = YES;
 	[self.window.rootViewController.view insertSubview:self.pocodeVC.view belowSubview:fakeSplash];
     
 	[self.pocodeVC startAnimation];
@@ -213,90 +212,94 @@
 
 
 
-void applicationQuit() {
-	NSLog(@"can't exit an iPhone app");
-}
+//-----------------------------------------------
+//poCode application-specific function
 
-poWindow* applicationCreateWindow(uint root_id, poWindowType type, const char* title, int x, int y, int w, int h) {
-	AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app.pocodeVC.appWindow;
-}
-
-int applicationNumberWindows() {
-	return 1;
-}
-
-poWindow* applicationGetWindow(int index) {
-	AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app.pocodeVC.appWindow;
-}
-
-poWindow* applicationCurrentWindow() {
-	AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app.pocodeVC.appWindow;
-}
-
-std::string applicationGetResourceDirectory() {
-	return [[[NSBundle mainBundle] resourcePath] UTF8String];
-}
-
-std::string applicationGetSupportDirectory() {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+namespace po {
+    void applicationQuit() {
+        NSLog(@"can't exit an iPhone app");
+    }
     
-    NSArray *dirPaths;
-    NSString *docsDir;
+    po::Window* applicationCreateWindow(uint root_id, po::WindowType type, const char* title, int x, int y, int w, int h) {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        return app.pocodeVC.appWindow;
+    }
     
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = [dirPaths objectAtIndex:0];
+    int applicationNumberWindows() {
+        return 1;
+    }
     
-    std::string dirStr = [docsDir UTF8String];
+    po::Window* applicationGetWindow(int index) {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        return app.pocodeVC.appWindow;
+    }
     
-    [pool drain];
+    po::Window* applicationCurrentWindow() {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        return app.pocodeVC.appWindow;
+    }
     
-    return  dirStr + "/"; 
-}
-
-//Not implemented on iOS
-void applicationMakeWindowCurrent(poWindow* win) {}
-void applicationMakeWindowFullscreen(poWindow* win, bool value) {}
-void applicationMoveWindow(poWindow* win, poPoint p) {}
-void applicationReshapeWindow(poWindow* win, poRect r) {}
-
-//MultiTouch
-void poSetMultiTouchEnabled(bool isEnabled) {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    app.pocodeVC.eagl.multipleTouchEnabled = isEnabled;
-}
-
-//Accelerometer 
-void poStartAccelerometer(float frequency) {
-    UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
-    theAccelerometer.updateInterval = 1 / frequency;
+    std::string applicationGetResourceDirectory() {
+        return [[[NSBundle mainBundle] resourcePath] UTF8String];
+    }
     
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    theAccelerometer.delegate = app.pocodeVC;
-}
-
-void poStopAccelerometer() {
-    UIAccelerometer* theAccelerometer = [UIAccelerometer sharedAccelerometer];
-    theAccelerometer.delegate = nil;
-}
-
-
-//Orientation
-poOrientation poGetOrientation() {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-	return app->poAppOrientation;
-}
-
-void poSetAutoRotateOrientations(unsigned char orientations) {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    app->poSupportedOrientations.clear();
+    std::string applicationGetSupportDirectory() {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        NSArray *dirPaths;
+        NSString *docsDir;
+        
+        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        docsDir = [dirPaths objectAtIndex:0];
+        
+        std::string dirStr = [docsDir UTF8String];
+        
+        [pool drain];
+        
+        return  dirStr + "/";
+    }
     
-    if(orientations & PO_VERTICAL_UP)      app->poSupportedOrientations.push_back(PO_VERTICAL_UP);
-    if(orientations & PO_VERTICAL_DOWN)    app->poSupportedOrientations.push_back(PO_VERTICAL_DOWN);
+    //Not implemented on iOS
+    void applicationMakeWindowCurrent(po::Window* win) {}
+    void applicationMakeWindowFullscreen(po::Window* win, bool value) {}
+    void applicationMoveWindow(po::Window* win, po::Point p) {}
+    void applicationReshapeWindow(po::Window* win, po::Rect r) {}
     
-    if(orientations & PO_HORIZONTAL_RIGHT) app->poSupportedOrientations.push_back(PO_HORIZONTAL_RIGHT);
-    if(orientations & PO_HORIZONTAL_LEFT)  app->poSupportedOrientations.push_back(PO_HORIZONTAL_LEFT);
-}
-
+    //MultiTouch
+    void setMultiTouchEnabled(bool isEnabled) {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        app.pocodeVC.eagl.multipleTouchEnabled = isEnabled;
+    }
+    
+    //Accelerometer
+    void startAccelerometer(float frequency) {
+        UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
+        theAccelerometer.updateInterval = 1 / frequency;
+        
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        theAccelerometer.delegate = app.pocodeVC;
+    }
+    
+    void stopAccelerometer() {
+        UIAccelerometer* theAccelerometer = [UIAccelerometer sharedAccelerometer];
+        theAccelerometer.delegate = nil;
+    }
+    
+    
+    //Orientation
+    po::Orientation getOrientation() {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        return app->poAppOrientation;
+    }
+    
+    void setAutoRotateOrientations(unsigned char orientations) {
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        app->poSupportedOrientations.clear();
+        
+        if(orientations & po::ORIENTATION_VERTICAL_UP)      app->poSupportedOrientations.push_back(po::ORIENTATION_VERTICAL_UP);
+        if(orientations & po::ORIENTATION_VERTICAL_DOWN)    app->poSupportedOrientations.push_back(po::ORIENTATION_VERTICAL_DOWN);
+        
+        if(orientations & po::ORIENTATION_HORIZONTAL_RIGHT) app->poSupportedOrientations.push_back(po::ORIENTATION_HORIZONTAL_RIGHT);
+        if(orientations & po::ORIENTATION_HORIZONTAL_LEFT)  app->poSupportedOrientations.push_back(po::ORIENTATION_HORIZONTAL_LEFT);
+    }
+} /* End po Namespace */

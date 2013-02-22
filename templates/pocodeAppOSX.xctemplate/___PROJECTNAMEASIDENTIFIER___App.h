@@ -4,7 +4,7 @@
 
 #include "poObject.h"
 
-class ___PROJECTNAMEASIDENTIFIER___App : public poObject {
+class ___PROJECTNAMEASIDENTIFIER___App : public po::Object {
 public:
 	___PROJECTNAMEASIDENTIFIER___App();
 	virtual ~___PROJECTNAMEASIDENTIFIER___App();
@@ -13,8 +13,8 @@ public:
     
     virtual void draw();
 	
-    virtual void eventHandler(poEvent *event);
+    virtual void eventHandler(po::Event *event);
 	
-    virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+    virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary(), const po::Object *sender=NULL);
 };
 

@@ -32,148 +32,152 @@
 #include <pugixml.hpp>
 #include <boost/shared_ptr.hpp>
 
-class poXMLNode;
-class poXPathResult;
-class poXMLDocument;
+#include "poFileLocation.h"
 
-// CLASS NOTES
-//
-// poXMLDocument is used for reading and writing XML files.
-//
-// After reading in the XML, get the root node, using the rootNode method.
-//
+namespace po {
+    class XMLNode;
+    class XpathResult;
+    class XMLDocument;
 
-class poXMLDocument {
-public:
-	poXMLDocument();
-	// load from a file
-	poXMLDocument(const std::string &url);
-	
-	bool			isValid() const;
-    
-    // GET ROOT NODE FROM XML DOCUMENT
-	poXMLNode       getRootNode() const;
-	poXMLNode		resetRootNode();
-	
-    // READ and WRITE XML FILE
-	bool            read(const std::string &url);
-	bool            readStr(const std::string &str);
-	bool            write(const std::string &url);
-	
-    // PRINT
-	void            print() const;
-	pugi::xml_document &getHandle() const;
-	
-	poXMLDocument	copy();
-	
-private:
-	boost::shared_ptr<pugi::xml_document> document;
-};
+    // CLASS NOTES
+    //
+    // XMLDocument is used for reading and writing XML files.
+    //
+    // After reading in the XML, get the root node, using the rootNode method.
+    //
 
-// CLASS NOTES
-//
-// poXMLNode is the essential unit of the XML system.
-//
-// A poXMLnode may have a unique name and may an inner value in one of the three variable types.
-// A poXMLnode may also children, as well as XML attributes.
-//
+    class XMLDocument {
+    public:
+        XMLDocument();
+        // load from a file
+        XMLDocument(const FilePath &url);
+        
+        bool			isValid() const;
+        
+        // GET ROOT NODE FROM XML DOCUMENT
+        XMLNode     getRootNode() const;
+        XMLNode		resetRootNode();
+        
+        // READ and WRITE XML FILE
+        bool            read(const FilePath &url);
+        bool            readStr(const std::string &str);
+        bool            write(const std::string &url);
+        
+        // PRINT
+        void            print() const;
+        pugi::xml_document &getHandle() const;
+        
+        XMLDocument	copy();
+        
+    private:
+        boost::shared_ptr<pugi::xml_document> document;
+    };
 
-class poXMLNode {
-	friend class poXMLDocument;
-	
-public:
-	poXMLNode();
-	poXMLNode(pugi::xml_node node);
+    // CLASS NOTES
+    //
+    // XMLNode is the essential unit of the XML system.
+    //
+    // A XMLnode may have a unique name and may an inner value in one of the three variable types.
+    // A XMLnode may also children, as well as XML attributes.
+    //
 
-	bool			isValid() const;
-	
-    // XML NODE NAME
-	std::string     getName() const;
-	poXMLNode&		setName(const std::string &str);
+    class XMLNode {
+        friend class XMLDocument;
+        
+    public:
+        XMLNode();
+        XMLNode(pugi::xml_node node);
 
-    // GET XML VALUE
-	int             getInnerInt() const;
-	float           getInnerFloat() const;
-	std::string     getInnerString() const;
+        bool			isValid() const;
+        
+        // XML NODE NAME
+        std::string     getName() const;
+        XMLNode&		setName(const std::string &str);
 
-    // SET XML VALUE
-	poXMLNode&		setInnerInt(int i);
-	poXMLNode&		setInnerFloat(float f);
-	poXMLNode&		setInnerString(const std::string &str);
-	
-    // XML ATTRIBUTES
-	uint            getNumAttributes() const;
-	bool            hasAttribute(const std::string &name) const;
-	std::vector<std::string> getAttributeNames() const;
+        // GET XML VALUE
+        int             getInnerInt() const;
+        float           getInnerFloat() const;
+        std::string     getInnerString() const;
 
-    // GET ATTRIBUTE VALUE
-	int             getIntAttribute(const std::string &name) const;
-	float           getFloatAttribute(const std::string &name) const;
-	std::string     getStringAttribute(const std::string &name) const;
+        // SET XML VALUE
+        XMLNode&		setInnerInt(int i);
+        XMLNode&		setInnerFloat(float f);
+        XMLNode&		setInnerString(const std::string &str);
+        
+        // XML ATTRIBUTES
+        uint            getNumAttributes() const;
+        bool            hasAttribute(const std::string &name) const;
+        std::vector<std::string> getAttributeNames() const;
 
-    // SET ATTRIBUTE VALUE
-	poXMLNode&		setAttribute(const std::string &name, int value);
-	poXMLNode&		setAttribute(const std::string &name, float value);
-	poXMLNode&		setAttribute(const std::string &name, const std::string &value);
-	poXMLNode&		removeAttribute(const std::string &name);
-    
-    // ADD and REMOVE CHILDREN
-	uint			getNumChildren() const;
-	poXMLNode		addChild(const std::string &name);
-	poXMLNode&		addChild(poXMLNode const &node);	
-	poXMLNode&		removeChild(const std::string &name);
-	poXMLNode&		removeChild(poXMLNode const &node);	
-    
-    // GET CHILDREN
-	poXMLNode       getChild(uint idx);
-	poXMLNode       getChild(const std::string &name);
-	std::vector<poXMLNode> getChildren();
-	std::vector<poXMLNode> getChildren(const std::string &name);
+        // GET ATTRIBUTE VALUE
+        int             getIntAttribute(const std::string &name) const;
+        float           getFloatAttribute(const std::string &name) const;
+        std::string     getStringAttribute(const std::string &name) const;
 
-    // GET CHILDREN IN ORDER
-	poXMLNode       getFirstChild();
-	poXMLNode		getLastChild();
-	poXMLNode       getNextSibling();
-	poXMLNode       getNextSibling(const std::string &name);
-	
-	// should be a valid xpath instruction
-	// http://www.w3schools.com/xpath/default.asp for an xpath tutorial
-	// http://tinyxpath.sourceforge.net/out.htm supported operations
-	poXPathResult find(const std::string &xpath);
-	
-	pugi::xml_node getHandle() const;
-	
-private:
-	pugi::xml_node  node;
-	poXMLDocument doc;
-};
+        // SET ATTRIBUTE VALUE
+        XMLNode&		setAttribute(const std::string &name, int value);
+        XMLNode&		setAttribute(const std::string &name, float value);
+        XMLNode&		setAttribute(const std::string &name, const std::string &value);
+        XMLNode&		removeAttribute(const std::string &name);
+        
+        // ADD and REMOVE CHILDREN
+        uint			getNumChildren() const;
+        XMLNode         addChild(const std::string &name);
+        XMLNode&		addChild(XMLNode const &node);	
+        XMLNode&		removeChild(const std::string &name);
+        XMLNode&		removeChild(XMLNode const &node);	
+        
+        // GET CHILDREN
+        XMLNode         getChild(uint idx);
+        XMLNode         getChild(const std::string &name);
+        std::vector<XMLNode> getChildren();
+        std::vector<XMLNode> getChildren(const std::string &name);
 
-bool operator==(poXMLNode const& n1, poXMLNode const &n2);
+        // GET CHILDREN IN ORDER
+        XMLNode         getFirstChild();
+        XMLNode         getLastChild();
+        XMLNode         getNextSibling();
+        XMLNode         getNextSibling(const std::string &name);
+        
+        // should be a valid xpath instruction
+        // http://www.w3schools.com/xpath/default.asp for an xpath tutorial
+        // http://tinyxpath.sourceforge.net/out.htm supported operations
+        XpathResult find(const std::string &xpath);
+        
+        pugi::xml_node getHandle() const;
+        
+    private:
+        pugi::xml_node  node;
+        XMLDocument doc;
+    };
 
-// CLASS NOTES
-//
-// poXPathResult is a special class for finding data in an XML document.
-// Use the find() method in poXMLNode to search using poXPathResults.
-//
+    bool operator==(XMLNode const& n1, XMLNode const &n2);
 
-// can be a couple of different things
-// either a single int, float or string
-// or a set of ints, floats, strings or nodes
-class poXPathResult {
-	friend class poXMLNode;
-    
-public:
-	uint            getNumMatches();
-	
-    // GET RESULT NODES
-	poXMLNode       getNode(uint idx=0);
-    
-    // GET RESULT VALUES
-	std::string     getString(uint idx=0);
-	int             getInt(uint idx=0);
-	float           getFloat(uint idx=0);
-    
-private:
-	poXPathResult(pugi::xpath_node_set nodes);
-	pugi::xpath_node_set nodes;
-};
+    // CLASS NOTES
+    //
+    // XpathResult is a special class for finding data in an XML document.
+    // Use the find() method in XMLNode to search using XpathResults.
+    //
+
+    // can be a couple of different things
+    // either a single int, float or string
+    // or a set of ints, floats, strings or nodes
+    class XpathResult {
+        friend class XMLNode;
+        
+    public:
+        uint            getNumMatches();
+        
+        // GET RESULT NODES
+        XMLNode       getNode(uint idx=0);
+        
+        // GET RESULT VALUES
+        std::string     getString(uint idx=0);
+        int             getInt(uint idx=0);
+        float           getFloat(uint idx=0);
+        
+    private:
+        XpathResult(pugi::xpath_node_set nodes);
+        pugi::xpath_node_set nodes;
+    };
+} /* End po Namespace */

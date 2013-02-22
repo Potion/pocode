@@ -27,7 +27,7 @@
 
 @property (nonatomic, readonly) EAGLView *eagl;
 
-@property (nonatomic, readonly) poWindow *appWindow;
+@property (nonatomic, readonly) po::Window *appWindow;
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic) NSInteger animationFrameInterval;
 

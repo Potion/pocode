@@ -27,37 +27,39 @@
 #include "poObject.h"
 #include "poFileLocation.h"
 #include "poThreadCenter.h"
-#include <string>
 
-//------------------------------------------------------------------
-//File Loader, uses CURL to save files or return as strings
-namespace poURLLoader {
-    poFilePath getFile(poURL url, const poFilePath &savePath=poFilePath());
-    void getFileAsync(poURL url, poObject* notify, const poFilePath &savePath=poFilePath());
-    
-    std::string getFileAsString(poURL url);
-    void getFileAsStringAsync(poURL url, poObject* notify);
-};
+namespace po {
+
+    //------------------------------------------------------------------
+    //File Loader, uses CURL to save files or return as strings
+    namespace URLLoader {
+        FilePath getFile(URL url, const FilePath &savePath=FilePath());
+        void getFileAsync(URL url, Object* notify, const FilePath &savePath=FilePath());
+        
+        std::string getFileAsString(URL url);
+        void getFileAsStringAsync(URL url, Object* notify);
+    };
 
 
-//------------------------------------------------------------------
-//File Loader Worker
-//For async operations
-enum poURLLoaderMode {
-    PO_FILE_LOADER_MODE_SAVE,
-    PO_FILE_LOADER_MODE_RETURN_AS_STRING
-};
+    //------------------------------------------------------------------
+    //File Loader Worker
+    //For async operations
+    enum URLLoaderMode {
+        PO_FILE_LOADER_MODE_SAVE,
+        PO_FILE_LOADER_MODE_RETURN_AS_STRING
+    };
 
-static const std::string poURLLoaderCompleteMessage    = "PO_FILE_LOADER_COMPLETE_MESSAGE";
+    static const std::string URLLoaderCompleteMessage = "PO_FILE_LOADER_COMPLETE_MESSAGE";
 
-class poURLLoaderWorker  : public poWorker {
-public:
-    poURLLoaderWorker(poURL url, poURLLoaderMode mode=PO_FILE_LOADER_MODE_RETURN_AS_STRING, const poFilePath &savePath=poFilePath());
-    ~poURLLoaderWorker();
-    
-    void workerFunc();
-private:
-    poURL url;
-    poFilePath filePath;
-    poURLLoaderMode mode;
-};
+    class URLLoaderWorker  : public Worker {
+    public:
+        URLLoaderWorker(URL url, URLLoaderMode mode=PO_FILE_LOADER_MODE_RETURN_AS_STRING, const FilePath &savePath=FilePath());
+        ~URLLoaderWorker();
+        
+        void workerFunc();
+    private:
+        URL url;
+        FilePath filePath;
+        URLLoaderMode mode;
+    };
+} /* End po Namespace */

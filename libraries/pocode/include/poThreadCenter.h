@@ -6,45 +6,42 @@
 
 #include "poObject.h"
 
-class poWorker;
-
-//Thread Center
-namespace poThreadCenter {
-    void init();
-    void shutdown();
+namespace po {
+    //------------------------------------------------------------------
+    //Base Class for all workers
+    class Worker : public Object {
+    public:
+        Worker();
+        virtual ~Worker();
+        
+        virtual void workerFunc();
+        virtual void setWorkerParams(Object *notify, std::string message, const Dictionary &dict);
+        
+        void run();
+        
+        Object*   getWorkerNotify();
+        std::string getWorkerMessage();
+        
+        bool workerShouldBeDeleted();
+        
+        Dictionary dict;
+        float WorkerStartTime;
+        
+        bool workerAutoDelete;
+        std::string workerMessage;
+    private:
+        //Worker params/info
+        Object *notify;
+    };
     
-	void update();
-    
-    void addItem(poWorker *worker, poObject *notify, std::string message = "", const poDictionary &dict = poDictionary());
-	void workerDone(poWorker *threadedObject);
-};
-
-
-
-
-//------------------------------------------------------------------
-//Base Class for all workers
-class poWorker : public poObject {
-public:
-	poWorker();
-	virtual ~poWorker();
-	
-    virtual void workerFunc();
-    virtual void setWorkerParams(poObject *notify, std::string message, const poDictionary &dict);
-    
-    void run();
-    
-    poObject*   getWorkerNotify();
-    std::string getWorkerMessage();
-    
-    bool workerShouldBeDeleted();
-    
-    poDictionary dict;
-    float poWorkerStartTime;
-    
-    bool workerAutoDelete;
-    std::string workerMessage;
-private:
-    //Worker params/info
-    poObject *notify;
-};
+    //Thread Center
+    namespace ThreadCenter {
+        void init();
+        void shutdown();
+        
+        void update();
+        
+        void addItem(Worker *worker, Object *notify, std::string message = "", const Dictionary &dict = Dictionary());
+        void workerDone(Worker *threadedObject);
+    } /* End ThreadCenter namespace */
+} /* End po namespace */

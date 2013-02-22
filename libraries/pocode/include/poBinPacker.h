@@ -19,7 +19,6 @@
 
 #pragma once
 
-
 #include "poRect.h"
 
 #include <map>
@@ -33,57 +32,58 @@
  *	once a line is full, it starts a new one
  *	bounded by width and height, will start a new page if it runs out of height
  */
+namespace po {
+    class BinPacker {
+    public:
+        // init with page size
+        BinPacker(uint width, uint height, uint padding=0);
+        ~BinPacker();
 
-class BinPacker {
-public:
-	// init with page size
-	BinPacker(uint width, uint height, uint padding=0);
-	~BinPacker();
+        void reset();
+        uint addRect(Rect r);
 
-	void reset();
-	uint addRect(poRect r);
+        void pack();
+        void render();
 
-	void pack();
-	void render();
+        int getNumPages() const;
+        float getWastedPixels() const;
+        Rect packPosition(uint handle, uint *page=NULL);
 
-	int getNumPages() const;
-	float getWastedPixels() const;
-	poRect packPosition(uint handle, uint *page=NULL);
+    private:
+        BinPacker(const BinPacker &lhs) {}
+        BinPacker &operator=(const BinPacker &lhs) {return *this;}
 
-private:
-	BinPacker(const BinPacker &lhs) {}
-	BinPacker &operator=(const BinPacker &lhs) {return *this;}
+        struct insertRect {
+            insertRect(uint w, uint h, uint handle);
+            bool operator<(const insertRect &r);
+            uint w, h, handle;
+        };
+        std::list<insertRect> rectangles;
 
-	struct insertRect {
-		insertRect(uint w, uint h, uint handle);
-		bool operator<(const insertRect &r);
-		uint w, h, handle;
-	};
-	std::list<insertRect> rectangles;
+        struct packRect {
+            packRect();
+            packRect(uint w, uint h);
+            ~packRect();
+            void setDims(uint x, uint y, uint w, uint h);
+            packRect *insert(uint w, uint h);
+            
+            packRect **children;
+            uint x, y, width, height, handle;
+            int taken;
+        };
 
-	struct packRect {
-		packRect();
-		packRect(uint w, uint h);
-		~packRect();
-		void setDims(uint x, uint y, uint w, uint h);
-		packRect *insert(uint w, uint h);
-		
-		packRect **children;
-		uint x, y, width, height, handle;
-		int taken;
-	};
+        typedef std::map<uint, packRect*> PackMap_t;
 
-	typedef std::map<uint, packRect*> PackMap_t;
-
-	struct pack_page {
-		std::vector<packRect*> rows;
-		PackMap_t pack;
-	};
-	std::vector<pack_page*> pages;
-	
-	void render(packRect *rect);
-	void resetPackMap();
-	
-	uint width, height, padding, handles;
-	float wastedPixels;
-};
+        struct pack_page {
+            std::vector<packRect*> rows;
+            PackMap_t pack;
+        };
+        std::vector<pack_page*> pages;
+        
+        void render(packRect *rect);
+        void resetPackMap();
+        
+        uint width, height, padding, handles;
+        float wastedPixels;
+    };
+} /* End po Namespace */

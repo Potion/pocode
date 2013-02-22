@@ -19,77 +19,86 @@
 
 #pragma once
 
-
+#include "poEnums.h"
 #include "poPoint.h"
 
 #include <vector>
 
 // CLASS NOTES
 //
-// poRect is a light-weight object used to specify bounding boxes and other rectangular forms
+// Rect is a light-weight object used to specify bounding boxes and other rectangular forms
 // throughout pocode.
 //
-// poRect is not a poObject and hence cannot be added to the scene graph. See poRectShape.
+// Rect is not an Object and hence cannot be added to the scene graph. See RectShape.
 // 
 // 
 
-class poRect {
-public:
-	
-    // CONSTRUCTORS
-	poRect();
-	poRect(float x, float y, float w, float h);
-	poRect(const poPoint &origin, const poPoint &size);
 
-    // RECT SET METHODS
-    poRect&         set(float x, float y, float w, float h);
-	poRect&         set(poPoint pos, poPoint size);
+
+namespace po {
+    class Rect;
     
-    poRect&         setPosition(float x, float y);
-    poRect&         setPosition(poPoint pos);
-    poRect&         setSize(float w, float h);
-    poRect&         setSize(poPoint size);
+    Point alignInRect(Point max, Rect rect, Alignment align);
+
+    class Rect {
+    public:
+        
+        // CONSTRUCTORS
+        Rect();
+        Rect(float x, float y, float w, float h);
+        Rect(const Point &origin, const Point &size);
+
+        // RECT SET METHODS
+        Rect&       set(float x, float y, float w, float h);
+        Rect&       set(Point pos, Point size);
+        
+        Rect&       setPosition(float x, float y);
+        Rect&       setPosition(Point pos);
+        Rect&       setSize(float w, float h);
+        Rect&       setSize(Point size);
+        
+        // RECT PROPERTIES
+        Point       getPosition() const;
+        Point       getSize() const;
+        float       getArea() const;
+        Point       getCenter() const;
+        float       getAspect() const;
+        
+        // RECT CORNERS
+        Point       getTopLeft() const;
+        Point       getBottomLeft() const;
+        Point       getTopRight() const;
+        Point       getBottomRight() const;
+        std::vector<Point> getCorners() const;
+
+        // RECT EXPANSION
+        Rect&       include(float x, float y);
+        Rect&       include(const Point &pt);
+        Rect&       include(const Rect &rect);
+        
+        // RECT SCALING
+        Rect&       scale(float scalar);
+        // scale around a point
+        Rect&       scale(float scalar, const Point &pt);
+        Rect&       inset(Point p);
+        Rect&       expand(Point p);
+        
+        // RECT QUERYING
+        bool        contains(float x, float y) const;
+        bool        contains(const Point &pt) const;
+        bool        contains(const po::Rect rect) const;
+        
+        bool        overlaps(const po::Rect rect) const;
+
+        Point       remap(Rect from, Point p);
+        
+        // RECT TO STRING
+        std::string     toString() const;
+        bool            fromString(std::string const& str);
+        
+        float           x,y,width,height;
+    };
+
+    std::ostream &operator<<(std::ostream &o, const Rect &r);
     
-    // RECT PROPERTIES
-	poPoint         getPosition() const;
-	poPoint         getSize() const;
-	float           getArea() const;
-	poPoint         getCenter() const;
-	float           getAspect() const;
-	
-    // RECT CORNERS
-    poPoint         getTopLeft() const;
-	poPoint         getBottomLeft() const;
-	poPoint         getTopRight() const;
-	poPoint         getBottomRight() const;
-	std::vector<poPoint> getCorners() const;
-
-    // RECT EXPANSION
-	poRect&         include(float x, float y);
-	poRect&         include(const poPoint &pt);
-	poRect&         include(const poRect &rect);
-    
-    // RECT SCALING
-	poRect&         scale(float scalar);
-	// scale around a point
-	poRect&         scale(float scalar, const poPoint &pt);
-	poRect&         inset(poPoint p);
-	poRect&			expand(poPoint p);
-
-	// invert the height and y
-	poRect			getFlipped() const;
-	
-    // RECT QUERYING
-	bool            contains(float x, float y) const;
-	bool            contains(const poPoint &pt) const;
-
-	poPoint         remap(poRect from, poPoint p);
-	
-    // RECT TO STRING
-	std::string     toString() const;
-	bool            fromString(std::string const& str);
-    
-    float           x,y,width,height;
-};
-
-std::ostream &operator<<(std::ostream &o, const poRect &r);
+}

@@ -18,7 +18,7 @@
  */
 
 //
-//  poFBO.h
+//  FBO.h
 //  pocode
 //
 //  Created by Joshua Fisher on 10/17/11.
@@ -32,58 +32,56 @@
 #include "poTexture.h"
 #include "poObjectModifier.h"
 
-struct poFBOConfig {
-	poFBOConfig();
-	poFBOConfig &setNumMultisamples(uint numMultisamples);
-	poFBOConfig &setNumColorBuffers(uint numColorBuffers);
-	poFBOConfig &setColorBufferConfig(poTextureConfig config);
-	
-	uint numColorBuffers;
-	uint numMultisamples;
-	poTextureConfig textureConfig;
-};
+namespace po {
+    struct FBOConfig {
+        FBOConfig();
+        FBOConfig &setNumMultisamples(uint numMultisamples);
+        FBOConfig &setNumColorBuffers(uint numColorBuffers);
+        FBOConfig &setColorBufferConfig(TextureConfig config);
+        
+        uint numColorBuffers;
+        uint numMultisamples;
+        TextureConfig textureConfig;
+    };
 
-class poFBO : public poObjectModifier {
-public:
-	poFBO(uint w, uint h);
-	poFBO(uint w, uint h, const poFBOConfig &config);
-	virtual ~poFBO();
-	
-	virtual poObjectModifier *copy();
-	
-	bool isValid() const;
-	poCamera* getCamera() const;
-	void setCamera(poCamera *cam);
-	void reset(uint w, uint h, const poFBOConfig &config);
+    class FBO : public ObjectModifier {
+    public:
+        FBO(uint w, uint h);
+        FBO(uint w, uint h, const FBOConfig &config);
+        virtual ~FBO();
+        
+        virtual ObjectModifier *copy();
+        
+        bool isValid() const;
+        Camera* getCamera() const;
+        void setCamera(Camera *cam);
+        void reset(uint w, uint h, const FBOConfig &config);
 
-	// retrieve this texture to draw the FBO
-	poTexture *getColorTexture(uint idx=0) const;
-	poTexture *getColorTextureCopy(uint idx=0);
-	poTexture *getDepthTexture() const;
-	
-	// after the fbo is created
-	uint width, height;
-	poFBOConfig config;
-	
-protected:
-	void clone(poFBO *fbo);
-	
-	virtual void doSetUp(poObject*);
-	virtual void doSetDown(poObject*);
+        // retrieve this texture to draw the FBO
+        Texture *getColorTexture(uint idx=0) const;
+        Texture *getColorTextureCopy(uint idx=0);
+        Texture *getDepthTexture() const;
+        
+        // after the fbo is created
+        uint width, height;
+        FBOConfig config;
+        
+    protected:
+        void clone(FBO *fbo);
+        
+        virtual void doSetUp(Object*);
+        virtual void doSetDown(Object*);
 
-	void setup();
-	void cleanup();
-	
-private:
-	std::vector<GLuint> framebuffers;
-	std::vector<GLuint> renderbuffers;
-	std::vector<poTexture*> colorbuffers;
-	
-	poCamera *cam;
-	
-	bool multisampling;
-};
-
-
-
-
+        void setup();
+        void cleanup();
+        
+    private:
+        std::vector<GLuint> framebuffers;
+        std::vector<GLuint> renderbuffers;
+        std::vector<Texture*> colorbuffers;
+        
+        Camera *cam;
+        
+        bool multisampling;
+    };
+} /* End po Namespace */

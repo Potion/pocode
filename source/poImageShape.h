@@ -25,69 +25,56 @@
  */
 
 #include "poObject.h"
-#include "poApplication.h"
+#include "poShapeBasics2D.h"
 #include "poImage.h"
 #include "poTexture.h"
 
 // CLASS NOTES
 //
-// poImageShape is used for simple image loading and manipulation.
-// it is basically a more specific version of poRectShape
+// ImageShape is used for simple image loading and manipulation.
+// it is basically a more specific version of RectShape
 // that has image-centric methods for convenience
 //
 
-
-class poImageShape : public poObject {
-public:
-	poImageShape();
-	poImageShape(poImage *img, bool keepImage=false);
-	poImageShape(const std::string &str, bool keepImage=false);
-	virtual ~poImageShape();
-	
-	virtual void draw();
-	
-//    poImageShape();
-//    poImageShape(std::string url, bool loadAsync = false);
-//    poImageShape(poImage* image);
-    
-	bool doesAlphaTest() const;
-	void setAlphaTest(bool b);
-	
-    poImage *getImage() const;
-    
-    void setImage(const std::string &str, bool keepImage=false);
-    void setImage(poImage *image);
-    void setImageAsync(std::string url); //Load image asynchronously
-    
-    void clearImageData(); //Deletes the image data from the texture, lower memory cost
-    
-    void setShouldClearImage(bool shouldClearImage);
-    bool getShouldClearImage();
-	
-	bool                    pointInside(poPoint p, bool localize=false);
-	virtual poRect          getBounds();
-    
-private:
-    bool shouldKeepImage;
-    poTexture *tex;
-	bool alphaTest;
-    
-//	poImageShape();
-//	poImageShape(poImage *img, bool keepImage=false);
-//	poImageShape(const std::string &str, bool keepImage=false);
-//	virtual ~poImageShape();
-//    
-//	virtual void draw();
-//	
-//	bool doesAlphaTest() const;
-//	void setAlphaTest(bool b);
-//	
-//	poImage *getImage() const;
-//	void setImage(poImage* img);
-//    
-//	bool                    pointInside(poPoint p, bool localize=false);
-//	virtual poRect          getBounds();
-//private:
-//	poTexture*  tex;
-//	bool        alphaTest;
-};
+namespace po {
+    class ImageShape : public Object {
+    public:
+        ImageShape();
+        ImageShape(float width, float height);
+        ImageShape(const FilePath filePath, bool async = false, float width=0, float height=0);
+        ImageShape(const URL url, bool async = false, float width=0, float height=0);
+        
+        ~ImageShape();
+        
+        //Load from FilePath
+        void load(const FilePath filePath, bool shouldAutoFit = true);
+        void loadAsync(const FilePath filePath, bool shouldAutoFit = true);
+        
+        //Load from URL
+        void load(const URL url, bool shouldAutoFit = true);
+        void loadAsync(const URL url, bool shouldAutoFit = true);
+        
+    private:
+        po::RectShape *imageRect;
+        Texture *tex;
+        
+    //	ImageShape();
+    //	ImageShape(Image *img, bool keepImage=false);
+    //	ImageShape(const std::string &str, bool keepImage=false);
+    //	virtual ~ImageShape();
+    //    
+    //	virtual void draw();
+    //	
+    //	bool doesAlphaTest() const;
+    //	void setAlphaTest(bool b);
+    //	
+    //	Image *getImage() const;
+    //	void setImage(Image* img);
+    //    
+    //	bool                    pointInside(poPoint p, bool localize=false);
+    //	virtual Rect          getBounds();
+    //private:
+    //	Texture*  tex;
+    //	bool        alphaTest;
+    };
+} /* End po Namespace */

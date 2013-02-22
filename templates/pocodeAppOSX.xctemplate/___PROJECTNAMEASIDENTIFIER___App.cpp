@@ -9,7 +9,7 @@
 
 // APP CONSTRUCTOR. Create all objects here.
 ___PROJECTNAMEASIDENTIFIER___App::___PROJECTNAMEASIDENTIFIER___App() {
-	addModifier(new poCamera2D(poColor::black));
+	addModifier(new po::Camera2D(po::Color::black));
 }
 
 // APP DESTRUCTOR. Delete all objects here.
@@ -27,11 +27,11 @@ void ___PROJECTNAMEASIDENTIFIER___App::draw() {
 }
 
 // EVENT HANDLER. Called when events happen. Respond to events here.
-void ___PROJECTNAMEASIDENTIFIER___App::eventHandler(poEvent *event) {
+void ___PROJECTNAMEASIDENTIFIER___App::eventHandler(po::Event *event) {
 	
 }
 
 // MESSAGE HANDLER. Called from within the app. Use for message passing.
-void ___PROJECTNAMEASIDENTIFIER___App::messageHandler(const std::string &msg, const poDictionary& dict) {
+void ___PROJECTNAMEASIDENTIFIER___App::messageHandler(const std::string &msg, const po::Dictionary& dict, const po::Object *sender) {
 	
 }

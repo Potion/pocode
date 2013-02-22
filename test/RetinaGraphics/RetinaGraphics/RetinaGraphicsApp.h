@@ -7,20 +7,18 @@
 #include "poShapeBasics2D.h"
 #include "poTextBox.h"
 
-class RetinaGraphicsApp : public poObject {
+class RetinaGraphicsApp : public po::Object {
 public:
 	RetinaGraphicsApp();
 	virtual ~RetinaGraphicsApp();
     virtual void update();
     virtual void draw();
 	
-    poRectShape *bg1, *bg2, *redSquare;
+    po::RectShape *bg1, *bg2, *redSquare;
     
-    poTextBox *text;
+    po::TextBox *text;
     
-    virtual void eventHandler(poEvent *event);
-    virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
-    
-    
+    virtual void eventHandler(po::Event *event);
+    virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
 };
 

@@ -31,14 +31,14 @@
 #include "poTextLayout.h"
 
 namespace po {
-	
+    
 	class TextBoxLayout : public TextLayout {
 	public:
 		int tabWidth;
-		poPoint size;
+		Point size;
 		float tracking;
 		float leading;
-		poAlignment alignment;
+		Alignment alignment;
 		
 		enum {
 			PADDING_LEFT,
@@ -48,7 +48,7 @@ namespace po {
 		};
 		float padding[4];
 		
-		TextBoxLayout(poPoint s);
+		TextBoxLayout(Point s);
         
 		void                realignText();
         
@@ -86,5 +86,4 @@ namespace po {
 		void addWordToLine(lineLayoutProps &props);
 		void breakLine(lineLayoutProps &props);
 	};
-
-}
+} /* End po Namespace */

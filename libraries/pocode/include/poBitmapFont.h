@@ -29,7 +29,7 @@
 // this is really a texture atlas with a different name
 //
 // to draw a character:
-//		bitmapFont->drawUID('a', poPoint(0,0));
+//		bitmapFont->drawUID('a', Point(0,0));
 //
 // to see if a character is cached already:
 //		bitmapFont->hasUID('a');
@@ -38,25 +38,26 @@
 //		bitmapFont->cacheUID('a');
 // 
 
-class poBitmapFont : public poResource {
+namespace po {
+    class BitmapFont : public Resource {
+    public:
+        BitmapFont();
+        BitmapFont(Font* font, int pointSize);
+        BitmapFont(const FilePath &filePath, int pointSize);
+        BitmapFont(const std::string &fam, const std::string &style, int pointSize);
+        virtual ~BitmapFont();
 
-public:
-	poBitmapFont();
-	poBitmapFont(poFont* font, int pointSize);
-	poBitmapFont(const poFilePath &filePath, int pointSize);
-	poBitmapFont(const std::string &fam, const std::string &style, int pointSize);
-	virtual ~poBitmapFont();
+        Font*	getFont() const;
+        int		getPointSize() const;
 
-	poFont*	getFont() const;
-	int		getPointSize() const;
-
-	void	drawGlyph(int glyph, const poPoint &at);
-	
-private:
-	void	init();
-	void	cacheGlyph(int glyph);
-	
-	poFont *font;
-	poTextureAtlas *atlas;
-	int pointSize;
-};
+        void	drawGlyph(int glyph, const Point &at);
+        
+    private:
+        void	init();
+        void	cacheGlyph(int glyph);
+        
+        Font *font;
+        TextureAtlas *atlas;
+        int pointSize;
+    };
+} /*End po namespace */

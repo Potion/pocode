@@ -13,7 +13,7 @@
 		#include <OpenGL/glu.h>
 	#endif
 #elif defined(_WIN32)
-	#define POTION_WIN32
+	#define POTION_WINDOWS
 	// include glew
 #elif defined(__linux)
 // include whatever linux uses

@@ -23,44 +23,45 @@
 
 
 // CLASS NOTES
-// poLayout rearranges the children of a poObject to create a layout
+// Layout rearranges the children of a Object to create a layout
 // It does that by changing the position of each child, not their alignment
-// Currently a poLayout can place objects in line horizontally or vertically.
+// Currently a Layout can place objects in line horizontally or vertically.
 // Soon there will be the option to arrange objects on a grid.
 
-
-class poLayout : public poObjectModifier
-{
-public:
-	poLayout(poOrientation orientation);
-	
-	void				setSpacing(float f);
-	void				setSpacing(float w, float h);
-	
-	poOrientation		getOrientation();
-	void				setOrientation(poOrientation orient);
-	
-	bool				doesRefreshEveryFrame();
-	void				setRefreshEveryFrame(bool b);
-	
-	void				refresh();
-	
-	virtual				~poLayout();
-	
-protected:
-	virtual void	doSetUp(poObject*);
-	
-	void			doLayout(poObject*);
-	
-	poOrientation	layoutOrientation;
-	
-	enum {
-		SPACING_H,
-		SPACING_V
-	};
-	float spacing[2];
-	
-private:
-	bool refreshEveryFrame;
-	bool layoutDone;
-};
+namespace po {
+    class Layout : public ObjectModifier {
+    public:
+        Layout(po::Orientation orientation);
+        
+        void				setSpacing(float f);
+        void				setSpacing(float w, float h);
+        
+        po::Orientation		getOrientation();
+        void				setOrientation(Orientation orient);
+        
+        bool				doesRefreshEveryFrame();
+        void				setRefreshEveryFrame(bool b);
+        
+        void				refresh();
+        
+        virtual				~Layout();
+        
+    protected:
+        virtual void	doSetUp(Object*);
+        
+        void			doLayout(Object*);
+        
+        po::Orientation	layoutOrientation;
+        
+        enum {
+            SPACING_H,
+            SPACING_V
+        };
+        
+        float spacing[2];
+        
+    private:
+        bool refreshEveryFrame;
+        bool layoutDone;
+    };
+}

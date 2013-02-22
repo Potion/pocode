@@ -18,7 +18,7 @@
  */
 
 //
-//  poEventCenter.cpp
+//  EventCenter.cpp
 //  pocode
 //
 //  Created by Jared Schiffman on 10/16/11.
@@ -33,83 +33,85 @@
 
 // CLASS NOTES
 //
-// The poEventCenter provides methods to the poWindow system that allow for distribution
-// and propagation of all poEvents to the poObjects that should receive them.
+// The EventCenter provides methods to the poWindow system that allow for distribution
+// and propagation of all Events to the Objects that should receive them.
 //
-// The poEventCenter is a singleton that is accesible by calling poEventCenter::get().
+// The EventCenter is a singleton that is accesible by calling EventCenter::get().
 //
-// The poEventCenter is where all poEvents are registered. When an actual events occurs, it checks
-// to see if there is a recipient for that event, and then delivers it to the poObject.
+// The EventCenter is where all Events are registered. When an actual events occurs, it checks
+// to see if there is a recipient for that event, and then delivers it to the Object.
 //
-// The poEventCenter is relatively complex in functionality and should only be altered
+// The EventCenter is relatively complex in functionality and should only be altered
 // when absolutely necessary.
 //
 
-struct poEventCallback {
-    int uid;
-    poObject *receiver;
-    poEvent event;
-};
+namespace po {
+    struct EventCallback {
+        int uid;
+        Object *receiver;
+        Event event;
+    };
 
-// used internally to store relevant info between events
-// e.g. dragging, etc
-struct poEventMemory {
-public:
-    poEventMemory()
-	:	lastInsideTouchID(-1)
-	,	lastDragID(-1)
-	{}
-    
-    // for enter / leave
-    int     lastInsideTouchID;
-	// for dragging
-    int     lastDragID;
-};
+    // used internally to store relevant info between events
+    // e.g. dragging, etc
+    struct EventMemory {
+    public:
+        EventMemory()
+        :	lastInsideTouchID(-1)
+        ,	lastDragID(-1)
+        {}
+        
+        // for enter / leave
+        int     lastInsideTouchID;
+        // for dragging
+        int     lastDragID;
+    };
 
-class poEventCenter {
-public:
+    class EventCenter {
+    public:
 
-	static poEventCenter *get();
-	
-    // EVENT REGISTRATION
-	// get window events to your event handler
-	void     addEvent(int eventType, poObject *source, std::string message, const poDictionary& dict=poDictionary());
-	// get window events for an object delivered to another object
-	void     addEvent(int eventType, poObject *source, poObject *sink, std::string message, const poDictionary& dict=poDictionary());
-	// get rid of everything that this obj is associated with
-	void    removeAllEvents(poObject* obj);
-	// will remove everything, either bouncing or generating
-	void	removeAllEventsOfType(poObject* obj, int eventType);
-	// does an object care about a given event
-	bool    objectHasEvent(poObject *obj, int eventType);
+        static EventCenter *get();
+        
+        // EVENT REGISTRATION
+        // get window events to your event handler
+        void     addEvent(int eventType, Object *source, std::string message, const Dictionary& dict=Dictionary());
+        // get window events for an object delivered to another object
+        void     addEvent(int eventType, Object *source, Object *sink, std::string message, const Dictionary& dict=Dictionary());
+        // get rid of everything that this obj is associated with
+        void    removeAllEvents(Object* obj);
+        // will remove everything, either bouncing or generating
+        void	removeAllEventsOfType(Object* obj, int eventType);
+        // does an object care about a given event
+        bool    objectHasEvent(Object *obj, int eventType);
 
-	// handle events and remove them from the list
-	void	processEvents(std::deque<poEvent> &events);
-	
-	// will register all events to an object that are already registered 'from' object
-	void	copyEventsFromObject(poObject *from, poObject *to);
-	// get the stored event for this this object/action
-	std::vector<poEvent*> eventsForObject(poObject *obj, int eventType);
+        // handle events and remove them from the list
+        void	processEvents(std::deque<Event> &events);
+        
+        // will register all events to an object that are already registered 'from' object
+        void	copyEventsFromObject(Object *from, Object *to);
+        // get the stored event for this this object/action
+        std::vector<Event*> eventsForObject(Object *obj, int eventType);
 
-    // hack to make visible children with invisible parents get left out of event processing
-    void negateDrawOrderForObjectWithEvents();
-    
-private:
-	poEventCenter();
-    
-	// figure out which poObject is closest to the user under a point
-    poEventCallback* findTopObjectUnderPoint( int eventType, poPoint P );
-	void	sortCallbacksByDrawOrder();
-    void    notifyAllListeners( poEvent &global_event );
-	void	notifyOneListener( poEventCallback *callback, poEvent &global_event);
+        // hack to make visible children with invisible parents get left out of event processing
+        void negateDrawOrderForObjectWithEvents();
+        
+    private:
+        EventCenter();
+        
+        // figure out which Object is closest to the user under a point
+        EventCallback* findTopObjectUnderPoint( int eventType, Point P );
+        void	sortCallbacksByDrawOrder();
+        void    notifyAllListeners( Event &global_event );
+        void	notifyOneListener( EventCallback *callback, Event &global_event);
 
-    void    processMouseEvents( poEvent &Event );
-    void	processTouchEvents( poEvent &Event );
-    void	processKeyEvents( poEvent &Event );
-    void	processMotionEvent( poEvent &Event );
+        void    processMouseEvents( Event &Event );
+        void	processTouchEvents( Event &Event );
+        void	processKeyEvents( Event &Event );
+        void	processMotionEvent( Event &Event );
 
-	bool	objectIsAvailableForEvents(poObject *obj);
-	
-	std::vector< std::vector<poEventCallback*> > events;
-};
+        bool	objectIsAvailableForEvents(Object *obj);
+        
+        std::vector< std::vector<EventCallback*> > events;
+    };
 
+} /*End po namespace */

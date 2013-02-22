@@ -6,13 +6,16 @@
 
 
 #include "poObject.h"
-namespace poMessageCenter {
-    void update();
+namespace po {
+    namespace MessageCenter {
+        void update();
 
-    void addSubscriber(std::string msg, poObject* subscriber, poObject* sender=NULL);
-    
-    void removeSubscriber(std::string msg, poObject* subscriber);
-    void removeAllSubscribers(std::string msg);
-    
-    void broadcastMessage(std::string msg, poObject* sender=NULL, const poDictionary& dict=poDictionary());
-};
+        void addSubscriber(std::string msg, Object* subscriber, Object* sender=NULL);
+        
+        void removeSubscriber(Object* subscriber);
+        void removeSubscriberForMessage(Object* subscriber, std::string msg);
+        void removeAllSubscribersForMessage(std::string msg);
+        
+        void broadcastMessage(std::string msg, Object* sender=NULL, const Dictionary& dict=Dictionary());
+    };
+} /*End po namespace */

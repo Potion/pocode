@@ -31,10 +31,11 @@
 #include "poPoint.h"
 #include "poRect.h"
 #include <glm/glm.hpp>
-class poObject;
-class poShader;
 
 namespace po {
+    class Object;
+    class Shader;
+    
 	void initGraphics();
 
 	int maxFBOSamples();
@@ -44,10 +45,12 @@ namespace po {
 	void defaultBlending();
 
 	void setColor(float, float, float, float);
-	void setColor(poColor const& c);
-	void setColor(poColor const& c, float alpha);
-	poColor getColor();
-	void setLineWidth(float w);
+	void setColor(Color const& c);
+	void setColor(Color const& c, float alpha);
+	
+    Color getColor();
+	
+    void setLineWidth(float w);
 	float getLineWidth();
 	void setPointSize(float sz);
 	float getPointSize();
@@ -69,7 +72,7 @@ namespace po {
 	void restoreTextureState();
 	
 	void disableShader();
-	void useShader(poShader* s);
+	void useShader(Shader* s);
 	void use2DShader();
 	void use3DShader();
 	void useTex2DShader();
@@ -89,22 +92,21 @@ namespace po {
 	void restoreModelview();
 	void saveViewport();
 	void restoreViewport();
-	void translate(poPoint off);
-	void scale(poPoint scl);
-	void rotate(float angle, poPoint axis);
-	void lookAt(poPoint eye, poPoint center, poPoint up);
-	void setViewport(poRect r);
+	void translate(Point off);
+	void scale(Point scl);
+	void rotate(float angle, Point axis);
+	void lookAt(Point eye, Point center, Point up);
+	void setViewport(Rect r);
 	void setViewport(float l, float r, float t, float b);
 	void setCamera(glm::mat4 m);
 	void setOrthoProjection(float l, float r, float b, float t, float n=-1, float f=1);
 	void setPerpsective(float fovy, float aspect, float n, float f);
-	poRect viewport();
+	Rect viewport();
 	glm::mat4 projection();
 	glm::mat4 modelview();
 	glm::mat4 modelviewProjection();
-	poPoint globalToLocal(poPoint pt);
-	poPoint localToGlobal(poPoint pt);
-
+	Point globalToLocal(Point pt);
+	Point localToGlobal(Point pt);
 };
 
 
