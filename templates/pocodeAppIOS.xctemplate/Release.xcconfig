@@ -25,7 +25,7 @@ TARGETED_DEVICE_FAMILY      = 1,2
 
 LD_NO_PIE = YES
 
-PRODUCT_NAME = Smithsonian Channel
+PRODUCT_NAME = pocodeApp
 
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
