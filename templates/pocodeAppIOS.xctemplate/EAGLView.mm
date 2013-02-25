@@ -182,6 +182,11 @@ EAGLView        *current_view = NULL;
 }
 
 - (void)layoutSubviews {
+    // Set the scale factor to be the same as the main screen
+    if ([self respondsToSelector: NSSelectorFromString(@"contentScaleFactor")]) {
+        [self setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    }
+    
     // The framebuffer will be re-created at the beginning of the next setFramebuffer method call.
     [self deleteFramebuffer];
 }
