@@ -1,6 +1,6 @@
 //
 //  poOpenGLView.m
-//  poFramework4
+//  pocode
 //
 //  Created by Joshua Fisher on 5/19/11.
 //  Copyright 2011 Potion Design. All rights reserved.
@@ -20,27 +20,27 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 								void *displayLinkContext)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
+    
 	poOpenGLView *self = (poOpenGLView*)displayLinkContext;
-
+    
 	[lock lock];
 	if([self canDraw]) {
 		NSOpenGLContext *context = [self openGLContext];
 		CGLContextObj cglcontext = (CGLContextObj)[context CGLContextObj];
-
+        
 		CGLLockContext(cglcontext);
 		[context makeCurrentContext];
 		
 		self.appWindow->makeCurrent();
 		self.appWindow->update();
 		self.appWindow->draw();
-
+        
 		CGLUnlockContext(cglcontext);
-
+        
 		[context flushBuffer];
 	}
 	[lock unlock];
-
+    
 	[pool release];
 	return kCVReturnSuccess;
 }
@@ -69,28 +69,28 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 -(id)initWithFrame:(NSRect)frm {
 	self = [super initWithFrame:frm];
 	if(self) {
+        timer = nil;
 		display_link = nil;
 		
-//		[[NSNotificationCenter defaultCenter] addObserverForName:NSViewGlobalFrameDidChangeNotification
-//														  object:self
-//														   queue:nil
-//													  usingBlock:^(NSNotification* notice) {
-//														  [self update];
-//													  }];
-//		
+        //		[[NSNotificationCenter defaultCenter] addObserverForName:NSViewGlobalFrameDidChangeNotification
+        //														  object:self
+        //														   queue:nil
+        //													  usingBlock:^(NSNotification* notice) {
+        //														  [self update];
+        //													  }];
+        //
 	}
 	return self;
 }
 
 -(void)dealloc {
-//	[[NSNotificationCenter defaultCenter] removeObserver:self
-//													name:NSViewGlobalFrameDidChangeNotification
-//												  object:self];
+    //	[[NSNotificationCenter defaultCenter] removeObserver:self
+    //													name:NSViewGlobalFrameDidChangeNotification
+    //												  object:self];
 	
 	[self stopAnimating];
 	
 	if(self.appWindow) {
-		delete self.appWindow;
 		self.appWindow = NULL;
 	}
 	
@@ -138,7 +138,7 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 		[[NSNotificationCenter defaultCenter] removeObserver:self
 														name:NSWindowDidResizeNotification
 													  object:nil];
-
+        
 		[self stopAnimating];
 	}
 }
@@ -148,19 +148,34 @@ CVReturn MyDisplayLinkCallback (CVDisplayLinkRef displayLink,
 }
 
 -(void)startAnimating {
-	if(!display_link) {
-		CGDirectDisplayID displayID = (CGDirectDisplayID)[[[[self.window screen] deviceDescription] objectForKey:@"NSScreenNumber"] intValue];
-		CVDisplayLinkCreateWithCGDisplay(displayID, &display_link);
-		CVDisplayLinkSetOutputCallback(display_link, MyDisplayLinkCallback, self);
-		CVDisplayLinkStart(display_link);
-	}
+    //	if(!display_link) {
+    //		CGDirectDisplayID displayID = (CGDirectDisplayID)[[[[self.window screen] deviceDescription] objectForKey:@"NSScreenNumber"] intValue];
+    //		CVDisplayLinkCreateWithCGDisplay(displayID, &display_link);
+    //		CVDisplayLinkSetOutputCallback(display_link, MyDisplayLinkCallback, self);
+    //		CVDisplayLinkStart(display_link);
+    //	}
+    
+    NSInvocation* invk = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(setNeedsDisplay:)]];
+    invk.target = self;
+    invk.selector = @selector(setNeedsDisplay:);
+    [invk setArgument:[NSNumber numberWithBool:YES] atIndex:2];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1/60.0 invocation:invk repeats:YES];
 }
 
 -(void)stopAnimating {
-	if(display_link) {
-		CVDisplayLinkRelease(display_link);
-		display_link = nil;
-	}
+    [timer invalidate];
+    timer = nil;
+    //	if(display_link) {
+    //		CVDisplayLinkRelease(display_link);
+    //		display_link = nil;
+    //	}
+}
+
+-(void)drawRect:(NSRect)dirtyRect {
+    self.appWindow->makeCurrent();
+    self.appWindow->update();
+    self.appWindow->draw();
+    [context flushBuffer];
 }
 
 -(void)keyDown:(NSEvent*)event {
