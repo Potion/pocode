@@ -145,7 +145,6 @@
 		AA2E615614FC0B9700F1859C /* poGeometryMask.h in Headers */ = {isa = PBXBuildFile; fileRef = E851C27C1448DDCE0018FB34 /* poGeometryMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615714FC0B9700F1859C /* poEventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBB4E38144B02BC0006A2A9 /* poEventCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615814FC0B9700F1859C /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA2E615914FC0B9700F1859C /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615A14FC0B9700F1859C /* poFBO.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D8F33A144C986E0077F6DA /* poFBO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2E615B14FC0B9700F1859C /* poImageShape.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FAE3A11476B86600A917EB /* poImageShape.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA51F14F15051F2E009FDA0A /* poMessageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA51F14D15051F2E009FDA0A /* poMessageCenter.cpp */; };
@@ -167,7 +166,6 @@
 		AA80227016D4147500575CA9 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226416D4147500575CA9 /* json_writer.cpp */; };
 		AA80227116D4147500575CA9 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA80226416D4147500575CA9 /* json_writer.cpp */; };
 		AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B2D0BC132E9F78002BE3D9 /* poEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C7E71713913E3A00E6848E /* poWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAEF457015E564D700EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
 		AAEF457115E564D700EE2715 /* poThreadCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEF456D15E564D700EE2715 /* poThreadCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAEF457A15E56AED00EE2715 /* poThreadCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAEF456C15E564D700EE2715 /* poThreadCenter.cpp */; };
@@ -774,7 +772,6 @@
 				AA2E615614FC0B9700F1859C /* poGeometryMask.h in Headers */,
 				AA2E615714FC0B9700F1859C /* poEventCenter.h in Headers */,
 				AA2E615814FC0B9700F1859C /* poEvent.h in Headers */,
-				AA2E615914FC0B9700F1859C /* poWindow.h in Headers */,
 				AA2E615A14FC0B9700F1859C /* poFBO.h in Headers */,
 				AA2E615B14FC0B9700F1859C /* poImageShape.h in Headers */,
 				AA51F15315052093009FDA0A /* poMessageCenter.h in Headers */,
@@ -873,7 +870,6 @@
 				E851C2801448DDCE0018FB34 /* poGeometryMask.h in Headers */,
 				7FBB4E3C144B02BD0006A2A9 /* poEventCenter.h in Headers */,
 				AAA64E6D144CE09C00A53CAF /* poEvent.h in Headers */,
-				AAA64E6E144CE0A500A53CAF /* poWindow.h in Headers */,
 				E8D8F33C144C986E0077F6DA /* poFBO.h in Headers */,
 				E8FAE3A51476B86600A917EB /* poImageShape.h in Headers */,
 				AA51F15215052093009FDA0A /* poMessageCenter.h in Headers */,
