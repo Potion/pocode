@@ -385,10 +385,11 @@ namespace po {
          
          // handles po::TOUCH_BEGAN_INSIDE_EVENT and po::TOUCH_BEGAN_OUTSIDE_EVENT
          if ( Event.type == po::TOUCH_BEGAN_EVENT ) {
-             Event.type = po::TOUCH_BEGAN_INSIDE_EVENT;
              EventCallback* callback = findTopObjectUnderPoint( po::TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
-             if ( callback )
+             if ( callback ) {
+                 Event.type = po::TOUCH_BEGAN_INSIDE_EVENT;
                  notifyOneListener( callback, Event );
+             }
              
              // notify objects listening for po::TOUCH_BEGAN_OUTSIDE_EVENT
              Event.type = po::TOUCH_BEGAN_OUTSIDE_EVENT;
