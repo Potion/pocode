@@ -242,7 +242,7 @@ namespace po {
             return false;
         
         if(localize) {
-            p.y = po::getWindowHeight() - p.y;
+            //p.y = po::getWindowHeight() - p.y;
             p = globalToLocal(p);
         }
         
@@ -472,7 +472,7 @@ namespace po {
         
         fbo->setDown(this);
         //	cached = fbo->getColorTexture()->copy();
-        cached = fbo->getColorTextureCopy();
+        cached = fbo->getColorTextureCopy()->copy();
         delete fbo;
     }
     
