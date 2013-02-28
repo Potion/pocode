@@ -43,10 +43,9 @@ namespace po {
 
     po::Time getCurrentTime();
 
+    
     unsigned int getNumCpus();
-
     Point deviceResolution();
-
 
     //Log
     void log(const char *format, ...);

@@ -470,7 +470,7 @@ namespace po {
         event.globalPosition.set(x, y, 0.f);
         event.touchID   = t->id;
         event.uniqueID  = uid;
-        event.tapCount = tapCount;
+        event.tapCount  = tapCount;
         
         event.type = po::TOUCH_ENDED_EVENT;
         received.push_back(event);
