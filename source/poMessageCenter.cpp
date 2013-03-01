@@ -26,8 +26,8 @@ namespace poMessageCenter {
 		
         //Go through queue, broadcasting messages
 
-		std::vector<poMessage*>::iterator it = messageQueue.begin();
-		while(it != messageQueue.end()) {
+		std::vector<poMessage*>::iterator it = copy.begin();
+		while(it != copy.end()) {
 			poMessage* m = *it;
             //Go through subscribers for this message, checking to see if they need to be alerted
             for (std::vector<poMessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
@@ -39,26 +39,9 @@ namespace poMessageCenter {
             }
 			
 			delete m;
-			it = messageQueue.erase(it);
+//			it = copy.erase(it);
+			++it;
 		}
-		
-		
-//        for(std::vector<poMessage*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
-//            poMessage* m = (*mIter);
-//            
-//            //Go through subscribers for this message, checking to see if they need to be alerted
-//            for (std::vector<poMessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
-//                poMessageSubscriber* thisSubscriber = (*sIter);
-//                
-//                if(thisSubscriber->sender == NULL || thisSubscriber->sender == m->sender) {
-//                    (*sIter)->subscriber->messageHandler(m->message, m->dict);
-//                }
-//            }
-//            
-//            delete m; m=NULL;
-//        }
-//        
-//        messageQueue.clear();
     }
     
     
