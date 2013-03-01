@@ -26,9 +26,6 @@
 #include <set>
 #include <deque>
 
-#include <boost/signals2.hpp>
-typedef boost::signals2::connection SigConn;
-
 class poObject;
 
 // CLASS NOTES
@@ -120,7 +117,6 @@ public:
     // The draw order is used by the event system to determine which objects are drawn on top of others.
 	int             getNextDrawOrder();
 	
-	SigConn			addUpdate(const boost::function<void()> &func);
 	void			setBlockAllEvent(bool b);
 
 private:
@@ -162,7 +158,6 @@ private:
     // DRAW ORDER COUNTER
     int drawOrderCounter;
 	
-	boost::signals2::signal<void()> updateSignal;
 	bool block_all_events;
 };
 
