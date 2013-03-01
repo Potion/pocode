@@ -200,9 +200,11 @@ namespace {
 			
 			std::string src(shader_tex);
             
+#if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
             boost::algorithm::replace_all(src, "sampler2D", "sampler2DRect");
             boost::algorithm::replace_all(src, "texture2D", "texture2DRect");
-			
+#endif
+            
 			shaderTexRect.loadSource(src);
 			shaderTexRect.compile();
 			glBindAttribLocation(shaderTexRect.getUid(), 0, "position");

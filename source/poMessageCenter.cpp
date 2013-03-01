@@ -25,9 +25,10 @@ namespace poMessageCenter {
 		messageQueue.clear();
 		
         //Go through queue, broadcasting messages
-        for(std::vector<poMessage*>::iterator mIter = copy.begin(); mIter != copy.end(); ++mIter) {
-            poMessage* m = (*mIter);
-            
+
+		std::vector<poMessage*>::iterator it = messageQueue.begin();
+		while(it != messageQueue.end()) {
+			poMessage* m = *it;
             //Go through subscribers for this message, checking to see if they need to be alerted
             for (std::vector<poMessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
                 poMessageSubscriber* thisSubscriber = (*sIter);
@@ -36,9 +37,28 @@ namespace poMessageCenter {
                     (*sIter)->subscriber->messageHandler(m->message, m->dict);
                 }
             }
-            
-            delete m; m=NULL;
-        }
+			
+			delete m;
+			it = messageQueue.erase(it);
+		}
+		
+		
+//        for(std::vector<poMessage*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
+//            poMessage* m = (*mIter);
+//            
+//            //Go through subscribers for this message, checking to see if they need to be alerted
+//            for (std::vector<poMessageSubscriber* >::iterator sIter = subscribers[m->message].begin(); sIter != subscribers[m->message].end(); ++sIter) {
+//                poMessageSubscriber* thisSubscriber = (*sIter);
+//                
+//                if(thisSubscriber->sender == NULL || thisSubscriber->sender == m->sender) {
+//                    (*sIter)->subscriber->messageHandler(m->message, m->dict);
+//                }
+//            }
+//            
+//            delete m; m=NULL;
+//        }
+//        
+//        messageQueue.clear();
     }
     
     
@@ -89,6 +109,5 @@ namespace poMessageCenter {
             messageQueue.back()->dict       = dict;
         }
     }
-
 }
 
