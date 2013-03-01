@@ -134,7 +134,7 @@ namespace po {
 
     //------------------------------------------------------------------
     //ImageLoaderWorker
-    class ImageLoaderWorker : public Worker {
+    class ImageLoaderWorker : public ThreadCenter::Worker {
     public:
         ImageLoaderWorker(FilePath filePath);
         ImageLoaderWorker(URL url, const FilePath &savePath = FilePath("null"));

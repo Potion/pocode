@@ -103,15 +103,15 @@ namespace po {
     // ================================ Class: Worker ====================================
     #pragma mark - Worker -
     
-    Worker::Worker() {
+    ThreadCenter::Worker::Worker() {
         workerAutoDelete = true;
     }
 
-    Worker::~Worker() {
+    ThreadCenter::Worker::~Worker() {
     }
 
     //------------------------------------------------------------------
-    void Worker::setWorkerParams(Object *notify, std::string message, const Dictionary &dict) {
+    void ThreadCenter::Worker::setWorkerParams(Object *notify, std::string message, const Dictionary &dict) {
         this->notify = notify;
         this->workerMessage = message;
         this->dict.append(dict);
@@ -119,20 +119,20 @@ namespace po {
 
     
     //------------------------------------------------------------------
-    void Worker::run() {
+    void ThreadCenter::Worker::run() {
         workerFunc();
         ThreadCenter::workerDone(this);
     }
 
     
     //------------------------------------------------------------------
-    void Worker::workerFunc() {
+    void ThreadCenter::Worker::workerFunc() {
         //Override this function for threaded functionality
     }
 
     
     //------------------------------------------------------------------
-    Object* Worker::getWorkerNotify() {
+    Object* ThreadCenter::Worker::getWorkerNotify() {
         return notify;
     }
 } /* End po namespace */

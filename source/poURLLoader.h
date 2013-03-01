@@ -51,7 +51,7 @@ namespace po {
 
     static const std::string URLLoaderCompleteMessage = "PO_FILE_LOADER_COMPLETE_MESSAGE";
 
-    class URLLoaderWorker  : public Worker {
+    class URLLoaderWorker  : public ThreadCenter::Worker {
     public:
         URLLoaderWorker(URL url, URLLoaderMode mode=PO_FILE_LOADER_MODE_RETURN_AS_STRING, const FilePath &savePath=FilePath());
         ~URLLoaderWorker();

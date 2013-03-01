@@ -9,33 +9,12 @@
 namespace po {
     //------------------------------------------------------------------
     //Base Class for all workers
-    class Worker : public Object {
-    public:
-        Worker();
-        virtual ~Worker();
-        
-        virtual void workerFunc();
-        virtual void setWorkerParams(Object *notify, std::string message, const Dictionary &dict);
-        
-        void run();
-        
-        Object*   getWorkerNotify();
-        std::string getWorkerMessage();
-        
-        bool workerShouldBeDeleted();
-        
-        Dictionary dict;
-        float WorkerStartTime;
-        
-        bool workerAutoDelete;
-        std::string workerMessage;
-    private:
-        //Worker params/info
-        Object *notify;
-    };
+    
     
     //Thread Center
     namespace ThreadCenter {
+        class Worker;
+        
         void init();
         void shutdown();
         
@@ -43,5 +22,30 @@ namespace po {
         
         void addItem(Worker *worker, Object *notify, std::string message = "", const Dictionary &dict = Dictionary());
         void workerDone(Worker *threadedObject);
+        
+        class Worker : public Object {
+        public:
+            Worker();
+            virtual ~Worker();
+            
+            virtual void workerFunc();
+            virtual void setWorkerParams(Object *notify, std::string message, const Dictionary &dict);
+            
+            void run();
+            
+            Object*   getWorkerNotify();
+            std::string getWorkerMessage();
+            
+            bool workerShouldBeDeleted();
+            
+            Dictionary dict;
+            float WorkerStartTime;
+            
+            bool workerAutoDelete;
+            std::string workerMessage;
+        private:
+            //Worker params/info
+            Object *notify;
+        };
     } /* End ThreadCenter namespace */
 } /* End po namespace */
