@@ -109,8 +109,6 @@ namespace po {
         
         FilePath p(pathString);
         
-        std::cout << p.toString() << std::endl;
-        
         if(!p.exists()) {
             p.set(this->toString());
         }
