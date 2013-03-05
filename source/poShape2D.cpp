@@ -267,6 +267,12 @@ namespace po {
     
     
     //------------------------------------------------------------------------
+    bool Shape2D::hasTexture() {
+        return (texture != NULL);
+    }
+    
+    
+    //------------------------------------------------------------------------
     void Shape2D::removeTexture(bool andDelete) {
         if(andDelete && texture) {
             delete texture;
