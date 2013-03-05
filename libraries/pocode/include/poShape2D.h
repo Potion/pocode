@@ -83,6 +83,7 @@ namespace po {
         Shape2D&                placeTexture(Texture *tex, TextureFitOption fit, Alignment align);
         Shape2D&                setTextureCoords(const std::vector<Point> &texCrds );
         Texture*                getTexture();
+        bool                    hasTexture();
         void                    removeTexture(bool andDelete = false);
         Shape2D&                transformTexture(Point pt, Point scale, float rotate);
         
