@@ -24,7 +24,7 @@
  *	Copyright 2011 Potion Design. All rights reserved.
  */
 
-#include "poObject.h"
+#include "poShape2D.h"
 #include "poApplication.h"
 #include "poImage.h"
 #include "poTexture.h"
@@ -37,7 +37,7 @@
 //
 
 
-class poImageShape : public poObject {
+class poImageShape : public poShape2D {
 public:
 	poImageShape();
 	poImageShape(poImage *img, bool keepImage=false);
