@@ -119,7 +119,7 @@ namespace po {
         std::vector<Object*> getChildren(const std::string &with_name);
         bool                removeChild(Object* obj);
         bool                removeChild(int at_idx, bool and_delete=false);
-        void                removeAllChildren(bool and_delete=true);
+        void                removeAllChildren(bool and_delete=false);
         
         // SCENE GRAPH ORDERING
         void                moveChildToFront(po::Object* child);
