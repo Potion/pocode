@@ -102,12 +102,16 @@ namespace po {
         std::string extension = filePath.extension().string();
         
         fs::path base(this->toString());
-        FilePath p(base.remove_filename().string() + "/" + stem + extension);
+        std::string pathString = base.remove_filename().string();
+        
+        if(pathString != "") pathString += "/";
+        pathString += stem + extension;
+        
+        FilePath p(pathString);
         
         if(!p.exists()) {
             p.set(this->toString());
         }
-        
         return p;
     }
 

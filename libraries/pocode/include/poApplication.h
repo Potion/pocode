@@ -37,11 +37,11 @@
 
 namespace po {
     int			applicationNumberWindows();
-    Window*	applicationCreateWindow(uint, WindowType, const char*, int, int, int, int);
-    Window*	applicationGetWindow(int index=0);
+    Window*     applicationCreateWindow(uint, WindowType, const char*, int, int, int, int);
+    Window*     applicationGetWindow(int index=0);
     std::string	applicationGetResourceDirectory();
     std::string applicationGetSupportDirectory();
-    Window*	applicationCurrentWindow();
+    Window*     applicationCurrentWindow();
     void		applicationMakeWindowCurrent(Window*);
     void		applicationMakeWindowFullscreen(Window*,bool);
     void		applicationMoveWindow(Window*,Point);
