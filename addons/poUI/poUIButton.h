@@ -34,7 +34,10 @@ namespace po {
             virtual Button& setLabelTextSize(float textSize);
             virtual Button& setLabelTextAlignment(po::Alignment alignment);
             virtual Button& setLabelTextColor(po::Color color);
+            virtual Button& setLabelTextOffColor(po::Color color);
+            virtual Button& setLabelTextOnColor(po::Color color);
             
+            virtual Button& setColor(po::Color color);
             virtual Button& setOffColor(po::Color color);
             virtual Button& setOnColor(po::Color color);
             
@@ -54,7 +57,7 @@ namespace po {
             
         protected:
             po::RectShape *bg;
-            po::Color offColor, onColor;
+            po::Color offColor, onColor, labelOffColor, labelOnColor;
             po::Object *offImage, *onImage;
             po::TextBox *label;
             

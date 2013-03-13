@@ -31,16 +31,23 @@ namespace po {
             offColor.set255(255, 255, 255);
             onColor.set255(255, 0, 0);
             
-			//bd: replaced mouse down with mouse down inside
-            //addEvent(po::MOUSE_DOWN_EVENT, this);
+            
 			addEvent(po::MOUSE_DOWN_INSIDE_EVENT, this);
             addEvent(po::MOUSE_UP_EVENT, this);
+            
+            addEvent(po::TOUCH_BEGAN_INSIDE_EVENT, this);
+            addEvent(po::TOUCH_ENDED_EVENT, this);
             
             setPressedState();
         }
 
         Button::~Button() {
         }
+        
+        //------------------------------------------------------------------
+		//	Format
+		//------------------------------------------------------------------
+        #pragma mark Format
         
         
         //------------------------------------------------------------------
@@ -108,6 +115,11 @@ namespace po {
             return *this;
         }
         
+        //------------------------------------------------------------------
+		//	Label
+		//------------------------------------------------------------------
+        #pragma mark Label
+        
         
         //------------------------------------------------------------------
         Button& Button::setLabelText(std::string text) {
@@ -138,10 +150,24 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setLabelTextColor(po::Color color) {
-            label->textColor.set(color);
-            doLabelLayout();
+            setLabelTextOffColor(color);
+            setLabelTextOnColor(color);
             
             return *this;
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setLabelTextOffColor(po::Color color) {
+            labelOffColor = color;
+            if(!bIsPressed) label->textColor.set(color);
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setLabelTextOnColor(po::Color color) {
+            labelOnColor = color;
+            if(bIsPressed) label->textColor.set(color);
         }
         
         
@@ -160,6 +186,23 @@ namespace po {
             
             if(this->bSetSizeFromLabel) setSizeFromLabel();
         }
+        
+        
+        
+        //------------------------------------------------------------------
+		//	Off/On States
+		//------------------------------------------------------------------
+        #pragma mark Off/On States
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setColor(po::Color color) {
+            setOffColor(color);
+            setOnColor(color);
+            
+            return *this;
+        }
+        
         
         //------------------------------------------------------------------
         Button& Button::setOffColor(po::Color color) {
@@ -293,6 +336,7 @@ namespace po {
                     bg->visible = false;
                 } else {
                     bg->fillColor.set(onColor);
+                    label->textColor.set(labelOnColor);
                 }
             } else {
                 if(onImage) removeChild(onImage);
@@ -303,9 +347,18 @@ namespace po {
                 } else {
                     bg->visible = true;
                     bg->fillColor.set(offColor);
+                    label->textColor.set(labelOffColor);
                 }
             }
         }
+        
+        
+        
+            
+        //------------------------------------------------------------------
+		//	Messages
+		//------------------------------------------------------------------
+        #pragma mark Messages
         
         
         //------------------------------------------------------------------
@@ -330,14 +383,14 @@ namespace po {
         //------------------------------------------------------------------
         void Button::eventHandler(po::Event *event) {
             switch (event->type) {
-				//bd: replaced mouse down with mouse down inside
-                //case po::MOUSE_DOWN_EVENT:
+                case po::TOUCH_BEGAN_INSIDE_EVENT:
 				case po::MOUSE_DOWN_INSIDE_EVENT:
 					bIsPressed = true;
 					setPressedState();
 					sendDownMessage();
                     break;
                     
+                case po::TOUCH_ENDED_EVENT:
                 case po::MOUSE_UP_EVENT:
                     //Send pressed message
                     if(bIsPressed) {
