@@ -62,7 +62,7 @@ poImageShape::~poImageShape() {
 }
 
 void poImageShape::draw() {
-    po::setColor(poColor::white, getAppliedAlpha());
+    po::setColor(fillColor, getAppliedAlpha());
     po::drawTexturedRect(tex, 0,0, tex->getWidth(), tex->getHeight());
 }
 
