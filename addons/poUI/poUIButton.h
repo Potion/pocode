@@ -26,31 +26,33 @@ namespace po {
             virtual Button& toggle();
             virtual Button& toggleOn();
             virtual Button& toggleOff();
-            virtual bool isToggled();
+            virtual bool    isToggled();
             
+            //Label
             virtual Button& setUseLabelSize(bool useLableSize);
             virtual Button& setLabelText(std::string labelText);
             virtual Button& setLabelFont(po::Font *font);
             virtual Button& setLabelTextSize(float textSize);
             virtual Button& setLabelTextAlignment(po::Alignment alignment);
             virtual Button& setLabelTextColor(po::Color color);
-            virtual Button& setLabelTextOffColor(po::Color color);
             virtual Button& setLabelTextOnColor(po::Color color);
             
+            //BG
             virtual Button& setColor(po::Color color);
-            virtual Button& setOffColor(po::Color color);
             virtual Button& setOnColor(po::Color color);
             
+            //Image
+            virtual Button& setImage(po::Object *image);
+            virtual Button& setOnImage(po::Object *onImage);
+            virtual void removeImages();
+            virtual void removeOnImage();
+            
+            //Settings
             virtual Button& setWidth(float width);
             virtual Button& setHeight(float height);
             virtual Button& setSize(float width, float height);
             virtual Button& setPadding(float padding);
             virtual Button& setCornerRadius(float radius);
-            
-            virtual Button& setOffImage(po::Object *upImage, bool andUseSize = false);
-            virtual void removeOffImage();
-            virtual Button& setOnImage(po::Object *downImage, bool andUseSize = false);
-            virtual void removeOnImage();
             
             virtual void eventHandler(po::Event *event);
             virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());

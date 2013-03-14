@@ -44,6 +44,9 @@ namespace po {
         Button::~Button() {
         }
         
+        
+        
+        
         //------------------------------------------------------------------
 		//	Format
 		//------------------------------------------------------------------
@@ -52,7 +55,7 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setWidth(float width) {
-			setSize(width, getHeight());
+			setSize(width, getHeight()-padding*2);
             
             return *this;
         }
@@ -60,7 +63,7 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setHeight(float height) {
-			setSize(getWidth(), height);
+			setSize(getWidth()-padding*2, height);
             
             return *this;
         }
@@ -68,8 +71,13 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setSize(float width, float height) {
-            bg->reshape(width, height, 5);
-            label->reshape(width-padding*2, height-padding*2);
+            bg->reshape(width + padding*2, height + padding*2, 0);
+            
+            label->reshape(width, height);
+            label->position.set(padding,padding,0);
+            
+            if(offImage)    offImage->position.set(padding, padding, 0);
+            if(onImage)     onImage->position.set(padding, padding, 0);
             
             setUseLabelSize(false);
             label->doLayout();
@@ -80,8 +88,11 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setPadding(float padding) {
+            float curPadding = this->padding;
+            
             this->padding = padding;
-            label->position.set(padding, padding, 0);
+            this->setSize(getWidth()-curPadding*2, getHeight()-curPadding*2);
+            
         }
         
         
@@ -94,13 +105,6 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void Button::setSizeFromLabel() {
-            bg->reshape(label->getWidth() + padding * 2, label->getHeight() + padding*2);
-            std::cout << padding << std::endl;
-        }
-        
-        
-        //------------------------------------------------------------------
         Button& Button::setUseLabelSize(bool useLabelSize) {
             this->bSetSizeFromLabel = useLabelSize;
             label->useTextBoundsAsBounds(useLabelSize);
@@ -109,11 +113,14 @@ namespace po {
                 label->reshape(1000, 100);
                 label->setTextAlignment(po::ALIGN_TOP_LEFT);
             } else {
-                label->setTextAlignment(po::ALIGN_CENTER_CENTER);
+                label->setTextAlignment(po::ALIGN_TOP_CENTER);
             }
             
             return *this;
         }
+        
+        
+        
         
         //------------------------------------------------------------------
 		//	Label
@@ -150,24 +157,17 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setLabelTextColor(po::Color color) {
-            setLabelTextOffColor(color);
-            setLabelTextOnColor(color);
-            
+            labelOffColor   = color;
+            labelOnColor    = color;
+            setPressedState();
             return *this;
-        }
-        
-        
-        //------------------------------------------------------------------
-        Button& Button::setLabelTextOffColor(po::Color color) {
-            labelOffColor = color;
-            if(!bIsPressed) label->textColor.set(color);
         }
         
         
         //------------------------------------------------------------------
         Button& Button::setLabelTextOnColor(po::Color color) {
             labelOnColor = color;
-            if(bIsPressed) label->textColor.set(color);
+            setPressedState();
         }
         
         
@@ -184,8 +184,11 @@ namespace po {
         void Button::doLabelLayout() {
             label->doLayout();
             
-            if(this->bSetSizeFromLabel) setSizeFromLabel();
+            if(this->bSetSizeFromLabel) {
+                setSize(label->getWidth(), label->getHeight());
+            }
         }
+        
         
         
         
@@ -197,17 +200,10 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setColor(po::Color color) {
-            setOffColor(color);
-            setOnColor(color);
-            
-            return *this;
-        }
-        
-        
-        //------------------------------------------------------------------
-        Button& Button::setOffColor(po::Color color) {
             offColor.set(color);
-            if(!isPressed()) bg->fillColor.set(offColor);
+            onColor.set(color);
+            
+            setPressedState();
             
             return *this;
         }
@@ -216,56 +212,53 @@ namespace po {
         //------------------------------------------------------------------
         Button& Button::setOnColor(po::Color color) {
             onColor.set(color);
-            if(isPressed()) bg->fillColor.set(onColor);
+            setPressedState();
             
             return *this;
         }
         
         
         //------------------------------------------------------------------
-        Button& Button::setOffImage(po::Object *offImage, bool andUseSize) {
-            removeOffImage();
+        Button& Button::setImage(po::Object *image) {
+            removeImages();
             
-            this->offImage = offImage;
-            addChild(offImage);
-            moveChildToBack(offImage);
+            this->offImage = image;
+            setOnImage(image);
+            
+            this->setSize(offImage->getWidth(), offImage->getHeight());
+            
+            
+            //Set BG Transparent by default when using images
+            offColor.set(0,0,0,0);
+            onColor.set(0,0,0,0);
+            
+            setPressedState();
+            return *this;
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setOnImage(po::Object *onImage) {
+            removeOnImage();
+            
+            this->onImage = onImage;
+            onImage->position.set(padding, padding, 0);
             
             setPressedState();
             
-            if(andUseSize) {
-                this->setSize(offImage->getWidth(), offImage->getHeight());
-            }
-            
             return *this;
         }
         
         
         //------------------------------------------------------------------
-        void Button::removeOffImage() {
+        void Button::removeImages() {
             if(offImage != NULL) {
                 removeChild(offImage);
                 offImage = NULL;
             }
             
-            setPressedState();
-        }
-        
-        
-        //------------------------------------------------------------------
-        Button& Button::setOnImage(po::Object *onImage, bool andUseSize) {
             removeOnImage();
-            
-            this->onImage = onImage;
-            addChild(onImage);
-            moveChildToBack(onImage);
-            
             setPressedState();
-            
-            if(andUseSize) {
-                this->setSize(onImage->getWidth(), onImage->getHeight());
-            }
-            
-            return *this;
         }
         
         
@@ -329,24 +322,26 @@ namespace po {
         //------------------------------------------------------------------
         void Button::setPressedState() {
             if(isPressed() || isToggled()) {
+                bg->fillColor.set(onColor);
+                
                 if(offImage) removeChild(offImage);
                 if(onImage) {
                     addChild(onImage);
                     moveChildToBack(onImage);
-                    bg->visible = false;
+                    moveChildToBack(bg);
                 } else {
-                    bg->fillColor.set(onColor);
                     label->textColor.set(labelOnColor);
                 }
             } else {
+                bg->fillColor.set(offColor);
+                
                 if(onImage) removeChild(onImage);
                 if(offImage) {
                     addChild(offImage);
                     moveChildToBack(offImage);
-                    bg->visible = false;
+                    moveChildToBack(bg);
                 } else {
-                    bg->visible = true;
-                    bg->fillColor.set(offColor);
+                    label->visible  = true;
                     label->textColor.set(labelOffColor);
                 }
             }
@@ -439,7 +434,7 @@ namespace po {
 		//------------------------------------------------------------------
 		RadioButton& RadioButton::setOffColor(po::Color color) {
 			offColor.set(color);
-			if(!bSelected) bg->fillColor.set(offColor);
+			setPressedState();
             
             return *this;
 		}
