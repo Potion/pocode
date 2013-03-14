@@ -117,7 +117,7 @@ namespace po {
         po::Object*         getChild(const std::string &with_name);
         po::Object*         getLastChild();
         std::vector<Object*> getChildren(const std::string &with_name);
-        bool                removeChild(Object* obj);
+        bool                removeChild(Object* obj, bool and_delete=false);
         bool                removeChild(int at_idx, bool and_delete=false);
         void                removeAllChildren(bool and_delete=false);
         
