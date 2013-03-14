@@ -133,6 +133,10 @@ namespace po {
 	
 	void AudioPlayer::play() {
 		if(state != Playing) {
+			if(state == Finished) {
+				state = Stopped;
+			}
+			
 			if(state == Stopped) {
 				killUpdateThread = false;
 				updateThread = boost::thread(boost::bind(&AudioPlayer::updateBuffers,this));
@@ -209,17 +213,6 @@ namespace po {
 
 	void AudioPlayer::updateBuffers() {
 		while(!killUpdateThread) {
-			if(audioDecoder->isLastBuffer()) {
-				if(loop) {
-					audioDecoder->seekToTime(0.0);
-					continue;
-				}
-				else {
-					state = Finished;
-					break;
-				}
-			}
-			
 			ALint processed = 0;
 			alGetSourcei(uid, AL_BUFFERS_PROCESSED, &processed);
 			AL_ASSERT_NO_ERROR();
@@ -244,9 +237,12 @@ namespace po {
 				AL_ASSERT_NO_ERROR();
 			}
 			
+			killUpdateThread = audioDecoder->isLastBuffer();
 			boost::this_thread::sleep(boost::posix_time::milliseconds(1));
-			//std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
+		
+		state = Finished;
+		audioDecoder->seekToTime(0.0);
 	}
 
 }

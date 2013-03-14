@@ -529,12 +529,12 @@ namespace po {
 				lastBuffer = true;
 				break;
 			}
-			
+
 			if(PacketQueue::isFlushPacket(packet)) {
 				avcodec_flush_buffers(context);
 				continue;
 			}
-			
+
 			AVPacket tmp = packet;
 			while(tmp.size > 0) {
 				int result = avcodec_decode_audio4(context, frame, &complete, &tmp);

@@ -142,8 +142,9 @@ void poTextureAtlas::layoutAtlas() {
 	}
 	packer.pack();
 	
-	for(int i=0; i<packer.getNumPages(); i++)
+	for(int i=0; i<packer.getNumPages(); i++) {
 		pages.push_back(new poImage(width,height,channelsForFormat(config.format),NULL));
+	}
 	
 	coords.resize(images.size());
 	
