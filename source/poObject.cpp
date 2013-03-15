@@ -332,12 +332,16 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    bool Object::removeChild(Object* obj) {
+    bool Object::removeChild(Object* obj, bool and_delete) {
         ObjectVec::iterator iter = std::find(children.begin(), children.end(), obj);
         bool found = iter != children.end();
         
         if(found) {
             (*iter)->parent = NULL;
+            
+            if(and_delete)
+                delete (*iter);
+            
             children.erase(iter);
         }
         
