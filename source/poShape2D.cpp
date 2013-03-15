@@ -398,7 +398,7 @@ namespace po {
         if ( matrices.camType == po::CAMERA_2D )
         {
             if(localize) {
-                //point.y = po::getWindowHeight() - point.y;
+//                point.y = po::getWindowHeight() - point.y;
                 point = globalToLocal(point);
             }
             
@@ -413,6 +413,11 @@ namespace po {
             }
             else if (fillDrawStyle == GL_TRIANGLE_STRIP && points.size() >= 3 ) {
                 for( int i=0; i<points.size()-2; i++ )
+                    if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
+                        return true;
+            }
+            else if (fillDrawStyle == GL_TRIANGLES && points.size() >= 3 ) {
+                for( int i=0; i<points.size(); i+=3 )
                     if ( pointInTriangle( point, points[i], points[i+1], points[i+2] ) )
                         return true;
             }
