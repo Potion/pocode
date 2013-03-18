@@ -168,6 +168,12 @@ namespace po {
 			}
 		}
 	}
+    
+    void MoviePlayer::setVolume(float f) {
+        if(audioPlayer) {
+            audioPlayer->setVolume(f);
+        }
+    }
 	
 	bool MoviePlayer::isPlaying() const {
 		return state == Playing;
