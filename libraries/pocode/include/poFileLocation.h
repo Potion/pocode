@@ -9,25 +9,13 @@
 #pragma once
 
 #define BOOST_FILESYSTEM_VERSION 3
+
+
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 
-class FilePath;
-
 //Path Utils
 namespace po {
-    class FilePath;
-    
-    FilePath getCurrentPath();
-    
-    // search up the filesystem from pwd for folder
-    bool pathToFolder(const std::string &folder_name, fs::path *path);
-    
-    // search up the filesystem from pwd and set to a folder if its there
-    bool lookUpAndSetPath(const std::string &folder_name);
-    bool lookUpAndSetPathNextTo(const std::string &folder_name);
-    std::string getApplicationSupportDirectory();
-
     //------------------------------------------------------------------
     //FilePath
     class FilePath {
@@ -72,4 +60,26 @@ namespace po {
         std::string url;
         std::vector <std::string> headers;
     };
+    
+    
+    
+    
+    
+    
+    //------------------------------------------------------------------
+    //Utils
+    FilePath getCurrentPath();
+    
+    // search up the filesystem from pwd for folder
+    bool pathToFolder(const std::string &folder_name, fs::path *path);
+    
+    // search up the filesystem from pwd and set to a folder if its there
+    bool lookUpAndSetPath(const std::string &folder_name);
+    bool lookUpAndSetPathNextTo(const std::string &folder_name);
+    std::string getApplicationSupportDirectory();
+    
+    
+    //List directory
+    void listDirectory(FilePath dir);
+
 }/* End po Namespace */
