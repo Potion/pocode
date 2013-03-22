@@ -116,6 +116,8 @@ namespace po {
                 label->setTextAlignment(po::ALIGN_TOP_CENTER);
             }
             
+            doLabelLayout();
+            
             return *this;
         }
         
