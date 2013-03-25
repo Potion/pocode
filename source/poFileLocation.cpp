@@ -216,6 +216,25 @@ namespace po {
     std::string getApplicationSupportDirectory() {
         return applicationGetSupportDirectory();
     }
+    
+    
+    //------------------------------------------------------------------
+    void listDirectory(po::FilePath dir) {
+        boost::filesystem::path p = dir.toBoostPath();
+        std::vector<boost::filesystem::path> files;
+        
+        boost::filesystem::directory_iterator beg(p);
+        boost::filesystem::directory_iterator end;
+        std::copy(beg, end, std::back_inserter(files));
+        
+        std::cout << files.size() << std::endl;
+        
+        std::vector<boost::filesystem::path>::iterator iter;
+        for(iter = files.begin(); iter != files.end(); ++iter) {
+            std::cout << (boost::filesystem::is_directory((*iter)) ? 'D' : ' ');
+            std::cout << "  " << (*iter).filename() << std::endl;
+        }
+    }
 
     
 } /* End po Namespace */
