@@ -178,6 +178,8 @@ namespace po {
                 }
                 
                 if(alphaTest) {
+                    // flip y value, since poImage y coordinates are reversed
+                    point.y = texture->getSourceImage()->getHeight() - point.y;
                     po::Color pix = texture->getSourceImagePixel(point);
                     return pix.A > 0.f;
                 }
