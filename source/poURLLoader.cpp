@@ -81,6 +81,14 @@ namespace po {
             curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
             curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
             
+            if(url.getUsername() != "") {
+                curl_easy_setopt(handle, CURLOPT_USERNAME, url.getUsername().c_str());
+            }
+            
+            if(url.getPassword() != "") {
+                curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
+            }
+            
             //Do Request
             curl_easy_perform(handle);
             
@@ -116,9 +124,18 @@ namespace po {
             
             //Set Options
             curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-            curl_easy_setopt(handle,CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
-            curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_to_string);
-            curl_easy_setopt(handle,CURLOPT_WRITEDATA, &response);
+            curl_easy_setopt(handle, CURLOPT_URL, url.toString().c_str()); /*Using the http protocol*/
+            curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_to_string);
+            curl_easy_setopt(handle, CURLOPT_WRITEDATA, &response);
+            
+            if(url.getUsername() != "") {
+                curl_easy_setopt(handle, CURLOPT_USERNAME, url.getUsername().c_str());
+            }
+            
+            if(url.getPassword() != "") {
+                curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
+            }
+                
             
             //Do request
             curl_easy_perform(handle);

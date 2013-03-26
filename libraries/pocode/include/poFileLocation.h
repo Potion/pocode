@@ -55,14 +55,19 @@ namespace po {
         void addHeader(std::string value);
         const std::vector <std::string> &getHeaders();
         
+        void setUsername(std::string username);
+        const std::string getUsername();
+        
+        void setPassword(std::string password);
+        const std::string getPassword();
+        
         std::string toString() const;
     private:
         std::string url;
         std::vector <std::string> headers;
+        
+        std::string username, password;
     };
-    
-    
-    
     
     
     

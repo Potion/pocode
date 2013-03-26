@@ -36,8 +36,6 @@ void setCurrentPath(const fs::path &path) {
 
 namespace po {
 
-
-
     // -----------------------------------------------------------------------------------
     // ================================ Class: filePath ==================================
     #pragma mark - filePath -
@@ -151,6 +149,30 @@ namespace po {
     //------------------------------------------------------------------
     const std::vector <std::string> &URL::getHeaders() {
         return headers;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void URL::setUsername(std::string username) {
+        this->username = username;
+    }
+    
+    
+    //------------------------------------------------------------------
+    const std::string URL::getUsername() {
+        return this->username;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void URL::setPassword(std::string password) {
+        this->password = password;
+    }
+    
+    
+    //------------------------------------------------------------------
+    const std::string URL::getPassword() {
+        return this->password;
     }
     
     
