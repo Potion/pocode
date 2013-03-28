@@ -19,7 +19,6 @@
 
 #pragma once
 
-
 #include "poRect.h"
 #include "poEnums.h"
 
@@ -28,51 +27,54 @@
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
-#define BOOST_FILESYSTEM_VERSION 3
-#include <boost/filesystem.hpp>
-namespace fs = boost::filesystem;
-
-// in seconds
-float poGetElapsedTime();
-int    poGetElapsedTimeMillis();
-
-typedef struct {
-    int hours;
-    int amPmHours;
-    std::string amPm;
+namespace po {
+    typedef struct {
+        int hours;
+        int amPmHours;
+        std::string amPm;
+        
+        int minutes;
+        int seconds;
+    } Time;
     
-    int minutes;
-    int seconds;
-} poTime;
+    //Time Functions
+    float getElapsedTime();
+    int   getElapsedTimeMillis();
 
-poTime poGetCurrentTime();
+    po::Time getCurrentTime();
 
-unsigned int getNumCpus();
+    
+    unsigned int getNumCpus();
+    Point deviceResolution();
 
-poPoint deviceResolution();
+    //Log
+    void log(const char *format, ...);
+    size_t utf8strlen(const std::string &str);
 
-// path related
-fs::path currentPath();
-void setCurrentPath(const fs::path &path);
-// search up the filesystem from pwd for folder
-bool pathToFolder(const std::string &folder_name, fs::path *path);
-// search up the filesystem from pwd and set to a folder if its there
-bool lookUpAndSetPath(const std::string &folder_name);
-bool lookUpAndSetPathNextTo(const std::string &folder_name);
-std::string getApplicationSupportDirectory();
 
-// point related
-std::vector<poPoint> roundedRect(float w, float h, float r);
-std::vector<poPoint> quadTo(poPoint p1, poPoint p2, poPoint control, int resolution);
-std::vector<poPoint> cubeTo(poPoint p1, poPoint p2, poPoint c1, poPoint c2, int resolution);
-float curveLength(const std::vector<poPoint> &curve);
 
-void log(const char *format, ...);
-size_t utf8strlen(const std::string &str);
 
-poPoint alignInRect(poPoint max, poRect rect, poAlignment align);
 
-/* 
+    //Convert anything to string (templated so put it here)
+    template <class T>
+    inline std::string toString (const T& t) {
+        std::stringstream ss;
+        ss << t;
+        return ss.str();
+    };
+
+    //Convert string to title case
+    std::string toUpperCase(std::string s);
+    std::string toLowerCase(std::string s);
+    std::string toTitleCase(std::string s);
+
+
+    //Convert to string to int
+    int toInt(std::string s);
+}
+
+
+/*
  base64.cpp and base64.h
  
  Copyright (C) 2004-2008 René Nyffenegger
@@ -97,27 +99,7 @@ poPoint alignInRect(poPoint max, poRect rect, poAlignment align);
  
  René Nyffenegger rene.nyffenegger@adp-gmbh.ch
  */
-
-std::string base64_encode(unsigned char const* data, unsigned int len);
-std::string base64_decode(std::string const& s);
-
-
-//Convert anything to string (templated so put it here)
-template <class T>
-inline std::string poToString (const T& t) {
-    std::stringstream ss;
-    ss << t;
-    return ss.str();
-};
-
-//Convert to string to title case
-std::string poToUpperCase(std::string s);
-std::string poToLowerCase(std::string s);
-std::string poToTitleCase(std::string s);
-
-
-//Convert to string to int
-int poToInt(std::string s);
-
-
-
+namespace po {
+    std::string base64_encode(unsigned char const* data, unsigned int len);
+    std::string base64_decode(std::string const& s);
+}
