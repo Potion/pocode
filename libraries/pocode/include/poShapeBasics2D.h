@@ -60,9 +60,9 @@ namespace po {
         // place an already-made texture
         RectShape( Texture *tex, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT );
         // make a texture from the specified filepath and place it
-        RectShape( const FilePath &filePath, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
+        RectShape( const FilePath &filePath, bool keepImage=false, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
         // make a texture from the specified url and place it
-        RectShape( const URL &url, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
+        RectShape( const URL &url, bool keepImage, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT);
         // make a shape of a certain size and put the texture in place inside it
         RectShape( float width, float height, Texture *tex, TextureFitOption fit=po::TEX_FIT_NONE, Alignment align=po::ALIGN_TOP_LEFT );
         
@@ -74,11 +74,20 @@ namespace po {
         void	setCornerRadius(float rad);
         float	getCornerRadius() const;
         
+        // for alpha test
+        bool doesAlphaTest() const;
+        void setAlphaTest(bool b);
+        
+        bool pointInside(po::Point point, bool localize=false);
+        
     protected:
         void	clone(RectShape* shp);
         void	construct( float _width, float _height, float rad );
         
         float	radius;
+        
+        po::Texture     *texture;
+        bool            alphaTest;
     };
 
 

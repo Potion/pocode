@@ -29,6 +29,8 @@
 #include "poShapeBasics2D.h"
 #include "poResourceStore.h"
 #include "poSimpleDrawing.h"
+#include "poApplication.h"
+#include "poCamera.h"
 
 namespace po {
     // ----------------------------------------------------------------------------------
@@ -37,38 +39,48 @@ namespace po {
 
     RectShape::RectShape() {
         construct(100,100,0);
+        texture = NULL;
+        alphaTest = false;
     }
 
     RectShape::RectShape(float width, float height, float rad) {
         construct(width,height,rad);
+        texture = NULL;
+        alphaTest = false;
     }
 
     RectShape::RectShape(Texture *tex, TextureFitOption fit, Alignment align) {
-        construct(tex->getWidth(), tex->getHeight(), 0);
+        texture = tex;
+        construct(texture->getWidth(), texture->getHeight(), 0);
         placeTexture(tex, fit, align);
+        alphaTest = false;
     }
 
-    RectShape::RectShape(const FilePath &filePath, TextureFitOption fit, Alignment align) {
-        Texture *tex = po::getTexture(filePath);
+    RectShape::RectShape(const FilePath &filePath, bool keepImage, TextureFitOption fit, Alignment align) {
+        texture = po::getTexture(filePath, keepImage);
         
-        if(tex && tex->isValid()) {
-            construct(tex->getWidth(), tex->getHeight(), 0);
-            placeTexture(tex, fit, align);
+        if(texture && texture->isValid()) {
+            construct(texture->getWidth(), texture->getHeight(), 0);
+            placeTexture(texture, fit, align);
         }
+        alphaTest = false;
     }
     
-    RectShape::RectShape(const URL &url, TextureFitOption fit, Alignment align) {
-//        Texture *tex = po::getTexture(url.toString());
+    RectShape::RectShape(const URL &url, bool keepImage, TextureFitOption fit, Alignment align) {
+//        texture = po::getTexture(url.toString(), keepImage);
 //        
-//        if(tex && tex->isValid()) {
-//            construct(tex->getWidth(), tex->getHeight(), 0);
-//            placeTexture(tex, fit, align);
+//        if(texture && texture->isValid()) {
+//            construct(texture->getWidth(), texture->getHeight(), 0);
+//            placeTexture(texture, fit, align);
 //        }
+//        alphaTest = false;
     }
 
     RectShape::RectShape(float width, float height, Texture *tex, TextureFitOption fit, Alignment align) {
+        texture = tex;
         construct(width, height, 0);
-        placeTexture(tex, fit, align);
+        placeTexture(texture, fit, align);
+        alphaTest = false;
     }
 
     
@@ -131,7 +143,75 @@ namespace po {
             addPoint( Point(0,h) );
         }
     }
-
+    
+    
+    //------------------------------------------------------------------------
+    bool RectShape::doesAlphaTest() const {
+        return alphaTest;
+    }
+    
+    
+    //------------------------------------------------------------------------
+	void RectShape::setAlphaTest(bool b) {
+        if(texture->hasSourceImage())
+            alphaTest = b;
+        else{
+            printf("!!! can't use alpha test without a texture that holds onto its source image !!!");
+            alphaTest = false;
+        }
+            
+    }
+    
+    //------------------------------------------------------------------------
+	bool RectShape::pointInside(po::Point point, bool localize) {
+        
+        if( alphaTest ){
+            
+            if(!visible || !texture->getSourceImage() || !texture)
+                return false;
+            
+            // DO POINT INSIDE TEST FOR 2D
+            if ( po::Camera::getCurrentCameraType() == CAMERA_2D )
+            {
+                if(localize) {
+                    point = globalToLocal(point);
+                }
+                
+                if(alphaTest) {
+                    // flip y value, since poImage y coordinates are reversed
+                    point.y = texture->getSourceImage()->getHeight() - point.y;
+                    po::Color pix = texture->getSourceImagePixel(point);
+                    return pix.A > 0.f;
+                }
+                
+                po::Rect r(0,0,texture->getWidth(),texture->getHeight());
+                return r.contains(point.x, point.y);
+            }
+            
+            // DO POINT INSIDE TEST FOR 3D
+            if ( po::Camera::getCurrentCameraType() == CAMERA_3D )
+            {
+                if(localize) {
+                    point.y = getWindowHeight() - point.y;
+                }
+                
+                /*if(alphaTest) {
+                 p.y = tex->getSourceImage()->getHeight()*imageScale - p.y;
+                 p /= imageScale;
+                 poColor pix = tex->getSourceImagePixel(p);
+                 return pix.A > 0.f;
+                 }*/
+                
+                po::Rect r(0,0,texture->getWidth(),texture->getHeight());
+                return pointInRect3D( point, getMatrixSet(), r );
+            }
+            
+            return false;
+        }
+        else{
+            return po::Shape2D::pointInside(point, localize);
+        }
+    }
     
     
     
