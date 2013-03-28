@@ -51,11 +51,14 @@ namespace po {
             
             while (!completed.empty()) {
                 double elapsedTime = po::getElapsedTime() - completed.front()->WorkerStartTime;
-                completed.front()->getWorkerNotify()->messageHandler(completed.front()->workerMessage, Dictionary()
-                                                           .set("worker", completed.front())
-                                                           .set("elapsed", (float)elapsedTime)
-                                                           .append(completed.front()->dict));
                 
+                if(completed.front()->getNotify() != NULL) {
+                    completed.front()->getNotify()->messageHandler(completed.front()->workerMessage, Dictionary()
+                                                               .set("worker", completed.front())
+                                                               .set("elapsed", (float)elapsedTime)
+                                                               .append(completed.front()->dict));
+                }
+            
                 //Most of the time we want to autodelete the worker (asset loaders usually), 
                 //so unless the worker says no, do it!
                 if(completed.front()->workerAutoDelete) delete completed.front();
@@ -132,7 +135,13 @@ namespace po {
 
     
     //------------------------------------------------------------------
-    Object* ThreadCenter::Worker::getWorkerNotify() {
+    Object* ThreadCenter::Worker::getNotify() {
         return notify;
+    }
+    
+    
+    //------------------------------------------------------------------
+    void ThreadCenter::Worker::setNotify(po::Object *notify) {
+        this->notify = notify;
     }
 } /* End po namespace */

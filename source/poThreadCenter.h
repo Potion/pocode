@@ -32,11 +32,11 @@ namespace po {
             virtual void setWorkerParams(Object *notify, std::string message, const Dictionary &dict);
             
             void run();
-            
-            Object*   getWorkerNotify();
             std::string getWorkerMessage();
             
-            bool workerShouldBeDeleted();
+            
+            Object* getNotify();
+            void setNotify(po::Object *notify);
             
             Dictionary dict;
             float WorkerStartTime;
