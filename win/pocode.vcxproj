@@ -91,8 +91,8 @@ exit 0
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew\include\GL;C:\pocode\libraries\FreeType;C:\pocode\libraries\bz2;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3\include;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;FREETYPE_STATIC;FREEIMAGE_LIB;CURL_STATICLIB;BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>c:\pocode_libs\boost\include;c:\pocode_libs\curl\include;c:\pocode_libs\ffmpeg\include;c:\pocode_libs\freeimage\include;c:\pocode_libs\freetype\include;c:\pocode_libs\glew\include;c:\pocode_libs\glm\include;c:\pocode_libs\openal\include;c:\pocode_libs\opencv\include;c:\pocode_libs\openni\include;c:\pocode_libs\pugixml\include;c:\pocode_libs\sqlite3\include;c:\pocode_libs\utf8\include;c:\pocode_libs\libtess2\src;c:\pocode_libs\libtess2\include;c:\pocode_libs\nanosvg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h</ForcedIncludeFiles>
@@ -103,17 +103,24 @@ exit 0
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>c:\pocode_libs\glew\lib;c:\pocode_libs\boost\lib;c:\pocode_libs\curl\lib;c:\pocode_libs\ffmpeg\lib;c:\pocode_libs\freeimage\lib;c:\pocode_libs\freetype\lib;c:\pocode_libs\openal\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\libraries\libtess2\bucketalloc.h" />
-    <ClInclude Include="..\libraries\libtess2\dict.h" />
-    <ClInclude Include="..\libraries\libtess2\geom.h" />
-    <ClInclude Include="..\libraries\libtess2\mesh.h" />
-    <ClInclude Include="..\libraries\libtess2\priorityq.h" />
-    <ClInclude Include="..\libraries\libtess2\sweep.h" />
-    <ClInclude Include="..\libraries\libtess2\tess.h" />
-    <ClInclude Include="..\libraries\pugixml\pugiconfig.hpp" />
-    <ClInclude Include="..\libraries\pugixml\pugixml.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\bucketalloc.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\dict.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\geom.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\mesh.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\priorityq.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\sweep.h" />
+    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\tess.h" />
     <ClInclude Include="..\source\poApplication.h" />
     <ClInclude Include="..\source\poAttributedString.h" />
     <ClInclude Include="..\source\poAudioPlayer.h" />
@@ -169,85 +176,59 @@ exit 0
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\libraries\libtess2\bucketalloc.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\bucketalloc.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\dict.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\dict.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\geom.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\geom.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\mesh.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\mesh.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\priorityq.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\priorityq.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\sweep.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\sweep.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\libtess2\tess.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ForcedIncludeFiles>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\tess.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\nanosvg\nanosvg.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\nanosvg\src\nanosvg.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\libraries\pugixml\pugixml.cpp" />
-    <ClCompile Include="..\libraries\sqlite3\sqlite3.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\pocode_libs\sqlite3\src\sqlite3.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="..\source\poApplication.cpp" />

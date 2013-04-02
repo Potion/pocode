@@ -6,6 +6,7 @@
 
 #include "ParticlesApp.h"
 #include "poApplication.h"
+#include "poHelpers.h"
 
 poObject *createObjectForID(uint uid) {
 	return new ParticlesApp();
