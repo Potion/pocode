@@ -158,12 +158,10 @@ unsigned int getNumCpus() {
     }
 
 	void setCurrentPath(const fs::path &path) {
-#ifdef POTION_WIN32
-		fs::current_path(path);
-#elif POTION_APPLE
-		fs::path pth(path);
-		SetCurrentDirectory(pth.remove_filename().string().c_str());
-#endif
+		boost::system::error_code ec;
+		fs::current_path(path, ec);
+		if(ec)
+			printf("error setting current path: %s\n", ec.message().c_str());
 	}
 
 #endif
