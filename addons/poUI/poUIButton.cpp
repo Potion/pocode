@@ -111,7 +111,7 @@ namespace po {
             
             if(useLabelSize) {
                 label->reshape(1000, 100);
-                label->setTextAlignment(po::ALIGN_TOP_LEFT);
+                label->setTextAlignment(po::ALIGN_CENTER_LEFT);
             } else {
                 label->setTextAlignment(po::ALIGN_TOP_CENTER);
             }

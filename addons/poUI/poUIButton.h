@@ -54,6 +54,9 @@ namespace po {
             virtual Button& setPadding(float padding);
             virtual Button& setCornerRadius(float radius);
             
+            //Dictionary
+            po::Dictionary dict;
+            
             virtual void eventHandler(po::Event *event);
             virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
             
