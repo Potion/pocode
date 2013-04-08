@@ -51,8 +51,19 @@ namespace po {
             virtual Button& setWidth(float width);
             virtual Button& setHeight(float height);
             virtual Button& setSize(float width, float height);
-            virtual Button& setPadding(float padding);
             virtual Button& setCornerRadius(float radius);
+            
+            //Padding
+            virtual Button& setPadding(float padding);
+            virtual Button& setPadding(float horizontalPadding, float verticalPadding);
+            virtual Button& setPadding(float top, float right, float bottom, float left);
+            virtual Button& setPaddingTop(float padding);
+            virtual Button& setPaddingRight(float padding);
+            virtual Button& setPaddingBottom(float padding);
+            virtual Button& setPaddingLeft(float padding);
+            
+            virtual float getPaddingHorizontal();
+            virtual float getPaddingVertical();
             
             //Dictionary
             po::Dictionary dict;
@@ -76,7 +87,7 @@ namespace po {
             
             void setPressedState();
             
-            float padding;
+            float paddingTop, paddingLeft, paddingBottom, paddingRight;
             
             bool bToggleEnabled;
             bool bIsPressed, bIsToggled;

@@ -15,7 +15,6 @@ namespace po {
         , bSetSizeFromLabel(false)
         , offImage(NULL)
         , onImage(NULL)
-        , padding(5)
         {
             bg = new po::RectShape(50,50,5);
             addChild(bg);
@@ -25,7 +24,7 @@ namespace po {
             label->textColor.set(0, 0, 0);
             addChild(label);
             
-            setPadding(padding);
+            setPadding(5); //Default padding
             
             //Default Colors
             offColor.set255(255, 255, 255);
@@ -55,7 +54,7 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setWidth(float width) {
-			setSize(width, getHeight()-padding*2);
+			setSize(width, getHeight()-getPaddingVertical());
             
             return *this;
         }
@@ -63,7 +62,7 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setHeight(float height) {
-			setSize(getWidth()-padding*2, height);
+			setSize(getWidth()-getPaddingHorizontal(), height);
             
             return *this;
         }
@@ -71,13 +70,13 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setSize(float width, float height) {
-            bg->reshape(width + padding*2, height + padding*2, 0);
+            bg->reshape(width + getPaddingHorizontal(), height + getPaddingVertical(), 0);
             
             label->reshape(width, height);
-            label->position.set(padding,padding,0);
+            label->position.set(paddingLeft, paddingTop, 0);
             
-            if(offImage)    offImage->position.set(padding, padding, 0);
-            if(onImage)     onImage->position.set(padding, padding, 0);
+            if(offImage)    offImage->position.set(paddingLeft, paddingTop, 0);
+            if(onImage)     onImage->position.set(paddingLeft,  paddingTop, 0);
             
             setUseLabelSize(false);
             label->doLayout();
@@ -88,13 +87,66 @@ namespace po {
         
         //------------------------------------------------------------------
         Button& Button::setPadding(float padding) {
-            float curPadding = this->padding;
-            
-            this->padding = padding;
-            this->setSize(getWidth()-curPadding*2, getHeight()-curPadding*2);
-            
+            return setPadding(padding, padding, padding, padding);
         }
         
+        
+        //------------------------------------------------------------------
+        Button& Button::setPadding(float paddingHorizontal, float paddingVertical) {
+            return setPadding(paddingVertical, paddingHorizontal, paddingVertical, paddingHorizontal);
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setPadding(float top, float right, float bottom, float left) {
+            //Find the current padding, record
+            float curPaddingHorizontal  = getPaddingHorizontal();
+            float curPaddingVertical    = getPaddingVertical();
+            
+            paddingTop      = top;
+            paddingRight    = right;
+            paddingBottom   = bottom;
+            paddingLeft     = left;
+            
+            //Set size, taking out previous padding
+            this->setSize(getWidth()-curPaddingHorizontal, getHeight()-curPaddingVertical);
+            return *this;
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setPaddingTop(float padding) {
+            return setPadding(padding, paddingRight, paddingBottom, paddingLeft);
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setPaddingRight(float padding) {
+            return setPadding(paddingTop, padding, paddingBottom, paddingLeft);
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setPaddingBottom(float padding) {
+            return setPadding(paddingTop, paddingRight, padding, paddingLeft);
+        }
+        
+        
+        //------------------------------------------------------------------
+        Button& Button::setPaddingLeft(float padding) {
+            return setPadding(paddingTop, paddingRight, paddingBottom, padding);
+        }
+        
+        //------------------------------------------------------------------
+        float Button::getPaddingHorizontal() {
+            return this->paddingLeft + this->paddingRight;
+        }
+        
+        
+        //------------------------------------------------------------------
+        float Button::getPaddingVertical() {
+            return this->paddingTop + this->paddingBottom;
+        }
         
         //------------------------------------------------------------------
         Button& Button::setCornerRadius(float radius) {
@@ -244,7 +296,7 @@ namespace po {
             removeOnImage();
             
             this->onImage = onImage;
-            onImage->position.set(padding, padding, 0);
+            onImage->position.set(paddingLeft, paddingTop, 0);
             
             setPressedState();
             
