@@ -3,10 +3,10 @@
 
 namespace po {
     namespace UI {
-        const std::string Button::DOWN_MESSAGE          = "UI_BUTTON_DOWN_MESSAGE";
-        const std::string Button::PRESSED_MESSAGE       = "UI_BUTTON_PRESSED_MESSAGE";
-        const std::string Button::TOGGLED_ON_MESSAGE    = "UI_BUTTON_TOGGLED_ON_MESSAGE";
-        const std::string Button::TOGGLED_OFF_MESSAGE   = "UI_BUTTON_TOGGLED_OFF_MESSAGE";
+        const std::string Button::PRESSED_MESSAGE           = "UI_BUTTON_PRESSED_MESSAGE";
+        const std::string Button::RELEASED_MESSAGE          = "UI_BUTTON_RELEASED_MESSAGE";
+        const std::string Button::TOGGLED_ON_MESSAGE        = "UI_BUTTON_TOGGLED_ON_MESSAGE";
+        const std::string Button::TOGGLED_OFF_MESSAGE       = "UI_BUTTON_TOGGLED_OFF_MESSAGE";
         
         Button::Button()
         : bIsPressed(false)
@@ -368,10 +368,31 @@ namespace po {
         
         
         //------------------------------------------------------------------
+        void Button::press(bool withMessage) {
+            bIsPressed = true;
+            setPressedState();
+            
+            if(withMessage) {
+                send_PressedMessage();
+            }
+        }
+        
+        
+        //------------------------------------------------------------------
+        void Button::release(bool withMessage) {
+            bIsPressed = false;
+            setPressedState();
+            
+            if(withMessage) {
+                sendReleasedMessage();
+            }
+        }
+        
+        
+        //------------------------------------------------------------------
         bool Button::isPressed() {
             return bIsPressed;
         }
-        
         
         //------------------------------------------------------------------
         void Button::setPressedState() {
@@ -411,14 +432,14 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void Button::sendDownMessage() {
-            po::MessageCenter::broadcastMessage(DOWN_MESSAGE, this);
+        void Button::send_PressedMessage() {
+            po::MessageCenter::broadcastMessage(PRESSED_MESSAGE, this);
         }
         
         
         //------------------------------------------------------------------
-        void Button::sendPressedMessage() {
-            po::MessageCenter::broadcastMessage(PRESSED_MESSAGE, this);
+        void Button::sendReleasedMessage() {
+            po::MessageCenter::broadcastMessage(RELEASED_MESSAGE, this);
         }
         
         
@@ -434,24 +455,19 @@ namespace po {
             switch (event->type) {
                 case po::TOUCH_BEGAN_INSIDE_EVENT:
 				case po::MOUSE_DOWN_INSIDE_EVENT:
-					bIsPressed = true;
-					setPressedState();
-					sendDownMessage();
+                    press(true);
                     break;
                     
                 case po::TOUCH_ENDED_EVENT:
                 case po::MOUSE_UP_EVENT:
                     //Send pressed message
                     if(bIsPressed) {
-                        sendPressedMessage();
-                        bIsPressed = false;
-                        
                         if(bToggleEnabled) {
                             toggle();
                             sendToggledMessage();
                         }
                         
-                        setPressedState();
+                        release(true);
                     }
                     
                     break;

@@ -12,14 +12,16 @@ namespace po {
     namespace UI {
         class Button : public po::Object {
         public:
-            static const std::string DOWN_MESSAGE;
             static const std::string PRESSED_MESSAGE;
+            static const std::string RELEASED_MESSAGE;
             static const std::string TOGGLED_OFF_MESSAGE;
             static const std::string TOGGLED_ON_MESSAGE;
             
             Button();
             virtual ~Button();
             
+            virtual void press(bool withMessage = false);
+            virtual void release(bool withMessage = false);
             virtual bool isPressed();
             
             virtual Button& setToggleMode(bool shouldToggle);
@@ -81,11 +83,11 @@ namespace po {
             void setSizeFromLabel();
             bool bSetSizeFromLabel;
             
-            virtual void sendDownMessage();
-            virtual void sendPressedMessage();
+            virtual void send_PressedMessage();
+            virtual void sendReleasedMessage();
             virtual void sendToggledMessage();
             
-            void setPressedState();
+            virtual void setPressedState();
             
             float paddingTop, paddingLeft, paddingBottom, paddingRight;
             
