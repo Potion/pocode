@@ -10,6 +10,7 @@
 #define MeasurementTool_poUI_h
 
 #include "poUIButton.h"
+#include "poUIScroller.h"
 
 namespace po {
     namespace UI {
