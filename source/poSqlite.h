@@ -46,6 +46,11 @@ namespace po {
     //SqliteResult
     class SqliteResult {
         public:
+            enum QueryStatus {
+                QUERY_STATUS_OK,
+                QUERY_STATUS_ERROR
+            };
+        
             SqliteResult(std::string query, bool bVerbose=false);
             ~SqliteResult();
             
@@ -58,9 +63,11 @@ namespace po {
             Dictionary getRow(int rowNum);
             
             std::vector <Dictionary> rows;
-
+        
+            QueryStatus status;
             std::string errorMessage;
         private:
+            
             bool bVerbose;
             int nRows;
     };

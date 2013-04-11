@@ -172,6 +172,8 @@ namespace po {
         //Check the statement, make sure it is legit
         int status = sqlite3_prepare_v2(db, query.c_str(), -1, &statement, 0);
         if(status == SQLITE_OK) {
+            status = SqliteResult::QUERY_STATUS_OK;
+            
             //Get the number of columns returned
             int nCols = sqlite3_column_count(statement);
             
@@ -227,6 +229,7 @@ namespace po {
         }
         else {
             //If statement is wack, tell why
+            status = SqliteResult::QUERY_STATUS_ERROR;
             results.errorMessage = "Problem with query '" + (std::string)query + "'\n " + (std::string)sqlite3_errmsg(db);
             if(bVerbose) std::cout << results.errorMessage << std::endl;
         }
