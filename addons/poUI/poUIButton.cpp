@@ -433,20 +433,20 @@ namespace po {
         
         //------------------------------------------------------------------
         void Button::send_PressedMessage() {
-            po::MessageCenter::broadcastMessage(PRESSED_MESSAGE, this);
+            po::MessageCenter::broadcastMessage(PRESSED_MESSAGE, this, dict);
         }
         
         
         //------------------------------------------------------------------
         void Button::sendReleasedMessage() {
-            po::MessageCenter::broadcastMessage(RELEASED_MESSAGE, this);
+            po::MessageCenter::broadcastMessage(RELEASED_MESSAGE, this, dict);
         }
         
         
         //------------------------------------------------------------------
         void Button::sendToggledMessage() {
             std::string msg = isToggled() ? TOGGLED_ON_MESSAGE : TOGGLED_OFF_MESSAGE;
-            po::MessageCenter::broadcastMessage(msg, this);
+            po::MessageCenter::broadcastMessage(msg, this, dict);
         }
         
         
