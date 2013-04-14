@@ -136,8 +136,11 @@ namespace po {
             virtual RadioButtonSet& setButtonHeights(float height);
             virtual RadioButtonSet& setButtonSizes(float width, float height);
 			
-			virtual RadioButtonSet& setVertical(bool b);
 			virtual RadioButtonSet& setPadding(int p);
+            virtual float           getPadding();
+            
+			virtual RadioButtonSet& setVertical(bool b);
+            
 			virtual RadioButtonSet& doLayout(bool firstSelected=false);
 			
 			virtual bool isFromThisSet(RadioButton *button);

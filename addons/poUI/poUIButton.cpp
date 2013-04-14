@@ -533,13 +533,16 @@ namespace po {
 		
 		//------------------------------------------------------------------
         void RadioButton::eventHandler(po::Event *event) {
-            if( event->type ==  po::MOUSE_DOWN_INSIDE_EVENT ) {
-				if(!bSelected) {
-					bSelected = true;
-					sendSelectedMessage();
-				} else {
-                    sendSelectedPressedMessage();
-                }
+            switch (event->type) {
+                case po::TOUCH_BEGAN_INSIDE_EVENT:
+                case po::MOUSE_DOWN_INSIDE_EVENT:
+                    if(!bSelected) {
+                        bSelected = true;
+                        sendSelectedMessage();
+                    } else {
+                        sendSelectedPressedMessage();
+                    }
+                    break;
             }
         }
 		
@@ -578,7 +581,7 @@ namespace po {
 			radioButtons.push_back(button);
 			addChild(radioButtons.back());
             
-            doLayout();
+            doLayout(radioButtons.size() == 1);
             
             return *this;
 		}
@@ -660,6 +663,13 @@ namespace po {
             return *this;
 		}
 		
+        
+		//------------------------------------------------------------------
+		float RadioButtonSet::getPadding() {
+            return padding;
+        }
+        
+        
 		//------------------------------------------------------------------
 		RadioButtonSet& RadioButtonSet::doLayout(bool firstSelected) {
 			for(int i=0; i<radioButtons.size(); i++){
@@ -693,7 +703,6 @@ namespace po {
 		
 		//------------------------------------------------------------------
 		void RadioButtonSet::messageHandler(const std::string &msg, const po::Dictionary& dict, const po::Object *sender) {
-			
 			RadioButton* btn = (RadioButton *) sender;
 			
 			if(msg == RadioButton::SELECTED_MESSAGE && isFromThisSet(btn)){
