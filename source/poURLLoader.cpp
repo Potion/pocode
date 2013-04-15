@@ -20,7 +20,7 @@
 #include "poURLLoader.h"
 #include "poThreadCenter.h"
 
-#include <curl/curl.h>
+#include <curl.h>
 
 #include <stdio.h>
 #include <stdlib.h>

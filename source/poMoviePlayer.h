@@ -30,6 +30,8 @@ namespace po {
 		void seek(float sec);
 		void previousFrame();
 		void nextFrame();
+        
+        void setVolume(float f);
 		
 		bool isPlaying() const;
 		bool isPaused() const;

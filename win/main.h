@@ -14,8 +14,8 @@
 	#endif
 #elif defined(_WIN32)
 	#define POTION_WIN32
-	#include "GL\glew.h"
-	#include "GL\wglew.h"
+	#include "glew.h"
+	#include "wglew.h"
 #elif defined(__linux)
 // include whatever linux uses
 #endif
