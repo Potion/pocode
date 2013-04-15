@@ -31,6 +31,8 @@
 
 #include <boost/foreach.hpp>
 
+#define ASSERTGL() { int err = glGetError(); if(err != GL_NO_ERROR) {printf("x%06x\n", err); assert(false);} }
+
 poFBOConfig::poFBOConfig()
 :	numMultisamples(0)
 ,	numColorBuffers(1)
@@ -136,10 +138,13 @@ poTexture *poFBO::getDepthTexture() const {
 }
 
 void poFBO::doSetUp(poObject* obj) {
+	ASSERTGL()
 	po::saveTextureState();
+	ASSERTGL()
 	po::saveViewport();
-	po::setViewport(0,0,width,height);
+	ASSERTGL()
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+	ASSERTGL()
 	cam->setUp(obj);
 }
 
@@ -163,8 +168,10 @@ void poFBO::doSetDown(poObject* obj) {
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	ASSERTGL()
 	po::restoreTextureState();
 	po::restoreViewport();
+	ASSERTGL()
 }
 
 void poFBO::setup() {
@@ -216,19 +223,23 @@ void poFBO::setup() {
 		framebuffers.resize(1);
 		glGenFramebuffers(1, &framebuffers[0]);
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
-		
+		ASSERTGL()
+
 		colorbuffers.clear();
 		
 		for(int i=0; i<config.numColorBuffers; i++) {
 			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
+			ASSERTGL()
 		}
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+		ASSERTGL()
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		ASSERTGL()
 	}
 }
 
@@ -241,6 +252,7 @@ void poFBO::cleanup() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDeleteFramebuffers(framebuffers.size(), &framebuffers[0]);
 	glDeleteRenderbuffers(renderbuffers.size(), &renderbuffers[0]);
+	ASSERTGL()
 	framebuffers[0] = 0;
 }
 

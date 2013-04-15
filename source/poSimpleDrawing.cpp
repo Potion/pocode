@@ -257,9 +257,9 @@ void po::drawPoints(const std::vector<poPoint> &points, poTexture *tex, const st
 	updateActiveShader();
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0].x);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0]);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(poPoint), &texCoords[0].x);
 	glDrawArrays(type, 0, points.size());
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

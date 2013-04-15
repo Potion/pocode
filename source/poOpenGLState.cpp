@@ -137,6 +137,9 @@ namespace {
 
 	using namespace glm;
 
+//	#define ASSERTGL() { int err = glGetError(); if(err != GL_NO_ERROR) {printf("x%06x\n", err); assert(false);} }
+	#define ASSERTGL()
+
 	struct TextureState {
 		TextureState()
 		:	target(GL_TEXTURE_2D)
@@ -170,6 +173,7 @@ namespace {
 			enabled ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 			glBlendEquationSeparate(rgbEq, alphaEq);
 			glBlendFuncSeparate(srcRgbFactor, dstRgbFactor, srcAlphaFactor, dstAlphaFactor);
+			ASSERTGL();
 		}
 		
 		bool enabled;
@@ -185,19 +189,22 @@ namespace {
 			shader2D.compile();
 			glBindAttribLocation(shader2D.getUid(), 0, "position");
 			shader2D.link();
+			ASSERTGL();
 			
 			shader3D.loadSource(shader_3d);
 			shader3D.compile();
 			glBindAttribLocation(shader3D.getUid(), 0, "position");
 			glBindAttribLocation(shader3D.getUid(), 1, "normal");
 			shader3D.link();
-			
+			ASSERTGL();
+
 			shaderTex2D.loadSource(shader_tex);
 			shaderTex2D.compile();
 			glBindAttribLocation(shaderTex2D.getUid(), 0, "position");
 			glBindAttribLocation(shaderTex2D.getUid(), 1, "textureCoordinates");
 			shaderTex2D.link();
-			
+			ASSERTGL();
+
 			std::string src(shader_tex);
             
 #if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
@@ -210,21 +217,25 @@ namespace {
 			glBindAttribLocation(shaderTexRect.getUid(), 0, "position");
 			glBindAttribLocation(shaderTexRect.getUid(), 1, "textureCoordinates");
 			shaderTexRect.link();
-			
+			ASSERTGL();
+
 			shaderTex2DMask.loadSource(shader_tex_mask);
 			shaderTex2DMask.compile();
 			glBindAttribLocation(shaderTex2DMask.getUid(), 0, "position");
 			glBindAttribLocation(shaderTex2DMask.getUid(), 1, "textureCoordinates");
 			shaderTex2DMask.link();
-			
+			ASSERTGL();
+
 			viewport.push(vec4(0,0,0,0));
 			projection.push(mat4(1.f));
 			modelview.push(mat4(1.f));
-			
+			ASSERTGL();
+
 			texture.push(TextureState());
 			blend.push(BlendState());
 			shader.push(NULL);
-			
+			ASSERTGL();
+
             //Need to use GL_MAX_SAMPLES_APPLE for iPhone
             #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
                 glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_fbo_samples);
@@ -275,6 +286,7 @@ namespace po {
 
 	void defaultColorMask() {
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		ASSERTGL();
 	}
 	
 	void defaultStencil() {
@@ -282,6 +294,7 @@ namespace po {
 		glDisable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glStencilFunc(GL_ALWAYS, 0, 0);
+		ASSERTGL();
 	}
 	
 	void setColor(float r, float g, float b, float a) {
@@ -316,6 +329,7 @@ namespace po {
 
 	void disableStencil() {
 		glDisable(GL_STENCIL_TEST);
+		ASSERTGL();
 	}
 	void setupStencilMask(bool c) {
 		defaultStencil();
@@ -324,6 +338,7 @@ namespace po {
 		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+		ASSERTGL();
 	}
 	void useStencilMask(bool inv) {
 		defaultStencil();
@@ -331,6 +346,7 @@ namespace po {
 		glStencilFunc(GL_EQUAL, inv ? 0 : 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		ASSERTGL();
 	}
 
 	void disableBlending() {
@@ -361,6 +377,7 @@ namespace po {
 		TextureState &st = ogl->texture.top();
 		glActiveTexture(GL_TEXTURE0 + st.unit);
 		glBindTexture(st.target,0);
+		ASSERTGL();
 
 		st.target = GL_TEXTURE_2D;
 		st.bound = 0;
@@ -374,8 +391,10 @@ namespace po {
 		st.unit = unit;
 		st.hasAlpha = hasAlpha;
 		
+		ASSERTGL();
 		glActiveTexture(GL_TEXTURE0 + unit);
 		glBindTexture(target, uid);
+		ASSERTGL();
 	}
 	void saveTextureState() { ogl->texture.push(ogl->texture.top()); }
 	void restoreTextureState() {
@@ -383,12 +402,14 @@ namespace po {
 		TextureState &st = ogl->texture.top();
 		glActiveTexture(GL_TEXTURE0 + st.unit);
 		glBindTexture(st.target, st.unit);
+		ASSERTGL();
 	}
 
 	void disableShader() { useShader(NULL); }
 	void useShader(poShader* s) {
 		ogl->shader.top() = s;
 		glUseProgram(s ? s->getUid() : 0);
+		ASSERTGL();
 	}
 	void use2DShader() {
 		disableTexture();
@@ -437,6 +458,7 @@ namespace po {
 		ogl->viewport.pop();
 		glm::vec4 vp = ogl->viewport.top();
 		glViewport(vp[0],vp[1],vp[2],vp[3]);
+		ASSERTGL();
 	}
 	void translate(poPoint off) { ogl->modelview.top() = glm::translate(ogl->modelview.top(), glm::vec3(off.x,off.y,off.z)); }
 	void scale(poPoint scl) { ogl->modelview.top() = glm::scale(ogl->modelview.top(), glm::vec3(scl.x,scl.y,scl.z)); }
@@ -449,11 +471,14 @@ namespace po {
         initGraphics();
 		ogl->viewport.top() = glm::vec4(r.x, r.y, r.width, r.height);
 		glViewport(r.x, r.y, r.width, r.height);
+		ASSERTGL();
 	}
 	void setViewport(float x, float y, float w, float h) {
         initGraphics();
+		ASSERTGL();
 		ogl->viewport.top() = glm::vec4(x,y,w,h);
 		glViewport(x,y,w,h);
+		ASSERTGL();
 	}
 	void setCamera(glm::mat4 m) { ogl->camera = m; }
 	void setOrthoProjection(float l, float r, float b, float t, float n, float f) {

@@ -30,6 +30,9 @@
 #include "poOpenGLState.h"
 //#include <glm/gtc/matrix_transform.hpp>
 
+//#define ASSERTGL() { int err = glGetError(); if(err != GL_NO_ERROR) {printf("x%06x\n", err); assert(false);} }
+#define ASSERTGL()
+
 poCameraType   poCamera::currentCameraType = PO_CAMERA_NONE;
 
 // camera base class
@@ -74,16 +77,22 @@ void poCamera::doSetUp( poObject* obj ) {
 	po::setCamera(po::modelview());
 	
     glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
-    
+    ASSERTGL();
+	
     GLenum clear = 0;
     if(clearsBG)
         clear |= GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT;
     if(glIsEnabled(GL_DEPTH_TEST))
        clear |= GL_DEPTH_BUFFER_BIT;
-    
+	ASSERTGL();
+
     if(clear != 0)
         glClear(clear);
-//       
+	
+	// apparently glClear can do this if there isn't a framebuffer bound
+	glGetError();
+	
+//
 //	if(clearsBG) {
 //        glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
 //        if ( glIsEnabled( GL_DEPTH_TEST ) )
@@ -96,6 +105,7 @@ void poCamera::doSetUp( poObject* obj ) {
 	
 	setProjection();
 	setModelview();
+    ASSERTGL();
 }
 
 void poCamera::doSetDown( poObject* obj ) {
@@ -112,6 +122,7 @@ void poCamera::setModelview() {
 void poCamera::saveAndUpdateGLSettings() {
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
+    ASSERTGL();
 }
 
 void poCamera::restoreGLSettings() {
