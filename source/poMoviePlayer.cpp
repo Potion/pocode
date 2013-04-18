@@ -253,6 +253,7 @@ namespace po {
 	}
 
 	void MoviePlayer::draw() {
+        po::setColor(poColor::white);
 		po::drawTexturedRect(texture, rect.getFlipped());
 	}
 }
