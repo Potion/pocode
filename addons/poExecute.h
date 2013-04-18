@@ -23,19 +23,22 @@ public:
     virtual bool execute();
     
     
-    int numCurExecuting();
-    void setCommand(string _command);
-    string getCommand();
-    void getExpectedStdout(string _expected_stdout);
-    string getExpectedStdout();
-    void setBlocking(bool b);
-    bool isBlocking();
+    int		numCurExecuting();
+    
+	void	setCommand(string _command);
+    string	getCommand();
+    
+	void	getExpectedStdout(string _expected_stdout);
+    string	getExpectedStdout();
+    
+	void	setBlocking(bool b);
+    bool	isBlocking();
     
     static const std::string EXE_DONE;
     
 protected:
-    string command;
-    string expected_stdout;
-    bool blocking;
-    int exec_count;
+    string	command;
+    string	expected_stdout;
+    bool	blocking;
+    int		exec_count;
 };
