@@ -464,15 +464,14 @@ namespace po {
         po::setColor(Color::white);
         for(uint i=0; i<getNumLines(); i++) {
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition());
+                bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), false);
             }
         }
         
         po::restoreBlendState();
         
         fbo->setDown(this);
-        //	cached = fbo->getColorTexture()->copy();
-        cached = fbo->getColorTextureCopy()->copy();
+        cached = fbo->getColorTextureCopy();
         delete fbo;
     }
     
@@ -487,7 +486,6 @@ namespace po {
     //------------------------------------------------------------------------
     void TextBox::draw() {
         using namespace std;
-        
         if(cached && cached->isValid()) {
             po::saveBlendState();
             po::enableAlphaBlending();

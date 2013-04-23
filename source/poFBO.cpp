@@ -28,6 +28,7 @@
 #include "poFBO.h"
 #include "poTexture.h"
 #include "poOpenGLState.h"
+#include "poApplication.h"
 
 #include <boost/foreach.hpp>
 
@@ -154,12 +155,12 @@ namespace po {
     //------------------------------------------------------------------------
     Texture *FBO::getColorTextureCopy(uint idx) {
         Texture *col = colorbuffers[idx];
-        Texture *tex = new Texture(col->getWidth(), col->getHeight(), NULL, col->getConfig());
+        Texture *tex = new Texture(width, height, NULL, col->getConfig());
         
         po::saveTextureState();
         glBindTexture(GL_TEXTURE_2D, tex->getUid());
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
-        glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, col->getWidth(), col->getHeight());
+        glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         po::restoreTextureState();
         
@@ -177,7 +178,7 @@ namespace po {
     void FBO::doSetUp(Object* obj) {
         po::saveTextureState();
         po::saveViewport();
-        po::setViewport(0,0,width,height);
+        po::setViewport(0,0,width/po::getScale(),height/po::getScale());
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
         cam->setUp(obj);
     }

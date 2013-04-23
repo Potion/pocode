@@ -83,11 +83,16 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void BitmapFont::drawGlyph(int glyph, const Point &at) {
+    void BitmapFont::drawGlyph(int glyph, const Point &at, bool useScale) {
         
         if(!atlas->hasUID(glyph))
             cacheGlyph(glyph);
-        atlas->drawUID(glyph, at, getScale());
+        
+        if(useScale) {
+            atlas->drawUID(glyph, at, getScale());
+        } else {
+            atlas->drawUID(glyph, at*getScale(), 1);
+        }
     }
     
     
