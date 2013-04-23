@@ -4,11 +4,11 @@
 
 #include "poObject.h"
 
-class TextCachingApp : public poObject {
+class TextCachingApp : public po::Object {
 public:
 	TextCachingApp();
 	virtual ~TextCachingApp();
 	
-	virtual void eventHandler(poEvent *event);
-	virtual void messageHandler(const std::string &msg, const poDictionary& dict=poDictionary());
+	virtual void eventHandler(po::Event *event);
+	virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
 };
