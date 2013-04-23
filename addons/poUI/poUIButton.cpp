@@ -22,7 +22,6 @@ namespace po {
             label = new po::TextBox(50,50);
             label->setTextAlignment(po::ALIGN_CENTER_CENTER);
             label->textColor.set(0, 0, 0);
-            label->drawBounds = true;
             addChild(label);
             
             setPadding(5); //Default padding
