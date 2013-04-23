@@ -83,7 +83,7 @@ namespace po {
             void setSizeFromLabel();
             bool bSetSizeFromLabel;
             
-            virtual void send_PressedMessage();
+            virtual void sendPressedMessage();
             virtual void sendReleasedMessage();
             virtual void sendToggledMessage();
             

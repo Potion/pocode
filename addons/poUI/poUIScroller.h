@@ -16,7 +16,6 @@ namespace po {
 		class Scroller : public po::Object
 		{
 		public:
-			
 			enum ScrollBarPosition {
 				SCROLLBAR_INSIDE,
 				SCROLLBAR_OUTSIDE

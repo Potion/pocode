@@ -22,6 +22,7 @@ namespace po {
             label = new po::TextBox(50,50);
             label->setTextAlignment(po::ALIGN_CENTER_CENTER);
             label->textColor.set(0, 0, 0);
+            label->drawBounds = true;
             addChild(label);
             
             setPadding(5); //Default padding
@@ -72,13 +73,14 @@ namespace po {
         Button& Button::setSize(float width, float height) {
             bg->reshape(width + getPaddingHorizontal(), height + getPaddingVertical(), 0);
             
-            label->reshape(width, height);
+            if(!bSetSizeFromLabel) {
+                label->reshape(width, height);
+            }
             label->position.set(paddingLeft, paddingTop, 0);
             
             if(offImage)    offImage->position.set(paddingLeft, paddingTop, 0);
             if(onImage)     onImage->position.set(paddingLeft,  paddingTop, 0);
             
-            setUseLabelSize(false);
             label->doLayout();
             
             return *this;
@@ -162,13 +164,14 @@ namespace po {
             label->useTextBoundsAsBounds(useLabelSize);
             
             if(useLabelSize) {
-                label->reshape(1000, 100);
-                label->setTextAlignment(po::ALIGN_CENTER_LEFT);
+                label->reshape(2000, 100);
+                label->setTextAlignment(po::ALIGN_TOP_LEFT);
             } else {
                 label->setTextAlignment(po::ALIGN_TOP_CENTER);
             }
             
             doLabelLayout();
+            
             
             return *this;
         }
@@ -373,7 +376,7 @@ namespace po {
             setPressedState();
             
             if(withMessage) {
-                send_PressedMessage();
+                sendPressedMessage();
             }
         }
         
@@ -432,7 +435,7 @@ namespace po {
         
         
         //------------------------------------------------------------------
-        void Button::send_PressedMessage() {
+        void Button::sendPressedMessage() {
             po::MessageCenter::broadcastMessage(PRESSED_MESSAGE, this, dict);
         }
         
