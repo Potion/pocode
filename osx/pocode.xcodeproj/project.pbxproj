@@ -1211,8 +1211,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;
@@ -1231,6 +1234,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /;

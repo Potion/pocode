@@ -313,6 +313,10 @@ namespace po {
             glyphOffset.x += padding[PADDING_LEFT];
             glyphOffset.y += padding[PADDING_BOTTOM];
             
+            //Snape to whole pixel
+            glyphOffset.x = (int)glyphOffset.x;
+            glyphOffset.y = (int)glyphOffset.y;
+            
             line.bbox.setPosition(line.bbox.getPosition() + glyphOffset);
             
             BOOST_FOREACH(TextLayoutGlyph &glyph, line.glyphs) {
