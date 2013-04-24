@@ -16,6 +16,8 @@ namespace po {
         void removeSubscriberForMessage(Object* subscriber, std::string msg);
         void removeAllSubscribersForMessage(std::string msg);
         
+        void cleanupSubscribers();
+        
         void broadcastMessage(std::string msg, Object* sender=NULL, const Dictionary& dict=Dictionary());
     };
 } /*End po namespace */

@@ -22,6 +22,10 @@ namespace po {
         
         //------------------------------------------------------------------
         void update() {
+            //Subscribers set to NULL when removed
+            //To avoid deleting in nested iteration
+            cleanupSubscribers();
+            
             //Go through queue, broadcasting messages
             for(std::list<Message*>::iterator mIter = messageQueue.begin(); mIter != messageQueue.end(); ++mIter) {
                 Message* m = (*mIter);
@@ -56,7 +60,7 @@ namespace po {
             for (std::map<std::string, std::list<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
                 for(std::list<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
                     if((*sIter)->subscriber == subscriber) {
-                        iter->second.erase(sIter);
+                        (*sIter)->subscriber = NULL;
                     }
                 }
             }
@@ -91,6 +95,19 @@ namespace po {
             }
         }
         
+        
+        //------------------------------------------------------------------
+        void cleanupSubscribers() {
+            //Remove from Subscribers list
+            for (std::map<std::string, std::list<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
+                for(std::list<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
+                    if((*sIter)->subscriber == NULL) {
+                        iter->second.erase(sIter);
+                    }
+                }
+            }
+
+        }
         
         //------------------------------------------------------------------
         void broadcastMessage(std::string msg, Object* sender, const Dictionary& dict) {
