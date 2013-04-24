@@ -29,7 +29,7 @@ namespace po {
         //Start all threads
         void init() {
             //Create threads
-            for(int i=0; i<2; i++) {
+            for(int i=0; i<4; i++) {
                 threads.create_thread(boost::bind(&io_service::run, &service));
             }
         }
