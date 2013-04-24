@@ -304,6 +304,7 @@ namespace po {
     void    LineShape::reshape( Point A, Point B ) {
         setPoint( 0, A );
         setPoint( 1, B );
+        generateStroke(1,po::STROKE_PLACE_CENTER,po::STROKE_JOIN_MITRE,po::STROKE_CAP_ROUND);
     }
     
     
