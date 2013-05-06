@@ -61,12 +61,17 @@ namespace po {
         void setPassword(std::string password);
         const std::string getPassword();
         
+        void setTimeout(float timeInSeconds);
+        float getTimeout();
+        
         std::string toString() const;
     private:
         std::string url;
         std::vector <std::string> headers;
         
         std::string username, password;
+        
+        float timeOut;
     };
     
     

@@ -70,15 +70,16 @@ namespace po {
             
             //Set Headers
             struct curl_slist *headers=NULL;
+            
             for(int i=0; i<url.getHeaders().size(); i++) {
                 headers = curl_slist_append(headers, url.getHeaders()[i].c_str());
             }
             curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
             
             //Set Options
-            curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1);
-            curl_easy_setopt(handle,CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
-            curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION, write_data);
+            curl_easy_setopt(handle,    CURLOPT_NOSIGNAL, 1);
+            curl_easy_setopt(handle,    CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
+            curl_easy_setopt(handle,    CURLOPT_WRITEFUNCTION, write_data);
             curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
             
             if(url.getUsername() != "") {
@@ -89,10 +90,19 @@ namespace po {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
             }
             
+            char* pErrorBuffer = NULL;
+            curl_easy_setopt(handle,    CURLOPT_ERRORBUFFER, pErrorBuffer );
+            curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
+            
             //Do Request
-            curl_easy_perform(handle);
+            if(CURLE_OK != curl_easy_perform(handle)) {
+                // pErrorBuffer contains error string returned by cURL
+                pErrorBuffer[511] = '\0';
+                printf( "cURL returned: %s", pErrorBuffer );
+            }
             
             //Cleanup
+            free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
             fclose(file);
@@ -135,12 +145,20 @@ namespace po {
             if(url.getPassword() != "") {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
             }
-                
             
-            //Do request
-            curl_easy_perform(handle);
+            char* pErrorBuffer = NULL;
+            curl_easy_setopt(handle,    CURLOPT_ERRORBUFFER, pErrorBuffer );
+            curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
+            
+            //Do Request
+            if(CURLE_OK != curl_easy_perform(handle)) {
+                // pErrorBuffer contains error string returned by cURL
+                pErrorBuffer[511] = '\0';
+                printf( "cURL returned: %s", pErrorBuffer );
+            }
             
             //Cleanup
+            free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
             

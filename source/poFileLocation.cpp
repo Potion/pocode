@@ -120,10 +120,12 @@ namespace po {
     // ================================ Class: URL =======================================
     #pragma mark - URL -
 
-    URL::URL() {}
+    URL::URL()
+    : timeOut(30.0f) {}
 
     URL::URL(std::string u)
     : url(u)
+    , timeOut(30.0f)
     {}
 
     URL::~URL() {}
@@ -181,6 +183,17 @@ namespace po {
         return url;
     }
     
+    
+    //------------------------------------------------------------------
+    void URL::setTimeout(float timeInSeconds) {
+        this->timeOut = timeInSeconds;
+    }
+    
+    
+    //------------------------------------------------------------------
+    float URL::getTimeout() {
+        return timeOut;
+    }
     
     
     
