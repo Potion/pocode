@@ -73,7 +73,7 @@ namespace po {
         static void getImageAsync(URL url, Object *notify, const FilePath &savePath=FilePath());
 
         Image*              copy();
-        void				save(const FilePath &filePath);
+        void				save(FilePath &filePath);
         
         // IMAGE PROPERTIES
         bool				isValid() const;

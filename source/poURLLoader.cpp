@@ -164,7 +164,6 @@ namespace po {
             free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
-            std::cout << "Curlin'!" << std::endl;
             return response;
         }
         
