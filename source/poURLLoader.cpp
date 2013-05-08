@@ -48,6 +48,12 @@ namespace po {
     namespace URLLoader {
         //------------------------------------------------------------------
         FilePath getFile(URL url, const FilePath &savePath) {
+            //Check for blank URLs or SavePaths
+            if(!url.toString().length() || !savePath.toString().length()) {
+                std::cout << "po::URL::getFile error, url or savePath not set for URL:" << url.toString() << " FilePath: " <<savePath.toString() << std::endl;
+                return savePath;
+            }
+            
             FilePath p(savePath.toString());
             
             if(!savePath.isSet()) {
@@ -122,6 +128,12 @@ namespace po {
         
         //------------------------------------------------------------------
         std::string getFileAsString(URL url) {
+            //Check for blank url
+            if(!url.toString().length()) {
+                std::cout << "po::URL::getFileAsString error, url not set" << std::endl;
+                return "";
+            }
+            
             std::string response;
             
             //Create CURL handle
