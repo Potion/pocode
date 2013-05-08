@@ -64,7 +64,7 @@ namespace po {
         void setTimeout(float timeInSeconds);
         float getTimeout();
         
-        std::string toString() const;
+        std::string toString();
     private:
         std::string url;
         std::vector <std::string> headers;

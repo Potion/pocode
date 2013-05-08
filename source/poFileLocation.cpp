@@ -179,7 +179,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    std::string URL::toString() const {
+    std::string URL::toString() {
         return url;
     }
     

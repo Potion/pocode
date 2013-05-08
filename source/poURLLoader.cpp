@@ -74,13 +74,14 @@ namespace po {
             for(int i=0; i<url.getHeaders().size(); i++) {
                 headers = curl_slist_append(headers, url.getHeaders()[i].c_str());
             }
+            
             curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
             
             //Set Options
             curl_easy_setopt(handle,    CURLOPT_NOSIGNAL, 1);
             curl_easy_setopt(handle,    CURLOPT_URL,url.toString().c_str()); /*Using the http protocol*/
             curl_easy_setopt(handle,    CURLOPT_WRITEFUNCTION, write_data);
-            curl_easy_setopt(handle,CURLOPT_WRITEDATA, file);
+            curl_easy_setopt(handle,    CURLOPT_WRITEDATA, file);
             
             if(url.getUsername() != "") {
                 curl_easy_setopt(handle, CURLOPT_USERNAME, url.getUsername().c_str());
@@ -95,7 +96,8 @@ namespace po {
             curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
             
             //Do Request
-            if(CURLE_OK != curl_easy_perform(handle)) {
+            CURLcode status = curl_easy_perform(handle);
+            if(status != CURLE_OK) {
                 // pErrorBuffer contains error string returned by cURL
                 pErrorBuffer[511] = '\0';
                 printf( "cURL returned: %s", pErrorBuffer );
@@ -151,7 +153,8 @@ namespace po {
             curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
             
             //Do Request
-            if(CURLE_OK != curl_easy_perform(handle)) {
+            CURLcode status = curl_easy_perform(handle);
+            if(status != CURLE_OK) {
                 // pErrorBuffer contains error string returned by cURL
                 pErrorBuffer[511] = '\0';
                 printf( "cURL returned: %s", pErrorBuffer );
@@ -161,7 +164,7 @@ namespace po {
             free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
-            
+            std::cout << "Curlin'!" << std::endl;
             return response;
         }
         

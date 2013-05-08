@@ -50,7 +50,7 @@ namespace po {
         Font*	getFont() const;
         int		getPointSize() const;
 
-        void	drawGlyph(int glyph, const Point &at);
+        void	drawGlyph(int glyph, const Point &at, bool useScale=true);
         
     private:
         void	init();
