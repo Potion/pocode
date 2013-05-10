@@ -61,7 +61,7 @@ namespace po {
         std::stringstream ss;
         ss << t;
         return ss.str();
-    };
+    }
 
     //Convert string to title case
     std::string toUpperCase(std::string s);
