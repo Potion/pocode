@@ -19,5 +19,5 @@ namespace po {
         void cleanupSubscribers();
         
         void broadcastMessage(std::string msg, Object* sender=NULL, const Dictionary& dict=Dictionary());
-    };
+    }
 } /*End po namespace */

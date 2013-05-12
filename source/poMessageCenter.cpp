@@ -60,7 +60,7 @@ namespace po {
             for (std::map<std::string, std::list<MessageSubscriber* > >::iterator iter = subscribers.begin(); iter!=subscribers.end(); ++iter) {
                 for(std::list<MessageSubscriber* >::iterator sIter = iter->second.begin(); sIter != iter->second.end(); ++sIter) {
                     if((*sIter)->subscriber == subscriber) {
-                        (*sIter)->subscriber = NULL;
+                        sIter = iter->second.erase(sIter);
                     }
                 }
             }

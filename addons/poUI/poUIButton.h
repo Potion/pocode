@@ -71,7 +71,6 @@ namespace po {
             po::Dictionary dict;
             
             virtual void eventHandler(po::Event *event);
-            virtual void messageHandler(const std::string &msg, const po::Dictionary& dict=po::Dictionary());
             
         protected:
             po::RectShape *bg;

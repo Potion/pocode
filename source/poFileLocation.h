@@ -33,7 +33,7 @@ namespace po {
         bool exists() const;
         
         std::string toString() const;
-        fs::path    toBoostPath() const;
+        fs::path    toBoostPath();
         
         FilePath getScaled(float scale) const;
     private:
@@ -50,23 +50,28 @@ namespace po {
         ~URL();
         
         void set(std::string url);
-        bool isSet() const;
+        bool isSet();
         
         void addHeader(std::string value);
-        const std::vector <std::string> &getHeaders();
+        std::vector <std::string> &getHeaders();
         
         void setUsername(std::string username);
-        const std::string getUsername();
+        std::string getUsername();
         
         void setPassword(std::string password);
-        const std::string getPassword();
+        std::string getPassword();
         
-        std::string toString() const;
+        void setTimeout(float timeInSeconds);
+        float getTimeout();
+        
+        std::string toString();
     private:
         std::string url;
         std::vector <std::string> headers;
         
         std::string username, password;
+        
+        float timeOut;
     };
     
     

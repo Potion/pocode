@@ -213,7 +213,7 @@ namespace po {
         KEY_META		= 1 << 20,
         // specific key
         NUMERIC_KEY_MASK = 1 << 21,
-        FUNCTION_KEY_MASK = 1 << 23,
+        FUNCTION_KEY_MASK = 1 << 23
     };
     
     
@@ -222,7 +222,7 @@ namespace po {
         // mouse event mask
         MOUSE_LEFT	= 1,
         MOUSE_MIDDLE	= 1 << 1,
-        MOUSE_RIGHT	= 1 << 2,
+        MOUSE_RIGHT	= 1 << 2
     };
     
     enum {

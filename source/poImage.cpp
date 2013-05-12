@@ -108,7 +108,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void Image::save(const FilePath &filePath) {
+    void Image::save(FilePath &filePath) {
         if(isValid()) {
             FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(filePath.toString().c_str());
             FreeImage_Save(fif, bitmap, filePath.toString().c_str());

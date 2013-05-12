@@ -82,7 +82,7 @@ namespace po {
 
 
     //------------------------------------------------------------------
-    fs::path FilePath::toBoostPath() const {
+    fs::path FilePath::toBoostPath() {
         return this->filePath;
     }
 
@@ -120,10 +120,12 @@ namespace po {
     // ================================ Class: URL =======================================
     #pragma mark - URL -
 
-    URL::URL() {}
+    URL::URL()
+    : timeOut(30.0f) {}
 
     URL::URL(std::string u)
     : url(u)
+    , timeOut(30.0f)
     {}
 
     URL::~URL() {}
@@ -135,7 +137,7 @@ namespace po {
     
 
     //------------------------------------------------------------------
-    bool URL::isSet() const {
+    bool URL::isSet() {
         return url != "";
     }
     
@@ -147,7 +149,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    const std::vector <std::string> &URL::getHeaders() {
+    std::vector <std::string> &URL::getHeaders() {
         return headers;
     }
     
@@ -159,7 +161,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    const std::string URL::getUsername() {
+    std::string URL::getUsername() {
         return this->username;
     }
     
@@ -171,16 +173,27 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    const std::string URL::getPassword() {
+    std::string URL::getPassword() {
         return this->password;
     }
     
     
     //------------------------------------------------------------------
-    std::string URL::toString() const {
+    std::string URL::toString() {
         return url;
     }
     
+    
+    //------------------------------------------------------------------
+    void URL::setTimeout(float timeInSeconds) {
+        this->timeOut = timeInSeconds;
+    }
+    
+    
+    //------------------------------------------------------------------
+    float URL::getTimeout() {
+        return timeOut;
+    }
     
     
     
