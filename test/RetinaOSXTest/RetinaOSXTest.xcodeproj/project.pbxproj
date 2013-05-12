@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E400B4F7172F7BDC0087D325 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E400B4F6172F7BDC0087D325 /* AppDelegate.mm */; };
+		E400B4F9172F7BDC0087D325 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = E400B4F8172F7BDC0087D325 /* en.strings */; };
+		E400B4FB172F7BDC0087D325 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E400B4FA172F7BDC0087D325 /* main.m */; };
+		E400B4FD172F7BDC0087D325 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = E400B4FC172F7BDC0087D325 /* main.pch */; };
+		E400B500172F7BDC0087D325 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E400B4FF172F7BDC0087D325 /* main.xib */; };
+		E400B503172F7BDC0087D325 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E400B502172F7BDC0087D325 /* poOpenGLView.mm */; };
+		E400B507172F7BDC0087D325 /* RetinaOSXTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E400B506172F7BDC0087D325 /* RetinaOSXTestApp.cpp */; };
+		E400B509172F7BDC0087D325 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E400B508172F7BDC0087D325 /* AppConfig.cpp */; };
+		E400B50B172F7BDC0087D325 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E400B50A172F7BDC0087D325 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E400B4EF172F7BDC0087D325 /* RetinaOSXTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetinaOSXTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E400B4F3172F7BDC0087D325 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		E400B4F4172F7BDC0087D325 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		E400B4F5172F7BDC0087D325 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		E400B4F6172F7BDC0087D325 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		E400B4F8172F7BDC0087D325 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		E400B4FA172F7BDC0087D325 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		E400B4FC172F7BDC0087D325 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		E400B4FE172F7BDC0087D325 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		E400B4FF172F7BDC0087D325 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		E400B501172F7BDC0087D325 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		E400B502172F7BDC0087D325 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		E400B505172F7BDC0087D325 /* RetinaOSXTestApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RetinaOSXTestApp.h; sourceTree = "<group>"; };
+		E400B506172F7BDC0087D325 /* RetinaOSXTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RetinaOSXTestApp.cpp; sourceTree = "<group>"; };
+		E400B508172F7BDC0087D325 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		E400B50A172F7BDC0087D325 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E400B4EC172F7BDC0087D325 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E400B4E6172F7BDC0087D325 = {
+			isa = PBXGroup;
+			children = (
+				E400B4F1172F7BDC0087D325 /* RetinaOSXTest */,
+				E400B4F0172F7BDC0087D325 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E400B4F0172F7BDC0087D325 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E400B4EF172F7BDC0087D325 /* RetinaOSXTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E400B4F1172F7BDC0087D325 /* RetinaOSXTest */ = {
+			isa = PBXGroup;
+			children = (
+				E400B4F2172F7BDC0087D325 /* platform */,
+				E400B504172F7BDC0087D325 /* application */,
+			);
+			path = RetinaOSXTest;
+			sourceTree = "<group>";
+		};
+		E400B4F2172F7BDC0087D325 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E400B4F3172F7BDC0087D325 /* Debug.xcconfig */,
+				E400B4F4172F7BDC0087D325 /* Release.xcconfig */,
+				E400B4F5172F7BDC0087D325 /* AppDelegate.h */,
+				E400B4F6172F7BDC0087D325 /* AppDelegate.mm */,
+				E400B4F8172F7BDC0087D325 /* en.strings */,
+				E400B4FA172F7BDC0087D325 /* main.m */,
+				E400B4FC172F7BDC0087D325 /* main.pch */,
+				E400B4FE172F7BDC0087D325 /* main.plist */,
+				E400B4FF172F7BDC0087D325 /* main.xib */,
+				E400B501172F7BDC0087D325 /* poOpenGLView.h */,
+				E400B502172F7BDC0087D325 /* poOpenGLView.mm */,
+				E400B50A172F7BDC0087D325 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E400B504172F7BDC0087D325 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				E400B505172F7BDC0087D325 /* RetinaOSXTestApp.h */,
+				E400B506172F7BDC0087D325 /* RetinaOSXTestApp.cpp */,
+				E400B508172F7BDC0087D325 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E400B4EE172F7BDC0087D325 /* RetinaOSXTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E400B50E172F7BDC0087D325 /* Build configuration list for PBXNativeTarget "RetinaOSXTest" */;
+			buildPhases = (
+				E400B4EB172F7BDC0087D325 /* Sources */,
+				E400B4EC172F7BDC0087D325 /* Frameworks */,
+				E400B4ED172F7BDC0087D325 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RetinaOSXTest;
+			productName = RetinaOSXTest;
+			productReference = E400B4EF172F7BDC0087D325 /* RetinaOSXTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E400B4E7172F7BDC0087D325 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = E400B4EA172F7BDC0087D325 /* Build configuration list for PBXProject "RetinaOSXTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E400B4E6172F7BDC0087D325;
+			productRefGroup = E400B4F0172F7BDC0087D325 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E400B4EE172F7BDC0087D325 /* RetinaOSXTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E400B4ED172F7BDC0087D325 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E400B4F9172F7BDC0087D325 /* en.strings in Resources */,
+				E400B4FD172F7BDC0087D325 /* main.pch in Resources */,
+				E400B500172F7BDC0087D325 /* main.xib in Resources */,
+				E400B50B172F7BDC0087D325 /* OpenSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E400B4EB172F7BDC0087D325 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E400B4F7172F7BDC0087D325 /* AppDelegate.mm in Sources */,
+				E400B4FB172F7BDC0087D325 /* main.m in Sources */,
+				E400B503172F7BDC0087D325 /* poOpenGLView.mm in Sources */,
+				E400B507172F7BDC0087D325 /* RetinaOSXTestApp.cpp in Sources */,
+				E400B509172F7BDC0087D325 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E400B50C172F7BDC0087D325 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E400B4F3172F7BDC0087D325 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E400B50D172F7BDC0087D325 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E400B4F4172F7BDC0087D325 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E400B50F172F7BDC0087D325 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E400B510172F7BDC0087D325 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E400B4EA172F7BDC0087D325 /* Build configuration list for PBXProject "RetinaOSXTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E400B50C172F7BDC0087D325 /* Debug */,
+				E400B50D172F7BDC0087D325 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E400B50E172F7BDC0087D325 /* Build configuration list for PBXNativeTarget "RetinaOSXTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E400B50F172F7BDC0087D325 /* Debug */,
+				E400B510172F7BDC0087D325 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E400B4E7172F7BDC0087D325 /* Project object */;
+}
