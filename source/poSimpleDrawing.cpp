@@ -104,7 +104,7 @@ namespace po {
         
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, points);
-        glDrawArrays(GL_LINES, 0, 2);
+        glDrawArrays(GL_LINE_STRIP, 0, 2);
         glDisableVertexAttribArray(0);
     }
     
