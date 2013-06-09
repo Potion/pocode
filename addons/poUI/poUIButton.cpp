@@ -224,6 +224,7 @@ namespace po {
         Button& Button::setLabelTextOnColor(po::Color color) {
             labelOnColor = color;
             setPressedState();
+            return *this;
         }
         
         
@@ -414,7 +415,7 @@ namespace po {
                 
                 if(onImage) removeChild(onImage);
                 if(offImage) {
-                    addChild(offImage);
+                    if(offImage->getParent() != this) addChild(offImage);
                     moveChildToBack(offImage);
                     moveChildToBack(bg);
                 } else {
