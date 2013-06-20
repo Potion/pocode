@@ -37,6 +37,7 @@ poFBOConfig::poFBOConfig()
 :	numMultisamples(0)
 ,	numColorBuffers(1)
 ,	textureConfig(GL_RGBA)
+,	hasDepthStencil(false)
 {}
 
 poFBOConfig &poFBOConfig::setNumMultisamples(uint nm) {
@@ -53,12 +54,18 @@ poFBOConfig &poFBOConfig::setColorBufferConfig(poTextureConfig c) {
 	textureConfig = c;
 	return *this;
 }
+	
+poFBOConfig &poFBOConfig::setDepthStencil(bool b) {
+	hasDepthStencil = b;
+	return *this;
+}
 
 poFBO::poFBO(uint w, uint h) 
 :	width(w)
 ,	height(h)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
+,	depthStencil(NULL)
 {
 	cam->setFixedSize(true, poPoint(w,h));
 	setup();
@@ -70,6 +77,7 @@ poFBO::poFBO(uint w, uint h, const poFBOConfig &c)
 ,	config(c)
 ,	cam(new poCamera2D())
 ,	multisampling(false)
+,	depthStencil(NULL)
 {
 	cam->setFixedSize(true, poPoint(w,h));
 	setup();
@@ -174,6 +182,11 @@ void poFBO::doSetDown(poObject* obj) {
 	ASSERTGL()
 }
 
+#ifdef POTION_IOS
+#define glRenderbufferStorageMultisample glRenderbufferStorageMultisampleAPPLE
+#define GL_RGBA8 GL_RGBA8_OES
+#endif
+	
 void poFBO::setup() {
 	int maxSamples =  po::maxFBOSamples();
 
@@ -182,71 +195,72 @@ void poFBO::setup() {
 			config.numMultisamples = maxSamples;
 		
 		multisampling = true;
-
-		renderbuffers.resize(1);
-		glGenRenderbuffers(1, &renderbuffers[0]);
-		
-		// this is the multisample render buffer
-		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[0]);
-		#ifdef POTION_IOS
-			glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8_OES, width, height);
-		#else
-			glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
-		#endif
 		// we need 2 different framebuffers
 		framebuffers.resize(2);
 		glGenFramebuffers(2, &framebuffers[0]);
-		// the first is the multisample buffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+
+		renderbuffers.resize(2);
+		glGenRenderbuffers(2, &renderbuffers[0]);
+		
+		// this is the multisample render buffer
+		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[0]);
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_RGBA8, width, height);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffers[0]);
+		
+		// same for depth/stencil
+		if(config.hasDepthStencil) {
+			glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[1]);
+			glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_DEPTH24_STENCIL8, width, height);
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffers[1]);
+		}
+		
+		// unbind render buffer
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 		// attach it to the second framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[1]);
-
-		// make new textures
-		colorbuffers.clear();
-		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
-		}
-		
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	else {
-		if(config.numMultisamples)
-			printf("unable to do framebuffer multisampling\n");
-		
 		// we only need the one framebuffer
 		framebuffers.resize(1);
 		glGenFramebuffers(1, &framebuffers[0]);
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
 		ASSERTGL()
+	}
 
-		colorbuffers.clear();
-		
-		for(int i=0; i<config.numColorBuffers; i++) {
-			colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
-			ASSERTGL()
-		}
-
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-		ASSERTGL()
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	colorbuffers.clear();
+	for(int i=0; i<config.numColorBuffers; i++) {
+		colorbuffers.push_back(new poTexture(width,height,NULL,config.textureConfig));
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, colorbuffers[i]->getUid(), 0);
 		ASSERTGL()
 	}
+	
+	if(config.hasDepthStencil) {
+		depthStencil = new poTexture(width, height, NULL, poTextureConfig(GL_DEPTH_STENCIL).setInternalFormat(GL_DEPTH24_STENCIL8).setType(GL_UNSIGNED_INT_24_8));
+		ASSERTGL()
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthStencil->getUid(), 0);
+		ASSERTGL()
+	}
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		printf("Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	ASSERTGL()
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	ASSERTGL()
 }
 
 void poFBO::cleanup() {
 	BOOST_FOREACH(poTexture *tex, colorbuffers)
 		delete tex;
 	colorbuffers.clear();
+	
+	if(depthStencil) {
+		delete depthStencil;
+		depthStencil = NULL;
+	}
 
 	// make sure none of this is bound right now
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -255,5 +269,3 @@ void poFBO::cleanup() {
 	ASSERTGL()
 	framebuffers[0] = 0;
 }
-
-

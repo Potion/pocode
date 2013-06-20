@@ -37,10 +37,12 @@ struct poFBOConfig {
 	poFBOConfig &setNumMultisamples(uint numMultisamples);
 	poFBOConfig &setNumColorBuffers(uint numColorBuffers);
 	poFBOConfig &setColorBufferConfig(poTextureConfig config);
+	poFBOConfig &setDepthStencil(bool);
 	
 	uint numColorBuffers;
 	uint numMultisamples;
 	poTextureConfig textureConfig;
+	bool hasDepthStencil;
 };
 
 class poFBO : public poObjectModifier {
@@ -78,12 +80,9 @@ private:
 	std::vector<GLuint> framebuffers;
 	std::vector<GLuint> renderbuffers;
 	std::vector<poTexture*> colorbuffers;
+	poTexture* depthStencil;
 	
 	poCamera *cam;
 	
 	bool multisampling;
 };
-
-
-
-
