@@ -38,7 +38,7 @@ namespace po {
         
         std::string getFileAsString(URL url);
         void getFileAsStringAsync(URL url, Object* notify);
-    }
+    };
 
 
     //------------------------------------------------------------------

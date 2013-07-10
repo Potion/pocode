@@ -38,10 +38,12 @@ namespace po {
         FBOConfig &setNumMultisamples(uint numMultisamples);
         FBOConfig &setNumColorBuffers(uint numColorBuffers);
         FBOConfig &setColorBufferConfig(TextureConfig config);
+		FBOConfig &setDepthStencil(bool);
         
         uint numColorBuffers;
         uint numMultisamples;
         TextureConfig textureConfig;
+		bool hasDepthStencil;
     };
 
     class FBO : public ObjectModifier {
@@ -79,6 +81,7 @@ namespace po {
         std::vector<GLuint> framebuffers;
         std::vector<GLuint> renderbuffers;
         std::vector<Texture*> colorbuffers;
+		Texture *depthStencil;
         
         Camera *cam;
         
