@@ -50,7 +50,7 @@ namespace po {
         virtual			ObjectModifier *copy();
         
         void            setShape(Shape2D *shape);	
-        // this isn't implemented yet
+
         bool            pointInside(Point p);
         
     protected:

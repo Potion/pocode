@@ -30,6 +30,7 @@
 #include "poSimpleDrawing.h"
 #include "poCamera.h"
 #include "poMessageCenter.h"
+#include "poGeometryMask.h"
 
 static uint PO_OBJECT_UID = 0;
 
@@ -663,11 +664,24 @@ namespace po {
         if ( getNumChildren() > 0 )
             return false;
         
+//		Object* p = getParent();
+//		while(p) {
+//			auto mods = p->getModifiers();
+//			for(auto mod : mods) {
+//				GeometryMask* mask = dynamic_cast<GeometryMask*>(mod);
+//				if(mask) {
+//					Point pt = p->globalToLocal(point);
+//					return mask->pointInside(pt);
+//				}
+//			}
+//			p = p->getParent();
+//		}
+		
         // if there are no children, check bounds rect
         if(localize) {
             point = globalToLocal(point);
         }
-        
+
         return getBounds().contains(point);
     }
     

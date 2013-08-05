@@ -67,8 +67,11 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool GeometryMask::pointInside(Point p) {
-        if(shape)
-            return shape->pointInside(p);
+        if(shape) {
+			Rect r = shape->getBounds();
+			r.setPosition(shape->position);
+            return r.contains(p);
+		}
         return false;
     }
     

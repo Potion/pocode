@@ -28,6 +28,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "poSimpleDrawing.h"
+#include "poGeometryMask.h"
 
 namespace po {
     Shape2D::Shape2D()
@@ -401,7 +402,21 @@ namespace po {
 //                point.y = po::getWindowHeight() - point.y;
                 point = globalToLocal(point);
             }
-            
+
+			Object* p = getParent();
+			while(p) {
+				auto mods = p->getModifiers();
+				for(auto mod : mods) {
+					GeometryMask* mask = dynamic_cast<GeometryMask*>(mod);
+					if(mask) {
+						Point pt = p->objectToLocal(this,point);
+						if(!mask->pointInside(pt))
+							return false;
+					}
+				}
+				p = p->getParent();
+			}
+
             // test point inside for given drawstyle
             if ( fillDrawStyle == GL_TRIANGLE_FAN && points.size() >= 3 ) {
                 for( int i=1; i<points.size()-1; i++ )
