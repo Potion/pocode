@@ -67,12 +67,12 @@ void poCamera::clone(poCamera *cam) {
 void poCamera::doSetUp( poObject* obj ) {
 	saveAndUpdateGLSettings();
 
-//	if(isFixedSize())
-//		po::setViewport(0, 0, fixedSize.x, fixedSize.y);
-//	else {
-//		poPoint win = getWindowDimensions() * poGetScale();
-//		po::setViewport(0, 0, win.x, win.y);
-//	}
+	if(isFixedSize())
+		po::setViewport(0, 0, fixedSize.x, fixedSize.y);
+	else {
+		poPoint win = getWindowDimensions() * poGetScale();
+		po::setViewport(0, 0, win.x, win.y);
+	}
 	
 	po::setCamera(po::modelview());
 	
@@ -92,7 +92,7 @@ void poCamera::doSetUp( poObject* obj ) {
 	// apparently glClear can do this if there isn't a framebuffer bound
 	glGetError();
 	
-//
+
 //	if(clearsBG) {
 //        glClearColor(backgroundColor.R, backgroundColor.G, backgroundColor.B, backgroundColor.A);
 //        if ( glIsEnabled( GL_DEPTH_TEST ) )
