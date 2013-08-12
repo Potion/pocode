@@ -32,6 +32,13 @@
 
 #include <boost/foreach.hpp>
 
+#ifdef OPENGL_ES
+#define GL_DEPTH24_STENCIL8 GL_DEPTH24_STENCIL8_OES
+#define GL_DEPTH_STENCIL GL_DEPTH_STENCIL_OES
+#define GL_DEPTH24_STENCIL8 GL_DEPTH24_STENCIL8_OES
+#define GL_UNSIGNED_INT_24_8 GL_UNSIGNED_INT_24_8_OES
+#endif
+
 #define ASSERTGL() { int err = glGetError(); if(err != GL_NO_ERROR) {printf("x%06x\n", err); assert(false);} }
 
 namespace po {
@@ -259,7 +266,12 @@ namespace po {
 			if(config.hasDepthStencil) {
 				glBindRenderbuffer(GL_RENDERBUFFER, renderbuffers[1]);
 				glRenderbufferStorageMultisample(GL_RENDERBUFFER, config.numMultisamples, GL_DEPTH24_STENCIL8, width, height);
-				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffers[1]);
+                #ifdef OPENGL_ES
+                    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderbuffers[1]);
+                    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffers[1]);
+                #else
+                    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffers[1]);
+                #endif
 			}
 			
 			// unbind render buffer
@@ -288,7 +300,12 @@ namespace po {
 		if(config.hasDepthStencil) {
 			depthStencil = new Texture(width, height, NULL, TextureConfig(GL_DEPTH_STENCIL).setInternalFormat(GL_DEPTH24_STENCIL8).setType(GL_UNSIGNED_INT_24_8));
 			ASSERTGL()
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthStencil->getUid(), 0);
+            #ifdef OPENGL_ES
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,     GL_TEXTURE_2D, depthStencil->getUid(), 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT,   GL_TEXTURE_2D, depthStencil->getUid(), 0);
+            #else
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthStencil->getUid(), 0);
+            #endif
 			ASSERTGL()
 		}
 		
