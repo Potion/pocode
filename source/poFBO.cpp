@@ -193,7 +193,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void FBO::doSetUp(Object* obj) {
-		ASSERTGL()
+		glGetError();
         po::saveTextureState();
 		ASSERTGL()
         po::saveViewport();
