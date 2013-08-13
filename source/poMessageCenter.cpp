@@ -38,8 +38,6 @@ namespace po {
                         if(thisSubscriber->sender == NULL || thisSubscriber->sender == thisMsg->sender) {
                             thisSubscriber->subscriber->messageHandler(thisMsg->message, thisMsg->dict, thisMsg->sender);
                         }
-                    } else {
-                        std::cout << "Apparently this subscriber should be deleted :/" << std::endl;
                     }
                 }
                 
