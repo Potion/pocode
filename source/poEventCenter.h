@@ -47,9 +47,11 @@
 
 namespace po {
     struct EventCallback {
+        EventCallback() : bShouldDelete(false) {};
         int uid;
         Object *receiver;
         Event event;
+        bool bShouldDelete;
     };
 
     // used internally to store relevant info between events
@@ -109,6 +111,8 @@ namespace po {
         void	processTouchEvents( Event &Event );
         void	processKeyEvents( Event &Event );
         void	processMotionEvent( Event &Event );
+        
+        void    cleanupCallbacks();
 
         bool	objectIsAvailableForEvents(Object *obj);
         
