@@ -176,7 +176,10 @@ namespace po {
         
         po::saveTextureState();
         glBindTexture(GL_TEXTURE_2D, tex->getUid());
-        glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[0]);
+		
+		int correctFBO = multisampling ? 1 : 0;
+		
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[correctFBO]);
         glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         po::restoreTextureState();
