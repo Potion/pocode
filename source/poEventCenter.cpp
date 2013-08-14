@@ -175,19 +175,21 @@ namespace po {
     
     //------------------------------------------------------------------------
     void EventCenter::notifyOneListener( EventCallback* callback, Event &global_event ) {
-        // get event stored in callback
-        Event &stored_event = callback->event;
-        Event sentEvent = stored_event;
-        
-        if(objectIsAvailableForEvents(stored_event.source)) {
-            // prep the event for sending
-            localizeEvent(global_event, sentEvent);
+        if(!callback->bShouldDelete) {
+            // get event stored in callback
+            Event &stored_event = callback->event;
+            Event sentEvent = stored_event;
             
-            // push it out
-            callback->receiver->eventHandler(&sentEvent);
-            
-            // capture any user changes to the dictionary
-            stored_event.dictionary = sentEvent.dictionary;
+            if(objectIsAvailableForEvents(stored_event.source)) {
+                // prep the event for sending
+                localizeEvent(global_event, sentEvent);
+                
+                // push it out
+                callback->receiver->eventHandler(&sentEvent);
+                
+                // capture any user changes to the dictionary
+                stored_event.dictionary = sentEvent.dictionary;
+            }
         }
     }
     
@@ -204,7 +206,8 @@ namespace po {
             if( objectIsAvailableForEvents(obj) ) {
                 // if point is inside, return callback containing object
                 if ( obj->pointInside( P, true ) )
-                    return event_vec[i];
+                    if(!event_vec[i]->bShouldDelete)
+                        return event_vec[i];
             }
         }
         
@@ -244,6 +247,22 @@ namespace po {
             
             events.pop_front();
         }
+        
+        cleanupCallbacks();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void EventCenter::cleanupCallbacks() {
+        std::vector<std::vector<EventCallback *> >::iterator iter = events.begin(); //Events Iterator
+        for(; iter != events.end(); ++iter) {
+            std::vector<EventCallback *>::iterator cIter = (*iter).begin(); //CallBack iterator for each event
+            for(; cIter != (*iter).end(); ++cIter) {
+                if((*cIter)->bShouldDelete) {
+                    cIter = (*iter).erase(cIter);
+                }
+            }
+        }
     }
     
     
@@ -260,7 +279,7 @@ namespace po {
             // find single object to receive po::MOUSE_DOWN_INSIDE_EVENT
             
             EventCallback* callback = findTopObjectUnderPoint( po::MOUSE_DOWN_INSIDE_EVENT, Event.globalPosition );
-            if ( callback )
+            if (callback)
             {
                 Event.type = po::MOUSE_DOWN_INSIDE_EVENT;
                 notifyOneListener( callback, Event );
@@ -268,7 +287,7 @@ namespace po {
             
             // set lastDragID for object to receive po::MOUSE_DRAG_INSIDE_EVENT
             EventCallback* drag_callback = findTopObjectUnderPoint( po::MOUSE_DRAG_INSIDE_EVENT, Event.globalPosition );
-            if ( drag_callback )
+            if (drag_callback)
             {
                 Object* obj = drag_callback->event.source;
                 obj->eventMemory->lastDragID = 1;
@@ -283,8 +302,10 @@ namespace po {
             std::vector<EventCallback*> &event_vec = events[po::MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
-                Object* obj = callback->event.source;
-                obj->eventMemory->lastDragID = -1;
+                if(!callback->bShouldDelete) {
+                    Object* obj = callback->event.source;
+                    obj->eventMemory->lastDragID = -1;
+                }
             }
         }
         
@@ -293,7 +314,7 @@ namespace po {
 
             // move over events
             EventCallback* callback = findTopObjectUnderPoint( po::MOUSE_OVER_EVENT, Event.globalPosition );
-            if ( callback )
+            if ( callback)
             {
                 Event.type = po::MOUSE_OVER_EVENT;
                 notifyOneListener( callback, Event );
@@ -309,54 +330,60 @@ namespace po {
             std::vector<EventCallback*> &enter_event_vec = events[po::MOUSE_ENTER_EVENT];
             for( int i=0; i<enter_event_vec.size(); i++ ) {
                 EventCallback* callback = enter_event_vec[i];
-                Object* obj = callback->event.source;
-                
-                if( ! objectIsAvailableForEvents(obj) )
-                    continue;
-                
-                bool isInside = obj->pointInside(Event.globalPosition, true);
-                
-                // if inside now and not inside last frame, then trigger enter event
-                if(isInside && obj->eventMemory->lastInsideTouchID < 0) 
-                {
-                    notifyOneListener(callback, Event);
-                    obj->eventMemory->lastInsideTouchID = -2;       // -2 will become positive 1 in for loop after leave event
+                if(!callback->bShouldDelete) {
+                    Object* obj = callback->event.source;
+                    
+                    if( ! objectIsAvailableForEvents(obj) )
+                        continue;
+                    
+                    bool isInside = obj->pointInside(Event.globalPosition, true);
+                    
+                    // if inside now and not inside last frame, then trigger enter event
+                    if(isInside && obj->eventMemory->lastInsideTouchID < 0) 
+                    {
+                        notifyOneListener(callback, Event);
+                        obj->eventMemory->lastInsideTouchID = -2;       // -2 will become positive 1 in for loop after leave event
+                    }
+                    if (!isInside && obj->eventMemory->lastInsideTouchID > 0)
+                        obj->eventMemory->lastInsideTouchID = 2;       // 2 will become  -1 in for loop after leave event
                 }
-                if (!isInside && obj->eventMemory->lastInsideTouchID > 0)
-                    obj->eventMemory->lastInsideTouchID = 2;       // 2 will become  -1 in for loop after leave event
             }
             
             // leave events
             std::vector<EventCallback*> &leave_event_vec = events[po::MOUSE_LEAVE_EVENT];
             for( int i=0; i<leave_event_vec.size(); i++ ) {
                 EventCallback* callback = leave_event_vec[i];
-                Object* obj = callback->event.source;
-                
-                if( ! objectIsAvailableForEvents(obj) )
-                    continue;
-                
-                bool isInside = obj->pointInside(Event.globalPosition, true);
-                
-                // if not inside now and was inside last frame, then trigger leave event
-                if( !isInside && obj->eventMemory->lastInsideTouchID > 0 ) 
-                {
-                    notifyOneListener(callback, Event);
-                    obj->eventMemory->lastInsideTouchID = -1;
+                if(!callback->bShouldDelete) {
+                    Object* obj = callback->event.source;
+                    
+                    if( ! objectIsAvailableForEvents(obj) )
+                        continue;
+                    
+                    bool isInside = obj->pointInside(Event.globalPosition, true);
+                    
+                    // if not inside now and was inside last frame, then trigger leave event
+                    if( !isInside && obj->eventMemory->lastInsideTouchID > 0 ) 
+                    {
+                        notifyOneListener(callback, Event);
+                        obj->eventMemory->lastInsideTouchID = -1;
+                    }
+                    if ( isInside && obj->eventMemory->lastInsideTouchID < 0 )
+                        obj->eventMemory->lastInsideTouchID = 1;
                 }
-                if ( isInside && obj->eventMemory->lastInsideTouchID < 0 )
-                    obj->eventMemory->lastInsideTouchID = 1;
             }
             
             // go back and fix states for enter events
             for( int i=0; i<enter_event_vec.size(); i++ )
             {
                 EventCallback* callback = enter_event_vec[i];
-                Object* obj = callback->event.source;
-                // for all enter events, switch lastInsideTouchID from -2 to to 1, and  2 to -1
-                if ( obj->eventMemory->lastInsideTouchID == -2 )
-                    obj->eventMemory->lastInsideTouchID = 1;
-                if ( obj->eventMemory->lastInsideTouchID == 2 )
-                    obj->eventMemory->lastInsideTouchID = -1;
+                if(!callback->bShouldDelete) {
+                    Object* obj = callback->event.source;
+                    // for all enter events, switch lastInsideTouchID from -2 to to 1, and  2 to -1
+                    if ( obj->eventMemory->lastInsideTouchID == -2 )
+                        obj->eventMemory->lastInsideTouchID = 1;
+                    if ( obj->eventMemory->lastInsideTouchID == 2 )
+                        obj->eventMemory->lastInsideTouchID = -1;
+                }
             }		
         }
         
@@ -368,10 +395,12 @@ namespace po {
             std::vector<EventCallback*> &event_vec = events[po::MOUSE_DRAG_INSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
+                if(!callback->bShouldDelete) {
                 Object* obj = callback->event.source;
-                if ( obj->eventMemory->lastDragID != -1 ) {  
-                    Event.type = po::MOUSE_DRAG_INSIDE_EVENT;
-                    notifyOneListener( callback, Event );
+                    if ( obj->eventMemory->lastDragID != -1 ) {  
+                        Event.type = po::MOUSE_DRAG_INSIDE_EVENT;
+                        notifyOneListener( callback, Event );
+                    }
                 }
             }
         }
@@ -386,7 +415,7 @@ namespace po {
          // handles po::TOUCH_BEGAN_INSIDE_EVENT and po::TOUCH_BEGAN_OUTSIDE_EVENT
          if ( Event.type == po::TOUCH_BEGAN_EVENT ) {
              EventCallback* callback = findTopObjectUnderPoint( po::TOUCH_BEGAN_INSIDE_EVENT, Event.globalPosition );
-             if ( callback ) {
+             if (callback) {
                  Event.type = po::TOUCH_BEGAN_INSIDE_EVENT;
                  notifyOneListener( callback, Event );
              }
@@ -396,12 +425,14 @@ namespace po {
              std::vector<EventCallback*> &event_vec = events[po::TOUCH_BEGAN_OUTSIDE_EVENT];
              for( int i=0; i<event_vec.size(); i++ ) {
                  EventCallback* callback = event_vec[i];
-                 Object* obj = callback->event.source;
-                 // check that object is visible
-                 if( objectIsAvailableForEvents(obj) ) {
-                     // if point is not inside, send event
-                     if ( ! obj->pointInside( Event.globalPosition, true ) )
-                         notifyOneListener( callback, Event );
+                 if(!callback->bShouldDelete) {
+                     Object* obj = callback->event.source;
+                     // check that object is visible
+                     if( objectIsAvailableForEvents(obj) ) {
+                         // if point is not inside, send event
+                         if ( ! obj->pointInside( Event.globalPosition, true ) )
+                             notifyOneListener( callback, Event );
+                     }
                  }
              }
          }
@@ -413,7 +444,7 @@ namespace po {
             Event.type = po::TOUCH_ENDED_INSIDE_EVENT;
             
             EventCallback* callback = findTopObjectUnderPoint( po::TOUCH_ENDED_INSIDE_EVENT, Event.globalPosition );
-            if ( callback )
+            if (callback)
                 notifyOneListener( callback, Event );
             
             // notify objects listening for po::TOUCH_ENDED_OUTSIDE_EVENT
@@ -421,12 +452,14 @@ namespace po {
             std::vector<EventCallback*> &event_vec = events[po::TOUCH_ENDED_OUTSIDE_EVENT];
             for( int i=0; i<event_vec.size(); i++ ) {
                 EventCallback* callback = event_vec[i];
-                Object* obj = callback->event.source;
-                // check that object is visible
-                if( objectIsAvailableForEvents(obj) ) {
-                    // if point is not inside, send event
-                    if ( ! obj->pointInside( Event.globalPosition, true ) )
-                        notifyOneListener( callback, Event );
+                if(!callback->bShouldDelete) {
+                    Object* obj = callback->event.source;
+                    // check that object is visible
+                    if( objectIsAvailableForEvents(obj) ) {
+                        // if point is not inside, send event
+                        if ( ! obj->pointInside( Event.globalPosition, true ) )
+                            notifyOneListener( callback, Event );
+                    }
                 }
             }
         }

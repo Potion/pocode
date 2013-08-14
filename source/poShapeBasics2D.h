@@ -86,6 +86,7 @@ namespace po {
         
         float	radius;
         
+        //Do we need this? Can 
         po::Texture     *texture;
         bool            alphaTest;
     };
