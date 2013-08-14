@@ -133,6 +133,7 @@ namespace po {
     ,	wrapS(GL_CLAMP_TO_BORDER)
     ,	wrapT(GL_CLAMP_TO_BORDER)
     #endif
+	,	borderColor(po::Color::transparent)
     {}
 
     TextureConfig::TextureConfig(GLenum format)
@@ -148,6 +149,7 @@ namespace po {
     ,	wrapS(GL_CLAMP_TO_BORDER)
     ,	wrapT(GL_CLAMP_TO_BORDER)
     #endif
+	,	borderColor(po::Color::transparent)
     {}
 
     int Texture::totalAllocatedTextureMemorySize = 0;
@@ -373,6 +375,12 @@ namespace po {
         configure();
     }
     
+	void Texture::setBorderColor(po::Color c)
+	{
+		config.setBorderColor(c);
+		configure();
+	}
+
     
     //------------------------------------------------------------------------
     Color Texture::getSourceImagePixel(Point p) {
@@ -532,8 +540,8 @@ namespace po {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
         
     #ifndef OPENGL_ES
-        float trans[] = {0.f, 0.f, 0.f, 0.f};
-        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
+        float color[] = {config.borderColor.R, config.borderColor.G, config.borderColor.B, config.borderColor.A};
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
     #endif
         
         po::restoreTextureState();
