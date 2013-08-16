@@ -542,8 +542,8 @@ namespace po {
             bitmap = FreeImage_ConvertFromRawBits(const_cast<ubyte*>(pix), w, h, w*c, c*8, 0,0,0);
         else {
             bitmap = FreeImage_Allocate(w, h, c*8);
-            char black[] = {0,0,0,0};
-            FreeImage_FillBackground(bitmap, black);
+            unsigned char black[] = {0,0,0,0};
+            FreeImage_FillBackground(bitmap, black, FI_COLOR_IS_RGBA_COLOR);
         }
         
         totalAllocatedImageMemorySize += FreeImage_GetDIBSize(bitmap);

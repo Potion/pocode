@@ -14,6 +14,7 @@ namespace po {
         
         void removeSubscriber(Object* subscriber);
         void removeSubscriberForMessage(Object* subscriber, std::string msg);
+        void removeSubscriberForMessageAndSender(Object* subscriber, std::string msg, Object* sender);
         void removeAllSubscribersForMessage(std::string msg);
         
         void cleanupSubscribers();

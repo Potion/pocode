@@ -50,8 +50,10 @@ class TextureConfig {
         TextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
         TextureConfig &setWrapS(GLenum f)				{ wrapS = f; return *this; }
         TextureConfig &setWrapT(GLenum f)				{ wrapT = f; return *this; }
-        
+		TextureConfig &setBorderColor(po::Color c)		{ borderColor = c; }
+    
         GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
+		po::Color borderColor;
     };
 
 
@@ -97,6 +99,7 @@ class TextureConfig {
         void				setType(GLenum f);
         void				setWrapS(GLenum f);
         void				setWrapT(GLenum f);
+		void				setBorderColor(po::Color c);
         
         bool                hasSourceImage() { return (sourceImage != NULL); };
         Color             getSourceImagePixel(Point p);

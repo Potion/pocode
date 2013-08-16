@@ -95,7 +95,22 @@ namespace po {
             }
         }
         
-        
+		void removeSubscriberForMessageAndSender(Object* subscriber, std::string msg, Object* sender)
+		{
+            if(subscribers.find(msg) != subscribers.end()) {
+                if(!subscribers[msg].empty()) {
+                    //Find the subscriber and delete it
+                    for(std::list<MessageSubscriber* >::iterator sIter = subscribers[msg].begin(); sIter != subscribers[msg].end(); ++sIter) {
+                        MessageSubscriber* thisSubscriber = (*sIter);
+                        if(thisSubscriber->subscriber == subscriber && thisSubscriber->sender == sender) {
+                            delete (*sIter);
+                            subscribers[msg].erase(sIter);
+                        }
+                    }
+                }
+            }
+		}
+
         //------------------------------------------------------------------
         void removeAllSubscribersForMessage(std::string msg) {
             if(subscribers.find(msg) != subscribers.end()) {
