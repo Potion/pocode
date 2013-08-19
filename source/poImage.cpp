@@ -278,6 +278,9 @@ namespace po {
     //------------------------------------------------------------------
     void Image::composite(Image *img, Point into, float blend) {
         FreeImage_Paste(bitmap, img->bitmap, into.x, into.y, blend*256);
+//		FIBITMAP* bmp = FreeImage_Composite(img->bitmap, false, false, bitmap);
+//		FreeImage_Unload(bitmap);
+//		bitmap = bmp;
     }
     
     
