@@ -140,6 +140,8 @@ namespace po {
             
 			virtual RadioButtonSet& setVertical(bool b);
             
+			virtual RadioButtonSet& setSelected(RadioButton *button);
+            
 			virtual RadioButtonSet& doLayout(bool firstSelected=false);
 			
 			virtual bool isFromThisSet(RadioButton *button);
