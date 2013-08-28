@@ -98,7 +98,7 @@ namespace po {
             }
             
             for(int i=0; i<url.getOptions().size(); i++) {
-                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
+                curl_easy_setopt(handle, (CURLoption)url.getOptions()[i].option, url.getOptions()[i].value);
             }
             
             //Set the Error Buffer
@@ -170,7 +170,7 @@ namespace po {
             }
             
             for(int i=0; i<url.getOptions().size(); i++) {
-                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
+                curl_easy_setopt(handle, (CURLoption)url.getOptions()[i].option, url.getOptions()[i].value);
             }
             
             //Set the Error Buffer
