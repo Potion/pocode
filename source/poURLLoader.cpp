@@ -97,8 +97,17 @@ namespace po {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
             }
             
+            for(int i=0; i<url.getOptions().size(); i++) {
+                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
+            }
+            
+            //Set the Error Buffer
             char* pErrorBuffer = NULL;
+            pErrorBuffer = (char*)malloc(512);
+            memset(pErrorBuffer, 0, 512);
             curl_easy_setopt(handle,    CURLOPT_ERRORBUFFER, pErrorBuffer );
+            
+            //Set Timeout
             curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
             
             //Do Request
@@ -110,10 +119,10 @@ namespace po {
             }
             
             //Cleanup
-            free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
             fclose(file);
+            free(pErrorBuffer);
             
             return p;
         }
@@ -160,8 +169,17 @@ namespace po {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
             }
             
+            for(int i=0; i<url.getOptions().size(); i++) {
+                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
+            }
+            
+            //Set the Error Buffer
             char* pErrorBuffer = NULL;
+            pErrorBuffer = (char*)malloc(512);
+            memset(pErrorBuffer, 0, 512);
             curl_easy_setopt(handle,    CURLOPT_ERRORBUFFER, pErrorBuffer );
+            
+            //Set Timeout
             curl_easy_setopt(handle,    CURLOPT_CONNECTTIMEOUT, url.getTimeout());
             
             //Do Request
@@ -173,9 +191,9 @@ namespace po {
             }
             
             //Cleanup
-            free(pErrorBuffer);
             curl_easy_cleanup(handle);
             curl_slist_free_all(headers);
+            free(pErrorBuffer);
             return response;
         }
         

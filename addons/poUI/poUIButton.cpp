@@ -516,7 +516,6 @@ namespace po {
             return *this;
 		}
 		
-		
         //------------------------------------------------------------------
         void RadioButton::sendSelectedMessage() {
             po::MessageCenter::broadcastMessage(SELECTED_MESSAGE, this);
@@ -686,6 +685,22 @@ namespace po {
             return *this;
 		}
 		
+		
+        //------------------------------------------------------------------
+        RadioButtonSet& RadioButtonSet::setSelected(RadioButton *button) {
+            if(isFromThisSet(button)) {
+                for(int i=0; i<radioButtons.size(); i++){
+					if(button == radioButtons[i]){
+						selected = radioButtons[i];
+                        radioButtons[i]->toggleOn();
+					} else{
+						radioButtons[i]->toggleOff();
+						radioButtons[i]->bSelected = false;
+					}
+				}
+            }
+        }
+		
 		//------------------------------------------------------------------
 		bool RadioButtonSet::isFromThisSet(RadioButton *button) {
 			for (int i=0; i<radioButtons.size(); i++){
@@ -704,16 +719,7 @@ namespace po {
 			RadioButton* btn = (RadioButton *) sender;
 			
 			if(msg == RadioButton::SELECTED_MESSAGE && isFromThisSet(btn)){
-				
-				for(int i=0; i<radioButtons.size(); i++){
-					if(btn == radioButtons[i]){
-						selected = radioButtons[i];
-                        radioButtons[i]->toggleOn();
-					}else{
-						radioButtons[i]->toggleOff();
-						radioButtons[i]->bSelected = false;
-					}
-				}
+				setSelected(btn);
 			}
 
 		}
