@@ -97,6 +97,10 @@ namespace po {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
             }
             
+            for(int i=0; i<url.getOptions().size(); i++) {
+                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
+            }
+            
             //Set the Error Buffer
             char* pErrorBuffer = NULL;
             pErrorBuffer = (char*)malloc(512);
@@ -163,6 +167,10 @@ namespace po {
             
             if(url.getPassword() != "") {
                 curl_easy_setopt(handle, CURLOPT_PASSWORD, url.getPassword().c_str());
+            }
+            
+            for(int i=0; i<url.getOptions().size(); i++) {
+                curl_easy_setopt(handle, url.getOptions()[i].option, url.getOptions()[i].value);
             }
             
             //Set the Error Buffer

@@ -128,7 +128,8 @@ namespace po {
     , timeOut(30.0f)
     {}
 
-    URL::~URL() {}
+    URL::~URL() {
+    }
     
     //------------------------------------------------------------------
     void URL::set(std::string url) {
@@ -139,6 +140,18 @@ namespace po {
     //------------------------------------------------------------------
     bool URL::isSet() {
         return url != "";
+    }
+    
+    
+    //------------------------------------------------------------------
+    void URL::addOption(CURLoption option, void *value) {
+        options.push_back(curl_option(option, value));
+    }
+    
+    
+    //------------------------------------------------------------------
+    std::vector<URL::curl_option> &URL::getOptions() {
+        return options;
     }
     
     
