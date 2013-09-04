@@ -63,6 +63,7 @@ namespace po {
         float       getArea() const;
         Point       getCenter() const;
         float       getAspect() const;
+		Rect		getFlipped() const;
         
         // RECT CORNERS
         Point       getTopLeft() const;

@@ -41,6 +41,8 @@
 		03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
 		03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
 		03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
+		03DA530417D699910054274B /* poMoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73D16C4562800410C61 /* poMoviePlayer.cpp */; };
+		03DA530517D69A310054274B /* poAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73916C4562800410C61 /* poAudioPlayer.cpp */; };
 		41CBFA4114EC1243004007B6 /* poLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F2EDE414EB06AB00FE891A /* poLayout.cpp */; };
 		41F2EDE114EB068600FE891A /* poLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F2EDE014EB068600FE891A /* poLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F2EDE514EB06AB00FE891A /* poLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F2EDE414EB06AB00FE891A /* poLayout.cpp */; };
@@ -1132,6 +1134,8 @@
 				AA80226C16D4147500575CA9 /* json_value.cpp in Sources */,
 				AA80226F16D4147500575CA9 /* json_writer.cpp in Sources */,
 				0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */,
+				03DA530417D699910054274B /* poMoviePlayer.cpp in Sources */,
+				03DA530517D69A310054274B /* poAudioPlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
