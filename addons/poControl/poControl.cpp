@@ -25,11 +25,12 @@
 //int po::control::PO_CONTROL_TEXT_SIZE = 12;
 
 namespace po {
-	namespace control {
+	namespace UI {
 		
 		Control::Control( string _ID, po::Object* _listener ) {
 			ID = _ID;
 			listener = _listener;
+			bDragging = false;
 		}
 
 		// -----------------------------------------------------------------------------------
@@ -58,8 +59,6 @@ namespace po {
 			sliderShape->fillColor = po::Color(1,1,1,0.2);
 			sliderKnob = new po::RectShape( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			sliderKnob->fillColor = po::Color(1,1,1,0.2);
-			sliderKnob->strokeColor = po::Color(0,0,0,0.2);
-			sliderKnob->generateStroke(2);  
 			sliderKnob->position.x = po::Mapf(min, max, valF, 0, PO_CONTROL_SLIDER_WIDTH);
 			sliderKnob->addEvent( po::MOUSE_DRAG_INSIDE_EVENT, this );
 			sliderKnob->addEvent( po::MOUSE_DOWN_INSIDE_EVENT, this );
@@ -83,7 +82,7 @@ namespace po {
 			shapeLabel->textColor = po::Color::white;
 			shapeLabel->setLeading(.6);
 			shapeLabel->setTextAlignment(po::ALIGN_CENTER_LEFT);
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER,0,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();
@@ -186,8 +185,6 @@ namespace po {
 			sliderShape->fillColor = po::Color(1,1,1,0.2);
 			sliderKnob = new po::RectShape( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			sliderKnob->fillColor = po::Color(1,1,1,0.2);
-			sliderKnob->strokeColor = po::Color(0,0,0,0.2);
-			sliderKnob->generateStroke(2); 
 			sliderKnob->position.x = po::Mapf(min, max, valI, 0, PO_CONTROL_SLIDER_WIDTH);
 			sliderKnob->addEvent( po::MOUSE_DRAG_INSIDE_EVENT, this );
 			sliderKnob->addEvent( po::MOUSE_DOWN_INSIDE_EVENT, this );
@@ -209,7 +206,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -343,7 +340,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -437,9 +434,9 @@ namespace po {
 			toggleShape->addEvent( po::TOUCH_BEGAN_INSIDE_EVENT, this );
 			addChild( toggleShape );
 			
-			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
+			shapeLabel = new po::TextBox( 300, PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_HEIGHT+PO_CONTROL_SPACER*2,0,0);
+			shapeLabel->position.set( PO_CONTROL_SLIDER_HEIGHT,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -500,7 +497,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+			shapeLabel->position.set( PO_CONTROL_SLIDER_HEIGHT,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();
@@ -561,8 +558,6 @@ namespace po {
 				
 			back = new po::RectShape( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SLIDER_HEIGHT, 30 );
 			back->fillColor = po::Color(1,1,1,0.2);
-			back->generateStroke(1);
-			back->strokeColor = po::Color(1,0,0,1);
 			back->strokeEnabled = false;
 			back->addEvent(po::MOUSE_DOWN_INSIDE_EVENT, this);
 			addChild( back );
@@ -578,7 +573,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox();
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -764,7 +759,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,3*PO_CONTROL_SLIDER_HEIGHT,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,3*PO_CONTROL_SLIDER_HEIGHT,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -943,7 +938,7 @@ namespace po {
 			
 			shapeLabel = new po::TextBox( PO_CONTROL_SLIDER_HEIGHT,PO_CONTROL_SLIDER_HEIGHT );
 			shapeLabel->textColor = po::Color::white;
-			shapeLabel->position.set( PO_CONTROL_SLIDER_WIDTH+PO_CONTROL_SPACER*4,0,0);
+			shapeLabel->position.set( PO_CONTROL_LABEL_X_POS,0,0);
 			shapeLabel->setTextSize(PO_CONTROL_TEXT_SIZE);
 			shapeLabel->setText( ID );
 			shapeLabel->doLayout();  
@@ -1001,7 +996,7 @@ namespace po {
 		#pragma mark Button
 		
 		//------------------------------------------------------------------------
-		Button::Button( string _ID, po::Object* _listener ) : Control( _ID, _listener ) {
+		Control_Button::Control_Button( string _ID, po::Object* _listener ) : Control( _ID, _listener ) {
 			
 			type = TYPE_MESSAGE;
 			
@@ -1030,7 +1025,7 @@ namespace po {
 			addChild( space );
 		}
 
-		void Button::eventHandler(po::Event *event) {
+		void Control_Button::eventHandler(po::Event *event) {
 			
 			if (event->type == po::MOUSE_DOWN_INSIDE_EVENT || event->type == po::TOUCH_BEGAN_INSIDE_EVENT ) {
 				

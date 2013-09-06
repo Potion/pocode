@@ -33,16 +33,17 @@
 #include "poImageShape.h"
 #include "poTextBox.h"
 
-#define PO_CONTROL_TEXT_SIZE 11
-#define PO_CONTROL_SLIDER_HEIGHT 15
-#define PO_CONTROL_SLIDER_WIDTH 150
+#define PO_CONTROL_TEXT_SIZE 14
+#define PO_CONTROL_SLIDER_HEIGHT 25
+#define PO_CONTROL_SLIDER_WIDTH 200
 #define PO_CONTROL_SPACER 5
+#define PO_CONTROL_LABEL_X_POS 225
 
 
 using namespace std;
 
 namespace po {
-	namespace control {
+	namespace UI {
 		
 		enum Type {
 			TYPE_FLOAT,
@@ -189,10 +190,10 @@ namespace po {
 		};
 
 
-		class Button : public Control {
+		class Control_Button : public Control {
 		public:
 			
-			Button( string _ID, po::Object* _listener = NULL );
+			Control_Button( string _ID, po::Object* _listener = NULL );
 			virtual void eventHandler(po::Event *event);
 			
 			po::RectShape* back;

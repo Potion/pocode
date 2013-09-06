@@ -20,11 +20,11 @@
 #include <iostream>
 #include "poControlPanel.h"
 
-#define MARGIN 10
-#define SPACING 5
+#define MARGIN 20
+#define SPACING 10
 
 namespace po {
-	namespace control {
+	namespace UI {
 		
 		ControlPanel::ControlPanel( string _label, po::Color _color, int textSize, string _path ) {
 			label = _label;
@@ -51,7 +51,7 @@ namespace po {
 			addEvent(po::MOUSE_UP_EVENT, this);
 			addEvent(po::TOUCH_ENDED_EVENT, this);
 			
-			bar = new po::RectShape(240,20);
+			bar = new po::RectShape(300,35);
 			bar->position = pos;
 			bar->fillColor = panelColor;
 			bar->addEvent(po::MOUSE_DOWN_INSIDE_EVENT, this);
@@ -60,14 +60,14 @@ namespace po {
 			bar->addEvent(po::TOUCH_MOVED_EVENT, this);
 			addChild( bar );
 
-			save = new po::RectShape(50,20);
+			save = new po::RectShape(50,35);
 			save->fillColor = panelColor;
 			save->addEvent(po::MOUSE_DOWN_INSIDE_EVENT, this);
 			save->addEvent(po::TOUCH_BEGAN_INSIDE_EVENT, this);
 			save->position = po::Point( bar->getWidth()-save->getWidth() ,0 );
 			bar->addChild( save );
 			
-			hide = new po::RectShape(50,20);
+			hide = new po::RectShape(50,35);
 			hide->fillColor = panelColor;
 			hide->addEvent(po::MOUSE_DOWN_INSIDE_EVENT, this);
 			hide->addEvent(po::TOUCH_BEGAN_INSIDE_EVENT, this);
@@ -84,7 +84,7 @@ namespace po {
 			containerLayout->setRefreshEveryFrame(false);
 			container->addModifier(containerLayout);
 			
-			box = new po::RectShape( bar->getWidth(),400 );
+			box = new po::RectShape( bar->getWidth(), 400);
 			box->fillColor = panelColor;
 			box->visible = showHide;
 			bar->addChild( box );
@@ -94,7 +94,7 @@ namespace po {
 			po::TextBox* shapeData = new po::TextBox( bar->getWidth(), bar->getHeight() );
 			shapeData->textColor = po::Color::white;
 			shapeData->position.set( padding,3,0 );
-			shapeData->setTextSize(12);
+			shapeData->setTextSize(14);
 			shapeData->setText( label );
 			shapeData->doLayout();  
 			bar->addChild( shapeData );
@@ -102,7 +102,7 @@ namespace po {
 			po::TextBox* saveText = new po::TextBox( save->getWidth(), save->getHeight() );
 			saveText->textColor = po::Color::white;
 			saveText->position.set( padding,3,0 );
-			saveText->setTextSize(12);
+			saveText->setTextSize(14);
 			saveText->setText( "save" );
 			saveText->doLayout();  
 			save->addChild( saveText );
@@ -116,7 +116,7 @@ namespace po {
 			hideText = new po::TextBox( save->getWidth(), save->getHeight() );
 			hideText->textColor = po::Color::white;
 			hideText->position.set( padding,3,0 );
-			hideText->setTextSize(12);
+			hideText->setTextSize(14);
 			hideText->setText( status );
 			hideText->doLayout();
 			hide->addChild( hideText );
@@ -198,7 +198,7 @@ namespace po {
 
 		void ControlPanel::addButton( string _ID, po::Object* obj ) {
 			string prop = _ID;
-			Button* M = new Button( _ID, obj );
+			Control_Button* M = new Control_Button( _ID, obj );
 		//    M->position = poPoint( MARGIN,container->getHeight()+MARGIN );
 			container->addChild( M );
 		}

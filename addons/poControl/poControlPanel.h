@@ -41,7 +41,7 @@ using namespace std;
 static const std::string CUI_WINDOW_EVENT = "ui panel value changed";
 
 namespace po {
-	namespace control {
+	namespace UI {
 		
 
 		class ControlPanel : public po::Object {
