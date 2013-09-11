@@ -11,7 +11,7 @@
 #define BOOST_FILESYSTEM_VERSION 3
 
 
-//#include <curl/curl.h>
+#include <curl/curl.h>
 
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
