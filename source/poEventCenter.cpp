@@ -525,9 +525,9 @@ namespace po {
     
     //------------------------------------------------------------------------
     bool EventCenter::objectIsAvailableForEvents(Object *obj) {
-        bool isAvailable = obj->visible && obj->getDrawOrder() != -1;
+        bool isAvailable = (obj->visible && obj->getDrawOrder() != -1);
         
-        if(po::applicationGetWindow()->getUseAlphaForEvents()) {
+        if(isAvailable && po::applicationGetWindow()->getUseAlphaForEvents()) {
             isAvailable = obj->alpha > 0.01;
         }
         
