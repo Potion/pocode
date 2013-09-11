@@ -11,7 +11,11 @@
 #define BOOST_FILESYSTEM_VERSION 3
 
 
+<<<<<<< HEAD
 #include <curl/curl.h>
+=======
+//#include <curl/curl.h>
+>>>>>>> 5f543812c9a5a076538977af53616f8576a3719e
 
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
@@ -48,8 +52,13 @@ namespace po {
     class URL {
     public:
         struct curl_option {
+<<<<<<< HEAD
             curl_option(CURLoption option, void* value) : option(option), value(value) {};
             CURLoption option;
+=======
+            curl_option(int option, void* value) : option(option), value(value) {};
+            int option;
+>>>>>>> 5f543812c9a5a076538977af53616f8576a3719e
             void*  value;
         };
         
@@ -60,7 +69,11 @@ namespace po {
         void set(std::string url);
         bool isSet();
         
+<<<<<<< HEAD
         void addOption(CURLoption option, void*value);
+=======
+        void addOption(int option, void*value);
+>>>>>>> 5f543812c9a5a076538977af53616f8576a3719e
         std::vector<curl_option> &getOptions();
         
         void addHeader(std::string value);

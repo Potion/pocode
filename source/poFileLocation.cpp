@@ -9,6 +9,7 @@
 #include "poFileLocation.h"
 #include "poHelpers.h"
 #include "poApplication.h"
+#include <curl/curl.h>
 
 // -----------------------------------------------------------------------------------
 // ================================ filePath Utils ===================================
@@ -144,7 +145,7 @@ namespace po {
     
     
     //------------------------------------------------------------------
-    void URL::addOption(CURLoption option, void *value) {
+    void URL::addOption(int option, void *value) {
         options.push_back(curl_option(option, value));
     }
     

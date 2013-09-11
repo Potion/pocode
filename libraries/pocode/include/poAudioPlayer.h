@@ -25,7 +25,6 @@ namespace po {
 		void pause();
 		void stop();
 		void seek(float f);
-		
 		void setLooping(bool b);
 		void setVolume(float v); // 0 - 1
 		
@@ -61,5 +60,4 @@ namespace po {
 		bool killUpdateThread;
 		bool ownsDemuxer;
 	};
-	
 }

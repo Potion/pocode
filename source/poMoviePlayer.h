@@ -17,7 +17,7 @@ namespace po {
 	class VideoDecoder;
 	class AudioPlayer;
 	
-	class MoviePlayer : public poObject {
+	class MoviePlayer : public po::Object {
 	public:
 		MoviePlayer();
 		~MoviePlayer();
@@ -40,9 +40,11 @@ namespace po {
 		int getFrameCount() const;
 		
 		void setRect(float x, float y, float w, float h);
-
 		void draw();
 		void update();
+		bool loop;
+		
+		po::Texture* getFrameTexture();
 		
 	private:
 		Demuxer* demuxer;
@@ -56,12 +58,12 @@ namespace po {
 			Complete
 		} state;
 		
-		poRect rect;
+		po::Rect rect;
 
 		double playStartTime;
 		double pauseStartTime, pauseElapsedTime;
 
-		poTexture* texture;
+		po::Texture* texture;
 	};
 
 }

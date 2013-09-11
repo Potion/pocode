@@ -105,6 +105,7 @@ namespace po {
 		VideoFrame::Ptr nextFrame();
 		
 		int64_t getCurrentFrame();
+		int64_t getFrameCount();
 		double getCurrentTime();
 		double getNextTime();
 		
@@ -125,10 +126,13 @@ namespace po {
 		
 		double clock;
 		double nextFrameTime;
-		int64_t currentFrame;
-		int64_t currentDts;
 		int width, height, bytesPerFrame;
 		bool lastFrame;
+		
+		int64_t currentFrame;
+		int64_t numFrames;
+		double frameRate;
+		double bitRate;
 	};
 	
 	class AudioDecoder {
