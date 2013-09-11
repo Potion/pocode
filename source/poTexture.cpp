@@ -449,15 +449,32 @@ namespace po {
         
         po::saveTextureState();
         
+        glGetError();
+        
         glGenTextures(1, &uid);
+        GLint err = glGetError();
+        if(err != GL_NO_ERROR) {
+            printf("gen error: %x\n", err);
+        }
+
         glBindTexture(GL_TEXTURE_2D, uid);
+        
+        err = glGetError();
+        if(err != GL_NO_ERROR) {
+            printf("bind error: %x\n", err);
+        }
         
         // set the filters we want
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.minFilter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.magFilter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.wrapS);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.wrapT);
-        
+
+        err = glGetError();
+        if(err != GL_NO_ERROR) {
+            printf("param error: %x\n", err);
+        }
+
         #ifndef OPENGL_ES
             float trans[] = {0.f, 0.f, 0.f, 0.f};
             glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, trans);
@@ -471,8 +488,14 @@ namespace po {
                      height, 
                      0, 
                      config.format, 
-                     config.type, 
+                     config.type,
                      p);
+        
+        err = glGetError();
+        if(err != GL_NO_ERROR) {
+            printf("load error: %x\n", err);
+        }
+
         
         po::restoreTextureState();
         

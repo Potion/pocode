@@ -58,6 +58,7 @@ namespace po {
     ,	totalFramecount(0)
     ,	lastMark(0.0)
     ,	framerate(0.f)
+    ,   useAlphaForEvents(true)
     ,	mouseMoveEnabled(true)
     ,	block_all_events(false)
     {
@@ -303,6 +304,19 @@ namespace po {
     }
     
     
+    
+    
+    // -----------------------------------------------------------------------------------
+    // ================================ Events =====================================
+    #pragma mark Events
+    
+    void Window::setUseAlphaForEvents(bool useAlpha) {
+        useAlphaForEvents = useAlpha;
+    }
+    
+    bool Window::getUseAlphaForEvents() {
+        return useAlphaForEvents;
+    }
     
     
     // -----------------------------------------------------------------------------------
