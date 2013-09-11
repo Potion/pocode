@@ -11,6 +11,8 @@
 #define BOOST_FILESYSTEM_VERSION 3
 
 
+#include <curl/curl.h>
+
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 
@@ -45,12 +47,21 @@ namespace po {
     //URL
     class URL {
     public:
+        struct curl_option {
+            curl_option(CURLoption option, void* value) : option(option), value(value) {};
+            CURLoption option;
+            void*  value;
+        };
+        
         URL();
         explicit URL(std::string path);
         ~URL();
         
         void set(std::string url);
         bool isSet();
+        
+        void addOption(CURLoption option, void*value);
+        std::vector<curl_option> &getOptions();
         
         void addHeader(std::string value);
         std::vector <std::string> &getHeaders();
@@ -65,9 +76,12 @@ namespace po {
         float getTimeout();
         
         std::string toString();
+        
     private:
+        
         std::string url;
         std::vector <std::string> headers;
+        std::vector <curl_option> options;
         
         std::string username, password;
         
