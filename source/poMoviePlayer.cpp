@@ -34,10 +34,19 @@ namespace po {
 	,	pauseStartTime(0)
 	,	pauseElapsedTime(0)
 	,	texture(NULL)
+	,	loop(false)
 	{}
 	
 	MoviePlayer::~MoviePlayer() {
 		close();
+	}
+	
+	po::Texture* MoviePlayer::getFrameTexture()
+	{
+		if ( texture !=NULL )
+			return texture;
+		else
+			return NULL;
 	}
 	
 	bool MoviePlayer::open(const char* path) {
@@ -50,22 +59,23 @@ namespace po {
 		   return false;
 
 		int st = demuxer->getStreamIndex(AVMEDIA_TYPE_AUDIO);
-		
-		if(st >= 0) {
-			audioPlayer = new AudioPlayer;
-			audioPlayer->open(demuxer);
-		}
+				
+//		if(st >= 0) {
+//			audioPlayer = new AudioPlayer();
+//			audioPlayer->open(demuxer);
+//		}
 
+		std::cout << "st: " << st << std::endl;
 		rect.width = videoDecoder->getWidth();
 		rect.height = videoDecoder->getHeight();
 		texture = new Texture(rect.width, rect.height, NULL, TextureConfig(GL_RGB));
-		
 		uploadFrame(texture, videoDecoder->nextFrame());
 
 		return true;
 	}
 	
-	void MoviePlayer::close() {
+	void MoviePlayer::close()
+	{
 		state = Stopped;
 		if(videoDecoder) {
 			delete videoDecoder;
@@ -85,12 +95,17 @@ namespace po {
 		}
 	}
 	
-	void MoviePlayer::play() {
-		if(state != Playing) {
-			switch(state) {
+	void MoviePlayer::play()
+	{
+		if( state != Playing )
+		{
+			switch(state)
+			{
 				case Stopped:
 					seek(0);
+					
 					break;
+					
 					
 				case Paused:
 					pauseElapsedTime += (po::getElapsedTime() - pauseStartTime);
@@ -101,7 +116,7 @@ namespace po {
 			}
 			
 			state = Playing;
-			
+
 			if(audioPlayer)
 				audioPlayer->play();
 		}
@@ -217,25 +232,29 @@ namespace po {
 
 			rect.x = x;
 			rect.y = y;
-			rect.width = wNew;
+			rect.width = wNew -2;
 			rect.height = hNew;
 		}
 	}
 
-	void MoviePlayer::update() {
-		if(state == Playing) {
+	void MoviePlayer::update()
+	{
+		if( state == Playing )
+		{
 			double cur = videoDecoder->getNextTime();
-			
 			double target = 0.0;
 			
-			if(audioPlayer)
+			if( audioPlayer )
 				target = audioPlayer->getTime();
 			else
 				target = getElapsedTime() - (playStartTime + pauseElapsedTime);
 			
-			while(cur <= target) {
-				if(!uploadFrame(texture, videoDecoder->nextFrame())) {
-					if(videoDecoder->isLastFrame()) {
+			while( cur <= target )
+			{
+				if(!uploadFrame(texture, videoDecoder->nextFrame()))
+				{
+					if(videoDecoder->isLastFrame())
+					{
 						state = Complete;
 					}
 					break;
@@ -244,10 +263,16 @@ namespace po {
 				cur = videoDecoder->getNextTime();
 			}
 		}
+		else if ( loop )
+		{
+			seek( 0 );
+			play();
+		}
 	}
 
-	void MoviePlayer::draw() {
-		po::drawTexturedRect(texture, rect.getFlipped());
+	void MoviePlayer::draw()
+	{
+		//po::drawTexturedRect(texture);//, rect.getFlipped() );
 	}
 }
 

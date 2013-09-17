@@ -14,7 +14,7 @@
 		032464F915E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		032464FA15E56E27009E5822 /* poMatrixSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 032464F415E56E27009E5822 /* poMatrixSet.h */; };
 		0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73B16C4562800410C61 /* poFFMpegDecoder.cpp */; };
-		0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73C16C4562800410C61 /* poFFMpegDecoder.h */; };
+		0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73C16C4562800410C61 /* poFFMpegDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032CC439162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43A162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
 		032CC43B162C8753005F5904 /* poAttributedString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF0F4144FD44C00884C4A /* poAttributedString.cpp */; };
@@ -106,6 +106,10 @@
 		AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
 		AA16A49015E80B6900CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
 		AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */ = {isa = PBXBuildFile; fileRef = E83092ED13D09C9100836802 /* main.pch */; };
+		AA1EE50217DE30AD001987B3 /* poAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73A16C4562800410C61 /* poAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA1EE50317DE30BF001987B3 /* poMoviePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0325A73E16C4562800410C61 /* poMoviePlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA1EE50417DE3313001987B3 /* poMoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73D16C4562800410C61 /* poMoviePlayer.cpp */; };
+		AA1EE50517DE331B001987B3 /* poAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73916C4562800410C61 /* poAudioPlayer.cpp */; };
 		AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
 		AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = AA2A69DE15F9001B002C5919 /* poFileLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA2A69E615F95CD6002C5919 /* poFileLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA2A69DD15F9001B002C5919 /* poFileLocation.cpp */; };
@@ -877,6 +881,8 @@
 				AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */,
 				AA80226616D4147500575CA9 /* json_batchallocator.h in Headers */,
 				0325A74216C4562800410C61 /* poFFMpegDecoder.h in Headers */,
+				AA1EE50217DE30AD001987B3 /* poAudioPlayer.h in Headers */,
+				AA1EE50317DE30BF001987B3 /* poMoviePlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,6 +1142,8 @@
 				0325A74116C4562800410C61 /* poFFMpegDecoder.cpp in Sources */,
 				03DA530417D699910054274B /* poMoviePlayer.cpp in Sources */,
 				03DA530517D69A310054274B /* poAudioPlayer.cpp in Sources */,
+				AA1EE50417DE3313001987B3 /* poMoviePlayer.cpp in Sources */,
+				AA1EE50517DE331B001987B3 /* poAudioPlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1216,14 +1224,14 @@
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
@@ -1240,12 +1248,12 @@
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
@@ -1299,7 +1307,7 @@
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /pocode/libraries/pocode;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
@@ -1319,7 +1327,7 @@
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /;
 				OTHER_CFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /include;

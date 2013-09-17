@@ -111,6 +111,10 @@ namespace po {
         void            touchEnd(int x, int y, int uid, int tapCount );
         void            touchCancelled(int x, int y, int uid, int tapCount );
         
+        //If alpha is less than 0.01, item considered invisible
+        void            setUseAlphaForEvents(bool useAlpha);
+        bool            getUseAlphaForEvents();
+        
         void            accelerometerEvent(double x, double y, double z);
         void            gyroscopeEvent(double x, double y, double z);
         void            rotationEvent();
@@ -148,6 +152,9 @@ namespace po {
         float           lastMark, lastFrame;
         int             framecounter, totalFramecount;
         float           framerate, lastElapsed;
+        
+        // USE ALPHA FOR EVENTS
+        bool useAlphaForEvents;
         
         // GLOBAL MOUSE POSITION
         Point           mousePos;

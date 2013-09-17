@@ -66,7 +66,8 @@ namespace po {
 		close();
 	}
 	
-	bool AudioPlayer::open(const char* path) {
+	bool AudioPlayer::open(const char* path)
+	{
 		Demuxer* de = Demuxer::open(path);
 		ownsDemuxer = true;
 		return open(de);

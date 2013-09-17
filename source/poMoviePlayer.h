@@ -40,9 +40,11 @@ namespace po {
 		int getFrameCount() const;
 		
 		void setRect(float x, float y, float w, float h);
-
 		void draw();
 		void update();
+		bool loop;
+		
+		po::Texture* getFrameTexture();
 		
 	private:
 		Demuxer* demuxer;
