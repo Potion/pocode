@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0EED28E117E9F7ED00A10689 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EED28E017E9F7ED00A10689 /* AppDelegate.mm */; };
+		0EED28E317E9F7ED00A10689 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EED28E217E9F7ED00A10689 /* en.strings */; };
+		0EED28E517E9F7ED00A10689 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EED28E417E9F7ED00A10689 /* main.m */; };
+		0EED28E717E9F7ED00A10689 /* main.pch in Resources */ = {isa = PBXBuildFile; fileRef = 0EED28E617E9F7ED00A10689 /* main.pch */; };
+		0EED28EA17E9F7ED00A10689 /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EED28E917E9F7ED00A10689 /* main.xib */; };
+		0EED28ED17E9F7ED00A10689 /* poOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EED28EC17E9F7ED00A10689 /* poOpenGLView.mm */; };
+		0EED28F117E9F7ED00A10689 /* RichtTextCachingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EED28F017E9F7ED00A10689 /* RichtTextCachingApp.cpp */; };
+		0EED28F317E9F7ED00A10689 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EED28F217E9F7ED00A10689 /* AppConfig.cpp */; };
+		0EED28F517E9F7ED00A10689 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EED28F417E9F7ED00A10689 /* OpenSans-Regular.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0EED28D917E9F7ED00A10689 /* RichtTextCaching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RichtTextCaching.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EED28DD17E9F7ED00A10689 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../platform/Debug.xcconfig; sourceTree = "<group>"; };
+		0EED28DE17E9F7ED00A10689 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../platform/Release.xcconfig; sourceTree = "<group>"; };
+		0EED28DF17E9F7ED00A10689 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../platform/AppDelegate.h; sourceTree = "<group>"; };
+		0EED28E017E9F7ED00A10689 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../platform/AppDelegate.mm; sourceTree = "<group>"; };
+		0EED28E217E9F7ED00A10689 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.strings; path = ../platform/en.strings; sourceTree = "<group>"; };
+		0EED28E417E9F7ED00A10689 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../platform/main.m; sourceTree = "<group>"; };
+		0EED28E617E9F7ED00A10689 /* main.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = main.pch; path = ../platform/main.pch; sourceTree = "<group>"; };
+		0EED28E817E9F7ED00A10689 /* main.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = main.plist; path = ../platform/main.plist; sourceTree = "<group>"; };
+		0EED28E917E9F7ED00A10689 /* main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = main.xib; path = ../platform/main.xib; sourceTree = "<group>"; };
+		0EED28EB17E9F7ED00A10689 /* poOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poOpenGLView.h; path = ../platform/poOpenGLView.h; sourceTree = "<group>"; };
+		0EED28EC17E9F7ED00A10689 /* poOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = poOpenGLView.mm; path = ../platform/poOpenGLView.mm; sourceTree = "<group>"; };
+		0EED28EF17E9F7ED00A10689 /* RichtTextCachingApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichtTextCachingApp.h; sourceTree = "<group>"; };
+		0EED28F017E9F7ED00A10689 /* RichtTextCachingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RichtTextCachingApp.cpp; sourceTree = "<group>"; };
+		0EED28F217E9F7ED00A10689 /* AppConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppConfig.cpp; sourceTree = "<group>"; };
+		0EED28F417E9F7ED00A10689 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../platform/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0EED28D617E9F7ED00A10689 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EED28D017E9F7ED00A10689 = {
+			isa = PBXGroup;
+			children = (
+				0EED28DB17E9F7ED00A10689 /* RichtTextCaching */,
+				0EED28DA17E9F7ED00A10689 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0EED28DA17E9F7ED00A10689 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0EED28D917E9F7ED00A10689 /* RichtTextCaching.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0EED28DB17E9F7ED00A10689 /* RichtTextCaching */ = {
+			isa = PBXGroup;
+			children = (
+				0EED28DC17E9F7ED00A10689 /* platform */,
+				0EED28EE17E9F7ED00A10689 /* application */,
+			);
+			path = RichtTextCaching;
+			sourceTree = "<group>";
+		};
+		0EED28DC17E9F7ED00A10689 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				0EED28DD17E9F7ED00A10689 /* Debug.xcconfig */,
+				0EED28DE17E9F7ED00A10689 /* Release.xcconfig */,
+				0EED28DF17E9F7ED00A10689 /* AppDelegate.h */,
+				0EED28E017E9F7ED00A10689 /* AppDelegate.mm */,
+				0EED28E217E9F7ED00A10689 /* en.strings */,
+				0EED28E417E9F7ED00A10689 /* main.m */,
+				0EED28E617E9F7ED00A10689 /* main.pch */,
+				0EED28E817E9F7ED00A10689 /* main.plist */,
+				0EED28E917E9F7ED00A10689 /* main.xib */,
+				0EED28EB17E9F7ED00A10689 /* poOpenGLView.h */,
+				0EED28EC17E9F7ED00A10689 /* poOpenGLView.mm */,
+				0EED28F417E9F7ED00A10689 /* OpenSans-Regular.ttf */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		0EED28EE17E9F7ED00A10689 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				0EED28EF17E9F7ED00A10689 /* RichtTextCachingApp.h */,
+				0EED28F017E9F7ED00A10689 /* RichtTextCachingApp.cpp */,
+				0EED28F217E9F7ED00A10689 /* AppConfig.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0EED28D817E9F7ED00A10689 /* RichtTextCaching */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EED28F817E9F7ED00A10689 /* Build configuration list for PBXNativeTarget "RichtTextCaching" */;
+			buildPhases = (
+				0EED28D517E9F7ED00A10689 /* Sources */,
+				0EED28D617E9F7ED00A10689 /* Frameworks */,
+				0EED28D717E9F7ED00A10689 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RichtTextCaching;
+			productName = RichtTextCaching;
+			productReference = 0EED28D917E9F7ED00A10689 /* RichtTextCaching.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0EED28D117E9F7ED00A10689 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = 0EED28D417E9F7ED00A10689 /* Build configuration list for PBXProject "RichtTextCaching" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0EED28D017E9F7ED00A10689;
+			productRefGroup = 0EED28DA17E9F7ED00A10689 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0EED28D817E9F7ED00A10689 /* RichtTextCaching */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0EED28D717E9F7ED00A10689 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EED28EA17E9F7ED00A10689 /* main.xib in Resources */,
+				0EED28E717E9F7ED00A10689 /* main.pch in Resources */,
+				0EED28F517E9F7ED00A10689 /* OpenSans-Regular.ttf in Resources */,
+				0EED28E317E9F7ED00A10689 /* en.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0EED28D517E9F7ED00A10689 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EED28E517E9F7ED00A10689 /* main.m in Sources */,
+				0EED28F117E9F7ED00A10689 /* RichtTextCachingApp.cpp in Sources */,
+				0EED28E117E9F7ED00A10689 /* AppDelegate.mm in Sources */,
+				0EED28ED17E9F7ED00A10689 /* poOpenGLView.mm in Sources */,
+				0EED28F317E9F7ED00A10689 /* AppConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0EED28F617E9F7ED00A10689 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EED28DD17E9F7ED00A10689 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0EED28F717E9F7ED00A10689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EED28DE17E9F7ED00A10689 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0EED28F917E9F7ED00A10689 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0EED28FA17E9F7ED00A10689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0EED28D417E9F7ED00A10689 /* Build configuration list for PBXProject "RichtTextCaching" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EED28F617E9F7ED00A10689 /* Debug */,
+				0EED28F717E9F7ED00A10689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0EED28F817E9F7ED00A10689 /* Build configuration list for PBXNativeTarget "RichtTextCaching" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EED28F917E9F7ED00A10689 /* Debug */,
+				0EED28FA17E9F7ED00A10689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0EED28D117E9F7ED00A10689 /* Project object */;
+}

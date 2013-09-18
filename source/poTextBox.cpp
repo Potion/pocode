@@ -461,8 +461,14 @@ namespace po {
         
         BitmapFont *bmp = getBitmapFont(getFont(), layout.textSize);
         
-        po::setColor(Color::white);
         for(uint i=0; i<getNumLines(); i++) {
+            if(layout.isRichText) {
+                po::setColor(Color::white);
+            } else {
+                Dictionary dict = layout.getTextPropsAtIndex(i);
+                po::setColor(Color(dict.getColor("color"), getAppliedAlpha()));
+            }
+            
             BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
                 bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), false);
             }
