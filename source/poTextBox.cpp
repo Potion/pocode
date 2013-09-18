@@ -459,20 +459,7 @@ namespace po {
         po::saveBlendState();
         po::enableBlendWithFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
         
-        BitmapFont *bmp = getBitmapFont(getFont(), layout.textSize);
-        
-        for(uint i=0; i<getNumLines(); i++) {
-            if(layout.isRichText) {
-                po::setColor(Color::white);
-            } else {
-                Dictionary dict = layout.getTextPropsAtIndex(i);
-                po::setColor(Color(dict.getColor("color"), getAppliedAlpha()));
-            }
-            
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), false);
-            }
-        }
+        renderText();
         
         po::restoreBlendState();
         
@@ -514,6 +501,13 @@ namespace po {
             po::drawStrokedRect( 0, 0, layout.size.x, layout.size.y );
         }
         
+    
+        renderText();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void TextBox::renderText() {
         BitmapFont *bitmapFont = getBitmapFont(getFont(), layout.textSize);
         
         if (layout.isRichText) {
@@ -544,7 +538,7 @@ namespace po {
                     }
                     
                     // very well, now draw it
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
                 }
             }
         }
@@ -553,10 +547,11 @@ namespace po {
             
             for(uint i=0; i<getNumLines(); i++) {
                 BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
                 }
             }
         }
+
     }
     
     
