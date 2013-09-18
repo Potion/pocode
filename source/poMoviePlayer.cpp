@@ -16,7 +16,7 @@
 
 namespace po {
 	
-	bool uploadFrame(po::Texture* texture, VideoFrame::Ptr frame) {
+	bool uploadFrame(Texture* texture, VideoFrame::Ptr frame) {
 		if(!frame)
 			return false;
 
@@ -68,7 +68,7 @@ namespace po {
 		std::cout << "st: " << st << std::endl;
 		rect.width = videoDecoder->getWidth();
 		rect.height = videoDecoder->getHeight();
-		texture = new po::Texture(rect.width, rect.height, NULL, po::TextureConfig(GL_RGB));
+		texture = new Texture(rect.width, rect.height, NULL, TextureConfig(GL_RGB));
 		uploadFrame(texture, videoDecoder->nextFrame());
 
 		return true;
@@ -108,7 +108,7 @@ namespace po {
 					
 					
 				case Paused:
-					pauseElapsedTime += ( po::getElapsedTime() - pauseStartTime );
+					pauseElapsedTime += (po::getElapsedTime() - pauseStartTime);
 					break;
 					
 				default:
@@ -247,7 +247,7 @@ namespace po {
 			if( audioPlayer )
 				target = audioPlayer->getTime();
 			else
-				target = po::getElapsedTime() - (playStartTime + pauseElapsedTime);
+				target = getElapsedTime() - (playStartTime + pauseElapsedTime);
 			
 			while( cur <= target )
 			{

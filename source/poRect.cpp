@@ -159,7 +159,11 @@ namespace po {
         return width / height;
     }
     
-    
+	Rect Rect::getFlipped() const
+	{
+		return Rect(x, y+height, width, -height);
+	}
+
     //------------------------------------------------------------------------
     Rect &Rect::set(float x, float y, float w, float h) {
         setPosition(x,y);

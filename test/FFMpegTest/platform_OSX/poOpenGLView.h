@@ -10,7 +10,7 @@
 #import <CoreVideo/CoreVideo.h>
 #import <Cocoa/Cocoa.h>
 
-class poWindow;
+namespace po { class Window; }
 
 @interface poOpenGLView : NSView {
 @private
@@ -18,10 +18,10 @@ class poWindow;
 	NSOpenGLContext *context;
 	NSOpenGLPixelFormat *format;
 	
-	poWindow *appWindow;
+	po::Window *appWindow;
 }
 
-@property (nonatomic,assign) poWindow *appWindow;
+@property (nonatomic,assign) po::Window *appWindow;
 @property (nonatomic,retain) NSOpenGLContext *openGLContext;
 
 +(NSOpenGLPixelFormat*)defaultPixelFormat;

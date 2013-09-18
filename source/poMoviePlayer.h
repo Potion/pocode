@@ -17,7 +17,7 @@ namespace po {
 	class VideoDecoder;
 	class AudioPlayer;
 	
-	class MoviePlayer : public po::Object {
+	class MoviePlayer : public Object {
 	public:
 		MoviePlayer();
 		~MoviePlayer();
@@ -58,12 +58,12 @@ namespace po {
 			Complete
 		} state;
 		
-		po::Rect rect;
+		Rect rect;
 
 		double playStartTime;
 		double pauseStartTime, pauseElapsedTime;
 
-		po::Texture* texture;
+		Texture* texture;
 	};
 
 }
