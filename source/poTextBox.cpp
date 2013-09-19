@@ -457,9 +457,8 @@ namespace po {
         
         // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
         po::saveBlendState();
-        po::enableBlendWithFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
+        po::enableBlendWithFunc(GL_ONE, GL_ZERO, GL_ONE, GL_ZERO);
         
-        po::setColor(Color::white);
         renderText();
         
         po::restoreBlendState();
