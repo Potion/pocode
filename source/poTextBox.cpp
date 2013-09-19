@@ -459,6 +459,7 @@ namespace po {
         po::saveBlendState();
         po::enableBlendWithFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
         
+        po::setColor(Color::white);
         renderText();
         
         po::restoreBlendState();
@@ -482,7 +483,7 @@ namespace po {
         if(cached && cached->isValid()) {
             po::saveBlendState();
             po::enableAlphaBlending();
-            po::setColor(textColor, getAppliedAlpha());
+            po::setColor(po::Color::white, getAppliedAlpha());
             po::drawTexturedRect(cached, Rect(0,0,cached->getWidth()/po::getScale(), cached->getHeight()/po::getScale()));
             po::restoreBlendState();
             return;
