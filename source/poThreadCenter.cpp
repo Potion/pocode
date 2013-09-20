@@ -4,6 +4,9 @@
 #include <boost/asio.hpp>
 #include "boost/thread/locks.hpp"
 
+#include "poURLLoader.h"
+
+
 using namespace boost::asio;
 
 namespace po {
@@ -28,6 +31,9 @@ namespace po {
         //------------------------------------------------------------------------
         //Start all threads
         void init() {
+            curl_global_init(CURL_GLOBAL_ALL);
+            po::URLLoader::initSSL(); //Initialize threadsafe SSL
+            
             //Create threads
             for(int i=0; i<4; i++) {
                 threads.create_thread(boost::bind(&io_service::run, &service));
@@ -40,6 +46,7 @@ namespace po {
         void shutdown() {
             service.stop();
             threads.join_all();
+            po::URLLoader::finishSSL();
         }
         
         

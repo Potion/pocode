@@ -33,6 +33,9 @@ namespace po {
     //------------------------------------------------------------------
     //File Loader, uses CURL to save files or return as strings
     namespace URLLoader {
+        void initSSL();
+        void finishSSL();
+        
         FilePath getFile(URL url, const FilePath &savePath=FilePath());
         void getFileAsync(URL url, Object* notify, const FilePath &savePath=FilePath());
         
