@@ -19,10 +19,74 @@
 
 #include "poURLLoader.h"
 
+
+// -----------------------------------------------------------------------------------
+// Implement SSL Thread locking
+// from http://curl.haxx.se/libcurl/c/threaded-ssl.html
+#include <stdio.h>
+#include <pthread.h>
+#include <curl/curl.h>
+#include <openssl/crypto.h>
+
+namespace {
+    /* we have this global to let the callback get easy access to it */
+    static pthread_mutex_t *lockarray;
+    
+    //------------------------------------------------------------
+    static void lock_callback(int mode, int type, const char *file, int line) {
+        (void)file;
+        (void)line;
+        if (mode & CRYPTO_LOCK) {
+            pthread_mutex_lock(&(lockarray[type]));
+        }
+        else {
+            pthread_mutex_unlock(&(lockarray[type]));
+        }
+    }
+    
+    //------------------------------------------------------------
+    static unsigned long thread_id(void) {
+        unsigned long ret;
+        
+        ret=(unsigned long)pthread_self();
+        return(ret);
+    }
+    
+    
+    //------------------------------------------------------------
+    static void init_locks(void) {
+        int i;
+        
+        lockarray=(pthread_mutex_t *)OPENSSL_malloc(CRYPTO_num_locks() *
+                                                    sizeof(pthread_mutex_t));
+        for (i=0; i<CRYPTO_num_locks(); i++) {
+            pthread_mutex_init(&(lockarray[i]),NULL);
+        }
+        
+        CRYPTO_set_id_callback((unsigned long (*)())thread_id);
+        CRYPTO_set_locking_callback(lock_callback);
+    }
+    
+    
+    //------------------------------------------------------------
+    static void kill_locks(void) {
+        int i;
+        
+        CRYPTO_set_locking_callback(NULL);
+        for (i=0; i<CRYPTO_num_locks(); i++)
+            pthread_mutex_destroy(&(lockarray[i]));
+        
+        OPENSSL_free(lockarray);
+    }
+}
+
+
+
+
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
-#include <curl/curl.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,6 +110,18 @@ namespace po {
 
 
     namespace URLLoader {
+        //------------------------------------------------------------------
+        // Should be called before any threads initiated, called from po::ThreadCenter
+        void initSSL() {
+            init_locks();
+        }
+        
+        //------------------------------------------------------------------
+        //Needs to be called as part of cleanup
+        void finishSSL() {
+            kill_locks();
+        }
+        
         //------------------------------------------------------------------
         FilePath getFile(URL url, const FilePath &savePath) {
             //Check for blank URLs or SavePaths

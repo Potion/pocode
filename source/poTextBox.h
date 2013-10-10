@@ -197,6 +197,8 @@ namespace po {
         
     private:
         void                generateCachedTexture();
+        
+        void                renderText();
 
         bool                useTextBounds;
         bool                autoAdjustHeight;

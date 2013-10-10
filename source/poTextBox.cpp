@@ -457,16 +457,9 @@ namespace po {
         
         // http://stackoverflow.com/questions/2171085/opengl-blending-with-previous-contents-of-framebuffer
         po::saveBlendState();
-        po::enableBlendWithFunc(GL_SRC_COLOR, GL_ZERO, GL_ONE, GL_ONE);
+        po::enableBlendWithFunc(GL_ONE, GL_ZERO, GL_ONE, GL_ZERO);
         
-        BitmapFont *bmp = getBitmapFont(getFont(), layout.textSize);
-        
-        po::setColor(Color::white);
-        for(uint i=0; i<getNumLines(); i++) {
-            BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                bmp->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), false);
-            }
-        }
+        renderText();
         
         po::restoreBlendState();
         
@@ -489,7 +482,7 @@ namespace po {
         if(cached && cached->isValid()) {
             po::saveBlendState();
             po::enableAlphaBlending();
-            po::setColor(textColor, getAppliedAlpha());
+            po::setColor(po::Color::white, getAppliedAlpha());
             po::drawTexturedRect(cached, Rect(0,0,cached->getWidth()/po::getScale(), cached->getHeight()/po::getScale()));
             po::restoreBlendState();
             return;
@@ -508,6 +501,13 @@ namespace po {
             po::drawStrokedRect( 0, 0, layout.size.x, layout.size.y );
         }
         
+    
+        renderText();
+    }
+    
+    
+    //------------------------------------------------------------------------
+    void TextBox::renderText() {
         BitmapFont *bitmapFont = getBitmapFont(getFont(), layout.textSize);
         
         if (layout.isRichText) {
@@ -538,7 +538,7 @@ namespace po {
                     }
                     
                     // very well, now draw it
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
                 }
             }
         }
@@ -547,10 +547,11 @@ namespace po {
             
             for(uint i=0; i<getNumLines(); i++) {
                 BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() ); 
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
                 }
             }
         }
+
     }
     
     
