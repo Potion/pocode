@@ -63,7 +63,7 @@ namespace po {
 					++it)
 				{
 					MessageSubscriber* sub = *it;
-					if(sub->sender == sender && sub->subscriber == subscriber) {
+					if(sub->sender == sender && sub->subscriber == subscriber && !sub->bShouldDelete) {
 						found = true;
 						break;
 					}
