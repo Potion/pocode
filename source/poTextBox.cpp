@@ -459,7 +459,7 @@ namespace po {
         po::saveBlendState();
         po::enableBlendWithFunc(GL_ONE, GL_ZERO, GL_ONE, GL_ZERO);
         
-        renderText();
+        renderText(false);
         
         po::restoreBlendState();
         
@@ -507,7 +507,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void TextBox::renderText() {
+    void TextBox::renderText(bool bWithScaling) {
         BitmapFont *bitmapFont = getBitmapFont(getFont(), layout.textSize);
         
         if (layout.isRichText) {
@@ -538,7 +538,7 @@ namespace po {
                     }
                     
                     // very well, now draw it
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), bWithScaling);
                 }
             }
         }
@@ -547,7 +547,7 @@ namespace po {
             
             for(uint i=0; i<getNumLines(); i++) {
                 BOOST_FOREACH(po::TextLayoutGlyph const &glyph, layout.lines[i].glyphs) {
-                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition() );
+                    bitmapFont->drawGlyph( glyph.glyph, glyph.bbox.getPosition(), bWithScaling);
                 }
             }
         }

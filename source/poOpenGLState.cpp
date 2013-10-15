@@ -272,7 +272,6 @@ namespace po {
 
         void init_graphics() {
             ogl = new OpenGLState;
-            std::cout << "Init!" << std::endl;
         }
     }; /* End internal namespace */
 
