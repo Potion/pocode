@@ -7,7 +7,6 @@
 //
 
 ARCHS = $(ARCHS_STANDARD_32_BIT)
-VALID_ARCHS = armv7 i386
 
 SDKROOT = iphoneos
 
@@ -26,13 +25,13 @@ TARGETED_DEVICE_FAMILY      = 1,2
 
 LD_NO_PIE = YES
 
-PRODUCT_NAME = pocodeApp
+PRODUCT_NAME = SmithsonianChannel
 
 INFOPLIST_FILE = platform/pocodeCustom-Info.plist
 
 OTHER_LDFLAGS = $(SIMULATOR) $(DEVICE) $(THE_FRAMEWORKS)
-HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(FREETYPE) $(UTF8) $(JSON) $(LIBRARIES)
-LIBRARY_SEARCH_PATHS = /pocode/libraries/libcurl
+HEADER_SEARCH_PATHS = $(POTION)/include $(PUGIXML) $(BOOST) $(FREEIMAGE) $(LIBCURL) $(FREETYPE) $(UTF8) $(LIBRARIES)
+LIBRARY_SEARCH_PATHS = $(LIBCURL)
 
 LIBRARIES			= /pocode/libraries
 POTION				= $(LIBRARIES)/pocode
@@ -40,9 +39,9 @@ BOOST				= $(LIBRARIES)/Boost/boost_1_49_0
 FREEIMAGE			= $(LIBRARIES)/FreeImage
 TINYXPATH			= $(LIBRARIES)/TinyXPath
 FREETYPE			= $(LIBRARIES)/FreeType
+LIBCURL             = $(LIBRARIES)/libcurl/ios
 UTF8				= $(LIBRARIES)/utf8
 PUGIXML				= $(LIBRARIES)/pugixml
-JSON                = $(LIBRARIES)/jsoncpp/json
 SIMULATOR           = $(POTION)/libpocode_iOS_d.a
 DEVICE              = $(POTION)/libpocode_iOS_simulator_d.a
-THE_FRAMEWORKS      = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText
+THE_FRAMEWORKS      = -framework MediaPlayer -framework OpenGLES -framework QuartzCore -framework CoreGraphics -framework Foundation -framework UIKit -framework CoreText -framework Twitter -framework MessageUI -framework SystemConfiguration  -framework MapKit -framework CFNetwork -framework MobileCoreServices -framework CoreLocation -framework EventKit -framework Twitter -framework Security
