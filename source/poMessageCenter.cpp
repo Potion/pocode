@@ -56,24 +56,24 @@ namespace po {
         void addSubscriber(std::string msg, Object* subscriber, Object* sender) {
             //Subscribers can be added multiple times
             //Should we check for this and only add once or no?
-			bool found = false;
-			if(subscribers.count(msg) > 0) {
-				for(std::list<MessageSubscriber*>::iterator it = subscribers[msg].begin();
-					it != subscribers[msg].end();
-					++it)
-				{
-					MessageSubscriber* sub = *it;
-					if(sub->sender == sender && sub->subscriber == subscriber) {
-						found = true;
-						break;
-					}
-				}
-			}
-			if(!found) {
+//			bool found = false;
+//			if(subscribers.count(msg) > 0) {
+//				for(std::list<MessageSubscriber*>::iterator it = subscribers[msg].begin();
+//					it != subscribers[msg].end();
+//					++it)
+//				{
+//					MessageSubscriber* sub = *it;
+//					if(sub->sender == sender && sub->subscriber == subscriber && !sub->bShouldDelete) {
+//						found = true;
+//						break;
+//					}
+//				}
+//			}
+//			if(!found) {
 				subscribers[msg].push_back(new MessageSubscriber());
 				subscribers[msg].back()->sender       = sender;
 				subscribers[msg].back()->subscriber   = subscriber;
-			}
+//			}
         }
         
         
