@@ -318,16 +318,18 @@ void poWindow::touchMove(int x, int y, int uid, int tapCount ) {
     //Get the corresponding tracked object
     interactionPoint *t = getTouch(uid);
     
-    //Send event
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID   = t->id;
-    event.uniqueID  = uid;
-    event.tapCount  = tapCount;
-	event.timestamp = poGetElapsedTime();
+	if(t) {
+		//Send event
+		poEvent event;
+		event.globalPosition.set(x, y, 0.f);
+		event.touchID   = t->id;
+		event.uniqueID  = uid;
+		event.tapCount  = tapCount;
+		event.timestamp = poGetElapsedTime();
 
-	event.type = PO_TOUCH_MOVED_EVENT;
-	received.push_back(event);
+		event.type = PO_TOUCH_MOVED_EVENT;
+		received.push_back(event);
+	}
 }
 
 
@@ -335,18 +337,20 @@ void poWindow::touchEnd(int x, int y, int uid, int tapCount ) {
     //Get the corresponding tracked object
     interactionPoint *t = getTouch(uid);
    
-    //Send event
-	poEvent event;
-	event.globalPosition.set(x, y, 0.f);
-	event.touchID   = t->id;
-    event.uniqueID  = uid;
-    event.tapCount = tapCount;
-	event.timestamp = poGetElapsedTime();
+	if(t) {
+		//Send event
+		poEvent event;
+		event.globalPosition.set(x, y, 0.f);
+		event.touchID   = t->id;
+		event.uniqueID  = uid;
+		event.tapCount = tapCount;
+		event.timestamp = poGetElapsedTime();
 
-	event.type = PO_TOUCH_ENDED_EVENT;
-    received.push_back(event);
+		event.type = PO_TOUCH_ENDED_EVENT;
+		received.push_back(event);
     
-    untrackTouch(uid);
+		untrackTouch(uid);
+	}
 }
 
 
