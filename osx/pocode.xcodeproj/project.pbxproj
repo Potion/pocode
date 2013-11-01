@@ -1223,6 +1223,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
@@ -1237,9 +1238,9 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
 				PRODUCT_NAME = pocode_iOS_simulator;
 				PUBLIC_HEADERS_FOLDER_PATH = /include;
-				SUPPORTED_PLATFORMS = iphonesimulator;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 2;
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = i386;
 			};
 			name = Release;
 		};
@@ -1247,6 +1248,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1259,9 +1261,9 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /include;
 				PRODUCT_NAME = pocode_iOS_simulator_d;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = iphonesimulator;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 2;
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = i386;
 			};
 			name = Debug;
 		};
@@ -1269,8 +1271,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B9A1138B0FE10024BC8C /* Release.osx.xcconfig */;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1280,6 +1286,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -1291,8 +1298,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8A0B99B138B0FE10024BC8C /* Debug.osx.xcconfig */;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				ONLY_ACTIVE_ARCH = NO;
 			};
 			name = Debug;
 		};
@@ -1344,6 +1354,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";

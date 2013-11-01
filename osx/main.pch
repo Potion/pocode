@@ -1,3 +1,4 @@
+#define __ASSERTMACROS__
 
 #ifdef __APPLE__
 	#define POTION_APPLE

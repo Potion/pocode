@@ -198,7 +198,8 @@ namespace po {
     private:
         void                generateCachedTexture();
         
-        void                renderText();
+        //Render the text, set to false for rendering into an FBO (scaled later)
+        void                renderText(bool bWithScaling = true);
 
         bool                useTextBounds;
         bool                autoAdjustHeight;

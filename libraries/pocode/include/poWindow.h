@@ -26,6 +26,7 @@
 #include <set>
 #include <deque>
 
+#define __ASSERTMACROS__
 #include <boost/signals2.hpp>
 typedef boost::signals2::connection SigConn;
 
