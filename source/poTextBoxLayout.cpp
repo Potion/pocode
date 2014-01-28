@@ -308,6 +308,8 @@ namespace po {
                     glyphOffset.x = (size.x - line.bbox.width); 
                     glyphOffset.y = (size.y - bounds.height);
                     break;
+                case po::ALIGN_NONE:
+                    break;
             }
             
             glyphOffset.x += padding[PADDING_LEFT];
