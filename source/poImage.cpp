@@ -398,7 +398,7 @@ namespace po {
     
     //------------------------------------------------------------------
     void Image::fill(Color c) {
-        unsigned char color[4] = {c.R*255, c.G*255, c.B*255, c.A*255};
+        unsigned char color[4] = {static_cast<unsigned char>(c.R*255), static_cast<unsigned char>(c.G*255), static_cast<unsigned char>(c.B*255), static_cast<unsigned char>(c.A*255)};
         FreeImage_FillBackground(bitmap, color);
     }
     

@@ -128,7 +128,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     inline Point floor(Point p) {
-        //return Point(floor(p.x), floor(p.y), floor(p.z));
+        return Point(::floor(p.x), ::floor(p.y), ::floor(p.z));
     }
     
     //------------------------------------------------------------------------

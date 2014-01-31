@@ -50,7 +50,7 @@ class TextureConfig {
         TextureConfig &setMagFilter(GLenum f)			{ magFilter = f; return *this; }
         TextureConfig &setWrapS(GLenum f)				{ wrapS = f; return *this; }
         TextureConfig &setWrapT(GLenum f)				{ wrapT = f; return *this; }
-		TextureConfig &setBorderColor(po::Color c)		{ borderColor = c; }
+        TextureConfig &setBorderColor(po::Color c)		{ borderColor = c; return *this; }
     
         GLenum format, internalFormat, type, minFilter, magFilter, wrapS, wrapT;
 		po::Color borderColor;

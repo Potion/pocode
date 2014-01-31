@@ -55,7 +55,7 @@ namespace po {
 
         struct insertRect {
             insertRect(uint w, uint h, uint handle);
-            bool operator<(const insertRect &r);
+            const bool operator<(const insertRect &r) const;
             uint w, h, handle;
         };
         std::list<insertRect> rectangles;
