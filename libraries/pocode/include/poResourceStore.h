@@ -115,6 +115,8 @@ namespace po {
         Resource *findResource(ResourceLocator locator);
         // add any old Resource* subclass you'd like
         void addResource(ResourceLocator locator, Resource *resource);
+        //delete single resource
+        void deleteSingleResource(Resource* r);
         // delete a resource group
         void deleteResourceGroup(int group);
         // delete all resources of a given type

@@ -81,6 +81,10 @@ namespace po {
         // You MUST call layout after making any changes to TextBox. Otherwise, you will not see
         // the changes in the text box.
         void				doLayout();
+		
+		// For convenient formatting of a textbox, this function adds end lines to prevent widows
+		void				removeWidows();
+
 
         // TEXTBOX PROPERTIES
         std::string         getText() const;
@@ -122,7 +126,7 @@ namespace po {
         // will be 5 spaces wide.
         void                setTabWidth(int tw);
         int                 getTabWidth() const;
-
+		
     /////////////////////////////////////////////////////
     //
     //	TextBox rich text is UNDER DEVELOPMENT

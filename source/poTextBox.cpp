@@ -36,6 +36,7 @@
 
 #include <float.h>
 #include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 
 namespace po {
     TextBox::TextBox()
@@ -423,6 +424,28 @@ namespace po {
         layoutDone = true;
     }
     
+
+    //------------------------------------------------------------------------
+	void TextBox::removeWidows() {
+		if(getNumLines() > 1) {
+			if(getNumWordsForLine(getNumLines() - 1) == 1) {
+				//Push two words to next line
+				std::string updatedText;
+				
+				typedef boost::tokenizer<boost::char_separator<char> > Tok;
+				boost::char_separator<char> sep(" ");
+				Tok tok(getText(), sep);
+				
+				for(Tok::iterator tok_iter = tok.begin(); tok_iter != tok.end(); ++tok_iter){
+					if(std::distance(tok_iter,tok.end()) == 2) updatedText += "\n";
+					updatedText += *tok_iter + " ";
+				}
+				
+				setText(updatedText);
+				doLayout();
+			}
+		}
+	}
     
     
     

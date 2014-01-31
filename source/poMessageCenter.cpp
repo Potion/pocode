@@ -1,6 +1,8 @@
 #include "poMessageCenter.h"
 #include "poObject.h"
 
+#include <boost/thread.hpp>
+
 namespace po {
     namespace MessageCenter {
         typedef struct {
@@ -19,14 +21,22 @@ namespace po {
         namespace {
             std::map<std::string, std::list<MessageSubscriber* > > subscribers;
             std::list<Message* > messageQueue;
+			boost::mutex mutex;
         }
         
         
         //------------------------------------------------------------------
         void update() {
+			std::list<Message*> tmp;
+			{
+				boost::unique_lock<boost::mutex> lock(mutex);
+				tmp.assign(messageQueue.begin(), messageQueue.end());
+				messageQueue.clear();
+			}
+			
             //Go through queue, broadcasting messages
-            std::list<Message*>::iterator msgIter = messageQueue.begin();
-            for(; msgIter != messageQueue.end(); ++msgIter) {
+            std::list<Message*>::iterator msgIter = tmp.begin();
+            for(; msgIter != tmp.end(); ++msgIter) {
                 Message* thisMsg = (*msgIter);
                 
                 //Go through subscribers for this message, checking to see if they need to be alerted
@@ -43,9 +53,6 @@ namespace po {
                 
                 delete thisMsg; thisMsg=NULL;
             }
-            
-            //Clear out all messages
-            messageQueue.clear();
             
             //Get rid of any subscribers that are no longer listening
             cleanupSubscribers();
@@ -156,6 +163,7 @@ namespace po {
         
         //------------------------------------------------------------------
         void broadcastMessage(std::string msg, Object* sender, const Dictionary& dict) {
+			boost::unique_lock<boost::mutex> lock(mutex);
             if(subscribers.find(msg) != subscribers.end()) {
                 messageQueue.push_back(new Message());
                 

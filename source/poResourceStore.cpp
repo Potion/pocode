@@ -199,6 +199,18 @@ namespace po {
         return lookup;
     }
     
+    void ResourceStore::deleteSingleResource(Resource* r){
+        std::map<ResourceLocator,Resource*>::iterator iter = resources.begin();
+        while(iter != resources.end()) {
+            printf("comparing %x to\nsecond %x\tfirst\n" , r , iter->second);
+            if(iter->second == r) {
+                delete iter->second;
+                resources.erase(iter++);
+            }
+            else
+                iter++;
+        }
+    }
     
     //------------------------------------------------------------------
     void ResourceStore::deleteResourceGroup(int group) {
