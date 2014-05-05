@@ -63,17 +63,26 @@ namespace po {
     
     //------------------------------------------------------------------
     int XpathResult::getInt(uint idx) {
-        return nodes[idx].attribute().as_int();
+		try  {
+			return LCAST(int, nodes[idx].attribute().value());
+		}
+		catch( boost::bad_lexical_cast &e ) {
+			po::log("XpathResult: type error ( result %i ) is not an int", idx );
+			return NULL;
+		}
     }
     
     
     //------------------------------------------------------------------
     float XpathResult::getFloat(uint idx) {
-        return nodes[idx].attribute().as_float();
+        try  {
+			return LCAST(float, nodes[idx].attribute().value());
+		}
+		catch( boost::bad_lexical_cast &e ) {
+			po::log("XpathResult: type error ( result %i ) is not a float", idx );
+			return NULL;
+		}
     }
-
-
-
 
     // -----------------------------------------------------------------------------------
     // ================================ Class: XMLNode ============================
@@ -107,17 +116,29 @@ namespace po {
     
     //------------------------------------------------------------------
     int XMLNode::getInnerInt() const {
-        return LCAST(int, node.child_value());
+
+		try  {
+			return LCAST(int, node.child_value());
+		}
+		catch( boost::bad_lexical_cast &e ) {
+			po::log("XML: parse error (node name: %s) is not an int", node.name() );
+			return NULL;
+		}
     }
-    
     
     //------------------------------------------------------------------
     float XMLNode::getInnerFloat() const {
-        return LCAST(float, node.child_value());
+		try {
+			return LCAST(float, node.child_value());
+		}
+		catch( boost::bad_lexical_cast &e )
+		{
+			po::log("XML: parse error (node name: %s) is not a float", node.name() );
+			return NULL;
+		}
     }
     
-    
-    //------------------------------------------------------------------
+	//------------------------------------------------------------------
     std::string XMLNode::getInnerString() const {
         return node.child_value();
     }
@@ -181,13 +202,24 @@ namespace po {
     
     //------------------------------------------------------------------
     int XMLNode::getIntAttribute(const std::string &name) const {
-        return node.attribute(name.c_str()).as_int();
+		try  {
+			return LCAST(int, node.attribute(name.c_str()).value());
+		}
+		catch( boost::bad_lexical_cast &e ) {
+			po::log("XML: parse error (attribute name: %s) is not an int", name.c_str() );
+			return NULL;
+		}
     }
-    
     
     //------------------------------------------------------------------
     float XMLNode::getFloatAttribute(const std::string &name) const {
-        return node.attribute(name.c_str()).as_float();
+        try  {
+			return LCAST(float, node.attribute(name.c_str()).value());
+		}
+		catch( boost::bad_lexical_cast &e ) {
+			po::log("XML: parse error (attribute name: %s) is not a float", name.c_str() );
+			return NULL;
+		}
     }
     
     
