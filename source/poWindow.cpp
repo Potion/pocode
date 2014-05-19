@@ -141,8 +141,7 @@ namespace po {
         }
         return root;
     }
-    
-    
+	
     //------------------------------------------------------------------------
     void Window::makeCurrent() {
         po::applicationMakeWindowCurrent(this);
