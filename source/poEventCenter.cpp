@@ -509,15 +509,19 @@ namespace po {
             if(obj == event_vec[i]->event.source)
                 response.push_back(&(event_vec[i]->event));
         }
+        
         return response;
     }
     
     
     //------------------------------------------------------------------------
     void EventCenter::negateDrawOrderForObjectWithEvents() {
-        for(int i=0; i<events.size(); i++) {
-            for(int j=0; j<events[i].size(); j++) {
-                events[i][j]->event.source->drawOrder = -1;
+        for(auto &event : events) {
+        //for(int i=0; i<events.size(); i++) {
+            for(auto &eventCallback : event) {
+                //for(int j=0; j<events[i].size(); j++) {
+                eventCallback->event.source->drawOrder = -1;
+//                events[i][j]->event.source->drawOrder = -1;
             }
         }
     }
