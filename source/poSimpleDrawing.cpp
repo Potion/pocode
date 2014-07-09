@@ -163,18 +163,15 @@ namespace po {
         drawTexturedRect(tex, Rect(0,0,tex->getWidth(),tex->getHeight()), Rect(0,0,1,1));
     }
     
-    
     //------------------------------------------------------------------------
     void drawTexturedRect(Texture *tex, float x, float y, float w, float h) {
         drawTexturedRect(tex, Rect(x,y,w,h), Rect(0,0,1,1));
     }
     
-    
     //------------------------------------------------------------------------
     void drawTexturedRect(Texture *tex, Rect rect) {
         drawTexturedRect(tex, rect, Rect(0,0,1,1));
     }
-    
     
     //------------------------------------------------------------------------
     void drawTexturedRect(Texture *tex, Rect rect, TextureFitOption fit, Alignment align) {
@@ -182,7 +179,6 @@ namespace po {
         Rect coords_rect(coords[0], coords[2]);
         drawTexturedRect(tex, rect, coords_rect);
     }
-    
     
     //------------------------------------------------------------------------
     void drawTexturedRect(Texture *tex, Rect rect, Rect coords) {
@@ -218,12 +214,10 @@ namespace po {
         glDisableVertexAttribArray(1);
     }
     
-    
     //------------------------------------------------------------------------
     void drawStrokedPolygon(const std::vector<Point> &points) {
         drawPoints(points, GL_LINE_LOOP);
     }
-    
     
     //------------------------------------------------------------------------
     void drawStrokedPolygon(const std::vector<Point> &points, const std::vector<unsigned short> &indices) {

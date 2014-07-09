@@ -523,8 +523,6 @@ namespace po {
             po::setColor( strokeColor, getAppliedAlpha() );
             po::drawStrokedRect( 0, 0, layout.size.x, layout.size.y );
         }
-        
-    
         renderText();
     }
     

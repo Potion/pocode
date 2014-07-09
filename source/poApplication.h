@@ -31,7 +31,6 @@
 //
 // The set of window-related functions at the bottom are defined in poApplication.cpp.
 
-
 // These functions must be defined in the windowing system implementation. They are not in poApplication.cpp.
 // On the Mac and iOS, implementations are in AppDelegate.mm.
 
@@ -42,6 +41,7 @@ namespace po {
     std::string	applicationGetResourceDirectory();
     std::string applicationGetSupportDirectory();
     Window*     applicationCurrentWindow();
+	void		applicationFocus();
     void		applicationMakeWindowCurrent(Window*);
     void		applicationMakeWindowFullscreen(Window*,bool);
     void		applicationMoveWindow(Window*,Point);
