@@ -260,7 +260,6 @@ namespace po {
         return* this;
     }
     
-    
     //------------------------------------------------------------------------
     Texture* Shape2D::getTexture() {
         return texture;
@@ -272,7 +271,6 @@ namespace po {
         return (texture != NULL);
     }
     
-    
     //------------------------------------------------------------------------
     void Shape2D::removeTexture(bool andDelete) {
         if(andDelete && texture) {
@@ -280,7 +278,6 @@ namespace po {
             texture = NULL;
         }
     }
-    
     
     //------------------------------------------------------------------------
     Shape2D& Shape2D::transformTexture(Point pt, Point scale, float rotate) {

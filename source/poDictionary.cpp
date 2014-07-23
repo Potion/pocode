@@ -71,39 +71,66 @@ namespace po {
     
     //------------------------------------------------------------------
     bool DictionaryItem::getBool() const {
-        return (bool)boost::get<int>(item);
+		
+		try {
+			return (bool)boost::get<int>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not a boolean\n";
+		}
     }
-    
     
     //------------------------------------------------------------------
     int DictionaryItem::getInt() const {
-        return boost::get<int>(item);
+		try {
+			return boost::get<int>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not an int\n";
+		}
     }
-    
     
     //------------------------------------------------------------------
     float DictionaryItem::getFloat() const {
-        return boost::get<float>(item);
+		try {
+			return boost::get<float>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not a float\n";
+		}
     }
     
     
     //------------------------------------------------------------------
     string DictionaryItem::getString() const {
-        return boost::get<string>(item);
+        try {
+			return boost::get<string>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not a string\n";
+		}
     }
-    
     
     //------------------------------------------------------------------
     Point DictionaryItem::getPoint() const {
-        return boost::get<Point>(item);
+        try {
+			return boost::get<Point>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not a po::Point\n";
+		}
     }
     
     
     //------------------------------------------------------------------
     Color DictionaryItem::getColor() const {
-        return boost::get<Color>(item);
+        try {
+			return boost::get<Color>(item);
+		} catch (boost::bad_get const &e) {
+			std::cerr << boost::diagnostic_information(e);
+			cerr << "DictionaryItem: type is not a po::Color\n";
+		}
     }
-    
     
     //------------------------------------------------------------------
     void* DictionaryItem::getPtr() const {
@@ -134,9 +161,6 @@ namespace po {
         string_converter conv;
         return boost::apply_visitor(conv, item);
     }
-    
-    
-    
     
     // -----------------------------------------------------------------------------------
     // ================================ Class: Dictionary ================================

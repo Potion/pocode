@@ -1,4 +1,4 @@
-/*
+ /*
  *	Copyright 2012 Potion Design. All rights reserved.
  *	This file is part of pocode.
  *
@@ -119,7 +119,8 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    Object *Object::copy() {
+    Object *Object::copy()
+	{
         Object *obj = new Object();
         clone(obj);
         return obj;
@@ -367,15 +368,18 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    void Object::removeAllChildren(bool and_delete) {
-        BOOST_FOREACH(Object* obj, children) {
-            obj->parent = NULL;
-            if(obj && and_delete)
-                delete obj;
+    void Object::removeAllChildren(bool and_delete)
+	{
+        for (Object* obj : children)
+		{
+			if(obj && and_delete)
+			{
+				obj->parent = NULL;
+				delete obj;
+			}
         }
         children.clear();
     }
-    
     
     //------------------------------------------------------------------------
     Object* Object::getParent() const {
@@ -485,8 +489,12 @@ namespace po {
         updateAllTweens();
         update();
         
-        BOOST_FOREACH(Object* obj, children) {
-            obj->updateTree();
+		//std::cout << name << " numchildren-->> " << this->getNumChildren() << "\n";
+		
+        BOOST_FOREACH(Object* obj, children)
+		{
+			if ( obj->getParent() )
+				obj->updateTree();
         }
     }
     
@@ -526,7 +534,8 @@ namespace po {
         
         // draw the children
         BOOST_FOREACH(Object* obj, children) {
-            obj->drawTree();
+			if ( obj->getParent() )
+					obj->drawTree();
         }
         
         // then recenter around offset

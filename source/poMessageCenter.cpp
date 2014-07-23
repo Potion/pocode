@@ -77,9 +77,16 @@ namespace po {
 //				}
 //			}
 //			if(!found) {
-				subscribers[msg].push_back(new MessageSubscriber());
-				subscribers[msg].back()->sender       = sender;
-				subscribers[msg].back()->subscriber   = subscriber;
+			
+			//if ( subscriber->getParent() )
+			//
+			if ( !subscriber )
+				std::cout << "no subscriber!" << std::endl;
+			
+			subscribers[msg].push_back(new MessageSubscriber());
+			subscribers[msg].back()->sender       = sender;
+			subscribers[msg].back()->subscriber   = subscriber;
+			//}
 //			}
         }
         
