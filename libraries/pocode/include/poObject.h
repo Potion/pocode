@@ -200,7 +200,7 @@ namespace po {
         uint                getUID() const;
         //!alpha with parent alpha pre-multiplied
         float               getAppliedAlpha() const;
-        MatrixSet&        getMatrixSet();
+        MatrixSet&          getMatrixSet();
         int                 getDrawOrder() const;
         
         //Recursively check parents for definitive visibility

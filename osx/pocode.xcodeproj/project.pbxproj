@@ -1327,7 +1327,7 @@
 				PRODUCT_NAME = pocode_iOS;
 				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SUPPORTED_PLATFORMS = iphoneos;
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1347,7 +1347,7 @@
 				PRODUCT_NAME = pocode_iOS_d;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
