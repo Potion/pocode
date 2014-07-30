@@ -1,0 +1,70 @@
+Pocode build:
+	1) build OSX (any style) -- moves some headers
+	2) ios simulator target
+	3) Product - build for profiling (makes a release config build)
+	4) ios device target
+	5) Product - build for profiling (makes a release config build)
+	rinse and repeat steps 3 - 7, but use regular (debug build)
+
+This should result in the following built libraries in /pocode/libraries/pocode
+
+├── libpocode_iOS.a
+├── libpocode_iOS_d.a
+├── libpocode_iOS_simulator.a
+├── libpocode_iOS_simulator_d.a
+
+Where _d denotes a debug build
+
+This should also result in the following headers in /pocode/libraries/include
+
+├── poApplication.h
+├── poAttributedString.h
+├── poAudioPlayer.h
+├── poBinPacker.h
+├── poBitmapFont.h
+├── poCamera.h
+├── poColor.h
+├── poDictionary.h
+├── poEasingFunctions.h
+├── poEnums.h
+├── poEvent.h
+├── poEventCenter.h
+├── poFBO.h
+├── poFFMpegDecoder.h
+├── poFileLocation.h
+├── poFont.h
+├── poGLBuffer.h
+├── poGeometryMask.h
+├── poHelpers.h
+├── poImage.h
+├── poImageShape.h
+├── poLayout.h
+├── poLineExtruder.h
+├── poMath.h
+├── poMatrixSet.h
+├── poMessageCenter.h
+├── poMoviePlayer.h
+├── poObject.h
+├── poObjectModifier.h
+├── poOpenGLState.h
+├── poPoint.h
+├── poRect.h
+├── poResourceStore.h
+├── poShader.h
+├── poShape2D.h
+├── poShape3D.h
+├── poShapeBasics2D.h
+├── poShapeBasics3D.h
+├── poSimpleDrawing.h
+├── poSqlite.h
+├── poTextBox.h
+├── poTextBoxLayout.h
+├── poTextLayout.h
+├── poTexture.h
+├── poTextureAtlas.h
+├── poThreadCenter.h
+├── poTween.h
+├── poURLLoader.h
+├── poWindow.h
+└── poXML.h
+
