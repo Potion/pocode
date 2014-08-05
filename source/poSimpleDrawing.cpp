@@ -74,16 +74,14 @@ namespace po {
         BitmapFont *bmpFont = getBitmapFont(font, ptSize);
         
         std::string::const_iterator ch = str.begin();
-        while(ch != str.end()) {
+        while( ch != str.end() ) {
             uint codepoint = utf8::next(ch, str.end());
             
             font->setGlyph(codepoint);
             Point adv = font->getGlyphAdvance();
             Point org = round(pos+font->getGlyphBearing());
             org.y += font->getAscender();
-            
             bmpFont->drawGlyph( codepoint, org );
-            
             pos.x += adv.x * tracking;
         }
     }

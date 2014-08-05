@@ -431,7 +431,7 @@ namespace po {
         if(result.status == status_ok) {
             return true;
         }
-        
+	
         po::log("XML: parse error (file: %s) (error: %s)", url.toString().c_str(), result.description());
         return false;
     }
