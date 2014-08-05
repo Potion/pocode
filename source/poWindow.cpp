@@ -461,15 +461,17 @@ namespace po {
         //Get the corresponding tracked object
         interactionPoint *t = getTouch(uid);
         
-        //Send event
-        Event event;
-        event.globalPosition.set(x, y, 0.f);
-        event.touchID   = t->id;
-        event.uniqueID  = uid;
-        event.tapCount  = tapCount;
-        
-        event.type = po::TOUCH_MOVED_EVENT;
-        received.push_back(event);
+        if(t != NULL) {
+            //Send event
+            Event event;
+            event.globalPosition.set(x, y, 0.f);
+            event.touchID   = t->id;
+            event.uniqueID  = uid;
+            event.tapCount  = tapCount;
+            
+            event.type = po::TOUCH_MOVED_EVENT;
+            received.push_back(event);
+        }
     }
     
     
@@ -478,17 +480,19 @@ namespace po {
         //Get the corresponding tracked object
         interactionPoint *t = getTouch(uid);
        
-        //Send event
-        Event event;
-        event.globalPosition.set(x, y, 0.f);
-        event.touchID   = t->id;
-        event.uniqueID  = uid;
-        event.tapCount  = tapCount;
-        
-        event.type = po::TOUCH_ENDED_EVENT;
-        received.push_back(event);
-        
-        untrackTouch(uid);
+        if(t != NULL) {
+            //Send event
+            Event event;
+            event.globalPosition.set(x, y, 0.f);
+            event.touchID   = t->id;
+            event.uniqueID  = uid;
+            event.tapCount  = tapCount;
+            
+            event.type = po::TOUCH_ENDED_EVENT;
+            received.push_back(event);
+            
+            untrackTouch(uid);
+        }
     }
     
     
