@@ -40,6 +40,8 @@ namespace po {
     Window*     applicationGetWindow(int index=0);
     std::string	applicationGetResourceDirectory();
     std::string applicationGetSupportDirectory();
+	std::string applicationGetExecutablePath();
+
     Window*     applicationCurrentWindow();
 	void		applicationFocus();
     void		applicationMakeWindowCurrent(Window*);

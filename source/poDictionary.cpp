@@ -96,7 +96,7 @@ namespace po {
 			return boost::get<float>(item);
 		} catch (boost::bad_get const &e) {
 			std::cerr << boost::diagnostic_information(e);
-			cerr << "DictionaryItem: type is not a float\n";
+			cerr << "DictionaryItem: type is not a float " << item << " \n";
 		}
     }
     
@@ -252,7 +252,6 @@ namespace po {
         items[s] = di;
         return *this;
     }
-    
     
     //------------------------------------------------------------------
     Dictionary& Dictionary::append(const Dictionary &d) {
