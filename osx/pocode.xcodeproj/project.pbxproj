@@ -1222,7 +1222,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 2;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
@@ -1245,7 +1245,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 2;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};

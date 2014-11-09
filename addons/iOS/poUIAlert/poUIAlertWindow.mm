@@ -11,19 +11,19 @@
 
 @implementation poUIAlertWindow
 
-- (void) show:(NSString*)title withMessage:(NSString*)message usingHandler:(po::Object*)handlerObject withHandlerMessage:(std::string)handlerMsg {
+- (void)show:(NSString*)title withMessage:(NSString*)message usingHandler:(po::Object*)handlerObject withHandlerMessage:(std::string)handlerMsg {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     [alert show];
     [alert release];
     
     handler = handlerObject;
-    self->handlerMessage = handlerMsg;
+    handlerMessage = handlerMsg;
 }
 
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     po::Dictionary dict;
-    dict.set("index", buttonIndex);
+    dict.set("index", (int)buttonIndex);
     handler->messageHandler(handlerMessage, dict);
 }
 

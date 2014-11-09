@@ -139,7 +139,7 @@ namespace po {
         bool                removeModifier(int idx, bool and_delete=true);
         bool                removeModifier(po::ObjectModifier* mod, bool and_delete=true);
         void                removeAllModifiers(bool and_delete=true);
-        int                 getNumModifiers() const;
+        size_t              getNumModifiers() const;
         
         // pointInside assumes points are in window-native coordinates (0,0 is in the upper left).
         // globalToLocal and localToGlobal are useful in hitTesting and inter-object coordination.
