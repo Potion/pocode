@@ -51,10 +51,10 @@ namespace po {
 	struct TextLayoutLine {
 		TextLayoutLine() : wordCount(0) {}
 
-		uint getNumGlyphs() const { return glyphs.size(); }
+		size_t getNumGlyphs() const { return glyphs.size(); }
 		TextLayoutGlyph &getGlyph(uint g) { return glyphs[g]; }
         
-        virtual int getSizeInMemory() { return ( sizeof(TextLayoutLine)+(glyphs.capacity()*sizeof(TextLayoutGlyph)) ); };
+        virtual size_t getSizeInMemory() { return ( sizeof(TextLayoutLine)+(glyphs.capacity()*sizeof(TextLayoutGlyph)) ); };
         
 		std::vector<TextLayoutGlyph> glyphs;
 		Rect bbox;

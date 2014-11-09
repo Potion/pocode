@@ -90,7 +90,7 @@ namespace po {
     void EventCenter::removeAllEvents(Object* obj) {
         // check the regular event queues
         BOOST_FOREACH(std::vector<EventCallback*> &event_vec, events) {
-            for(int i=event_vec.size()-1; i>=0; i--) {
+            for(int i=(int)event_vec.size()-1; i>=0; i--) {
                 if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
                     // remove the memory slot
                     delete event_vec[i]->event.source->eventMemory;
@@ -108,15 +108,19 @@ namespace po {
     //------------------------------------------------------------------------
     void EventCenter::removeAllEventsOfType(Object* obj, int eventType) {
         std::vector<EventCallback*> &event_vec = events[eventType];
-        for(int i=event_vec.size()-1; i>=0; i--) {
-            if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
-                // remove the memory slot
-                delete event_vec[i]->event.source->eventMemory;
-                event_vec[i]->event.source->eventMemory = NULL;
-                
-                // and remove the event
-                delete event_vec[i];
-                event_vec.erase(event_vec.begin()+i);
+        size_t size = event_vec.size();
+        if (size > 0)
+        {
+            for(size_t i=event_vec.size()-1; i!=0; i--) {
+                if(event_vec[i]->event.source == obj || event_vec[i]->receiver == obj) {
+                    // remove the memory slot
+                    delete event_vec[i]->event.source->eventMemory;
+                    event_vec[i]->event.source->eventMemory = NULL;
+
+                    // and remove the event
+                    delete event_vec[i];
+                    event_vec.erase(event_vec.begin()+i);
+                }
             }
         }
     }
@@ -199,15 +203,19 @@ namespace po {
         std::vector<EventCallback*> &event_vec = events[eventType];
         
         // for all registed event listeners
-        for( int i=event_vec.size()-1; i>=0; i-- ) {
-            Object* obj = event_vec[i]->event.source;
-            
-            // check that object is visible
-            if( objectIsAvailableForEvents(obj) ) {
-                // if point is inside, return callback containing object
-                if ( obj->pointInside( P, true ) )
-                    if(!event_vec[i]->bShouldDelete)
-                        return event_vec[i];
+        size_t size = event_vec.size();
+        if (size > 0)
+        {
+            for( size_t i=event_vec.size()-1; i!=0; i-- ) {
+                Object* obj = event_vec[i]->event.source;
+
+                // check that object is visible
+                if( objectIsAvailableForEvents(obj) ) {
+                    // if point is inside, return callback containing object
+                    if ( obj->pointInside( P, true ) )
+                        if(!event_vec[i]->bShouldDelete)
+                            return event_vec[i];
+                }
             }
         }
         

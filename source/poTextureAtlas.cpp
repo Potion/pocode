@@ -64,7 +64,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    int TextureAtlas::getNumPages() {
+    size_t TextureAtlas::getNumPages() {
         return textures.size();
     }
     

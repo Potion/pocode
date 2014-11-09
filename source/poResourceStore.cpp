@@ -202,7 +202,7 @@ namespace po {
     void ResourceStore::deleteSingleResource(Resource* r){
         std::map<ResourceLocator,Resource*>::iterator iter = resources.begin();
         while(iter != resources.end()) {
-            printf("comparing %x to\nsecond %x\tfirst\n" , r , iter->second);
+            printf("comparing %p to\nsecond %p\tfirst\n" , r , iter->second);
             if(iter->second == r) {
                 delete iter->second;
                 resources.erase(iter++);

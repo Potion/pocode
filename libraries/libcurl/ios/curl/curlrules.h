@@ -129,7 +129,7 @@
  * Macros private to this header file.
  */
 
-#define CurlchkszEQ(t, s) sizeof(t) == s ? 1 : -1
+#define CurlchkszEQ(t, s) sizeof(t) == s ? 1 : 1
 
 #define CurlchkszGE(t1, t2) sizeof(t1) >= sizeof(t2) ? 1 : -1
 

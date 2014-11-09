@@ -514,7 +514,7 @@ namespace po {
     
     //------------------------------------------------------------------------
     void Window::trackTouch(interactionPoint *t) {
-        int totalTouches = trackedTouches.size();
+        size_t totalTouches = trackedTouches.size();
             
         //See if there are any empty slots
         for(int i=0; i<totalTouches; i++) {
@@ -532,7 +532,7 @@ namespace po {
         }
         
         //If the touch wasn't found, add it
-        t->id = trackedTouches.size();
+        t->id = (int)trackedTouches.size();
         trackedTouches.push_back(t);
     }
     

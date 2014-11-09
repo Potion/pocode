@@ -44,7 +44,7 @@ namespace po {
     :	nodes(nodes) 
     {}
 
-    uint XpathResult::getNumMatches() {
+    size_t XpathResult::getNumMatches() {
         return nodes.size();
     }
     
@@ -178,7 +178,7 @@ namespace po {
     
     //------------------------------------------------------------------
     uint XMLNode::getNumAttributes() const {
-        return std::distance(node.attributes_end(), node.attributes_begin());
+        return (uint)std::distance(node.attributes_end(), node.attributes_begin());
     }
     
     

@@ -1299,7 +1299,7 @@ struct SVGPath* svgParse(char* input)
 struct SVGPath* svgParseFromFile(const char* filename)
 {
 	FILE* fp;
-	int size;
+	long size;
 	char* data;
 	struct SVGPath* plist;
 

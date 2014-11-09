@@ -40,12 +40,12 @@ namespace po {
         void            layoutAtlas();
         
         bool            hasUID(uint uid);
-        int             getNumPages();
-        Point         getDimensions() const;
+        size_t          getNumPages();
+        Point           getDimensions() const;
         
         uint            getPageForUID(uint uid);
-        Rect          getCoordsForUID(uint uid);
-        Rect          getSizeForUID(uint uid);
+        Rect            getCoordsForUID(uint uid);
+        Rect            getSizeForUID(uint uid);
         Texture*		getTextureForPage(uint pg);
         Texture*		getTextureForUID(uint uid);
         

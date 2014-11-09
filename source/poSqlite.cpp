@@ -38,7 +38,7 @@ namespace po {
 
 
     //------------------------------------------------------------------
-    int SqliteResult::getNumRows() {
+    size_t SqliteResult::getNumRows() {
         return rows.size();
     }
 
@@ -242,7 +242,7 @@ namespace po {
     //------------------------------------------------------------------
     std::string Sqlite::escapeQuotes(std::string text) {
         
-        int position = text.find( "'" );
+        size_t position = text.find( "'" );
         
         while ( position != std::string::npos ) {
             text.replace( position, 1, "''" );

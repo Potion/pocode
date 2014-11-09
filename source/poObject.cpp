@@ -646,7 +646,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    int Object::getNumModifiers() const {
+    size_t Object::getNumModifiers() const {
         return modifiers.size();
     }
     
@@ -764,6 +764,8 @@ namespace po {
                 offset.set(-bounds.width/2.f,-bounds.height,0); break;
             case ALIGN_BOTTOM_RIGHT:
                 offset.set(-bounds.width,-bounds.height,0); break;
+            case ALIGN_NONE: // Handled in early return; adding here to silence compiler
+                break;
         }
         
         offset = offset-bounds.getPosition();

@@ -269,7 +269,7 @@ namespace po {
 
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
-        glDrawArrays(type, 0, points.size());
+        glDrawArrays(type, 0, (int)points.size());
         glDisableVertexAttribArray(0);
     }
     
@@ -281,7 +281,7 @@ namespace po {
 
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
-        glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+        glDrawElements(type, (int)indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
         glDisableVertexAttribArray(0);
     }
     
@@ -297,7 +297,7 @@ namespace po {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Point), &texCoords[0]);
-        glDrawArrays(type, 0, points.size());
+        glDrawArrays(type, 0, (int)points.size());
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
     }
@@ -314,7 +314,7 @@ namespace po {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, &points[0]);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Point), &texCoords[0]);
-        glDrawElements(type, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+        glDrawElements(type, (int)indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
     }

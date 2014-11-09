@@ -1287,7 +1287,7 @@ namespace boost
         waiter.add(f1);
         waiter.add(f2);
         waiter.add(f3);
-        return waiter.wait();
+        return (unsigned) waiter.wait();
     }
 
     template<typename F1,typename F2,typename F3,typename F4>
@@ -1298,7 +1298,7 @@ namespace boost
         waiter.add(f2);
         waiter.add(f3);
         waiter.add(f4);
-        return waiter.wait();
+        return (unsigned) waiter.wait();
     }
 
     template<typename F1,typename F2,typename F3,typename F4,typename F5>
@@ -1310,7 +1310,7 @@ namespace boost
         waiter.add(f3);
         waiter.add(f4);
         waiter.add(f5);
-        return waiter.wait();
+        return (unsigned) waiter.wait();
     }
 
     template <typename R>

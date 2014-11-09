@@ -61,7 +61,7 @@ namespace date_time {
       }
     }
     //int_type day_count() const
-    unsigned long day_count() const
+    typename calendar_type::date_int_type day_count() const
     {
       /* resolution_traits::as_number returns a boost::int64_t & 
        * frac_sec_per_day is also a boost::int64_t so, naturally, 
@@ -75,7 +75,7 @@ namespace date_time {
        * The division operation will then return a value of 106751991 - 
        * easily fitting in an unsigned long. 
        */
-      return static_cast<unsigned long>(resolution_traits::as_number(time_count_) / frac_sec_per_day());
+      return static_cast<unsigned int>(resolution_traits::as_number(time_count_) / frac_sec_per_day());
     }
     int_type time_count() const
     {

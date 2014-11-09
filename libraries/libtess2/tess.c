@@ -436,7 +436,7 @@ int tessMeshSetWindingNumber( TESSmesh *mesh, int value,
 	return 1;
 }
 
-void* heapAlloc( void* userData, unsigned int size )
+void* heapAlloc( void* userData, size_t size )
 {
 	return malloc( size );
 }

@@ -59,7 +59,7 @@ namespace po {
             std::vector <SqliteColumn> columns;
             std::string getColumnNames();
             
-            int getNumRows();
+            size_t getNumRows();
             Dictionary getRow(int rowNum);
             
             std::vector <Dictionary> rows;

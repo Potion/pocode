@@ -36,6 +36,8 @@
 extern "C" {
 #endif
 
+#include <stddef.h>
+
 enum TessWindingRule
 {
 	TESS_WINDING_ODD,
@@ -88,7 +90,7 @@ typedef struct TESSalloc TESSalloc;
 // number of expected extra vertices.  
 struct TESSalloc
 {
-	void *(*memalloc)( void *userData, unsigned int size );
+	void *(*memalloc)( void *userData, size_t size );
 	void *(*memrealloc)( void *userData, void* ptr, unsigned int size );
 	void (*memfree)( void *userData, void *ptr );
 	void* userData;				// User data passed to the allocator functions.

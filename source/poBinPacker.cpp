@@ -169,7 +169,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    int BinPacker::getNumPages() const {
+    size_t BinPacker::getNumPages() const {
         return pages.size();
     }
     

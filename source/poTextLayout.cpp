@@ -64,7 +64,7 @@ namespace po {
         if(!node)
             return;
         
-        int start;
+        size_t start;
         Dictionary dict;
         
         if(node.type() == node_element) {
@@ -112,8 +112,8 @@ namespace po {
         }
         
         if(node.type() == node_element) {
-            int end = po::utf8strlen(data->string.str());
-            data->string.append(po::Range(start,end), dict);
+            size_t end = po::utf8strlen(data->string.str());
+            data->string.append(po::Range((int)start,(int)end), dict);
         }
     }
     
@@ -152,13 +152,13 @@ namespace po {
     
     //------------------------------------------------------------------------
     uint TextLayout::getNumLines() const {
-        return lines.size();
+        return (uint)lines.size();
     }
     
     
     //------------------------------------------------------------------------
     uint TextLayout::getNumGlyphsForLine(uint line) const {
-        return lines[line].glyphs.size();
+        return (uint)lines[line].glyphs.size();
     }
     
     

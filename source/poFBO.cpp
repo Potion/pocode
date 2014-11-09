@@ -335,8 +335,8 @@ namespace po {
 
         // make sure none of this is bound right now
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glDeleteFramebuffers(framebuffers.size(), &framebuffers[0]);
-        glDeleteRenderbuffers(renderbuffers.size(), &renderbuffers[0]);
+        glDeleteFramebuffers((int)framebuffers.size(), &framebuffers[0]);
+        glDeleteRenderbuffers((int)renderbuffers.size(), &renderbuffers[0]);
 		ASSERTGL()
         framebuffers[0] = 0;
     }

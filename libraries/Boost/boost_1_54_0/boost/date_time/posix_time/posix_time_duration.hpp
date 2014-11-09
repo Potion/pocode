@@ -20,7 +20,7 @@ namespace posix_time {
   class hours : public time_duration
   {
   public:
-    explicit hours(long h) :
+    explicit hours(int h) :
       time_duration(h,0,0)
     {}
   };
@@ -31,7 +31,7 @@ namespace posix_time {
   class minutes : public time_duration
   {
   public:
-    explicit minutes(long m) :
+    explicit minutes(int m) :
       time_duration(0,m,0)
     {}
   };
@@ -42,7 +42,7 @@ namespace posix_time {
   class seconds : public time_duration
   {
   public:
-    explicit seconds(long s) :
+    explicit seconds(int s) :
       time_duration(0,0,s)
     {}
   };

@@ -47,7 +47,7 @@ struct xtime
     operator system_time() const
     {
         return boost::posix_time::from_time_t(0)+
-            boost::posix_time::seconds(static_cast<long>(sec))+
+            boost::posix_time::seconds(static_cast<int>(sec))+
 #ifdef BOOST_DATE_TIME_HAS_NANOSECONDS
             boost::posix_time::nanoseconds(nsec);
 #else

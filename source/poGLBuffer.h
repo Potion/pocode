@@ -54,8 +54,8 @@ namespace po {
         
         bool				isValid() const;
         uint				getUid() const;
-        uint				getSize() const;
-        GLBufferConfig	getConfig() const;
+        size_t				getSize() const;
+        GLBufferConfig	    getConfig() const;
         
         void				setSize(size_t sz);
         void				setConfig(GLBufferConfig config);

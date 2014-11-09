@@ -36,9 +36,6 @@
 		03AC605815E68BA500F6540B /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC604F15E68BA500F6540B /* pugiconfig.hpp */; settings = {ATTRIBUTES = (); }; };
 		03AC605915E68BA500F6540B /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03AC605015E68BA500F6540B /* pugixml.cpp */; };
 		03AC605A15E68BA500F6540B /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03AC605115E68BA500F6540B /* pugixml.hpp */; settings = {ATTRIBUTES = (); }; };
-		03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
-		03ACAAB115E68D1100F6540B /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
-		03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
 		03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
 		03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
 		03DA530417D699910054274B /* poMoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0325A73D16C4562800410C61 /* poMoviePlayer.cpp */; };
@@ -94,12 +91,6 @@
 		AA16A48315E80AF900CAA1C6 /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 03AC603815E68B0800F6540B /* tess.c */; };
 		AA16A48415E80AF900CAA1C6 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603915E68B0800F6540B /* tess.h */; };
 		AA16A48515E80AF900CAA1C6 /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03AC603A15E68B0800F6540B /* tesselator.h */; };
-		AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
-		AA16A48715E80B1100CAA1C6 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
-		AA16A48815E80B1100CAA1C6 /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
-		AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAAB15E68D1100F6540B /* sqlite3.c */; };
-		AA16A48A15E80B1100CAA1C6 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAC15E68D1100F6540B /* sqlite3.h */; };
-		AA16A48B15E80B1100CAA1C6 /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAAD15E68D1100F6540B /* sqlite3ext.h */; };
 		AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
 		AA16A48D15E80B1700CAA1C6 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03ACAAB615E68EEE00F6540B /* nanosvg.h */; };
 		AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */ = {isa = PBXBuildFile; fileRef = 03ACAAB515E68EEE00F6540B /* nanosvg.c */; };
@@ -806,8 +797,6 @@
 				AA16A48215E80AF900CAA1C6 /* sweep.h in Headers */,
 				AA16A48415E80AF900CAA1C6 /* tess.h in Headers */,
 				AA16A48515E80AF900CAA1C6 /* tesselator.h in Headers */,
-				AA16A48A15E80B1100CAA1C6 /* sqlite3.h in Headers */,
-				AA16A48B15E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
 				AA16A48F15E80B1700CAA1C6 /* nanosvg.h in Headers */,
 				AA16A49115E80B6A00CAA1C6 /* main.pch in Headers */,
 				AA80226816D4147500575CA9 /* json_batchallocator.h in Headers */,
@@ -875,8 +864,6 @@
 				03AC604915E68B0800F6540B /* tesselator.h in Headers */,
 				03AC605815E68BA500F6540B /* pugiconfig.hpp in Headers */,
 				03AC605A15E68BA500F6540B /* pugixml.hpp in Headers */,
-				03ACAAB115E68D1100F6540B /* sqlite3.h in Headers */,
-				03ACAAB215E68D1100F6540B /* sqlite3ext.h in Headers */,
 				03ACAAB815E68EEE00F6540B /* nanosvg.h in Headers */,
 				AA2A69E015F9001B002C5919 /* poFileLocation.h in Headers */,
 				AA80226616D4147500575CA9 /* json_batchallocator.h in Headers */,
@@ -907,8 +894,6 @@
 				AA16A47315E80AF800CAA1C6 /* sweep.h in Headers */,
 				AA16A47515E80AF800CAA1C6 /* tess.h in Headers */,
 				AA16A47615E80AF800CAA1C6 /* tesselator.h in Headers */,
-				AA16A48715E80B1100CAA1C6 /* sqlite3.h in Headers */,
-				AA16A48815E80B1100CAA1C6 /* sqlite3ext.h in Headers */,
 				AA16A48D15E80B1700CAA1C6 /* nanosvg.h in Headers */,
 				AA16A49015E80B6900CAA1C6 /* main.pch in Headers */,
 				AA80226716D4147500575CA9 /* json_batchallocator.h in Headers */,
@@ -1069,7 +1054,6 @@
 				AA16A47F15E80AF900CAA1C6 /* priorityq.c in Sources */,
 				AA16A48115E80AF900CAA1C6 /* sweep.c in Sources */,
 				AA16A48315E80AF900CAA1C6 /* tess.c in Sources */,
-				AA16A48915E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48E15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 				AA2A69E715F95CD6002C5919 /* poFileLocation.cpp in Sources */,
 				AA80226B16D4147500575CA9 /* json_reader.cpp in Sources */,
@@ -1133,7 +1117,6 @@
 				03AC604515E68B0800F6540B /* sweep.c in Sources */,
 				03AC604715E68B0800F6540B /* tess.c in Sources */,
 				03AC605915E68BA500F6540B /* pugixml.cpp in Sources */,
-				03ACAAB015E68D1100F6540B /* sqlite3.c in Sources */,
 				03ACAAB715E68EEE00F6540B /* nanosvg.c in Sources */,
 				AA2A69DF15F9001B002C5919 /* poFileLocation.cpp in Sources */,
 				AA80226916D4147500575CA9 /* json_reader.cpp in Sources */,
@@ -1200,7 +1183,6 @@
 				AA16A47015E80AF800CAA1C6 /* priorityq.c in Sources */,
 				AA16A47215E80AF800CAA1C6 /* sweep.c in Sources */,
 				AA16A47415E80AF800CAA1C6 /* tess.c in Sources */,
-				AA16A48615E80B1100CAA1C6 /* sqlite3.c in Sources */,
 				AA16A48C15E80B1700CAA1C6 /* nanosvg.c in Sources */,
 				AA2A69E615F95CD6002C5919 /* poFileLocation.cpp in Sources */,
 				AA80226A16D4147500575CA9 /* json_reader.cpp in Sources */,
@@ -1292,7 +1274,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1313,6 +1295,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A198142CE6D7001A5B64 /* Release.ios.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+				);
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
@@ -1327,7 +1314,7 @@
 				PRODUCT_NAME = pocode_iOS;
 				PUBLIC_HEADERS_FOLDER_PATH = /include;
 				SUPPORTED_PLATFORMS = iphoneos;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -1335,6 +1322,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA74A196142CE695001A5B64 /* Debug.ios.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+				);
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
@@ -1347,7 +1339,7 @@
 				PRODUCT_NAME = pocode_iOS_d;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -1363,7 +1355,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

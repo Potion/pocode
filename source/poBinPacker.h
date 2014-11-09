@@ -45,7 +45,7 @@ namespace po {
         void pack();
         void render();
 
-        int getNumPages() const;
+        size_t getNumPages() const;
         float getWastedPixels() const;
         Rect packPosition(uint handle, uint *page=NULL);
 

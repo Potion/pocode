@@ -120,7 +120,7 @@ namespace po {
     
     
     //------------------------------------------------------------------------
-    uint GLBuffer::getSize() const {
+    size_t GLBuffer::getSize() const {
         return size;
     }
     

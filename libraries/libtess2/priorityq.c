@@ -209,13 +209,13 @@ PQhandle pqHeapInsert( TESSalloc* alloc, PriorityQHeap *pq, PQkey keyNew )
 			// If the heap overflows, double its size.
 			pq->max <<= 1;
 			pq->nodes = (PQnode *)alloc->memrealloc( alloc->userData, pq->nodes, 
-				(size_t)((pq->max + 1) * sizeof( pq->nodes[0] )));
+				((pq->max + 1) * sizeof( pq->nodes[0] )));
 			if (pq->nodes == NULL) {
 				pq->nodes = saveNodes;	// restore ptr to free upon return 
 				return INV_HANDLE;
 			}
 			pq->handles = (PQhandleElem *)alloc->memrealloc( alloc->userData, pq->handles,
-				(size_t) ((pq->max + 1) * sizeof( pq->handles[0] )));
+				((pq->max + 1) * sizeof( pq->handles[0] )));
 			if (pq->handles == NULL) {
 				pq->handles = saveHandles; // restore ptr to free upon return 
 				return INV_HANDLE;
@@ -438,7 +438,7 @@ PQhandle pqInsert( TESSalloc* alloc, PriorityQ *pq, PQkey keyNew )
 			// If the heap overflows, double its size.
 			pq->max <<= 1;
 			pq->keys = (PQkey *)alloc->memrealloc( alloc->userData, pq->keys, 
-				(size_t)(pq->max * sizeof( pq->keys[0] )));
+				(pq->max * sizeof( pq->keys[0] )));
 			if (pq->keys == NULL) { 
 				pq->keys = saveKey;  // restore ptr to free upon return 
 				return INV_HANDLE;

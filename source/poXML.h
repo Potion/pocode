@@ -166,10 +166,10 @@ namespace po {
         friend class XMLNode;
         
     public:
-        uint            getNumMatches();
+        size_t          getNumMatches();
         
         // GET RESULT NODES
-        XMLNode       getNode(uint idx=0);
+        XMLNode         getNode(uint idx=0);
         
         // GET RESULT VALUES
         std::string     getString(uint idx=0);

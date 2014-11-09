@@ -100,6 +100,6 @@ namespace po {
  René Nyffenegger rene.nyffenegger@adp-gmbh.ch
  */
 namespace po {
-    std::string base64_encode(unsigned char const* data, unsigned int len);
+    std::string base64_encode(unsigned char const* data, size_t len);
     std::string base64_decode(std::string const& s);
 }

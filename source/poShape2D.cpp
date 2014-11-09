@@ -571,7 +571,7 @@ namespace po {
         node.addChild("join").setInnerInt(join);
         node.addChild("stroke_width").setInnerInt(strokeWidth);
 
-        int points_sz = sizeof(Point)*points.size();
+        size_t points_sz = sizeof(Point) * (size_t)points.size();
         const unsigned char *points_ptr = (const unsigned char*)&points[0];
         node.addChild("points").getHandle().append_child(pugi::node_cdata).set_value(po::base64_encode(points_ptr, points_sz).c_str());
             
