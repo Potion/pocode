@@ -57,8 +57,8 @@
  *
  */
 
-#ifndef HEADER_DTLS1_H 
-#define HEADER_DTLS1_H 
+#ifndef HEADER_DTLS1_H
+#define HEADER_DTLS1_H
 
 #include <openssl/buffer.h>
 #include <openssl/pqueue.h>
@@ -72,7 +72,11 @@
 #elif defined(OPENSSL_SYS_NETWARE) && !defined(_WINSOCK2API_)
 #include <sys/timeval.h>
 #else
+#if defined(OPENSSL_SYS_VXWORKS)
+#include <sys/times.h>
+#else
 #include <sys/time.h>
+#endif
 #endif
 
 #ifdef  __cplusplus
@@ -80,6 +84,8 @@ extern "C" {
 #endif
 
 #define DTLS1_VERSION			0xFEFF
+#define DTLS_MAX_VERSION		DTLS1_VERSION
+
 #define DTLS1_BAD_VER			0x0100
 
 #if 0
@@ -280,4 +286,3 @@ typedef struct dtls1_record_data_st
 }
 #endif
 #endif
-

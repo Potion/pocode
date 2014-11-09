@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Build macros of the FreeType 2 library.                              */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010 by */
+/*  Copyright 1996-2008, 2010, 2012, 2013 by                               */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -318,6 +318,45 @@
   /*************************************************************************
    *
    * @macro:
+   *   FT_AUTOHINTER_H
+   *
+   * @description:
+   *   A macro used in #include statements to name the file containing
+   *   structures and macros related to the auto-hinting module.
+   *
+   */
+#define FT_AUTOHINTER_H  <freetype/ftautoh.h>
+
+
+  /*************************************************************************
+   *
+   * @macro:
+   *   FT_CFF_DRIVER_H
+   *
+   * @description:
+   *   A macro used in #include statements to name the file containing
+   *   structures and macros related to the CFF driver module.
+   *
+   */
+#define FT_CFF_DRIVER_H  <freetype/ftcffdrv.h>
+
+
+  /*************************************************************************
+   *
+   * @macro:
+   *   FT_TRUETYPE_DRIVER_H
+   *
+   * @description:
+   *   A macro used in #include statements to name the file containing
+   *   structures and macros related to the TrueType driver module.
+   *
+   */
+#define FT_TRUETYPE_DRIVER_H  <freetype/ftttdrv.h>
+
+
+  /*************************************************************************
+   *
+   * @macro:
    *   FT_TYPE1_TABLES_H
    *
    * @description:
@@ -573,7 +612,7 @@
    *   compiled on the Mac (note that the base API still works though).
    *
    */
-#define FT_MAC_H  <freetype/ftmac.h>
+#define FT_MAC_H  <ftmac.h>
 
 
   /*************************************************************************
@@ -586,7 +625,7 @@
    *   optional multiple-masters management API of FreeType~2.
    *
    */
-#define FT_MULTIPLE_MASTERS_H  <freetype/ftmm.h>
+#define FT_MULTIPLE_MASTERS_H  <ftmm.h>
 
 
   /*************************************************************************
@@ -600,7 +639,7 @@
    *   SFNT-based font formats (i.e., TrueType and OpenType).
    *
    */
-#define FT_SFNT_NAMES_H  <freetype/ftsnames.h>
+#define FT_SFNT_NAMES_H  <ftsnames.h>
 
 
   /*************************************************************************
@@ -614,7 +653,7 @@
    *   GPOS, GSUB, JSTF).
    *
    */
-#define FT_OPENTYPE_VALIDATE_H  <freetype/ftotval.h>
+#define FT_OPENTYPE_VALIDATE_H  <ftotval.h>
 
 
   /*************************************************************************
@@ -628,7 +667,7 @@
    *   mort, morx, bsln, just, kern, opbd, trak, prop).
    *
    */
-#define FT_GX_VALIDATE_H  <freetype/ftgxval.h>
+#define FT_GX_VALIDATE_H  <ftgxval.h>
 
 
   /*************************************************************************
@@ -641,7 +680,7 @@
    *   FreeType~2 API which accesses PFR-specific data.
    *
    */
-#define FT_PFR_H  <freetype/ftpfr.h>
+#define FT_PFR_H  <ftpfr.h>
 
 
   /*************************************************************************
@@ -653,7 +692,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which provides functions to stroke outline paths.
    */
-#define FT_STROKER_H  <freetype/ftstroke.h>
+#define FT_STROKER_H  <ftstroke.h>
 
 
   /*************************************************************************
@@ -665,7 +704,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which performs artificial obliquing and emboldening.
    */
-#define FT_SYNTHESIS_H  <freetype/ftsynth.h>
+#define FT_SYNTHESIS_H  <ftsynth.h>
 
 
   /*************************************************************************
@@ -678,7 +717,7 @@
    *   FreeType~2 API which provides functions specific to the XFree86 and
    *   X.Org X11 servers.
    */
-#define FT_XFREE86_H  <freetype/ftxf86.h>
+#define FT_XFREE86_H  <ftxf86.h>
 
 
   /*************************************************************************
@@ -691,7 +730,7 @@
    *   FreeType~2 API which performs trigonometric computations (e.g.,
    *   cosines and arc tangents).
    */
-#define FT_TRIGONOMETRY_H  <freetype/fttrigon.h>
+#define FT_TRIGONOMETRY_H  <fttrigon.h>
 
 
   /*************************************************************************
@@ -703,7 +742,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which performs color filtering for subpixel rendering.
    */
-#define FT_LCD_FILTER_H  <freetype/ftlcdfil.h>
+#define FT_LCD_FILTER_H  <ftlcdfil.h>
 
 
   /*************************************************************************
@@ -715,7 +754,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which performs color filtering for subpixel rendering.
    */
-#define FT_UNPATENTED_HINTING_H  <freetype/ttunpat.h>
+#define FT_UNPATENTED_HINTING_H  <ttunpat.h>
 
 
   /*************************************************************************
@@ -727,7 +766,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which performs color filtering for subpixel rendering.
    */
-#define FT_INCREMENTAL_H  <freetype/ftincrem.h>
+#define FT_INCREMENTAL_H  <ftincrem.h>
 
 
   /*************************************************************************
@@ -739,7 +778,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which returns entries from the TrueType GASP table.
    */
-#define FT_GASP_H  <freetype/ftgasp.h>
+#define FT_GASP_H  <ftgasp.h>
 
 
   /*************************************************************************
@@ -751,7 +790,7 @@
    *   A macro used in #include statements to name the file containing the
    *   FreeType~2 API which returns individual and ranged glyph advances.
    */
-#define FT_ADVANCES_H  <freetype/ftadvanc.h>
+#define FT_ADVANCES_H  <ftadvanc.h>
 
 
   /* */
@@ -763,26 +802,26 @@
   /* default to FT_CACHE_H at the moment just in case, but we know of */
   /* no rogue client that uses them.                                  */
   /*                                                                  */
-#define FT_CACHE_MANAGER_H           <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_MRU_H      <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_MANAGER_H  <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_CACHE_H    <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_GLYPH_H    <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_IMAGE_H    <freetype/ftcache.h>
-#define FT_CACHE_INTERNAL_SBITS_H    <freetype/ftcache.h>
+#define FT_CACHE_MANAGER_H           <ftcache.h>
+#define FT_CACHE_INTERNAL_MRU_H      <ftcache.h>
+#define FT_CACHE_INTERNAL_MANAGER_H  <ftcache.h>
+#define FT_CACHE_INTERNAL_CACHE_H    <ftcache.h>
+#define FT_CACHE_INTERNAL_GLYPH_H    <ftcache.h>
+#define FT_CACHE_INTERNAL_IMAGE_H    <ftcache.h>
+#define FT_CACHE_INTERNAL_SBITS_H    <ftcache.h>
 
 
-#define FT_INCREMENTAL_H          <freetype/ftincrem.h>
+#define FT_INCREMENTAL_H          <ftincrem.h>
 
-#define FT_TRUETYPE_UNPATENTED_H  <freetype/ttunpat.h>
+#define FT_TRUETYPE_UNPATENTED_H  <ttunpat.h>
 
 
   /*
-   * Include internal headers definitions from <freetype/internal/...>
+   * Include internal headers definitions from <internal/...>
    * only when building the library.
    */
 #ifdef FT2_BUILD_LIBRARY
-#define  FT_INTERNAL_INTERNAL_H  <freetype/internal/internal.h>
+#define  FT_INTERNAL_INTERNAL_H  <internal/internal.h>
 #include FT_INTERNAL_INTERNAL_H
 #endif /* FT2_BUILD_LIBRARY */
 

@@ -30,7 +30,7 @@ GCC_SYMBOLS_PRIVATE_EXTERN = YES
 HEADERS				= /pocode/source
 LIBRARIES			= /pocode/libraries
 
-BOOST				= $(LIBRARIES)/Boost/boost_1_54_0
+BOOST				= $(LIBRARIES)/Boost/boost_1_57_0
 BOOSTLDEVICEDIR		= $(BOOST)/ios
 BOOSTLDEVICELIBS    = -lboost_date_time -lboost_filesystem -lboost_regex -lboost_system -lboost_thread
 BOOSTLSIMDIR		= $(BOOST)/iosSim

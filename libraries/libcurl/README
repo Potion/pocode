@@ -25,32 +25,61 @@ Building for IOS
 FIRST MAKE SURE THE SIMULATOR IS CLOSED!
 
 //Create ARMV7 version
-export CC=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2
-export CPP=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-cpp-4.2
-export CFLAGS="-arch armv7 --sysroot=/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk"
-export LDFLAGS="-isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -Wl,-syslibroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk"
-export AR=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/ar
-./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=arm-apple-darwin10
-make clean
-make
+export CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+export CPP=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cpp
+export CFLAGS="-arch armv7 --sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk -Wl,-syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export AR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=arm-apple-darwin
+make clean; make
 ar rv libcurl.armv7.a lib/*.o
 
+//Create ARMV7S version
+export CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+export CPP=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cpp
+export CFLAGS="-arch armv7s --sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk -Wl,-syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export AR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=arm-apple-darwin
+make clean; make
+ar rv libcurl.armv7s.a lib/*.o
 
+//Create ARM64 version
+export CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+export CPP=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cpp
+export CFLAGS="-arch arm64 --sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk -Wl,-syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export AR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=arm-apple-darwin
+make clean; make
+ar rv libcurl.arm64.a lib/*.o
 
-OS X
+OS X i386
 (Open new terminal window, just to make sure you clear all export vars)
-export CC=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2
-export CPP=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-cpp-4.2
-export CFLAGS="-arch i386 --sysroot=/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk"
-export LDFLAGS="-isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -Wl,-syslibroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk"
-export AR=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ar
-./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=i386-apple-darwin10
+export CC=clang
+export CPP=cpp
+export CFLAGS="-arch i386 --sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneOS8.1.sdk -Wl,-syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneOS8.1.sdk"
+export AR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=i386-apple-darwin
 make clean
 make
 ar rv libcurl.i386.a lib/*.o
 
+OS X x86_64
+(Open new terminal window, just to make sure you clear all export vars)
+export CC=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2
+export CPP=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-cpp-4.2
+export CFLAGS="-arch x86_64 --sysroot=/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk"
+export LDFLAGS="-isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk -Wl,-syslibroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk"
+export AR=/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ar
+./configure --disable-shared --without-ssl --without-libssh2 --without-ca-bundle --without-ldap --disable-ldap --host=x86_64-apple-darwin
+make clean
+make
+ar rv libcurl.x86_64.a lib/*.o
+
 Combine with lipo for simple lib
-lipo -create libcurl.armv7.a libcurl.i386.a -output libcurl_ios.a
+lipo -create libcurl.*.a -output libcurl_ios.a
 
 
 Finally copy include/curl folder to libs folder AFTER compiling…otherwise defs will be off!
