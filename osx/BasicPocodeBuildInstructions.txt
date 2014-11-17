@@ -4,7 +4,7 @@ Pocode build:
 	3) Product - build for profiling (makes a release config build)
 	4) ios device target
 	5) Product - build for profiling (makes a release config build)
-	rinse and repeat steps 3 - 7, but use regular (debug build)
+	rinse and repeat steps 3 - 5, but use regular (debug build)
 
 This should result in the following built libraries in /pocode/libraries/pocode
 
