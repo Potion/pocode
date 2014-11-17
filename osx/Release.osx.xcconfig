@@ -26,7 +26,7 @@ GCC_SYMBOLS_PRIVATE_EXTERN = YES
 
 HEADERS				= /pocode/source
 LIBRARIES			= /pocode/libraries
-BOOST				= $(LIBRARIES)/Boost/boost_1_57_0
+BOOST				= $(LIBRARIES)/Boost/boost_1_54_0
 BOOSTL				= $(BOOST)/osx
 FREEIMAGE			= $(LIBRARIES)/FreeImage
 FREETYPE			= $(LIBRARIES)/FreeType
