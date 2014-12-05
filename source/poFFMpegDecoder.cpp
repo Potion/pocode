@@ -10,16 +10,7 @@
 
 namespace po {
 	
-	AVPacket PacketQueue::FlushPacket;
-	
-	void initPacketQueue() {
-		av_init_packet(&PacketQueue::FlushPacket);
-		PacketQueue::FlushPacket.data = (uint8_t*)"FLUSH";
-	}
-
 	PacketQueue::PacketQueue() {
-		static boost::once_flag once;
-		boost::call_once(once, initPacketQueue);
 	}
 	
 	bool PacketQueue::isEmpty() {
@@ -42,15 +33,9 @@ namespace po {
 	
 	void PacketQueue::flush() {
 		for(std::list<AVPacket>::iterator it=packets.begin(); it!=packets.end(); ++it) {
-			if(!PacketQueue::isFlushPacket(*it))
-				av_free_packet(&(*it));
+			av_free_packet(&(*it));
 		}
 		packets.clear();
-		packets.push_back(FlushPacket);
-	}
-
-	bool PacketQueue::isFlushPacket(AVPacket pkt) {
-		return pkt.data == FlushPacket.data;
 	}
 
 	struct FFMpegInit {
@@ -184,12 +169,20 @@ namespace po {
 	}
 	
 	void Demuxer::seekToTime(double time) {
-		int64_t ts = time * AV_TIME_BASE - AV_TIME_BASE;
+		int64_t ts = time * AV_TIME_BASE;
+		printf("%ld %f\n", ts, time);
 		
-		avformat_seek_file(format, -1, INT64_MIN, ts, ts, AVSEEK_FLAG_BACKWARD | AVSEEK_FLAG_FRAME);
+		int rez = av_seek_frame(format, -1, ts, AVSEEK_FLAG_ANY);
+		//int rez = avformat_seek_file(format, -1, 0, ts, ts, AVSEEK_FLAG_ANY);
+		if(rez < 0)
+			printf("ffmpeg demux seek error: %d\n", rez);
 
-		for(std::map<int,PacketQueue*>::iterator it=packetQueues.begin(); it!=packetQueues.end(); ++it)
+		for(std::map<int,PacketQueue*>::iterator it=packetQueues.begin(); it!=packetQueues.end(); ++it) {
+			AVStream* stream = getStream(it->first);
+			AVCodecContext* context = stream->codec;
+			avcodec_flush_buffers(context);
 			it->second->flush();
+		}
 	}
 
 	VideoFrame::VideoFrame()
@@ -384,11 +377,6 @@ namespace po {
 				break;
 			}
 			
-			if(PacketQueue::isFlushPacket(packet)) {
-				avcodec_flush_buffers(context);
-				continue;
-			}
-			
 			// decode next packet of video
 			int complete = 0;
 			int error = 0;
@@ -528,11 +516,6 @@ namespace po {
 				// i guess we're out of packets
 				lastBuffer = true;
 				break;
-			}
-
-			if(PacketQueue::isFlushPacket(packet)) {
-				avcodec_flush_buffers(context);
-				continue;
 			}
 
 			AVPacket tmp = packet;

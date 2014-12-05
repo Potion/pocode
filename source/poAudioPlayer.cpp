@@ -55,7 +55,6 @@ namespace po {
 	:	demuxer(NULL)
 	,	audioDecoder(NULL)
 	,	uid(0)
-	,	killUpdateThread(false)
 	,	clock(0.f)
 	,	loop(false)
 	,	state(Stopped)
@@ -68,8 +67,12 @@ namespace po {
 	
 	bool AudioPlayer::open(const char* path) {
 		Demuxer* de = Demuxer::open(path);
+		if(!open(de)) {
+			delete de;
+			return false;
+		}
 		ownsDemuxer = true;
-		return open(de);
+		return true;
 	}
 	
 	bool AudioPlayer::open(Demuxer* de) {
@@ -101,7 +104,7 @@ namespace po {
 
 	void AudioPlayer::close() {
 		if(updateThread.joinable()) {
-			killUpdateThread = true;
+			updateThread.interrupt();
 			updateThread.join();
 		}
 		
@@ -133,26 +136,29 @@ namespace po {
 	
 	void AudioPlayer::play() {
 		if(state != Playing) {
-			if(state == Finished) {
-				state = Stopped;
-			}
-			
-			if(state == Stopped) {
-				killUpdateThread = false;
-				updateThread = boost::thread(boost::bind(&AudioPlayer::updateBuffers,this));
+			printf("not playing\n");
+
+			if(state == Stopped || state == Finished) {
+				printf("is stopped\n");
 
 				for(int i=0; i<BufferCount; i++) {
 					AudioBuffer::Ptr buf = audioDecoder->nextBuffer();
 					if(buf) {
+						printf("pulling out first buffers\n");
 						alBufferData(buffers[i], format, buf->bytes, buf->numBytes, buf->sampleRate);
 						AL_ASSERT_NO_ERROR();
 					}
 				}
 				
+				printf("queuing first buffers\n");
 				alSourceQueueBuffers(uid, BufferCount, buffers);
 				AL_ASSERT_NO_ERROR();
+				
+				printf("staring update thread\n");
+				updateThread = boost::thread(boost::bind(&AudioPlayer::updateBuffers,this));
 			}
 			
+			printf("playing\n");
 			alSourcePlay(uid);
 			AL_ASSERT_NO_ERROR();
 			
@@ -170,7 +176,7 @@ namespace po {
 	
 	void AudioPlayer::stop() {
 		if(state != Stopped) {
-			killUpdateThread = true;
+			updateThread.interrupt();
 			updateThread.join();
 			
 			alSourceStop(uid);
@@ -212,37 +218,42 @@ namespace po {
 	bool AudioPlayer::isLooping() const { return loop; }
 
 	void AudioPlayer::updateBuffers() {
-		while(!killUpdateThread) {
-			ALint processed = 0;
-			alGetSourcei(uid, AL_BUFFERS_PROCESSED, &processed);
-			AL_ASSERT_NO_ERROR();
-
-			if(processed > 0) {
-				ALuint buffs[BufferCount];
-				alSourceUnqueueBuffers(uid, processed, buffs);
+		try {
+			while(true) {
+				ALint processed = 0;
+				alGetSourcei(uid, AL_BUFFERS_PROCESSED, &processed);
 				AL_ASSERT_NO_ERROR();
 
-				for(int i=0; i<processed; i++) {
-					clock += (audioDecoder->getFrameSize() / audioDecoder->getSampleSize() / (float)audioDecoder->getChannelCount()) / (float)audioDecoder->getSampleRate();
-					
-					AudioBuffer::Ptr buf = audioDecoder->nextBuffer();
-					if(!buf)
-						break;
-					
-					alBufferData(buffs[i], format, buf->bytes, buf->numBytes, buf->sampleRate);
+				if(processed > 0) {
+					ALuint buffs[BufferCount];
+					alSourceUnqueueBuffers(uid, processed, buffs);
+					AL_ASSERT_NO_ERROR();
+
+					int got = 0;
+					for(int i=0; i<processed; i++) {
+						AudioBuffer::Ptr buf = audioDecoder->nextBuffer();
+						if(!buf) {
+							throw boost::thread_interrupted();
+						}
+						got++;
+
+						alBufferData(buffs[i], format, buf->bytes, buf->numBytes, buf->sampleRate);
+						AL_ASSERT_NO_ERROR();
+
+						clock += (audioDecoder->getFrameSize() / audioDecoder->getSampleSize() / (float)audioDecoder->getChannelCount()) / (float)audioDecoder->getSampleRate();
+					}
+				
+					alSourceQueueBuffers(uid, got, buffs);
 					AL_ASSERT_NO_ERROR();
 				}
-				
-				alSourceQueueBuffers(uid, processed, buffs);
-				AL_ASSERT_NO_ERROR();
-			}
 			
-			killUpdateThread = audioDecoder->isLastBuffer();
-			boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+				boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+			}
 		}
-		
-		state = Finished;
-		audioDecoder->seekToTime(0.0);
+		catch(boost::thread_interrupted const&) {
+			state = Finished;
+			printf("stopping update thread\n");
+		}
 	}
 
 }
