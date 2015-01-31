@@ -77,6 +77,8 @@ namespace po {
     class Sqlite {
         public:
             Sqlite();
+            Sqlite(bool bVerbose);
+            Sqlite(std::string url);
             Sqlite(std::string url, bool bVerbose=false);
             virtual ~Sqlite();
             

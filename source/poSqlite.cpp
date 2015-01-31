@@ -21,6 +21,12 @@
 
 #include <iostream>
 
+void profile_func( void* udp, const char* sql, sqlite3_uint64 time )
+{
+    std::cout << "SQLite Profile: " << sql << " time: " << time << "\n";
+}
+
+
 namespace po {
     // -----------------------------------------------------------------------------------
     // ================================ Class: Sqlite Result =============================
@@ -75,8 +81,20 @@ namespace po {
     // ================================ Class: Sqlite ====================================
     #pragma mark - Sqlite -
 
+
+
     Sqlite::Sqlite()
     : bVerbose(false) {
+    }
+
+    Sqlite::Sqlite(std::string url)
+    : bVerbose(false) {
+        openDatabase(url);
+    }
+
+    Sqlite::Sqlite(bool bVerbose)
+    : bVerbose(bVerbose) {
+
     }
 
 
@@ -94,7 +112,12 @@ namespace po {
     //------------------------------------------------------------------
     bool Sqlite::openDatabase(std::string url, bool bOverwrite) {
         int error = sqlite3_open(url.c_str(), &db);
-        
+
+        if(bVerbose)
+        {
+            sqlite3_profile(db, *profile_func, NULL);
+        }
+
         if(error) {
             if(bVerbose) std::cout << sqlite3_errmsg(db) << std::endl;
             bLoaded = false;
