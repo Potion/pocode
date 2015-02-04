@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;BOOST_ALL_NO_LIB=1;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\bz2;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -88,12 +88,12 @@ exit 0
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level1</WarningLevel>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;FREETYPE_STATIC;FREEIMAGE_LIB;CURL_STATICLIB;BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\bz2;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -109,10 +109,10 @@ exit 0
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib;glew32s.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win;c:\pocode\libraries\ffmpeg\win32;c:\pocode\libraries\openal\win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win;c:\pocode\libraries\ffmpeg\win32;c:\pocode\libraries\glew\win;c:\pocode\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
@@ -237,7 +237,9 @@ exit 0
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="..\libraries\pugixml\pugixml.cpp" />
+    <ClCompile Include="..\libraries\pugixml\pugixml.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\libraries\sqlite3\sqlite3.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
