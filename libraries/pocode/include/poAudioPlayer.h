@@ -48,7 +48,7 @@ namespace po {
 		Demuxer* demuxer;
 		AudioDecoder* audioDecoder;
 		
-		static const int BufferCount = 3;
+		static const int BufferCount = 5;
 		
 		uint32_t uid;
 		uint32_t buffers[BufferCount];
@@ -58,7 +58,6 @@ namespace po {
 		
 		void updateBuffers();
 		boost::thread updateThread;
-		bool killUpdateThread;
 		bool ownsDemuxer;
 	};
 	
