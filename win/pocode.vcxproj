@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;BOOST_ALL_NO_LIB=1;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libraries\utf8;..\libraries\pugixml;..\libraries\libcurl\win;..\libraries\glew;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\Boost\boost_1_49_0;..\libraries\sqlite3;..\libraries\nanosvg;C:\pocode\win;C:\pocode\source;..\libraries;..\libraries\ffmpeg\include;..\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -58,7 +58,7 @@
       <AdditionalDependencies>libcurld.lib;freetype240_d.lib;freeimaged.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win;c:\pocode\libraries\ffmpeg\win32;c:\pocode\libraries\openal\win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\libcurl\win;..\libraries\ffmpeg\win32;..\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
@@ -93,7 +93,7 @@ exit 0
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;FREETYPE_STATIC;FREEIMAGE_LIB;CURL_STATICLIB;BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\pocode\libraries\utf8;C:\pocode\libraries\pugixml;C:\pocode\libraries\libcurl\win;C:\pocode\libraries\glew;C:\pocode\libraries\FreeType;C:\pocode\libraries\FreeImage;C:\pocode\libraries\Boost\boost_1_49_0;C:\pocode\libraries\sqlite3;C:\pocode\libraries\nanosvg;C:\pocode\win;C:\pocode\source;C:\pocode\libraries;C:\pocode\libraries\ffmpeg\include;C:\pocode\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libraries\utf8;..\libraries\pugixml;..\libraries\libcurl\win;..\libraries\glew;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\Boost\boost_1_49_0;..\libraries\sqlite3;..\libraries\nanosvg;C:\pocode\win;C:\pocode\source;..\libraries;..\libraries\ffmpeg\include;..\libraries\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -112,7 +112,7 @@ exit 0
       <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib;glew32s.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>c:\pocode\libraries\FreeImage\win;c:\pocode\libraries\FreeType\win;c:\pocode\libraries\libcurl\win;c:\pocode\libraries\ffmpeg\win32;c:\pocode\libraries\glew\win;c:\pocode\libraries\openal\win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\libcurl\win;..\libraries\ffmpeg\win32;..\libraries\glew\win;..\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
