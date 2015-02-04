@@ -1,0 +1,4 @@
+follow instructions in the pdf with the following changes:
+
+3.3 OpenSSL
+after step 8, edit ms/nt.mak, CFLAG= /MT to read CFLAG= /MD
