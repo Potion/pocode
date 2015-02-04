@@ -170,27 +170,6 @@
     <ClInclude Include="..\source\poMoviePlayer.h">
       <Filter>pocode</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\bucketalloc.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\dict.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\geom.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\mesh.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\priorityq.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\sweep.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\pocode_libs\libtess2\src\tess.h">
-      <Filter>3rd party\libtess2</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\poApplication.cpp">
@@ -341,34 +320,34 @@
     <ClCompile Include="..\source\poMoviePlayer.cpp">
       <Filter>pocode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\bucketalloc.c">
+    <ClCompile Include="..\libraries\libtess2\bucketalloc.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\dict.c">
+    <ClCompile Include="..\libraries\libtess2\dict.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\geom.c">
+    <ClCompile Include="..\libraries\libtess2\geom.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\mesh.c">
+    <ClCompile Include="..\libraries\libtess2\mesh.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\priorityq.c">
+    <ClCompile Include="..\libraries\libtess2\priorityq.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\sweep.c">
+    <ClCompile Include="..\libraries\libtess2\sweep.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\libtess2\src\tess.c">
+    <ClCompile Include="..\libraries\libtess2\tess.c">
       <Filter>3rd party\libtess2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\nanosvg\src\nanosvg.c">
+    <ClCompile Include="..\libraries\nanosvg\nanosvg.c">
       <Filter>3rd party</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\sqlite3\src\sqlite3.c">
+    <ClCompile Include="..\libraries\sqlite3\sqlite3.c">
       <Filter>3rd party</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\pocode_libs\pugixml\src\pugixml.cpp">
+    <ClCompile Include="..\libraries\pugixml\pugixml.cpp">
       <Filter>3rd party</Filter>
     </ClCompile>
   </ItemGroup>
