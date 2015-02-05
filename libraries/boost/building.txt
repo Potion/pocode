@@ -1,0 +1,7 @@
+http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.zip/download
+
+bootstrap
+b2 threading=multi runtime-link=shared link=shared --prefix=stage --with-python --with-system --with-filesystem --with-date_time --with-chrono --with-regex --with-thread install
+b2 tools
+mkdir redist
+dist\bin\bcp system filesystem date_time chrono thread regex asio foreach format variant algorithm assign redist
