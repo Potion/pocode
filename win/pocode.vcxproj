@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;BOOST_ALL_NO_LIB=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libraries\boost\include;..\libraries\ffmpeg\include;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\glm;..\libraries\glew;..\libraries\libcurl\include;..\libraries\nanosvg;..\libraries\openal\include;..\libraries\pugixml;..\libraries\utf8;..\libraries\sqlite3;..\win;..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libraries\boost\include;..\libraries\ffmpeg\include;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\glm;..\libraries\glew;..\libraries\libcurl\win\include;..\libraries\nanosvg;..\libraries\openal\include;..\libraries\pugixml;..\libraries\utf8;..\libraries\sqlite3;..\win;..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -55,10 +55,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libcurl.lib;freetype240_d.lib;freeimaged.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib</AdditionalDependencies>
+      <AdditionalDependencies>curllib_static.lib;freetype240_d.lib;freeimaged.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\libcurl\lib;..\libraries\ffmpeg\win32;..\libraries\openal\win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libraries\libcurl\win\lib\Release;..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\ffmpeg\win32;..\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
@@ -93,7 +93,7 @@ exit 0
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;BOOST_ALL_NO_LIB=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libraries\boost\include;..\libraries\ffmpeg\include;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\glm;..\libraries\glew;..\libraries\libcurl\include;..\libraries\nanosvg;..\libraries\openal\include;..\libraries\pugixml;..\libraries\utf8;..\libraries\sqlite3;..\win;..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libraries\boost\include;..\libraries\ffmpeg\include;..\libraries\FreeType;..\libraries\FreeImage;..\libraries\glm;..\libraries\glew;..\libraries\libcurl\win\include;..\libraries\nanosvg;..\libraries\openal\include;..\libraries\pugixml;..\libraries\utf8;..\libraries\sqlite3;..\win;..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -109,10 +109,10 @@ exit 0
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib;glew32s.lib</AdditionalDependencies>
+      <AdditionalDependencies>FreeImage.lib;freetype2411MT.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib;glew32s.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\libcurl\lib;..\libraries\ffmpeg\win32;..\libraries\glew\win;..\libraries\openal\win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libraries\FreeImage\win;..\libraries\FreeType\win;..\libraries\libcurl\win\lib\Release;..\libraries\ffmpeg\win32;..\libraries\glew\win;..\libraries\openal\win32</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Lib>
