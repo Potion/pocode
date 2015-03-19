@@ -51,7 +51,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;BOOST_ALL_NO_LIB=1;CURL_STATICLIB;FREETYPE_STATIC;FREEIMAGE_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -83,7 +82,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;FREETYPE_STATIC;FREEIMAGE_LIB;CURL_STATICLIB;BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>c:\pocode_libs\boost\include;c:\pocode_libs\curl\include;c:\pocode_libs\ffmpeg\include;c:\pocode_libs\freeimage\include;c:\pocode_libs\freetype\include;c:\pocode_libs\glew\include;c:\pocode_libs\glm\include;c:\pocode_libs\openal\include;c:\pocode_libs\opencv\include;c:\pocode_libs\openni\include;c:\pocode_libs\pugixml\include;c:\pocode_libs\sqlite3\include;c:\pocode_libs\utf8\include;c:\pocode_libs\libtess2\src;c:\pocode_libs\libtess2\include;c:\pocode_libs\nanosvg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>main.h</ForcedIncludeFiles>
@@ -97,12 +95,8 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
-    <Lib>
-      <AdditionalDependencies>libcurl.lib;FreeImage.lib;freetype2411MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
-    <Lib>
-      <AdditionalLibraryDirectories>c:\pocode_libs\glew\lib;c:\pocode_libs\boost\lib;c:\pocode_libs\curl\lib;c:\pocode_libs\ffmpeg\lib;c:\pocode_libs\freeimage\lib;c:\pocode_libs\freetype\lib;c:\pocode_libs\openal\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lib>
+    <Lib />
+    <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\libraries\libtess2\bucketalloc.h">

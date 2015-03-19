@@ -26,9 +26,6 @@ namespace po {
 		void push(AVPacket pkt);
 		int pop(AVPacket* pkt);
 		void flush();
-		
-		static AVPacket FlushPacket;
-		static bool isFlushPacket(AVPacket pct);
 	};
 	
 	class Demuxer {

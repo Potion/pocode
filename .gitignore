@@ -64,6 +64,7 @@ obj/
 #Project files
 [Bb]uild/
 
-
-
+#Pocode build
+*/pocode.lib
+*/pocode_d.lib
 # other
