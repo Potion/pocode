@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\pocode\libraries;..\..\pocode\libraries\libtess2;..\..\pocode\libraries\utf8;..\..\pocode\libraries\pugixml;..\..\pocode\libraries\libcurl\win;..\..\pocode\libraries\libcurl\win\curl;..\..\pocode\libraries\glew\GL;..\..\pocode\libraries\FreeType;..\..\pocode\libraries\bz2;..\..\pocode\libraries\FreeImage;..\..\pocode\libraries\Boost\boost_1_49_0;..\..\pocode\libraries\sqlite3;..\..\pocode\libraries\nanosvg;..\..\pocode\libraries\openal\include;..\..\pocode\libraries\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\pocode\libraries\glew\win;..\..\pocode\libraries\Boost\boost_1_49_0\win;..\..\pocode\libraries\openal\win32;..\..\pocode\libraries\ffmpeg\win32;..\..\pocode\libraries\libcurl\win;..\..\pocode\libraries\FreeType\win;..\..\pocode\libraries\FreeImage\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>avformat.lib;avutil.lib;swscale.lib;swresample.lib;openal32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>@ECHO OFF
+set srcDir="$(SolutionDir)..\source"
+set libsDir="$(SolutionDir)..\libraries"
+
+robocopy /NFL /NDL /NJH /NJS /LEV:1 %srcDir% %libsDir%\pocode\include *.h
+if errorlevel 4 goto fail
+
+robocopy /NFL /NDL /NJH /NJS "$(TargetDir) " %libsDir%\pocode\win *.lib
+if errorlevel 4 goto fail
+
+echo ***POST BUILD***
+echo successfully copied pocode headers and library
+exit 0
+
+:fail 
+    echo couldn't copy files
+    exit 1</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

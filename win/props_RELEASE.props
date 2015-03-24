@@ -7,6 +7,14 @@
     <Lib>
       <AdditionalDependencies>libcurl_imp.lib;freetype2411MT.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
+    <ClCompile>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>main.pch</PrecompiledHeaderOutputFile>
+      <ForcedIncludeFiles>main.h</ForcedIncludeFiles>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
