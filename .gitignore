@@ -65,6 +65,6 @@ obj/
 [Bb]uild/
 
 # Pocode build
-libraries/pocode/*.lib
+libraries/pocode/win/*.lib
 
 # other
