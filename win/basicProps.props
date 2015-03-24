@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\pocode\libraries;..\..\pocode\libraries\libtess2;..\..\pocode\libraries\utf8;..\..\pocode\libraries\pugixml;..\..\pocode\libraries\libcurl\win;..\..\pocode\libraries\libcurl\win\curl;..\..\pocode\libraries\FreeType;..\..\pocode\libraries\bz2;..\..\pocode\libraries\FreeImage;..\..\pocode\libraries\Boost\boost_1_49_0;..\..\pocode\libraries\sqlite3;..\..\pocode\libraries\nanosvg;..\..\pocode\libraries\openal\include;..\..\pocode\libraries\ffmpeg\include;..\..\pocode\libraries\glm;..\..\MSI_Common\libraries\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\pocode\libraries;..\..\pocode\libraries\libtess2;..\..\pocode\libraries\utf8;..\..\pocode\libraries\pugixml;..\..\pocode\libraries\libcurl\win;..\..\pocode\libraries\libcurl\win\curl;..\..\pocode\libraries\FreeType;..\..\pocode\libraries\bz2;..\..\pocode\libraries\FreeImage;..\..\pocode\libraries\Boost\boost_1_49_0;..\..\pocode\libraries\sqlite3;..\..\pocode\libraries\nanosvg;..\..\pocode\libraries\openal\include;..\..\MSI_Common\libraries\ffmpeg\include;..\..\pocode\libraries\glm;..\..\MSI_Common\libraries\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <IntrinsicFunctions>false</IntrinsicFunctions>
     </ClCompile>
     <Lib>
