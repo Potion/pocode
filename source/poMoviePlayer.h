@@ -30,9 +30,9 @@ namespace po {
 		void seek(float sec);
 		void previousFrame();
 		void nextFrame();
-        
         void setVolume(float f);
-		
+
+		bool isReady() const;
 		bool isPlaying() const;
 		bool isPaused() const;
 		bool isStopped() const;
@@ -62,8 +62,8 @@ namespace po {
 
 		double playStartTime;
 		double pauseStartTime, pauseElapsedTime;
-
 		poTexture* texture;
+		bool playerReady;
 	};
 
 }

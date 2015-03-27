@@ -9,7 +9,6 @@
 #include "poHelpers.h"
 #include "poOpenGLState.h"
 #include "poSimpleDrawing.h"
-
 #include "poMoviePlayer.h"
 #include "poFFMpegDecoder.h"
 #include "poAudioPlayer.h"
@@ -34,6 +33,7 @@ namespace po {
 	,	pauseStartTime(0)
 	,	pauseElapsedTime(0)
 	,	texture(NULL)
+	,	playerReady(false)
 	{}
 	
 	MoviePlayer::~MoviePlayer() {
@@ -42,7 +42,13 @@ namespace po {
 	
 	bool MoviePlayer::open(const char* path) {
 		close();
-	
+		
+		if( !fs::exists( path ))
+		{
+			std::cout << "VIDEO PLAYER: " << path << " not found\n";
+			return false;
+		}
+
 		if(!(demuxer = Demuxer::open(path)))
 			return false;
 		
@@ -61,8 +67,8 @@ namespace po {
 		texture = new poTexture(rect.width, rect.height, NULL, poTextureConfig(GL_RGB));
 		
 		uploadFrame(texture, videoDecoder->nextFrame());
-
-		return true;
+		playerReady = true;
+		return playerReady;
 	}
 	
 	void MoviePlayer::close() {
@@ -86,7 +92,7 @@ namespace po {
 	}
 	
 	void MoviePlayer::play() {
-		if(state != Playing) {
+		if(state != Playing && playerReady ) {
 			switch(state) {
 				case Stopped:
 					seek(0);
@@ -175,6 +181,10 @@ namespace po {
         }
     }
 	
+	bool MoviePlayer::isReady() const {
+		return playerReady;
+	}
+
 	bool MoviePlayer::isPlaying() const {
 		return state == Playing;
 	}
