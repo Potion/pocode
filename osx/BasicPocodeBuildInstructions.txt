@@ -1,10 +1,15 @@
-Pocode build:
-	1) build OSX (any style) -- moves some headers
-	2) ios simulator target
-	3) Product - build for profiling (makes a release config build)
-	4) ios device target
-	5) Product - build for profiling (makes a release config build)
-	rinse and repeat steps 3 - 5, but use regular (debug build)
+Checkout this repo into /pocode or (as root) `ln -s /path/to/pocode/ /pocode`
+
+Pocode iOS build:
+	1) select the pocode_osx scheme
+	2) build (any style) -- this moves some headers needed to build for iOS
+	3) select the pocode_iOS_simulator scheme ensuring that you're building for a simulator and not for a device.
+	5) Menu: Product -> Build For -> Profiling (cmd-shift-I). This makes a release config build.
+	5) select the pocode_iOS (device targeted) scheme ensuring that you're building for a device (the new Generic iOS Device target should work)
+	6) Menu: Product -> Build For -> Profiling (cmd-shift-I). This makes a release config build.
+	
+	Repeat steps 3 through 5 using a regular, debug build 
+		Menu: Product -> Build For -> Running (cmd-shift-R)
 
 This should result in the following built libraries in /pocode/libraries/pocode
 
@@ -14,6 +19,7 @@ This should result in the following built libraries in /pocode/libraries/pocode
 ├── libpocode_iOS_simulator_d.a
 
 Where _d denotes a debug build
+#protip check each .a file with lipo --info to see that all architectures you expect were built.
 
 This should also result in the following headers in /pocode/libraries/include
 
