@@ -517,27 +517,33 @@ namespace po {
         useShader(&ogl->shaderTexRect);
     }
     
-    
+
     //------------------------------------------------------------------------
-	void updateActiveShader() {
-		Shader *sh = ogl->shader.top();
-		if(sh) {
-			// 2D
-			sh->uniform("color", ogl->color);
-			sh->uniform("mvp", modelviewProjection());
-			
-			// 3D
-			glm::vec4 lightPos(0,1000,0,0);
-//			sh->uniform("lightPos", ogl->camera * lightPos);
-			sh->uniform("modelView", modelview());
-			sh->uniform("projection", projection());
-			
-			// texture
-			TextureState &st = ogl->texture.top();
-			sh->uniform("tex", st.unit);
-			sh->uniform("isAlphaMask", st.hasAlpha);
-		}
-	}
+    void updateActiveShader() {
+        if(ogl) {
+            Shader *sh = ogl->shader.top();
+            if(sh) {
+                // 2D
+                sh->uniform("color", ogl->color);
+                sh->uniform("mvp", modelviewProjection());
+                
+                // 3D
+                glm::vec4 lightPos(0,1000,0,0);
+                //			sh->uniform("lightPos", ogl->camera * lightPos);
+                sh->uniform("modelView", modelview());
+                sh->uniform("projection", projection());
+                
+                // texture
+                std::stack<TextureState> textureStack = ogl->texture;
+                if(&textureStack && !textureStack.empty()) {
+                    TextureState &st = textureStack.top();
+
+                    sh->uniform("tex", st.unit);
+                    sh->uniform("isAlphaMask", st.hasAlpha);
+                }
+            }
+        }
+    }
     
     
     //------------------------------------------------------------------------
