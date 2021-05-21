@@ -14,8 +14,8 @@
     </Lib>
     <PostBuildEvent>
       <Command>@ECHO OFF
-set srcDir="$(SolutionDir)..\source"
-set libsDir="$(SolutionDir)..\libraries"
+set srcDir="$(ProjectDir)..\source"
+set libsDir="$(ProjectDir)..\libraries"
 
 robocopy /NFL /NDL /NJH /NJS /LEV:1 %srcDir% %libsDir%\pocode\include *.h
 if errorlevel 4 goto fail

@@ -66,5 +66,6 @@ obj/
 
 # Pocode build
 libraries/pocode/win/*.lib
+win/.vs
 
 # other
